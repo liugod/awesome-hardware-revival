@@ -2,11 +2,11 @@
 
 **手里有什么设备 → 还能做什么 → 哪个方案有证据 → 动手前核对什么。**
 
-[打开可搜索导航站](https://liugod.github.io/awesome-hardware-revival/) · [English](README.en.md) · [研究报告](research/REPORT.zh-CN.md) · [12 篇案例分析](research/DEEP_DIVES.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
+[中文导航站](https://liugod.github.io/awesome-hardware-revival/zh/) · [English website](https://liugod.github.io/awesome-hardware-revival/en/) · [English README](README.en.md) · [研究报告](research/REPORT.zh-CN.md) · [12 篇案例分析](research/DEEP_DIVES.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
 
 从小爱音箱和 Nest Mini，到 Kindle、旧电脑、路由器、摄像头、停服机器人和缺驱动的打印机。这个目录把公开代码、作者案例与适配限制放在一起，帮助你判断下一步是否值得尝试。
 
-**v1.0.0 · 核查 2026-10-20**：53 条项目/平台/工具，13 类设备，51 个项目家族。不是“53 台亲测成功设备”。
+**v1.1.0 · 资料核查 2026-10-20**：53 条项目/平台/工具，13 类设备，51 个项目家族；53 条详情、12 篇分析及 3 个专题均提供中英文。不是“53 台亲测成功设备”。本版新增翻译不代表重新核验上游。
 
 | AI 关系 | 条目数 | 如何理解 |
 | --- | ---: | --- |
@@ -21,21 +21,21 @@
 
 | 设备 | 条目 | 可先看的项目 |
 | --- | ---: | --- |
-| [音箱与语音](https://liugod.github.io/awesome-hardware-revival/?category=speaker#catalog) | 7 | XiaoGPT、Open-XiaoAI、Onju |
-| [手机与平板](https://liugod.github.io/awesome-hardware-revival/?category=mobile#catalog) | 5 | LineageOS、Termux、Deskreen |
-| [电脑与瘦客户机](https://liugod.github.io/awesome-hardware-revival/?category=computer#catalog) | 4 | OCLP、MrChromebox、HAOS、DietPi |
-| [路由与 NAS](https://liugod.github.io/awesome-hardware-revival/?category=network#catalog) | 3 | OpenWrt、FreshTomato、OpenMediaVault |
-| [电视与盒子](https://liugod.github.io/awesome-hardware-revival/?category=tv#catalog) | 5 | LibreELEC、CoreELEC、webOS Homebrew |
-| [电子书与墨水屏](https://liugod.github.io/awesome-hardware-revival/?category=ereader#catalog) | 8 | KOReader、Kindle WHOOP、Kindle HA |
-| [机器人](https://liugod.github.io/awesome-hardware-revival/?category=robot#catalog) | 2 | Valetudo、wire-pod |
-| [智能家居](https://liugod.github.io/awesome-hardware-revival/?category=smarthome#catalog) | 4 | OpenLumi、Tasmota、OpenBeken、ESPHome |
-| [摄像头](https://liugod.github.io/awesome-hardware-revival/?category=camera#catalog) | 4 | OpenIPC、Dafang、Thingino、Frigate |
-| [播放器与音响](https://liugod.github.io/awesome-hardware-revival/?category=audio#catalog) | 4 | Rockbox、Lyrion、Squeezelite、Retro iPod |
-| [手表与可穿戴](https://liugod.github.io/awesome-hardware-revival/?category=wearable#catalog) | 3 | Gadgetbridge、InfiniTime、AsteroidOS |
-| [游戏设备](https://liugod.github.io/awesome-hardware-revival/?category=gaming#catalog) | 3 | Batocera、Lakka、Bazzite |
-| [打印机与外设](https://liugod.github.io/awesome-hardware-revival/?category=peripheral#catalog) | 1 | HP Laser 1008a macOS driver |
+| [音箱与语音](https://liugod.github.io/awesome-hardware-revival/zh/?category=speaker#catalog) | 7 | XiaoGPT、Open-XiaoAI、Onju |
+| [手机与平板](https://liugod.github.io/awesome-hardware-revival/zh/?category=mobile#catalog) | 5 | LineageOS、Termux、Deskreen |
+| [电脑与瘦客户机](https://liugod.github.io/awesome-hardware-revival/zh/?category=computer#catalog) | 4 | OCLP、MrChromebox、HAOS、DietPi |
+| [路由与 NAS](https://liugod.github.io/awesome-hardware-revival/zh/?category=network#catalog) | 3 | OpenWrt、FreshTomato、OpenMediaVault |
+| [电视与盒子](https://liugod.github.io/awesome-hardware-revival/zh/?category=tv#catalog) | 5 | LibreELEC、CoreELEC、webOS Homebrew |
+| [电子书与墨水屏](https://liugod.github.io/awesome-hardware-revival/zh/?category=ereader#catalog) | 8 | KOReader、Kindle WHOOP、Kindle HA |
+| [机器人](https://liugod.github.io/awesome-hardware-revival/zh/?category=robot#catalog) | 2 | Valetudo、wire-pod |
+| [智能家居](https://liugod.github.io/awesome-hardware-revival/zh/?category=smarthome#catalog) | 4 | OpenLumi、Tasmota、OpenBeken、ESPHome |
+| [摄像头](https://liugod.github.io/awesome-hardware-revival/zh/?category=camera#catalog) | 4 | OpenIPC、Dafang、Thingino、Frigate |
+| [播放器与音响](https://liugod.github.io/awesome-hardware-revival/zh/?category=audio#catalog) | 4 | Rockbox、Lyrion、Squeezelite、Retro iPod |
+| [手表与可穿戴](https://liugod.github.io/awesome-hardware-revival/zh/?category=wearable#catalog) | 3 | Gadgetbridge、InfiniTime、AsteroidOS |
+| [游戏设备](https://liugod.github.io/awesome-hardware-revival/zh/?category=gaming#catalog) | 3 | Batocera、Lakka、Bazzite |
+| [打印机与外设](https://liugod.github.io/awesome-hardware-revival/zh/?category=peripheral#catalog) | 1 | HP Laser 1008a macOS driver |
 
-也可按 [语音助手](https://liugod.github.io/awesome-hardware-revival/?use=%E8%AF%AD%E9%9F%B3%E5%8A%A9%E6%89%8B#catalog)、[信息屏](https://liugod.github.io/awesome-hardware-revival/?use=%E4%BF%A1%E6%81%AF%E5%B1%8F#catalog)、[入门难度](https://liugod.github.io/awesome-hardware-revival/?difficulty=easy#catalog) 或 [作者实机证据](https://liugod.github.io/awesome-hardware-revival/?evidence=E2#catalog) 查找。筛选条件保存在网址中，可直接分享。
+也可按 [语音助手](https://liugod.github.io/awesome-hardware-revival/zh/?use=voice-assistant#catalog)、[信息屏](https://liugod.github.io/awesome-hardware-revival/zh/?use=information-display#catalog)、[入门难度](https://liugod.github.io/awesome-hardware-revival/zh/?difficulty=easy#catalog) 或 [作者实机证据](https://liugod.github.io/awesome-hardware-revival/zh/?evidence=E2#catalog) 查找。筛选条件保存在网址中，可直接分享。
 
 ## 三个代表案例
 
@@ -56,7 +56,9 @@ X 本轮读到 4 条原始帖子，涉及 2 个案例家族；未验证视频画
 
 ## 数据与构建
 
-主目录为 `data/catalog.json`，编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。站点 55 个静态 HTML 页面，无后端、无账号、无第三方分析脚本。禁用 JavaScript 仍可阅读完整目录。
+主目录为 `data/catalog.json`，编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`。站点有 120 个语言页面、1 个语言入口和 54 个保留的旧 URL，共 175 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
+
+英文 [JSON](docs/data/catalog.en.json) / [CSV](docs/data/catalog.en.csv) 可下载。论坛入口如实显示筹备状态，尚未部署独立论坛。
 
 ```sh
 python -m pip install -r requirements-dev.txt
@@ -65,7 +67,7 @@ python scripts/validate.py
 python -m http.server 4185 --bind 127.0.0.1 --directory docs
 ```
 
-打开 `http://127.0.0.1:4185/`。GitHub Pages 使用 `main` 分支的 `/docs`。改仓库地址时同步修改 `scripts/build.py` 中的 BASE/REPO 与本 README；重建 canonical 和 sitemap。
+打开 `http://127.0.0.1:4185/`。GitHub Pages 使用 `main` 分支的 `/docs`。域名、仓库地址与产品版本统一配置在 `site.config.json`；改域名后重建 canonical 和 sitemap，并同步 README 的公开链接。域名选择、DNS 与 TLS 尚未实施，详见 [部署与翻译维护](research/BILINGUAL-MAINTENANCE.md)。
 
 `scripts/collect.py` 需要已登录的 GitHub CLI，仅做只读采集，将完整上游快照放在仓库外的同级 `hardware-revival-work/upstream`。`scripts/curate.py` 使用该缓存和编辑输入重新编译 JSON/CSV。**重新采集不是完成内容审核**：先阅读变更、核对来源并更新编辑输入，再运行编译。站点构建与验证不需要缓存或任何账号。
 

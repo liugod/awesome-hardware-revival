@@ -1,0 +1,158 @@
+{
+  "xiaogpt": {
+    "before": "The original speaker's conversation abilities depend on vendor services. The owner wants to retain its familiar microphone and playback interface.",
+    "after": "A bridge on an external host forwards voice requests to the configured language model and plays the answer through the speaker.",
+    "analysis": "Most of the work and cost lie in the always-on host, interface configuration and troubleshooting. The README's LX06 example establishes a concrete configuration route, not compatibility with every XiaoAI model or account region. Changes to Xiaomi interfaces may break the bridge. Validate the account, model parameters and one complete question-and-answer exchange before planning continuous operation.",
+    "fit": "Owners of a matching speaker who can run a Python service and accept Xiaomi cloud dependencies.",
+    "not_fit": "People requiring fully offline operation, no always-on host, or a fix for a physical hardware fault.",
+    "acceptance": [
+      "Record the hardware model and account region, then complete one end-to-end exchange.",
+      "Disconnect the model backend and verify that failures are recognized instead of waiting indefinitely.",
+      "Stop the bridge and check the original speaker functions."
+    ],
+    "search_intent": "Does connecting a XiaoAI speaker to a language model require flashing firmware?"
+  },
+  "open-xiaoai": {
+    "before": "The aim is to take over the XiaoAI audio path rather than bridge only through cloud conversation records.",
+    "after": "Patched firmware and a client on specific speakers send audio to external processing services.",
+    "analysis": "Documentation distinguishes LX06 from OH2P. The LX06 route involves disassembly and Micro USB; OH2P instructions use Type-C. Never apply one model's wiring or image to the other. The official dual-partition recovery approach may help only if the original partition remains intact. The archived repository should be treated as a historical engineering project whose dependencies you may need to maintain yourself.",
+    "fit": "Experimenters who can identify the exact model, understand firmware partitions and prepare recovery materials.",
+    "not_fit": "Owners of their only daily-use speaker who cannot accept downtime or cannot confirm model and firmware.",
+    "acceptance": [
+      "Record model and firmware before flashing; confirm original-partition backups and the recovery path.",
+      "Verify audio capture and playback before connecting AI services.",
+      "Check connection recovery after reboot and retain a configuration that can be rolled back."
+    ],
+    "search_intent": "How do LX06 and OH2P firmware modification routes differ?"
+  },
+  "onju-voice": {
+    "before": "The Google Nest Mini's original motherboard and services limit custom voice pipelines.",
+    "after": "The enclosure and some acoustic components are retained, while a custom ESP32-S3 motherboard connects external voice and model services.",
+    "analysis": "The author's original 2023 X post and later explanation confirm the board-replacement route. The post describes a voice-agent scenario, not a language model running inside the Nest Mini itself. The original version is no longer actively maintained and is useful as a hardware-reuse case study. Onju v2 is a successor in the same family; an old video does not prove every v2 feature.",
+    "fit": "People willing to buy or make a PCB, disassemble the speaker and maintain external voice services.",
+    "not_fit": "People expecting a downloaded program to jailbreak the original device or all inference to run inside the speaker.",
+    "acceptance": [
+      "Check the Nest Mini generation, PCB revision and bill of materials.",
+      "Verify microphone, speaker, network and server separately.",
+      "Test complete conversations and behavior without a network; keep the original motherboard."
+    ],
+    "search_intent": "Is turning a Nest Mini into a ChatGPT speaker only a software change?"
+  },
+  "kindle-whoop": {
+    "before": "An old Kindle's e-ink display still works, but the original system limits live information display beyond reading.",
+    "after": "WHOOP data is rendered as an image and displayed on a jailbroken device, with scheduled wake and sleep attempted.",
+    "analysis": "The author's hardware evidence is limited to a Kindle Paperwhite 2, firmware 5.10.3, and one verified wake, connect, update and sleep cycle. The project provides AI-assisted configuration documents for deployment with Codex or Claude. This does not mean AI runs locally on the Kindle or prove that all code was written by AI. One successful cycle cannot establish weeks of battery life.",
+    "fit": "People with a matching old Kindle, a WHOOP data source and willingness to manage KUAL/linkss and service configuration.",
+    "not_fit": "People on firmware without confirmed jailbreak support, requiring fully measured long battery life, or unwilling to maintain external data services.",
+    "acceptance": [
+      "Verify PW2 and firmware; do not generalize the example to any Kindle.",
+      "Start with manual refresh, then test scheduled wake and sleep.",
+      "Record power consumption, failed retries and networking over time, adding multi-day reproduction evidence."
+    ],
+    "search_intent": "Displaying WHOOP data on an old Kindle with AI-assisted configuration"
+  },
+  "kindle-ha": {
+    "before": "An idle Kindle suits low-frequency information but cannot display every website like a modern tablet.",
+    "after": "A server generates images of a Home Assistant dashboard, which the Kindle retrieves and displays.",
+    "analysis": "The author uses a Kindle 4 as the example. Rendering happens on an external service; the device mainly displays the result. Troubleshoot Home Assistant page permissions, screenshot generation and device retrieval separately. Faster refresh is not necessarily more useful: measure e-ink delay, ghosting and battery consumption on your own hardware. This suits status boards, not video or high-frequency interaction.",
+    "fit": "Existing Home Assistant users wanting a small amount of persistent information on a wall or desk.",
+    "not_fit": "People requiring live animation, complex touch controls or no server at all.",
+    "acceptance": [
+      "Generate a correctly sized screenshot first, then verify device display.",
+      "Test expired authentication and network outages to avoid silently displaying stale information.",
+      "Measure refresh intervals and actual power use; show the data update time."
+    ],
+    "search_intent": "Turn a Kindle 4 into a Home Assistant e-ink dashboard"
+  },
+  "oclp": {
+    "before": "Some Intel Macs still work but are outside official support for certain macOS releases.",
+    "after": "OpenCore boot support and model-specific patches can allow otherwise unsupported macOS versions to run.",
+    "analysis": "Compatibility is more than the year of manufacture. The official list distinguishes model identifiers and graphics, wireless and other patch conditions; it excludes Apple Silicon and PowerPC. OS updates may require patch reapplication. Booting does not prove that every peripheral or graphics acceleration works. Prepare a recoverable backup and separate boot media before deciding whether this is suitable for daily use.",
+    "fit": "People able to identify their Intel Mac model, back up data and handle OS updates themselves.",
+    "not_fit": "People with only one essential work computer, requiring uninterrupted use, or treating Apple Silicon as the same route.",
+    "acceptance": [
+      "Check the model identifier, target macOS and patch requirements.",
+      "Check graphics acceleration, Wi-Fi, sleep, external displays and everyday software individually.",
+      "Verify the backup is readable and retain a route to recover the original OS."
+    ],
+    "search_intent": "What to check before upgrading macOS on an old Intel Mac"
+  },
+  "haos": {
+    "before": "An idle small x86 computer can still run but lacks a clear, low-maintenance role at home.",
+    "after": "Home Assistant OS makes it a home automation host, with voice or other extensions added as needed.",
+    "analysis": "The official Generic x86-64 route requires UEFI with Secure Boot disabled, and writing target storage overwrites its data. Documentation distinguishes supported 512n/512e storage from unsupported 4Kn. A 64-bit CPU alone does not establish compatibility. Installing HAOS does not supply local language-model inference capability by itself; assess voice models, accelerators and memory separately.",
+    "fit": "People with a dedicated x86-64 UEFI mini PC who want to manage existing devices centrally.",
+    "not_fit": "People needing to keep the original disk system, with legacy BIOS only, or expecting powerful AI compute automatically on a low-spec machine.",
+    "acceptance": [
+      "Check UEFI, storage sectors and networking.",
+      "Back up the disk; after installation verify repeated successful boots.",
+      "Connect a real device and practice backup export and restoration."
+    ],
+    "search_intent": "Requirements for installing Home Assistant OS on an idle mini PC"
+  },
+  "openwrt": {
+    "before": "An old router's vendor firmware may lack desired features or no longer receive updates.",
+    "after": "OpenWrt on an exactly supported hardware revision can provide routing, access-point or other networking roles.",
+    "analysis": "A mature project does not mean a particular old model still supports the current release. Brand, appearance and retail name are insufficient for choosing an image: verify hardware revision, flash and RAM. First-install and upgrade images may differ. Recovery depends on the bootloader, serial access or vendor recovery mode. Do not experiment on the home's only network gateway without a confirmed recovery route.",
+    "fit": "People with backup networking who can verify device revisions and recovery documentation.",
+    "not_fit": "People with tiny-flash devices, no exact model entry, or no tolerance for temporary network loss.",
+    "acceptance": [
+      "Check the exact device page, hardware revision, image type and checksum.",
+      "Back up configuration and device-specific partitions; confirm recovery tools.",
+      "Test WAN/LAN, wireless and rebooting. One successful connection is not a stability test."
+    ],
+    "search_intent": "Can an old router run OpenWrt, and how do I check its hardware revision?"
+  },
+  "valetudo": {
+    "before": "Some robot vacuums depend on vendor-cloud control while their mechanical parts and sensors still work.",
+    "after": "A local service replaces cloud interfaces on supported devices with the necessary access.",
+    "analysis": "Valetudo explicitly is not generic replacement firmware. Its support list is exhaustive; do not assume an unlisted model works. Even Xiaomi 1C units have different hardware revisions, and only specified internal models are supported. Xiaomi V1 production dates also affect whether disassembly is required. Removing cloud dependence does not add missing vendor mapping or hardware capabilities.",
+    "fit": "People with an exact model on the list who will prepare model-specific tools and recovery methods.",
+    "not_fit": "People with unlisted models or wanting to fix physical faults such as batteries or motors.",
+    "acceptance": [
+      "Check the internal model, production batch and corresponding root instructions.",
+      "Test cleaning and local control with internet access disconnected.",
+      "Check maps, docking, persistent configuration and recovery conditions."
+    ],
+    "search_intent": "Which robot vacuum models can use Valetudo without vendor-cloud control?"
+  },
+  "wirepod": {
+    "before": "Some Vector voice capabilities depend on external services whose availability affects continued use.",
+    "after": "A self-run wire-pod service receives and processes voice requests, with optional knowledge services.",
+    "analysis": "This moves service dependencies to a host you maintain. It cannot repair the robot's battery, display or network hardware. Follow current official setup instructions for Vector 1.0/2.0; server certificates, networking and device configuration all need acceptance checks. Cloud models versus other backends affect privacy, cost and offline capability. A self-hosted service does not automatically make the whole pipeline offline.",
+    "fit": "People with a working Vector who can run and maintain LAN services over time.",
+    "not_fit": "People whose robot cannot power on or who do not want to maintain an always-on host.",
+    "acceptance": [
+      "Record the device version and check server-to-robot networking.",
+      "Verify local voice commands and optional knowledge questions.",
+      "Retest after rebooting server and robot, recording external-network dependencies."
+    ],
+    "search_intent": "Continue using a Vector robot with wire-pod after service disruption"
+  },
+  "printer-spl3": {
+    "before": "The author encountered an unavailable HP Laser 1008a driver on an Apple Silicon Mac while the printer hardware still worked.",
+    "after": "SpliX-derived conversion and native CUPS/IOKit connections restore USB printing on selected HP Laser models.",
+    "analysis": "The author reports on X using Claude through roughly 30–40 prompts and iterations and publishes the process and code. The README's author-tested scope is Apple Silicon, macOS 26 and USB on HP Laser 1003/1006/1008 a/w. This does not establish Wi-Fi, all HP models or Intel Mac support. Installation changes administrator-level system configuration; read the uninstall script and split licensing as well.",
+    "fit": "People with matching hardware and OS who can inspect installation scripts and manage CUPS queues.",
+    "not_fit": "People using Wi-Fi only, outside the author's test scope, or unable to accept system configuration changes.",
+    "acceptance": [
+      "Record macOS, CPU, USB device identity and driver version.",
+      "Test real documents, multi-page jobs, printing after reboot and error recovery.",
+      "Check removal instructions. Successful printing does not establish support for every device feature."
+    ],
+    "search_intent": "Open-source USB driver for HP Laser 1008a on Apple Silicon macOS"
+  },
+  "openlumi": {
+    "before": "Old Xiaomi or Aqara gateways retain useful hardware such as Zigbee, but vendor software limits their uses.",
+    "after": "Modifying the system on specified models brings the gateway into locally maintained smart-home services.",
+    "analysis": "The listed DGNWG05LM, mieu01 EU and ZHWG11LM do not imply support for the similarly named DGNWG02LM. An original rootfs backup contains device-specific information; someone else's image cannot replace your backup. The real threshold is not finding a repository but identifying the exact version and preserving irreplaceable device data.",
+    "fit": "People with an exact supported model who can follow backup, wiring and system-inspection instructions.",
+    "not_fit": "People identifying models only by the enclosure, lacking original backups, or expecting to reuse someone else's image directly.",
+    "acceptance": [
+      "Match the label and documentation for model, region and hardware revision.",
+      "Keep an offline copy and check the integrity of this device's backup.",
+      "Verify device joining, control, rebooting and recovery routes."
+    ],
+    "search_intent": "OpenLumi model compatibility and backups for old Xiaomi/Aqara gateways"
+  }
+}

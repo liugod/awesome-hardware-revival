@@ -8,8 +8,9 @@ from urllib.parse import quote
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs"
-BASE = "https://liugod.github.io/awesome-hardware-revival/"
-REPO = "https://github.com/liugod/awesome-hardware-revival"
+config = json.loads((ROOT / "site.config.json").read_text(encoding="utf-8"))
+BASE = config["base_url"].rstrip("/") + "/"
+REPO = config["repository_url"]
 data = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 deep = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
 candidates = json.loads((ROOT / "data/candidates.json").read_text(encoding="utf-8"))
@@ -213,3 +214,5 @@ for name in ["catalog.json","catalog.csv","candidates.json","deep-dives.json","x
 paths = ["","research.html"]+[f"projects/{p['id']}.html" for p in projects]
 write(OUT/"sitemap.xml",'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"\n".join(f"<url><loc>{BASE}{p}</loc><lastmod>{DATE}</lastmod></url>" for p in paths)+"\n</urlset>\n")
 print(f"Built {len(paths)} HTML pages; {len(deep)} deep dives; deterministic data date {DATE}.")
+from site_i18n import build as build_bilingual
+build_bilingual()

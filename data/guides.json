@@ -1,0 +1,69 @@
+{
+  "kindle-displays": {
+    "projects": ["kindle-ha", "kindle-whoop", "kindle-carousel", "kindle-dashboard", "winterbreak", "fbink"],
+    "zh": {
+      "title": "旧 Kindle 做信息屏：先选内容，再核对固件",
+      "intro": "Home Assistant、WHOOP 和桌面用量看板需要不同的外部服务。墨水屏是显示端，不能据此判断设备在本地运行 AI。",
+      "sections": [
+        ["先检查手里的设备", ["记下准确型号和固件，先查相应 jailbreak 指南；WinterBreak 是前置工具，不是成品看板。", "Kindle 4 的 HA 示例不能证明任意 Paperwhite 可用；WHOOP 作者验证范围是 PW2 / 5.10.3。", "先保存设备文件与配置备份，明确移除脚本与撤销 jailbreak 是不同步骤。"]],
+        ["按内容选择路线", ["已有 Home Assistant：查看服务端截图＋Kindle 显示的路线，分别排查页面权限、截图和拉取。", "已有 WHOOP 数据：查看账户/API、KUAL/linkss 与唤醒链路；一次周期成功不代表数周续航。", "桌面 AI 工具用量：Kindle Dashboard 需要 Windows 10/11 主机及 SSH/FBInk；显示用量不等于运行模型。", "想切换多类内容：Kindle Carousel 的文档以 Kindle 3 / 4 NT 为范围，持续按键监听会影响续航。"]],
+        ["开始前的最低验证", ["先手动显示一张正确尺寸的图，再安排刷新和唤醒。", "模拟断网、认证失效和数据过期，避免屏幕静默展示旧状态。", "记录数日耗电、刷新失败与恢复；额外主机和服务尚未核价。以下项目页保留原始依据，本专题没有新增硬件实测。"]]
+      ]
+    },
+    "en": {
+      "title": "Old Kindle displays: choose the content, then check firmware",
+      "intro": "Home Assistant, WHOOP and desktop usage dashboards need different external services. An e-ink display endpoint is not evidence of AI running locally.",
+      "sections": [
+        ["Check the device you own", ["Record the exact model and firmware, then check its jailbreak guide. WinterBreak is a prerequisite tool, not a finished dashboard.", "A Kindle 4 Home Assistant example does not establish support for every Paperwhite. The WHOOP author's verified scope is PW2 / 5.10.3.", "Back up device files and configuration. Removing scripts and undoing a jailbreak are separate steps."]],
+        ["Choose by content", ["Already use Home Assistant: compare server-side screenshots with Kindle display, checking page permissions, rendering and retrieval separately.", "Already have WHOOP data: check account/API, KUAL/linkss and wake behavior. One completed cycle does not prove weeks of battery life.", "Desktop AI usage: Kindle Dashboard needs a Windows 10/11 host and SSH/FBInk. Displaying usage is not running a model.", "Switchable content: Kindle Carousel documents Kindle 3 / 4 NT. Continuous button listening affects battery life."]],
+        ["Minimum checks before continuous use", ["Display a correctly sized image manually before scheduling refresh and wake.", "Simulate disconnection, expired authentication and stale data so outdated information is not silently presented.", "Record several days of power use, failed refreshes and recovery. Hosts and service costs are not priced. Linked project pages preserve original evidence; this guide adds no hardware testing."]]
+      ]
+    }
+  },
+  "speaker-voice": {
+    "projects": ["xiaogpt", "open-xiaoai", "onju-voice", "onju-v2", "linux-voice-assistant"],
+    "zh": {
+      "title": "旧音箱接 AI：桥接、刷机和换板是三条路",
+      "intro": "先决定是否接受厂商云依赖、拆机与外部主机，再选择适合自己音箱的路径。",
+      "sections": [
+        ["保留原固件：服务桥接", ["XiaoGPT 把请求交给外部模型，README 给出 LX06 配置示例；仍依赖小米账号和语音接口。", "先完成一次问答并测试停止桥接后原功能是否正常；不能据此承诺所有小爱音箱都兼容。"]],
+        ["接管音频：型号限定的补丁固件", ["Open-XiaoAI 区分 LX06 和 OH2P，拆机方式与连接线不同，不能互套镜像。", "仓库已归档。双分区回退依赖原分区完好，必须先准备备份与恢复资料。"]],
+        ["复用外壳与扬声器：替换主板", ["Onju 使用第二代 Nest Mini 与替换 PCB，不是给原 Google 固件装一个应用。", "原版已停止积极维护，v2 是同一家族后继；早期演示不是所有 v2 功能的证明。", "若手里是通用 Linux 设备，可另看 Linux Voice Assistant，但音频驱动、架构和 Home Assistant 服务仍需核对。"]],
+        ["共通的验收条件", ["音频输入、播放、网络和模型后端分别验证，再测完整对话与重启。", "断网或后端失效时应能判断失败。保留原主板或可回退配置。", "常开主机、PCB、语音和模型服务可能产生成本，当前金额未知；本站没有实机或延迟测试。"]]
+      ]
+    },
+    "en": {
+      "title": "AI on old speakers: bridging, flashing and board replacement",
+      "intro": "Decide whether you accept vendor-cloud dependence, disassembly and an external host before choosing a route for your speaker.",
+      "sections": [
+        ["Keep original firmware: service bridging", ["XiaoGPT forwards requests to an external model and documents an LX06 configuration. Xiaomi accounts and voice interfaces remain dependencies.", "Complete one exchange, then stop the bridge and check original functions. This does not establish compatibility with all XiaoAI speakers."]],
+        ["Take over audio: model-specific patched firmware", ["Open-XiaoAI distinguishes LX06 and OH2P, with different disassembly and cables. Do not interchange their images.", "The repository is archived. Dual-partition rollback depends on the original partition being intact; prepare backups and recovery documentation first."]],
+        ["Reuse enclosure and speaker: replace the motherboard", ["Onju combines a second-generation Nest Mini with a replacement PCB. It is not an app installed on original Google firmware.", "The original is no longer actively maintained; v2 is a successor in the same family. Earlier demos do not prove all v2 features.", "For generic Linux hardware, also consider Linux Voice Assistant, checking audio drivers, architecture and Home Assistant services."]],
+        ["Shared acceptance checks", ["Verify audio input, playback, network and model backend separately, then test complete conversations and rebooting.", "Recognize network/backend failures. Keep the original board or a configuration that can be rolled back.", "Always-on hosts, PCBs, voice and model services may cost money. Amounts are unknown; this site has no hardware or latency tests."]]
+      ]
+    }
+  },
+  "home-computers": {
+    "projects": ["haos", "openmediavault", "dietpi", "libreelec", "batocera"],
+    "zh": {
+      "title": "旧小主机放在家里：自动化、存储还是媒体？",
+      "intro": "先选一个明确用途，再检查启动方式、存储健康和备份。安装系统并不自动增加算力。",
+      "sections": [
+        ["家庭自动化", ["HAOS 适合可专用的 x86-64 UEFI 主机。官方 Generic 路径要求关闭 Secure Boot，并核对 512n/512e；不能只看 64 位 CPU。", "写入会覆盖目标磁盘。连接一个真实设备并演练备份恢复后，再考虑长期使用。"]],
+        ["局域网存储", ["OpenMediaVault 需要规划系统盘、数据盘和独立备份；旧硬盘健康是单独的问题。", "README 说明系统需要独占 OS 配置，不应将它当作可任意容器化或并装桌面的普通应用。RAID 不替代备份。"]],
+        ["轻量服务、影音或游戏", ["DietPi 先检查目标设备是否有映像、架构与 RAM 是否满足；不保证任意旧板都适配。", "LibreELEC 是专用 Kodi 系统，需要当前映像与硬件匹配；DRM 服务另行核查。", "Batocera 可考虑外置启动，内部安装前仍需备份；性能受硬件限制，系统不提供游戏版权授权。"]],
+        ["选择时记录什么", ["启动方式、磁盘逻辑扇区、网络与外设支持，以及重启后的状态。", "电力、噪声、磁盘与附件支出由实际设备决定，本目录没有测量值或价格。", "先用外置介质或备份降低切换成本；以下链接提供各路线的原始文档和限制。"]]
+      ]
+    },
+    "en": {
+      "title": "An old mini PC at home: automation, storage or media?",
+      "intro": "Choose one clear job, then check boot mode, storage health and backups. Installing an OS does not add computing power.",
+      "sections": [
+        ["Home automation", ["HAOS suits a dedicated x86-64 UEFI host. The official Generic route requires Secure Boot disabled and checks for 512n/512e storage; a 64-bit CPU alone is not enough.", "Writing the image overwrites the target disk. Connect a real device and practice backup restoration before long-term use."]],
+        ["LAN storage", ["OpenMediaVault needs a plan for the OS disk, data disks and an independent backup. Old-disk health is a separate issue.", "The README says it needs exclusive control over OS configuration. Do not treat it as an ordinary app to containerize or install alongside a desktop. RAID does not replace backups."]],
+        ["Light services, media or games", ["For DietPi, check available images, architecture and RAM. Not every old board is supported.", "LibreELEC is a dedicated Kodi OS requiring a matching current image. Verify DRM services separately.", "Batocera offers external boot options; internal installation still needs backups. Hardware limits performance, and the OS grants no game copyright permissions."]],
+        ["What to record when choosing", ["Boot mode, disk logical sectors, networking/peripheral support and behavior after reboot.", "Power, noise, disks and accessories depend on the actual device. This catalog has no measurements or prices.", "Use external media or backups to reduce switching costs. The linked project pages provide original documentation and route-specific limits."]]
+      ]
+    }
+  }
+}

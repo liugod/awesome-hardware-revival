@@ -1,0 +1,1041 @@
+{
+  "language": "en",
+  "projects": {
+    "xiaogpt": {
+      "source_sha256": "ca25ae0bad1a4dcfb5285ab4778786d30e232aa22e6a8463cd96032f49a30f39",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Connect an existing XiaoAI speaker to a language model while retaining its voice input.",
+      "device_scope": "Xiaomi XiaoAI speakers; the README uses LX06. Check the hardware parameter for other models.",
+      "limitations": [
+        "Depends on a Xiaomi account and voice interfaces; this is not fully offline firmware."
+      ],
+      "evidence_reason": "The README documents LX06 startup, configuration files and multiple model backends, with links to author demonstrations. Those media were not played during this review.",
+      "recovery": "Stopping the bridge stops forwarding requests; this route does not replace speaker firmware.",
+      "cost_items": [
+        "Always-on host",
+        "Model/TTS services that may incur usage charges"
+      ],
+      "method": "Service bridge",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "open-xiaoai": {
+      "source_sha256": "c3b55664cda3697fdac181792b6fd0551e77d1c97d69070540a8eb70ab882590",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Take over a supported XiaoAI speaker's microphone and playback path to connect external AI services.",
+      "device_scope": "XiaoAI Speaker Pro LX06 / Xiaomi Smart Speaker Pro OH2P; follow model-specific flashing instructions.",
+      "limitations": [
+        "Patched firmware is model-specific. Do not apply the instructions to every XiaoAI speaker."
+      ],
+      "evidence_reason": "The README explicitly limits support to two Pro speakers and links firmware, client and server steps. The repository is archived, but historical deployment material remains.",
+      "recovery": "The official flash.md describes dual system partitions and switching back to boot1. This depends on the original partition remaining intact and has not been hardware-tested here.",
+      "cost_items": [
+        "Host",
+        "Model/API services according to configuration"
+      ],
+      "method": "Patched firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "mi-gpt": {
+      "source_sha256": "d7a5e56492142c6f46f07425173321293c64ac16ec7210834e2953eaf0d39ef4",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Add language-model conversations to XiaoAI speakers through a server-side bridge.",
+      "device_scope": "Xiaomi XiaoAI speakers listed in the documented compatibility table.",
+      "limitations": [
+        "A historical route; read the archive notice and successor recommendations first."
+      ],
+      "evidence_reason": "The README contains installation, model connection and device compatibility instructions and explicitly announces the end of maintenance.",
+      "recovery": "Stop the Docker/Node service to stop bridging; the original speaker firmware is retained.",
+      "cost_items": [
+        "Always-on host",
+        "Model/TTS API"
+      ],
+      "method": "Service bridge",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "onju-voice": {
+      "source_sha256": "d4f3d90c7d5acf937ac902cabad69bce32d86901ffe8574c7e5bdb9375c39620",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Replace a Nest Mini motherboard with a custom ESP32-S3 board, reusing the enclosure and speaker.",
+      "device_scope": "Google Nest Mini, second generation, enclosure and peripheral components.",
+      "limitations": [
+        "This is a board replacement, not a software jailbreak of the original Google firmware."
+      ],
+      "evidence_reason": "The author provides PCB, firmware and server instructions. The README says active maintenance has ended and points to onju-v2. An independent maker's video description reports a modification demonstration, but the video was not played, so this is not verified independent reproduction. The author's original X text, board-replacement explanation and video component were viewed; video frames were not verified.",
+      "recovery": "Keeping the original motherboard offers a hardware rollback option. Software cannot reverse damage caused during disassembly.",
+      "cost_items": [
+        "Onju PCBA",
+        "Disassembly tools",
+        "Host",
+        "Optional cloud voice/API services"
+      ],
+      "method": "Replace motherboard",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "onju-v2": {
+      "source_sha256": "9c7e5fa18539aaa96adeceedb371ed24312107ec85899c7fc8f09792885bc8d1",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Connect a modified Nest Mini to local or cloud conversation agents and support multiple voice endpoints.",
+      "device_scope": "Google Nest Mini, second generation, with an Onju replacement board.",
+      "limitations": [
+        "A successor in the same project family, not an independent hardware reproduction."
+      ],
+      "evidence_reason": "The README documents the second-generation Nest Mini replacement board, server setup and firmware flashing. Its X link points to an earlier Onju demonstration and is not evidence of testing the new v2 features.",
+      "recovery": "Keep the original motherboard. Assess hardware damage and repair feasibility separately.",
+      "cost_items": [
+        "Onju PCBA",
+        "Disassembly tools",
+        "Audio/model server",
+        "Optional API"
+      ],
+      "method": "Replace motherboard",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "wyoming-satellite": {
+      "source_sha256": "b80d09f337649360fbbc0feb057d11a135a2b1018cccba11da8a4de25eb67d12",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Reuse an idle Linux device as a Home Assistant voice satellite.",
+      "device_scope": "Old Raspberry Pi or other Linux-capable host with a microphone and speaker.",
+      "limitations": [
+        "Requires upstream voice services. A satellite does not run a complete language model locally by itself."
+      ],
+      "evidence_reason": "The README offers a Zero 2 W and 2Mic HAT tutorial, explicitly deprecates the project and points to Linux Voice Assistant.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Microphone/audio accessories",
+        "Server"
+      ],
+      "method": "Install service",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "linux-voice-assistant": {
+      "source_sha256": "2851b5d3f60454184a6abcaf2e4d1ead17252e99cecaf181c541ec1d7c212ac2",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Deploy a Home Assistant voice endpoint on existing Linux hardware.",
+      "device_scope": "Linux hosts with working audio input and output.",
+      "limitations": [
+        "Check audio drivers, architecture and server capabilities for each device."
+      ],
+      "evidence_reason": "The README describes an experimental Linux voice satellite with installation, audio and architecture notes. This is not treated as a standalone offline language model.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Compatible microphone and speaker",
+        "Home Assistant host"
+      ],
+      "method": "Install service",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "lineageos": {
+      "source_sha256": "5ad1897ca16f7f4c09bee62b6f23db18506e7c6710db50b8f483a5305289e8c0",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide an alternative OS for selected Android phones and tablets whose vendor updates have ended.",
+      "device_scope": "Exact Android models and device codenames listed in the official wiki.",
+      "limitations": [
+        "The same retail name may cover incompatible regions, carriers and models. Unlocking usually erases data."
+      ],
+      "evidence_reason": "Per-device YAML and installation templates were readable in the official wiki source; web access was restricted. A listing does not prove current maintenance: check current builds before installation. FP2 has an empty maintainers list and is only a historical entry, not a recommendation for a currently maintained build.",
+      "recovery": "Find the factory image and recovery steps for the exact device first. This catalog does not provide generic bootloader relocking instructions.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace OS",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "ubports": {
+      "source_sha256": "6290a97fe8fa1717fd30c2de060e74c03ecbcf53e8c746bf9a38918236f3308d",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Install Ubuntu Touch on supported phones using the official installer.",
+      "device_scope": "Phones and tablets supported by the UBports device list.",
+      "limitations": [
+        "Match the required bootloader and vendor firmware version."
+      ],
+      "evidence_reason": "The official installer README and release channels are available. The UBports devices page determines the supported device range.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace OS",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "termux": {
+      "source_sha256": "c5a9ce4814dd96c5c48dab2def5d278ee7631daa3dd06b88fb9639d8a11e0ffa",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Run command-line tools and lightweight services on idle Android hardware without replacing the OS.",
+      "device_scope": "Phones/tablets meeting the current Android version requirements.",
+      "limitations": [
+        "Android background limits and version support still apply; this is not a complete Linux kernel environment."
+      ],
+      "evidence_reason": "The README specifies full support for Android 7+. Android 5/6 only have legacy compatible apps without package update support.",
+      "recovery": "Export the Termux private directory before uninstalling. Uninstalling the app normally deletes its data.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Install application",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "droidcam": {
+      "source_sha256": "a3cc19fd2850f7b8a30a3836b341e91dbfef72f95b1e618eb29d6194eb786755",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Use an idle phone as a computer video input.",
+      "device_scope": "Phones compatible with the DroidCam mobile app and a Linux computer.",
+      "limitations": [
+        "This repository is the Linux client; it does not establish that the entire mobile app is open source. Check the battery before continuous charging."
+      ],
+      "evidence_reason": "The Linux client README provides installation, build and Raspberry Pi links. Mobile app compatibility needs a separate check.",
+      "recovery": "Uninstall the client and virtual camera module. Check battery condition on continuously powered devices.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Install application",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "deskreen": {
+      "source_sha256": "e6e7b8b6538baf3ace5ceb9d4803938964339b1e36501cf9d56106e88de82947",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Turn an old tablet into an auxiliary display endpoint receiving desktop sharing in a browser.",
+      "device_scope": "Old tablets, phones or computers with a compatible modern browser.",
+      "limitations": [
+        "An independently extended desktop usually also needs a virtual display adapter. Very old browsers may not work."
+      ],
+      "evidence_reason": "The README specifies computer-to-browser screen sharing over WebRTC. The old tablet must run a compatible browser.",
+      "recovery": "Stop sharing or uninstall the desktop application. Tablet firmware is not replaced.",
+      "cost_items": [
+        "A virtual display adapter may be needed for an independently extended desktop"
+      ],
+      "method": "Install application",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "oclp": {
+      "source_sha256": "104e8f06c8eac9d79584e8a8b59b635c615991d689e7dbc5dac73a9e7b763880",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide boot and driver patches for selected Macs no longer officially supported by newer macOS versions.",
+      "device_scope": "Intel Macs in the official support matrix.",
+      "limitations": [
+        "Not every Mac/OS combination works. OS updates may require patches to be reapplied."
+      ],
+      "evidence_reason": "The README gives version ranges. The official matrix lists Intel Mac models and GPU/USB limits. PowerPC and Apple Silicon are not supported.",
+      "recovery": "Keep a backup and bootable installation media. Follow official uninstall/recovery documentation to roll back; device recovery was not tested here.",
+      "cost_items": [
+        "Installation USB drive",
+        "Backup disk",
+        "Optional RAM/SSD"
+      ],
+      "method": "Boot and OS patches",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "mrchromebox": {
+      "source_sha256": "74e02e7d5f20fc751c9f6d88cff60302a6f6a3df0d9752dcd5adeea1d298f38a",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Install alternative firmware on selected old Chromebooks/Chromeboxes to run other operating systems.",
+      "device_scope": "ChromeOS x86 devices listed in the MrChromebox support table.",
+      "limitations": [
+        "Check the board codename. Write-protection removal varies by model."
+      ],
+      "evidence_reason": "The official script README describes RW_LEGACY / Full ROM. The official device table gives support by HWID and board.",
+      "recovery": "Save the device's own firmware backup before a full replacement. Recovery depends on the model and external flashing tools.",
+      "cost_items": [
+        "USB media",
+        "Model-specific write-protection/recovery tools"
+      ],
+      "method": "Replace boot firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "haos": {
+      "source_sha256": "399310efa41df6068de6bdfd496c9d313b38bc82d27a3684101f42ba7ca34a11",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Turn an old mini PC or thin client into a home automation server.",
+      "device_scope": "Generic x86-64 hosts / single-board computers supported by the official installation documentation.",
+      "limitations": [
+        "Architecture, boot mode and storage requirements apply. Writing the image overwrites the target disk."
+      ],
+      "evidence_reason": "The official Generic x86-64 instructions specify UEFI, disabling Secure Boot, 512-byte logical sectors and installation steps.",
+      "recovery": "Writing the image overwrites the target disk. Save a full disk image first; use original OS installation media for restoration.",
+      "cost_items": [
+        "Boot USB drive",
+        "Healthy system disk",
+        "Optional Zigbee/Thread USB adapter"
+      ],
+      "method": "Replace OS",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "openmediavault": {
+      "source_sha256": "180573d27d436d827e2c2fb89fe33b7c0b8a1eadfccf5e03d723ae83d86b0437",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Turn an old PC and storage hardware into a LAN NAS.",
+      "device_scope": "x86-64 or supported ARM hosts meeting installation requirements.",
+      "limitations": [
+        "Plan OS and data disks separately, assess old-disk health and arrange backups."
+      ],
+      "evidence_reason": "The README links Debian installation and official documentation. It explains that the system needs exclusive control of OS configuration and cannot simply run in a container or alongside a desktop environment.",
+      "recovery": "Back up data and configuration first. A NAS or RAID is not a substitute for an independent backup.",
+      "cost_items": [
+        "System disk",
+        "Healthy data disks",
+        "Independent backup"
+      ],
+      "method": "Replace OS",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "dietpi": {
+      "source_sha256": "648cb14fc657ec5f9daa62bf4063cc2c7cb3405d83e89a4e9f95ae836f86893f",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Reduce the work of deploying services on old single-board computers with a lightweight OS and software management.",
+      "device_scope": "Single-board computers and x86_64 hosts with images on the download page.",
+      "limitations": [
+        "Check the image, architecture and RAM limits for the target. Not every old board is supported."
+      ],
+      "evidence_reason": "The README describes a lightweight Debian system and x86_64/SBC image links, with deployment documentation.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace OS",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "openwrt": {
+      "source_sha256": "1670d686a8983a4386f1024f77e36535f042fa59f743b7d79827f55e1f14259c",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Extend networking capabilities and maintenance options on supported routers with open firmware.",
+      "device_scope": "Routers with the exact hardware revision listed in the Table of Hardware.",
+      "limitations": [
+        "Devices with very little flash/RAM may no longer support the current stable release."
+      ],
+      "evidence_reason": "The README links the Firmware Selector and installation information. Deployment scope must be narrowed to the exact model and hardware revision.",
+      "recovery": "Failsafe only applies when the device still boots. A non-booting unit may need model-specific TFTP/UART/programmer recovery. A factory reset is not universal unbricking.",
+      "cost_items": [
+        "Ethernet cable",
+        "UART/programmer may be needed"
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "freshTomato": {
+      "source_sha256": "47271d9d71ebe4843b88c511ad4190b8e34c4cd7147adf858f6bfd722be2d23f",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide alternative firmware and network management on supported old routers.",
+      "device_scope": "Broadcom ARM routers in the official compatibility table.",
+      "limitations": [
+        "Only the ARM repository is included. Image type, NVRAM and hardware version must match."
+      ],
+      "evidence_reason": "The README lists supported ARM routers individually and provides downloads and project documentation.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "libreelec": {
+      "source_sha256": "d757b8267305da3f10e18fbf77187c6d733038660858d83e7365fcb0bf6afbce",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Turn an old mini PC or supported device into a dedicated Kodi player.",
+      "device_scope": "Generic x86_64, Raspberry Pi and other devices with official images.",
+      "limitations": [
+        "This is not universal firmware for every smart TV. Assess DRM service availability separately."
+      ],
+      "evidence_reason": "The official README describes the media OS and links its website and releases. Check the current image architecture before use.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace OS",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "coreelec": {
+      "source_sha256": "7f4b593a6fc7fecf0433f10015f05bd0007cc623ece807973e1f62496951658c",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide a dedicated media OS for compatible Amlogic TV boxes.",
+      "device_scope": "Amlogic boxes and exact SoC/board combinations in the official support table.",
+      "limitations": [
+        "Check external-media boot first. The enclosure brand or SoC alone does not establish support."
+      ],
+      "evidence_reason": "The README describes a community Kodi OS and links releases and documentation. This does not establish support for every Amlogic box.",
+      "recovery": "Confirm external boot and the route back to the original OS. Before writing internal storage, separately verify the board's recovery image.",
+      "cost_items": [
+        "Compatible SD/USB media"
+      ],
+      "method": "External boot or OS replacement",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "armbian-tv": {
+      "source_sha256": "22caa30fab3b34f089f52e705069b77a8f71b6d4042d0a50951c26f45fb43b98",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Turn selected idle TV boxes into lightweight Linux service hosts.",
+      "device_scope": "Boxes/development boards and exact SoC/DTB combinations in the project's support table.",
+      "limitations": [
+        "Community adaptation is not official Armbian support. eMMC installation is riskier than external boot."
+      ],
+      "evidence_reason": "The README explicitly extends to TV boxes not supported by official Armbian and includes a support table and installation instructions.",
+      "recovery": "First test networking, storage and stability from external media. Recovery files for every box were not verified in this review.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "External boot or OS replacement",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "webos-homebrew": {
+      "source_sha256": "ac1af4cfe7ad5f6bf074821be210cf8a829dc7bd567542ce73c322bb69d2f72d",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide community app installation and management on an owner's webOS TV.",
+      "device_scope": "LG webOS TVs meeting root prerequisites.",
+      "limitations": [
+        "Depends on privilege access/development environments available for the exact firmware. This does not repair physical TV faults."
+      ],
+      "evidence_reason": "The README lists installation, root functions and a failsafe mechanism and identifies this as an unofficial community store.",
+      "recovery": "The README describes a failsafe emergency shell. It cannot be assumed to recover every boot failure.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Install apps and extend privileges",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "rootmytv": {
+      "source_sha256": "b9b56eae5ab8c9b922fed6f9bfe333f4f8e8b82d96b7be2b6613616f99050c93",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Preserve a historical route for running homebrew on old webOS TVs.",
+      "device_scope": "Old LG webOS firmware versions explicitly listed by the project.",
+      "limitations": [
+        "New firmware with patched vulnerabilities is not supported. This entry does not provide ways around another person's account lock."
+      ],
+      "evidence_reason": "The README says the v1/v2 vulnerabilities were patched and firmware from after mid-2022 generally does not work. Included as historical infrastructure.",
+      "recovery": "The source says downgrading usually is not possible without existing root. Do not treat an old tutorial as a solution for new firmware.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Privilege unlock",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "koreader": {
+      "source_sha256": "9e47e095d281b31e55d6748407b2c8f2e594882db2d22a6522f0a55f85e32a5c",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Extend multiformat reading, typography and synchronization on old e-readers.",
+      "device_scope": "Supported Kindle, Kobo, PocketBook and Android reading devices.",
+      "limitations": [
+        "Installation prerequisites vary by platform. Kindle generally requires an available jailbreak."
+      ],
+      "evidence_reason": "The README lists reader platforms, downloads, a user guide and wiki. Kindle and Kobo have different installation prerequisites.",
+      "recovery": "Uninstall the app using the platform's procedure. Reversing jailbreak or boot changes is a separate step.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Install application",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "kindle-carousel": {
+      "source_sha256": "7d9ae27ebfc4796192e098231b43da7ad13556ae3e46d967d9ba826bb58e6e2c",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Turn an old Kindle into an information display with switchable content.",
+      "device_scope": "Old Kindles covered by the project tutorial; check model and jailbreak prerequisites individually.",
+      "limitations": [
+        "Do not assume refresh behavior, buttons and networking scripts work across all models."
+      ],
+      "evidence_reason": "The README specifies Kindle 3 / 4 NT, SSH, a three-part installation sequence and an author demo. Continuous button listening affects battery life.",
+      "recovery": "Disable the Kindle scripts and remove automatic startup entries. Check jailbreak recovery separately for the model.",
+      "cost_items": [
+        "Always-on screenshot server",
+        "Power supply"
+      ],
+      "method": "Install scripts",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "kindle-ha": {
+      "source_sha256": "1f604178143a2c87063d2a864a90ed92b1ef37d83f84c82c7e597d4f7755abd8",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Render Home Assistant pages on a server and use an old Kindle only for display.",
+      "device_scope": "Jailbroken Kindles capable of running the screenshot display scripts.",
+      "limitations": [
+        "Needs Home Assistant and a screenshot service. The screen is not running a complete browser application."
+      ],
+      "evidence_reason": "The README links a Home Assistant screenshot service, online screensaver and the author's Kindle 4 setup.",
+      "recovery": "Remove scheduled download/display scripts and revoke the Home Assistant token. Retaining the original reading functions depends on how it was installed.",
+      "cost_items": [
+        "Home Assistant and screenshot server"
+      ],
+      "method": "Install scripts",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "kindle-dashboard": {
+      "source_sha256": "5c74b7cf3fc7825ed2ab324164dfafb95304d107cd791624b32358d3c56f57f4",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Use an old Paperwhite as a desktop information screen displaying AI tool usage.",
+      "device_scope": "Jailbroken Kindle Paperwhite with SSH / FBInk.",
+      "limitations": [
+        "Displaying AI usage does not mean running AI on the device. The project does not handle jailbreaking."
+      ],
+      "evidence_reason": "The README explains the PC/Kindle architecture, SSH/FBInk prerequisites, setup UI and script removal. Its AI relationship is limited to displaying AI tool usage.",
+      "recovery": "Remove Kindle scripts using the project UI. This does not automatically reverse the jailbreak.",
+      "cost_items": [
+        "Windows 10/11 host"
+      ],
+      "method": "Install application and scripts",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "kindle-phonekit": {
+      "source_sha256": "d5a18107eb1c93532607db8c9505b932ec01bbbc97da1aa4921811932504a2cb",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Use an old Kindle as a lightweight chat and messaging endpoint for OpenAI-compatible APIs.",
+      "device_scope": "Jailbroken Kindle with KUAL and the required Python environment.",
+      "limitations": [
+        "Models run in external services. Check TLS/Python support on the old device."
+      ],
+      "evidence_reason": "The README documents a KUAL extension, LLM endpoint setup and installation. No reliable model-by-model hardware test matrix was found.",
+      "recovery": "Back up configuration and remove plaintext API keys before deleting the extension. Handle jailbreak rollback separately.",
+      "cost_items": [
+        "Available model service"
+      ],
+      "method": "Install KUAL extension",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "kindle-whoop": {
+      "source_sha256": "3ae71042f5fd3ccfeac5f0866d3e7231df49637d3d0f00b1c239bc159df5b900",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Turn an old Kindle into a WHOOP health-data display, with documentation for AI-assisted setup.",
+      "device_scope": "Jailbroken Kindles supported by the project configuration.",
+      "limitations": [
+        "AI-assisted setup does not verify that all code was AI-developed. Requires external accounts/APIs."
+      ],
+      "evidence_reason": "The author's README explicitly reports Paperwhite 2 / 5.10.3 manual refresh and one full RTC wake, network refresh and sleep cycle. No independent reproduction was found.",
+      "recovery": "First disable automatic wake/refresh, remove client configuration and revoke API authorization no longer needed. Keep backups of the original device files.",
+      "cost_items": [
+        "WHOOP account/service",
+        "Data service host"
+      ],
+      "method": "Install scripts",
+      "firmware_requirement": "5.10.3 (the author's only verified range)",
+      "region_requirement": null
+    },
+    "winterbreak": {
+      "source_sha256": "42f9898b453e57f9546ecdc526dc18dd915e628207ab745654f3b9da2f7c7b0c",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide a prerequisite unlock route for installing community software on supported Kindles.",
+      "device_scope": "Kindle model/firmware combinations explicitly supported by the official jailbreak guide.",
+      "limitations": [
+        "This is infrastructure, not a complete information-display or AI conversion."
+      ],
+      "evidence_reason": "The README links the official WinterBreak installation guide and release notes. Read firmware-specific exceptions before proceeding.",
+      "recovery": "A factory reset does not necessarily remove every jailbreak component. Verify recovery for the exact model.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Privilege unlock",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "fbink": {
+      "source_sha256": "bdba84a62598fabb8c520adb5ebbd587a92835656788a67a06c0585689b9ef6b",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide low-level e-ink drawing tools for information-display projects on old readers.",
+      "device_scope": "Supported Linux framebuffer / Kindle / Kobo environments.",
+      "limitations": [
+        "A drawing library is not a ready-to-use product. It needs higher-level scripts and device permissions."
+      ],
+      "evidence_reason": "The README lists tested device families and documents the library and CLI. Several display projects use it for screen output.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Low-level tool",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "valetudo": {
+      "source_sha256": "721d92cdefb235b9bd552923fca4e2a231714f0b87206bf523dab7aae9ee2d94",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Retain local control of compatible robot vacuums and reduce vendor-cloud dependence.",
+      "device_scope": "Exact robot vacuum models in the Valetudo support list.",
+      "limitations": [
+        "Not all robots are supported. Rooting and recovery difficulty vary by model."
+      ],
+      "evidence_reason": "The README describes a local cloud-replacement layer running on vendor firmware. Official documentation supplies the supported-robot list and model-specific installation methods.",
+      "recovery": "Back up according to the exact robot's rooting method. This review has not verified unbricking for any model.",
+      "cost_items": [
+        "Model-specific flashing/connection tools"
+      ],
+      "method": "Cloud service replacement",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "wirepod": {
+      "source_sha256": "74d258eed2deda0eddad88cb0b019b7e183e7e25f515c3aa6abda3ac73b6d306",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Reuse Vector robots with community voice services and optional knowledge-question backends.",
+      "device_scope": "Anki / Digital Dream Labs Vector robots within the setup documentation's scope.",
+      "limitations": [
+        "Firmware and pairing must match. Having a server alone does not prove any Vector can be restored."
+      ],
+      "evidence_reason": "The README specifies Vector 1.0/2.0 and production-robot support, with installation wiki and troubleshooting links.",
+      "recovery": "Keep pairing and firmware information. Redeploying the server alone does not guarantee a fix for firmware or hardware faults.",
+      "cost_items": [
+        "Always-on server"
+      ],
+      "method": "Cloud service replacement",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "openlumi": {
+      "source_sha256": "a73855a9a9caa140f990bdca19d2ae0103fb5903bdc4257d7c22dc8c684e89dd",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Reuse old smart-gateway hardware with an open system and local Zigbee services.",
+      "device_scope": "Xiaomi gateway hardware revisions supported by OpenLumi documentation.",
+      "limitations": [
+        "Check UART, backup and flashing instructions for the exact board."
+      ],
+      "evidence_reason": "The README limits hardware revisions and includes backup, OTA failure recovery and return-to-stock-firmware sections.",
+      "recovery": "Keep this device's own rootfs tar.gz backup. Another device's generic backup cannot replace unique device data.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "tasmota": {
+      "source_sha256": "1558a054b80068bf1ca2b0c41b6bb03f28812372dc4efc053654316303a8cbdf",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Replace firmware on selected smart plugs, lights and sensors to regain local control.",
+      "device_scope": "Smart devices with compatible ESP8266 / ESP32 chips and pin templates.",
+      "limitations": [
+        "The chip can change within the same product name. Disassembling mains-powered devices is unsuitable for inexperienced users."
+      ],
+      "evidence_reason": "The README lists chip families, local control and official documentation. Different batches of the same product still require hardware identification.",
+      "recovery": "Save firmware and calibration data first. Serial recovery feasibility is device-specific.",
+      "cost_items": [
+        "USB serial tools, depending on device"
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "openbeken": {
+      "source_sha256": "9171d1ec9389f7eea95536e94c4ef3d516c582f437ca3e7b466f2cc7e9fd2dfc",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Give selected non-ESP cloud-dependent smart devices local MQTT and similar control.",
+      "device_scope": "Supported chips such as BK7231 and matching board designs.",
+      "limitations": [
+        "Confirm chip, pins, calibration data and flashing method for every board."
+      ],
+      "evidence_reason": "The README lists chips, modules and flashing documentation, with MQTT / Home Assistant local-control routes.",
+      "recovery": "Keep original flash/calibration data. Do not assume another device's pinout applies.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "esphome": {
+      "source_sha256": "f20b5693088f5d64ddaef62cd394fa7a0fcfb947421ab7f9981e1b38d55c59a8",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Reconfigure programmable old sensors, plugs and DIY boards for local uses.",
+      "device_scope": "ESP and other microcontroller devices covered by supported platforms and device configurations.",
+      "limitations": [
+        "Assess reuse by exact device configuration. A demo on a newly bought development board is not a successful old-hardware revival."
+      ],
+      "evidence_reason": "The README links official documentation and releases. Included as a reuse platform for supported devices, not a reproduction on one specific old device.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "openipc": {
+      "source_sha256": "d40c1e325b0a4856f99af13c6d13f2d7cf05a9f2e24602b310079105025deae9",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Replace firmware on selected IP cameras to obtain video streams under the owner's control.",
+      "device_scope": "Camera SoC/sensor/flash combinations supported by OpenIPC.",
+      "limitations": [
+        "Identical enclosures do not prove identical hardware. Original firmware backups and network recovery matter."
+      ],
+      "evidence_reason": "The README lists camera SoC families and an official wiki. Images also depend on sensor/storage configuration.",
+      "recovery": "Back up original flash, MAC and sensor configuration. Verify UART/network recovery for the exact board.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "dafang": {
+      "source_sha256": "8ac177bb42b76f9f78c54dfb78aafc936b56b2cd4d2c6bab2afd12bb938fa85f",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Add local video streams and extended control to selected old cameras.",
+      "device_scope": "Xiaofang/Dafang and selected Ingenic cameras in the README support table.",
+      "limitations": [
+        "A historical project; some production batches and bootloaders may not work."
+      ],
+      "evidence_reason": "The README has a model table, FAQ and custom-firmware installation guide, warning that newer vendor firmware can invalidate this method.",
+      "recovery": "Read the exact model's FAQ and original firmware backup method first. Do not assume T20L and T20 are identical.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "thingino": {
+      "source_sha256": "5e0941a2d5fa6be9b39f1908a8640321973cd2edbd944d2770bf29a2ce415e1e",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Extend local use of supported cameras with lightweight open firmware.",
+      "device_scope": "Ingenic IP cameras in the project's support list.",
+      "limitations": [
+        "Choose the build by SoC, sensor and exact configuration."
+      ],
+      "evidence_reason": "The README links supported-hardware files and build instructions and distinguishes stable/development branches.",
+      "recovery": "Needs original flash backups and board-specific recovery instructions. No camera firmware was written during this review.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "frigate": {
+      "source_sha256": "b281ec8edf9d64cd787951b2d445c569fbc5c6bc94de85a4041ddd5dbf11bab4",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Connect existing cameras to local object detection and recording.",
+      "device_scope": "Old IP cameras providing supported streams, plus a server meeting requirements.",
+      "limitations": [
+        "AI runs on the server. It cannot restore a broken camera or one unable to output a stream."
+      ],
+      "evidence_reason": "The README specifies local IP-camera object detection, recording and detector documentation. The reused component is the existing video source.",
+      "recovery": "Stopping the service does not replace camera firmware. Save required recordings and configuration before deleting the service.",
+      "cost_items": [
+        "Video-processing host",
+        "Optional AI accelerator",
+        "Recording disk"
+      ],
+      "method": "Install analysis server",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "squeezelite": {
+      "source_sha256": "188883b1edf7416f07ce736ddb7bfedd984aab20b51112e01024cbffe55686a7",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Turn an old host into a lightweight network audio player for Squeezebox-compatible servers.",
+      "device_scope": "Old PC / Linux single-board computer able to run a supported-platform binary.",
+      "limitations": [
+        "A software player does not guarantee restoration of cloud features on every physical Squeezebox."
+      ],
+      "evidence_reason": "The repository provides the player implementation and official manpage. It needs a server such as Lyrion.",
+      "recovery": "Stop or uninstall the player to end this use.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Install player",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "lyrion": {
+      "source_sha256": "16bfc303417652cafdf9d1d2a536f56f42ba26663daadeadc0583c03941e3380",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Continue using Squeezebox devices and compatible players with a local music server.",
+      "device_scope": "Squeezebox ecosystem players and supported DIY players.",
+      "limitations": [
+        "Online music depends on individual plugins and service policies. Not every historical feature is guaranteed."
+      ],
+      "evidence_reason": "The README and project description target Squeezebox and compatible players and provide official deployment documentation.",
+      "recovery": "Back up music-library indexes and configuration. The old vendor cloud may not be recoverable.",
+      "cost_items": [
+        "Always-on host",
+        "Optional storage"
+      ],
+      "method": "Cloud service replacement",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "rockbox": {
+      "source_sha256": "38fb1ed1d470a0cb54a04ca93a9eab3b8f29a897e571f7d2df27a0b4b4cb8235",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide open firmware and additional format support on compatible old music players.",
+      "device_scope": "iPod, SanDisk and other players in the Rockbox support list.",
+      "limitations": [
+        "Distinguish stable, development and unusable ports. Not all iPods are supported."
+      ],
+      "evidence_reason": "Build steps were readable in the official source mirror. Use the Rockbox website's categories for model support.",
+      "recovery": "Uninstall the bootloader following the official manual for that player. Simply deleting audio files is not enough.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace player firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "spotify-ipod": {
+      "source_sha256": "7571183c30bd2cbf5c37d0095d7684e752a4d772022384ff46487dc75ec6973c",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Retain an old iPod's interaction and appearance while replacing its internals for network music.",
+      "device_scope": "The author's fourth-generation iPod design with Raspberry Pi and other replacement hardware.",
+      "limitations": [
+        "A custom hardware project. Historical Spotify APIs and dependencies need fresh verification."
+      ],
+      "evidence_reason": "The README specifies a 2004 iPod and Pi Zero W and links the original author's Hackaday project and installation steps. Current cloud API compatibility was not hardware-tested.",
+      "recovery": "Save original parts. Cutting, soldering and power modifications may prevent lossless rollback.",
+      "cost_items": [
+        "Pi Zero W",
+        "Display/audio/power components",
+        "Tools",
+        "Music service"
+      ],
+      "method": "Replace internal hardware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "gadgetbridge": {
+      "source_sha256": "2dde7544990d383d6ef9f03cccc1267b9c36862abd8b46b20fa43fd36608b18e",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Connect selected wearables through a local open-source phone app, reducing vendor-cloud dependence.",
+      "device_scope": "Bands/watches in the official support matrix and an Android phone.",
+      "limitations": [
+        "GitHub may be a mirror. Support level, authentication keys and available functions vary by device."
+      ],
+      "evidence_reason": "The GitHub README explicitly points to Codeberg and the device matrix. The archived repository is a mirror, not evidence that the entire project stopped development.",
+      "recovery": "Back up local data before returning to the original companion app. Re-pairing may affect watch storage.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace phone companion app",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "infinitime": {
+      "source_sha256": "da937c4f8f88a09ad2ffc4c46164f1b3964567464080da524ae36a068b16886d",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide open watch firmware and continued feature development for an existing PineTime.",
+      "device_scope": "PineTime smartwatch.",
+      "limitations": [
+        "Only for the specified hardware. It cannot be used directly on ordinary commercial watches."
+      ],
+      "evidence_reason": "The README links getting-started, update, bootloader and SWD/OpenOCD documentation.",
+      "recovery": "Firmware updates and bootloader recovery are different layers. Deep recovery may need SWD.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace firmware",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "asteroidos": {
+      "source_sha256": "21d683f5d48be52aeb02eda96057f83f35b24009c83849c1c2d3e3b46118fecc",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Install an alternative Linux OS on selected old Wear watches.",
+      "device_scope": "Android Wear watches listed in the AsteroidOS device table.",
+      "limitations": [
+        "Check Bluetooth, sensors, battery and temporary-boot support for the exact model."
+      ],
+      "evidence_reason": "The README links build and official documentation. Use per-model tables for supported devices and feature maturity.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace OS",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "batocera": {
+      "source_sha256": "6ff628eabaaa05dfdf1156b824d61132847b10e2d4f4c4ad900b3adaae3d0cdf",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Turn old computers or supported devices into dedicated retro-gaming systems.",
+      "device_scope": "PCs / single-board computers / handhelds with official images.",
+      "limitations": [
+        "Performance is hardware-limited. The OS does not grant copyright permissions for game ROMs."
+      ],
+      "evidence_reason": "The README explicitly describes USB/SD boot and repurposing existing computers as consoles, with compatibility and download links.",
+      "recovery": "Remove external boot media to return to the original OS. Back up first if installing on the internal disk.",
+      "cost_items": [
+        "USB/SD media",
+        "Compatible controller"
+      ],
+      "method": "External boot or OS replacement",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "lakka": {
+      "source_sha256": "1e53cfba630e6e19bb203cfecdccd06a4b87ae34c3fc70d8b0e6520c00bf5a16",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Reuse old PCs and supported single-board computers with a lightweight RetroArch system.",
+      "device_scope": "PCs / single-board computers with official Lakka images.",
+      "limitations": [
+        "Check GPU, audio and boot compatibility. Obtain game content lawfully and separately."
+      ],
+      "evidence_reason": "The README specifies reuse of low-performance computers, installation websites and PS3/Xbox360 controller support.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "External boot or OS replacement",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "bazzite": {
+      "source_sha256": "1df62784845a9549d6c6fbc838895dc39b860ae19ab630e8d354716c07057918",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Provide a maintainable gaming OS for PCs and handhelds with sufficient remaining performance.",
+      "device_scope": "PCs meeting current hardware requirements and supported handhelds.",
+      "limitations": [
+        "Not a universal solution for very old computers. GPU support and image type are firm prerequisites."
+      ],
+      "evidence_reason": "The README documents PC/handheld installation and hardware capabilities. Included as a life-extension platform, not proof of support for any ancient GPU.",
+      "recovery": "Verify the recovery procedure for the exact model. This catalog has not tested unbricking; back up before making changes.",
+      "cost_items": [
+        "Check whether the existing device, power supply, storage and connection accessories are sufficient for the exact model."
+      ],
+      "method": "Replace OS",
+      "firmware_requirement": null,
+      "region_requirement": null
+    },
+    "printer-spl3": {
+      "source_sha256": "cec5581399350636cda491e7a87473bcbfdf3c17697e3cd5362e56e6ebfcb022",
+      "status": "reviewed",
+      "reviewed_at": "2026-10-20",
+      "review_scope": "Editorial translation of existing research; no new upstream or hardware verification.",
+      "summary": "Restore use of selected HP Laser printers without official macOS drivers through the native macOS print path.",
+      "device_scope": "HP Laser 1003/1006/1008 a/w over USB + Apple Silicon macOS 26 (author's test scope).",
+      "limitations": [
+        "AI-assisted development needs original author evidence. USB testing does not establish Wi-Fi support."
+      ],
+      "evidence_reason": "The author's README reports USB testing on Apple Silicon macOS 26 and provides installation, removal and print-pipeline analysis. An author-hosted Claude session supports the AI-assisted-development classification. X access status is recorded separately. The author's original X post and replies were read, confirming their claim of using Claude through repeated trial and error.",
+      "recovery": "The repository provides uninstall.sh. The README explains reversing changes to ippusbd. Installation requires administrator privileges.",
+      "cost_items": [
+        "USB data cable",
+        "Compatible Mac"
+      ],
+      "method": "Install driver",
+      "firmware_requirement": null,
+      "region_requirement": null
+    }
+  }
+}

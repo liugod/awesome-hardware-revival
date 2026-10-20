@@ -2,9 +2,9 @@
 
 An evidence-aware directory for giving existing hardware a useful second life: smart speakers, phones, computers, routers, e-readers, cameras, robots, wearables and printers.
 
-[Browse the searchable site](https://liugod.github.io/awesome-hardware-revival/) · [中文](README.md) · [JSON](data/catalog.json) · [CSV](data/catalog.csv) · [Research report (Chinese)](research/REPORT.zh-CN.md)
+[English website](https://liugod.github.io/awesome-hardware-revival/en/) · [中文网站](https://liugod.github.io/awesome-hardware-revival/zh/) · [中文 README](README.md) · [English JSON](docs/data/catalog.en.json) · [English CSV](docs/data/catalog.en.csv) · [Research report (Chinese)](research/REPORT.zh-CN.md)
 
-**Version 1.0.0, reviewed 2026-10-20.** 53 project/platform/tool entries across 13 categories and 51 project families. This is not a claim of 53 independently tested hardware builds. Descriptions and detailed analyses are primarily Chinese; project names, model identifiers and English keywords remain searchable.
+**Version 1.1.0, sources reviewed 2026-10-20.** 53 project/platform/tool entries across 13 categories and 51 project families. All 53 entries, 12 detailed analyses and 3 topic guides are available in Chinese and English. This is not a claim of 53 independently tested hardware builds. Translation does not constitute fresh upstream verification.
 
 ## What is included
 
@@ -17,7 +17,7 @@ Evidence: **E1 (50)** = repository/deployment documentation reviewed. **E2 (3)**
 
 ## Start with your device
 
-Use the [site filters](https://liugod.github.io/awesome-hardware-revival/#catalog) for device, use, AI relationship, difficulty and evidence. Search for identifiers such as LX06, Kindle, Nest Mini or HP. Filter state is shareable in the URL.
+Use the [site filters](https://liugod.github.io/awesome-hardware-revival/en/#catalog) for device, use, AI relationship, difficulty and evidence. Search in Chinese or English, including identifiers such as LX06, Kindle, Nest Mini or HP. Filter state is shareable and retained when switching languages.
 
 Installing an app, replacing firmware, replacing a motherboard and replacing a cloud service are different routes. Model, board revision, firmware and region matter. An archived mirror may have moved; a non-archived repository does not prove compatibility. Costs are `null`/`UNKNOWN`, never fabricated as zero.
 
@@ -35,6 +35,8 @@ python -m http.server 4185 --bind 127.0.0.1 --directory docs
 ```
 
 GitHub Pages serves `main:/docs`. The build produces static, indexable detail pages and a sitemap; JavaScript only adds filtering. No accounts, backend, trackers or external script dependencies.
+
+`site.config.json` controls the base URL, repository URL and product version. Translations in `data/i18n/` are tied to source hashes; stale translations fail the build. See [translation and deployment maintenance](research/BILINGUAL-MAINTENANCE.md). The independent community is in preparation, not yet deployed.
 
 Use the [issue forms](https://github.com/liugod/awesome-hardware-revival/issues/new/choose) to submit a project, correction, successful or failed reproduction. Include exact hardware/firmware, source versions, what worked, what failed and recovery evidence. See [CONTRIBUTING](CONTRIBUTING.md). No automated schedule has been created.
 

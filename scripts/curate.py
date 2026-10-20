@@ -93,7 +93,7 @@ for s in seeds:
     release=snap["releases"]
     p["latest_release"]={"tag":release[0]["tag_name"],"url":release[0]["html_url"],"published_at":release[0]["published_at"]} if isinstance(release,list) and release else None
     projects.append(p)
-out={"schema_version":"1.0.0","version":"1.0.0","compiled_at":now,"timezone":"Asia/Shanghai","labels":labels,"projects":projects}
+out={"schema_version":"1.0.0","version":json.loads((ROOT/"site.config.json").read_text(encoding="utf-8"))["version"],"compiled_at":now,"timezone":"Asia/Shanghai","labels":labels,"projects":projects}
 save(ROOT/"data/catalog.json",out)
 with (ROOT/"data/catalog.csv").open("w",encoding="utf-8-sig",newline="") as f:
     fields=["id","name","category","ai_relation","entry_type","device_scope","model_examples","firmware_requirement","region_requirement","use_cases","method","difficulty","evidence_level","evidence_reason","maintenance","license","repo_url","tutorial_url","compatibility_url","x_sources","cost","requirements","risk","checked_at"]

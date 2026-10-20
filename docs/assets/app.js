@@ -1,5 +1,26 @@
 "use strict";
 (() => {
+  const english = document.documentElement.lang === "en";
+  const t = (zh, en) => english ? en : zh;
+  const switchLinks = [...document.querySelectorAll(".language-switch")];
+  function syncLanguageLinks() {
+    switchLinks.forEach(link => {
+      const url = new URL(link.getAttribute("href"), location.href);
+      url.search = location.search;
+      url.hash = location.hash;
+      link.href = url.href;
+    });
+  }
+  syncLanguageLinks();
+  window.addEventListener("hashchange", syncLanguageLinks);
+  const project = new URLSearchParams(location.search).get("project");
+  const context = document.querySelector("#project-context");
+  if (context && project && /^[a-zA-Z0-9-]{1,80}$/.test(project)) {
+    context.textContent = t("关联项目 ID：", "Related project ID: ") + project;
+    context.hidden = false;
+    const contribute = document.querySelector("#contribute-link");
+    if (contribute) contribute.href += "?project=" + encodeURIComponent(project);
+  }
   const form = document.querySelector("#filters");
   if (!form) return;
   const keys = ["q", "category", "use", "ai", "difficulty", "evidence"];
@@ -9,6 +30,9 @@
   function readURL() {
     const params = new URLSearchParams(location.search);
     keys.forEach(k => { controls[k].value = params.get(k) || ""; });
+    // Retain old shared links whose use filter contained Chinese labels.
+    const legacyUses = {"语音助手":"voice-assistant","Linux终端":"linux-terminal","信息屏":"information-display","副屏":"second-screen","复古游戏":"retro-gaming","媒体中心":"media-center","存储服务器":"storage-server","家庭服务器":"home-server","对话终端":"conversation","应用扩展":"app-extension","摄像头":"camera","智能家居":"smart-home","游戏系统":"gaming-os","离线控制":"offline-control","系统延寿":"os-life-extension","网络设备":"networking","视频分析":"video-analysis","阅读扩展":"reading","音乐播放":"music","驱动修复":"driver-repair"};
+    if (legacyUses[params.get("use")]) controls.use.value = legacyUses[params.get("use")];
   }
   function apply(updateURL = true) {
     const terms = controls.q.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
@@ -22,13 +46,14 @@
       card.hidden = !match;
       if (match) visible++;
     });
-    count.textContent = `显示 ${visible} / ${cards.length} 个条目`;
+    count.textContent = t(`显示 ${visible} / ${cards.length} 个条目`, `Showing ${visible} / ${cards.length} entries`);
     document.querySelector("#empty").hidden = visible !== 0;
     if (updateURL) {
       const url = new URL(location.href);
       keys.forEach(k => controls[k].value ? url.searchParams.set(k, controls[k].value) : url.searchParams.delete(k));
       history.replaceState(null, "", url);
     }
+    syncLanguageLinks();
   }
   readURL();
   apply(false);
@@ -41,9 +66,9 @@
     const target = document.querySelector("#share-status");
     try {
       await navigator.clipboard.writeText(location.href);
-      target.textContent = "已复制当前筛选链接";
+      target.textContent = t("已复制当前筛选链接", "Filtered link copied");
     } catch {
-      target.textContent = "请复制浏览器地址栏中的链接，筛选条件已保存在网址中。";
+      target.textContent = t("请复制浏览器地址栏中的链接，筛选条件已保存在网址中。", "Copy the URL from your browser address bar; it already includes the current filters.");
     }
   });
 })();
