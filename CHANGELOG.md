@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0 — 2026-10-21
+
+- Adopt KitAgain branding and the purchased kitagain.com domain.
+- Move bilingual canonical URLs, sitemap and repository links to the custom domain.
+- Preserve historical project URLs and evidence boundaries. Community activation is tracked separately.
+
 ## 1.1.0 — 2026-10-20
 
 - Full Chinese and English sites: 53 project entries, 12 complete case analyses and 3 device-led topic guides.

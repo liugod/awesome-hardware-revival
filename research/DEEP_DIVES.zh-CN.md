@@ -29,7 +29,7 @@
 - 断开模型后端，确认能识别失败而不是持续等待
 - 停止桥接，检查原有音箱功能
 
-[教程](https://github.com/yihong0618/xiaogpt/blob/main/README.md) · [适配范围](https://github.com/yihong0618/xiaogpt/blob/main/README.md) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/xiaogpt.html)
+[教程](https://github.com/yihong0618/xiaogpt/blob/main/README.md) · [适配范围](https://github.com/yihong0618/xiaogpt/blob/main/README.md) · [完整条目](https://kitagain.com/projects/xiaogpt.html)
 
 ## Open-XiaoAI
 
@@ -58,7 +58,7 @@
 - 先验证音频采集和播放，再连接 AI 服务
 - 重启后检查连接恢复；保存可回退的配置
 
-[教程](https://github.com/idootop/open-xiaoai/blob/main/docs/flash.md) · [适配范围](https://github.com/idootop/open-xiaoai/blob/main/README.md) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/open-xiaoai.html)
+[教程](https://github.com/idootop/open-xiaoai/blob/main/docs/flash.md) · [适配范围](https://github.com/idootop/open-xiaoai/blob/main/README.md) · [完整条目](https://kitagain.com/projects/open-xiaoai.html)
 
 ## Onju Voice
 
@@ -87,7 +87,7 @@ Google Nest Mini 的原厂主板与服务限制了自定义语音链路。
 - 分开验证拾音、扬声器、网络与服务端
 - 测试完整对话和断网后的行为；保留原主板
 
-[教程](https://github.com/justLV/onju-voice/blob/master/README.md) · [适配范围](https://github.com/justLV/onju-voice/blob/master/README.md) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/onju-voice.html)
+[教程](https://github.com/justLV/onju-voice/blob/master/README.md) · [适配范围](https://github.com/justLV/onju-voice/blob/master/README.md) · [完整条目](https://kitagain.com/projects/onju-voice.html)
 
 ## OpenCore Legacy Patcher
 
@@ -116,7 +116,7 @@ Google Nest Mini 的原厂主板与服务限制了自定义语音链路。
 - 逐项检查显卡加速、Wi-Fi、睡眠、外接显示和常用软件
 - 验证备份可读取，并保留原系统恢复入口
 
-[教程](https://dortania.github.io/OpenCore-Legacy-Patcher/) · [适配范围](https://dortania.github.io/OpenCore-Legacy-Patcher/MODELS.html) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/oclp.html)
+[教程](https://dortania.github.io/OpenCore-Legacy-Patcher/) · [适配范围](https://dortania.github.io/OpenCore-Legacy-Patcher/MODELS.html) · [完整条目](https://kitagain.com/projects/oclp.html)
 
 ## Home Assistant OS
 
@@ -145,7 +145,7 @@ Google Nest Mini 的原厂主板与服务限制了自定义语音链路。
 - 备份磁盘，安装后确认重启能持续启动
 - 连接一个真实设备并完成备份导出和恢复演练
 
-[教程](https://www.home-assistant.io/installation/generic-x86-64/) · [适配范围](https://github.com/home-assistant/operating-system/blob/dev/README.md) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/haos.html)
+[教程](https://www.home-assistant.io/installation/generic-x86-64/) · [适配范围](https://github.com/home-assistant/operating-system/blob/dev/README.md) · [完整条目](https://kitagain.com/projects/haos.html)
 
 ## OpenWrt
 
@@ -174,7 +174,7 @@ Google Nest Mini 的原厂主板与服务限制了自定义语音链路。
 - 备份原配置及设备特有分区，确认恢复工具
 - 验证 WAN/LAN、无线与重启，不用一次联网代替稳定性验证
 
-[教程](https://openwrt.org/toh/start) · [适配范围](https://firmware-selector.openwrt.org/) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/openwrt.html)
+[教程](https://openwrt.org/toh/start) · [适配范围](https://firmware-selector.openwrt.org/) · [完整条目](https://kitagain.com/projects/openwrt.html)
 
 ## HA Lovelace Kindle Screensaver
 
@@ -203,7 +203,7 @@ Google Nest Mini 的原厂主板与服务限制了自定义语音链路。
 - 测试认证失效与网络中断，避免静默展示过期信息
 - 测量刷新间隔与实际耗电，显示数据更新时间
 
-[教程](https://github.com/sibbl/hass-lovelace-kindle-4) · [适配范围](https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/README.md) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/kindle-ha.html)
+[教程](https://github.com/sibbl/hass-lovelace-kindle-4) · [适配范围](https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/README.md) · [完整条目](https://kitagain.com/projects/kindle-ha.html)
 
 ## Kindle for WHOOP
 
@@ -232,7 +232,7 @@ Google Nest Mini 的原厂主板与服务限制了自定义语音链路。
 - 先手动刷新，再测试定时唤醒和休眠
 - 持续记录耗电、失败重试和联网行为，补充多日复现
 
-[教程](https://github.com/kaibuildsai/kindle-for-whoop/blob/main/docs/ai-assisted-setup.md) · [适配范围](https://github.com/kaibuildsai/kindle-for-whoop/blob/main/README.md) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/kindle-whoop.html)
+[教程](https://github.com/kaibuildsai/kindle-for-whoop/blob/main/docs/ai-assisted-setup.md) · [适配范围](https://github.com/kaibuildsai/kindle-for-whoop/blob/main/README.md) · [完整条目](https://kitagain.com/projects/kindle-whoop.html)
 
 ## Valetudo
 
@@ -261,7 +261,7 @@ Valetudo 明确不是通用替换固件。支持列表是穷尽清单，不在�
 - 断开互联网后测试清扫和本地控制
 - 检查地图、充电回座、配置持久化和恢复条件
 
-[教程](https://valetudo.cloud/) · [适配范围](https://valetudo.cloud/pages/general/supported-robots/) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/valetudo.html)
+[教程](https://valetudo.cloud/) · [适配范围](https://valetudo.cloud/pages/general/supported-robots/) · [完整条目](https://kitagain.com/projects/valetudo.html)
 
 ## wire-pod
 
@@ -290,7 +290,7 @@ Vector 机器人部分语音能力依赖外部服务，云端可用性影响持�
 - 验证本地语音命令及可选知识问答
 - 重启服务端与设备后重测，记录外网依赖
 
-[教程](https://github.com/kercre123/wire-pod/wiki/Installation) · [适配范围](https://github.com/kercre123/wire-pod/blob/main/README.md) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/wirepod.html)
+[教程](https://github.com/kercre123/wire-pod/wiki/Installation) · [适配范围](https://github.com/kercre123/wire-pod/blob/main/README.md) · [完整条目](https://kitagain.com/projects/wirepod.html)
 
 ## OpenLumi
 
@@ -319,7 +319,7 @@ Vector 机器人部分语音能力依赖外部服务，云端可用性影响持�
 - 离线保存并检查本机备份完整性
 - 验证设备加入、控制、重启和恢复路径
 
-[教程](https://github.com/openlumi/openlumi.github.io/blob/master/README.md) · [适配范围](https://github.com/openlumi/openlumi.github.io/blob/master/README.md) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/openlumi.html)
+[教程](https://github.com/openlumi/openlumi.github.io/blob/master/README.md) · [适配范围](https://github.com/openlumi/openlumi.github.io/blob/master/README.md) · [完整条目](https://kitagain.com/projects/openlumi.html)
 
 ## HP Laser 1008a macOS driver
 
@@ -348,4 +348,4 @@ Vector 机器人部分语音能力依赖外部服务，云端可用性影响持�
 - 测试真实文档、多页任务、重启后打印与错误恢复
 - 检查卸载路径；不把打印成功推导为所有设备功能受支持
 
-[教程](https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md) · [适配范围](https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md) · [完整条目](https://liugod.github.io/awesome-hardware-revival/projects/printer-spl3.html)
+[教程](https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md) · [适配范围](https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md) · [完整条目](https://kitagain.com/projects/printer-spl3.html)

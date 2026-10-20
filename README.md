@@ -1,12 +1,12 @@
-# 老硬件复活指南 · Hardware Revival Field Guide
+# KitAgain · 老硬件复活指南
 
 **手里有什么设备 → 还能做什么 → 哪个方案有证据 → 动手前核对什么。**
 
-[中文导航站](https://liugod.github.io/awesome-hardware-revival/zh/) · [English website](https://liugod.github.io/awesome-hardware-revival/en/) · [English README](README.en.md) · [研究报告](research/REPORT.zh-CN.md) · [12 篇案例分析](research/DEEP_DIVES.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
+[中文导航站](https://kitagain.com/zh/) · [English website](https://kitagain.com/en/) · [English README](README.en.md) · [研究报告](research/REPORT.zh-CN.md) · [12 篇案例分析](research/DEEP_DIVES.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
 
 从小爱音箱和 Nest Mini，到 Kindle、旧电脑、路由器、摄像头、停服机器人和缺驱动的打印机。这个目录把公开代码、作者案例与适配限制放在一起，帮助你判断下一步是否值得尝试。
 
-**v1.1.0 · 资料核查 2026-10-20**：53 条项目/平台/工具，13 类设备，51 个项目家族；53 条详情、12 篇分析及 3 个专题均提供中英文。不是“53 台亲测成功设备”。本版新增翻译不代表重新核验上游。
+**v1.2.0 · 资料核查 2026-10-20**：53 条项目/平台/工具，13 类设备，51 个项目家族；53 条详情、12 篇分析及 3 个专题均提供中英文。不是“53 台亲测成功设备”。本版新增翻译不代表重新核验上游。
 
 | AI 关系 | 条目数 | 如何理解 |
 | --- | ---: | --- |
@@ -21,21 +21,21 @@
 
 | 设备 | 条目 | 可先看的项目 |
 | --- | ---: | --- |
-| [音箱与语音](https://liugod.github.io/awesome-hardware-revival/zh/?category=speaker#catalog) | 7 | XiaoGPT、Open-XiaoAI、Onju |
-| [手机与平板](https://liugod.github.io/awesome-hardware-revival/zh/?category=mobile#catalog) | 5 | LineageOS、Termux、Deskreen |
-| [电脑与瘦客户机](https://liugod.github.io/awesome-hardware-revival/zh/?category=computer#catalog) | 4 | OCLP、MrChromebox、HAOS、DietPi |
-| [路由与 NAS](https://liugod.github.io/awesome-hardware-revival/zh/?category=network#catalog) | 3 | OpenWrt、FreshTomato、OpenMediaVault |
-| [电视与盒子](https://liugod.github.io/awesome-hardware-revival/zh/?category=tv#catalog) | 5 | LibreELEC、CoreELEC、webOS Homebrew |
-| [电子书与墨水屏](https://liugod.github.io/awesome-hardware-revival/zh/?category=ereader#catalog) | 8 | KOReader、Kindle WHOOP、Kindle HA |
-| [机器人](https://liugod.github.io/awesome-hardware-revival/zh/?category=robot#catalog) | 2 | Valetudo、wire-pod |
-| [智能家居](https://liugod.github.io/awesome-hardware-revival/zh/?category=smarthome#catalog) | 4 | OpenLumi、Tasmota、OpenBeken、ESPHome |
-| [摄像头](https://liugod.github.io/awesome-hardware-revival/zh/?category=camera#catalog) | 4 | OpenIPC、Dafang、Thingino、Frigate |
-| [播放器与音响](https://liugod.github.io/awesome-hardware-revival/zh/?category=audio#catalog) | 4 | Rockbox、Lyrion、Squeezelite、Retro iPod |
-| [手表与可穿戴](https://liugod.github.io/awesome-hardware-revival/zh/?category=wearable#catalog) | 3 | Gadgetbridge、InfiniTime、AsteroidOS |
-| [游戏设备](https://liugod.github.io/awesome-hardware-revival/zh/?category=gaming#catalog) | 3 | Batocera、Lakka、Bazzite |
-| [打印机与外设](https://liugod.github.io/awesome-hardware-revival/zh/?category=peripheral#catalog) | 1 | HP Laser 1008a macOS driver |
+| [音箱与语音](https://kitagain.com/zh/?category=speaker#catalog) | 7 | XiaoGPT、Open-XiaoAI、Onju |
+| [手机与平板](https://kitagain.com/zh/?category=mobile#catalog) | 5 | LineageOS、Termux、Deskreen |
+| [电脑与瘦客户机](https://kitagain.com/zh/?category=computer#catalog) | 4 | OCLP、MrChromebox、HAOS、DietPi |
+| [路由与 NAS](https://kitagain.com/zh/?category=network#catalog) | 3 | OpenWrt、FreshTomato、OpenMediaVault |
+| [电视与盒子](https://kitagain.com/zh/?category=tv#catalog) | 5 | LibreELEC、CoreELEC、webOS Homebrew |
+| [电子书与墨水屏](https://kitagain.com/zh/?category=ereader#catalog) | 8 | KOReader、Kindle WHOOP、Kindle HA |
+| [机器人](https://kitagain.com/zh/?category=robot#catalog) | 2 | Valetudo、wire-pod |
+| [智能家居](https://kitagain.com/zh/?category=smarthome#catalog) | 4 | OpenLumi、Tasmota、OpenBeken、ESPHome |
+| [摄像头](https://kitagain.com/zh/?category=camera#catalog) | 4 | OpenIPC、Dafang、Thingino、Frigate |
+| [播放器与音响](https://kitagain.com/zh/?category=audio#catalog) | 4 | Rockbox、Lyrion、Squeezelite、Retro iPod |
+| [手表与可穿戴](https://kitagain.com/zh/?category=wearable#catalog) | 3 | Gadgetbridge、InfiniTime、AsteroidOS |
+| [游戏设备](https://kitagain.com/zh/?category=gaming#catalog) | 3 | Batocera、Lakka、Bazzite |
+| [打印机与外设](https://kitagain.com/zh/?category=peripheral#catalog) | 1 | HP Laser 1008a macOS driver |
 
-也可按 [语音助手](https://liugod.github.io/awesome-hardware-revival/zh/?use=voice-assistant#catalog)、[信息屏](https://liugod.github.io/awesome-hardware-revival/zh/?use=information-display#catalog)、[入门难度](https://liugod.github.io/awesome-hardware-revival/zh/?difficulty=easy#catalog) 或 [作者实机证据](https://liugod.github.io/awesome-hardware-revival/zh/?evidence=E2#catalog) 查找。筛选条件保存在网址中，可直接分享。
+也可按 [语音助手](https://kitagain.com/zh/?use=voice-assistant#catalog)、[信息屏](https://kitagain.com/zh/?use=information-display#catalog)、[入门难度](https://kitagain.com/zh/?difficulty=easy#catalog) 或 [作者实机证据](https://kitagain.com/zh/?evidence=E2#catalog) 查找。筛选条件保存在网址中，可直接分享。
 
 ## 三个代表案例
 
