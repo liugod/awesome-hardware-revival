@@ -299,7 +299,7 @@ def build():
     write(OUT/"data/catalog.en.json",json.dumps(english,ensure_ascii=False,indent=2)+"\n")
     output=io.StringIO(newline="")
     fields=["id","name","category","summary","device_scope","method","limitations","evidence","requirements","cost","risk","checked_at","translation"]
-    writer=csv.DictWriter(output,fieldnames=fields);writer.writeheader()
+    writer=csv.DictWriter(output,fieldnames=fields,lineterminator="\n");writer.writeheader()
     for p in english["projects"]:
         writer.writerow({k:json.dumps(p[k],ensure_ascii=False) if isinstance(p[k],(list,dict)) else p[k] for k in fields})
     write(OUT/"data/catalog.en.csv","\ufeff"+output.getvalue())
