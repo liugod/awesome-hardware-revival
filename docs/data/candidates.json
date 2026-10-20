@@ -1,0 +1,8 @@
+[
+  {"id":"postmarketos","name":"postmarketOS / current site migration","url":"https://postmarketos.org/","status":"needs-follow-up","reason":"旧 pmaports GitHub 地址不可用；下载页本轮重定向至 nura.eco。需沿官方迁移公告核对代码仓库、许可、型号矩阵后入主目录，不能以旧品牌记忆替代当前来源。"},
+  {"id":"libreboot","name":"Libreboot","url":"https://libreboot.org/git.html","repo_url":"https://codeberg.org/libreboot/lbmk","status":"needs-follow-up","reason":"官方 Git 页确认源码在 Codeberg；本轮未完成目标板恢复与许可证逐项核验，不采用不存在的 GitHub 镜像。"},
+  {"id":"kirkwood-nas","name":"Debian on Kirkwood NAS","url":"https://forum.doozan.com/","status":"needs-follow-up","reason":"须从维护者原始教程核对具体 NAS、U-Boot、内核和串口恢复；本轮未完成，不能把泛泛旧 NAS 教程当成成品项目。"},
+  {"id":"rebble","name":"Rebble Web Services","url":"https://rebble.io/howto/","tutorial_url":"https://help.rebble.io/setup/","status":"needs-follow-up","reason":"官方 HOWTO 与设置页已读取，确认替代 Pebble 停服后的部分服务；尚未逐项核对当前手机配套应用、固件与服务许可证，作为优先补全候选。"},
+  {"id":"claude-bios","name":"AI 辅助 HP BIOS 修改案例","url":"https://www.techradar.com/pro/could-this-be-the-end-of-bios-locked-laptops-ai-tweaker-deploys-claude-to-unlock-and-change-settings-for-good","status":"secondary-report-only","reason":"目前只有报道线索，缺少本轮确认的作者源码、版本、备份/恢复和独立复现；不收录为成功项目。"},
+  {"id":"new-esp32-kits","name":"新购 ESP32 AI 玩具套件","url":"https://github.com/78/xiaozhi-esp32","status":"scope-exclusion","reason":"优秀 AI 工程不自动等于旧硬件复活；需要指向具体闲置成品硬件复用案例，才新增条目。"}
+]

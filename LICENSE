@@ -1,0 +1,22 @@
+Editorial content and catalog arrangement license
+
+Copyright (c) 2026 Hardware Revival Field Guide contributors
+
+Unless otherwise stated, original editorial text in README files, research/,
+data/, skills/, and the corresponding generated website text is licensed under
+Creative Commons Attribution 4.0 International (CC BY 4.0).
+
+License summary: https://creativecommons.org/licenses/by/4.0/
+Legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+
+When reusing the original editorial content, credit Hardware Revival Field Guide
+contributors, link to https://github.com/liugod/awesome-hardware-revival and
+the license, and indicate changes.
+
+Facts, project names and links are provided for reference. Third-party software,
+firmware, media, trademarks, documentation and individual source materials
+retain their respective rights and licenses. This license does not relicense
+third-party works or imply endorsement.
+
+Original software in scripts/ and docs/assets/, and the generated HTML template
+structure, is licensed under the MIT terms in LICENSE-CODE.

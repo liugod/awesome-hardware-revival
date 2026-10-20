@@ -1,0 +1,16 @@
+name: 纠错 / Correction
+description: 报告失效链接、维护迁移、型号错误或证据不足
+title: "[Correction] "
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: 条目 ID 或页面 / Entry or page
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 原内容、建议修正和来源 / Correction with evidence
+    validations:
+      required: true

@@ -1,0 +1,29 @@
+name: 项目线索 / Project
+description: 提交旧硬件再利用项目与原始来源
+title: "[Project] "
+body:
+  - type: input
+    id: project
+    attributes:
+      label: 项目名称与原始仓库 / Project and upstream repository
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: 设备、硬件版本、固件、地区 / Exact hardware and firmware
+      description: 不知道请写 UNKNOWN；不要包含序列号或账号。
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: 教程、作者原帖、许可和复现证据 / Primary sources
+    validations:
+      required: true
+  - type: textarea
+    id: limits
+    attributes:
+      label: 新用途、AI 关系、局限与恢复路径 / Outcome and limitations
+    validations:
+      required: true

@@ -1,0 +1,11 @@
+{
+  "date":"2026-10-20",
+  "method":"先搜索与源码 README 反向定位作者链接，再通过浏览器阅读原始 X 页面。Web 抓取曾返回 403；浏览器最终读到正文。未发送帖子、回复或私信，未采集账户侧栏内容。",
+  "verified_original_posts":[
+    {"url":"https://x.com/justLV/status/1681377298308820992","author":"Justin Alvey / justLV","project":"onju-voice","published_date":"2023-07-19","observation":"作者发布 Nest Mini LLM/agent 消息管理演示，页面有视频组件；视频未逐帧核验。","verification":"original-text-read"},
+    {"url":"https://x.com/justLV/status/1681377304365383685","author":"Justin Alvey / justLV","project":"onju-voice","published_date":"2023-07-19","observation":"同线程明确选择完全替换 PCB，不能描述成只刷软件。","verification":"original-text-read"},
+    {"url":"https://x.com/kuberwastaken/status/2089377982536388964","author":"Kuber / kuberwastaken","project":"printer-spl3","published_date":"2026-08-17","observation":"作者称用 Claude 为 HP 打印机编写 macOS 驱动；正文从其回复的父帖读取。","verification":"original-text-read"},
+    {"url":"https://x.com/kuberwastaken/status/2089721130127094071","author":"Kuber / kuberwastaken","project":"printer-spl3","published_date":"2026-08-18","observation":"作者说明经过多轮提示与试错；不支持一条提示自动完成修复的宣传。","verification":"original-text-read"}
+  ],
+  "limitations":["不是 X 全站穷尽搜索。","帖子存在不证明今日所有依赖仍可用。","未将点赞、转发或浏览量用作成功等级。","Onju v2 引用旧演示不构成 v2 所有新增能力的实测。"]
+}

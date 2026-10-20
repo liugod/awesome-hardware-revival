@@ -1,0 +1,4943 @@
+{
+  "schema_version": "1.0.0",
+  "version": "1.0.0",
+  "compiled_at": "2026-10-20T10:18:44.541033+00:00",
+  "timezone": "Asia/Shanghai",
+  "labels": {
+    "category": {
+      "speaker": "音箱与语音",
+      "mobile": "手机与平板",
+      "computer": "电脑与瘦客户机",
+      "network": "路由与 NAS",
+      "tv": "电视与盒子",
+      "ereader": "电子书与墨水屏",
+      "robot": "机器人",
+      "smarthome": "智能家居",
+      "camera": "摄像头",
+      "audio": "播放器与音响",
+      "wearable": "手表与可穿戴",
+      "gaming": "游戏设备",
+      "peripheral": "打印机与外设"
+    },
+    "ai": {
+      "native": "AI 功能改造",
+      "assisted": "AI 辅助开发/配置",
+      "adjacent": "AI 周边用途",
+      "infrastructure": "传统复活基础设施"
+    },
+    "difficulty": {
+      "easy": "入门",
+      "medium": "进阶",
+      "high": "高难度"
+    },
+    "evidence": {
+      "E0": "候选 / 证据不足",
+      "E1": "源码与部署文档",
+      "E2": "作者实机陈述 / 演示",
+      "E3": "独立复现已核验"
+    },
+    "maintenance": {
+      "not-archived": "仓库未归档",
+      "archived": "已归档",
+      "deprecated": "作者宣布停维护",
+      "moved": "已迁移 / 旧镜像归档",
+      "historical-patched": "历史方法 / 漏洞已修复",
+      "stale": "超过一年无 push（不等于弃用）"
+    }
+  },
+  "projects": [
+    {
+      "id": "xiaogpt",
+      "name": "XiaoGPT",
+      "category": "speaker",
+      "ai_relation": "native",
+      "entry_type": "case",
+      "family": "xiaogpt",
+      "summary_zh": "让已有小爱音箱转接大模型，保留原设备语音入口。",
+      "device_scope": "小爱音箱；README 示例 LX06，其他型号须核对 hardware 参数",
+      "model_examples": [
+        "LX06"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "语音助手"
+      ],
+      "method": "服务桥接",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "依赖小米账号和语音接口；并非完全离线固件。"
+      ],
+      "repo_url": "https://github.com/yihong0618/xiaogpt",
+      "github_snapshot_url": "https://github.com/yihong0618/xiaogpt",
+      "website_url": null,
+      "tutorial_url": "https://github.com/yihong0618/xiaogpt/blob/main/README.md",
+      "compatibility_url": "https://github.com/yihong0618/xiaogpt/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 给出 LX06 启动、配置文件和多模型后端方法，并附作者演示媒体链接；本次未播放媒体。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/yihong0618/xiaogpt/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:02.366095+00:00",
+          "readme_blob_sha": "c599328bd3677f9685140453dc7330a38f4d304b",
+          "content_sha256": "6769f24637381c0a56ac0be30b52f6d9f7bd70a005ea63c314cf4851ca08250a"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-07T05:49:36Z",
+        "checked_at": "2026-10-20T10:06:02.366095+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/yihong0618/xiaogpt/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:02.366095+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "required-xiaomi; optional-model-provider"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "常开主机",
+          "按需付费的模型/TTS 服务"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "停止桥接进程可停止转发；本条路径不替换音箱固件。",
+        "recovery_url": "https://github.com/yihong0618/xiaogpt#readme"
+      },
+      "keywords": [
+        "Xiaomi XiaoAI ChatGPT",
+        "小爱音箱 大模型 免刷机",
+        "XiaoGPT",
+        "speaker",
+        "语音助手"
+      ],
+      "checked_at": "2026-10-20T10:06:02.366095+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v3.23",
+        "url": "https://github.com/yihong0618/xiaogpt/releases/tag/v3.23",
+        "published_at": "2025-10-26T01:31:37Z"
+      }
+    },
+    {
+      "id": "open-xiaoai",
+      "name": "Open-XiaoAI",
+      "category": "speaker",
+      "ai_relation": "native",
+      "entry_type": "case",
+      "family": "open-xiaoai",
+      "summary_zh": "接管旧小爱音箱的麦克风和播放链路，连接外部 AI 服务。",
+      "device_scope": "小爱音箱 Pro LX06 / 小米智能音箱 Pro OH2P；按型号刷机文档",
+      "model_examples": [
+        "LX06",
+        "OH2P"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "语音助手"
+      ],
+      "method": "补丁固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "补丁固件有型号限制，不能将教程推广到所有小爱音箱。"
+      ],
+      "repo_url": "https://github.com/idootop/open-xiaoai",
+      "github_snapshot_url": "https://github.com/idootop/open-xiaoai",
+      "website_url": null,
+      "tutorial_url": "https://github.com/idootop/open-xiaoai/blob/main/docs/flash.md",
+      "compatibility_url": "https://github.com/idootop/open-xiaoai/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确限定两款 Pro 音箱，提供固件、客户端、服务端三步入口；仓库已归档，仍有历史可复现材料。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/idootop/open-xiaoai/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:02.367094+00:00",
+          "readme_blob_sha": "42264b979ad3a4ee77012ceac8a02d93c4aa2c46",
+          "content_sha256": "64cfb5a0dbeb91fe1b62696a22a313c300b4ee93f17dc4cf7c03ec4d22c8b517"
+        }
+      ],
+      "maintenance": {
+        "status": "archived",
+        "github_archived": true,
+        "last_push_at": "2026-04-04T07:58:12Z",
+        "checked_at": "2026-10-20T10:06:02.367094+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/idootop/open-xiaoai/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:02.367094+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "LX06: yes; OH2P: no（按官方教程）",
+        "soldering": "no-in-documented-USB-route",
+        "cloud_api": "optional"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "主机",
+          "按配置选用模型/API 服务"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "官方 flash.md 说明使用双系统分区，可切回 boot1；该路径取决于原分区完好，本次未实机验证。",
+        "recovery_url": "https://github.com/idootop/open-xiaoai/blob/main/docs/flash.md"
+      },
+      "keywords": [
+        "Open XiaoAI LX06 OH2P",
+        "小爱音箱 Pro 刷机 AI",
+        "Open-XiaoAI",
+        "speaker",
+        "语音助手"
+      ],
+      "checked_at": "2026-10-20T10:06:02.367094+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "OH2P_1.58.6",
+        "url": "https://github.com/idootop/open-xiaoai/releases/tag/OH2P_1.58.6",
+        "published_at": "2026-01-01T09:10:12Z"
+      }
+    },
+    {
+      "id": "mi-gpt",
+      "name": "MiGPT",
+      "category": "speaker",
+      "ai_relation": "native",
+      "entry_type": "platform",
+      "family": "mi-gpt",
+      "summary_zh": "以服务端桥接方式为小爱音箱增加大模型对话。",
+      "device_scope": "文档兼容表中的小米小爱音箱",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "语音助手"
+      ],
+      "method": "服务桥接",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "历史方案；归档与替代项目应优先阅读。"
+      ],
+      "repo_url": "https://github.com/idootop/mi-gpt",
+      "github_snapshot_url": "https://github.com/idootop/mi-gpt",
+      "website_url": null,
+      "tutorial_url": "https://github.com/idootop/mi-gpt/blob/main/README.md",
+      "compatibility_url": "https://github.com/idootop/mi-gpt/blob/main/docs/compatibility.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 有安装配置、模型连接和型号兼容文档，明确宣布停止维护。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/idootop/mi-gpt/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:02.368094+00:00",
+          "readme_blob_sha": "eb0219634283710e5d770f8b63a5c1526e9695c1",
+          "content_sha256": "1a5d92a0d9d9021b7a6090ef8832c24ba89dbd194b5bf2d5d309afec0b3d36ec"
+        }
+      ],
+      "maintenance": {
+        "status": "archived",
+        "github_archived": true,
+        "last_push_at": "2026-04-04T07:53:49Z",
+        "checked_at": "2026-10-20T10:06:02.368094+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/idootop/mi-gpt/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:02.368094+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "required-xiaomi"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "常开主机",
+          "模型/TTS API"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "停用 Docker/Node 服务可停止桥接；保留原音箱固件。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "MiGPT",
+        "speaker",
+        "语音助手"
+      ],
+      "checked_at": "2026-10-20T10:06:02.368094+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v4.2.0",
+        "url": "https://github.com/idootop/mi-gpt/releases/tag/v4.2.0",
+        "published_at": "2024-08-26T14:04:05Z"
+      }
+    },
+    {
+      "id": "onju-voice",
+      "name": "Onju Voice",
+      "category": "speaker",
+      "ai_relation": "native",
+      "entry_type": "case",
+      "family": "onju-voice",
+      "summary_zh": "用 ESP32-S3 定制主板替换 Nest Mini 主板，复用外壳与扬声器。",
+      "device_scope": "Google Nest Mini 第二代外壳与外围部件",
+      "model_examples": [
+        "Google Nest Mini 2nd gen"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "语音助手"
+      ],
+      "method": "替换主板",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "这是换板改造，不是对原 Google 固件的软件越狱。"
+      ],
+      "repo_url": "https://github.com/justLV/onju-voice",
+      "github_snapshot_url": "https://github.com/justLV/onju-voice",
+      "website_url": null,
+      "tutorial_url": "https://github.com/justLV/onju-voice/blob/master/README.md",
+      "compatibility_url": "https://github.com/justLV/onju-voice/blob/master/README.md",
+      "x_sources": [
+        {
+          "url": "https://x.com/justLV/status/1681377298308820992",
+          "status": "original-text-read",
+          "video_viewed": false,
+          "checked_at": "2026-10-20T10:18:44.541033+00:00",
+          "note": "作者正文通过浏览器读取；未把浏览量或点赞作为成功证据。"
+        }
+      ],
+      "evidence": {
+        "level": "E2",
+        "reason": "作者提供 PCB、固件及服务器安装说明；README 声明不再积极维护，后继为 onju-v2。独立制作者视频说明确认其进行了改装演示，但本轮未播放视频，未升级为独立实测等级。 已浏览作者 X 原帖正文、换板解释和视频组件；未逐帧核验视频。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/justLV/onju-voice/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:02.368094+00:00",
+          "readme_blob_sha": "ea7568b98bac5332c03c7ba2c9e108bc73eebf4f",
+          "content_sha256": "9c3f3b1e2055ce3a8239e50d8a58c4ab1ad16012618ceaaa1a3d0303c96178f5"
+        }
+      ],
+      "maintenance": {
+        "status": "deprecated",
+        "github_archived": false,
+        "last_push_at": "2026-04-13T06:53:08Z",
+        "checked_at": "2026-10-20T10:06:02.368094+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/justLV/onju-voice/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:06:02.368094+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "yes",
+        "soldering": "assembly-dependent",
+        "cloud_api": "optional"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "Onju PCBA",
+          "拆装工具",
+          "主机",
+          "可选云语音/API"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "保留原主板可提供硬件回退选项；拆装损伤不可由软件恢复。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Google Nest Mini local assistant",
+        "Onju Voice 换板",
+        "Onju Voice",
+        "speaker",
+        "语音助手"
+      ],
+      "checked_at": "2026-10-20T10:06:02.368094+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "onju-v2",
+      "name": "Onju Voice v2",
+      "category": "speaker",
+      "ai_relation": "native",
+      "entry_type": "case",
+      "family": "onju-voice",
+      "summary_zh": "将改装 Nest Mini 连接本地或云端对话代理，扩展多设备语音入口。",
+      "device_scope": "Google Nest Mini 第二代 + Onju 替换板",
+      "model_examples": [
+        "Google Nest Mini 2nd gen"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "语音助手"
+      ],
+      "method": "替换主板",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "同一家族的后继版本，不能算作独立硬件复现。"
+      ],
+      "repo_url": "https://github.com/justLV/onju-v2",
+      "github_snapshot_url": "https://github.com/justLV/onju-v2",
+      "website_url": null,
+      "tutorial_url": "https://github.com/justLV/onju-v2/blob/master/README.md",
+      "compatibility_url": "https://github.com/justLV/onju-v2/blob/master/README.md",
+      "x_sources": [
+        {
+          "url": "https://x.com/justLV/status/1681377298308820992",
+          "status": "original-text-read",
+          "video_viewed": false,
+          "checked_at": "2026-10-20T10:18:44.541033+00:00",
+          "note": "作者正文通过浏览器读取；未把浏览量或点赞作为成功证据。"
+        }
+      ],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 有第二代 Nest Mini 替换板、服务器配置和固件烧录步骤；其 X 链接指向早期 Onju 演示，不作为 v2 新功能实测证据。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/justLV/onju-v2/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:02.369088+00:00",
+          "readme_blob_sha": "8db184c119fa0a5298f1e7144f9bdd92f34a1608",
+          "content_sha256": "df7c41761213db21f02fdb78c4d92b18ad55c5bafa2c95abcbd5e0d31f6f443a"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-04-13T17:01:04Z",
+        "checked_at": "2026-10-20T10:06:02.369088+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/justLV/onju-v2/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:06:02.369088+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "yes",
+        "soldering": "assembly-dependent",
+        "cloud_api": "optional"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "Onju PCBA",
+          "拆装工具",
+          "音频/模型服务器",
+          "可选 API"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "保留原主板；硬件损伤和返修可行性需自行评估。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Nest Mini ESP32 S3",
+        "OnjuClaw local voice",
+        "Onju Voice v2",
+        "speaker",
+        "语音助手"
+      ],
+      "checked_at": "2026-10-20T10:06:02.369088+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "wyoming-satellite",
+      "name": "Wyoming Satellite",
+      "category": "speaker",
+      "ai_relation": "native",
+      "entry_type": "platform",
+      "family": "linux-voice-assistant",
+      "summary_zh": "将闲置 Linux 设备作为 Home Assistant 语音卫星。",
+      "device_scope": "可运行 Linux 的旧 Raspberry Pi 等主机 + 麦克风/扬声器",
+      "model_examples": [
+        "Raspberry Pi Zero 2 W + ReSpeaker 2Mic HAT"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "语音助手"
+      ],
+      "method": "安装服务",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "需要上游语音服务；卫星不等于本地运行完整大模型。"
+      ],
+      "repo_url": "https://github.com/rhasspy/wyoming-satellite",
+      "github_snapshot_url": "https://github.com/rhasspy/wyoming-satellite",
+      "website_url": null,
+      "tutorial_url": "https://github.com/rhasspy/wyoming-satellite/blob/master/docs/tutorial_2mic.md",
+      "compatibility_url": "https://github.com/rhasspy/wyoming-satellite/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 提供 Zero 2 W 与 2Mic HAT 教程，明确弃用并指向 Linux Voice Assistant。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/rhasspy/wyoming-satellite/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:08.572806+00:00",
+          "readme_blob_sha": "a73cc8f3081367d84430c7029e972638f986e3ad",
+          "content_sha256": "647fd5962ad40b344bd48eaabb160531d5558a584fc4d26685f1d258bf0bd9a0"
+        }
+      ],
+      "maintenance": {
+        "status": "archived",
+        "github_archived": true,
+        "last_push_at": "2026-01-24T13:20:36Z",
+        "checked_at": "2026-10-20T10:06:08.572806+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/rhasspy/wyoming-satellite/blob/master/LICENSE.md",
+        "checked_at": "2026-10-20T10:06:08.572806+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "accessory-dependent",
+        "cloud_api": "optional"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "麦克风/音频附件",
+          "服务端"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Wyoming Satellite",
+        "speaker",
+        "语音助手"
+      ],
+      "checked_at": "2026-10-20T10:06:08.572806+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v1.4.1",
+        "url": "https://github.com/rhasspy/wyoming-satellite/releases/tag/v1.4.1",
+        "published_at": "2025-02-10T17:59:07Z"
+      }
+    },
+    {
+      "id": "linux-voice-assistant",
+      "name": "Linux Voice Assistant",
+      "category": "speaker",
+      "ai_relation": "native",
+      "entry_type": "platform",
+      "family": "linux-voice-assistant",
+      "summary_zh": "在已有 Linux 硬件上部署 Home Assistant 语音终端。",
+      "device_scope": "支持音频输入输出的 Linux 主机",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "语音助手"
+      ],
+      "method": "安装服务",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "音频驱动、架构及服务端能力须逐机核对。"
+      ],
+      "repo_url": "https://github.com/OHF-Voice/linux-voice-assistant",
+      "github_snapshot_url": "https://github.com/OHF-Voice/linux-voice-assistant",
+      "website_url": null,
+      "tutorial_url": "https://github.com/OHF-Voice/linux-voice-assistant/blob/main/README.md",
+      "compatibility_url": "https://github.com/OHF-Voice/linux-voice-assistant/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确是实验性 Linux 语音卫星，提供安装、音频和架构说明；不将其等同独立离线大模型。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/OHF-Voice/linux-voice-assistant/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:08.598152+00:00",
+          "readme_blob_sha": "92346b6a850d2eb207aea17ce3d0091747017110",
+          "content_sha256": "b8c2857a2aa6e5f023b904cccb5bf185819a9091a008bb7beadf3055c4dbd4cb"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-01T20:29:45Z",
+        "checked_at": "2026-10-20T10:06:08.598152+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "Apache-2.0",
+        "url": "https://github.com/OHF-Voice/linux-voice-assistant/blob/main/LICENSE.md",
+        "checked_at": "2026-10-20T10:06:08.598152+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "accessory-dependent",
+        "cloud_api": "optional"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "兼容麦克风与扬声器",
+          "Home Assistant 主机"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Linux Voice Assistant",
+        "speaker",
+        "语音助手"
+      ],
+      "checked_at": "2026-10-20T10:06:08.598152+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v1.1.15",
+        "url": "https://github.com/OHF-Voice/linux-voice-assistant/releases/tag/v1.1.15",
+        "published_at": "2026-08-02T22:04:08Z"
+      }
+    },
+    {
+      "id": "lineageos",
+      "name": "LineageOS",
+      "category": "mobile",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "lineageos",
+      "summary_zh": "为官方停止更新的部分 Android 手机和平板提供替代系统。",
+      "device_scope": "官方 wiki 列出的 Android 具体型号及代号",
+      "model_examples": [
+        "Fairphone 2 (FP2)，仅作为 wiki 条目示例，不保证当前仍有构建"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "系统延寿"
+      ],
+      "method": "替换系统",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "同商品名不同地区、运营商和型号可能不兼容；解锁通常清除数据。"
+      ],
+      "repo_url": "https://github.com/LineageOS/lineage_wiki",
+      "github_snapshot_url": "https://github.com/LineageOS/lineage_wiki",
+      "website_url": null,
+      "tutorial_url": "https://wiki.lineageos.org/devices/",
+      "compatibility_url": "https://github.com/LineageOS/lineage_wiki/blob/main/_data/devices/FP2.yml",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "官方 wiki 源码中逐机型 YAML 和安装模板可读取；网页访问受限。条目存在不等于当前维护，安装前必须检查当前构建。 FP2 的 maintainers 列表为空，仅作为历史机型条目，不能推荐为当前维护版本。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/LineageOS/lineage_wiki/blob/main/_data/devices/FP2.yml",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:08.641537+00:00",
+          "readme_blob_sha": null,
+          "content_sha256": null
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T06:00:06Z",
+        "checked_at": "2026-10-20T10:06:08.641537+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "UNKNOWN",
+        "url": null,
+        "checked_at": "2026-10-20T10:06:08.641537+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "expected",
+        "bricking": "possible",
+        "recovery": "必须先找到对应机型的原厂映像和恢复步骤；本目录不提供通用回锁指令。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "LineageOS",
+        "mobile",
+        "系统延寿"
+      ],
+      "checked_at": "2026-10-20T10:06:08.641537+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "ubports",
+      "name": "Ubuntu Touch / UBports",
+      "category": "mobile",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "ubports",
+      "summary_zh": "通过官方安装器为支持的手机安装 Ubuntu Touch。",
+      "device_scope": "UBports 设备列表中支持的手机和平板",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "系统延寿"
+      ],
+      "method": "替换系统",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "需要匹配 bootloader 和厂商固件前置版本。"
+      ],
+      "repo_url": "https://github.com/ubports/ubports-installer",
+      "github_snapshot_url": "https://github.com/ubports/ubports-installer",
+      "website_url": "https://github.com/ubports/ubports-installer/releases",
+      "tutorial_url": "https://github.com/ubports/ubports-installer/blob/master/README.md",
+      "compatibility_url": "https://devices.ubuntu-touch.io/",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "官方安装器 README 与发布渠道存在，支持范围由 UBports devices 页面决定。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/ubports/ubports-installer/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:08:23.344604+00:00",
+          "readme_blob_sha": "f30db3b6f2c6fced99e666b5553682818a850b43",
+          "content_sha256": "348fdbc89b6cfff9f84196daa1ee4349742b66d126ac16ad9c259f6bcf91f997"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-09-28T18:23:54Z",
+        "checked_at": "2026-10-20T10:08:23.344604+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-3.0",
+        "url": "https://github.com/ubports/ubports-installer/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:08:23.344604+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "expected",
+        "bricking": "possible",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Ubuntu Touch / UBports",
+        "mobile",
+        "系统延寿"
+      ],
+      "checked_at": "2026-10-20T10:08:23.344604+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "0.11.2",
+        "url": "https://github.com/ubports/ubports-installer/releases/tag/0.11.2",
+        "published_at": "2025-07-01T12:27:21Z"
+      }
+    },
+    {
+      "id": "termux",
+      "name": "Termux",
+      "category": "mobile",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "termux",
+      "summary_zh": "无需替换系统，在闲置 Android 上运行命令行与轻量服务。",
+      "device_scope": "满足当前 Android 版本要求的手机/平板",
+      "model_examples": [
+        "Android 7+（完整应用和软件包支持）"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "Linux终端"
+      ],
+      "method": "安装应用",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "Android 后台限制和版本支持仍存在，不等于完整 Linux 内核环境。"
+      ],
+      "repo_url": "https://github.com/termux/termux-app",
+      "github_snapshot_url": "https://github.com/termux/termux-app",
+      "website_url": "https://f-droid.org/en/packages/com.termux",
+      "tutorial_url": "https://github.com/termux/termux-app/blob/master/README.md",
+      "compatibility_url": "https://github.com/termux/termux-app/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确 Android 7+ 完整支持；Android 5/6 仅旧兼容应用不含软件包更新支持。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/termux/termux-app/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:14.472722+00:00",
+          "readme_blob_sha": "48e43215d01a63b4ff98e1b4d83e6a2d60a5f62b",
+          "content_sha256": "3a72268adae0835c31decf186f0059305cd5a45fc2425e64b1520e7ce29897f9"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-09-26T05:11:44Z",
+        "checked_at": "2026-10-20T10:06:14.472722+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-3.0-only（含文件例外）",
+        "url": "https://github.com/termux/termux-app/blob/master/LICENSE.md",
+        "checked_at": "2026-10-20T10:06:14.472722+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "not-expected",
+        "bricking": "workflow-dependent",
+        "recovery": "卸载前导出 Termux 私有目录；卸载应用通常会删除该应用数据。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "old Android Linux server",
+        "旧手机 Termux 终端",
+        "Termux",
+        "mobile",
+        "Linux终端"
+      ],
+      "checked_at": "2026-10-20T10:06:14.472722+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v0.119.0-beta.3",
+        "url": "https://github.com/termux/termux-app/releases/tag/v0.119.0-beta.3",
+        "published_at": "2025-05-22T22:48:54Z"
+      }
+    },
+    {
+      "id": "droidcam",
+      "name": "DroidCam Linux client",
+      "category": "mobile",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "droidcam",
+      "summary_zh": "将闲置手机作为电脑视频输入设备。",
+      "device_scope": "兼容 DroidCam 移动应用的手机 + Linux 电脑",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "摄像头"
+      ],
+      "method": "安装应用",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "此仓库是 Linux 客户端，不能推断移动端全部开源；持续供电需检查电池。"
+      ],
+      "repo_url": "https://github.com/dev47apps/droidcam-linux-client",
+      "github_snapshot_url": "https://github.com/dev47apps/droidcam-linux-client",
+      "website_url": "http://www.dev47apps.com",
+      "tutorial_url": "https://www.dev47apps.com/droidcam/linux/",
+      "compatibility_url": "https://github.com/dev47apps/droidcam-linux-client/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "Linux 客户端 README 提供安装、构建和 Raspberry Pi 入口；移动应用兼容性须另查。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/dev47apps/droidcam-linux-client/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:14.539040+00:00",
+          "readme_blob_sha": "04ad3cf593fce73e56acbeb0200d0b9465bea13f",
+          "content_sha256": "92f642f736c3a5ca940bf4d2a2569e7c7522599af29a5fb631ca77da2359c080"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-02-19T03:27:10Z",
+        "checked_at": "2026-10-20T10:06:14.539040+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-2.0",
+        "url": "https://github.com/dev47apps/droidcam-linux-client/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:06:14.539040+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "卸载客户端与虚拟摄像头模块；持续充电设备检查电池状况。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "DroidCam Linux client",
+        "mobile",
+        "摄像头"
+      ],
+      "checked_at": "2026-10-20T10:06:14.539040+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v2.1.5",
+        "url": "https://github.com/dev47apps/droidcam-linux-client/releases/tag/v2.1.5",
+        "published_at": "2026-02-19T03:27:10Z"
+      }
+    },
+    {
+      "id": "deskreen",
+      "name": "Deskreen",
+      "category": "mobile",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "deskreen",
+      "summary_zh": "用浏览器接收桌面共享，让旧平板成为辅助显示终端。",
+      "device_scope": "具有兼容现代浏览器的旧平板/手机/电脑",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "副屏"
+      ],
+      "method": "安装应用",
+      "difficulty": "easy",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "独立扩展屏通常还需虚拟显示适配器；过旧浏览器可能无法运行。"
+      ],
+      "repo_url": "https://github.com/pavlobu/deskreen",
+      "github_snapshot_url": "https://github.com/pavlobu/deskreen",
+      "website_url": "https://deskreen.com",
+      "tutorial_url": "https://deskreen.com/faq",
+      "compatibility_url": "https://github.com/pavlobu/deskreen/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确通过 WebRTC 将电脑屏幕发送至浏览器；旧平板必须能运行兼容浏览器。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/pavlobu/deskreen/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:14.680124+00:00",
+          "readme_blob_sha": "d5944b6258985f084c9d7d1bfbc8139170a3a0be",
+          "content_sha256": "409338899fb555665ff781b1020dee50b7bff6bcda3f5bed8856c5fee22d3f8f"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-07-08T14:35:42Z",
+        "checked_at": "2026-10-20T10:06:14.680124+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "AGPL-3.0",
+        "url": "https://github.com/pavlobu/deskreen/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:06:14.680124+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "独立扩展桌面时可能需要虚拟显示适配器"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "停止共享或卸载桌面端；不替换平板固件。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Deskreen",
+        "mobile",
+        "副屏"
+      ],
+      "checked_at": "2026-10-20T10:06:14.680124+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v3.2.16",
+        "url": "https://github.com/pavlobu/deskreen/releases/tag/v3.2.16",
+        "published_at": "2026-07-08T16:51:33Z"
+      }
+    },
+    {
+      "id": "oclp",
+      "name": "OpenCore Legacy Patcher",
+      "category": "computer",
+      "ai_relation": "infrastructure",
+      "entry_type": "case",
+      "family": "oclp",
+      "summary_zh": "为部分不再被新版 macOS 正式支持的 Mac 提供引导与驱动补丁。",
+      "device_scope": "官方支持表内的 Intel Mac",
+      "model_examples": [
+        "Macmini6,1",
+        "Macmini6,2",
+        "MacBookPro9,2；其他型号按官方矩阵"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "系统延寿"
+      ],
+      "method": "引导与系统补丁",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "不是所有 Mac/系统组合都可用，系统更新可能要求重打补丁。"
+      ],
+      "repo_url": "https://github.com/dortania/OpenCore-Legacy-Patcher",
+      "github_snapshot_url": "https://github.com/dortania/OpenCore-Legacy-Patcher",
+      "website_url": "https://dortania.github.io/OpenCore-Legacy-Patcher/",
+      "tutorial_url": "https://dortania.github.io/OpenCore-Legacy-Patcher/",
+      "compatibility_url": "https://dortania.github.io/OpenCore-Legacy-Patcher/MODELS.html",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 提供版本范围，官方支持矩阵逐列说明 Intel Mac 型号及 GPU/USB 限制；不支持 PowerPC 或 Apple Silicon。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/dortania/OpenCore-Legacy-Patcher/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:14.752116+00:00",
+          "readme_blob_sha": "b41910538684fe6bd638356c5657139d40153a3c",
+          "content_sha256": "3a079593412e33e5d32af53938872eeb947e8ad4e391ce502813584cec47a609"
+        },
+        {
+          "url": "https://dortania.github.io/OpenCore-Legacy-Patcher/MODELS.html",
+          "kind": "official-compatibility-or-install",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:18:44.541033+00:00"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-11T05:17:11Z",
+        "checked_at": "2026-10-20T10:06:14.752116+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "BSD 4-clause style / 自定义署名条款",
+        "url": "https://github.com/dortania/OpenCore-Legacy-Patcher/blob/main/LICENSE.txt",
+        "checked_at": "2026-10-20T10:06:14.752116+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "安装 U 盘",
+          "备份盘",
+          "可选内存/SSD"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "保留备份与可启动安装介质，按照官方卸载/恢复文档回退；本次未测试设备恢复。",
+        "recovery_url": "https://dortania.github.io/OpenCore-Legacy-Patcher/UNINSTALL.html"
+      },
+      "keywords": [
+        "unsupported Intel Mac",
+        "旧 Mac 升级 OCLP",
+        "OpenCore Legacy Patcher",
+        "computer",
+        "系统延寿"
+      ],
+      "checked_at": "2026-10-20T10:06:14.752116+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "3.0.0-rc.3",
+        "url": "https://github.com/dortania/OpenCore-Legacy-Patcher/releases/tag/3.0.0-rc.3",
+        "published_at": "2026-10-08T01:07:17Z"
+      }
+    },
+    {
+      "id": "mrchromebox",
+      "name": "MrChromebox firmware utility",
+      "category": "computer",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "mrchromebox",
+      "summary_zh": "为部分旧 Chromebook/Chromebox 安装替代固件以运行其他系统。",
+      "device_scope": "MrChromebox 支持表中的 ChromeOS x86 设备",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "Linux终端"
+      ],
+      "method": "替换启动固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "按主板代号核查；解除写保护方式因机型而异。"
+      ],
+      "repo_url": "https://github.com/MrChromebox/scripts",
+      "github_snapshot_url": "https://github.com/MrChromebox/scripts",
+      "website_url": null,
+      "tutorial_url": "https://github.com/MrChromebox/scripts/blob/main/README.md",
+      "compatibility_url": "https://docs.mrchromebox.tech/docs/supported-devices.html",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "官方脚本 README 说明 RW_LEGACY / Full ROM，官方设备表按 HWID 和板型提供支持信息。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/MrChromebox/scripts/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:14.949086+00:00",
+          "readme_blob_sha": "a25f6da2a61f447cb4fe2567ce70a763c37cd117",
+          "content_sha256": "f23b1ccc2e408e6f1aeed7967888feb515ef236317c1141f5a87db00911e1c06"
+        },
+        {
+          "url": "https://docs.mrchromebox.tech/docs/supported-devices.html",
+          "kind": "official-compatibility-or-install",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:18:44.541033+00:00"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-19T15:26:28Z",
+        "checked_at": "2026-10-20T10:06:14.949086+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "Unlicense",
+        "url": "https://github.com/MrChromebox/scripts/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:14.949086+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "USB 介质",
+          "部分设备写保护/恢复工具"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "完整固件替换前保存本机备份；恢复能力取决于型号和外置刷写工具。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "MrChromebox firmware utility",
+        "computer",
+        "Linux终端"
+      ],
+      "checked_at": "2026-10-20T10:06:14.949086+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "haos",
+      "name": "Home Assistant OS",
+      "category": "computer",
+      "ai_relation": "infrastructure",
+      "entry_type": "case",
+      "family": "haos",
+      "summary_zh": "把旧小主机或瘦客户机改为家庭自动化服务器。",
+      "device_scope": "官方安装文档支持的 Generic x86-64 / 单板机",
+      "model_examples": [
+        "UEFI Generic x86-64；官方教程示例为第七代 Intel NUC"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "智能家居"
+      ],
+      "method": "替换系统",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "要满足架构、启动方式及存储条件；安装映像会覆盖目标磁盘。"
+      ],
+      "repo_url": "https://github.com/home-assistant/operating-system",
+      "github_snapshot_url": "https://github.com/home-assistant/operating-system",
+      "website_url": null,
+      "tutorial_url": "https://www.home-assistant.io/installation/generic-x86-64/",
+      "compatibility_url": "https://github.com/home-assistant/operating-system/blob/dev/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "官方 Generic x86-64 文档给出 UEFI、关闭 Secure Boot、512 字节逻辑扇区要求与实际安装步骤。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/home-assistant/operating-system/blob/dev/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:21.014236+00:00",
+          "readme_blob_sha": "7ce761f3f0cae36e6a0563e62b9200d85daff0b6",
+          "content_sha256": "e94cb85515c28e58f72107dd3f4c42bdf7e9d01a899daac61072d621a3f990f9"
+        },
+        {
+          "url": "https://www.home-assistant.io/installation/generic-x86-64/",
+          "kind": "official-compatibility-or-install",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:18:44.541033+00:00"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-19T13:52:06Z",
+        "checked_at": "2026-10-20T10:06:21.014236+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "Apache-2.0",
+        "url": "https://github.com/home-assistant/operating-system/blob/dev/LICENSE",
+        "checked_at": "2026-10-20T10:06:21.014236+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional-integrations"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "启动 U 盘",
+          "健康的系统盘",
+          "可选 Zigbee/Thread USB 适配器"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "expected",
+        "bricking": "workflow-dependent",
+        "recovery": "映像写入会覆盖目标磁盘；先保存全盘镜像，后续用原系统安装介质恢复。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "thin client Home Assistant",
+        "旧小主机 HAOS UEFI",
+        "Home Assistant OS",
+        "computer",
+        "智能家居"
+      ],
+      "checked_at": "2026-10-20T10:06:21.014236+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "18.3",
+        "url": "https://github.com/home-assistant/operating-system/releases/tag/18.3",
+        "published_at": "2026-09-17T15:52:18Z"
+      }
+    },
+    {
+      "id": "openmediavault",
+      "name": "OpenMediaVault",
+      "category": "network",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "openmediavault",
+      "summary_zh": "把旧 PC 和存储硬件改造成局域网 NAS。",
+      "device_scope": "满足安装要求的 x86-64 或受支持 ARM 主机",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "存储服务器"
+      ],
+      "method": "替换系统",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "操作系统盘与数据盘规划、旧硬盘健康及备份需单独评估。"
+      ],
+      "repo_url": "https://github.com/openmediavault/openmediavault",
+      "github_snapshot_url": "https://github.com/openmediavault/openmediavault",
+      "website_url": "https://www.openmediavault.org",
+      "tutorial_url": "https://docs.openmediavault.org/en/stable/installation/index.html",
+      "compatibility_url": "https://github.com/openmediavault/openmediavault/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 提供 Debian 安装与官方文档，并说明系统需要独占 OS 配置、不可直接容器化或并装桌面。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/openmediavault/openmediavault/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:21.021236+00:00",
+          "readme_blob_sha": "585632070c159d5d08838470a11e9d099c33450d",
+          "content_sha256": "49c14cfcf50e33e7db0801f14ddf973d7ec1053c8bab70cf2d4958c486b7294a"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T01:08:23Z",
+        "checked_at": "2026-10-20T10:06:21.021236+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-3（除另有声明文件）",
+        "url": "https://github.com/openmediavault/openmediavault/blob/master/COPYING",
+        "checked_at": "2026-10-20T10:06:21.021236+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "storage-dependent",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "系统盘",
+          "健康数据盘",
+          "独立备份"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "先备份数据和配置；NAS 或 RAID 本身不能替代独立备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "OpenMediaVault",
+        "network",
+        "存储服务器"
+      ],
+      "checked_at": "2026-10-20T10:06:21.021236+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "dietpi",
+      "name": "DietPi",
+      "category": "computer",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "dietpi",
+      "summary_zh": "以轻量系统和软件管理降低旧单板机部署服务的负担。",
+      "device_scope": "下载页提供映像的单板机及 x86_64 主机",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "家庭服务器"
+      ],
+      "method": "替换系统",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "映像、架构和 RAM 限制按目标设备核对，不保证任何旧板都可用。"
+      ],
+      "repo_url": "https://github.com/MichaIng/DietPi",
+      "github_snapshot_url": "https://github.com/MichaIng/DietPi",
+      "website_url": "https://dietpi.com/",
+      "tutorial_url": "https://dietpi.com/docs/",
+      "compatibility_url": "https://github.com/MichaIng/DietPi/blob/dev/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 说明轻量 Debian 系统与 x86_64/SBC 映像入口，有明确部署文档。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/MichaIng/DietPi/blob/dev/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:21.099504+00:00",
+          "readme_blob_sha": "9ffe8e0894603b7e18e39ed7591853e7cd7014b5",
+          "content_sha256": "2267b96e9c89d790e5ec459c993278f22f39ede3f04e0873bb996b82a0e21a58"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T04:51:25Z",
+        "checked_at": "2026-10-20T10:06:21.099504+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-2.0",
+        "url": "https://github.com/MichaIng/DietPi/blob/dev/LICENSE",
+        "checked_at": "2026-10-20T10:06:21.099504+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "expected",
+        "bricking": "workflow-dependent",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "DietPi",
+        "computer",
+        "家庭服务器"
+      ],
+      "checked_at": "2026-10-20T10:06:21.099504+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v10.7",
+        "url": "https://github.com/MichaIng/DietPi/releases/tag/v10.7",
+        "published_at": "2026-09-12T19:35:16Z"
+      }
+    },
+    {
+      "id": "openwrt",
+      "name": "OpenWrt",
+      "category": "network",
+      "ai_relation": "infrastructure",
+      "entry_type": "case",
+      "family": "openwrt",
+      "summary_zh": "用开放固件延长受支持路由器的网络功能与维护寿命。",
+      "device_scope": "Table of Hardware 中对应硬件 revision 的路由器",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "网络设备"
+      ],
+      "method": "替换固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "闪存/RAM 太小的设备可能已不支持当前稳定版。"
+      ],
+      "repo_url": "https://github.com/openwrt/openwrt",
+      "github_snapshot_url": "https://github.com/openwrt/openwrt",
+      "website_url": "https://openwrt.org",
+      "tutorial_url": "https://openwrt.org/toh/start",
+      "compatibility_url": "https://firmware-selector.openwrt.org/",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 提供 Firmware Selector 与安装信息链接；可复现范围必须细化到对应型号和硬件修订。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:08:23.344604+00:00",
+          "readme_blob_sha": "dd9f4433e703b689afda88cdd7a0e2e751054498",
+          "content_sha256": "4824a270f462191fc92c90fa9cd474b01c6ad0fe0fc3762010ff514bc5e6445b"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T09:28:57Z",
+        "checked_at": "2026-10-20T10:08:23.344604+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-2.0-only（含其他组件许可证）",
+        "url": "https://github.com/openwrt/openwrt/blob/main/COPYING",
+        "checked_at": "2026-10-20T10:08:23.344604+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "网线",
+          "可能需要 UART/编程器"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "expected",
+        "bricking": "possible",
+        "recovery": "failsafe 仅适用于仍可启动的情况；无法启动时需具体型号的 TFTP/UART/编程器恢复，不应把恢复出厂设置当作通用救砖。",
+        "recovery_url": "https://openwrt.org/docs/guide-user/troubleshooting/failsafe_and_factory_reset"
+      },
+      "keywords": [
+        "old router OpenWrt",
+        "路由器 硬件版本 恢复",
+        "OpenWrt",
+        "network",
+        "网络设备"
+      ],
+      "checked_at": "2026-10-20T10:08:23.344604+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v25.12.6",
+        "url": "https://github.com/openwrt/openwrt/releases/tag/v25.12.6",
+        "published_at": "2026-10-18T23:38:46Z"
+      }
+    },
+    {
+      "id": "freshTomato",
+      "name": "FreshTomato",
+      "category": "network",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "freshTomato",
+      "summary_zh": "为受支持的旧路由器提供替代固件和网络管理功能。",
+      "device_scope": "官方兼容表中的 Broadcom ARM 路由器",
+      "model_examples": [
+        "Netgear R7000",
+        "ASUS RT-AC68U 支持修订",
+        "Linksys EA6900；完整表见 README"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "网络设备"
+      ],
+      "method": "替换固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "只收录 ARM 仓库；镜像类型、NVRAM 和硬件版本必须匹配。"
+      ],
+      "repo_url": "https://github.com/FreshTomato-Project/freshtomato-arm",
+      "github_snapshot_url": "https://github.com/FreshTomato-Project/freshtomato-arm",
+      "website_url": "https://freshtomato.org",
+      "tutorial_url": "https://github.com/FreshTomato-Project/freshtomato-arm/blob/arm-master/README.md",
+      "compatibility_url": "https://github.com/FreshTomato-Project/freshtomato-arm/blob/arm-master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 逐项列出支持的 ARM 路由器，并提供下载和项目文档。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/FreshTomato-Project/freshtomato-arm/blob/arm-master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:26.589385+00:00",
+          "readme_blob_sha": "99f0f4548d782fd6f7c238794926a8b61b3d2987",
+          "content_sha256": "8ec8b4f6cc5ec2bd5f31ca88c2cddf42069f9935b0d3acf2597a4ac9fe94e55a"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-19T14:29:32Z",
+        "checked_at": "2026-10-20T10:06:26.589385+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-3.0",
+        "url": "https://github.com/FreshTomato-Project/freshtomato-arm/blob/arm-master/LICENSE.md",
+        "checked_at": "2026-10-20T10:06:26.589385+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "expected",
+        "bricking": "possible",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "FreshTomato",
+        "network",
+        "网络设备"
+      ],
+      "checked_at": "2026-10-20T10:06:26.589385+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "2026.4",
+        "url": "https://github.com/FreshTomato-Project/freshtomato-arm/releases/tag/2026.4",
+        "published_at": "2026-09-13T15:10:24Z"
+      }
+    },
+    {
+      "id": "libreelec",
+      "name": "LibreELEC",
+      "category": "tv",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "libreelec",
+      "summary_zh": "将旧小主机或支持的设备改为专用 Kodi 播放器。",
+      "device_scope": "官方映像覆盖的 Generic x86_64、Raspberry Pi 等设备",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "媒体中心"
+      ],
+      "method": "替换系统",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "不是为所有智能电视提供通用固件；DRM 服务可用性另行判断。"
+      ],
+      "repo_url": "https://github.com/LibreELEC/LibreELEC.tv",
+      "github_snapshot_url": "https://github.com/LibreELEC/LibreELEC.tv",
+      "website_url": "http://libreelec.tv",
+      "tutorial_url": "https://libreelec.tv/",
+      "compatibility_url": "https://github.com/LibreELEC/LibreELEC.tv/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "官方 README 有媒体系统说明、网站与发布入口；使用前须检查当前映像架构。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/LibreELEC/LibreELEC.tv/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:27.217168+00:00",
+          "readme_blob_sha": "027927918e49015a4524d01131615934eee32ad4",
+          "content_sha256": "2c2ab96e8abed9202cd9962b1937e735718402c5bb533356389af7433f879763"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-19T01:56:33Z",
+        "checked_at": "2026-10-20T10:06:27.217168+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-2.0（README 声明；上游组件分别授权）",
+        "url": "https://github.com/LibreELEC/LibreELEC.tv/blob/master/README.md",
+        "checked_at": "2026-10-20T10:06:27.217168+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional-content-services"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "LibreELEC",
+        "tv",
+        "媒体中心"
+      ],
+      "checked_at": "2026-10-20T10:06:27.217168+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "12.2.1",
+        "url": "https://github.com/LibreELEC/LibreELEC.tv/releases/tag/12.2.1",
+        "published_at": "2025-10-31T21:41:40Z"
+      }
+    },
+    {
+      "id": "coreelec",
+      "name": "CoreELEC",
+      "category": "tv",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "coreelec",
+      "summary_zh": "为兼容 Amlogic 电视盒提供专用媒体系统。",
+      "device_scope": "官方支持表中的 Amlogic 盒子及 SoC/板型",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "媒体中心"
+      ],
+      "method": "外置启动或替换系统",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "优先核查外置介质启动，不能仅看外壳品牌或 SoC 就认定支持。"
+      ],
+      "repo_url": "https://github.com/CoreELEC/CoreELEC",
+      "github_snapshot_url": "https://github.com/CoreELEC/CoreELEC",
+      "website_url": "https://coreelec.org",
+      "tutorial_url": "https://wiki.coreelec.org/",
+      "compatibility_url": "https://github.com/CoreELEC/CoreELEC/blob/coreelec-22/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确社区 Kodi 系统，仓库提供发布与文档；不能据此推断所有 Amlogic 盒子支持。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/CoreELEC/CoreELEC/blob/coreelec-22/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:27.345409+00:00",
+          "readme_blob_sha": "e2fc7a00ca6d7e9033c0256481df8bfd53c2a053",
+          "content_sha256": "0f073109afa051534077071af53c45de5b2a948872873703ee6db9dd82ea37b9"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-18T15:09:16Z",
+        "checked_at": "2026-10-20T10:06:27.345409+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-2.0（README 声明；上游组件分别授权）",
+        "url": "https://github.com/CoreELEC/CoreELEC/blob/coreelec-22/README.md",
+        "checked_at": "2026-10-20T10:06:27.345409+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "optional-content-services"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "兼容 SD/USB 介质"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "先确认外置启动方法和原系统返回方式；写入内部存储前另核对该板型的恢复映像。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Amlogic CoreELEC device tree",
+        "旧电视盒 Kodi 外置启动",
+        "CoreELEC",
+        "tv",
+        "媒体中心"
+      ],
+      "checked_at": "2026-10-20T10:06:27.345409+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "22.0-Piers_rc1",
+        "url": "https://github.com/CoreELEC/CoreELEC/releases/tag/22.0-Piers_rc1",
+        "published_at": "2026-10-03T21:26:48Z"
+      }
+    },
+    {
+      "id": "armbian-tv",
+      "name": "Armbian for Amlogic / Rockchip / Allwinner",
+      "category": "tv",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "armbian-tv",
+      "summary_zh": "将部分闲置电视盒转为 Linux 轻量服务主机。",
+      "device_scope": "项目支持表内的盒子/开发板及准确 SoC/DTB",
+      "model_examples": [
+        "S905X3、S905X2、S922X 等 SoC 下的项目支持板型；不能只匹配 SoC"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "家庭服务器"
+      ],
+      "method": "外置启动或替换系统",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "社区适配，不等同 Armbian 官方支持；eMMC 安装风险高于外置启动。"
+      ],
+      "repo_url": "https://github.com/ophub/amlogic-s9xxx-armbian",
+      "github_snapshot_url": "https://github.com/ophub/amlogic-s9xxx-armbian",
+      "website_url": null,
+      "tutorial_url": "https://github.com/ophub/amlogic-s9xxx-armbian/tree/main/documents",
+      "compatibility_url": "https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明示扩展至 Armbian 官方未支持的电视盒，并给出支持表和安装文档。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:32.574908+00:00",
+          "readme_blob_sha": "4a96bb2b63c4b3ce36051e439f48f309af4fef79",
+          "content_sha256": "9a727d7eaff06de4d7b152df67ee5784d779fe65101f75d7b96eefde3d1abd29"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T01:22:53Z",
+        "checked_at": "2026-10-20T10:06:32.574908+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-2.0",
+        "url": "https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:32.574908+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "先外置介质测试网卡、存储和稳定性；本次未核验每种盒子的救砖文件。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Armbian for Amlogic / Rockchip / Allwinner",
+        "tv",
+        "家庭服务器"
+      ],
+      "checked_at": "2026-10-20T10:06:32.574908+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "Armbian_trixie_arm64_server_2026.10",
+        "url": "https://github.com/ophub/amlogic-s9xxx-armbian/releases/tag/Armbian_trixie_arm64_server_2026.10",
+        "published_at": "2026-10-01T04:54:20Z"
+      }
+    },
+    {
+      "id": "webos-homebrew",
+      "name": "webOS Homebrew Channel",
+      "category": "tv",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "webos-homebrew",
+      "summary_zh": "为自有 webOS 电视提供社区应用安装与管理入口。",
+      "device_scope": "满足 root 前提的 LG webOS 电视",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "应用扩展"
+      ],
+      "method": "安装应用及权限扩展",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "依赖具体固件可用的提权/开发环境；不是电视故障维修方案。"
+      ],
+      "repo_url": "https://github.com/webosbrew/webos-homebrew-channel",
+      "github_snapshot_url": "https://github.com/webosbrew/webos-homebrew-channel",
+      "website_url": null,
+      "tutorial_url": "https://github.com/webosbrew/webos-homebrew-channel/blob/main/README.md",
+      "compatibility_url": "https://github.com/webosbrew/webos-homebrew-channel/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 列出安装、root 功能和 failsafe 机制，明确是非官方社区商店。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/webosbrew/webos-homebrew-channel/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:32.926675+00:00",
+          "readme_blob_sha": "71fed60ad78db04258fc78c06213f265528b18df",
+          "content_sha256": "8f7e3546bf29a18cb3e9322a74036be2ed105012dedb6db21d29d94a57676251"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-08-03T11:05:15Z",
+        "checked_at": "2026-10-20T10:06:32.926675+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/webosbrew/webos-homebrew-channel/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:32.926675+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "README 有 failsafe 紧急 shell 说明；不能保证恢复所有启动故障。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "webOS Homebrew Channel",
+        "tv",
+        "应用扩展"
+      ],
+      "checked_at": "2026-10-20T10:06:32.926675+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v0.7.3",
+        "url": "https://github.com/webosbrew/webos-homebrew-channel/releases/tag/v0.7.3",
+        "published_at": "2026-01-11T16:39:11Z"
+      }
+    },
+    {
+      "id": "rootmytv",
+      "name": "RootMyTV",
+      "category": "tv",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "rootmytv",
+      "summary_zh": "保留旧 webOS 电视运行 homebrew 的历史入口。",
+      "device_scope": "项目明确列出的旧 LG webOS 固件版本",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "应用扩展"
+      ],
+      "method": "权限解锁",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "已修复漏洞的新版固件不适用，不提供绕过他人账号锁内容。"
+      ],
+      "repo_url": "https://github.com/RootMyTV/RootMyTV.github.io",
+      "github_snapshot_url": "https://github.com/RootMyTV/RootMyTV.github.io",
+      "website_url": "https://RootMy.TV",
+      "tutorial_url": "https://github.com/RootMyTV/RootMyTV.github.io/blob/main/README.md",
+      "compatibility_url": "https://github.com/RootMyTV/RootMyTV.github.io/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 直接说明 v1/v2 漏洞已修复，2022 年中以后固件一般不适用；保留为历史基础设施。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/RootMyTV/RootMyTV.github.io/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:33.330544+00:00",
+          "readme_blob_sha": "bf67fd064e2af7b0c59c00e94e4b65b88769eec3",
+          "content_sha256": "2d66186a86b2618a6f6cfb34e19b78c5b37212a4a142a4fee488c15203901a2d"
+        }
+      ],
+      "maintenance": {
+        "status": "historical-patched",
+        "github_archived": false,
+        "last_push_at": "2025-01-05T12:36:20Z",
+        "checked_at": "2026-10-20T10:06:33.330544+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/RootMyTV/RootMyTV.github.io/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:33.330544+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "原文说明没有既有 root 时通常无法降级；切勿把旧教程当成新固件方案。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "RootMyTV",
+        "tv",
+        "应用扩展"
+      ],
+      "checked_at": "2026-10-20T10:06:33.330544+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v2.0.0",
+        "url": "https://github.com/RootMyTV/RootMyTV.github.io/releases/tag/v2.0.0",
+        "published_at": "2022-01-14T18:00:40Z"
+      }
+    },
+    {
+      "id": "koreader",
+      "name": "KOReader",
+      "category": "ereader",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "koreader",
+      "summary_zh": "延长旧电子书阅读器在多格式阅读、排版与同步方面的用途。",
+      "device_scope": "支持的 Kindle、Kobo、PocketBook、Android 阅读设备",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "阅读扩展"
+      ],
+      "method": "安装应用",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "各平台安装前提不同；Kindle 一般需要可用的 jailbreak。"
+      ],
+      "repo_url": "https://github.com/koreader/koreader",
+      "github_snapshot_url": "https://github.com/koreader/koreader",
+      "website_url": "http://koreader.rocks/",
+      "tutorial_url": "https://github.com/koreader/koreader/wiki",
+      "compatibility_url": "https://github.com/koreader/koreader/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确电子书设备平台、下载、用户指南与 wiki；Kindle 和 Kobo 的安装前提不同。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/koreader/koreader/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:08:23.345604+00:00",
+          "readme_blob_sha": "a5f638ef5e263a45832ad5236e2459098a4fd999",
+          "content_sha256": "c92b4e7f503350c79d4f32ba1f1fb8c6cb273baec03d82ce7696c62606530ec1"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T07:40:14Z",
+        "checked_at": "2026-10-20T10:08:23.345604+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "AGPL-3.0",
+        "url": "https://github.com/koreader/koreader/blob/master/COPYING",
+        "checked_at": "2026-10-20T10:08:23.345604+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional-sync"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "按平台卸载应用；jailbreak 与引导修改的恢复是另一个步骤。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "KOReader",
+        "ereader",
+        "阅读扩展"
+      ],
+      "checked_at": "2026-10-20T10:08:23.345604+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "ota",
+        "url": "https://github.com/koreader/koreader/releases/tag/ota",
+        "published_at": "2026-09-29T03:03:22Z"
+      }
+    },
+    {
+      "id": "kindle-carousel",
+      "name": "Kindle Carousel",
+      "category": "ereader",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "kindle-carousel",
+      "summary_zh": "将旧 Kindle 变为可切换内容的信息看板。",
+      "device_scope": "项目教程中的旧 Kindle，逐项检查机型与 jailbreak 前提",
+      "model_examples": [
+        "Kindle 3 Keyboard",
+        "Kindle 4 NT"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "信息屏"
+      ],
+      "method": "安装脚本",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "刷新速度、按键和网络脚本适配不应假设跨型号通用。"
+      ],
+      "repo_url": "https://github.com/qadzek/kindle-carousel",
+      "github_snapshot_url": "https://github.com/qadzek/kindle-carousel",
+      "website_url": null,
+      "tutorial_url": "https://github.com/qadzek/kindle-carousel/blob/main/README.md",
+      "compatibility_url": "https://github.com/qadzek/kindle-carousel/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 指定 Kindle 3 / 4 NT、SSH、三部分安装顺序和作者演示；持续监听按键会影响续航。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/qadzek/kindle-carousel/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:08:23.344604+00:00",
+          "readme_blob_sha": "ddd7da6a526972f181ed1ff1f7d6631a0a08ec06",
+          "content_sha256": "58394e9a3c7a74d63b653288fde37042f9d213dbaeecef258309111eb3785a03"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-15T13:38:16Z",
+        "checked_at": "2026-10-20T10:08:23.344604+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/qadzek/kindle-carousel/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:08:23.344604+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no-local-server-possible"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "常开截图服务器",
+          "电源"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "停用 Kindle 脚本并移除自动启动项；jailbreak 恢复需另查型号。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Kindle Carousel",
+        "ereader",
+        "信息屏"
+      ],
+      "checked_at": "2026-10-20T10:08:23.344604+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v2.2.1",
+        "url": "https://github.com/qadzek/kindle-carousel/releases/tag/v2.2.1",
+        "published_at": "2026-10-15T13:38:02Z"
+      }
+    },
+    {
+      "id": "kindle-ha",
+      "name": "HA Lovelace Kindle Screensaver",
+      "category": "ereader",
+      "ai_relation": "infrastructure",
+      "entry_type": "case",
+      "family": "kindle-ha",
+      "summary_zh": "由服务端渲染 Home Assistant 页面，旧 Kindle 只负责显示。",
+      "device_scope": "能运行截图显示脚本的 jailbroken Kindle",
+      "model_examples": [
+        "作者另附 Kindle 4 配置；其他 Kindle 需确认 online screensaver"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "信息屏"
+      ],
+      "method": "安装脚本",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "需另有 Home Assistant 与截图服务，屏幕不是在运行完整浏览器应用。"
+      ],
+      "repo_url": "https://github.com/sibbl/hass-lovelace-kindle-screensaver",
+      "github_snapshot_url": "https://github.com/sibbl/hass-lovelace-kindle-screensaver",
+      "website_url": null,
+      "tutorial_url": "https://github.com/sibbl/hass-lovelace-kindle-4",
+      "compatibility_url": "https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 提供 HA 截图服务、online screensaver 和作者 Kindle 4 设置入口。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:39.272156+00:00",
+          "readme_blob_sha": "1e163c231cb2e8f7b40da60682f1b4fa3d089d9a",
+          "content_sha256": "e06bb0b14cd0df8a651aa11103d32277fe78443abd72209f08b5fc4e4da75abe"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-04T19:40:53Z",
+        "checked_at": "2026-10-20T10:06:39.272156+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:39.272156+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no-local-server-possible"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "Home Assistant 与截图服务器"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "删除定时下载/显示脚本，撤销 HA 访问令牌；原阅读用途保留情况依赖安装方式。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Kindle 4 Home Assistant dashboard",
+        "旧 Kindle 家庭看板",
+        "HA Lovelace Kindle Screensaver",
+        "ereader",
+        "信息屏"
+      ],
+      "checked_at": "2026-10-20T10:06:39.272156+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v1.2.1",
+        "url": "https://github.com/sibbl/hass-lovelace-kindle-screensaver/releases/tag/v1.2.1",
+        "published_at": "2026-10-04T19:33:13Z"
+      }
+    },
+    {
+      "id": "kindle-dashboard",
+      "name": "Kindle Dashboard",
+      "category": "ereader",
+      "ai_relation": "adjacent",
+      "entry_type": "platform",
+      "family": "kindle-dashboard",
+      "summary_zh": "把旧 Paperwhite 作为 AI 工具用量与桌面信息屏。",
+      "device_scope": "已越狱并具备 SSH / FBInk 的 Kindle Paperwhite",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "信息屏"
+      ],
+      "method": "安装应用与脚本",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "显示 AI 用量不等于设备运行 AI；项目不负责 jailbreak。"
+      ],
+      "repo_url": "https://github.com/alexishida/kindle-dashboard",
+      "github_snapshot_url": "https://github.com/alexishida/kindle-dashboard",
+      "website_url": null,
+      "tutorial_url": "https://github.com/alexishida/kindle-dashboard/blob/main/README.md",
+      "compatibility_url": "https://github.com/alexishida/kindle-dashboard/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 给出 PC/Kindle 架构、SSH/FBInk 前提、安装界面及移除脚本功能；AI 关系仅是显示 AI 工具用量。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/alexishida/kindle-dashboard/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:39.947766+00:00",
+          "readme_blob_sha": "ce575fdf92820ed887826662959623e31b5278e0",
+          "content_sha256": "d6249bd42c8a785fe05fa2af8ac7170b529cc34a8406782c2b6bcc44cc45916d"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-07-15T23:33:08Z",
+        "checked_at": "2026-10-20T10:06:39.947766+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "UNKNOWN",
+        "url": null,
+        "checked_at": "2026-10-20T10:06:39.947766+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "depends-on-displayed-services"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "Windows 10/11 主机"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "使用项目 UI 移除 Kindle 脚本；这不会自动撤销 jailbreak。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Kindle Dashboard",
+        "ereader",
+        "信息屏"
+      ],
+      "checked_at": "2026-10-20T10:06:39.947766+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v1.0.6",
+        "url": "https://github.com/alexishida/kindle-dashboard/releases/tag/v1.0.6",
+        "published_at": "2026-07-01T04:40:43Z"
+      }
+    },
+    {
+      "id": "kindle-phonekit",
+      "name": "Kindle PhoneKit",
+      "category": "ereader",
+      "ai_relation": "native",
+      "entry_type": "platform",
+      "family": "kindle-phonekit",
+      "summary_zh": "让旧 Kindle 作为 OpenAI 兼容接口的轻量聊天和消息终端。",
+      "device_scope": "具备 KUAL 与相应 Python 环境的 jailbroken Kindle",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "partial",
+      "use_cases": [
+        "对话终端"
+      ],
+      "method": "安装 KUAL 扩展",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "模型在外部服务运行；旧设备 TLS/Python 支持需检查。"
+      ],
+      "repo_url": "https://github.com/Keylessboi/kindle-phonekit",
+      "github_snapshot_url": "https://github.com/Keylessboi/kindle-phonekit",
+      "website_url": "https://keylessboi.github.io/kindle-phonekit/",
+      "tutorial_url": "https://github.com/Keylessboi/kindle-phonekit/blob/master/README.md",
+      "compatibility_url": "https://github.com/Keylessboi/kindle-phonekit/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 给出 KUAL 扩展、LLM endpoint 配置与安装说明；尚未找到可靠的逐型号实机矩阵。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/Keylessboi/kindle-phonekit/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:39.948766+00:00",
+          "readme_blob_sha": "1f747983a2745935d60a01df349c11daa37c6f8a",
+          "content_sha256": "e1ec8e620d386f99737bb2e5a2f01ef04e096f844846f5b2c12126f52f561b87"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-08-09T00:01:11Z",
+        "checked_at": "2026-10-20T10:06:39.948766+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-3.0",
+        "url": "https://github.com/Keylessboi/kindle-phonekit/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:06:39.948766+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional-external-model"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "可用模型服务"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "删除扩展前备份配置并移除明文 API 密钥；jailbreak 回退另行处理。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Kindle PhoneKit",
+        "ereader",
+        "对话终端"
+      ],
+      "checked_at": "2026-10-20T10:06:39.948766+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "kindle-whoop",
+      "name": "Kindle for WHOOP",
+      "category": "ereader",
+      "ai_relation": "assisted",
+      "entry_type": "case",
+      "family": "kindle-whoop",
+      "summary_zh": "将旧 Kindle 改为 WHOOP 健康数据看板，提供 AI 辅助设置文档。",
+      "device_scope": "项目配置支持的 jailbroken Kindle",
+      "model_examples": [
+        "Kindle Paperwhite 2"
+      ],
+      "firmware_requirement": "5.10.3（作者唯一已验证范围）",
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "信息屏"
+      ],
+      "method": "安装脚本",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "AI 辅助配置不代表已经验证全部代码由 AI 开发；依赖外部账号/API。"
+      ],
+      "repo_url": "https://github.com/kaibuildsai/kindle-for-whoop",
+      "github_snapshot_url": "https://github.com/kaibuildsai/kindle-for-whoop",
+      "website_url": null,
+      "tutorial_url": "https://github.com/kaibuildsai/kindle-for-whoop/blob/main/docs/ai-assisted-setup.md",
+      "compatibility_url": "https://github.com/kaibuildsai/kindle-for-whoop/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E2",
+        "reason": "作者 README 明确实机验证 Paperwhite 2 / 5.10.3 的手动刷新与一次 RTC 唤醒、联网刷新、再休眠完整周期；未找到独立复现。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/kaibuildsai/kindle-for-whoop/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:43.582356+00:00",
+          "readme_blob_sha": "06e2039e82391a88fd70b066d486699de967fd77",
+          "content_sha256": "0084b2adbfda3f507054d9c1216b22fe0feb6a3d6067e2ee43467f4afa31dfc6"
+        },
+        {
+          "url": "https://github.com/kaibuildsai/kindle-for-whoop/blob/main/docs/ai-assisted-setup.md",
+          "kind": "ai-setup-doc",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:18:44.541033+00:00"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-08-10T07:11:32Z",
+        "checked_at": "2026-10-20T10:06:43.582356+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/kaibuildsai/kindle-for-whoop/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:43.582356+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "required-whoop"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "WHOOP 账号/服务",
+          "数据服务主机"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "先停用自动唤醒刷新、移除客户端配置并撤销不再需要的 API 授权；保留原设备文件备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Paperwhite 2 WHOOP",
+        "Kindle AI assisted setup",
+        "Kindle for WHOOP",
+        "ereader",
+        "信息屏"
+      ],
+      "checked_at": "2026-10-20T10:06:43.582356+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "winterbreak",
+      "name": "WinterBreak",
+      "category": "ereader",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "winterbreak",
+      "summary_zh": "为受支持的 Kindle 提供安装社区软件的前置解锁入口。",
+      "device_scope": "官方 jailbreak 指南明确支持的 Kindle 型号/固件组合",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "应用扩展"
+      ],
+      "method": "权限解锁",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "它是基础设施，不是单独完成信息屏或 AI 改造的方案。"
+      ],
+      "repo_url": "https://github.com/KindleModding/WinterBreak",
+      "github_snapshot_url": "https://github.com/KindleModding/WinterBreak",
+      "website_url": null,
+      "tutorial_url": "https://kindlemodding.org/jailbreaking/WinterBreak",
+      "compatibility_url": "https://github.com/KindleModding/WinterBreak/blob/winterbreak/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 指向官方 WinterBreak 安装指南与 release notes；具体固件例外必须读取后才能操作。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/KindleModding/WinterBreak/blob/winterbreak/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:45.402358+00:00",
+          "readme_blob_sha": "c7e08494538d586d19dabdf7e39f8a0cc0014c1a",
+          "content_sha256": "fefa0e8bf0f5f4cb72084d2b639dce9e46b843f92930539d1db6db1cf7217868"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-06-28T06:19:29Z",
+        "checked_at": "2026-10-20T10:06:45.402358+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "UNKNOWN",
+        "url": null,
+        "checked_at": "2026-10-20T10:06:45.402358+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "model-dependent"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "恢复出厂不必然撤销所有 jailbreak 组件；恢复路径待具体型号核验。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "WinterBreak",
+        "ereader",
+        "应用扩展"
+      ],
+      "checked_at": "2026-10-20T10:06:45.402358+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v2.1.0",
+        "url": "https://github.com/KindleModding/WinterBreak/releases/tag/v2.1.0",
+        "published_at": "2026-06-28T06:19:29Z"
+      }
+    },
+    {
+      "id": "fbink",
+      "name": "FBInk",
+      "category": "ereader",
+      "ai_relation": "infrastructure",
+      "entry_type": "prerequisite",
+      "family": "fbink",
+      "summary_zh": "为电子墨水屏绘图提供底层工具，支撑旧阅读器看板改造。",
+      "device_scope": "项目支持的 Linux framebuffer / Kindle / Kobo 环境",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "信息屏"
+      ],
+      "method": "底层工具",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "绘图库不是即装即用成品；需要上层脚本与设备权限。"
+      ],
+      "repo_url": "https://github.com/NiLuJe/FBInk",
+      "github_snapshot_url": "https://github.com/NiLuJe/FBInk",
+      "website_url": "https://www.mobileread.com/forums/showthread.php?t=299110",
+      "tutorial_url": "https://github.com/NiLuJe/FBInk/blob/master/README.md",
+      "compatibility_url": "https://github.com/NiLuJe/FBInk/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 给出已测试设备系列、库与 CLI 说明，为多个看板项目使用的屏幕输出工具。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/NiLuJe/FBInk/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:45.991366+00:00",
+          "readme_blob_sha": "2a79660852211c1a478a887bf1b5fa7913381fcd",
+          "content_sha256": "06177a0bb87826fe2ff4490a14fdd03ecc359b4ec31814dcb27d012614d4148f"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-08-06T00:39:48Z",
+        "checked_at": "2026-10-20T10:06:45.991366+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-3.0",
+        "url": "https://github.com/NiLuJe/FBInk/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:06:45.991366+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "FBInk",
+        "ereader",
+        "信息屏"
+      ],
+      "checked_at": "2026-10-20T10:06:45.991366+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v1.25.0",
+        "url": "https://github.com/NiLuJe/FBInk/releases/tag/v1.25.0",
+        "published_at": "2022-12-05T02:50:38Z"
+      }
+    },
+    {
+      "id": "valetudo",
+      "name": "Valetudo",
+      "category": "robot",
+      "ai_relation": "infrastructure",
+      "entry_type": "case",
+      "family": "valetudo",
+      "summary_zh": "让兼容扫地机器人保留本地控制并降低厂商云依赖。",
+      "device_scope": "Valetudo 支持列表中的具体扫地机器人型号",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "离线控制"
+      ],
+      "method": "云服务替代",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "不支持所有机器人；root 方法和恢复难度随型号变化。"
+      ],
+      "repo_url": "https://github.com/Hypfer/Valetudo",
+      "github_snapshot_url": "https://github.com/Hypfer/Valetudo",
+      "website_url": "https://valetudo.cloud",
+      "tutorial_url": "https://valetudo.cloud/",
+      "compatibility_url": "https://valetudo.cloud/pages/general/supported-robots/",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确是运行在厂商固件上的本地云替代层，官方提供支持机器人列表和逐机型安装方法。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/Hypfer/Valetudo/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:46.270991+00:00",
+          "readme_blob_sha": "f568d2cfd396bc67e61671fbfd351b58e179f279",
+          "content_sha256": "4054768d30e96613d5212078c01ab85520ebf36952320dae7d9a8ba298cdc490"
+        },
+        {
+          "url": "https://valetudo.cloud/pages/general/supported-robots/",
+          "kind": "official-compatibility-or-install",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:18:44.541033+00:00"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-18T17:15:02Z",
+        "checked_at": "2026-10-20T10:06:46.270991+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "Apache-2.0",
+        "url": "https://github.com/Hypfer/Valetudo/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:06:46.270991+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "按型号的刷写/连接工具"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "必须按对应机器人的 rooting 方法备份；本次未验证任何型号的救砖。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "robot vacuum offline Valetudo",
+        "扫地机器人 本地控制",
+        "Valetudo",
+        "robot",
+        "离线控制"
+      ],
+      "checked_at": "2026-10-20T10:06:46.270991+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "2026.10.0",
+        "url": "https://github.com/Hypfer/Valetudo/releases/tag/2026.10.0",
+        "published_at": "2026-10-18T17:25:11Z"
+      }
+    },
+    {
+      "id": "wirepod",
+      "name": "wire-pod",
+      "category": "robot",
+      "ai_relation": "native",
+      "entry_type": "case",
+      "family": "wirepod",
+      "summary_zh": "用社区语音服务重新使用 Vector 机器人，并可接入知识问答后端。",
+      "device_scope": "Anki / Digital Dream Labs Vector 机器人，按 setup 支持范围",
+      "model_examples": [
+        "Vector 1.0",
+        "Vector 2.0"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "语音助手"
+      ],
+      "method": "云服务替代",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "要匹配固件与配对流程；不能仅有服务端就认定任何 Vector 可恢复。"
+      ],
+      "repo_url": "https://github.com/kercre123/wire-pod",
+      "github_snapshot_url": "https://github.com/kercre123/wire-pod",
+      "website_url": null,
+      "tutorial_url": "https://github.com/kercre123/wire-pod/wiki/Installation",
+      "compatibility_url": "https://github.com/kercre123/wire-pod/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确 Vector 1.0/2.0 与生产机器人支持，提供安装 wiki 与故障排查入口。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/kercre123/wire-pod/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:46.473375+00:00",
+          "readme_blob_sha": "f1620459a6fe2d1e38bdb4a514125078c13960a4",
+          "content_sha256": "f6396a69982629eacceeb8700ceca53e2df44ef6cf056821a2d2dfa144af205e"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-15T01:04:49Z",
+        "checked_at": "2026-10-20T10:06:46.473375+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/kercre123/wire-pod/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:06:46.473375+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional-knowledge-provider"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "常开服务器"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "保留配对与固件信息；仅重新部署服务端不保证解决固件或硬件故障。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Anki Vector wire pod offline",
+        "Vector 机器人 复活",
+        "wire-pod",
+        "robot",
+        "语音助手"
+      ],
+      "checked_at": "2026-10-20T10:06:46.473375+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v1.1.2",
+        "url": "https://github.com/kercre123/wire-pod/releases/tag/v1.1.2",
+        "published_at": "2023-11-21T04:25:57Z"
+      }
+    },
+    {
+      "id": "openlumi",
+      "name": "OpenLumi",
+      "category": "smarthome",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "openlumi",
+      "summary_zh": "复用旧智能网关硬件运行开放系统和本地 Zigbee 服务。",
+      "device_scope": "OpenLumi 文档支持的小米网关硬件版本",
+      "model_examples": [
+        "DGNWG05LM / mieu01 欧版",
+        "Aqara ZHWG11LM；不支持 DGNWG02LM"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "离线控制"
+      ],
+      "method": "替换固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "需要按板型核对 UART、备份与刷写方法。"
+      ],
+      "repo_url": "https://github.com/openlumi/openlumi.github.io",
+      "github_snapshot_url": "https://github.com/openlumi/openlumi.github.io",
+      "website_url": "https://openlumi.github.io",
+      "tutorial_url": "https://github.com/openlumi/openlumi.github.io/blob/master/README.md",
+      "compatibility_url": "https://github.com/openlumi/openlumi.github.io/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 限定硬件版本，提供 backup、OTA failure recovery、return to stock firmware 段落。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/openlumi/openlumi.github.io/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:49.636501+00:00",
+          "readme_blob_sha": "8c92d17b65fa60b32d3b7209d7179286967ca8c7",
+          "content_sha256": "192fd6891374136c83e90ece2e57610f8d6dc92e48619c940728ad84bde811dc"
+        }
+      ],
+      "maintenance": {
+        "status": "stale",
+        "github_archived": false,
+        "last_push_at": "2025-02-15T11:27:11Z",
+        "checked_at": "2026-10-20T10:06:49.636501+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "UNKNOWN",
+        "url": null,
+        "checked_at": "2026-10-20T10:06:49.636501+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "method-dependent",
+        "soldering": "method-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "必须保留本机 rootfs tar.gz 备份，不能用他人的通用备份代替设备唯一数据。",
+        "recovery_url": "https://github.com/openlumi/openlumi.github.io#return-to-stock-firmware"
+      },
+      "keywords": [
+        "OpenLumi",
+        "smarthome",
+        "离线控制"
+      ],
+      "checked_at": "2026-10-20T10:06:49.636501+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "tasmota",
+      "name": "Tasmota",
+      "category": "smarthome",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "tasmota",
+      "summary_zh": "替换部分智能插座、灯具与传感器固件，恢复本地控制。",
+      "device_scope": "兼容 ESP8266 / ESP32 芯片与引脚模板的智能设备",
+      "model_examples": [
+        "ESP8266/ESP8285/受支持 ESP32 系列；具体设备查模板"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "离线控制"
+      ],
+      "method": "替换固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "同一商品可能换芯片；涉及市电的拆机不适合无经验用户。"
+      ],
+      "repo_url": "https://github.com/arendst/Tasmota",
+      "github_snapshot_url": "https://github.com/arendst/Tasmota",
+      "website_url": "https://tasmota.github.io/docs",
+      "tutorial_url": "https://tasmota.github.io/docs/",
+      "compatibility_url": "https://github.com/arendst/Tasmota/blob/development/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 列出芯片族、本地控制和官方文档；同一商品不同批次仍需拆机辨识。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/arendst/Tasmota/blob/development/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:51.568536+00:00",
+          "readme_blob_sha": "aa0024ded7c333ad71a3a925c422a328a23a57a1",
+          "content_sha256": "706eb8ae890cf22086f0810087d6e8c535b7edb67367b3b13b65de1e07032136"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-19T15:51:40Z",
+        "checked_at": "2026-10-20T10:06:51.568536+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-3.0",
+        "url": "https://github.com/arendst/Tasmota/blob/development/LICENSE.txt",
+        "checked_at": "2026-10-20T10:06:51.568536+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "USB 串口工具（按设备）"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "先保存固件与校准数据；串口救砖是否可行按设备决定。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Tasmota",
+        "smarthome",
+        "离线控制"
+      ],
+      "checked_at": "2026-10-20T10:06:51.568536+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v16.0.0",
+        "url": "https://github.com/arendst/Tasmota/releases/tag/v16.0.0",
+        "published_at": "2026-10-16T07:53:42Z"
+      }
+    },
+    {
+      "id": "openbeken",
+      "name": "OpenBeken",
+      "category": "smarthome",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "openbeken",
+      "summary_zh": "让部分非 ESP 的云依赖智能设备改用本地 MQTT 等控制。",
+      "device_scope": "项目支持的 BK7231 等芯片和板型",
+      "model_examples": [
+        "BK7231T",
+        "BK7231N",
+        "其他 README 支持芯片"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "离线控制"
+      ],
+      "method": "替换固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "芯片、引脚、校准数据和刷机方式必须逐板确认。"
+      ],
+      "repo_url": "https://github.com/openshwprojects/OpenBK7231T_App",
+      "github_snapshot_url": "https://github.com/openshwprojects/OpenBK7231T_App",
+      "website_url": "https://openbekeniot.github.io/webapp/devicesList.html",
+      "tutorial_url": "https://github.com/openshwprojects/OpenBK7231T_App/blob/main/README.md",
+      "compatibility_url": "https://github.com/openshwprojects/OpenBK7231T_App/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 列出芯片、模块与刷写文档，提供 MQTT / HA 本地控制路径。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/openshwprojects/OpenBK7231T_App/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:52.265924+00:00",
+          "readme_blob_sha": "41a3225d9d58e034f326b50e7a30813836c9f4b7",
+          "content_sha256": "adf6cc2ca02657f31402ea4792bdbe63795466e6aa4776d45374fd83c98a76a8"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-13T06:11:20Z",
+        "checked_at": "2026-10-20T10:06:52.265924+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "UNKNOWN",
+        "url": null,
+        "checked_at": "2026-10-20T10:06:52.265924+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "需要保留原始 flash/校准数据；不能使用其他设备的 pinout 假设。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "OpenBeken",
+        "smarthome",
+        "离线控制"
+      ],
+      "checked_at": "2026-10-20T10:06:52.265924+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "1.18.318",
+        "url": "https://github.com/openshwprojects/OpenBK7231T_App/releases/tag/1.18.318",
+        "published_at": "2026-10-13T06:14:16Z"
+      }
+    },
+    {
+      "id": "esphome",
+      "name": "ESPHome",
+      "category": "smarthome",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "esphome",
+      "summary_zh": "为可编程的旧传感器、插座和 DIY 板重新配置本地用途。",
+      "device_scope": "支持平台与设备配置覆盖的 ESP 等微控制器设备",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "离线控制"
+      ],
+      "method": "替换固件",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "按具体设备配置判断复用，不把购买新开发板的演示计为旧硬件成功案例。"
+      ],
+      "repo_url": "https://github.com/esphome/esphome",
+      "github_snapshot_url": "https://github.com/esphome/esphome",
+      "website_url": "https://esphome.io/",
+      "tutorial_url": "https://esphome.io/",
+      "compatibility_url": "https://github.com/esphome/esphome/blob/dev/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 提供官方文档与发布入口；本项为受支持设备的复用平台，不是特定旧设备成功复现。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/esphome/esphome/blob/dev/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:52.437139+00:00",
+          "readme_blob_sha": "16497ee0be21c8eddbfd6941f78e35bc07a147a2",
+          "content_sha256": "1c54cf43c54cc139720bd37f349fd4372c38fee2d36bd4664f863bb91cdf2b31"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T10:05:17Z",
+        "checked_at": "2026-10-20T10:06:52.437139+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT + GPL-3.0（按代码类型）",
+        "url": "https://github.com/esphome/esphome/blob/dev/LICENSE",
+        "checked_at": "2026-10-20T10:06:52.437139+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "ESPHome",
+        "smarthome",
+        "离线控制"
+      ],
+      "checked_at": "2026-10-20T10:06:52.437139+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "2026.10.0b5",
+        "url": "https://github.com/esphome/esphome/releases/tag/2026.10.0b5",
+        "published_at": "2026-10-19T01:03:08Z"
+      }
+    },
+    {
+      "id": "openipc",
+      "name": "OpenIPC",
+      "category": "camera",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "openipc",
+      "summary_zh": "为部分 IP 摄像头替换开放固件，获得可自主控制的视频流。",
+      "device_scope": "OpenIPC 支持的摄像头 SoC/传感器/闪存组合",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "摄像头"
+      ],
+      "method": "替换固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "相同外壳不代表相同硬件；备份原固件和网络恢复路径很关键。"
+      ],
+      "repo_url": "https://github.com/OpenIPC/firmware",
+      "github_snapshot_url": "https://github.com/OpenIPC/firmware",
+      "website_url": "https://openipc.org",
+      "tutorial_url": "https://github.com/OpenIPC/wiki",
+      "compatibility_url": "https://github.com/OpenIPC/firmware/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确摄像头 SoC 支持族和官方 wiki，镜像还依赖传感器/存储配置。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/OpenIPC/firmware/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:52.445298+00:00",
+          "readme_blob_sha": "9ce071b8b903fe935c8cacc69a39b696a28345d2",
+          "content_sha256": "9be2fe1c32e12f027e187e818f12e4eaa5b382d11ca334367b447f00da4f40dc"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T09:43:15Z",
+        "checked_at": "2026-10-20T10:06:52.445298+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/OpenIPC/firmware/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:06:52.445298+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "备份原 flash、MAC 与传感器配置；UART/网络恢复必须按板型验证。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "OpenIPC",
+        "camera",
+        "摄像头"
+      ],
+      "checked_at": "2026-10-20T10:06:52.445298+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "nightly",
+        "url": "https://github.com/OpenIPC/firmware/releases/tag/nightly",
+        "published_at": "2026-05-20T23:50:39Z"
+      }
+    },
+    {
+      "id": "dafang",
+      "name": "Xiaomi Dafang Hacks",
+      "category": "camera",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "dafang",
+      "summary_zh": "为部分旧摄像头提供本地视频流和扩展控制。",
+      "device_scope": "README 支持表中的小方/大方及部分 Ingenic 摄像头",
+      "model_examples": [
+        "Xiaomi Dafang",
+        "Xiaofang 1S T20",
+        "Wyze Cam v2",
+        "Wyze Cam Pan；其他见 README"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "摄像头"
+      ],
+      "method": "替换固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "历史项目；不同生产批次与 bootloader 可能不支持。"
+      ],
+      "repo_url": "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks",
+      "github_snapshot_url": "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks",
+      "website_url": null,
+      "tutorial_url": "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/blob/master/hacks/install_cfw.md",
+      "compatibility_url": "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 有明确型号表、FAQ 和 CFW 安装文档，警告较新厂商固件会使该方法失效。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:55.713905+00:00",
+          "readme_blob_sha": "78331b917743558633207246f3f0e5e78deeaaf6",
+          "content_sha256": "bda2087684a83569cfea1d1151a01633622301df958148c55ec0bc5093a14b9e"
+        }
+      ],
+      "maintenance": {
+        "status": "stale",
+        "github_archived": false,
+        "last_push_at": "2024-11-25T06:53:53Z",
+        "checked_at": "2026-10-20T10:06:55.713905+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "UNKNOWN",
+        "url": null,
+        "checked_at": "2026-10-20T10:06:55.713905+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "method-dependent",
+        "soldering": "method-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "先读取该型号 FAQ 和原固件备份方法；不能推断 T20L 与 T20 完全相同。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Xiaomi Dafang Hacks",
+        "camera",
+        "摄像头"
+      ],
+      "checked_at": "2026-10-20T10:06:55.713905+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "thingino",
+      "name": "Thingino",
+      "category": "camera",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "thingino",
+      "summary_zh": "使用轻量开放固件延长受支持摄像头的本地使用寿命。",
+      "device_scope": "项目支持列表中的 Ingenic IP 摄像头",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "摄像头"
+      ],
+      "method": "替换固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "须按 SoC、传感器和具体配置选择构建。"
+      ],
+      "repo_url": "https://github.com/themactep/thingino-firmware",
+      "github_snapshot_url": "https://github.com/themactep/thingino-firmware",
+      "website_url": "https://thingino.com",
+      "tutorial_url": "https://github.com/themactep/thingino-firmware/blob/master/README.md",
+      "compatibility_url": "https://github.com/themactep/thingino-firmware/blob/master/docs/hardware/supported-hardware.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 给出支持硬件文件、构建方法，并区分稳定/开发分支。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/themactep/thingino-firmware/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:58.423901+00:00",
+          "readme_blob_sha": "05b1bf83e705764192dfd88fd76086af3d5df9e6",
+          "content_sha256": "debd0ef3af16f6e2964cf6f9cf35075b38212a29244899c688c2439d41d66bf6"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T04:23:36Z",
+        "checked_at": "2026-10-20T10:06:58.423901+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/themactep/thingino-firmware/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:06:58.423901+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "需原 flash 备份与具体板型恢复说明；本次未做摄像头写入。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Thingino",
+        "camera",
+        "摄像头"
+      ],
+      "checked_at": "2026-10-20T10:06:58.423901+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "firmware-2026-10-04",
+        "url": "https://github.com/themactep/thingino-firmware/releases/tag/firmware-2026-10-04",
+        "published_at": "2026-10-04T16:54:35Z"
+      }
+    },
+    {
+      "id": "frigate",
+      "name": "Frigate",
+      "category": "camera",
+      "ai_relation": "native",
+      "entry_type": "platform",
+      "family": "frigate",
+      "summary_zh": "让已有摄像头接入本地目标检测与录像系统。",
+      "device_scope": "能提供受支持视频流的旧 IP 摄像头 + 满足要求的服务器",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "视频分析"
+      ],
+      "method": "安装分析服务器",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "AI 在服务器上运行，不能恢复已损坏或无法输出视频流的摄像头。"
+      ],
+      "repo_url": "https://github.com/blakeblackshear/frigate",
+      "github_snapshot_url": "https://github.com/blakeblackshear/frigate",
+      "website_url": "https://frigate.video",
+      "tutorial_url": "https://docs.frigate.video/",
+      "compatibility_url": "https://github.com/blakeblackshear/frigate/blob/dev/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确本地 IP 摄像头目标检测、录制及 detector 文档；复用的是现有视频源。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/blakeblackshear/frigate/blob/dev/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:58.761741+00:00",
+          "readme_blob_sha": "1fb158b19161962d49473aa6659356e684434121",
+          "content_sha256": "d7872d9c4ca070331d0008bbb1111d931e119a00a8ed0992fa4393a5de84135b"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T06:19:47Z",
+        "checked_at": "2026-10-20T10:06:58.761741+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT",
+        "url": "https://github.com/blakeblackshear/frigate/blob/dev/LICENSE",
+        "checked_at": "2026-10-20T10:06:58.761741+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no-for-core-detection"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "视频处理主机",
+          "可选 AI 加速器",
+          "录像磁盘"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "停止服务不会替换摄像头固件；删除服务前备份需要保留的录像与配置。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Frigate",
+        "camera",
+        "视频分析"
+      ],
+      "checked_at": "2026-10-20T10:06:58.761741+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v0.18.2",
+        "url": "https://github.com/blakeblackshear/frigate/releases/tag/v0.18.2",
+        "published_at": "2026-10-15T22:41:47Z"
+      }
+    },
+    {
+      "id": "squeezelite",
+      "name": "Squeezelite",
+      "category": "audio",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "squeezelite",
+      "summary_zh": "将旧主机转为轻量网络音频播放器，连接 Squeezebox 生态服务器。",
+      "device_scope": "可运行支持平台二进制的旧 PC / Linux 单板机",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "音乐播放"
+      ],
+      "method": "安装播放器",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "是软件播放器，不保证修复任意实体 Squeezebox 的云功能。"
+      ],
+      "repo_url": "https://github.com/ralph-irving/squeezelite",
+      "github_snapshot_url": "https://github.com/ralph-irving/squeezelite",
+      "website_url": "https://sourceforge.net/projects/lmsclients/files/squeezelite/",
+      "tutorial_url": "https://ralph-irving.github.io/squeezelite.html",
+      "compatibility_url": "https://github.com/ralph-irving/squeezelite/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "仓库给出播放器实现和官方 manpage；需搭配 Lyrion 等服务器。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/ralph-irving/squeezelite/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:58.863061+00:00",
+          "readme_blob_sha": "bcaedfa92a3bd1ebc89facf1c4e5b0bf4f19e785",
+          "content_sha256": "c91962a0a1980fedf50ef87fe9e8a73d29eccfad26ac02834412bb203e1ac1c7"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-10T13:33:46Z",
+        "checked_at": "2026-10-20T10:06:58.863061+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-3.0-or-later + OpenSSL 例外 / 其他组件",
+        "url": "https://github.com/ralph-irving/squeezelite/blob/master/LICENSE.txt",
+        "checked_at": "2026-10-20T10:06:58.863061+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional-music-services"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "停用/卸载播放器即可取消此用途。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Squeezelite",
+        "audio",
+        "音乐播放"
+      ],
+      "checked_at": "2026-10-20T10:06:58.863061+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "lyrion",
+      "name": "Lyrion Music Server",
+      "category": "audio",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "lyrion",
+      "summary_zh": "用本地音乐服务器延续 Squeezebox 设备和播放器生态。",
+      "device_scope": "Squeezebox 生态播放器及支持的自建播放器",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "音乐播放"
+      ],
+      "method": "云服务替代",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "在线音乐服务依赖各自插件与服务政策，不能保证所有历史功能。"
+      ],
+      "repo_url": "https://github.com/LMS-Community/slimserver",
+      "github_snapshot_url": "https://github.com/LMS-Community/slimserver",
+      "website_url": "https://lyrion.org",
+      "tutorial_url": "https://lyrion.org/",
+      "compatibility_url": "https://github.com/LMS-Community/slimserver/blob/public/9.2/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 与项目描述明确面向 Squeezebox 和兼容播放器，提供官方部署文档。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/LMS-Community/slimserver/blob/public/9.2/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:06:59.272416+00:00",
+          "readme_blob_sha": "a4ea2e244b5cdaefc9565b5eade8dd3d930cba6d",
+          "content_sha256": "81b033616e12cd17965b8c06ff556d61bcda78cc856d2621bcf5fe2da09d1ae3"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T09:13:17Z",
+        "checked_at": "2026-10-20T10:06:59.272416+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "混合：Perl GPL-2.0；固件/资产另有条款",
+        "url": "https://github.com/LMS-Community/slimserver/blob/public/9.2/License.txt",
+        "checked_at": "2026-10-20T10:06:59.272416+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional-music-services"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "常开主机",
+          "可选存储"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "备份音乐库索引与配置，旧厂商云不一定可恢复。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Lyrion Music Server",
+        "audio",
+        "音乐播放"
+      ],
+      "checked_at": "2026-10-20T10:06:59.272416+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "rockbox",
+      "name": "Rockbox",
+      "category": "audio",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "rockbox",
+      "summary_zh": "为兼容旧播放器提供开放固件和格式扩展。",
+      "device_scope": "Rockbox 支持表中的 iPod、SanDisk 等播放器",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "音乐播放"
+      ],
+      "method": "替换播放器固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "必须区分稳定版、开发中与不可用端口；不是所有 iPod 均支持。"
+      ],
+      "repo_url": "https://github.com/Rockbox/rockbox",
+      "github_snapshot_url": "https://github.com/Rockbox/rockbox",
+      "website_url": "https://git.rockbox.org/?p=rockbox.git;a=summary",
+      "tutorial_url": "https://www.rockbox.org/",
+      "compatibility_url": "https://github.com/Rockbox/rockbox/blob/master/docs/README",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "官方源码镜像可读取构建步骤；型号支持以 Rockbox 官网分类为准。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/Rockbox/rockbox/blob/master/docs/README",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:07:01.880707+00:00",
+          "readme_blob_sha": "665078545f85027c548664f938739004541e10f5",
+          "content_sha256": "6a6e5fb16c1dc9761ee48f000b0924295074392805ca23fc62cc39d20601b3fc"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T02:25:49Z",
+        "checked_at": "2026-10-20T10:07:01.880707+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "UNKNOWN",
+        "url": null,
+        "checked_at": "2026-10-20T10:07:01.880707+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "按播放器型号的官方 manual 卸载 bootloader；不能只删除音频文件。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Rockbox",
+        "audio",
+        "音乐播放"
+      ],
+      "checked_at": "2026-10-20T10:07:01.880707+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "spotify-ipod",
+      "name": "Retro iPod Spotify client",
+      "category": "audio",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "spotify-ipod",
+      "summary_zh": "保留旧 iPod 的交互与外形，替换内部硬件成为网络音乐终端。",
+      "device_scope": "作者第四代 iPod 改造方案 + Raspberry Pi 等替换硬件",
+      "model_examples": [
+        "iPod 4th generation (2004) + Raspberry Pi Zero W"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "音乐播放"
+      ],
+      "method": "替换内部硬件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "定制硬件工程；历史 Spotify 接口及依赖需重新核查。"
+      ],
+      "repo_url": "https://github.com/dupontgu/retro-ipod-spotify-client",
+      "github_snapshot_url": "https://github.com/dupontgu/retro-ipod-spotify-client",
+      "website_url": null,
+      "tutorial_url": "https://hackaday.io/project/177034-spot-spotify-in-a-4th-gen-ipod-2004",
+      "compatibility_url": "https://github.com/dupontgu/retro-ipod-spotify-client/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确 2004 iPod 与 Pi Zero W，提供原作者 Hackaday 工程及安装步骤；云 API 今日兼容性未实测。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/dupontgu/retro-ipod-spotify-client/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:07:04.954654+00:00",
+          "readme_blob_sha": "d3498a453468442542ca15da8730fbd3f88d1d80",
+          "content_sha256": "dfe6bd71556f3c066ca2e48fce91bf08d72310da1f6cdc455555272a238533af"
+        }
+      ],
+      "maintenance": {
+        "status": "stale",
+        "github_archived": false,
+        "last_push_at": "2022-03-25T16:58:52Z",
+        "checked_at": "2026-10-20T10:07:04.954654+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "Apache-2.0",
+        "url": "https://github.com/dupontgu/retro-ipod-spotify-client/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:07:04.954654+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "yes",
+        "soldering": "yes",
+        "cloud_api": "required-spotify"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "Pi Zero W",
+          "显示/音频/电源部件",
+          "工具",
+          "音乐服务"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "保存原部件；改动切割、焊接和电源后不保证可无损回退。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Retro iPod Spotify client",
+        "audio",
+        "音乐播放"
+      ],
+      "checked_at": "2026-10-20T10:07:04.954654+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "gadgetbridge",
+      "name": "Gadgetbridge",
+      "category": "wearable",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "gadgetbridge",
+      "summary_zh": "用本地开源手机应用连接部分可穿戴设备，减少厂商云依赖。",
+      "device_scope": "官方支持矩阵中的手环、手表与 Android 手机",
+      "model_examples": [
+        "Pebble",
+        "Mi Band",
+        "Amazfit Bip 等；以当前 gadgets 表为准"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "离线控制"
+      ],
+      "method": "替换手机配套应用",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "GitHub 可能为镜像；支持程度、认证密钥及功能按设备不同。"
+      ],
+      "repo_url": "https://codeberg.org/Freeyourgadget/Gadgetbridge",
+      "github_snapshot_url": "https://github.com/Freeyourgadget/Gadgetbridge",
+      "website_url": "https://gadgetbridge.org/",
+      "tutorial_url": "https://github.com/Freeyourgadget/Gadgetbridge/blob/master/README.md",
+      "compatibility_url": "https://gadgetbridge.org/gadgets/",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "GitHub README 明确迁移到 Codeberg，列出设备矩阵入口；归档的是镜像，不能宣称整个项目停更。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/Freeyourgadget/Gadgetbridge/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:07:05.069774+00:00",
+          "readme_blob_sha": "a4d99b2cdf58aa8f910e2d134e8dea4c14229b01",
+          "content_sha256": "df8b15adaa257ee3ce23713dce5ec24ce8ee5bc12261181310d508be7d5917d0"
+        }
+      ],
+      "maintenance": {
+        "status": "moved",
+        "github_archived": true,
+        "last_push_at": "2024-12-23T17:24:07Z",
+        "checked_at": "2026-10-20T10:07:05.069774+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "AGPL-3.0（含 GPL-3.0 / MIT 文件例外）",
+        "url": "https://github.com/Freeyourgadget/Gadgetbridge/blob/master/LICENSE",
+        "checked_at": "2026-10-20T10:07:05.069774+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no-for-supported-workflows"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "换回原配套 app 前备份本地数据；重新配对可能影响手表存储。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Gadgetbridge",
+        "wearable",
+        "离线控制"
+      ],
+      "checked_at": "2026-10-20T10:07:05.069774+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "infinitime",
+      "name": "InfiniTime",
+      "category": "wearable",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "infinitime",
+      "summary_zh": "为已有 PineTime 提供开放手表固件与持续功能演进。",
+      "device_scope": "PineTime 智能手表",
+      "model_examples": [
+        "PineTime"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "系统延寿"
+      ],
+      "method": "替换固件",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "仅适用于对应硬件；不能直接用于普通商业手表。"
+      ],
+      "repo_url": "https://github.com/InfiniTimeOrg/InfiniTime",
+      "github_snapshot_url": "https://github.com/InfiniTimeOrg/InfiniTime",
+      "website_url": null,
+      "tutorial_url": "https://github.com/InfiniTimeOrg/InfiniTime/blob/main/doc/gettingStarted/gettingStarted-1.0.md",
+      "compatibility_url": "https://github.com/InfiniTimeOrg/InfiniTime/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 提供开始使用、更新、bootloader 与 SWD/OpenOCD 文档。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/InfiniTimeOrg/InfiniTime/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:07:05.590286+00:00",
+          "readme_blob_sha": "68d8779d0e122df28a2dd609117daa0282c642fa",
+          "content_sha256": "9019bf2b20cb9deda116b8ffd21139612bf5b859a6e6da3c42a38aaeade441a1"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-18T13:49:28Z",
+        "checked_at": "2026-10-20T10:07:05.590286+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-3.0",
+        "url": "https://github.com/InfiniTimeOrg/InfiniTime/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:07:05.590286+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "recovery-dependent",
+        "soldering": "recovery-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "固件更新与 bootloader 恢复是不同层级；深度恢复可能需要 SWD。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "InfiniTime",
+        "wearable",
+        "系统延寿"
+      ],
+      "checked_at": "2026-10-20T10:07:05.590286+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "1.16.1",
+        "url": "https://github.com/InfiniTimeOrg/InfiniTime/releases/tag/1.16.1",
+        "published_at": "2026-07-05T17:03:57Z"
+      }
+    },
+    {
+      "id": "asteroidos",
+      "name": "AsteroidOS",
+      "category": "wearable",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "asteroidos",
+      "summary_zh": "为部分旧 Wear 手表安装替代 Linux 系统。",
+      "device_scope": "AsteroidOS 设备表中的 Android Wear 手表",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "系统延寿"
+      ],
+      "method": "替换系统",
+      "difficulty": "high",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "蓝牙、传感器、电池和临时启动支持按具体机型核对。"
+      ],
+      "repo_url": "https://github.com/AsteroidOS/asteroid",
+      "github_snapshot_url": "https://github.com/AsteroidOS/asteroid",
+      "website_url": "http://asteroidos.org",
+      "tutorial_url": "https://asteroidos.org/wiki/documentation/",
+      "compatibility_url": "https://github.com/AsteroidOS/asteroid/blob/2.0/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 给出构建与官方文档入口；支持设备与功能成熟度应以逐机型表为准。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/AsteroidOS/asteroid/blob/2.0/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:07:07.900542+00:00",
+          "readme_blob_sha": "00028311e055609010da31019681be8f24757b77",
+          "content_sha256": "d79ace2aab91b75254885ef30687caf5e01eac785802ab3b00ea2f201772590f"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-09-09T10:41:01Z",
+        "checked_at": "2026-10-20T10:07:07.900542+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "GPL-2.0",
+        "url": "https://github.com/AsteroidOS/asteroid/blob/2.0/LICENSE",
+        "checked_at": "2026-10-20T10:07:07.900542+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "model-dependent",
+        "soldering": "model-dependent",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "possible",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "AsteroidOS",
+        "wearable",
+        "系统延寿"
+      ],
+      "checked_at": "2026-10-20T10:07:07.900542+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    },
+    {
+      "id": "batocera",
+      "name": "Batocera.linux",
+      "category": "gaming",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "batocera",
+      "summary_zh": "将旧电脑或支持的设备转成专用复古游戏平台。",
+      "device_scope": "官方提供映像的 PC / 单板机 / 掌机",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "复古游戏"
+      ],
+      "method": "外置启动或替换系统",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "性能受硬件限制；系统不授予游戏 ROM 的版权。"
+      ],
+      "repo_url": "https://github.com/batocera-linux/batocera.linux",
+      "github_snapshot_url": "https://github.com/batocera-linux/batocera.linux",
+      "website_url": "https://batocera.org",
+      "tutorial_url": "https://wiki.batocera.org/",
+      "compatibility_url": "https://github.com/batocera-linux/batocera.linux/blob/master/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确 USB/SD 启动与将已有计算机转为游戏机的用途，并链接设备兼容与下载。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/batocera-linux/batocera.linux/blob/master/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:07:10.940719+00:00",
+          "readme_blob_sha": "06ab9e8eb9da152b8d44f52c6924f94d93c3433d",
+          "content_sha256": "745da39154dc47b7cf199e073792e157ffe64331d66ca83291b26a856f516fe7"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T07:12:11Z",
+        "checked_at": "2026-10-20T10:07:10.940719+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "UNKNOWN",
+        "url": "https://github.com/batocera-linux/batocera.linux/blob/master/COPYING",
+        "checked_at": "2026-10-20T10:07:10.940719+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "USB/SD 介质",
+          "兼容手柄"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "外置启动可移除介质回到原系统；若安装到内部磁盘需先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Batocera.linux",
+        "gaming",
+        "复古游戏"
+      ],
+      "checked_at": "2026-10-20T10:07:10.940719+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "uboot-rockpro64",
+        "url": "https://github.com/batocera-linux/batocera.linux/releases/tag/uboot-rockpro64",
+        "published_at": "2021-03-26T19:52:27Z"
+      }
+    },
+    {
+      "id": "lakka",
+      "name": "Lakka",
+      "category": "gaming",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "lakka",
+      "summary_zh": "用轻量 RetroArch 系统复用旧 PC 与受支持单板机。",
+      "device_scope": "Lakka 官方提供映像的 PC / 单板机",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "复古游戏"
+      ],
+      "method": "外置启动或替换系统",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "需核对 GPU、音频和启动兼容性；游戏内容另行合法获取。"
+      ],
+      "repo_url": "https://github.com/libretro/Lakka-LibreELEC",
+      "github_snapshot_url": "https://github.com/libretro/Lakka-LibreELEC",
+      "website_url": "https://www.lakka.tv",
+      "tutorial_url": "https://www.lakka.tv/",
+      "compatibility_url": "https://github.com/libretro/Lakka-LibreELEC/blob/Lakka-v6.1/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 明确低性能计算机复用、安装网站及 PS3/Xbox360 手柄支持。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/libretro/Lakka-LibreELEC/blob/Lakka-v6.1/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:07:11.233127+00:00",
+          "readme_blob_sha": "74c37015b6171ac5d2e0b7832653176fbb48aa09",
+          "content_sha256": "de0aa6b0063086b242edab3bf709fa77ff7bb30a5bcd1b0dd3a20bbfdc7243ce"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-08-26T13:30:53Z",
+        "checked_at": "2026-10-20T10:07:11.233127+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "UNKNOWN",
+        "url": null,
+        "checked_at": "2026-10-20T10:07:11.233127+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Lakka",
+        "gaming",
+        "复古游戏"
+      ],
+      "checked_at": "2026-10-20T10:07:11.233127+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "v6.1",
+        "url": "https://github.com/libretro/Lakka-LibreELEC/releases/tag/v6.1",
+        "published_at": "2026-02-21T07:27:29Z"
+      }
+    },
+    {
+      "id": "bazzite",
+      "name": "Bazzite",
+      "category": "gaming",
+      "ai_relation": "infrastructure",
+      "entry_type": "platform",
+      "family": "bazzite",
+      "summary_zh": "为仍有可用性能的 PC 或掌机提供可维护的游戏系统。",
+      "device_scope": "满足当前硬件要求的 PC 及受支持掌机",
+      "model_examples": [],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "游戏系统"
+      ],
+      "method": "替换系统",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "不是超老电脑通用方案；GPU 支持与镜像类型是硬门槛。"
+      ],
+      "repo_url": "https://github.com/ublue-os/bazzite",
+      "github_snapshot_url": "https://github.com/ublue-os/bazzite",
+      "website_url": "https://bazzite.gg",
+      "tutorial_url": "https://docs.bazzite.gg/",
+      "compatibility_url": "https://github.com/ublue-os/bazzite/blob/main/README.md",
+      "x_sources": [],
+      "evidence": {
+        "level": "E1",
+        "reason": "README 有 PC/掌机安装和硬件能力说明；作为延寿平台收录，不宣称已验证任意古老 GPU。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/ublue-os/bazzite/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:07:11.366577+00:00",
+          "readme_blob_sha": "f57e946975943e9129826c9a460174e62f69efd6",
+          "content_sha256": "e6dcfe9a65cb00649a537d090e55adda3623a1e607eff243a2eaf24e1f850c31"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-20T07:25:33Z",
+        "checked_at": "2026-10-20T10:07:11.366577+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "Apache-2.0",
+        "url": "https://github.com/ublue-os/bazzite/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:07:11.366577+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "optional-game-platforms"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "现有设备、电源/存储/连接配件是否足够需逐机检查"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "recovery_url": null
+      },
+      "keywords": [
+        "Bazzite",
+        "gaming",
+        "游戏系统"
+      ],
+      "checked_at": "2026-10-20T10:07:11.366577+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": {
+        "tag": "unstable-45.20261020.4",
+        "url": "https://github.com/ublue-os/bazzite/releases/tag/unstable-45.20261020.4",
+        "published_at": "2026-10-20T07:25:33Z"
+      }
+    },
+    {
+      "id": "printer-spl3",
+      "name": "HP Laser 1008a macOS driver",
+      "category": "peripheral",
+      "ai_relation": "assisted",
+      "entry_type": "case",
+      "family": "printer-spl3",
+      "summary_zh": "用原生 macOS 打印链路恢复无官方 macOS 驱动的 HP Laser 系列用途。",
+      "device_scope": "HP Laser 1003/1006/1008 a/w USB + Apple Silicon macOS 26（作者测试范围）",
+      "model_examples": [
+        "HP Laser 1003 a/w",
+        "HP Laser 1006 a/w",
+        "HP Laser 1008 a/w"
+      ],
+      "firmware_requirement": null,
+      "region_requirement": null,
+      "compatibility_status": "follow-upstream-matrix",
+      "use_cases": [
+        "驱动修复"
+      ],
+      "method": "安装驱动",
+      "difficulty": "medium",
+      "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
+      "limitations": [
+        "AI 开发过程须由作者原始材料支持；USB 测试不代表 Wi-Fi 已验证。"
+      ],
+      "repo_url": "https://github.com/Kuberwastaken/hp-laser-1008a-macos",
+      "github_snapshot_url": "https://github.com/Kuberwastaken/hp-laser-1008a-macos",
+      "website_url": null,
+      "tutorial_url": "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md",
+      "compatibility_url": "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md",
+      "x_sources": [
+        {
+          "url": "https://x.com/kuberwastaken/status/2089377982536388964",
+          "status": "original-text-read",
+          "video_viewed": false,
+          "checked_at": "2026-10-20T10:18:44.541033+00:00",
+          "note": "作者正文通过浏览器读取；未把浏览量或点赞作为成功证据。"
+        },
+        {
+          "url": "https://x.com/kuberwastaken/status/2089721130127094071",
+          "status": "original-text-read",
+          "video_viewed": false,
+          "checked_at": "2026-10-20T10:18:44.541033+00:00",
+          "note": "作者正文通过浏览器读取；未把浏览量或点赞作为成功证据。"
+        }
+      ],
+      "evidence": {
+        "level": "E2",
+        "reason": "作者 README 声明 Apple Silicon macOS 26 经 USB 测试，给出安装、卸载和打印链路分析；作者自托管 Claude 会话页支持 AI 辅助开发归类。X 原文另行记录访问状态。 已浏览作者 X 主帖及回复，确认作者称使用 Claude 并多轮试错。",
+        "hardware_tested_by_catalog": false,
+        "independent_reproduction_verified": false
+      },
+      "sources": [
+        {
+          "url": "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md",
+          "kind": "upstream-document",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:07:11.888949+00:00",
+          "readme_blob_sha": "e6f057a50ef7293158a26b33edf6a302901bceec",
+          "content_sha256": "5d8a739bc1b978b9ac4d38222aa186228b0acdecb90735b1f8953be450db861d"
+        },
+        {
+          "url": "https://cdn.kuber.studio/chat/hp-laser-1008a-driver",
+          "kind": "author-process",
+          "status": "content-reviewed",
+          "checked_at": "2026-10-20T10:18:44.541033+00:00"
+        }
+      ],
+      "maintenance": {
+        "status": "not-archived",
+        "github_archived": false,
+        "last_push_at": "2026-10-04T10:39:56Z",
+        "checked_at": "2026-10-20T10:07:11.888949+00:00",
+        "note": "未归档/近期 push 不能证明当前型号无故障，镜像迁移也不等于项目停止维护。"
+      },
+      "license": {
+        "label": "MIT glue + GPL-2.0 SpliX / patches",
+        "url": "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/LICENSE",
+        "checked_at": "2026-10-20T10:07:11.888949+00:00",
+        "scope": "此仓库根许可证或 README 声明；不代表捆绑固件、模型、品牌或第三方组件同许可。"
+      },
+      "requirements": {
+        "disassembly": "no",
+        "soldering": "no",
+        "cloud_api": "no-at-runtime"
+      },
+      "cost": {
+        "amount": null,
+        "currency": null,
+        "status": "UNKNOWN",
+        "items": [
+          "USB 数据线",
+          "兼容 Mac"
+        ],
+        "note": "未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。"
+      },
+      "risk": {
+        "data_loss": "possible",
+        "bricking": "workflow-dependent",
+        "recovery": "仓库提供 uninstall.sh，README 解释如何撤销对 ippusbd 的更改；安装器需要管理员权限。",
+        "recovery_url": "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/uninstall.sh"
+      },
+      "keywords": [
+        "HP Laser 1008a macOS driver Claude",
+        "旧打印机 AI 驱动",
+        "HP Laser 1008a macOS driver",
+        "peripheral",
+        "驱动修复"
+      ],
+      "checked_at": "2026-10-20T10:07:11.888949+00:00",
+      "editorial_reviewed_at": "2026-10-20T10:18:44.541033+00:00",
+      "latest_release": null
+    }
+  ]
+}

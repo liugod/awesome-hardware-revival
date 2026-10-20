@@ -1,0 +1,31 @@
+name: 复现或失败记录 / Reproduction
+description: 提交可追溯的真实设备结果，包括失败与未测试项
+title: "[Reproduction] "
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: 目录 ID / Catalog ID
+    validations:
+      required: true
+  - type: textarea
+    id: configuration
+    attributes:
+      label: 型号、修订、固件、地区、日期、上游版本 / Configuration
+      description: 请隐藏账号、密钥、序列号和个人数据。
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: 成功/失败功能与证据 / Results and evidence
+      description: 说明是否独立于原作者；附公开步骤和经过打码的证据。
+    validations:
+      required: true
+  - type: textarea
+    id: recovery
+    attributes:
+      label: 备份、恢复、耗电与长期运行 / Recovery and duration
+      description: 没有执行的项目明确写未测试。
+    validations:
+      required: true

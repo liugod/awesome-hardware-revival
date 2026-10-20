@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Hardware Revival Catalog",
+  "type": "object",
+  "required": ["schema_version", "version", "compiled_at", "timezone", "labels", "projects"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+    "compiled_at": {"type": "string", "format": "date-time"},
+    "timezone": {"type": "string"},
+    "labels": {"type": "object", "required": ["category", "ai", "difficulty", "evidence", "maintenance"]},
+    "projects": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/project"}}
+  },
+  "$defs": {
+    "url": {"type": "string", "format": "uri", "pattern": "^https?://"},
+    "nullableUrl": {"anyOf": [{"$ref": "#/$defs/url"}, {"type": "null"}]},
+    "stringList": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "time": {"type": "string", "format": "date-time"},
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "category", "ai_relation", "entry_type", "family", "summary_zh", "device_scope", "model_examples", "firmware_requirement", "region_requirement", "compatibility_status", "use_cases", "method", "difficulty", "difficulty_basis", "limitations", "repo_url", "github_snapshot_url", "website_url", "tutorial_url", "compatibility_url", "x_sources", "evidence", "sources", "maintenance", "license", "requirements", "cost", "risk", "keywords", "checked_at", "editorial_reviewed_at", "latest_release"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9-]*$"},
+        "name": {"type": "string", "minLength": 1},
+        "category": {"enum": ["speaker", "mobile", "computer", "network", "tv", "ereader", "robot", "smarthome", "camera", "audio", "wearable", "gaming", "peripheral"]},
+        "ai_relation": {"enum": ["native", "assisted", "adjacent", "infrastructure"]},
+        "entry_type": {"enum": ["case", "platform", "prerequisite"]},
+        "family": {"type": "string", "minLength": 1},
+        "summary_zh": {"type": "string", "minLength": 1},
+        "device_scope": {"type": "string", "minLength": 1},
+        "model_examples": {"$ref": "#/$defs/stringList"},
+        "firmware_requirement": {"type": ["string", "null"]},
+        "region_requirement": {"type": ["string", "null"]},
+        "compatibility_status": {"type": "string"},
+        "use_cases": {"$ref": "#/$defs/stringList", "minItems": 1},
+        "method": {"type": "string", "minLength": 1},
+        "difficulty": {"enum": ["easy", "medium", "high"]},
+        "difficulty_basis": {"type": "string"},
+        "limitations": {"$ref": "#/$defs/stringList", "minItems": 1},
+        "repo_url": {"$ref": "#/$defs/url"},
+        "github_snapshot_url": {"$ref": "#/$defs/url"},
+        "website_url": {"$ref": "#/$defs/nullableUrl"},
+        "tutorial_url": {"$ref": "#/$defs/url"},
+        "compatibility_url": {"$ref": "#/$defs/url"},
+        "x_sources": {"type": "array", "items": {
+          "type": "object", "required": ["url", "status", "video_viewed", "checked_at", "note"],
+          "properties": {"url": {"$ref": "#/$defs/url"}, "status": {"type": "string"}, "video_viewed": {"type": "boolean"}, "checked_at": {"$ref": "#/$defs/time"}, "note": {"type": "string"}}
+        }},
+        "evidence": {
+          "type": "object", "required": ["level", "reason", "hardware_tested_by_catalog", "independent_reproduction_verified"],
+          "properties": {"level": {"enum": ["E1", "E2", "E3"]}, "reason": {"type": "string", "minLength": 1}, "hardware_tested_by_catalog": {"type": "boolean"}, "independent_reproduction_verified": {"type": "boolean"}}
+        },
+        "sources": {"type": "array", "minItems": 1, "items": {
+          "type": "object", "required": ["url", "kind", "status", "checked_at"],
+          "properties": {"url": {"$ref": "#/$defs/url"}, "kind": {"type": "string"}, "status": {"type": "string"}, "checked_at": {"$ref": "#/$defs/time"}, "readme_blob_sha": {"type": ["string", "null"]}, "content_sha256": {"type": ["string", "null"]}}
+        }},
+        "maintenance": {
+          "type": "object", "required": ["status", "github_archived", "last_push_at", "checked_at", "note"],
+          "properties": {"status": {"enum": ["not-archived", "archived", "deprecated", "moved", "historical-patched", "stale"]}, "github_archived": {"type": "boolean"}, "last_push_at": {"anyOf": [{"$ref": "#/$defs/time"}, {"type": "null"}]}, "checked_at": {"$ref": "#/$defs/time"}, "note": {"type": "string"}}
+        },
+        "license": {
+          "type": "object", "required": ["label", "url", "checked_at", "scope"],
+          "properties": {"label": {"type": "string"}, "url": {"$ref": "#/$defs/nullableUrl"}, "checked_at": {"$ref": "#/$defs/time"}, "scope": {"type": "string"}}
+        },
+        "requirements": {
+          "type": "object", "required": ["disassembly", "soldering", "cloud_api"],
+          "additionalProperties": {"type": "string", "minLength": 1}
+        },
+        "cost": {
+          "type": "object", "required": ["amount", "currency", "status", "items", "note"],
+          "properties": {"amount": {"type": ["number", "null"], "minimum": 0}, "currency": {"type": ["string", "null"]}, "status": {"enum": ["UNKNOWN", "VERIFIED"]}, "items": {"$ref": "#/$defs/stringList"}, "note": {"type": "string"}}
+        },
+        "risk": {
+          "type": "object", "required": ["data_loss", "bricking", "recovery", "recovery_url"],
+          "properties": {"data_loss": {"type": "string"}, "bricking": {"type": "string"}, "recovery": {"type": "string"}, "recovery_url": {"$ref": "#/$defs/nullableUrl"}}
+        },
+        "keywords": {"$ref": "#/$defs/stringList"},
+        "checked_at": {"$ref": "#/$defs/time"},
+        "editorial_reviewed_at": {"$ref": "#/$defs/time"},
+        "latest_release": {"anyOf": [{"type": "null"}, {
+          "type": "object", "required": ["tag", "url", "published_at"],
+          "properties": {"tag": {"type": "string"}, "url": {"$ref": "#/$defs/url"}, "published_at": {"$ref": "#/$defs/time"}}
+        }]}
+      }
+    }
+  }
+}
