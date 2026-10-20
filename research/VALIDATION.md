@@ -18,7 +18,16 @@ Date: 2026-10-20. This validates the catalog and website, not hardware compatibi
 
 ## Publication acceptance
 
-Pending repository push and deployed-page readback at the time of this initial record. This section will be updated after those actions finish.
+- Public repository: https://github.com/liugod/awesome-hardware-revival
+- Site: https://liugod.github.io/awesome-hardware-revival/
+- Initial content commit: `39e5b423fae4c9d3203d73c5d1e65cbd9e6172ca`.
+- GitHub `Validate catalog and site` workflow passed on that commit; Pages was enabled from `main:/docs`.
+- Independent GitHub Contents API readback matched local README, catalog JSON and index HTML byte-for-byte.
+- Independent public HTTPS GETs matched local index HTML, JSON, CSV, sitemap and HP detail HTML byte-for-byte on 2026-10-20 at 10:40:56 UTC.
+- Catalog JSON SHA-256: `0d5cf367ff0f0d560d519fa5600145aa771b367fce80c71f7b4d1d18264670ad`.
+- Catalog CSV SHA-256: `f857e898708342db54bbebcd049e6fc1b879fb871fef8e34ab2971cae180c5d9`.
+- Chrome opened the public HTTPS page and rendered its title, navigation, counts and project entries. Public-page screenshot captured.
+- Browser download automation timed out. The CSV URL itself was independently retrieved and hash-verified; successful browser download-manager completion is **not** claimed. Full interaction tests above were performed on the local build; deployed files were then independently matched to that build.
 
 ## Limits
 
