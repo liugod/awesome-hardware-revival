@@ -2,7 +2,7 @@
 
 **手里有什么设备 → 还能做什么 → 哪个方案有证据 → 动手前核对什么。**
 
-[中文导航站](https://kitagain.com/zh/) · [English website](https://kitagain.com/) · [社区论坛](https://community.kitagain.com/) · [English README](README.en.md) · [研究报告](research/REPORT.zh-CN.md) · [12 篇案例分析](research/DEEP_DIVES.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
+[中文导航站](https://kitagain.com/zh/) · [English website](https://kitagain.com/) · [社区论坛](https://community.kitagain.com/) · [English README](README.en.md) · [30 天执行计划](research/NEXT-30-DAYS.zh-CN.md) · [研究报告](research/REPORT.zh-CN.md) · [12 篇案例分析](research/DEEP_DIVES.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
 
 从小爱音箱和 Nest Mini，到 Kindle、旧电脑、路由器、摄像头、停服机器人和缺驱动的打印机。这个目录把公开代码、作者案例与适配限制放在一起，帮助你判断下一步是否值得尝试。
 
