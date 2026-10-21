@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.6.0 — 2026-10-21
+
+- Rewrite both homepages around visitor outcomes: find a device, see what it can become, check fit and know when to stop.
+- Add a bilingual ESP32 / ESP8266 hardware-revival guide covering local smart-device control, electronic shelf labels, LED lighting, old stereos, BLE proxies and legacy radio/infrared bridges.
+- Put a prominent plain-language purpose statement on every project page.
+- Add an independently maintained core-author and official-account layer; publish only profiles whose attribution can be traced to a project or author source.
+
 ## 1.5.0 — 2026-10-21
 
 - Add a decision sheet to every E0 lead: current stage, practical readiness, known device fit, unsupported or unverified cases, user value and a continue/stop recommendation.

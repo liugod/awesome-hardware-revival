@@ -21,6 +21,7 @@ schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
 articles=load(ROOT/"data/articles.json")
+author_socials=load(ROOT/"data/author-socials.json")
 watchlist=load(ROOT/"data/watchlist.json")
 watchlist_details=load(ROOT/"data/watchlist-details.json")
 assert articles and len({a["content_id"] for a in articles.values()})==len(articles), "Duplicate article content ID"
@@ -31,6 +32,11 @@ for slug,article in articles.items():
     assert len(article["zh"]["sections"])==len(article["en"]["sections"]),slug
     for lang in ["zh","en"]:
         assert article[lang]["title"] and article[lang]["intro"] and all(title and paragraphs and all(paragraphs) for title,paragraphs in article[lang]["sections"]),slug
+    for row in article.get("decision_rows",[]):
+        assert row["route"] and all(row[key][lang] for key in ["hardware","result","readiness","stop"] for lang in ["zh","en"]),slug
+assert set(author_socials)<=set(p["id"] for p in projects), "Author social points to missing project"
+for pid,accounts in author_socials.items():
+    assert accounts and all(item["name"] and item["platform"] and item["url"].startswith("https://") and item["source_url"].startswith("https://") and item["zh_role"] and item["en_role"] for item in accounts),pid
 assert watchlist and len({lead["content_id"] for lead in watchlist.values()})==len(watchlist), "Duplicate lead content ID"
 assert set(watchlist_details)==set(watchlist), "Lead decision-sheet coverage mismatch"
 assert not ({a["content_id"] for a in articles.values()} & {lead["content_id"] for lead in watchlist.values()}), "Content ID collision"

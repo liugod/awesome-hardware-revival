@@ -1,0 +1,50 @@
+{
+  "tasmota": [
+    {
+      "name": "Theo Arends",
+      "platform": "GitHub",
+      "url": "https://github.com/arendst",
+      "source_url": "https://github.com/arendst/Tasmota",
+      "zh_role": "Tasmota 创建者与核心维护者",
+      "en_role": "Tasmota creator and core maintainer"
+    }
+  ],
+  "openbeken": [
+    {
+      "name": "OpenSHW Projects",
+      "platform": "GitHub",
+      "url": "https://github.com/openshwprojects",
+      "source_url": "https://github.com/openshwprojects/OpenBK7231T_App",
+      "zh_role": "OpenBeken 项目组织账号",
+      "en_role": "OpenBeken project organization"
+    }
+  ],
+  "esphome": [
+    {
+      "name": "Otto Winter",
+      "platform": "X",
+      "url": "https://x.com/OttoWinter_",
+      "source_url": "https://github.com/OttoWinter",
+      "zh_role": "ESPHome 原始创始人；X 账号由其 GitHub 主页标注",
+      "en_role": "Original ESPHome founder; X account linked from his GitHub profile"
+    }
+  ],
+  "squeezelite": [
+    {
+      "name": "Sébastien (sle118)",
+      "platform": "GitHub",
+      "url": "https://github.com/sle118",
+      "source_url": "https://github.com/sle118/squeezelite-esp32",
+      "zh_role": "squeezelite-esp32 核心维护者",
+      "en_role": "squeezelite-esp32 core maintainer"
+    },
+    {
+      "name": "philippe44",
+      "platform": "GitHub",
+      "url": "https://github.com/philippe44",
+      "source_url": "https://github.com/sle118/squeezelite-esp32",
+      "zh_role": "squeezelite-esp32 原始作者与核心贡献者",
+      "en_role": "Original squeezelite-esp32 author and core contributor"
+    }
+  ]
+}

@@ -4,7 +4,7 @@ An evidence-aware directory for giving existing hardware a useful second life: s
 
 [English website](https://kitagain.com/) · [中文网站](https://kitagain.com/zh/) · [Community forum](https://community.kitagain.com/) · [中文 README](README.md) · [English JSON](docs/data/catalog.en.json) · [English CSV](docs/data/catalog.en.csv) · [Research report (Chinese)](research/REPORT.zh-CN.md)
 
-**Version 1.5.0; project sources reviewed 2026-10-20, field-guide and community-lead sources reviewed 2026-10-21.** The Chinese-facing name is “垃圾佬复活站”; the English brand, domain and repository remain KitAgain. The reviewed catalog contains 53 project/platform/tool entries, with a separate public layer of 10 E0 leads. Every lead now states its current stage, practical readiness, known fit, unsupported or unverified cases, user value and the contents of each linked resource. This is not a claim of tested hardware compatibility.
+**Version 1.6.0; project sources reviewed 2026-10-20, field-guide and community-lead sources reviewed 2026-10-21.** The Chinese-facing name is “垃圾佬复活站”; the English brand, domain and repository remain KitAgain. The reviewed catalog contains 53 project/platform/tool entries, a separate public layer of 10 E0 leads and 3 bilingual field guides. The new ESP32 / ESP8266 guide starts with owned hardware and a concrete new job; open-source firmware is presented as an implementation route, not as the content goal.
 
 ## What is included
 
@@ -12,6 +12,7 @@ An evidence-aware directory for giving existing hardware a useful second life: s
 - 12 detailed case analyses covering prerequisites, outcomes, limitations, costs still unknown, disassembly, cloud dependencies, recovery and suggested acceptance steps.
 - Source URLs, review timestamps, README hashes where available, maintenance status, root license observations and explicit unknowns.
 - 10 public E0 field leads and 2 separate exclusions. Related generations are grouped by `family`; prerequisites and leads are not presented as finished hardware outcomes.
+- Project pages lead with a plain-language purpose statement. Verified core-author or official social profiles are maintained separately and linked only when attribution can be traced to an official project or author page.
 
 Evidence: **E1 (50)** = repository/deployment documentation reviewed. **E2 (3)** = specific original-author hardware claims or demonstration descriptions also reviewed. **E3 (0)** = independently reproduced case verified by this catalog. **No hands-on hardware testing was performed.** Four original X posts from two case families were read; embedded videos were not verified.
 

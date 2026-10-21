@@ -110,5 +110,134 @@
         ]]
       ]
     }
+  },
+  "esp32-hardware-revival-routes": {
+    "content_id": "C13",
+    "reviewed_at": "2026-10-21",
+    "projects": ["tasmota", "openbeken", "esphome", "squeezelite"],
+    "sources": [
+      {"label": "Tasmota: Getting Started", "url": "https://tasmota.github.io/docs/Getting-Started/"},
+      {"label": "Tasmota: Device Recovery", "url": "https://tasmota.github.io/docs/Device-Recovery/"},
+      {"label": "ESPHome: LibreTiny Platform", "url": "https://esphome.io/components/libretiny/"},
+      {"label": "LibreTiny: Supported boards, modules and CPUs", "url": "https://docs.libretiny.eu/docs/status/supported/"},
+      {"label": "OpenBeken: Supported platforms", "url": "https://github.com/openshwprojects/OpenBK7231T_App/blob/main/docs/platforms.md"},
+      {"label": "OpenEPaperLink: Core project and setup", "url": "https://github.com/OpenEPaperLink/OpenEPaperLink"},
+      {"label": "WLED: Getting Started", "url": "https://kno.wled.ge/basics/getting-started/"},
+      {"label": "Squeezelite-ESP32: Project documentation", "url": "https://github.com/sle118/squeezelite-esp32"},
+      {"label": "ESPHome: Bluetooth Proxy", "url": "https://esphome.io/components/bluetooth_proxy/"},
+      {"label": "OpenMQTTGateway: Project documentation", "url": "https://github.com/1technophile/OpenMQTTGateway"}
+    ],
+    "decision_rows": [
+      {
+        "hardware": {"zh": "智能插座、开关、灯泡", "en": "Smart plug, switch or bulb"},
+        "result": {"zh": "脱离厂商云的本地控制设备", "en": "Locally controlled device without the vendor cloud"},
+        "route": "Tasmota / OpenBeken / ESPHome",
+        "readiness": {"zh": "成熟，但必须先确认芯片、模组与引脚", "en": "Mature when chip, module and pin mapping are known"},
+        "stop": {"zh": "芯片不明、没有恢复路径，或需要带市电拆机", "en": "Unknown chip, no recovery route, or unsafe mains disassembly"}
+      },
+      {
+        "hardware": {"zh": "废弃电子价签", "en": "Discarded electronic shelf label"},
+        "result": {"zh": "超低功耗日历、状态牌或信息屏", "en": "Low-power calendar, status card or information display"},
+        "route": "OpenEPaperLink",
+        "readiness": {"zh": "按标签型号和无线芯片判断", "en": "Model and radio-chip specific"},
+        "stop": {"zh": "标签型号不在支持资料中，或没有对应刷写夹具", "en": "Tag is not documented or the matching flasher jig is unavailable"}
+      },
+      {
+        "hardware": {"zh": "闲置灯带或 LED 控制器", "en": "Unused LED strip or controller"},
+        "result": {"zh": "可联网控制的氛围灯、状态灯或提示灯", "en": "Networked ambient, status or notification lighting"},
+        "route": "WLED",
+        "readiness": {"zh": "可寻址灯带路线成熟；模拟灯带需要额外驱动", "en": "Strong for addressable pixels; analog strips need extra drivers"},
+        "stop": {"zh": "电压、电流、地线或灯珠协议不清楚", "en": "Voltage, current, common ground or pixel protocol is unknown"}
+      },
+      {
+        "hardware": {"zh": "有 AUX / 线路输入的旧音响", "en": "Old stereo with AUX or line input"},
+        "result": {"zh": "局域网音乐播放器、蓝牙或 AirPlay 接收端", "en": "Network player, Bluetooth endpoint or AirPlay receiver"},
+        "route": "Squeezelite-ESP32",
+        "readiness": {"zh": "需要合适的 ESP32、DAC 和音频输入路径", "en": "Requires a suitable ESP32, DAC and line-level audio path"},
+        "stop": {"zh": "只有喇叭输出、误把 ESP 当功放，或板卡没有所需 PSRAM", "en": "Only speaker-level wiring, no amplifier, or missing required PSRAM"}
+      },
+      {
+        "hardware": {"zh": "散落在家里的 BLE 传感器", "en": "BLE sensors around the home"},
+        "result": {"zh": "Home Assistant 的蓝牙覆盖节点", "en": "A Bluetooth coverage node for Home Assistant"},
+        "route": "ESPHome Bluetooth Proxy",
+        "readiness": {"zh": "ESP32 可转发广播和主动连接；设备仍需对应集成", "en": "ESP32 can proxy advertisements and active connections; integrations still matter"},
+        "stop": {"zh": "目标不是 BLE、协议加密未支持，或需要超过稳定连接数", "en": "Target is not BLE, encryption is unsupported, or connection demand is excessive"}
+      },
+      {
+        "hardware": {"zh": "433/315/868 MHz 遥控器、传感器或红外设备", "en": "433/315/868 MHz remote, sensor or infrared device"},
+        "result": {"zh": "把旧无线信号桥接到 MQTT 和家庭自动化", "en": "Bridge legacy radio signals into MQTT and home automation"},
+        "route": "OpenMQTTGateway",
+        "readiness": {"zh": "可用，但收发模块、频率、解码器与地区规则要逐项匹配", "en": "Usable when radio module, frequency, decoder and regional rules match"},
+        "stop": {"zh": "频率或调制方式不明、当地法规不允许发射，或设备使用滚动码", "en": "Unknown frequency/modulation, prohibited transmission, or rolling-code device"}
+      }
+    ],
+    "zh": {
+      "title": "ESP32 / ESP8266 改造玩法：先看手里的硬件，再决定刷什么",
+      "intro": "ESP32 不是目的，它只是让旧硬件重新联网、显示、播放或桥接信号的一种工具。先认清设备和芯片，再选固件，能少买错板子，也少拆坏一台机器。",
+      "sections": [
+        ["先别搜固件：先认清手里的硬件", [
+          "记录完整型号、主板照片、无线模组丝印、供电电压、可见串口焊盘和原机还能否启动。先备份能读取的原固件与配置，并找到明确的恢复方法。品牌名不能代替芯片型号：同一款 Tuya 外壳可能先后使用 ESP8266、BK7231、RTL87xx 或其他模组。",
+          "如果设备直接接市电，普通 USB 转串口、电脑地线和裸露电源板之间可能形成危险回路。没有隔离电源、断电验证和带电操作经验时，不拆智能插座、墙壁开关或灯具；可以先从 USB 供电开发板、低压灯带和外置传感器开始。"
+        ]],
+        ["智能插座、开关和灯泡：把云端控制改成本地控制", [
+          "确认是 ESP8266/ESP8285 或受支持的 ESP32 后，可查看 Tasmota；它提供 Web 配置、MQTT/HTTP 控制和设备恢复说明。若是 BK72xx、RTL87xx 或 LN882x 等模组，查看 OpenBeken 或 ESPHome 的 LibreTiny 平台，并严格匹配 CPU、板型、闪存布局和引脚。",
+          "“能刷进去”不等于继电器、按键、指示灯和功率计都能正确工作。先找同一模组与同一主板修订的引脚资料；首台设备完成断电、重启、离线控制和恢复测试后，再决定是否处理同批其他设备。"
+        ]],
+        ["电子价签：把低功耗墨水屏变成日历和状态牌", [
+          "OpenEPaperLink 由接入点固件、标签固件以及刷写接口组成。它适合项目明确列出的标签类型，可把电子价签用于日历、房间状态、传感器数据或简单图片；通常还需要 ESP32 接入点、相应无线标签和刷写夹具。",
+          "外观相似不表示主控、屏幕驱动和无线协议相同。找不到准确标签类型、PCB 标识、无线芯片或刷写接点时，只做拆解记录，不向相近型号套用固件。"
+        ]],
+        ["灯带和 LED 控制器：做氛围灯、状态灯和提示灯", [
+          "WLED 很适合把 ESP32 与 WS2812B 一类可寻址灯带组合成网页可控的灯光系统。旧控制器能否直接复用取决于主控能否刷写、灯带协议、供电和输出电路；普通模拟 RGB 灯带需要 MOSFET 等驱动，不能把大电流直接接到 GPIO。",
+          "先确认灯带额定电压、最大电流、数据方向和地线连接。长线或 5V 像素可能需要电平转换，电源线要按负载选线并加保险。测试从少量灯珠和低亮度开始。"
+        ]],
+        ["旧音响：增加网络播放，而不是让 ESP32 直接推喇叭", [
+          "Squeezelite-ESP32 可让合适的 ESP32 板卡成为 Lyrion Music Server 播放端，并可提供蓝牙、AirPlay 或 Spotify Connect 等附加模式。常见路线是 ESP32 加 I2S DAC，把线路电平信号送入旧音响的 AUX；原音响仍负责功率放大。",
+          "项目文档要求典型 ESP32 路线具备至少 4 MB Flash 与 4 MB PSRAM，并明确 WROOM 通常不满足 PSRAM 条件。先确认板卡、DAC 和音响输入；不要把喇叭输出接入 ESP，也不要期待一块 ESP32 开发板直接驱动无源音箱。"
+        ]],
+        ["BLE、433 MHz 和红外：把散落的旧设备变成信号入口", [
+          "ESPHome Bluetooth Proxy 可扩大 Home Assistant 对 BLE 设备的覆盖。ESP32 支持广播转发和主动 GATT 连接，但目标设备仍要有对应的 Home Assistant 集成；代理本身不会自动破解私有或不兼容协议。",
+          "OpenMQTTGateway 可把 BLE、红外以及多种无线模块收到的信号转换为 MQTT。具体能力取决于 ESP 板、外接收发模块、频率、调制方式和解码器。滚动码遥控器、加密协议以及受地区限制的发射用途不能按普通固定码设备处理。"
+        ]],
+        ["最低验收：完成一个真实任务，再考虑复制", [
+          "每条路线先定义一个可观察结果：插座断网仍能开关；价签重启后继续更新；灯带满负载不过热；音响可连续播放并在断电后恢复；代理能稳定接收一台真实传感器。记录板卡、芯片、固件版本、接线、供电、成功和失败条件。",
+          "这页依据公开项目文档整理，KitAgain 没有对这些具体硬件做实机认证。型号、芯片、电源或恢复路径任一项不清楚时先停手，到社区贴出打码后的板卡照片和丝印继续核对。"
+        ]]
+      ]
+    },
+    "en": {
+      "title": "ESP32 / ESP8266 hardware revival: start with the device, then choose the firmware",
+      "intro": "An ESP32 is a means, not the goal. It can give old hardware networking, displays, audio or protocol bridging, but only after the device and chip are identified. Start there to avoid the wrong board or a damaged device.",
+      "sections": [
+        ["Identify the hardware before searching for firmware", [
+          "Record the complete model, board photos, radio-module markings, supply voltage, visible serial pads and whether the original device still boots. Back up readable firmware and configuration, then find a specific recovery route. A brand name is not a chipset: the same Tuya enclosure may ship with ESP8266, BK7231, RTL87xx or another module across revisions.",
+          "Mains-powered devices can expose a dangerous path between a USB serial adapter, computer ground and the open power board. Without isolation, power-off verification and suitable experience, do not open a smart plug, wall switch or lamp. Begin with a USB-powered board, low-voltage LED strip or external sensor."
+        ]],
+        ["Smart plugs, switches and bulbs: replace cloud control with local control", [
+          "For a confirmed ESP8266/ESP8285 or supported ESP32, examine Tasmota and its web configuration, MQTT/HTTP control and recovery documentation. For BK72xx, RTL87xx or LN882x modules, compare OpenBeken with ESPHome's LibreTiny platform and match the CPU, board, flash layout and pins exactly.",
+          "A successful flash does not prove that relays, buttons, status LEDs and power metering work correctly. Find a pin map for the same module and board revision. Test power loss, reboot, offline control and recovery on one device before touching the rest of a batch."
+        ]],
+        ["Electronic shelf labels: turn low-power e-paper into a calendar or status card", [
+          "OpenEPaperLink combines access-point firmware, tag firmware and flashing interfaces. For explicitly documented tag types, it can drive calendars, room status, sensor readings or simple images. A setup commonly needs an ESP32 access point, a suitable radio tag and a matching flashing jig.",
+          "Similar enclosures can contain different controllers, display drivers and radio protocols. If the exact tag type, PCB marking, radio chip or programming pads cannot be established, document the teardown and stop rather than applying firmware from a nearby model."
+        ]],
+        ["LED strips and controllers: build ambient, status or notification lighting", [
+          "WLED is a strong route for pairing an ESP32 with addressable pixels such as WS2812B. Reusing an existing controller depends on a flashable MCU, the strip protocol, its power supply and the output circuit. Analog RGB strips need drivers such as MOSFETs; their load must not be connected directly to GPIO.",
+          "Confirm rated voltage, maximum current, data direction and common ground. Long wires or 5 V pixels may require level shifting, and power wiring should be sized and fused for the load. Begin with a few pixels at low brightness."
+        ]],
+        ["Old stereos: add network playback without asking the ESP32 to power speakers", [
+          "Squeezelite-ESP32 can make a suitable ESP32 board a Lyrion Music Server player, with Bluetooth, AirPlay and Spotify Connect as additional modes. A common route is an ESP32 plus I2S DAC feeding line-level audio into the stereo's AUX input, while the original stereo remains the power amplifier.",
+          "The project documents a typical minimum of 4 MB flash and 4 MB PSRAM and says WROOM modules normally lack the required PSRAM. Confirm the board, DAC and stereo input. Never connect a speaker output to the ESP, and do not expect a bare development board to drive passive speakers."
+        ]],
+        ["BLE, sub-GHz radio and infrared: turn old devices into signal inputs", [
+          "ESPHome Bluetooth Proxy can extend Home Assistant coverage for BLE devices. ESP32 supports advertisement forwarding and active GATT connections, but the target still needs a compatible Home Assistant integration. A proxy does not automatically decode an unsupported proprietary protocol.",
+          "OpenMQTTGateway can translate BLE, infrared and several radio-module signals into MQTT. Actual capability depends on the ESP board, transceiver, frequency, modulation and decoder. Rolling-code remotes, encrypted protocols and region-restricted transmission cannot be treated as ordinary fixed-code devices."
+        ]],
+        ["Minimum acceptance: complete one real job before copying the build", [
+          "Define one observable outcome: a plug works without the cloud; a tag updates after reboot; an LED strip survives full load without overheating; a stereo plays continuously and recovers after power loss; or a proxy reliably receives one real sensor. Record board, chip, firmware, wiring, power and both success and failure conditions.",
+          "This guide summarizes public project documentation. KitAgain has not certified these hardware combinations. Pause whenever the model, chip, power path or recovery route is unclear, then share redacted board photos and markings in the community for further identification."
+        ]]
+      ]
+    }
   }
 }
