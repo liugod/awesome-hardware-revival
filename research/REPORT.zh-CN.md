@@ -1,10 +1,10 @@
-# 老硬件复活项目研究 · v1.3.0
+# 老硬件复活项目研究 · v1.4.0
 
 核查日期：2026-10-20（条目保留 UTC 原始时间；本报告按 Asia/Shanghai 阅读）。
 
 ## 结论与适用范围
 
-初版收录 53 条公开项目、平台和前置工具，覆盖 13 类设备，归并为 51 个项目家族。另有 6 条候选或排除记录。它们不是 53 次成功实机改造：E1 文档与代码证据 50 条，E2 作者实机陈述/演示 3 条，E3 独立复现 0 条，本目录亲手测试 0 条。
+正式目录收录 53 条公开项目、平台和前置工具，覆盖 13 类设备，归并为 51 个项目家族。另有 10 条公开 E0 社区线索与 2 条排除记录。它们不是 53 次成功实机改造：E1 文档与代码证据 50 条，E2 作者实机陈述/演示 3 条，E3 独立复现 0 条，本目录亲手测试 0 条。
 
 AI 功能改造 10 条；有明确 AI 辅助开发/配置材料 2 条；AI 周边用途 1 条；传统开源复活基础设施 40 条。不能因为项目可以与大模型结合就把它称为 AI 项目。AI 辅助配置与 AI 编写底层驱动也不是同一种证据。
 
@@ -20,7 +20,7 @@ AI 功能改造 10 条；有明确 AI 辅助开发/配置材料 2 条；AI 周�
 
 以设备和失效原因组合检索 GitHub、官方网站与 X。检索词包括 old hardware reuse、Nest Mini LLM PCB、Kindle dashboard jailbreak、Vector wire-pod、HP Laser macOS Claude driver、router firmware、IP camera local firmware，以及对应中文设备名。
 
-使用 GitHub 只读 API 取得仓库元数据、README、根许可证与最近 release 列表。逐项阅读 README 的适配和部署片段；重点项目继续读官方安装/型号表与作者过程。保留来源 URL、核查时间、README blob SHA 和内容哈希，不重新发布上游教程全文。不存在的旧路径、镜像或跳转不自动视为项目失效，放入候选区继续核实。
+正式目录使用 GitHub 只读 API 取得仓库元数据、README、根许可证与最近 release 列表。社区线索继续读取项目论坛、作者网站、Codeberg、GitLab、Hackaday、Instructables 与社交平台原帖。逐项阅读适配、部署、失败与恢复片段，保留来源 URL 和核查时间，不重新发布上游教程全文。不存在的旧路径、镜像或跳转不自动视为项目失效，标为 E0 继续核实。
 
 维护状态来自带时间的 API 快照和作者说明。许可证字段优先实际根文件；没有确认的标 UNKNOWN，混合许可不压成一个宽松标签。难度为编辑判断，成本未核价，恢复描述是文档路径而非救砖保证。地区、固件缺少明确材料时保留 null。
 
@@ -30,7 +30,7 @@ X 通过浏览器读取 4 条原始帖子正文，涉及 Onju 与 HP 驱动 2 �
 
 | 等级 | 本目录含义 | 条数 |
 | --- | --- | ---: |
-| E0 | 概念、线索或证据未完成；留在候选区 | 不计主目录 |
+| E0 | 公开线索、项目未完成或 KitAgain 尚未查完；生成独立线索页 | 不计 53 条正式目录 |
 | E1 | 已读项目源码仓库说明与部署/适配文档；未验证实机 | 50 |
 | E2 | 在 E1 基础上，有本轮读到的作者具体实机陈述或演示说明 | 3 |
 | E3 | 有另一个独立使用者的可追溯复现记录且本轮已核验 | 0 |
@@ -61,12 +61,12 @@ E1 不表示项目从未被别人成功使用，只表示本轮核查停留在�
 
 [12 篇完整分析](DEEP_DIVES.zh-CN.md) 包括 XiaoGPT、Open-XiaoAI、Onju、Kindle WHOOP、Kindle Home Assistant、OCLP、HAOS、OpenWrt、Valetudo、wire-pod、HP 打印驱动、OpenLumi。每篇提供原限制、新用途、适配前提、费用未知项、拆装要求、风险与恢复、适合/不适合人群及未执行的验收清单。
 
-## 待核验与排除
+## 公开社区线索
 
-- [postmarketOS / current site migration](https://postmarketos.org/) — `needs-follow-up`：旧 pmaports GitHub 地址不可用；下载页本轮重定向至 nura.eco。需沿官方迁移公告核对代码仓库、许可、型号矩阵后入主目录，不能以旧品牌记忆替代当前来源。
-- [Libreboot](https://libreboot.org/git.html) — `needs-follow-up`：官方 Git 页确认源码在 Codeberg；本轮未完成目标板恢复与许可证逐项核验，不采用不存在的 GitHub 镜像。
-- [Debian on Kirkwood NAS](https://forum.doozan.com/) — `needs-follow-up`：须从维护者原始教程核对具体 NAS、U-Boot、内核和串口恢复；本轮未完成，不能把泛泛旧 NAS 教程当成成品项目。
-- [Rebble Web Services](https://rebble.io/howto/) — `needs-follow-up`：官方 HOWTO 与设置页已读取，确认替代 Pebble 停服后的部分服务；尚未逐项核对当前手机配套应用、固件与服务许可证，作为优先补全候选。
+[双语线索数据](../data/watchlist.json)共 10 条，覆盖项目论坛、作者网站、Codeberg、GitLab、Hackaday 与 Instructables。每条分别写明已知事实、资料缺口、下一步和停止条件。E0 不自动表示上游项目不成熟。
+
+## 排除
+
 - [AI 辅助 HP BIOS 修改案例](https://www.techradar.com/pro/could-this-be-the-end-of-bios-locked-laptops-ai-tweaker-deploys-claude-to-unlock-and-change-settings-for-good) — `secondary-report-only`：目前只有报道线索，缺少本轮确认的作者源码、版本、备份/恢复和独立复现；不收录为成功项目。
 - [新购 ESP32 AI 玩具套件](https://github.com/78/xiaozhi-esp32) — `scope-exclusion`：优秀 AI 工程不自动等于旧硬件复活；需要指向具体闲置成品硬件复用案例，才新增条目。
 

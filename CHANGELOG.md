@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0 — 2026-10-21
+
+- Add a bilingual public Field Leads layer for 10 projects and reuse patterns found on forums, author sites, Codeberg, GitLab, Hackaday and Instructables.
+- Give every E0 lead an independent page with its source platform, known facts, review gap, next verification step and safety boundary.
+- Preserve failed and incomplete prototypes as evidence instead of hiding them, while separating upstream incompleteness from incomplete KitAgain review.
+- Add Field Leads to navigation, home discovery, canonical/hreflang validation, sitemap and public JSON exports.
+
 ## 1.3.0 — 2026-10-21
 
 - Publish two source-backed bilingual field guides: checking Kindle model/firmware before modification, and choosing a role for an old PC.

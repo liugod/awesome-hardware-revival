@@ -21,6 +21,7 @@ schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
 articles=load(ROOT/"data/articles.json")
+watchlist=load(ROOT/"data/watchlist.json")
 assert articles and len({a["content_id"] for a in articles.values()})==len(articles), "Duplicate article content ID"
 for slug,article in articles.items():
     assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug),slug
@@ -29,6 +30,17 @@ for slug,article in articles.items():
     assert len(article["zh"]["sections"])==len(article["en"]["sections"]),slug
     for lang in ["zh","en"]:
         assert article[lang]["title"] and article[lang]["intro"] and all(title and paragraphs and all(paragraphs) for title,paragraphs in article[lang]["sections"]),slug
+assert watchlist and len({lead["content_id"] for lead in watchlist.values()})==len(watchlist), "Duplicate lead content ID"
+assert not ({a["content_id"] for a in articles.values()} & {lead["content_id"] for lead in watchlist.values()}), "Content ID collision"
+for slug,lead in watchlist.items():
+    assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug),slug
+    assert lead["category"] in data["labels"]["category"],slug
+    assert lead["source_url"].startswith("https://"),slug
+    assert lead["code_url"] is None or lead["code_url"].startswith("https://"),slug
+    assert all(url.startswith("https://") for url in lead["additional_sources"]),slug
+    assert lead["content_id"].startswith("L") and lead["status"] and lead["source_platform"],slug
+    for lang in ["zh","en"]:
+        assert all(lead[lang][key] for key in ["title","summary","gap","next_check","safety"]),slug
 ids=[p["id"] for p in projects]
 assert len(ids)==len(set(i.lower() for i in ids)), "Duplicate ID"
 assert set(p["family"] for p in projects)<=set(ids), "Missing family anchor"
@@ -89,7 +101,7 @@ for file in OUT.rglob("*.html"):
     assert parser.alternates["x-default"]==BASE,file
     if file.is_relative_to(OUT/"en"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
-assert len(pages)==2*(len(projects)+7+len(articles))+len(projects)+2
+assert len(pages)==2*(len(projects)+8+len(articles)+len(watchlist))+len(projects)+2
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 assert root_page.lang=="en" and root_page.canonical==[BASE]
@@ -100,8 +112,16 @@ assert config["community_url"] in root_page.refs
 for lang in ["zh","en"]:
     assert config["community_url"] in pages[(OUT/lang/"index.html").resolve()].refs
     assert config["community_url"] in pages[(OUT/lang/"community/index.html").resolve()].refs
+    home=pages[(OUT/lang/"index.html").resolve()]
+    assert "leads/" in home.refs,(lang,"missing field-leads homepage link")
+    leads_index=pages[(OUT/lang/"leads/index.html").resolve()]
+    for slug,lead in watchlist.items():
+        assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")
+        page=pages[(OUT/lang/"leads"/slug/"index.html").resolve()]
+        assert page.canonical==[f"{BASE}{lang}/leads/{slug}/"]
+        expected=[lead["source_url"],*lead["additional_sources"]]+([lead["code_url"]] if lead["code_url"] else [])
+        assert all(url in page.refs for url in expected),(lang,slug,"missing lead source")
     for slug,article in articles.items():
-        home=pages[(OUT/lang/"index.html").resolve()]
         assert f"articles/{slug}/" in home.refs,(lang,slug,"missing homepage article link")
         page=pages[(OUT/lang/"articles"/slug/"index.html").resolve()]
         assert page.canonical==[f"{BASE}{lang}/articles/{slug}/"]
@@ -121,7 +141,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json"]:
+for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert set(ids)=={p.stem for p in (OUT/"projects").glob("*.html")}
 for lang in ["zh","en"]:
@@ -153,7 +173,7 @@ for source,target in mapping.items():
     assert pages[(OUT/source).resolve()].canonical==[BASE+target]
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+7+len(articles))
+assert len(urls)==len(set(urls))==2*(len(projects)+8+len(articles)+len(watchlist))
 assert BASE in urls and BASE+"en/" not in urls
 for url in urls:
     assert url.startswith(BASE)

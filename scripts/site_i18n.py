@@ -138,7 +138,7 @@ class Site:
 <link rel="icon" href="{rel('assets/mark.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{rel('assets/style.css')}"><script src="{rel('assets/app.js')}" defer></script>
 </head><body><a class="skip" href="#main">{self.t('跳到正文','Skip to content')}</a>
 <header class="site-header"><a class="brand" href="{rel(self.lang+'/index.html')}"><span class="brand-mark">↻</span><span>{brand}<small>HARDWARE REVIVAL FIELD GUIDE</small></span></a>
-<nav aria-label="{self.t('主导航','Main navigation')}"><a href="{rel(self.lang+'/index.html')}#catalog">{self.t('项目目录','Catalog')}</a><a href="{rel(self.lang+'/research/index.html')}">{self.t('研究方法','Method')}</a><a href="{h(CONFIG['community_url'])}">{self.t('参与社区','Community')}</a><a class="language-switch" href="{rel(target)}" lang="{other}" hreflang="{other}">{self.t('English','简体中文')}</a></nav></header>
+<nav aria-label="{self.t('主导航','Main navigation')}"><a href="{rel(self.lang+'/index.html')}#catalog">{self.t('项目目录','Catalog')}</a><a href="{rel(self.lang+'/leads/index.html')}">{self.t('社区线索','Field leads')}</a><a href="{rel(self.lang+'/research/index.html')}">{self.t('研究方法','Method')}</a><a href="{h(CONFIG['community_url'])}">{self.t('参与社区','Community')}</a><a class="language-switch" href="{rel(target)}" lang="{other}" hreflang="{other}">{self.t('English','简体中文')}</a></nav></header>
 <main id="main">{body}</main><footer><p>{self.t('让仍能工作的硬件，找到下一份工作。','Give working hardware its next job.')}</p><div>{self.t('资料核查','Sources reviewed')} {DATE} · v{CONFIG['version']} · {self.t('未进行实机测试','No hands-on hardware tests')}<br>
 <a href="{rel('data/catalog.json')}" download>{self.t('中文 JSON','Source JSON (Chinese)')}</a> / <a href="{rel('data/catalog.en.json')}" download>English JSON</a> / <a href="{rel('data/catalog'+('.en' if self.lang=='en' else '')+'.csv')}" download>CSV</a> / <a href="{REPO}">GitHub ↗</a><br>{self.t('原创文字与目录 CC BY 4.0 · 站点代码 MIT · 第三方项目按各自许可','Original text & catalog: CC BY 4.0 · Site code: MIT · Third-party projects: their own licenses')}</div></footer></body></html>"""
         write(OUT / current, markup)
@@ -162,6 +162,11 @@ class Site:
         attr = " ".join(f'data-{k}="{h(v)}"' for k,v in attrs.items())
         return f"""<article class="project" {attr}>{self.tags(p)}<h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('适配范围','Device scope')}</b>{h(v['device_scope'])}</p><p class="limit">{h(v['limitations'][0])}</p><div class="card-end"><span class="status {'attention' if p['maintenance']['status'] != 'not-archived' else ''}">{h(self.labels['maintenance'][p['maintenance']['status']])}</span><span>{h(v['method'])}</span></div></article>"""
 
+    def lead_card(self, slug, lead, prefix="leads/"):
+        v = lead[self.lang]
+        tags = [self.labels["category"][lead["category"]], lead["source_platform"], "E0"]
+        return f"""<article class="project"><div class="tags">{''.join(f'<span>{h(tag)}</span>' for tag in tags)}</div><h3><a href="{prefix}{slug}/">{h(v['title'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="limit"><b>{self.t('待核缺口','Review gap')}</b> {h(v['gap'])}</p><div class="card-end"><span class="status attention">{self.t('线索 / 尚未进入正式目录','Lead / not yet in reviewed catalog')}</span><span>{h(lead['content_id'])}</span></div></article>"""
+
     def home(self):
         t = self.t
         options = lambda group: "".join(f'<option value="{h(k)}">{h(v)}</option>' for k,v in group.items())
@@ -172,11 +177,13 @@ class Site:
         filters = "".join(f'<label>{label}<select id="{key}" name="{key}"><option value="">{t("全部","All")}</option>{options(values)}</select></label>' for key,label,values in groups)
         topics = "".join(f'<a class="feature" href="guides/{gid}/"><span class="serial">0{i+1} / {t("路线比较","ROUTE COMPARISON")}</span><h3>{h(g[self.lang]["title"])}</h3><p>{h(g[self.lang]["intro"])}</p><span class="text-link">{t("查看条件与选择依据","Compare requirements and routes")} ↗</span></a>' for i,(gid,g) in enumerate(GUIDES.items()))
         articles = "".join(f'<a class="feature" href="articles/{slug}/"><span class="serial">{h(a["content_id"])} / {t("实用指南","FIELD GUIDE")}</span><h3>{h(a[self.lang]["title"])}</h3><p>{h(a[self.lang]["intro"])}</p><span class="text-link">{t("阅读核对清单与来源","Read the checklist and sources")} ↗</span></a>' for slug,a in ARTICLES.items())
+        leads = "".join(self.lead_card(slug,lead) for slug,lead in list(WATCHLIST.items())[:4])
         body = f"""<section class="hero"><div class="hero-copy"><p class="eyebrow">OPEN HARDWARE, SECOND LIVES</p><h1>{t('旧设备，<br>还可以做点什么？','Old hardware.<br>A new purpose.')}</h1><p class="intro">{t('从闲置音箱到旧 Kindle，从停服机器人到缺驱动的打印机。按手里的设备找方案，先看适配条件，再决定是否动手。','From idle speakers and old Kindles to service-dependent robots and unsupported printers. Find a route for the device you own, then check compatibility before getting started.')}</p><a class="primary" href="#catalog">{t('寻找你的设备','Find your device')} ↓</a><a class="secondary" href="research/">{t('先看我们如何核查','How we review evidence')} ↗</a></div>
 <aside class="field-note"><span class="eyebrow">FIELD NOTES / 001</span><div class="big-count">{len(PROJECTS)}<span>{t('条公开项目与工具','public projects and tools')}</span></div><dl><div><dt>{t('设备类别','Device categories')}</dt><dd>{len(self.labels['category'])}</dd></div><div><dt>{t('重点案例分析','Case analyses')}</dt><dd>{len(DEEP)}</dd></div><div><dt>{t('独立实机复现','Verified independent reproductions')}</dt><dd>0</dd></div></dl><p>{t('这是有来源的研究目录。收录不等于兼容认证或实机测试。','A source-backed research directory. Inclusion is not compatibility certification or hands-on testing.')}</p><small>LAST REVIEWED {DATE}</small></aside></section>
 <div class="facts-strip">{''.join(f'<span><b>{sum(p["ai_relation"]==key for p in PROJECTS)}</b>{h(label)}</span>' for key,label in self.labels['ai'].items())}</div>
 <section class="featured"><div class="section-heading"><p class="eyebrow">{t('从设备出发','START WITH YOUR DEVICE')}</p><h2>{t('三条值得先了解的路径','Three routes to explore')}</h2></div><div class="feature-grid">{topics}</div></section>
 <section class="featured"><div class="section-heading"><p class="eyebrow">{t('动手前先核对','CHECK BEFORE YOU START')}</p><h2>{t('实用指南','Field guides')}</h2></div><div class="feature-grid">{articles}</div></section>
+<section class="featured"><div class="section-heading"><p class="eyebrow">{t('不只在 GitHub','BEYOND GITHUB')}</p><h2>{t('社区线索与未完成项目','Community leads and incomplete projects')}</h2><p>{t('来自论坛、作者网站、Codeberg、GitLab、Hackaday 与 Instructables。E0 表示 KitAgain 尚未完成核验，不一定表示上游项目不成熟。','Sources include forums, author sites, Codeberg, GitLab, Hackaday and Instructables. E0 means KitAgain review is incomplete; it does not necessarily mean the upstream project is immature.')}</p></div><div class="project-grid">{leads}</div><p><a class="secondary" href="leads/">{t('查看全部社区线索','Browse all field leads')} / {len(WATCHLIST)} ↗</a></p></section>
 <section id="catalog" class="catalog"><div class="section-heading"><h2>{t('项目目录','Project catalog')} <span class="muted">/ {len(PROJECTS)}</span></h2><p>{t('先按设备缩小范围，再核对型号、固件与恢复路径。','Narrow by device, then check model, firmware and recovery requirements.')}</p></div>
 <form id="filters" class="filters" role="search"><div class="search-field"><label for="q">{t('搜索设备、型号或项目（支持中英文）','Search devices, models or projects (Chinese or English)')}</label><input id="q" name="q" type="search" placeholder="{t('例如 Kindle、LX06、打印机…','Try Kindle, LX06, printer…')}" autocomplete="off"></div>
 <div class="filter-grid">{filters}</div><div class="filter-bottom"><p id="result-count" role="status" aria-live="polite">{t('显示','Showing')} {len(PROJECTS)} / {len(PROJECTS)}</p><div><button type="button" id="share">{t('复制筛选链接','Copy filtered link')}</button><button type="reset">{t('清除筛选','Clear filters')}</button></div></div><span id="share-status" role="status"></span></form>
@@ -219,8 +226,8 @@ class Site:
 
     def supporting(self):
         t = self.t
-        method = f"""<h2>{t('收录意味着什么','What inclusion means')}</h2><p>{t('E1：已读源码与部署文档，50 条。E2：作者实机陈述或演示，3 条。E3：独立复现，0 条。本目录实机测试 0 条。','E1: source and deployment documentation reviewed, 50 entries. E2: author hardware claims or demonstrations, 3. E3: verified independent reproduction, 0. Catalog hands-on hardware tests: 0.')}</p>
-<h2>{t('我们如何核查','How we review')}</h2><p>{t('以设备和失效原因寻找原始仓库、安装文档、型号表及作者原帖。保存来源、时间和内容哈希；搜索摘要只作线索。型号、固件、地区未知时保留未知，不把未归档等同持续可用。','We look for original repositories, installation instructions, model tables and author posts by device and failure mode. Source URLs, dates and content hashes are retained; search snippets are leads only. Unknown model, firmware or region requirements stay unknown. An unarchived project is not proof of continued usability.')}</p>
+        method = f"""<h2>{t('收录意味着什么','What inclusion means')}</h2><p>{t(f'E0：公开社区线索 {len(WATCHLIST)} 条。E1：已读源码与部署文档，50 条。E2：作者实机陈述或演示，3 条。E3：独立复现，0 条。本目录实机测试 0 条。',f'E0: {len(WATCHLIST)} public community leads. E1: source and deployment documentation reviewed, 50 entries. E2: author hardware claims or demonstrations, 3. E3: verified independent reproduction, 0. Catalog hands-on hardware tests: 0.')}</p>
+<h2>{t('我们如何核查','How we review')}</h2><p>{t('以设备和失效原因寻找原始仓库、项目论坛、作者网站、Codeberg、GitLab、Hackaday、Instructables、安装文档、型号表及社交平台原帖。保存来源和核查时间；搜索摘要与转载只作线索。型号、固件、地区未知时保留未知，不把未归档等同持续可用。','We search original repositories, project forums, author sites, Codeberg, GitLab, Hackaday, Instructables, install documentation, model tables and original social posts by device and failure mode. Source URLs and review dates are retained; search snippets and reposts are leads only. Unknown model, firmware or region requirements stay unknown. An unarchived project is not proof of continued usability.')}</p>
 <h2>{t('AI 关系与项目家族','AI relationships and project families')}</h2><p>{t('AI 功能改造、AI 辅助开发/配置、AI 周边用途和传统基础设施分开标注。同家族后继版本不是独立复现，平台与前置工具也不是完成的改造案例。','AI functionality, documented AI-assisted development/setup, AI-adjacent uses and traditional infrastructure are separate categories. Successor versions in one family are not independent reproductions; platforms and prerequisite tools are not completed modification cases.')}</p>
 <h2>{t('证据的空白','Evidence gaps')}</h2><p>{t('没有长期耗电、稳定性或恢复实测；成本未核价。难度是编辑判断。X 阅读集中于两个案例家族，不声称穷尽搜索或核验视频。','There are no long-term power, stability or recovery tests, and costs are not priced. Difficulty is editorial judgment. X reading covers two case families; neither exhaustive search nor video verification is claimed.')}</p>
 <h2>{t('双语同步','Translation discipline')}</h2><p>{t('两种语言共享稳定 ID 与事实字段。译文记录源内容哈希；源文变动后必须复核，不能把翻译日期当作上游重新核查日期。','Both languages share stable IDs and factual fields. Translations record a source-content hash and must be reviewed when the source changes. Translation dates are not fresh upstream verification dates.')}</p><p><a href="../contribute/">{t('贡献方法与核验流程','Contribution and review process')} ↗</a></p>"""
@@ -253,8 +260,31 @@ class Site:
             sections += f'<h2>{self.t("相关项目","Related projects")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"] == pid),"../../") for pid in article["projects"]) + "</div>"
             self.article(a["title"],a["intro"],sections,f"articles/{slug}/index.html")
 
+    def leads(self):
+        cards = "".join(self.lead_card(slug,lead,"") for slug,lead in WATCHLIST.items())
+        intro = self.t(
+            "这些线索来自 GitHub 之外的论坛、作者网站、Codeberg、GitLab、Hackaday、Instructables 等。所有条目当前均为 E0：有价值，但尚未达到正式目录的完整核验要求。",
+            "These leads come from forums, author sites, Codeberg, GitLab, Hackaday, Instructables and other sources beyond GitHub. Every entry is currently E0: useful, but not yet fully reviewed for the main catalog."
+        )
+        sections = f'<aside class="boundary"><b>{self.t("E0 的含义","What E0 means")}</b><p>{self.t("可能是项目不完整、只有单一作者报告、型号范围不清，或只是 KitAgain 还没查完。页面会明确写出是哪一种。","The project may be incomplete, supported only by one author report, unclear by model, or simply not fully reviewed by KitAgain. Each page states which case applies.")}</p></aside><div class="project-grid">{cards}</div>'
+        self.article(self.t("社区线索与未完成项目","Community leads and incomplete projects"),intro,sections,"leads/index.html")
+        for slug,lead in WATCHLIST.items():
+            v = lead[self.lang]
+            sources = [lead["source_url"], *lead["additional_sources"]]
+            if lead["code_url"]:
+                sources.append(lead["code_url"])
+            sections = f'<p class="muted">{h(lead["content_id"])} · E0 · {self.t("资料核查","Sources reviewed")} {h(lead["reviewed_at"])} · {self.t("未进行实机测试","No hands-on hardware tests")}</p>'
+            sections += f'<h2>{self.t("目前知道什么","What we know")}</h2><p>{h(v["summary"])}</p>'
+            sections += f'<h2>{self.t("为什么仍是 E0","Why it remains E0")}</h2><p>{h(v["gap"])}</p>'
+            sections += f'<h2>{self.t("下一步核验","Next review step")}</h2><p>{h(v["next_check"])}</p>'
+            sections += f'<h2>{self.t("风险与停止条件","Risk and stop condition")}</h2><p>{h(v["safety"])}</p>'
+            sections += f'<h2>{self.t("原始来源","Primary and community sources")}</h2><ul class="sources">' + "".join(f'<li>{self.link(url,url)}</li>' for url in sources) + "</ul>"
+            sections += f'<p><a href="../">{self.t("返回全部社区线索","Back to all field leads")} ↗</a></p>'
+            self.article(v["title"],v["summary"],sections,f"leads/{slug}/index.html")
+
 GUIDES = json.loads((ROOT / "data/guides.json").read_text(encoding="utf-8"))
 ARTICLES = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
+WATCHLIST = json.loads((ROOT / "data/watchlist.json").read_text(encoding="utf-8"))
 
 def build():
     assert CONFIG["version"] == DATA["version"], "Product versions differ"
@@ -266,7 +296,7 @@ def build():
     assert manifest["deep_translation_sha256"] == digest(DEEP_EN), "Deep-dive translations changed without review"
     for lang in ["zh","en"]:
         s=Site(lang)
-        s.home();s.supporting();s.guides();s.articles()
+        s.home();s.supporting();s.guides();s.articles();s.leads()
         for p in PROJECTS:
             s.detail(p)
             if lang=="zh":s.detail(p,legacy=True)

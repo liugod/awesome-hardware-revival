@@ -4,14 +4,14 @@ An evidence-aware directory for giving existing hardware a useful second life: s
 
 [English website](https://kitagain.com/) · [中文网站](https://kitagain.com/zh/) · [Community forum](https://community.kitagain.com/) · [中文 README](README.md) · [English JSON](docs/data/catalog.en.json) · [English CSV](docs/data/catalog.en.csv) · [Research report (Chinese)](research/REPORT.zh-CN.md)
 
-**Version 1.3.0; project sources reviewed 2026-10-20, field-guide sources reviewed 2026-10-21.** 53 project/platform/tool entries across 13 categories and 51 project families. All 53 entries, 12 detailed analyses, 3 topic guides and 2 field guides are available in Chinese and English. This is not a claim of 53 independently tested hardware builds. New guide reviews do not constitute fresh upstream verification of every project.
+**Version 1.4.0; project sources reviewed 2026-10-20, field-guide and community-lead sources reviewed 2026-10-21.** The reviewed catalog contains 53 project/platform/tool entries across 13 categories and 51 families. A separate public layer contains 10 E0 leads from forums, author sites, Codeberg, GitLab, Hackaday and Instructables. All 53 entries, 12 detailed analyses, 3 topic guides, 2 field guides and 10 leads are bilingual. This is not a claim of tested hardware compatibility; E0 means KitAgain review is incomplete.
 
 ## What is included
 
 - 10 AI functionality projects, 2 with documented AI-assisted development or setup, 1 AI-adjacent use case, 40 conventional open-source reuse foundations.
 - 12 detailed case analyses covering prerequisites, outcomes, limitations, costs still unknown, disassembly, cloud dependencies, recovery and suggested acceptance steps.
 - Source URLs, review timestamps, README hashes where available, maintenance status, root license observations and explicit unknowns.
-- 6 separate candidates or exclusions. Related generations are grouped by `family`; prerequisites are not presented as finished hardware outcomes.
+- 10 public E0 field leads and 2 separate exclusions. Related generations are grouped by `family`; prerequisites and leads are not presented as finished hardware outcomes.
 
 Evidence: **E1 (50)** = repository/deployment documentation reviewed. **E2 (3)** = specific original-author hardware claims or demonstration descriptions also reviewed. **E3 (0)** = independently reproduced case verified by this catalog. **No hands-on hardware testing was performed.** Four original X posts from two case families were read; embedded videos were not verified.
 

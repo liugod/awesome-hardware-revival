@@ -1,0 +1,242 @@
+{
+  "postmarketos-nura": {
+    "content_id": "L01",
+    "category": "mobile",
+    "source_platform": "Official site + GitLab",
+    "source_url": "https://postmarketos.org/download/",
+    "code_url": "https://gitlab.postmarketos.org/postmarketOS/pmaports",
+    "additional_sources": ["https://wiki.postmarketos.org/wiki/Category:Devices"],
+    "status": "identity-and-device-matrix-review",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "postmarketOS / Nura：旧手机 Linux 路线",
+      "summary": "项目资料不以 GitHub 为中心；下载入口目前跳转到 Nura，设备资料和代码仍分布在 Wiki 与 GitLab。",
+      "gap": "KitAgain 尚未梳理品牌迁移、当前支持等级、通话/相机等功能矩阵，也没有针对具体手机完成实机验证。",
+      "next_check": "选 3 个具体旧机型，逐一核对设备页、安装方法、主线内核状态和恢复路径。",
+      "safety": "刷写前必须按准确代号核对；同品牌相近型号不能互换镜像。"
+    },
+    "en": {
+      "title": "postmarketOS / Nura: Linux routes for older phones",
+      "summary": "The project is not GitHub-centered. Its download entry currently redirects to Nura, while device material and code remain distributed across a wiki and GitLab.",
+      "gap": "KitAgain has not yet reconciled the brand migration, current support levels, calling/camera matrices, or a tested route for any exact phone.",
+      "next_check": "Select three exact older models and review each device page, installation route, mainline-kernel status and recovery path.",
+      "safety": "Match the exact device codename before flashing; similar retail names do not make images interchangeable."
+    }
+  },
+  "libreboot": {
+    "content_id": "L02",
+    "category": "computer",
+    "source_platform": "Official site + Codeberg",
+    "source_url": "https://libreboot.org/docs/install/",
+    "code_url": "https://codeberg.org/libreboot/lbmk",
+    "additional_sources": ["https://libreboot.org/git.html"],
+    "status": "strong-source-needs-catalog-review",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Libreboot：非 GitHub 托管的开源固件路线",
+      "summary": "官方文档和构建系统托管在自有网站与 Codeberg，并列出大量具体主板和安装路径。",
+      "gap": "项目资料较完整，但 KitAgain 尚未把支持主板、内部/外部刷写条件、许可证范围和恢复设备逐项整理成正式条目。",
+      "next_check": "从一个具体 ThinkPad 或 Chromebook 板号开始，核对 ROM、刷写方式、备份和回退。",
+      "safety": "这是固件写入操作。官方要求先备份当前闪存，并明确警告错误操作可能导致设备无法启动。"
+    },
+    "en": {
+      "title": "Libreboot: open firmware hosted outside GitHub",
+      "summary": "Official documentation and the build system live on the project site and Codeberg, with board-specific install paths.",
+      "gap": "The upstream material is substantial, but KitAgain has not yet converted supported boards, internal/external flashing, license scope and recovery equipment into a reviewed catalog entry.",
+      "next_check": "Start with one exact ThinkPad or Chromebook board and verify its ROM, flashing method, backup and rollback.",
+      "safety": "This writes boot firmware. Upstream requires a flash backup and warns that incorrect steps can leave the machine unable to boot."
+    }
+  },
+  "kirkwood-nas-debian": {
+    "content_id": "L03",
+    "category": "network",
+    "source_platform": "Doozan forum",
+    "source_url": "https://forum.doozan.com/read.php?2,12096",
+    "code_url": null,
+    "additional_sources": ["https://forum.doozan.com/read.php?3,138456,138516"],
+    "status": "forum-maintained-device-specific",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Kirkwood 旧 NAS 安装 Debian / U-Boot",
+      "summary": "长期维护资料主要存在 Doozan 论坛帖和回复中，覆盖部分 Zyxel、Seagate、Synology、Pogoplug 等设备。",
+      "gap": "不是一个统一镜像覆盖所有 NAS；型号、SoC、原厂 U-Boot、串口、NAND 布局和当前下载包需要逐帖核对。",
+      "next_check": "选 NSA325、GoFlex Home、DS211 各一条主帖，记录当前 rootfs、U-Boot、校验值与恢复步骤。",
+      "safety": "部分路径会覆盖原厂固件；没有串口和闪存备份时不应执行写入步骤。"
+    },
+    "en": {
+      "title": "Debian and U-Boot for older Kirkwood NAS devices",
+      "summary": "Long-running material lives mainly in Doozan forum threads and replies, covering selected Zyxel, Seagate, Synology and Pogoplug devices.",
+      "gap": "There is no universal image for every NAS. Model, SoC, stock U-Boot, serial access, NAND layout and current downloads require thread-by-thread review.",
+      "next_check": "Review one primary thread each for NSA325, GoFlex Home and DS211, recording current rootfs, U-Boot, checksums and recovery.",
+      "safety": "Some routes overwrite stock firmware; do not write flash without serial access and a verified backup."
+    }
+  },
+  "rebble-services": {
+    "content_id": "L04",
+    "category": "wearable",
+    "source_platform": "Official help site + community",
+    "source_url": "https://rebble.io/howto/",
+    "code_url": null,
+    "additional_sources": ["https://help.rebble.io/", "https://rebble.io/projects/"],
+    "status": "service-transition-review",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Rebble：Pebble 停服后的社区服务路线",
+      "summary": "官方 HOWTO、帮助中心、Discord 和项目页共同维持旧 Pebble 手表的设置、应用商店与部分云服务。",
+      "gap": "当前又出现新的 Pebble 应用与服务路径；KitAgain 尚未核对旧版 Android/iOS、各表型、付费服务和固件组合。",
+      "next_check": "按 Pebble Classic、Time、Pebble 2 和手机系统分别整理当前配对、应用安装、服务依赖与取消路径。",
+      "safety": "不要把恢复出厂设置当作第一步；先保存当前能工作的手机应用、固件和配对状态。"
+    },
+    "en": {
+      "title": "Rebble: community services after Pebble shutdown",
+      "summary": "An official HOWTO, help center, Discord and project pages collectively support setup, an app store and selected cloud services for older Pebble watches.",
+      "gap": "New Pebble app and service paths now coexist. KitAgain has not reconciled legacy Android/iOS versions, watch families, paid services and firmware combinations.",
+      "next_check": "Map current pairing, app installation, service dependencies and exit paths for Pebble Classic, Time and Pebble 2 across phone platforms.",
+      "safety": "Do not start with a factory reset. Preserve the currently working phone app, firmware and pairing state first."
+    }
+  },
+  "jelloid-android-jellyfin": {
+    "content_id": "L05",
+    "category": "mobile",
+    "source_platform": "Instructables",
+    "source_url": "https://www.instructables.com/Jelloid-Jellyfin-on-Android/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "author-tested-needs-code-license-review",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Jelloid：把旧 Android 设备变成 Jellyfin 服务器",
+      "summary": "作者在 Instructables 发布完整步骤，并称在多台 Motorola、Pixel 和 Fire Tablet 上测试。",
+      "gap": "KitAgain 尚未独立复现，也未确认脚本的长期维护、许可证、Android 版本范围、转码能力和后台保活限制。",
+      "next_check": "保存脚本来源和许可证，列出五类已报告设备的 Android/架构，并在一台闲置设备上做安装与重启验收。",
+      "safety": "服务器会接触媒体文件和局域网；测试前使用副本，并检查应用来源、端口与权限。"
+    },
+    "en": {
+      "title": "Jelloid: use an older Android device as a Jellyfin server",
+      "summary": "The author published a step-by-step Instructable and reports tests on several Motorola devices, a Pixel and a Fire tablet.",
+      "gap": "KitAgain has not reproduced it or confirmed script maintenance, licensing, Android range, transcoding capability or background-process limits.",
+      "next_check": "Preserve the script source and license, map reported devices to Android/architecture, then test install and reboot on one spare device.",
+      "safety": "The server accesses media and the local network. Test with copies and review package origin, ports and permissions."
+    }
+  },
+  "eink-display-adapter": {
+    "content_id": "L06",
+    "category": "ereader",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/7443-e-ink-display-adapter",
+    "code_url": null,
+    "additional_sources": ["https://hackaday.io/project/7443-e-ink-display-adapter/log/50221-working-software"],
+    "status": "working-prototype-stale",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "拆机 Kindle 屏幕转接板",
+      "summary": "Hackaday 项目记录了 39 针墨水屏的高压驱动、转接板和 ESP 控制实验，并有一次黑白显示成功日志。",
+      "gap": "项目多年未更新，屏幕连接器和波形高度依型号而异；作者也记录过因早期板卡问题损坏屏幕。",
+      "next_check": "核对具体面板编号、PCB 修订、BOM、代码许可证和是否还有可制造文件。",
+      "safety": "驱动包含多路正负高压；错接可能损坏面板，不适合作为通用 Kindle 改造教程。"
+    },
+    "en": {
+      "title": "Adapter board for salvaged Kindle displays",
+      "summary": "A Hackaday project documents high-voltage drive rails, an adapter PCB and ESP experiments for 39-pin e-paper panels, including a successful black-and-white output log.",
+      "gap": "The project has been quiet for years, connectors and waveforms vary by panel, and the author recorded a screen damaged during an earlier board attempt.",
+      "next_check": "Verify exact panel numbers, PCB revision, BOM, code license and the availability of manufacturable files.",
+      "safety": "The driver uses multiple positive and negative high-voltage rails. Incorrect wiring can destroy a panel; this is not a universal Kindle guide."
+    }
+  },
+  "six-inch-pi-eink": {
+    "content_id": "L07",
+    "category": "ereader",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/10161-6-inch-pi-e-ink-display",
+    "code_url": null,
+    "additional_sources": ["https://hackaday.io/project/10161/logs"],
+    "status": "incomplete-failed-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "6 英寸 Kindle 屏幕转 Raspberry Pi：未完成原型",
+      "summary": "目标是制作树莓派到闲置 Kindle 屏幕的接口板；作者公开记录两版 PCB 都有错误、无法工作，后来转向参考另一项目。",
+      "gap": "没有可复现的成功硬件、最终 BOM 或验收结果。这条线索的价值在于保存失败原因和项目关系。",
+      "next_check": "只在找到后继硬件或可验证的修订后升级；当前与 L06 建立关联，不把它写成成功案例。",
+      "safety": "不要按失败 PCB 直接下单或接屏；先核对后继设计与面板电气要求。"
+    },
+    "en": {
+      "title": "Six-inch Kindle display for Raspberry Pi: incomplete prototype",
+      "summary": "The goal was a Raspberry Pi interface for a surplus Kindle panel. The author records that two PCB revisions contained errors and were unusable, then switched to another project.",
+      "gap": "There is no reproducible successful board, final BOM or acceptance result. Its value is preserving failure evidence and project relationships.",
+      "next_check": "Upgrade only if a successor board or verifiable revision appears; link it to L06 and do not present it as a successful build.",
+      "safety": "Do not order or connect the failed PCB design without checking a successor and the exact panel electrical requirements."
+    }
+  },
+  "old-tablet-ha-panel": {
+    "content_id": "L08",
+    "category": "mobile",
+    "source_platform": "Home Assistant Community",
+    "source_url": "https://community.home-assistant.io/t/tablet-as-wall-panel/734479",
+    "code_url": null,
+    "additional_sources": ["https://community.home-assistant.io/t/on-wall-display-for-ha-dashboard/910288"],
+    "status": "community-pattern-with-safety-gap",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧平板作为 Home Assistant 墙面板",
+      "summary": "多个社区帖子记录用旧 Android 平板、Kiosk 浏览器或二手触屏设备展示 Home Assistant 仪表板。",
+      "gap": "这是一类分散经验，不是单一软件包；浏览器内核、Android 版本、充电策略、挂墙散热和长期电池安全差异很大。",
+      "next_check": "按具体平板型号收集浏览器版本、充电限制、重启恢复和 30 天运行记录，再形成正式指南。",
+      "safety": "已有社区作者报告长期插电后电池膨胀；旧电池、隐蔽布线和持续充电必须单独评估。"
+    },
+    "en": {
+      "title": "Older tablets as Home Assistant wall panels",
+      "summary": "Community threads document older Android tablets, kiosk browsers and second-hand touch devices used for Home Assistant dashboards.",
+      "gap": "This is a distributed pattern rather than one package. Browser engines, Android versions, charging control, wall cooling and long-term battery safety vary widely.",
+      "next_check": "Collect browser version, charge limits, reboot recovery and 30-day operation for exact tablet models before producing a formal guide.",
+      "safety": "A community author reports a battery swelling under long-term charging. Old batteries, concealed wiring and continuous power require separate review."
+    }
+  },
+  "sonos-play1-pi": {
+    "content_id": "L09",
+    "category": "speaker",
+    "source_platform": "Raspberry Pi official magazine/tutorial",
+    "source_url": "https://www.raspberrypi.com/news/upcycle-a-sonos-play1/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "complete-tutorial-needs-entry-review",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "用 Raspberry Pi 改造故障 Sonos Play:1",
+      "summary": "Raspberry Pi 官方教程拆除原主板，保留扬声器与外壳，加入 Pi、DAC 和功放，并提供后续软件路线。",
+      "gap": "KitAgain 尚未核对不同 Sonos 修订、供电/功放匹配、完整成本和教程内容许可，也没有实机复现。",
+      "next_check": "以 Play:1 的具体硬件修订整理拆机、扬声器阻抗、独立电源、音频软件和验收项。",
+      "safety": "原机使用市电，主板电容可能残留危险电压；这不是无经验用户的低风险拆机项目。"
+    },
+    "en": {
+      "title": "Upcycle a failed Sonos Play:1 with Raspberry Pi",
+      "summary": "An official Raspberry Pi tutorial removes the original mainboard, keeps the enclosure and drivers, and adds a Pi, DAC and amplifier with follow-up software routes.",
+      "gap": "KitAgain has not checked Sonos hardware revisions, power/amplifier matching, full cost or tutorial licensing, and has not reproduced the build.",
+      "next_check": "For one exact Play:1 revision, document disassembly, driver impedance, isolated power, audio software and acceptance checks.",
+      "safety": "The original unit uses mains power and board capacitors may retain dangerous voltage. This is not a low-risk first disassembly project."
+    }
+  },
+  "esp32-old-stereo": {
+    "content_id": "L10",
+    "category": "audio",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/183183-esp32-bluetooth-audio-receiver",
+    "code_url": "https://github.com/paulgreg/esp32-bluetooth-audio-generic/",
+    "additional_sources": [],
+    "status": "author-demonstrated-needs-compatibility-review",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "ESP32 蓝牙接收器复用旧音响",
+      "summary": "作者用 ESP32、VS1053 和外置天线让旧音响接收手机蓝牙音频，并链接两套实现代码与演示。",
+      "gap": "KitAgain 尚未核对代码许可证、音频质量、延迟、供电噪声、不同功放输入和长期维护。",
+      "next_check": "核对两种板卡的引脚/BOM/许可证，并在带线路输入的旧音响上做可回退测试。",
+      "safety": "优先使用外部低压线路输入；涉及市电机内改线时需要额外隔离和电气安全评估。"
+    },
+    "en": {
+      "title": "ESP32 Bluetooth receiver for an older stereo",
+      "summary": "The author uses an ESP32, VS1053 and external antenna to stream phone audio to an older stereo, linking two code variants and a demonstration.",
+      "gap": "KitAgain has not checked code licensing, audio quality, latency, supply noise, amplifier inputs or long-term maintenance.",
+      "next_check": "Verify pinouts, BOM and licenses for both board variants, then run a reversible test through a stereo line input.",
+      "safety": "Prefer an external low-voltage line input. Any internal mains wiring requires separate isolation and electrical-safety review."
+    }
+  }
+}
