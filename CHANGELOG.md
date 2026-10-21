@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.0 — 2026-10-21
+
+- Add a decision sheet to every E0 lead: current stage, practical readiness, known device fit, unsupported or unverified cases, user value and a continue/stop recommendation.
+- Replace bare source URLs with annotated resource cards that explain what each project page, forum thread, device directory, code repository or demonstration contains.
+- Adopt “垃圾佬复活站” as the playful Chinese-facing name while retaining KitAgain for the English brand, domain and repository identity.
+- Expand lead validation so every bilingual decision field and annotated source is required and published.
+
 ## 1.4.0 — 2026-10-21
 
 - Add a bilingual public Field Leads layer for 10 projects and reuse patterns found on forums, author sites, Codeberg, GitLab, Hackaday and Instructables.

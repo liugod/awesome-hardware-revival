@@ -22,6 +22,7 @@ jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()
 projects=data["projects"]
 articles=load(ROOT/"data/articles.json")
 watchlist=load(ROOT/"data/watchlist.json")
+watchlist_details=load(ROOT/"data/watchlist-details.json")
 assert articles and len({a["content_id"] for a in articles.values()})==len(articles), "Duplicate article content ID"
 for slug,article in articles.items():
     assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug),slug
@@ -31,6 +32,7 @@ for slug,article in articles.items():
     for lang in ["zh","en"]:
         assert article[lang]["title"] and article[lang]["intro"] and all(title and paragraphs and all(paragraphs) for title,paragraphs in article[lang]["sections"]),slug
 assert watchlist and len({lead["content_id"] for lead in watchlist.values()})==len(watchlist), "Duplicate lead content ID"
+assert set(watchlist_details)==set(watchlist), "Lead decision-sheet coverage mismatch"
 assert not ({a["content_id"] for a in articles.values()} & {lead["content_id"] for lead in watchlist.values()}), "Content ID collision"
 for slug,lead in watchlist.items():
     assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug),slug
@@ -41,6 +43,14 @@ for slug,lead in watchlist.items():
     assert lead["content_id"].startswith("L") and lead["status"] and lead["source_platform"],slug
     for lang in ["zh","en"]:
         assert all(lead[lang][key] for key in ["title","summary","gap","next_check","safety"]),slug
+        decision=watchlist_details[slug][lang]
+        assert all(decision[key] for key in ["stage","usable","works_for","not_for","value","follow"]),slug
+        assert all(isinstance(decision[key],list) and decision[key] for key in ["works_for","not_for"]),slug
+    resources=watchlist_details[slug]["resources"]
+    assert resources and len({item["url"] for item in resources})==len(resources),slug
+    assert all(item["url"].startswith("https://") and all(item[key] for key in ["kind","zh_label","en_label","zh_note","en_note"]) for item in resources),slug
+    legacy_urls={lead["source_url"],*lead["additional_sources"]}|({lead["code_url"]} if lead["code_url"] else set())
+    assert legacy_urls<={item["url"] for item in resources},(slug,"legacy source missing from annotated resources")
 ids=[p["id"] for p in projects]
 assert len(ids)==len(set(i.lower() for i in ids)), "Duplicate ID"
 assert set(p["family"] for p in projects)<=set(ids), "Missing family anchor"
@@ -119,7 +129,7 @@ for lang in ["zh","en"]:
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")
         page=pages[(OUT/lang/"leads"/slug/"index.html").resolve()]
         assert page.canonical==[f"{BASE}{lang}/leads/{slug}/"]
-        expected=[lead["source_url"],*lead["additional_sources"]]+([lead["code_url"]] if lead["code_url"] else [])
+        expected=[item["url"] for item in watchlist_details[slug]["resources"]]
         assert all(url in page.refs for url in expected),(lang,slug,"missing lead source")
     for slug,article in articles.items():
         assert f"articles/{slug}/" in home.refs,(lang,slug,"missing homepage article link")
@@ -141,7 +151,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist.json"]:
+for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist.json","watchlist-details.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert set(ids)=={p.stem for p in (OUT/"projects").glob("*.html")}
 for lang in ["zh","en"]:

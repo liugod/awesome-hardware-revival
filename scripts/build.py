@@ -15,6 +15,7 @@ data = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 deep = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
 candidates = json.loads((ROOT / "data/candidates.json").read_text(encoding="utf-8"))
 watchlist = json.loads((ROOT / "data/watchlist.json").read_text(encoding="utf-8"))
+watchlist_details = json.loads((ROOT / "data/watchlist-details.json").read_text(encoding="utf-8"))
 projects = data["projects"]
 labels = data["labels"]
 DATE = data["compiled_at"][:10]
@@ -37,13 +38,13 @@ def page(title, description, body, path="", level=0, script=False):
     canonical = BASE + path
     return f"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{h(title)} · 老硬件复活指南</title><meta name="description" content="{h(description)}">
+<title>{h(title)} · 垃圾佬复活站 · KitAgain</title><meta name="description" content="{h(description)}">
 <link rel="canonical" href="{canonical}"><meta name="theme-color" content="#f5f3eb">
-<meta property="og:title" content="{h(title)} · 老硬件复活指南"><meta property="og:description" content="{h(description)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website">
+<meta property="og:title" content="{h(title)} · 垃圾佬复活站 · KitAgain"><meta property="og:description" content="{h(description)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website">
 <link rel="icon" href="{prefix}assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/style.css">
 {f'<script src="{prefix}assets/app.js" defer></script>' if script else ''}
 </head><body><a class="skip" href="#main">跳到正文</a>
-<header class="site-header"><a class="brand" href="{prefix}index.html"><span class="brand-mark">↻</span><span>老硬件复活指南<small>HARDWARE REVIVAL FIELD GUIDE</small></span></a>
+<header class="site-header"><a class="brand" href="{prefix}index.html"><span class="brand-mark">↻</span><span>垃圾佬复活站<small>KITAGAIN · 硬件复活野外指南</small></span></a>
 <nav aria-label="主导航"><a href="{prefix}index.html#catalog">项目目录</a><a href="{prefix}research.html">研究方法</a><a href="{REPO}">GitHub ↗</a></nav></header>
 <main id="main">{body}</main>
 <footer><p>让仍能工作的硬件，找到下一份工作。</p><div>资料核查 {DATE} · v{h(data['version'])} · 未进行实机测试<br>
@@ -213,7 +214,7 @@ write(ROOT/"research/REPORT.zh-CN.md",report)
 research_body = f'<div class="detail-wrap"><section class="detail-head"><p class="eyebrow">METHOD & COVERAGE</p><h1>先看证据，<br>再谈复活。</h1><p class="intro">{len(projects)} 条资料，{len(category_counts)} 类设备。所有结论都保留来源与未知项。</p></section><section class="prose"><h2>收录意味着什么</h2><p>E1：已读项目说明和部署文档，共 {evidence_counts["E1"]} 条。E2：作者具体实机陈述或演示说明，共 {evidence_counts["E2"]} 条。E3：独立复现，本轮 0 条。本目录实物测试 0 条。</p><p>项目、跨机型平台与前置工具分别标注。53 条归并为 51 个家族，同家族后续版本不算独立成功设备。</p><h2>怎么核查</h2><p>读取 GitHub 元数据、README、许可证及版本信息，重点检查官方型号和安装文档。X 已读 4 条原始帖子，涉及 2 个案例；未播放验证视频，不以互动数据判断成功。</p><p>维护状态与核查时间逐条保留。难度是编辑判断，金额未知写 UNKNOWN，缺失固件/地区条件保留 null。不会将历史教程或文档可访问说成今天已经实测成功。</p><h2>12 篇案例分析</h2><ul>'+"".join(f'<li><a href="projects/{pid}.html">{h(next(p["name"] for p in projects if p["id"]==pid))}</a>：{h(d["search_intent"])}</li>' for pid,d in deep.items())+'</ul><h2>设备覆盖</h2><table><thead><tr><th>类别</th><th>条目</th></tr></thead><tbody>'+"".join(f'<tr><td>{h(labels["category"][k])}</td><td>{n}</td></tr>' for k,n in category_counts.items())+'</tbody></table><h2>候选与空白</h2><ul>'+"".join(f'<li>{link(c["url"],c["name"])} — {h(c["reason"])}</li>' for c in candidates)+f'</ul><p>本轮缺少长期稳定性、能耗、实际费用与独立硬件复现；旧 NAS、当前手机镜像与停服穿戴服务需继续补全。未声称覆盖全网。</p><h2>阅读完整研究</h2><p>{link(REPO+"/blob/main/research/REPORT.zh-CN.md","研究报告 ↗")} · {link(REPO+"/blob/main/research/DEEP_DIVES.zh-CN.md","案例合辑 ↗")} · {link(REPO+"/blob/main/CONTRIBUTING.md","贡献方法 ↗")}</p></section></div>'
 write(OUT/"research.html",page("研究方法、证据分级与覆盖矩阵","公开项目入选方法、证据边界、13 类设备覆盖、12 篇重点案例与待核验空白。",research_body,"research.html"))
 write(OUT/".nojekyll","")
-for name in ["catalog.json","catalog.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json"]:
+for name in ["catalog.json","catalog.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json"]:
     (OUT/"data").mkdir(parents=True,exist_ok=True)
     shutil.copyfile(ROOT/"data"/name,OUT/"data"/name)
 paths = ["","research.html"]+[f"projects/{p['id']}.html" for p in projects]

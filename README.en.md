@@ -4,7 +4,7 @@ An evidence-aware directory for giving existing hardware a useful second life: s
 
 [English website](https://kitagain.com/) · [中文网站](https://kitagain.com/zh/) · [Community forum](https://community.kitagain.com/) · [中文 README](README.md) · [English JSON](docs/data/catalog.en.json) · [English CSV](docs/data/catalog.en.csv) · [Research report (Chinese)](research/REPORT.zh-CN.md)
 
-**Version 1.4.0; project sources reviewed 2026-10-20, field-guide and community-lead sources reviewed 2026-10-21.** The reviewed catalog contains 53 project/platform/tool entries across 13 categories and 51 families. A separate public layer contains 10 E0 leads from forums, author sites, Codeberg, GitLab, Hackaday and Instructables. All 53 entries, 12 detailed analyses, 3 topic guides, 2 field guides and 10 leads are bilingual. This is not a claim of tested hardware compatibility; E0 means KitAgain review is incomplete.
+**Version 1.5.0; project sources reviewed 2026-10-20, field-guide and community-lead sources reviewed 2026-10-21.** The Chinese-facing name is “垃圾佬复活站”; the English brand, domain and repository remain KitAgain. The reviewed catalog contains 53 project/platform/tool entries, with a separate public layer of 10 E0 leads. Every lead now states its current stage, practical readiness, known fit, unsupported or unverified cases, user value and the contents of each linked resource. This is not a claim of tested hardware compatibility.
 
 ## What is included
 

@@ -127,17 +127,18 @@ class Site:
         other = "en" if self.lang == "zh" else "zh"
         target = f"{other}/{tail}"
         rel = lambda x: self.rel(x, current)
-        brand = "KitAgain"
+        display_brand = self.t("垃圾佬复活站", "KitAgain")
+        title_brand = self.t("垃圾佬复活站 · KitAgain", "KitAgain")
         alternates = "".join(f'<link rel="alternate" hreflang="{code}" href="{BASE if lang == "en" and tail == "index.html" else BASE+lang+"/"+("" if tail == "index.html" else tail.removesuffix("index.html"))}">' for lang,code in [("zh","zh-CN"),("en","en")])
         alternates += f'<link rel="alternate" hreflang="x-default" href="{BASE}">'
         markup = f"""<!doctype html>
 <html lang="{self.t('zh-CN','en')}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{h(title)} · {brand}</title><meta name="description" content="{h(description)}">
+<title>{h(title)} · {title_brand}</title><meta name="description" content="{h(description)}">
 <link rel="canonical" href="{h(canonical)}">{alternates}<meta name="theme-color" content="#f5f3eb">
-<meta property="og:title" content="{h(title)} · {brand}"><meta property="og:description" content="{h(description)}"><meta property="og:url" content="{h(canonical)}"><meta property="og:type" content="website">
+<meta property="og:title" content="{h(title)} · {title_brand}"><meta property="og:description" content="{h(description)}"><meta property="og:url" content="{h(canonical)}"><meta property="og:type" content="website">
 <link rel="icon" href="{rel('assets/mark.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{rel('assets/style.css')}"><script src="{rel('assets/app.js')}" defer></script>
 </head><body><a class="skip" href="#main">{self.t('跳到正文','Skip to content')}</a>
-<header class="site-header"><a class="brand" href="{rel(self.lang+'/index.html')}"><span class="brand-mark">↻</span><span>{brand}<small>HARDWARE REVIVAL FIELD GUIDE</small></span></a>
+<header class="site-header"><a class="brand" href="{rel(self.lang+'/index.html')}"><span class="brand-mark">↻</span><span>{display_brand}<small>{self.t('KITAGAIN · 硬件复活野外指南','HARDWARE REVIVAL FIELD GUIDE')}</small></span></a>
 <nav aria-label="{self.t('主导航','Main navigation')}"><a href="{rel(self.lang+'/index.html')}#catalog">{self.t('项目目录','Catalog')}</a><a href="{rel(self.lang+'/leads/index.html')}">{self.t('社区线索','Field leads')}</a><a href="{rel(self.lang+'/research/index.html')}">{self.t('研究方法','Method')}</a><a href="{h(CONFIG['community_url'])}">{self.t('参与社区','Community')}</a><a class="language-switch" href="{rel(target)}" lang="{other}" hreflang="{other}">{self.t('English','简体中文')}</a></nav></header>
 <main id="main">{body}</main><footer><p>{self.t('让仍能工作的硬件，找到下一份工作。','Give working hardware its next job.')}</p><div>{self.t('资料核查','Sources reviewed')} {DATE} · v{CONFIG['version']} · {self.t('未进行实机测试','No hands-on hardware tests')}<br>
 <a href="{rel('data/catalog.json')}" download>{self.t('中文 JSON','Source JSON (Chinese)')}</a> / <a href="{rel('data/catalog.en.json')}" download>English JSON</a> / <a href="{rel('data/catalog'+('.en' if self.lang=='en' else '')+'.csv')}" download>CSV</a> / <a href="{REPO}">GitHub ↗</a><br>{self.t('原创文字与目录 CC BY 4.0 · 站点代码 MIT · 第三方项目按各自许可','Original text & catalog: CC BY 4.0 · Site code: MIT · Third-party projects: their own licenses')}</div></footer></body></html>"""
@@ -164,8 +165,9 @@ class Site:
 
     def lead_card(self, slug, lead, prefix="leads/"):
         v = lead[self.lang]
+        decision = WATCHLIST_DETAILS[slug][self.lang]
         tags = [self.labels["category"][lead["category"]], lead["source_platform"], "E0"]
-        return f"""<article class="project"><div class="tags">{''.join(f'<span>{h(tag)}</span>' for tag in tags)}</div><h3><a href="{prefix}{slug}/">{h(v['title'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="limit"><b>{self.t('待核缺口','Review gap')}</b> {h(v['gap'])}</p><div class="card-end"><span class="status attention">{self.t('线索 / 尚未进入正式目录','Lead / not yet in reviewed catalog')}</span><span>{h(lead['content_id'])}</span></div></article>"""
+        return f"""<article class="project"><div class="tags">{''.join(f'<span>{h(tag)}</span>' for tag in tags)}</div><h3><a href="{prefix}{slug}/">{h(v['title'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('当前可用程度','Practical readiness')}</b>{h(decision['usable'])}</p><p class="limit"><b>{self.t('待核缺口','Review gap')}</b> {h(v['gap'])}</p><div class="card-end"><span class="status attention">{self.t('线索 / 尚未进入正式目录','Lead / not yet in reviewed catalog')}</span><span>{h(lead['content_id'])}</span></div></article>"""
 
     def home(self):
         t = self.t
@@ -270,21 +272,24 @@ class Site:
         self.article(self.t("社区线索与未完成项目","Community leads and incomplete projects"),intro,sections,"leads/index.html")
         for slug,lead in WATCHLIST.items():
             v = lead[self.lang]
-            sources = [lead["source_url"], *lead["additional_sources"]]
-            if lead["code_url"]:
-                sources.append(lead["code_url"])
+            details = WATCHLIST_DETAILS[slug]
+            decision = details[self.lang]
             sections = f'<p class="muted">{h(lead["content_id"])} · E0 · {self.t("资料核查","Sources reviewed")} {h(lead["reviewed_at"])} · {self.t("未进行实机测试","No hands-on hardware tests")}</p>'
-            sections += f'<h2>{self.t("目前知道什么","What we know")}</h2><p>{h(v["summary"])}</p>'
+            sections += f'<aside class="lead-verdict"><p class="eyebrow">{self.t("先判断是否值得继续","DECIDE BEFORE YOU BUILD")}</p><div class="decision-grid"><div><b>{self.t("当前阶段","Current stage")}</b><p>{h(decision["stage"])}</p></div><div><b>{self.t("现在能用到什么程度","Practical readiness")}</b><p>{h(decision["usable"])}</p></div></div></aside>'
+            sections += f'<h2>{self.t("适用设备与不能这样用的情况","Device fit and limits")}</h2><div class="before-after"><div><h3>{self.t("已知可参考或可继续核查","Known fit or worth checking")}</h3>{ul(decision["works_for"])}</div><div><h3>{self.t("不能视为已支持","Not established or unsuitable")}</h3>{ul(decision["not_for"])}</div></div>'
+            sections += f'<h2>{self.t("对用户有什么价值","Why this lead is useful")}</h2><p>{h(decision["value"])}</p><aside class="boundary"><b>{self.t("是否值得继续跟进","Should you continue?")}</b><p>{h(decision["follow"])}</p></aside>'
             sections += f'<h2>{self.t("为什么仍是 E0","Why it remains E0")}</h2><p>{h(v["gap"])}</p>'
             sections += f'<h2>{self.t("下一步核验","Next review step")}</h2><p>{h(v["next_check"])}</p>'
             sections += f'<h2>{self.t("风险与停止条件","Risk and stop condition")}</h2><p>{h(v["safety"])}</p>'
-            sections += f'<h2>{self.t("原始来源","Primary and community sources")}</h2><ul class="sources">' + "".join(f'<li>{self.link(url,url)}</li>' for url in sources) + "</ul>"
+            resources = "".join(f'<li><div class="resource-head">{self.link(item["url"], item[self.lang+"_label"]+" ↗")}<span>{h(item["kind"])}</span></div><p>{h(item[self.lang+"_note"])}</p><small>{h(item["url"])}</small></li>' for item in details["resources"])
+            sections += f'<h2>{self.t("链接里分别有什么","What each link contains")}</h2><ul class="resource-list">{resources}</ul>'
             sections += f'<p><a href="../">{self.t("返回全部社区线索","Back to all field leads")} ↗</a></p>'
             self.article(v["title"],v["summary"],sections,f"leads/{slug}/index.html")
 
 GUIDES = json.loads((ROOT / "data/guides.json").read_text(encoding="utf-8"))
 ARTICLES = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
 WATCHLIST = json.loads((ROOT / "data/watchlist.json").read_text(encoding="utf-8"))
+WATCHLIST_DETAILS = json.loads((ROOT / "data/watchlist-details.json").read_text(encoding="utf-8"))
 
 def build():
     assert CONFIG["version"] == DATA["version"], "Product versions differ"
