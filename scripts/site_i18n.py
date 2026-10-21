@@ -44,6 +44,26 @@ USES = [
     ("music","音乐播放","Music playback"),("driver-repair","驱动修复","Driver repair"),
 ]
 USE_IDS = {zh: uid for uid, zh, en in USES}
+
+def repository_owner_account(repo_url):
+    """Return the repository owner page without claiming that it is a sole-author profile."""
+    parsed = urlsplit(repo_url or "")
+    parts = [part for part in parsed.path.split("/") if part]
+    if len(parts) < 2:
+        return None
+    host = parsed.netloc.lower()
+    if host == "github.com":
+        platform = "GitHub"
+    elif host == "codeberg.org":
+        platform = "Codeberg"
+    else:
+        return None
+    owner = parts[0]
+    return {
+        "name": owner,
+        "platform": platform,
+        "url": f"{parsed.scheme}://{parsed.netloc}/{owner}",
+    }
 REQS = {
     "yes":("需要","Required"),"no":("不需要","Not required"),"UNKNOWN":("待核实","Unknown"),
     "model-dependent":("依具体型号","Model-dependent"),"method-dependent":("依具体方法","Method-dependent"),
@@ -215,8 +235,12 @@ class Site:
         license_label = p["license"]["label"] if self.lang=="zh" else LICENSE_EN.get(p["license"]["label"],p["license"]["label"])
         types = {"case":t("具体改造路线","Specific modification route"),"platform":t("平台 / 多机型工程","Platform / multi-device project"),"prerequisite":t("前置工具","Prerequisite tool")}
         socials = AUTHOR_SOCIALS.get(p["id"], [])
-        social_links = "".join(f'<li>{self.link(item["url"], item["name"]+" · "+item["platform"]+" ↗")}<span class="muted"> — {h(item[self.lang+"_role"])}</span></li>' for item in socials)
-        social_section = f'<h2>{t("核心作者与官方账号","Core authors and official accounts")}</h2><ul class="sources">{social_links}</ul><p class="muted">{t("只收录能从项目官网、仓库或作者主页确认归属的账号。","Only accounts attributable through the project site, repository or author profile are listed.")}</p>' if socials else ""
+        repo_owner = repository_owner_account(p["repo_url"])
+        identity_links = ""
+        if repo_owner:
+            identity_links += f'<li>{self.link(repo_owner["url"], repo_owner["name"]+" · "+repo_owner["platform"]+" ↗")}<span class="muted"> — {t("源码仓库所有者账号；不据此推断其为唯一作者","Source-repository owner account; this does not establish sole authorship")}</span></li>'
+        identity_links += "".join(f'<li>{self.link(item["url"], item["name"]+" · "+item["platform"]+" ↗")}<span class="muted"> — {h(item[self.lang+"_role"])}</span></li>' for item in socials)
+        social_section = f'<h2>{t("项目账号与已核实作者主页","Project identity and verified author profiles")}</h2><ul class="sources">{identity_links}</ul><p class="muted">{t("仓库所有者账号用于追溯项目来源；作者社交账号只有在项目资料、仓库或作者主页能确认归属时才收录。","Repository-owner accounts provide project traceability. Author social profiles are listed only when attribution is confirmed by project materials, the repository or the author profile.")}</p>' if identity_links else ""
         body = f"""<div class="detail-wrap"><a class="back" href="{rel(self.lang+'/index.html')}#catalog">← {t('返回项目目录','Back to catalog')}</a><section class="detail-head">{self.tags(p)}<h1>{h(p['name'])}</h1><div class="project-purpose"><span>{t('这个项目能做什么','What this project does')}</span><p>{h(v['summary'])}</p></div><p class="muted">{types[p['entry_type']]} · {t('家族','Family')} {h(p['family'])} · {t('核查','Reviewed')} {p['checked_at'][:10]}</p><div class="actions">{self.link(p['repo_url'],t('源码仓库','Source repository')+' ↗')}{self.link(p['tutorial_url'],t('原始教程','Original tutorial')+' ↗')}{self.link(p['compatibility_url'],t('型号适配依据','Compatibility source')+' ↗')}</div></section>
 <aside class="boundary"><b>{t('先确认边界','Check the boundaries first')}</b><p>{h(v['device_scope'])}</p>{ul(v['limitations'])}<p>{t('固件','Firmware')}: {h(v['firmware_requirement'] or t('待核实','Unknown'))} · {t('地区要求','Region requirement')}: {h(v['region_requirement'] or t('待核实','Unknown'))}</p></aside>{extra}
 <section class="prose"><h2>{t('动手需要什么','What you need')}</h2><dl class="spec-grid">{''.join(f'<div><dt>{h(k)}</dt><dd>{h(val)}</dd></div>' for k,val in specs)}</dl><h3>{t('可能需要的额外投入','Possible additional costs')}</h3>{ul(v['cost_items'])}<p>{t('未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。','Prices have not been checked. An open-source license does not make hardware, hosting, electricity or cloud services free.')}</p>
@@ -319,6 +343,25 @@ def build():
     (OUT / "data").mkdir(parents=True, exist_ok=True)
     (OUT / "data/watchlist.json").write_text(json.dumps(WATCHLIST, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     (OUT / "data/watchlist-details.json").write_text(json.dumps(WATCHLIST_DETAILS, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    identity_coverage = []
+    for p in PROJECTS:
+        owner = repository_owner_account(p["repo_url"])
+        profiles = AUTHOR_SOCIALS.get(p["id"], [])
+        identity_coverage.append({
+            "project_id": p["id"],
+            "project_name": p["name"],
+            "repository_owner": owner,
+            "verified_author_profiles": profiles,
+            "coverage_status": "repository-owner-and-author-profile" if profiles else "repository-owner-only",
+            "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+        })
+    write(OUT/"data/author-identity-coverage.json",json.dumps({
+        "generated_from": ["data/catalog.json", "data/author-socials.json"],
+        "catalog_entries": len(PROJECTS),
+        "repository_owner_covered": sum(bool(row["repository_owner"]) for row in identity_coverage),
+        "projects_with_verified_author_profiles": sum(bool(row["verified_author_profiles"]) for row in identity_coverage),
+        "entries": identity_coverage
+    },ensure_ascii=False,indent=2)+"\n")
     # Preserve historical method URL with complete localized content, not a fake HTTP 301.
     old = (OUT/"zh/research/index.html").read_text(encoding="utf-8")
     def rewrite_reference(match):

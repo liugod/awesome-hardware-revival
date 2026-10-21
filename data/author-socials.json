@@ -1,22 +1,26 @@
 {
-  "tasmota": [
+  "onju-voice": [
     {
-      "name": "Theo Arends",
-      "platform": "GitHub",
-      "url": "https://github.com/arendst",
-      "source_url": "https://github.com/arendst/Tasmota",
-      "zh_role": "Tasmota 创建者与核心维护者",
-      "en_role": "Tasmota creator and core maintainer"
+      "name": "Justin Alvey / justLV",
+      "platform": "X",
+      "url": "https://x.com/justLV",
+      "source_url": "https://x.com/justLV/status/1681377298308820992",
+      "verification": "original-author-post",
+      "checked_at": "2026-10-20",
+      "zh_role": "Onju Voice 作者；账号归属由项目原帖与仓库交叉确认",
+      "en_role": "Onju Voice author; account attribution cross-checked through the original project post and repository"
     }
   ],
-  "openbeken": [
+  "onju-v2": [
     {
-      "name": "OpenSHW Projects",
-      "platform": "GitHub",
-      "url": "https://github.com/openshwprojects",
-      "source_url": "https://github.com/openshwprojects/OpenBK7231T_App",
-      "zh_role": "OpenBeken 项目组织账号",
-      "en_role": "OpenBeken project organization"
+      "name": "Justin Alvey / justLV",
+      "platform": "X",
+      "url": "https://x.com/justLV",
+      "source_url": "https://github.com/justLV/onju-v2",
+      "verification": "repository-owner-and-project-history",
+      "checked_at": "2026-10-21",
+      "zh_role": "Onju v2 仓库作者；现有 X 演示来自早期 Onju，不能证明 v2 全部能力",
+      "en_role": "Onju v2 repository author; the available X demo is for the earlier Onju build and does not prove every v2 capability"
     }
   ],
   "esphome": [
@@ -25,26 +29,22 @@
       "platform": "X",
       "url": "https://x.com/OttoWinter_",
       "source_url": "https://github.com/OttoWinter",
+      "verification": "author-profile-link",
+      "checked_at": "2026-10-21",
       "zh_role": "ESPHome 原始创始人；X 账号由其 GitHub 主页标注",
       "en_role": "Original ESPHome founder; X account linked from his GitHub profile"
     }
   ],
-  "squeezelite": [
+  "printer-spl3": [
     {
-      "name": "Sébastien (sle118)",
-      "platform": "GitHub",
-      "url": "https://github.com/sle118",
-      "source_url": "https://github.com/sle118/squeezelite-esp32",
-      "zh_role": "squeezelite-esp32 核心维护者",
-      "en_role": "squeezelite-esp32 core maintainer"
-    },
-    {
-      "name": "philippe44",
-      "platform": "GitHub",
-      "url": "https://github.com/philippe44",
-      "source_url": "https://github.com/sle118/squeezelite-esp32",
-      "zh_role": "squeezelite-esp32 原始作者与核心贡献者",
-      "en_role": "Original squeezelite-esp32 author and core contributor"
+      "name": "Kuber / kuberwastaken",
+      "platform": "X",
+      "url": "https://x.com/kuberwastaken",
+      "source_url": "https://x.com/kuberwastaken/status/2089721130127094071",
+      "verification": "original-author-post",
+      "checked_at": "2026-10-20",
+      "zh_role": "HP Laser macOS 驱动作者；原帖说明了多轮 AI 辅助开发过程",
+      "en_role": "Author of the HP Laser macOS driver; the original post describes the iterative AI-assisted development process"
     }
   ]
 }

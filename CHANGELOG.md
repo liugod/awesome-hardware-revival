@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.8.0 — 2026-10-21
+
+- Add a traceable repository-owner identity link to every reviewed project page, covering all 53 catalog entries without treating repository ownership as proof of sole authorship.
+- Keep author social profiles as a separate, stricter layer with attribution method and review date; add verified Onju and HP Laser author profiles.
+- Remove the squeezelite-esp32 maintainer profiles from the unrelated core Squeezelite entry to avoid presenting a neighboring project as the listed project's authorship.
+- Validate both repository-owner coverage and the attribution metadata for every manually curated author profile.
+
 ## 1.7.0 — 2026-10-21
 
 - Expand the public directory to 100 unique projects and leads: 53 reviewed catalog entries plus 47 E0 field leads.

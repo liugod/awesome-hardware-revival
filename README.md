@@ -6,7 +6,7 @@
 
 从小爱音箱和 Nest Mini，到 Kindle、旧电脑、路由器、摄像头、停服机器人和缺驱动的打印机。这个目录把公开代码、作者案例与适配限制放在一起，帮助你判断下一步是否值得尝试。
 
-**v1.7.0 · 项目资料核查 2026-10-20，实用指南与社区线索核查 2026-10-21**：中文名为“垃圾佬复活站”，英文品牌、域名和仓库名继续使用 KitAgain。现在共有 **100 条项目与社区线索**：53 条正式项目/平台/工具，47 条 E0 社区线索，另有 3 篇双语实用指南。本轮新增 37 条来自 Hackaday.io、Instructables、Home Assistant、Armbian、VCF 等站点的线索；每条都保留完成度、适用设备、不能确认的范围、来源说明和继续/停止建议。
+**v1.8.0 · 项目资料核查 2026-10-20，实用指南、社区线索与作者归属核查 2026-10-21**：中文名为“垃圾佬复活站”，英文品牌、域名和仓库名继续使用 KitAgain。现在共有 **100 条项目与社区线索**：53 条正式项目/平台/工具，47 条 E0 社区线索，另有 3 篇双语实用指南。本轮新增 37 条来自 Hackaday.io、Instructables、Home Assistant、Armbian、VCF 等站点的线索；每条都保留完成度、适用设备、不能确认的范围、来源说明和继续/停止建议。
 
 | AI 关系 | 条目数 | 如何理解 |
 | --- | ---: | --- |
@@ -56,7 +56,7 @@ X 本轮读到 4 条原始帖子，涉及 2 个案例家族；未验证视频画
 
 ## 数据与构建
 
-主目录为 `data/catalog.json`，编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`，三篇实用指南位于 `data/articles.json`，公开 E0 线索由 `data/watchlist.json` 和 `data/watchlist-expansion.json` 合并生成。核心作者与已核实社交账号单独维护在 `data/author-socials.json`。站点有 222 个语言页面、1 个完整英文根路径页面和 54 个保留的旧 URL，共 277 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
+主目录为 `data/catalog.json`，编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`，三篇实用指南位于 `data/articles.json`，公开 E0 线索由 `data/watchlist.json` 和 `data/watchlist-expansion.json` 合并生成。已核实作者社交账号单独维护在 `data/author-socials.json`；构建同时生成覆盖 53 个正式条目的 [`author-identity-coverage.json`](docs/data/author-identity-coverage.json)，仓库所有者入口与个人作者账号分开标注，不把仓库归属写成唯一作者证明。站点有 222 个语言页面、1 个完整英文根路径页面和 54 个保留的旧 URL，共 277 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
 
 英文 [JSON](docs/data/catalog.en.json) / [CSV](docs/data/catalog.en.csv) 可下载。[独立社区论坛](https://community.kitagain.com/)已上线基础服务；其中文界面、版块与管理流程仍在完善，目录纠错继续使用 GitHub Issues。
 

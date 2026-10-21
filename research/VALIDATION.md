@@ -1,8 +1,13 @@
-# Validation — v1.0.0
+# Validation — current build
 
 Date: 2026-10-20. This validates the catalog and website, not hardware compatibility.
 
 ## Local acceptance
+
+- v1.8.0: all 53 reviewed project pages include a repository-owner identity link; validation treats it as traceability rather than sole-authorship proof.
+- v1.8.0: 4 projects have separately curated author social profiles with attribution method and review date. The public coverage ledger contains 53 unique project rows.
+- v1.8.0: the Squeezelite page no longer attributes maintainers from the separate squeezelite-esp32 project.
+- v1.8.0: Chromium rendered the Chinese Onju Voice detail page at 1280 × 900 and the English XiaoGPT page at 390 × 844. The identity section remained readable in both captures: `research/acceptance-v1.8-onju-zh.png` and `research/acceptance-v1.8-xiaogpt-mobile.png`.
 
 - JSON Schema with URI and date-time formats passed.
 - 53 unique IDs, 51 families, 13 categories and 12 complete deep dives.

@@ -1,0 +1,691 @@
+{
+  "generated_from": [
+    "data/catalog.json",
+    "data/author-socials.json"
+  ],
+  "catalog_entries": 53,
+  "repository_owner_covered": 53,
+  "projects_with_verified_author_profiles": 4,
+  "entries": [
+    {
+      "project_id": "xiaogpt",
+      "project_name": "XiaoGPT",
+      "repository_owner": {
+        "name": "yihong0618",
+        "platform": "GitHub",
+        "url": "https://github.com/yihong0618"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "open-xiaoai",
+      "project_name": "Open-XiaoAI",
+      "repository_owner": {
+        "name": "idootop",
+        "platform": "GitHub",
+        "url": "https://github.com/idootop"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "mi-gpt",
+      "project_name": "MiGPT",
+      "repository_owner": {
+        "name": "idootop",
+        "platform": "GitHub",
+        "url": "https://github.com/idootop"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "onju-voice",
+      "project_name": "Onju Voice",
+      "repository_owner": {
+        "name": "justLV",
+        "platform": "GitHub",
+        "url": "https://github.com/justLV"
+      },
+      "verified_author_profiles": [
+        {
+          "name": "Justin Alvey / justLV",
+          "platform": "X",
+          "url": "https://x.com/justLV",
+          "source_url": "https://x.com/justLV/status/1681377298308820992",
+          "verification": "original-author-post",
+          "checked_at": "2026-10-20",
+          "zh_role": "Onju Voice 作者；账号归属由项目原帖与仓库交叉确认",
+          "en_role": "Onju Voice author; account attribution cross-checked through the original project post and repository"
+        }
+      ],
+      "coverage_status": "repository-owner-and-author-profile",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "onju-v2",
+      "project_name": "Onju Voice v2",
+      "repository_owner": {
+        "name": "justLV",
+        "platform": "GitHub",
+        "url": "https://github.com/justLV"
+      },
+      "verified_author_profiles": [
+        {
+          "name": "Justin Alvey / justLV",
+          "platform": "X",
+          "url": "https://x.com/justLV",
+          "source_url": "https://github.com/justLV/onju-v2",
+          "verification": "repository-owner-and-project-history",
+          "checked_at": "2026-10-21",
+          "zh_role": "Onju v2 仓库作者；现有 X 演示来自早期 Onju，不能证明 v2 全部能力",
+          "en_role": "Onju v2 repository author; the available X demo is for the earlier Onju build and does not prove every v2 capability"
+        }
+      ],
+      "coverage_status": "repository-owner-and-author-profile",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "wyoming-satellite",
+      "project_name": "Wyoming Satellite",
+      "repository_owner": {
+        "name": "rhasspy",
+        "platform": "GitHub",
+        "url": "https://github.com/rhasspy"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "linux-voice-assistant",
+      "project_name": "Linux Voice Assistant",
+      "repository_owner": {
+        "name": "OHF-Voice",
+        "platform": "GitHub",
+        "url": "https://github.com/OHF-Voice"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "lineageos",
+      "project_name": "LineageOS",
+      "repository_owner": {
+        "name": "LineageOS",
+        "platform": "GitHub",
+        "url": "https://github.com/LineageOS"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "ubports",
+      "project_name": "Ubuntu Touch / UBports",
+      "repository_owner": {
+        "name": "ubports",
+        "platform": "GitHub",
+        "url": "https://github.com/ubports"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "termux",
+      "project_name": "Termux",
+      "repository_owner": {
+        "name": "termux",
+        "platform": "GitHub",
+        "url": "https://github.com/termux"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "droidcam",
+      "project_name": "DroidCam Linux client",
+      "repository_owner": {
+        "name": "dev47apps",
+        "platform": "GitHub",
+        "url": "https://github.com/dev47apps"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "deskreen",
+      "project_name": "Deskreen",
+      "repository_owner": {
+        "name": "pavlobu",
+        "platform": "GitHub",
+        "url": "https://github.com/pavlobu"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "oclp",
+      "project_name": "OpenCore Legacy Patcher",
+      "repository_owner": {
+        "name": "dortania",
+        "platform": "GitHub",
+        "url": "https://github.com/dortania"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "mrchromebox",
+      "project_name": "MrChromebox firmware utility",
+      "repository_owner": {
+        "name": "MrChromebox",
+        "platform": "GitHub",
+        "url": "https://github.com/MrChromebox"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "haos",
+      "project_name": "Home Assistant OS",
+      "repository_owner": {
+        "name": "home-assistant",
+        "platform": "GitHub",
+        "url": "https://github.com/home-assistant"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "openmediavault",
+      "project_name": "OpenMediaVault",
+      "repository_owner": {
+        "name": "openmediavault",
+        "platform": "GitHub",
+        "url": "https://github.com/openmediavault"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "dietpi",
+      "project_name": "DietPi",
+      "repository_owner": {
+        "name": "MichaIng",
+        "platform": "GitHub",
+        "url": "https://github.com/MichaIng"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "openwrt",
+      "project_name": "OpenWrt",
+      "repository_owner": {
+        "name": "openwrt",
+        "platform": "GitHub",
+        "url": "https://github.com/openwrt"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "freshTomato",
+      "project_name": "FreshTomato",
+      "repository_owner": {
+        "name": "FreshTomato-Project",
+        "platform": "GitHub",
+        "url": "https://github.com/FreshTomato-Project"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "libreelec",
+      "project_name": "LibreELEC",
+      "repository_owner": {
+        "name": "LibreELEC",
+        "platform": "GitHub",
+        "url": "https://github.com/LibreELEC"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "coreelec",
+      "project_name": "CoreELEC",
+      "repository_owner": {
+        "name": "CoreELEC",
+        "platform": "GitHub",
+        "url": "https://github.com/CoreELEC"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "armbian-tv",
+      "project_name": "Armbian for Amlogic / Rockchip / Allwinner",
+      "repository_owner": {
+        "name": "ophub",
+        "platform": "GitHub",
+        "url": "https://github.com/ophub"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "webos-homebrew",
+      "project_name": "webOS Homebrew Channel",
+      "repository_owner": {
+        "name": "webosbrew",
+        "platform": "GitHub",
+        "url": "https://github.com/webosbrew"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "rootmytv",
+      "project_name": "RootMyTV",
+      "repository_owner": {
+        "name": "RootMyTV",
+        "platform": "GitHub",
+        "url": "https://github.com/RootMyTV"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "koreader",
+      "project_name": "KOReader",
+      "repository_owner": {
+        "name": "koreader",
+        "platform": "GitHub",
+        "url": "https://github.com/koreader"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "kindle-carousel",
+      "project_name": "Kindle Carousel",
+      "repository_owner": {
+        "name": "qadzek",
+        "platform": "GitHub",
+        "url": "https://github.com/qadzek"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "kindle-ha",
+      "project_name": "HA Lovelace Kindle Screensaver",
+      "repository_owner": {
+        "name": "sibbl",
+        "platform": "GitHub",
+        "url": "https://github.com/sibbl"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "kindle-dashboard",
+      "project_name": "Kindle Dashboard",
+      "repository_owner": {
+        "name": "alexishida",
+        "platform": "GitHub",
+        "url": "https://github.com/alexishida"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "kindle-phonekit",
+      "project_name": "Kindle PhoneKit",
+      "repository_owner": {
+        "name": "Keylessboi",
+        "platform": "GitHub",
+        "url": "https://github.com/Keylessboi"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "kindle-whoop",
+      "project_name": "Kindle for WHOOP",
+      "repository_owner": {
+        "name": "kaibuildsai",
+        "platform": "GitHub",
+        "url": "https://github.com/kaibuildsai"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "winterbreak",
+      "project_name": "WinterBreak",
+      "repository_owner": {
+        "name": "KindleModding",
+        "platform": "GitHub",
+        "url": "https://github.com/KindleModding"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "fbink",
+      "project_name": "FBInk",
+      "repository_owner": {
+        "name": "NiLuJe",
+        "platform": "GitHub",
+        "url": "https://github.com/NiLuJe"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "valetudo",
+      "project_name": "Valetudo",
+      "repository_owner": {
+        "name": "Hypfer",
+        "platform": "GitHub",
+        "url": "https://github.com/Hypfer"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "wirepod",
+      "project_name": "wire-pod",
+      "repository_owner": {
+        "name": "kercre123",
+        "platform": "GitHub",
+        "url": "https://github.com/kercre123"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "openlumi",
+      "project_name": "OpenLumi",
+      "repository_owner": {
+        "name": "openlumi",
+        "platform": "GitHub",
+        "url": "https://github.com/openlumi"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "tasmota",
+      "project_name": "Tasmota",
+      "repository_owner": {
+        "name": "arendst",
+        "platform": "GitHub",
+        "url": "https://github.com/arendst"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "openbeken",
+      "project_name": "OpenBeken",
+      "repository_owner": {
+        "name": "openshwprojects",
+        "platform": "GitHub",
+        "url": "https://github.com/openshwprojects"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "esphome",
+      "project_name": "ESPHome",
+      "repository_owner": {
+        "name": "esphome",
+        "platform": "GitHub",
+        "url": "https://github.com/esphome"
+      },
+      "verified_author_profiles": [
+        {
+          "name": "Otto Winter",
+          "platform": "X",
+          "url": "https://x.com/OttoWinter_",
+          "source_url": "https://github.com/OttoWinter",
+          "verification": "author-profile-link",
+          "checked_at": "2026-10-21",
+          "zh_role": "ESPHome 原始创始人；X 账号由其 GitHub 主页标注",
+          "en_role": "Original ESPHome founder; X account linked from his GitHub profile"
+        }
+      ],
+      "coverage_status": "repository-owner-and-author-profile",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "openipc",
+      "project_name": "OpenIPC",
+      "repository_owner": {
+        "name": "OpenIPC",
+        "platform": "GitHub",
+        "url": "https://github.com/OpenIPC"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "dafang",
+      "project_name": "Xiaomi Dafang Hacks",
+      "repository_owner": {
+        "name": "EliasKotlyar",
+        "platform": "GitHub",
+        "url": "https://github.com/EliasKotlyar"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "thingino",
+      "project_name": "Thingino",
+      "repository_owner": {
+        "name": "themactep",
+        "platform": "GitHub",
+        "url": "https://github.com/themactep"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "frigate",
+      "project_name": "Frigate",
+      "repository_owner": {
+        "name": "blakeblackshear",
+        "platform": "GitHub",
+        "url": "https://github.com/blakeblackshear"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "squeezelite",
+      "project_name": "Squeezelite",
+      "repository_owner": {
+        "name": "ralph-irving",
+        "platform": "GitHub",
+        "url": "https://github.com/ralph-irving"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "lyrion",
+      "project_name": "Lyrion Music Server",
+      "repository_owner": {
+        "name": "LMS-Community",
+        "platform": "GitHub",
+        "url": "https://github.com/LMS-Community"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "rockbox",
+      "project_name": "Rockbox",
+      "repository_owner": {
+        "name": "Rockbox",
+        "platform": "GitHub",
+        "url": "https://github.com/Rockbox"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "spotify-ipod",
+      "project_name": "Retro iPod Spotify client",
+      "repository_owner": {
+        "name": "dupontgu",
+        "platform": "GitHub",
+        "url": "https://github.com/dupontgu"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "gadgetbridge",
+      "project_name": "Gadgetbridge",
+      "repository_owner": {
+        "name": "Freeyourgadget",
+        "platform": "Codeberg",
+        "url": "https://codeberg.org/Freeyourgadget"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "infinitime",
+      "project_name": "InfiniTime",
+      "repository_owner": {
+        "name": "InfiniTimeOrg",
+        "platform": "GitHub",
+        "url": "https://github.com/InfiniTimeOrg"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "asteroidos",
+      "project_name": "AsteroidOS",
+      "repository_owner": {
+        "name": "AsteroidOS",
+        "platform": "GitHub",
+        "url": "https://github.com/AsteroidOS"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "batocera",
+      "project_name": "Batocera.linux",
+      "repository_owner": {
+        "name": "batocera-linux",
+        "platform": "GitHub",
+        "url": "https://github.com/batocera-linux"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "lakka",
+      "project_name": "Lakka",
+      "repository_owner": {
+        "name": "libretro",
+        "platform": "GitHub",
+        "url": "https://github.com/libretro"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "bazzite",
+      "project_name": "Bazzite",
+      "repository_owner": {
+        "name": "ublue-os",
+        "platform": "GitHub",
+        "url": "https://github.com/ublue-os"
+      },
+      "verified_author_profiles": [],
+      "coverage_status": "repository-owner-only",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    },
+    {
+      "project_id": "printer-spl3",
+      "project_name": "HP Laser 1008a macOS driver",
+      "repository_owner": {
+        "name": "Kuberwastaken",
+        "platform": "GitHub",
+        "url": "https://github.com/Kuberwastaken"
+      },
+      "verified_author_profiles": [
+        {
+          "name": "Kuber / kuberwastaken",
+          "platform": "X",
+          "url": "https://x.com/kuberwastaken",
+          "source_url": "https://x.com/kuberwastaken/status/2089721130127094071",
+          "verification": "original-author-post",
+          "checked_at": "2026-10-20",
+          "zh_role": "HP Laser macOS 驱动作者；原帖说明了多轮 AI 辅助开发过程",
+          "en_role": "Author of the HP Laser macOS driver; the original post describes the iterative AI-assisted development process"
+        }
+      ],
+      "coverage_status": "repository-owner-and-author-profile",
+      "note": "Repository ownership is a traceability link and does not establish sole authorship. Social profiles require explicit attribution evidence."
+    }
+  ]
+}

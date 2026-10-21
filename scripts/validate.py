@@ -37,7 +37,7 @@ for slug,article in articles.items():
         assert row["route"] and all(row[key][lang] for key in ["hardware","result","readiness","stop"] for lang in ["zh","en"]),slug
 assert set(author_socials)<=set(p["id"] for p in projects), "Author social points to missing project"
 for pid,accounts in author_socials.items():
-    assert accounts and all(item["name"] and item["platform"] and item["url"].startswith("https://") and item["source_url"].startswith("https://") and item["zh_role"] and item["en_role"] for item in accounts),pid
+    assert accounts and all(item["name"] and item["platform"] and item["url"].startswith("https://") and item["source_url"].startswith("https://") and item["verification"] and re.fullmatch(r"\d{4}-\d{2}-\d{2}",item["checked_at"]) and item["zh_role"] and item["en_role"] for item in accounts),pid
 assert watchlist and len({lead["content_id"] for lead in watchlist.values()})==len(watchlist), "Duplicate lead content ID"
 assert set(watchlist_details)==set(watchlist), "Lead decision-sheet coverage mismatch"
 assert not ({a["content_id"] for a in articles.values()} & {lead["content_id"] for lead in watchlist.values()}), "Content ID collision"
@@ -162,6 +162,11 @@ for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
+identity_coverage=load(OUT/"data/author-identity-coverage.json")
+assert identity_coverage["catalog_entries"]==len(projects)
+assert identity_coverage["repository_owner_covered"]==len(projects)
+assert identity_coverage["projects_with_verified_author_profiles"]==len(author_socials)
+assert [row["project_id"] for row in identity_coverage["entries"]]==ids
 assert set(ids)=={p.stem for p in (OUT/"projects").glob("*.html")}
 for lang in ["zh","en"]:
     assert set(ids)=={p.name for p in (OUT/lang/"projects").iterdir() if p.is_dir()}
@@ -170,6 +175,10 @@ for lang in ["zh","en"]:
         assert parser.canonical==[f"{BASE}{lang}/projects/{pid}/"]
         assert parser.alternates["en"]==f"{BASE}en/projects/{pid}/"
         assert parser.alternates["zh-CN"]==f"{BASE}zh/projects/{pid}/"
+        repo=urlsplit(next(p["repo_url"] for p in projects if p["id"]==pid))
+        owner_parts=[part for part in repo.path.split("/") if part]
+        if repo.netloc in {"github.com","codeberg.org"} and len(owner_parts)>=2:
+            assert f"{repo.scheme}://{repo.netloc}/{owner_parts[0]}" in parser.refs,(lang,pid,"missing repository owner identity")
 english=load(OUT/"data/catalog.en.json")
 assert [p["id"] for p in english["projects"]]==ids
 for p,e in zip(projects,english["projects"]):
