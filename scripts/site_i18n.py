@@ -123,12 +123,12 @@ class Site:
 
     def page(self, title, description, body, tail="index.html", legacy=None):
         current = legacy or f"{self.lang}/{tail}"
-        canonical = BASE + f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
+        canonical = BASE if self.lang == "en" and tail == "index.html" else BASE + f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
         other = "en" if self.lang == "zh" else "zh"
         target = f"{other}/{tail}"
         rel = lambda x: self.rel(x, current)
         brand = "KitAgain"
-        alternates = "".join(f'<link rel="alternate" hreflang="{code}" href="{BASE}{lang}/{"" if tail == "index.html" else tail.removesuffix("index.html")}">' for lang,code in [("zh","zh-CN"),("en","en")])
+        alternates = "".join(f'<link rel="alternate" hreflang="{code}" href="{BASE if lang == "en" and tail == "index.html" else BASE+lang+"/"+("" if tail == "index.html" else tail.removesuffix("index.html"))}">' for lang,code in [("zh","zh-CN"),("en","en")])
         alternates += f'<link rel="alternate" hreflang="x-default" href="{BASE}">'
         markup = f"""<!doctype html>
 <html lang="{self.t('zh-CN','en')}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -138,7 +138,7 @@ class Site:
 <link rel="icon" href="{rel('assets/mark.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{rel('assets/style.css')}"><script src="{rel('assets/app.js')}" defer></script>
 </head><body><a class="skip" href="#main">{self.t('跳到正文','Skip to content')}</a>
 <header class="site-header"><a class="brand" href="{rel(self.lang+'/index.html')}"><span class="brand-mark">↻</span><span>{brand}<small>HARDWARE REVIVAL FIELD GUIDE</small></span></a>
-<nav aria-label="{self.t('主导航','Main navigation')}"><a href="{rel(self.lang+'/index.html')}#catalog">{self.t('项目目录','Catalog')}</a><a href="{rel(self.lang+'/research/index.html')}">{self.t('研究方法','Method')}</a><a href="{rel(self.lang+'/community/index.html')}">{self.t('参与社区','Community')}</a><a class="language-switch" href="{rel(target)}" lang="{other}" hreflang="{other}">{self.t('English','简体中文')}</a></nav></header>
+<nav aria-label="{self.t('主导航','Main navigation')}"><a href="{rel(self.lang+'/index.html')}#catalog">{self.t('项目目录','Catalog')}</a><a href="{rel(self.lang+'/research/index.html')}">{self.t('研究方法','Method')}</a><a href="{h(CONFIG['community_url'])}">{self.t('参与社区','Community')}</a><a class="language-switch" href="{rel(target)}" lang="{other}" hreflang="{other}">{self.t('English','简体中文')}</a></nav></header>
 <main id="main">{body}</main><footer><p>{self.t('让仍能工作的硬件，找到下一份工作。','Give working hardware its next job.')}</p><div>{self.t('资料核查','Sources reviewed')} {DATE} · v{CONFIG['version']} · {self.t('未进行实机测试','No hands-on hardware tests')}<br>
 <a href="{rel('data/catalog.json')}" download>{self.t('中文 JSON','Source JSON (Chinese)')}</a> / <a href="{rel('data/catalog.en.json')}" download>English JSON</a> / <a href="{rel('data/catalog'+('.en' if self.lang=='en' else '')+'.csv')}" download>CSV</a> / <a href="{REPO}">GitHub ↗</a><br>{self.t('原创文字与目录 CC BY 4.0 · 站点代码 MIT · 第三方项目按各自许可','Original text & catalog: CC BY 4.0 · Site code: MIT · Third-party projects: their own licenses')}</div></footer></body></html>"""
         write(OUT / current, markup)
@@ -225,16 +225,14 @@ class Site:
         self.article(t("先看证据，再谈复活。","Evidence before revival."),t("有来源，也明确记录未知项。","Traceable sources and explicit unknowns."),method,"research/index.html")
         contribute = f"""<h2>{t('提交什么','What to include')}</h2>{ul([t('项目 ID、准确型号、硬件修订、固件与地区','Project ID, exact model, hardware revision, firmware and region'),t('上游版本、操作日期及原始步骤链接','Upstream version, operation date and original instructions'),t('成功与失败功能、恢复结果及可核验材料','Working and failed functions, recovery results and verifiable evidence'),t('不要公开设备唯一序列号、账号、令牌或密钥','Do not publish unique serial numbers, accounts, tokens or secrets')])}
 <h2>{t('资料如何进入目录','How reports enter the catalog')}</h2><p>{t('提交后先标为待核验。编辑检查来源与型号条件，再同步中英文；没有独立证据就不升级为 E3。失败记录同样有价值。','Submissions begin as unverified. Editors check sources and exact device conditions, then update both languages. No E3 upgrade without independent evidence. Failure reports are valuable too.')}</p><p id="project-context" class="boundary" hidden></p>
-<p>{self.link(REPO+'/issues/new/choose',t('提交项目、纠错或复现记录','Submit a project, correction or reproduction report'))} ↗</p><p>{t('社区仍在准备中，当前提交入口是 GitHub Issues，需要 GitHub 账号。','The community is still being prepared. Current submissions use GitHub Issues and require a GitHub account.')}</p>"""
+<p>{self.link(REPO+'/issues/new/choose',t('向目录提交项目、纠错或复现记录','Submit a project, correction or reproduction report to the catalog'))} ↗</p><p>{self.link(CONFIG['community_url'],t('前往社区论坛交流','Visit the community forum'))} ↗</p><p>{t('论坛已上线，但语言界面、管理流程和发帖功能仍在完善；正式目录纠错继续使用 GitHub Issues。','The forum is online, while interface localization, moderation and posting checks are still in progress. Use GitHub Issues for formal catalog corrections.')}</p>"""
         self.article(t("贡献一份可靠记录","Contribute a reliable record"),t("成功、失败和不支持条件，都值得保留。","Keep successes, failures and unsupported conditions."),contribute,"contribute/index.html")
         categories = [t("求助与问答","Help & Questions"),t("成功与失败复现","Build Reports"),t("项目发现与改进","Projects & Ideas"),t("公告与社区使用","Announcements & Community")]
-        community = f"""<aside class="boundary"><b>{t('社区筹备中','Community in preparation')}</b><p>{t('独立论坛尚未开放。主站可直接阅读，不需要注册。','The independent forum is not open yet. Reading the main site does not require registration.')}</p></aside>
-<h2>{t('计划开放的四类讨论','Four planned discussion areas')}</h2>{ul(categories)}
+        community = f"""<aside class="boundary"><b>{t('社区论坛已上线','Community forum is online')}</b><p>{t('论坛目前使用英文界面，版块、审核和发帖流程仍在完善。主站目录可直接阅读，不需要注册。','The forum currently has an English interface; categories, moderation and posting workflows are still being prepared. The catalog remains readable without registration.')}</p><p>{self.link(CONFIG['community_url'],t('进入 KitAgain 社区论坛','Open the KitAgain community forum'))} ↗</p></aside>
+<h2>{t('计划建设的四类讨论','Four discussion areas being prepared')}</h2>{ul(categories)}
 <h2>{t('中文和英文都欢迎','Chinese and English welcome')}</h2><p>{t('使用你熟悉的语言，注明设备与项目 ID。优质经验经复核后可补充双语摘要。机器翻译需标明并保留原文，用户帖子不会自动成为目录认证。','Use the language you know and identify the device and project ID. Reviewed experience may receive a bilingual summary. Machine translations must be labeled with the original retained. User posts do not automatically become catalog certifications.')}</p>
 <h2>{t('社区规则','Community rules')}</h2>{ul([t('尊重他人，讨论具体条件，不伪造成功或身份','Respect others; discuss exact conditions; do not fabricate success or identities'),t('保留来源，说明商业关系，避免无关推广','Keep sources, disclose commercial relationships and avoid unrelated promotion'),t('报告失败时记录版本、现象与恢复情况，不发布秘密或个人信息','When reporting failure, record versions, symptoms and recovery without secrets or personal information')])}
 <p id="project-context" class="boundary" hidden></p><p><a id="contribute-link" href="../contribute/">{t('现在提交资料或纠错','Contribute or correct information now')} ↗</a></p>"""
-        if CONFIG["community_url"]:
-            raise ValueError("Community URL activation requires verified forum readiness; update this page deliberately.")
         self.article(t("一起让旧设备继续工作","Keep old devices working together"),t("用可核验的讨论积累经验。","Build experience through verifiable discussion."),community,"community/index.html")
 
     def guides(self):
@@ -272,9 +270,23 @@ def build():
         return f'{attr}="{new}"'
     old = re.sub(r'(href|src)="([^"]+)"',rewrite_reference,old)
     write(OUT/"research.html",old)
-    entry = f"""<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>KitAgain · 旧设备的新用途 · Hardware Revival Field Guide</title><meta name="description" content="探索旧设备的新用途。Explore new uses for old hardware."><link rel="canonical" href="{BASE}"><link rel="alternate" hreflang="zh-CN" href="{BASE}zh/"><link rel="alternate" hreflang="en" href="{BASE}en/"><link rel="alternate" hreflang="x-default" href="{BASE}"><link rel="stylesheet" href="assets/style.css"><script src="assets/app.js" defer></script></head><body><main id="main"><section class="hero"><div><p class="eyebrow">KITAGAIN / HARDWARE REVIVAL FIELD GUIDE / v{CONFIG['version']}</p><h1>旧设备，新的用途。<br><span lang="en">Old hardware.<br>A new purpose.</span></h1><p class="intro">53 条项目，12 篇分析，保留来源与适配边界。<br><span lang="en">53 projects, 12 case analyses, with sources and compatibility boundaries.</span></p><div class="actions"><a class="primary language-switch" href="zh/">简体中文 →</a><a class="primary language-switch" href="en/" lang="en">English →</a></div><p class="evidence-note">没有实机测试 / <span lang="en">No hands-on hardware testing.</span></p></div><aside class="field-note"><span class="brand-mark">↻</span><h2>让仍能工作的硬件，找到下一份工作。</h2><p lang="en">Give working hardware its next job.</p><a href="{REPO}">GitHub ↗</a></aside></section></main></body></html>"""
+    # Serve the complete English catalog at /; retain /en/ for existing links.
+    entry = (OUT/"en/index.html").read_text(encoding="utf-8")
+    def from_english_home(match):
+        attr, ref = match.groups()
+        parts = urlsplit(ref)
+        if parts.scheme or parts.netloc or not parts.path or ref.startswith("//"):
+            return match.group(0)
+        path = posixpath.normpath(posixpath.join("en",parts.path))
+        if parts.path.endswith("/"):
+            path += "/"
+        suffix = ("?" + parts.query if parts.query else "") + ("#" + parts.fragment if parts.fragment else "")
+        return f'{attr}="{path}{suffix}"'
+    entry = re.sub(r'(href|src)="([^"]+)"',from_english_home,entry)
+    entry = entry.replace('class="brand" href="en/index.html"','class="brand" href="index.html"')
+    entry = entry.replace('href="en/index.html#catalog"','href="#catalog"')
     write(OUT/"index.html",entry)
-    urls = [""]+PATHS
+    urls = [""]+[p for p in PATHS if p != "en/"]
     write(OUT/"sitemap.xml",'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"\n".join(f"<url><loc>{h(BASE+p)}</loc></url>" for p in urls)+"\n</urlset>\n")
     migrations = {"note":"Historical URLs remain readable HTML with canonical links; these are not HTTP 301 redirects.",
                   "mappings":{f"projects/{p['id']}.html":f"zh/projects/{p['id']}/" for p in PROJECTS}}
@@ -304,4 +316,4 @@ def build():
         writer.writerow({k:json.dumps(p[k],ensure_ascii=False) if isinstance(p[k],(list,dict)) else p[k] for k in fields})
     write(OUT/"data/catalog.en.csv","\ufeff"+output.getvalue())
     write(OUT/"data/deep-dives.en.json",json.dumps(DEEP_EN,ensure_ascii=False,indent=2)+"\n")
-    print(f"Bilingual build: {len(PATHS)} localized pages + language entry + 54 historical URLs.")
+    print(f"Bilingual build: {len(PATHS)} localized pages + complete English root + 54 historical URLs.")

@@ -81,6 +81,16 @@ for file in OUT.rglob("*.html"):
     if file.is_relative_to(OUT/"en"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
 assert len(pages)==2*(len(projects)+7)+len(projects)+2
+root_page=pages[(OUT/"index.html").resolve()]
+english_home=pages[(OUT/"en/index.html").resolve()]
+assert root_page.lang=="en" and root_page.canonical==[BASE]
+assert english_home.canonical==[BASE]
+assert root_page.alternates["en"]==BASE and root_page.alternates["zh-CN"]==BASE+"zh/"
+assert "project-grid" in root_page.ids and "filters" in root_page.ids
+assert config["community_url"] in root_page.refs
+for lang in ["zh","en"]:
+    assert config["community_url"] in pages[(OUT/lang/"index.html").resolve()].refs
+    assert config["community_url"] in pages[(OUT/lang/"community/index.html").resolve()].refs
 for file,parser in pages.items():
     for url in [*parser.alternates.values(),*parser.canonical]:
         assert url.startswith(BASE),(file,url)
@@ -128,7 +138,8 @@ for source,target in mapping.items():
     assert pages[(OUT/source).resolve()].canonical==[BASE+target]
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+7)+1
+assert len(urls)==len(set(urls))==2*(len(projects)+7)
+assert BASE in urls and BASE+"en/" not in urls
 for url in urls:
     assert url.startswith(BASE)
     target=OUT/url[len(BASE):]

@@ -2,11 +2,11 @@
 
 **手里有什么设备 → 还能做什么 → 哪个方案有证据 → 动手前核对什么。**
 
-[中文导航站](https://kitagain.com/zh/) · [English website](https://kitagain.com/en/) · [English README](README.en.md) · [研究报告](research/REPORT.zh-CN.md) · [12 篇案例分析](research/DEEP_DIVES.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
+[中文导航站](https://kitagain.com/zh/) · [English website](https://kitagain.com/) · [社区论坛](https://community.kitagain.com/) · [English README](README.en.md) · [研究报告](research/REPORT.zh-CN.md) · [12 篇案例分析](research/DEEP_DIVES.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
 
 从小爱音箱和 Nest Mini，到 Kindle、旧电脑、路由器、摄像头、停服机器人和缺驱动的打印机。这个目录把公开代码、作者案例与适配限制放在一起，帮助你判断下一步是否值得尝试。
 
-**v1.2.0 · 资料核查 2026-10-20**：53 条项目/平台/工具，13 类设备，51 个项目家族；53 条详情、12 篇分析及 3 个专题均提供中英文。不是“53 台亲测成功设备”。本版新增翻译不代表重新核验上游。
+**v1.2.1 · 资料核查 2026-10-20**：53 条项目/平台/工具，13 类设备，51 个项目家族；53 条详情、12 篇分析及 3 个专题均提供中英文。不是“53 台亲测成功设备”。本版新增翻译不代表重新核验上游。
 
 | AI 关系 | 条目数 | 如何理解 |
 | --- | ---: | --- |
@@ -56,9 +56,9 @@ X 本轮读到 4 条原始帖子，涉及 2 个案例家族；未验证视频画
 
 ## 数据与构建
 
-主目录为 `data/catalog.json`，编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`。站点有 120 个语言页面、1 个语言入口和 54 个保留的旧 URL，共 175 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
+主目录为 `data/catalog.json`，编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`。站点有 120 个语言页面、1 个完整英文根路径页面和 54 个保留的旧 URL，共 175 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
 
-英文 [JSON](docs/data/catalog.en.json) / [CSV](docs/data/catalog.en.csv) 可下载。论坛入口如实显示筹备状态，尚未部署独立论坛。
+英文 [JSON](docs/data/catalog.en.json) / [CSV](docs/data/catalog.en.csv) 可下载。[独立社区论坛](https://community.kitagain.com/)已上线基础服务；其中文界面、版块与管理流程仍在完善，目录纠错继续使用 GitHub Issues。
 
 ```sh
 python -m pip install -r requirements-dev.txt
@@ -67,7 +67,7 @@ python scripts/validate.py
 python -m http.server 4185 --bind 127.0.0.1 --directory docs
 ```
 
-打开 `http://127.0.0.1:4185/`。GitHub Pages 使用 `main` 分支的 `/docs`。域名、仓库地址与产品版本统一配置在 `site.config.json`；改域名后重建 canonical 和 sitemap，并同步 README 的公开链接。域名选择、DNS 与 TLS 尚未实施，详见 [部署与翻译维护](research/BILINGUAL-MAINTENANCE.md)。
+打开 `http://127.0.0.1:4185/`，根路径直接显示英文完整目录，可切换中文。GitHub Pages 使用 `main` 分支的 `/docs`。域名、仓库地址、社区地址与产品版本统一配置在 `site.config.json`；改域名后重建 canonical 和 sitemap，并同步 README 的公开链接。详见 [部署与翻译维护](research/BILINGUAL-MAINTENANCE.md)。
 
 `scripts/collect.py` 需要已登录的 GitHub CLI，仅做只读采集，将完整上游快照放在仓库外的同级 `hardware-revival-work/upstream`。`scripts/curate.py` 使用该缓存和编辑输入重新编译 JSON/CSV。**重新采集不是完成内容审核**：先阅读变更、核对来源并更新编辑输入，再运行编译。站点构建与验证不需要缓存或任何账号。
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.1 — 2026-10-21
+
+- Show the complete English catalog at the root URL, with the existing Chinese switch; keep `/en/` as a readable alias canonicalized to `/`.
+- Link the live community forum from the site navigation and bilingual community/contribution pages, while describing its remaining setup accurately.
+- Keep the root as the English canonical homepage and omit the `/en/` alias from the sitemap.
+
 ## 1.2.0 — 2026-10-21
 
 - Adopt KitAgain branding and the purchased kitagain.com domain.
