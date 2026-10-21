@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.0 — 2026-10-21
+
+- Publish two source-backed bilingual field guides: checking Kindle model/firmware before modification, and choosing a role for an old PC.
+- Link both guides from each homepage with matching language pages, source links, related projects, canonical URLs and sitemap entries.
+- Keep each guide's source-review date separate from the catalog's older project-review date; no hardware tests are claimed.
+
 ## 1.2.1 — 2026-10-21
 
 - Show the complete English catalog at the root URL, with the existing Chinese switch; keep `/en/` as a readable alias canonicalized to `/`.

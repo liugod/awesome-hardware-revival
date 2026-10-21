@@ -171,10 +171,12 @@ class Site:
             ("evidence",t("证据","Evidence"),{k:v for k,v in self.labels["evidence"].items() if k in {"E1","E2"}})]
         filters = "".join(f'<label>{label}<select id="{key}" name="{key}"><option value="">{t("全部","All")}</option>{options(values)}</select></label>' for key,label,values in groups)
         topics = "".join(f'<a class="feature" href="guides/{gid}/"><span class="serial">0{i+1} / {t("路线比较","ROUTE COMPARISON")}</span><h3>{h(g[self.lang]["title"])}</h3><p>{h(g[self.lang]["intro"])}</p><span class="text-link">{t("查看条件与选择依据","Compare requirements and routes")} ↗</span></a>' for i,(gid,g) in enumerate(GUIDES.items()))
+        articles = "".join(f'<a class="feature" href="articles/{slug}/"><span class="serial">{h(a["content_id"])} / {t("实用指南","FIELD GUIDE")}</span><h3>{h(a[self.lang]["title"])}</h3><p>{h(a[self.lang]["intro"])}</p><span class="text-link">{t("阅读核对清单与来源","Read the checklist and sources")} ↗</span></a>' for slug,a in ARTICLES.items())
         body = f"""<section class="hero"><div class="hero-copy"><p class="eyebrow">OPEN HARDWARE, SECOND LIVES</p><h1>{t('旧设备，<br>还可以做点什么？','Old hardware.<br>A new purpose.')}</h1><p class="intro">{t('从闲置音箱到旧 Kindle，从停服机器人到缺驱动的打印机。按手里的设备找方案，先看适配条件，再决定是否动手。','From idle speakers and old Kindles to service-dependent robots and unsupported printers. Find a route for the device you own, then check compatibility before getting started.')}</p><a class="primary" href="#catalog">{t('寻找你的设备','Find your device')} ↓</a><a class="secondary" href="research/">{t('先看我们如何核查','How we review evidence')} ↗</a></div>
 <aside class="field-note"><span class="eyebrow">FIELD NOTES / 001</span><div class="big-count">{len(PROJECTS)}<span>{t('条公开项目与工具','public projects and tools')}</span></div><dl><div><dt>{t('设备类别','Device categories')}</dt><dd>{len(self.labels['category'])}</dd></div><div><dt>{t('重点案例分析','Case analyses')}</dt><dd>{len(DEEP)}</dd></div><div><dt>{t('独立实机复现','Verified independent reproductions')}</dt><dd>0</dd></div></dl><p>{t('这是有来源的研究目录。收录不等于兼容认证或实机测试。','A source-backed research directory. Inclusion is not compatibility certification or hands-on testing.')}</p><small>LAST REVIEWED {DATE}</small></aside></section>
 <div class="facts-strip">{''.join(f'<span><b>{sum(p["ai_relation"]==key for p in PROJECTS)}</b>{h(label)}</span>' for key,label in self.labels['ai'].items())}</div>
 <section class="featured"><div class="section-heading"><p class="eyebrow">{t('从设备出发','START WITH YOUR DEVICE')}</p><h2>{t('三条值得先了解的路径','Three routes to explore')}</h2></div><div class="feature-grid">{topics}</div></section>
+<section class="featured"><div class="section-heading"><p class="eyebrow">{t('动手前先核对','CHECK BEFORE YOU START')}</p><h2>{t('实用指南','Field guides')}</h2></div><div class="feature-grid">{articles}</div></section>
 <section id="catalog" class="catalog"><div class="section-heading"><h2>{t('项目目录','Project catalog')} <span class="muted">/ {len(PROJECTS)}</span></h2><p>{t('先按设备缩小范围，再核对型号、固件与恢复路径。','Narrow by device, then check model, firmware and recovery requirements.')}</p></div>
 <form id="filters" class="filters" role="search"><div class="search-field"><label for="q">{t('搜索设备、型号或项目（支持中英文）','Search devices, models or projects (Chinese or English)')}</label><input id="q" name="q" type="search" placeholder="{t('例如 Kindle、LX06、打印机…','Try Kindle, LX06, printer…')}" autocomplete="off"></div>
 <div class="filter-grid">{filters}</div><div class="filter-bottom"><p id="result-count" role="status" aria-live="polite">{t('显示','Showing')} {len(PROJECTS)} / {len(PROJECTS)}</p><div><button type="button" id="share">{t('复制筛选链接','Copy filtered link')}</button><button type="reset">{t('清除筛选','Clear filters')}</button></div></div><span id="share-status" role="status"></span></form>
@@ -242,7 +244,17 @@ class Site:
             sections += f'<h2>{self.t("对应项目与来源","Projects and sources")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"]==pid),"../../") for pid in guide["projects"])+"</div>"
             self.article(g["title"],g["intro"],sections,f"guides/{gid}/index.html")
 
+    def articles(self):
+        for slug, article in ARTICLES.items():
+            a = article[self.lang]
+            sections = f'<p class="muted">{h(article["content_id"])} · {self.t("资料核查","Sources reviewed")} {h(article["reviewed_at"])} · {self.t("未进行实机测试","No hands-on hardware tests")}</p>'
+            sections += "".join(f"<h2>{h(title)}</h2>" + "".join(f"<p>{h(paragraph)}</p>" for paragraph in paragraphs) for title,paragraphs in a["sections"])
+            sections += f'<h2>{self.t("原始来源","Primary sources")}</h2><ul class="sources">' + "".join(f'<li>{self.link(source["url"],source["label"])}</li>' for source in article["sources"]) + "</ul>"
+            sections += f'<h2>{self.t("相关项目","Related projects")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"] == pid),"../../") for pid in article["projects"]) + "</div>"
+            self.article(a["title"],a["intro"],sections,f"articles/{slug}/index.html")
+
 GUIDES = json.loads((ROOT / "data/guides.json").read_text(encoding="utf-8"))
+ARTICLES = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
 
 def build():
     assert CONFIG["version"] == DATA["version"], "Product versions differ"
@@ -254,7 +266,7 @@ def build():
     assert manifest["deep_translation_sha256"] == digest(DEEP_EN), "Deep-dive translations changed without review"
     for lang in ["zh","en"]:
         s=Site(lang)
-        s.home();s.supporting();s.guides()
+        s.home();s.supporting();s.guides();s.articles()
         for p in PROJECTS:
             s.detail(p)
             if lang=="zh":s.detail(p,legacy=True)

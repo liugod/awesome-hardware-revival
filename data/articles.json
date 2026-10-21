@@ -1,0 +1,114 @@
+{
+  "kindle-model-firmware": {
+    "content_id": "C01",
+    "reviewed_at": "2026-10-21",
+    "projects": ["winterbreak", "koreader"],
+    "sources": [
+      {"label": "Amazon: Identify Your Kindle E-Reader", "url": "https://digprjsurvey.amazon.com/csad/help/node/GK33S847NN4V6Y83"},
+      {"label": "Amazon: Kindle E-Reader Software Updates", "url": "https://digprjsurvey.amazon.com/csad/help/node/GKMQC26VQQMM8XSW"},
+      {"label": "KindleModding: Jailbreaking Wizard", "url": "https://kindlemodding.org/kindle-models"},
+      {"label": "KindleModding: Jailbreak FAQ", "url": "https://kindlemodding.org/jailbreaking/jailbreak-faq.html"},
+      {"label": "KOReader: Installation on Kindle devices", "url": "https://github.com/koreader/koreader/wiki/Installation-on-Kindle-devices"}
+    ],
+    "zh": {
+      "title": "Kindle 型号与固件怎么查：改造前的核对表",
+      "intro": "先确认你手里的确切设备和固件，再决定是否值得尝试 KOReader 或其他改造；“Paperwhite”这个系列名不足以选刷机方法。",
+      "sections": [
+        ["第一步：识别设备，不公开完整序列号", [
+          "在 Kindle 的“设置 → 设备选项 → 设备信息”记录界面显示的设备名称、代数（如有）和软件版本。不同版本菜单名称可能略有差异；拿 Amazon 的型号识别页核对外观与代数。只写“Kindle”或“Paperwhite”不足以判断兼容性。",
+          "如需用 KindleModding 的选择器，先在自己的设备上读取序列号前八位，并只在该工具中输入。公开求助帖不要贴完整序列号、账号或含设备唯一标识的截图；贴出型号、代数与固件即可。"
+        ]],
+        ["第二步：把当前固件与更新目标分开", [
+          "抄录设备信息中的当前软件版本，并注明查看日期。Amazon 的软件更新页可用于再次核对设备代数和官方更新；页面列出的最新版不是你设备当前版本。",
+          "不要先更新再找改造方法。可用方法会随型号与固件变化；KindleModding 的选择器要求输入设备和固件，还会询问注册、广告等条件。若找不到与你完全对应的路线，就停在只读核查，不把相近机型经验当成支持声明。"
+        ]],
+        ["第三步：按目标选择路径", [
+          "如果目标只是继续阅读原有内容，先确认是否真的需要改造。若目标是 KOReader，阅读其当前 Kindle 安装文档，确认对应设备、启动器及前置条件；成功越狱不等于 KOReader 已可运行。",
+          "WinterBreak 是越狱前置工具之一，不是阅读器，也不是所有 Kindle/固件的通用入口。先让当前的选择器给出路线，再读该路线的原始说明、例外和恢复信息。不要把旧教程中的固件范围当成永久有效。"
+        ]],
+        ["动手前的停机条件与记录", [
+          "备份个人文件与配置，记录当前固件、目标用途、上游工具版本、来源链接和可能的回退步骤。KindleModding FAQ 提醒：已越狱设备的重置、更新和移除越狱有顺序要求；不要把“恢复出厂设置”当作万能回退。",
+          "只要型号、固件、前置条件或恢复路径有一项不清楚，就先不要执行会改写系统的步骤。本站没有对任何 Kindle 做实机测试，也不为特定设备承诺兼容。"
+        ]]
+      ]
+    },
+    "en": {
+      "title": "Identify your Kindle model and firmware before modifying it",
+      "intro": "Confirm the exact device and installed firmware before considering KOReader or another modification. A family name such as “Paperwhite” is not enough to select a jailbreak route.",
+      "sections": [
+        ["1. Identify the device without publishing its full serial number", [
+          "On the Kindle, record the device name, generation when shown, and software version under Settings → Device Options → Device Info. Menu labels can vary. Compare its features and generation with Amazon's identification page; “Kindle” or “Paperwhite” alone does not establish compatibility.",
+          "If you use the KindleModding wizard, read the first eight characters of the serial on your own device and enter them only into that tool. Do not put a full serial number, account details, or an unredacted device-info screenshot in a public help post. Model, generation and firmware are enough to begin a discussion."
+        ]],
+        ["2. Separate installed firmware from an available update", [
+          "Write down the software version shown by Device Info and the date you checked it. Amazon's update page can help confirm the device generation and official update path; its latest listed release is not evidence of what is installed on your device.",
+          "Do not update first and look for a modification method later. Available methods change with model and firmware. The KindleModding wizard asks for device and firmware, then other conditions such as registration and lock-screen ads. If the route does not match your exact combination, stop at read-only research rather than extending another model's result."
+        ]],
+        ["3. Choose a route for the actual goal", [
+          "If your goal is only to keep reading your current books, first decide whether any modification is needed. For KOReader, read its current Kindle installation guide and check device, launcher and prerequisites. A successful jailbreak alone does not establish that KOReader works.",
+          "WinterBreak is one possible jailbreak prerequisite, not a reader and not a universal route for every Kindle and firmware. Use the current wizard to choose a method, then read that method's original instructions, exceptions and recovery notes. Do not assume the firmware range in an old tutorial still applies."
+        ]],
+        ["Stop conditions and records before changing anything", [
+          "Back up personal files and configuration. Record installed firmware, intended use, upstream tool version, source links and a possible recovery route. The KindleModding FAQ describes ordering requirements for resetting, updating and removing a jailbreak; a factory reset is not a universal rollback.",
+          "If model, firmware, prerequisites or recovery are unclear, do not execute a step that changes the system yet. This catalog has not performed Kindle hardware tests and does not certify compatibility for a specific device."
+        ]]
+      ]
+    }
+  },
+  "old-pc-role-choice": {
+    "content_id": "C02",
+    "reviewed_at": "2026-10-21",
+    "projects": ["haos", "dietpi", "openmediavault", "libreelec"],
+    "sources": [
+      {"label": "Home Assistant: Generic x86-64 installation", "url": "https://www.home-assistant.io/installation/generic-x86-64"},
+      {"label": "openmediavault: Installation via ISO", "url": "https://docs.openmediavault.org/en/8.x/installation/via_iso.html"},
+      {"label": "DietPi: Supported hardware", "url": "https://dietpi.com/docs/hardware/"},
+      {"label": "DietPi: Installation", "url": "https://dietpi.com/docs/install/"},
+      {"label": "LibreELEC: Generic x86-64 downloads", "url": "https://libreelec.tv/downloads/generic/"}
+    ],
+    "zh": {
+      "title": "旧电脑做家庭服务器、媒体中心还是 NAS？",
+      "intro": "先定义一件要完成的事，再检查启动模式、磁盘和网络。HAOS、DietPi、openmediavault 与 LibreELEC 不是可以任意互换的“旧电脑系统”。",
+      "sections": [
+        ["先问用途，再选路线", [
+          "主要想管理智能家居且愿意把机器专用于此，可研究 Home Assistant OS 的 Generic x86-64 路线。需要灵活的轻量 Linux 服务，可研究 DietPi；要管理本地磁盘与共享目录，优先看 openmediavault；要把电脑接电视当 Kodi 播放终端，查看 LibreELEC。",
+          "“家庭服务器”不是一个具体验收目标。先写下要接入的设备或服务、数据量、是否常开、是否需要本机屏幕，以及断网时应继续工作的功能。用途不同，系统盘、数据盘和备份要求也不同。"
+        ]],
+        ["启动与安装边界", [
+          "HAOS 官方 Generic x86-64 路线要求 UEFI 启动、关闭 Secure Boot，并检查启动介质支持 512 字节逻辑扇区（512n/512e）。只有 64 位处理器不等于满足全部要求；写入镜像前确认目标磁盘。",
+          "DietPi 官方为 Native PC 分列 UEFI 和 BIOS/CSM 入口，也列出不同安装/直接写入方式。先辨别自己的启动模式，再找对应镜像。LibreELEC 的 Generic 下载页区分常规与旧款/NVIDIA 等方案，不能只按“x86-64”盲选。"
+        ]],
+        ["存储与数据风险", [
+          "openmediavault 官方 ISO 安装要求先断开除系统盘外的其他磁盘，并提醒安装目标盘原有数据会丢失。安装后再接数据盘；不要把已经存有唯一数据的磁盘当作试装盘。",
+          "不论选择哪条路线，先确认磁盘健康、是否有独立备份、断电后能否恢复，以及系统盘与数据盘如何区分。RAID 或双盘不等于备份。旧电脑的功耗、噪声、磁盘寿命和实际费用要在具体设备上测量；本站没有这些数值。"
+        ]],
+        ["最低验收与暂缓条件", [
+          "先用目标硬件完成启动、网络、重启和一次真实任务：HAOS 接入一个真实设备；DietPi 跑一个明确服务；openmediavault 建立共享并从另一设备读取；LibreELEC 播放你有权使用的本地媒体。再测试备份与恢复。",
+          "如果不确定启动方式、目标磁盘或数据备份，就先不要安装。以下项目页保留原始链接与逐项限制；这里是资料比较，不是本站实机安装报告，也不保证任何旧电脑都适配。"
+        ]]
+      ]
+    },
+    "en": {
+      "title": "Home server, media center or NAS: choose a role for an old PC",
+      "intro": "Choose one job first, then check boot mode, disks and networking. HAOS, DietPi, openmediavault and LibreELEC are not interchangeable “old PC operating systems.”",
+      "sections": [
+        ["Define the job before choosing the route", [
+          "For a dedicated smart-home controller, examine the Home Assistant OS Generic x86-64 route. For flexible lightweight Linux services, consider DietPi. For local disks and shared folders, compare openmediavault. For a PC connected to a TV as a Kodi endpoint, look at LibreELEC.",
+          "“Home server” is not a testable goal. List the devices or services to connect, data volume, always-on needs, whether a local screen matters, and what should continue working when the network fails. These decisions change disk and backup requirements."
+        ]],
+        ["Boot and installation boundaries", [
+          "The official HAOS Generic x86-64 route requires UEFI boot, Secure Boot disabled, and a boot medium with 512-byte logical sectors (512n/512e). A 64-bit CPU alone is insufficient. Confirm the exact target disk before writing an image.",
+          "DietPi lists separate Native PC paths for UEFI and BIOS/CSM, and distinguishes installers from direct-write images. Identify your boot mode first. LibreELEC's Generic download page separates the regular image from legacy/NVIDIA-oriented options; x86-64 by itself is not enough to select one blindly."
+        ]],
+        ["Storage and data risk", [
+          "The official openmediavault ISO instructions tell you to disconnect every disk except the intended OS drive before installation and warn that existing data on the installation target will be lost. Reconnect data drives after installing; never use a disk containing your only copy as a trial target.",
+          "For any route, check disk health, an independent backup, recovery after power loss, and the distinction between OS and data disks. RAID or two disks are not a backup. Power draw, noise, disk life and actual cost must be measured on the specific PC; this catalog has no such measurements."
+        ]],
+        ["Minimum acceptance and reasons to pause", [
+          "On the actual hardware, test boot, networking, reboot and one real job: pair a device with HAOS, run a defined service on DietPi, read an openmediavault share from another device, or play local media you may legally use with LibreELEC. Then test backup and restore.",
+          "If boot mode, target disk or backup state is unknown, pause before installation. The linked project pages retain primary sources and specific limits. This comparison is not a catalog-run hardware installation report and does not certify every old PC."
+        ]]
+      ]
+    }
+  }
+}

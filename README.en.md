@@ -4,7 +4,7 @@ An evidence-aware directory for giving existing hardware a useful second life: s
 
 [English website](https://kitagain.com/) · [中文网站](https://kitagain.com/zh/) · [Community forum](https://community.kitagain.com/) · [中文 README](README.md) · [English JSON](docs/data/catalog.en.json) · [English CSV](docs/data/catalog.en.csv) · [Research report (Chinese)](research/REPORT.zh-CN.md)
 
-**Version 1.2.1, sources reviewed 2026-10-20.** 53 project/platform/tool entries across 13 categories and 51 project families. All 53 entries, 12 detailed analyses and 3 topic guides are available in Chinese and English. This is not a claim of 53 independently tested hardware builds. Translation does not constitute fresh upstream verification.
+**Version 1.3.0; project sources reviewed 2026-10-20, field-guide sources reviewed 2026-10-21.** 53 project/platform/tool entries across 13 categories and 51 project families. All 53 entries, 12 detailed analyses, 3 topic guides and 2 field guides are available in Chinese and English. This is not a claim of 53 independently tested hardware builds. New guide reviews do not constitute fresh upstream verification of every project.
 
 ## What is included
 

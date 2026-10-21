@@ -20,6 +20,15 @@ BASE=config["base_url"].rstrip("/")+"/"
 schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
+articles=load(ROOT/"data/articles.json")
+assert articles and len({a["content_id"] for a in articles.values()})==len(articles), "Duplicate article content ID"
+for slug,article in articles.items():
+    assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug),slug
+    assert article["projects"] and set(article["projects"])<=set(p["id"] for p in projects),slug
+    assert article["sources"] and all(s["url"].startswith("https://") and s["label"] for s in article["sources"]),slug
+    assert len(article["zh"]["sections"])==len(article["en"]["sections"]),slug
+    for lang in ["zh","en"]:
+        assert article[lang]["title"] and article[lang]["intro"] and all(title and paragraphs and all(paragraphs) for title,paragraphs in article[lang]["sections"]),slug
 ids=[p["id"] for p in projects]
 assert len(ids)==len(set(i.lower() for i in ids)), "Duplicate ID"
 assert set(p["family"] for p in projects)<=set(ids), "Missing family anchor"
@@ -80,7 +89,7 @@ for file in OUT.rglob("*.html"):
     assert parser.alternates["x-default"]==BASE,file
     if file.is_relative_to(OUT/"en"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
-assert len(pages)==2*(len(projects)+7)+len(projects)+2
+assert len(pages)==2*(len(projects)+7+len(articles))+len(projects)+2
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 assert root_page.lang=="en" and root_page.canonical==[BASE]
@@ -91,6 +100,12 @@ assert config["community_url"] in root_page.refs
 for lang in ["zh","en"]:
     assert config["community_url"] in pages[(OUT/lang/"index.html").resolve()].refs
     assert config["community_url"] in pages[(OUT/lang/"community/index.html").resolve()].refs
+    for slug,article in articles.items():
+        home=pages[(OUT/lang/"index.html").resolve()]
+        assert f"articles/{slug}/" in home.refs,(lang,slug,"missing homepage article link")
+        page=pages[(OUT/lang/"articles"/slug/"index.html").resolve()]
+        assert page.canonical==[f"{BASE}{lang}/articles/{slug}/"]
+        assert all(source["url"] in page.refs for source in article["sources"]),(lang,slug,"missing source")
 for file,parser in pages.items():
     for url in [*parser.alternates.values(),*parser.canonical]:
         assert url.startswith(BASE),(file,url)
@@ -138,7 +153,7 @@ for source,target in mapping.items():
     assert pages[(OUT/source).resolve()].canonical==[BASE+target]
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+7)
+assert len(urls)==len(set(urls))==2*(len(projects)+7+len(articles))
 assert BASE in urls and BASE+"en/" not in urls
 for url in urls:
     assert url.startswith(BASE)
