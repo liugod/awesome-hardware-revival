@@ -10,6 +10,8 @@ import re
 from pathlib import Path
 from urllib.parse import urlsplit
 
+from watchlist_merge import load_watchlist
+
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs"
 CONFIG = json.loads((ROOT / "site.config.json").read_text(encoding="utf-8"))
@@ -181,7 +183,7 @@ class Site:
         articles = "".join(f'<a class="feature" href="articles/{slug}/"><span class="serial">{h(a["content_id"])} / {t("实用指南","FIELD GUIDE")}</span><h3>{h(a[self.lang]["title"])}</h3><p>{h(a[self.lang]["intro"])}</p><span class="text-link">{t("阅读核对清单与来源","Read the checklist and sources")} ↗</span></a>' for slug,a in ARTICLES.items())
         leads = "".join(self.lead_card(slug,lead) for slug,lead in list(WATCHLIST.items())[:4])
         body = f"""<section class="hero"><div class="hero-copy"><p class="eyebrow">DON'T BIN IT. REBUILD IT.</p><h1>{t('别急着扔。<br>让旧硬件重新上岗。','Don’t bin it.<br>Give it another job.')}</h1><p class="intro">{t('输入设备或型号，看看它能变成信息屏、家庭服务器、媒体播放器，还是本地智能设备。每条路线都告诉你：适不适配、难在哪里、什么时候该停手。','Search a device or model to see whether it can become a display, home server, media player or local smart device. Every route shows what fits, what is difficult and when to stop.')}</p><a class="primary" href="#catalog">{t('看看它还能干什么','See what it can become')} ↓</a><a class="secondary" href="{h(CONFIG['community_url'])}">{t('拿不准？去社区问问','Not sure? Ask the community')} ↗</a></div>
-<aside class="field-note"><span class="eyebrow">START HERE</span><div class="big-count">{len(PROJECTS)}<span>{t('条可查改造路线与工具','routes and tools to explore')}</span></div><dl><div><dt>{t('能查的设备类别','Device categories')}</dt><dd>{len(self.labels['category'])}</dd></div><div><dt>{t('动手指南','Practical guides')}</dt><dd>{len(ARTICLES)}</dd></div><div><dt>{t('社区新线索','Community leads')}</dt><dd>{len(WATCHLIST)}</dd></div></dl><p>{t('把兼容条件、准备工作和踩坑点放在一起，帮你少买错配件，也少刷坏一台机器。','Compatibility, preparation and common failure points in one place, so you can avoid the wrong parts and risky flashes.')}</p><small>{t('资料更新','CONTENT REVIEWED')} {DATE}</small></aside></section>
+<aside class="field-note"><span class="eyebrow">START HERE</span><div class="big-count">{len(PROJECTS)+len(WATCHLIST)}<span>{t('条项目与社区线索','projects and community leads')}</span></div><dl><div><dt>{t('正式目录','Reviewed catalog')}</dt><dd>{len(PROJECTS)}</dd></div><div><dt>{t('社区线索','Community leads')}</dt><dd>{len(WATCHLIST)}</dd></div><div><dt>{t('动手指南','Practical guides')}</dt><dd>{len(ARTICLES)}</dd></div></dl><p>{t('把兼容条件、准备工作和踩坑点放在一起，帮你少买错配件，也少刷坏一台机器。','Compatibility, preparation and common failure points in one place, so you can avoid the wrong parts and risky flashes.')}</p><small>{t('资料更新','CONTENT REVIEWED')} {DATE}</small></aside></section>
 <div class="facts-strip"><span><b>✓</b>{t('按手里的设备找方案','Start with the hardware you own')}</span><span><b>✓</b>{t('先看清型号和条件','Check the exact model first')}</span><span><b>✓</b>{t('成功与失败经验都保留','Learn from successes and failures')}</span></div>
 <section class="featured"><div class="section-heading"><p class="eyebrow">{t('不知道从哪开始？','NOT SURE WHERE TO START?')}</p><h2>{t('先选你手里的设备','Choose the device you already have')}</h2></div><div class="feature-grid">{topics}</div></section>
 <section class="featured"><div class="section-heading"><p class="eyebrow">{t('准备动手？','READY TO TINKER?')}</p><h2>{t('先把关键条件查清楚','Check the important details first')}</h2></div><div class="feature-grid">{articles}</div></section>
@@ -297,8 +299,7 @@ class Site:
 
 GUIDES = json.loads((ROOT / "data/guides.json").read_text(encoding="utf-8"))
 ARTICLES = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
-WATCHLIST = json.loads((ROOT / "data/watchlist.json").read_text(encoding="utf-8"))
-WATCHLIST_DETAILS = json.loads((ROOT / "data/watchlist-details.json").read_text(encoding="utf-8"))
+WATCHLIST, WATCHLIST_DETAILS = load_watchlist(ROOT / "data")
 AUTHOR_SOCIALS = json.loads((ROOT / "data/author-socials.json").read_text(encoding="utf-8"))
 
 def build():
@@ -315,6 +316,9 @@ def build():
         for p in PROJECTS:
             s.detail(p)
             if lang=="zh":s.detail(p,legacy=True)
+    (OUT / "data").mkdir(parents=True, exist_ok=True)
+    (OUT / "data/watchlist.json").write_text(json.dumps(WATCHLIST, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    (OUT / "data/watchlist-details.json").write_text(json.dumps(WATCHLIST_DETAILS, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     # Preserve historical method URL with complete localized content, not a fake HTTP 301.
     old = (OUT/"zh/research/index.html").read_text(encoding="utf-8")
     def rewrite_reference(match):

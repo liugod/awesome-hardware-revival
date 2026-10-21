@@ -5,7 +5,9 @@
     "source_platform": "Official site + GitLab",
     "source_url": "https://postmarketos.org/download/",
     "code_url": "https://gitlab.postmarketos.org/postmarketOS/pmaports",
-    "additional_sources": ["https://wiki.postmarketos.org/wiki/Category:Devices"],
+    "additional_sources": [
+      "https://wiki.postmarketos.org/wiki/Category:Devices"
+    ],
     "status": "identity-and-device-matrix-review",
     "reviewed_at": "2026-10-21",
     "zh": {
@@ -29,7 +31,9 @@
     "source_platform": "Official site + Codeberg",
     "source_url": "https://libreboot.org/docs/install/",
     "code_url": "https://codeberg.org/libreboot/lbmk",
-    "additional_sources": ["https://libreboot.org/git.html"],
+    "additional_sources": [
+      "https://libreboot.org/git.html"
+    ],
     "status": "strong-source-needs-catalog-review",
     "reviewed_at": "2026-10-21",
     "zh": {
@@ -53,7 +57,9 @@
     "source_platform": "Doozan forum",
     "source_url": "https://forum.doozan.com/read.php?2,12096",
     "code_url": null,
-    "additional_sources": ["https://forum.doozan.com/read.php?3,138456,138516"],
+    "additional_sources": [
+      "https://forum.doozan.com/read.php?3,138456,138516"
+    ],
     "status": "forum-maintained-device-specific",
     "reviewed_at": "2026-10-21",
     "zh": {
@@ -77,7 +83,10 @@
     "source_platform": "Official help site + community",
     "source_url": "https://rebble.io/howto/",
     "code_url": null,
-    "additional_sources": ["https://help.rebble.io/", "https://rebble.io/projects/"],
+    "additional_sources": [
+      "https://help.rebble.io/",
+      "https://rebble.io/projects/"
+    ],
     "status": "service-transition-review",
     "reviewed_at": "2026-10-21",
     "zh": {
@@ -125,7 +134,9 @@
     "source_platform": "Hackaday.io",
     "source_url": "https://hackaday.io/project/7443-e-ink-display-adapter",
     "code_url": null,
-    "additional_sources": ["https://hackaday.io/project/7443-e-ink-display-adapter/log/50221-working-software"],
+    "additional_sources": [
+      "https://hackaday.io/project/7443-e-ink-display-adapter/log/50221-working-software"
+    ],
     "status": "working-prototype-stale",
     "reviewed_at": "2026-10-21",
     "zh": {
@@ -149,7 +160,9 @@
     "source_platform": "Hackaday.io",
     "source_url": "https://hackaday.io/project/10161-6-inch-pi-e-ink-display",
     "code_url": null,
-    "additional_sources": ["https://hackaday.io/project/10161/logs"],
+    "additional_sources": [
+      "https://hackaday.io/project/10161/logs"
+    ],
     "status": "incomplete-failed-prototype",
     "reviewed_at": "2026-10-21",
     "zh": {
@@ -173,7 +186,9 @@
     "source_platform": "Home Assistant Community",
     "source_url": "https://community.home-assistant.io/t/tablet-as-wall-panel/734479",
     "code_url": null,
-    "additional_sources": ["https://community.home-assistant.io/t/on-wall-display-for-ha-dashboard/910288"],
+    "additional_sources": [
+      "https://community.home-assistant.io/t/on-wall-display-for-ha-dashboard/910288"
+    ],
     "status": "community-pattern-with-safety-gap",
     "reviewed_at": "2026-10-21",
     "zh": {
@@ -237,6 +252,894 @@
       "gap": "KitAgain has not checked code licensing, audio quality, latency, supply noise, amplifier inputs or long-term maintenance.",
       "next_check": "Verify pinouts, BOM and licenses for both board variants, then run a reversible test through a stereo line input.",
       "safety": "Prefer an external low-voltage line input. Any internal mains wiring requires separate isolation and electrical-safety review."
+    }
+  },
+  "reuse-sony-reader-with-pico": {
+    "content_id": "L11",
+    "category": "ereader",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/203430-reuse-e-reader-with-pico",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "researching-unbuilt-route",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Sony PRS-700 加 Pico：借 SD 卡更新电子书内容",
+      "summary": "作者计划让 Pico 改写 SD 卡上的 EPUB/PDF，使旧 Sony PRS-700 成为文本显示器；目前仍在研究和备料。",
+      "gap": "没有完成接线、代码、刷新演示或稳定性结果，作者也未确认阅读器是否逐页读取 SD 卡。",
+      "next_check": "等待真实文件更新实验、供电方案和可复现代码，再判断是否能从研究升级为原型。",
+      "safety": "不要把计划当成可用教程；拆电池和并联供电前先确认电压、充电与保护。"
+    },
+    "en": {
+      "title": "Sony PRS-700 with Pico: update reader content through SD storage",
+      "summary": "The author plans to let a Pico rewrite EPUB/PDF files on an SD card so an old Sony PRS-700 can display changing text; the work remains at research and parts-gathering stage.",
+      "gap": "There is no completed wiring, code, refresh demonstration or stability result, and page-by-page SD reads are still an assumption.",
+      "next_check": "Wait for a real file-update experiment, power design and reproducible code before treating it as a prototype.",
+      "safety": "Do not treat the plan as a working guide; verify voltage, charging and protection before battery or shared-power work."
+    }
+  },
+  "trash-drone-router-platform": {
+    "content_id": "L12",
+    "category": "network",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/1529-trash-drone-router-platform/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "historical-multi-part-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Trash Drone Router：用旧路由器和废件做联网无人机",
+      "summary": "作者把旧路由器、PIC、Wii 传感器、IP 摄像头和电机组合成低成本联网无人机平台，并公开论文、博客与飞控代码入口。",
+      "gap": "资料跨多个旧链接，项目已多年未更新；飞行安全、无线法规、当前代码和具体硬件版本未统一核对。",
+      "next_check": "保存仍可访问的代码和论文，确认一套实际机体、控制链与失控保护。",
+      "safety": "旋翼、电池和无线发射都有现实风险；没有失控保护和合法频段时不应飞行。"
+    },
+    "en": {
+      "title": "Trash Drone Router: networked aircraft from routers and salvaged parts",
+      "summary": "The author combines old routers, PICs, Wii sensors, IP cameras and motors into a low-cost connected drone platform, with paper, blog and flight-controller links.",
+      "gap": "Material is spread across aging links and has not been updated for years; flight safety, radio rules, current code and exact hardware versions are not reconciled.",
+      "next_check": "Archive accessible code and papers, then identify one actual airframe, control path and failsafe design.",
+      "safety": "Propellers, batteries and radio transmission create real hazards; do not fly without failsafes and legal frequencies."
+    }
+  },
+  "display-server-old-monitors": {
+    "content_id": "L13",
+    "category": "computer",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/174477-display-server",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "documented-software-prototype-stale",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Display Server：让旧显示器专门显示文档和图片",
+      "summary": "项目用树莓派驱动闲置显示器，通过 SCP、共享目录、网页或 WebSocket 接收静态文档与艺术图片。",
+      "gap": "页面仍写着即将发布但多年未更新；安装包、维护状态和无人值守恢复未核验。",
+      "next_check": "确认源码、安装步骤、开机恢复和当前浏览器/图像依赖。",
+      "safety": "不要拆 CRT 或老显示器电源；优先使用完整显示器的标准视频输入。"
+    },
+    "en": {
+      "title": "Display Server: dedicate older monitors to documents and art",
+      "summary": "The project uses a Raspberry Pi with spare monitors and accepts static documents or art through SCP, shared folders, a web page or WebSocket.",
+      "gap": "The page still says a release is coming and has been quiet for years; install artifacts, maintenance and unattended recovery are unverified.",
+      "next_check": "Confirm source, setup steps, boot recovery and current browser/image dependencies.",
+      "safety": "Do not open CRTs or old monitor power supplies; prefer complete displays with standard video inputs."
+    }
+  },
+  "original-ipad-cm4": {
+    "content_id": "L14",
+    "category": "mobile",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/177256-put-a-raspberry-pi-cm4-into-an-original-ipad",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "advanced-working-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "原版 iPad 换装 Raspberry Pi CM4 主板",
+      "summary": "作者为 2010 年 iPad 设计 CM4 替换主板，目标复用外壳、电池、触摸、LCD、天线、扬声器和按键，并记录可启动系统。",
+      "gap": "自制 PCB、屏幕与电池管理复杂，项目仍在推进；完整物料、长期电池安全和全部外设支持未形成普通用户套件。",
+      "next_check": "核对最新 PCB 修订、制造文件、LCD/触摸驱动、充放电保护和系统镜像。",
+      "safety": "老化锂电池和定制电源板必须单独检查；不能只因 CM4 能启动就认为充电安全。"
+    },
+    "en": {
+      "title": "Replace an original iPad logic board with Raspberry Pi CM4",
+      "summary": "The author designs a CM4 replacement board for a 2010 iPad to reuse the enclosure, battery, touch, LCD, antennas, speaker and buttons, with a reported booting system.",
+      "gap": "Custom PCB, display and battery management remain complex; a complete BOM, long-term battery safety and all peripherals are not packaged for ordinary users.",
+      "next_check": "Review the latest PCB revision, manufacturing files, LCD/touch drivers, charge protection and system image.",
+      "safety": "The aged lithium battery and custom power board need separate validation; a booting CM4 does not prove safe charging."
+    }
+  },
+  "dlt-one-modular-tablet": {
+    "content_id": "L15",
+    "category": "mobile",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/164845-dlt-one-a-damn-linux-tablet",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "modular-prototype-platform",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "DLT One：可更换模块的 Linux 平板",
+      "summary": "项目提出开放的机械与电气模块标准，让平板的主板、屏幕、电池和外设可升级并跨机型复用。",
+      "gap": "它主要是新硬件平台而非现成旧平板转换套件；多个 PCB 修订和机械兼容仍在迭代。",
+      "next_check": "确认最新可制造文件、已装配版本、模块兼容表与实际可复用旧部件。",
+      "safety": "电池管理和不同模块的电压/连接器不能凭尺寸相近直接互换。"
+    },
+    "en": {
+      "title": "DLT One: a modular Linux tablet platform",
+      "summary": "The project proposes open mechanical and electrical module standards so tablet boards, displays, batteries and peripherals can be upgraded and reused across form factors.",
+      "gap": "It is primarily a new hardware platform rather than a conversion kit for an existing tablet, and PCB/mechanical compatibility is still iterative.",
+      "next_check": "Confirm current manufacturable files, assembled revisions, module matrix and which salvaged parts are actually reusable.",
+      "safety": "Battery management, voltage and connectors cannot be interchanged merely because modules fit mechanically."
+    }
+  },
+  "automated-disassembler-3d-printer": {
+    "content_id": "L16",
+    "category": "peripheral",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/185804-the-disassembler-by-team-table-flip",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "experimental-recycling-machine",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "The Disassembler：把旧 3D 打印机改成自动拆焊平台",
+      "summary": "团队在家用 3D 打印机运动机构上安装烙铁和相机，用机器视觉寻找焊点并尝试自动拆取元件。",
+      "gap": "仍是实验阶段，主要面向手工焊接板；识别准确率、温控、烟雾和工业电子产品适用性未完成。",
+      "next_check": "核对可运行代码、相机标定、温度控制、成功拆取率和元件损伤数据。",
+      "safety": "热烙铁、烟雾、运动机构和带电电容需要隔离、防护与排烟。"
+    },
+    "en": {
+      "title": "The Disassembler: convert an old 3D printer into automated desoldering",
+      "summary": "The team mounts a soldering iron and camera on a home 3D-printer motion system, using vision to find joints and attempt automated component removal.",
+      "gap": "It remains experimental and targets hand-soldered boards; recognition accuracy, temperature control, fumes and mass-produced electronics are unresolved.",
+      "next_check": "Verify runnable code, camera calibration, temperature control, removal success and component-damage measurements.",
+      "safety": "Hot tools, fumes, motion and charged capacitors require isolation, guarding and extraction."
+    }
+  },
+  "trash-printer-v3": {
+    "content_id": "L17",
+    "category": "peripheral",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/185691-the-trash-printer-version-3",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "documented-machine-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Trash Printer V3：复用旧 3D 打印机零件制造再生塑料打印机",
+      "summary": "项目尝试用本地废塑料和从旧 3D 打印机回收的运动件，构建易制造的塑料再利用打印系统。",
+      "gap": "需要自行制造机械结构和处理塑料；成品质量、材料污染、挤出稳定性和完整成本未由 KitAgain 核验。",
+      "next_check": "核对最新图纸、BOM、进料流程、温度范围和一套完整打印验收。",
+      "safety": "塑料加热、粉尘、切削和高功率加热器需要通风、温控和防火保护。"
+    },
+    "en": {
+      "title": "Trash Printer V3: build a recycled-plastic printer from older printer parts",
+      "summary": "The project combines local waste plastic with motion parts salvaged from older 3D printers to create an accessible recycling/printing machine.",
+      "gap": "It requires machine fabrication and plastic processing; output quality, contamination, extrusion stability and full cost are not verified by KitAgain.",
+      "next_check": "Review current drawings, BOM, feedstock process, temperature range and one complete-print acceptance record.",
+      "safety": "Plastic heating, dust, cutting and high-power heaters require ventilation, temperature protection and fire controls."
+    }
+  },
+  "basic-phone-remote-switch": {
+    "content_id": "L18",
+    "category": "mobile",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/159657-convert-your-old-phone-into-a-remote-switch",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-author-build",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧功能机来电遥控开关",
+      "summary": "作者从旧 Nokia 类手机振动电机焊点读取来电/短信触发，再由 Arduino 和继电器切换外部负载。",
+      "gap": "只读到作者完成记录；白名单、防误触、2G/3G 退网、继电器隔离和长期可靠性未系统验证。",
+      "next_check": "先核对当地蜂窝网络、呼叫白名单、低压模拟负载和误触测试。",
+      "safety": "不能直接用随意继电器控制水泵或市电；垃圾短信和误拨也可能触发。"
+    },
+    "en": {
+      "title": "Use an old feature phone as a call-triggered remote switch",
+      "summary": "The author reads call/SMS activity from an old Nokia-class phone's vibration-motor pads, then lets an Arduino and relay switch an external load.",
+      "gap": "Only the author build is reviewed; allowlisting, false triggers, 2G/3G shutdown, relay isolation and long-term reliability remain unresolved.",
+      "next_check": "First verify local cellular service, call allowlisting, a low-voltage dummy load and false-trigger tests.",
+      "safety": "Do not use an arbitrary relay directly for pumps or mains; spam messages and accidental calls can trigger it."
+    }
+  },
+  "old-laptop-projector": {
+    "content_id": "L19",
+    "category": "computer",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/2440-ultimate-old-laptop-recycle-kit",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "historical-working-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧笔记本改水冷 LED 投影与媒体中心",
+      "summary": "作者把旧笔记本 LCD、主机和高功率 LED 组合成可更换笔记本核心的投影媒体中心，并记录第一版原型。",
+      "gap": "项目约十年未更新；亮度、光学质量、散热、供电和高功率 LED 安全没有现代化验收。",
+      "next_check": "核对面板尺寸、菲涅尔镜焦距、LED 驱动、实测温度和投影亮度。",
+      "safety": "高功率 LED、强光、热量和可能的 CCFL 高压都需要遮光、温控与绝缘。"
+    },
+    "en": {
+      "title": "Turn an older laptop into a water-cooled LED projector and media center",
+      "summary": "The author combines an older laptop LCD, host and high-power LED into a projector/media center designed around a swappable laptop core, with a first prototype documented.",
+      "gap": "The project has been quiet for about a decade; brightness, optics, cooling, power and high-power LED safety lack current acceptance data.",
+      "next_check": "Verify panel dimensions, Fresnel focal length, LED driver, measured temperatures and projected brightness.",
+      "safety": "High-power LEDs, intense light, heat and possible CCFL high voltage require shielding, thermal control and insulation."
+    }
+  },
+  "printer-board-led-art": {
+    "content_id": "L20",
+    "category": "peripheral",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/161656-flashing-leds-from-old-printer-electronics",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-single-board-hack",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "老式打印机字库板改 LED 字符灯",
+      "summary": "作者修改 DEC LA30 打印终端的字符发生器板，让计数器轮询字库并用七只 LED 显示点阵行数据。",
+      "gap": "这是针对特定古董板卡的单例创作，没有通用接口或现代替代料路线。",
+      "next_check": "保存板号、ROM 型号、改线图和工作视频，确认是否有可重复接线说明。",
+      "safety": "只使用拆下并确认低压的逻辑板，不要给未知老设备整机上电。"
+    },
+    "en": {
+      "title": "Turn a vintage printer character board into LED art",
+      "summary": "The author modifies a DEC LA30 terminal character-generator board so counters scan its ROM and seven LEDs expose dot-matrix row data.",
+      "gap": "This is a one-off work for a particular vintage board, without a universal interface or modern replacement-parts route.",
+      "next_check": "Preserve board number, ROM type, wiring modifications and working video, and check for repeatable instructions.",
+      "safety": "Use only a removed logic board confirmed to be low voltage; do not power an unknown complete vintage machine."
+    }
+  },
+  "rotary-phone-colorwheel": {
+    "content_id": "L21",
+    "category": "peripheral",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/19137-gte-automatic-electric-rotary-colorwheel",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-art-object",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "转盘电话变色彩选择灯",
+      "summary": "作者在老 GTE 转盘电话中加入控制器和灯光，用拨号盘选择颜色，并保留听筒开关作为奇偶颜色控制。",
+      "gap": "页面是作者作品展示，电路文件和针对不同转盘电话的接口范围有限。",
+      "next_check": "核对所用控制器、拨号脉冲读取、供电和完整接线文件。",
+      "safety": "先与电话线和铃流高压完全断开；不要连接仍在运营的公共电话网。"
+    },
+    "en": {
+      "title": "Turn a rotary phone into a color-selection lamp",
+      "summary": "The author adds control electronics and lighting to an old GTE rotary phone, using dial pulses for colors and the hook switch to select odd/even positions.",
+      "gap": "The page is an author showcase with limited circuit files and no broad interface guide for other rotary phones.",
+      "next_check": "Identify the controller, dial-pulse input, power design and complete wiring files.",
+      "safety": "Disconnect completely from telephone lines and ringing voltage; never attach the modified unit to an active public network."
+    }
+  },
+  "phoneblox-modular-phone": {
+    "content_id": "L22",
+    "category": "mobile",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/203651-phoneblox",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "ongoing-mechanical-electrical-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "PhoneBlox：给旧 Android 手机增加模块化 USB 与电池背板",
+      "summary": "项目为旧 Android 手机设计 3D 打印外壳、弹簧针 PCB、USB 2.0 和可换电池模块，已上传多份结构与 Gerber 文件。",
+      "gap": "页面未建立多机型兼容矩阵；焊点、USB 引脚、电池保护、外壳适配和成品验收仍依赖作者机型。",
+      "next_check": "确认作者实际手机型号、V1/V2 文件对应关系、USB OTG 与电池充放电保护。",
+      "safety": "不要绕过原机电池保护；弹簧针错位或电源反接可能损坏手机和电池。"
+    },
+    "en": {
+      "title": "PhoneBlox: add modular USB and battery backplanes to an older Android phone",
+      "summary": "The project designs printed housings, pogo-pin PCBs, USB 2.0 and swappable battery modules for an older Android phone, with several mechanical and Gerber files uploaded.",
+      "gap": "There is no multi-model matrix; solder points, USB pins, battery protection, enclosure fit and finished acceptance remain device-specific.",
+      "next_check": "Confirm the author's exact phone, V1/V2 file mapping, USB OTG and battery charge/discharge protection.",
+      "safety": "Do not bypass original battery protection; pogo misalignment or reversed power can damage the phone and cell."
+    }
+  },
+  "scraptop-phone-dock": {
+    "content_id": "L23",
+    "category": "computer",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/25510-scraptop",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "ambitious-incomplete-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Scraptop：把废笔记本变成手机扩展坞",
+      "summary": "项目尝试保留旧笔记本屏幕、键盘和外壳，通过 USB OTG、DisplayLink、DVI/LVDS 转换让手机成为计算核心。",
+      "gap": "关键 DisplayLink/LVDS 链复杂且缺少完成验收；平板排线和控制器并不标准化。",
+      "next_check": "确认是否完成可用组合、具体屏幕型号、键盘矩阵控制器和视频链延迟。",
+      "safety": "旧电池应移除或单独检测；CCFL 屏幕逆变器可能有高压。"
+    },
+    "en": {
+      "title": "Scraptop: turn a scrap laptop into a phone dock",
+      "summary": "The project aims to retain an old laptop display, keyboard and enclosure while using USB OTG, DisplayLink and DVI/LVDS conversion around a phone as the compute core.",
+      "gap": "The DisplayLink/LVDS chain is complex and lacks a completed acceptance result; laptop cables and controllers are not standardized.",
+      "next_check": "Determine whether a usable combination was completed, including exact panel, keyboard controller and video-chain latency.",
+      "safety": "Remove or separately evaluate old batteries; CCFL display inverters may produce high voltage."
+    }
+  },
+  "old-laptop-photo-frame": {
+    "content_id": "L24",
+    "category": "computer",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/183641-digital-photo-frame-from-obsolete-laptop",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "functionally-complete-with-known-fault",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "2006 年旧笔记本改数码相框",
+      "summary": "作者拆出旧笔记本主板和屏幕，装入 12×18 英寸相框，用 MX Linux、Feh 和 VNC 自动播放照片。",
+      "gap": "功能已完成，但作者记录约 13.5 kHz 啸叫且未解决；长期功耗、散热和墙面防火未测。",
+      "next_check": "确认啸叫来源、自动重启、远程维护、温度和待机功耗。",
+      "safety": "拆下老化电池，覆盖裸露电路并确保墙面安装散热与阻燃。"
+    },
+    "en": {
+      "title": "Turn a 2006 laptop into a digital photo frame",
+      "summary": "The author mounts an older laptop motherboard and display in a 12×18-inch frame, using MX Linux, Feh and VNC for an automatic slideshow.",
+      "gap": "Function is complete, but the author records an unresolved roughly 13.5 kHz whine; long-term power, heat and wall-mount fire behavior are unmeasured.",
+      "next_check": "Identify the whine source and verify automatic reboot, remote maintenance, temperature and idle power.",
+      "safety": "Remove the aged battery, cover exposed electronics and provide cooling and flame-conscious wall mounting."
+    }
+  },
+  "laptop-keyboard-usb": {
+    "content_id": "L25",
+    "category": "peripheral",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/201738/logs",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "single-model-working-controller",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧笔记本键盘转 USB 控制器",
+      "summary": "作者为 Acer/eMachines MP-09B23U4-6983 键盘反查矩阵，并用回收的 STM32 制作 USB 键盘控制器。",
+      "gap": "笔记本键盘矩阵、FPC 和连接器高度不标准；目前是单一稀有型号的作者结果。",
+      "next_check": "保存完整矩阵、固件、连接器规格和另一台主机的 USB 枚举测试。",
+      "safety": "错误电压可能损坏键盘或控制器；先用限流电源和万用表查矩阵。"
+    },
+    "en": {
+      "title": "Convert an older laptop keyboard into USB",
+      "summary": "The author reverse-maps an Acer/eMachines MP-09B23U4-6983 keyboard matrix and uses a salvaged STM32 as a USB keyboard controller.",
+      "gap": "Laptop matrices, FPCs and connectors are highly nonstandard; this is an author result for one uncommon model.",
+      "next_check": "Preserve the full matrix, firmware, connector specification and USB enumeration on another host.",
+      "safety": "Incorrect voltage can damage the keyboard or controller; map it with current limiting and a meter first."
+    }
+  },
+  "3d-printer-heat-sealer": {
+    "content_id": "L26",
+    "category": "peripheral",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/183836/instructions",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "documented-reversible-conversion",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧 3D 打印机改 CNC 热封机",
+      "summary": "教程利用仍能三轴运动并加热的 FDM 打印机，把喷嘴换成热封头，用于沿程序路径封合薄膜。",
+      "gap": "材料、压力、温度窗口和成品密封强度需逐项测试；不同热端和固件没有统一参数。",
+      "next_check": "用无食品用途的样片测试温度、速度、压力、重复性和恢复为打印机的步骤。",
+      "safety": "热端、运动轴和熔融塑料会烫伤或起火；不能无人看护。"
+    },
+    "en": {
+      "title": "Convert an older 3D printer into a CNC heat sealer",
+      "summary": "The instructions reuse an FFF/FDM printer with working three-axis motion and heater, replacing the nozzle with a sealing tool that follows programmed paths.",
+      "gap": "Material, pressure, temperature window and seal strength need testing; there are no universal parameters across hot ends and firmware.",
+      "next_check": "Use non-food samples to test temperature, speed, pressure, repeatability and restoration to printing.",
+      "safety": "The hot end, moving axes and melted plastic can burn or ignite; never run unattended."
+    }
+  },
+  "laptop-lcd-luggable-pc": {
+    "content_id": "L27",
+    "category": "computer",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/19583-luggable-pc",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-mark-i-with-successor",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Luggable PC：复用 Dell E1705 屏幕做便携台式机",
+      "summary": "作者把显卡故障笔记本的 17 英寸 LCD 配专用控制板，与退役台式机零件组装成可搬运电脑，并完成 Mark I。",
+      "gap": "控制板必须按精确面板编号匹配；作者后来转向新屏的 Mark II，旧版不再开发。",
+      "next_check": "记录面板编号、控制板固件、背光类型、原生分辨率和电源规格。",
+      "safety": "CCFL 背光控制板有高压；裸面板、金属边和电源必须封装。"
+    },
+    "en": {
+      "title": "Luggable PC: reuse a Dell E1705 panel in a portable desktop",
+      "summary": "The author pairs a 17-inch LCD from a GPU-failed laptop with a model-specific controller and retired desktop parts to complete a luggable Mark I computer.",
+      "gap": "The controller must match the exact panel number; the author later moved to a new-screen Mark II and stopped developing the salvaged version.",
+      "next_check": "Record panel number, controller firmware, backlight type, native resolution and power specifications.",
+      "safety": "CCFL backlight boards generate high voltage; enclose bare panels, sharp metal and power electronics."
+    }
+  },
+  "six-laptop-video-wall": {
+    "content_id": "L28",
+    "category": "computer",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/27790-window-on-the-world",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "art-installation-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Window on the World：六台旧笔记本组成视频窗",
+      "summary": "项目计划让六台相同旧笔记本通过 PXE 启动并把屏幕拼成窗格，用于城市间视频交流和艺术展示。",
+      "gap": "搜索到的是具体方案日志，最终六机同步、摄像头链路、功耗和长期展览结果未完整核验。",
+      "next_check": "确认完成照片/视频、PXE 镜像、同步方式、网络带宽和实际总功耗。",
+      "safety": "多台老电源和电池不应封闭堆叠；先拆除鼓包电池并保证散热。"
+    },
+    "en": {
+      "title": "Window on the World: combine six older laptops into a video window",
+      "summary": "The project proposes PXE-booting six similar old laptops and arranging their screens as a window for inter-city video exchange and art display.",
+      "gap": "The reviewed material is a detailed plan; final six-node synchronization, camera path, power and long-term exhibition results are not fully verified.",
+      "next_check": "Find completion media, PXE image, synchronization method, network bandwidth and measured total power.",
+      "safety": "Do not stack old adapters and batteries in a sealed frame; remove swollen cells and provide cooling."
+    }
+  },
+  "nokia-n97-cyberdeck": {
+    "content_id": "L29",
+    "category": "mobile",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/203391-nokia-n97-cyberdeck-resurrection",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "active-reverse-engineering-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Nokia N97 Cyberdeck：复用滑盖键盘和触摸外壳",
+      "summary": "作者逆向 N97 键盘矩阵、FPC 和四线电阻触摸，计划用 Zero 形态 SBC、定制 PCB 与 3.2 英寸 HDMI 屏重建 Linux 掌机。",
+      "gap": "键盘和触摸已有测绘，但最终一体化 PCB、供电、屏幕适配和完整开机验收仍在进行。",
+      "next_check": "核对最新主板、键盘扫描固件、电池管理、HDMI 屏装配和可启动系统。",
+      "safety": "细间距 FPC、老电池和滑盖空间容错很小；不要在原电池状态未知时充电。"
+    },
+    "en": {
+      "title": "Nokia N97 Cyberdeck: reuse the slider keyboard and touch enclosure",
+      "summary": "The author maps the N97 keyboard matrix, FPC and four-wire resistive touch, planning a Linux pocket computer with a Zero-form-factor SBC, custom PCB and 3.2-inch HDMI screen.",
+      "gap": "Keyboard and touch are mapped, while the integrated PCB, power, screen fit and complete boot acceptance remain in progress.",
+      "next_check": "Review the latest board, keyboard-scanning firmware, battery management, HDMI-screen assembly and bootable system.",
+      "safety": "Fine-pitch FPC, an aged battery and tight slider space leave little tolerance; do not charge an unknown original cell."
+    }
+  },
+  "salvaged-vu-meter-pi": {
+    "content_id": "L30",
+    "category": "audio",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/26951-audio-vu-meters-raspberry-pi",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "documented-beginner-interface",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧 Hi-Fi 指针表接入 Raspberry Pi",
+      "summary": "教程分析回收的 VU 表头灵敏度，并比较 PWM 与 DAC 驱动，让指针显示树莓派负载或音频状态。",
+      "gap": "表头参数差异很大，项目没有给出每种旧机芯的通用限流值，也未验证长期机械磨损。",
+      "next_check": "测量目标表头满量程电压/电流，做限流、校准和断电归零测试。",
+      "safety": "先把表头从原市电音响电路完全拆离，用低压限流电源测试。"
+    },
+    "en": {
+      "title": "Drive salvaged Hi-Fi VU meters from a Raspberry Pi",
+      "summary": "The tutorial measures salvaged VU-meter sensitivity and compares PWM and DAC drive methods for Raspberry Pi load or audio indication.",
+      "gap": "Meter movements vary widely; there is no universal current limit and long-term mechanical wear is untested.",
+      "next_check": "Measure full-scale voltage/current for the exact movement, then test limiting, calibration and power-off return.",
+      "safety": "Fully remove the meter from original mains audio circuitry and test with a low-voltage current-limited supply."
+    }
+  },
+  "motorola-advisor-connected": {
+    "content_id": "L31",
+    "category": "wearable",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/183837-motorola-advisor-connected-device",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "partial-enclosure-rebuild",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Motorola Advisor 寻呼机外壳改联网终端",
+      "summary": "作者拆解 Motorola Advisor，复用外壳、按键、蜂鸣器和振动电机，计划用 PyBoard、MicroPython 与替代 LCD 重建联网设备。",
+      "gap": "原 LCD 缺少资料而被替换；项目日志停在部件与设计阶段，未看到完整联网功能验收。",
+      "next_check": "确认最终 PCB、显示器、AAA/锂电方案、固件和成品演示。",
+      "safety": "如果改用锂电池，必须增加合适的充电、过流和结构保护。"
+    },
+    "en": {
+      "title": "Rebuild a Motorola Advisor pager as a connected device",
+      "summary": "The author disassembles a Motorola Advisor and plans a PyBoard/MicroPython rebuild reusing the enclosure, keys, beeper and vibration motor with a replacement LCD.",
+      "gap": "The undocumented original LCD is replaced, and the logs stop before full connected-device acceptance.",
+      "next_check": "Find the final PCB, display, AAA/lithium power design, firmware and finished demonstration.",
+      "safety": "A lithium replacement requires appropriate charging, overcurrent and mechanical protection."
+    }
+  },
+  "xbox-duke-portable": {
+    "content_id": "L32",
+    "category": "gaming",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/93649-the-duke-portable",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "unfinished-enclosure-prototype",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "The Duke Portable：旧 Xbox 大手柄改便携游戏盒",
+      "summary": "作者利用断线的原版 Xbox Duke 手柄外壳，计划塞入树莓派、电池、HDMI 与控制电路，连接电视玩复古游戏或串流。",
+      "gap": "只有两篇日志，按钮、供电、散热、控制器映射和最终成品未完整记录。",
+      "next_check": "寻找最终接线、镜像、续航、关机控制和可用游戏输入结果。",
+      "safety": "锂电池、升压板和密闭外壳需要过流与温升测试。"
+    },
+    "en": {
+      "title": "The Duke Portable: turn a broken Xbox controller into a game box",
+      "summary": "The author uses an original Xbox Duke controller with a broken cable as an enclosure for a Raspberry Pi, battery, HDMI output and controls for retro games or streaming.",
+      "gap": "Only two logs are present; buttons, power, cooling, mapping and a finished result are not fully documented.",
+      "next_check": "Look for final wiring, image, runtime, shutdown control and verified gameplay input.",
+      "safety": "A lithium cell, boost board and sealed enclosure need overcurrent and thermal testing."
+    }
+  },
+  "digitised-vintage-camera": {
+    "content_id": "L33",
+    "category": "camera",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/19523-adventures-in-digitising-vintage-cameras",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "working-author-camera-build",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "老胶片相机外壳改树莓派数码相机",
+      "summary": "作者把 Pi 相机与定制 Buildroot 系统装入旧相机，保留快门操作，并提供 Wi-Fi 热点、实时预览和照片图库。",
+      "gap": "代码部分来自多年前的记忆和旧组件；具体相机型号、成像质量、镜头配合和当前镜像可构建性未全面核验。",
+      "next_check": "确认使用的相机壳体、镜头/传感器位置、最新源码、启动时间和样张。",
+      "safety": "拆带闪光灯的相机前确认高压电容已安全放电。"
+    },
+    "en": {
+      "title": "Digitize a vintage camera enclosure with Raspberry Pi",
+      "summary": "The author installs a Pi camera and custom Buildroot system in an older camera, retaining shutter operation and adding a Wi-Fi hotspot, live view and photo gallery.",
+      "gap": "Some software notes are reconstructed from years-old memory and components; exact camera, image quality, lens alignment and current buildability are not fully reviewed.",
+      "next_check": "Confirm the enclosure, lens/sensor placement, current source, boot time and sample images.",
+      "safety": "Safely discharge high-voltage flash capacitors before opening a camera with flash circuitry."
+    }
+  },
+  "laptop-webcam-usb": {
+    "content_id": "L34",
+    "category": "camera",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/110436-laptop-webcam-reuse-made-simple",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "documented-multi-camera-method",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧笔记本摄像头转 USB",
+      "summary": "项目说明许多笔记本摄像头本质上是 USB 设备，并设计 FPC 转接方案，整理多款已识别模块。",
+      "gap": "并非所有模块都是 USB 或 5V；针脚、电压、麦克风和指示灯随型号变化。",
+      "next_check": "按模块丝印查引脚，限流供电并在 Linux USB 枚举后再做外壳。",
+      "safety": "错误把 5V 接到 3.3V 模块会损坏器件；不要凭线色判断。"
+    },
+    "en": {
+      "title": "Convert salvaged laptop webcams into USB cameras",
+      "summary": "The project explains that many laptop cameras are USB devices, develops an FPC adapter approach and records multiple identified modules.",
+      "gap": "Not every module is USB or 5 V; pinout, voltage, microphones and LEDs vary by model.",
+      "next_check": "Use module markings to identify pins, apply current-limited power and verify Linux USB enumeration before enclosure work.",
+      "safety": "Applying 5 V to a 3.3 V module can destroy it; never infer pinout from wire colors alone."
+    }
+  },
+  "galaga-mini-rebuild": {
+    "content_id": "L35",
+    "category": "gaming",
+    "source_platform": "Hackaday.io",
+    "source_url": "https://hackaday.io/project/192892-fixing-galaga",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-author-rebuild",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "故障 Galaga 迷你街机换屏换主控",
+      "summary": "作者在迷你 Galaga 街机故障后拆除原电路，换入同尺寸 LCD，并用树莓派、Arduino 等重建游戏与控制。",
+      "gap": "作者刻意没有逆向原 LCD；具体街机版本、按钮接线、软件镜像和完整文件需要继续整理。",
+      "next_check": "确认机器准确型号、替换屏规格、输入映射、合法游戏内容来源和断电恢复。",
+      "safety": "先确认内部是低压适配器供电；不要把其他大型市电街机等同处理。"
+    },
+    "en": {
+      "title": "Rebuild a failed Galaga mini arcade with a new display and controller",
+      "summary": "After a Galaga mini cabinet fails, the author removes its electronics, fits a same-size LCD and rebuilds game/control functions with Raspberry Pi and Arduino components.",
+      "gap": "The original LCD was intentionally not reverse engineered; exact cabinet revision, button wiring, software image and complete files need further review.",
+      "next_check": "Confirm exact machine, replacement display, input mapping, lawful game-content source and power-loss recovery.",
+      "safety": "Verify that the unit is low-voltage adapter powered; do not apply this directly to full-size mains/CRT cabinets."
+    }
+  },
+  "amlogic-tv-box-linux": {
+    "content_id": "L36",
+    "category": "tv",
+    "source_platform": "Armbian Community Forum",
+    "source_url": "https://forum.armbian.com/topic/16976-status-of-armbian-on-tv-boxes-please-read-first",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "community-experimental-route",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Amlogic 旧电视盒刷 Armbian 做轻量服务器",
+      "summary": "Armbian 论坛 FAQ 明确把电视盒路线定位为社区实验，建议更适合无头 Linux 服务器而非桌面替代。",
+      "gap": "相同外壳可能使用不同 eMMC/NAND、Wi-Fi 和板卡；并非 Armbian 官方支持设备。",
+      "next_check": "开壳确认 SoC、存储和板号，保存 Android 固件，并为一个精确型号核对 DTB 与启动链。",
+      "safety": "错误 DTB 或写入 eMMC 可变砖；散热和廉价电源也需长期测试。"
+    },
+    "en": {
+      "title": "Run Armbian on an older Amlogic TV box as a light server",
+      "summary": "The Armbian forum FAQ explicitly frames TV-box use as a community experiment and recommends headless Linux-server roles rather than desktop replacement.",
+      "gap": "Identical retail shells may contain different eMMC/NAND, Wi-Fi and boards, and these are not officially supported Armbian devices.",
+      "next_check": "Open the case to identify SoC, storage and board, preserve Android firmware, and verify DTB/boot chain for one exact variant.",
+      "safety": "A wrong DTB or eMMC write can brick the box; cooling and cheap power adapters also need long-term tests."
+    }
+  },
+  "t95z-plus-nas": {
+    "content_id": "L37",
+    "category": "network",
+    "source_platform": "Armbian Community Forum",
+    "source_url": "https://forum.armbian.com/topic/53474-t95z-plus-second-one-running-great/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "single-user-working-report",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Sunvell T95Z Plus 电视盒改简单 NAS",
+      "summary": "论坛用户报告第二台 T95Z Plus 运行 Armbian，并用 ZFS 池做简单 NAS，同时记录 Wi-Fi 不工作和内部变体。",
+      "gap": "这是单一用户报告；同名盒子有不同 Wi-Fi、eMMC 甚至 NAND，ZFS 配置和恢复流程未完整给出。",
+      "next_check": "记录精确 PCB、SoC、存储、镜像、DTB、以太网速率、温度和备份恢复。",
+      "safety": "不要在唯一数据上试验 ZFS 或 eMMC；先用副本并保留原系统恢复介质。"
+    },
+    "en": {
+      "title": "Reuse a Sunvell T95Z Plus TV box as a simple NAS",
+      "summary": "A forum user reports a second T95Z Plus running Armbian and a ZFS pool as a simple NAS, while recording failed Wi-Fi and internal variants.",
+      "gap": "This is one user's report; the same product name contains different Wi-Fi, eMMC and even NAND, and ZFS/recovery details are incomplete.",
+      "next_check": "Record exact PCB, SoC, storage, image, DTB, Ethernet speed, temperature and backup/recovery.",
+      "safety": "Do not experiment with eMMC or ZFS on the only copy of data; use copies and preserve stock recovery media."
+    }
+  },
+  "universal-retro-keyboard": {
+    "content_id": "L38",
+    "category": "peripheral",
+    "source_platform": "Vintage Computer Federation Forum",
+    "source_url": "https://forum.vcfed.org/index.php?threads/universal-retro-keyboard-project.73856/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "working-community-hardware-project",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Universal Retro Keyboard：给 Apple II 等老电脑做替换键盘",
+      "summary": "作者在 VCF 论坛公开可组合键盘矩阵和接口板，目标替代难找的 Apple II、OSI 等复古电脑键盘，并展示工作样机。",
+      "gap": "不同机器的机械安装、键帽、接口电平和版本文件需要逐机核对；本轮直接访问论坛返回 503，正文依据搜索引擎已缓存的原帖内容。",
+      "next_check": "论坛恢复后从 Apple II 或 OSI 一种机器开始，确认 PCB 修订、接口板、键帽和固件。",
+      "safety": "连接老电脑前核对电平和接口方向，避免损坏难以替换的主板。"
+    },
+    "en": {
+      "title": "Universal Retro Keyboard for Apple II and other vintage systems",
+      "summary": "The author shares modular keyboard matrices and interface boards on the VCF forum to replace scarce Apple II, OSI and other vintage keyboards, including a working prototype.",
+      "gap": "Mechanical fit, keycaps, voltage levels and file revisions require machine-by-machine review; direct access returned 503 during this review, so the text relies on the search engine's cached original-thread content.",
+      "next_check": "When the forum is available, start with one Apple II or OSI model and verify PCB revision, interface, keycaps and firmware.",
+      "safety": "Verify voltage and connector orientation before attaching to an irreplaceable vintage motherboard."
+    }
+  },
+  "ava-android-ha-panel": {
+    "content_id": "L39",
+    "category": "smarthome",
+    "source_platform": "Home Assistant Community",
+    "source_url": "https://community.home-assistant.io/t/turn-any-android-7-16-device-into-a-ble-smart-home-control-panel/972018/1",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "new-community-app-beta",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "Ava：旧 Android 手机/平板变 Home Assistant 面板和 BLE 网关",
+      "summary": "作者发布 Android 7–16、含 32 位支持的 Ava 改版，让闲置设备成为 HA 语音/控制面板，并加入 BLE Proxy 网关。",
+      "gap": "这是 2026 年社区 beta；长期后台、不同麦克风、BLE 稳定性、隐私和更新机制尚无充分复现。",
+      "next_check": "在一台 Android 7 和一台较新设备上验证发现、控制、BLE、重启恢复、权限和耗电。",
+      "safety": "长期插电前检查电池状态和充电限制；不要从非作者链接侧载 APK。"
+    },
+    "en": {
+      "title": "Ava: turn older Android phones/tablets into HA panels and BLE gateways",
+      "summary": "The author releases an Ava variant for Android 7–16 including 32-bit devices, turning spares into Home Assistant voice/control panels with a BLE Proxy gateway.",
+      "gap": "This is a 2026 community beta; long-running background behavior, microphone variation, BLE stability, privacy and updates lack broad reproduction.",
+      "next_check": "Test discovery, control, BLE, reboot recovery, permissions and power on one Android 7 and one newer device.",
+      "safety": "Check battery health and charge limits before continuous power, and sideload only from the author's release link."
+    }
+  },
+  "laptop-backlight-light-table": {
+    "content_id": "L40",
+    "category": "peripheral",
+    "source_platform": "Instructables",
+    "source_url": "https://www.instructables.com/Turn-a-broken-laptop-screen-into-a-portable-light-/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-author-tutorial",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "坏笔记本 LCD 背光改便携描图灯板",
+      "summary": "教程移除破损液晶层，保留扩散片和 CCFL/LED 背光，把不能显示图像的屏幕组件变成绘图灯板。",
+      "gap": "不同背光电压和驱动板差异大；亮度均匀性、绝缘和长期温升未统一测试。",
+      "next_check": "确认 LED 或 CCFL 类型、原驱动输入、电源规格、绝缘和 2 小时温升。",
+      "safety": "CCFL 逆变器会产生高压，破裂 LCD 和金属边缘也可能割伤。"
+    },
+    "en": {
+      "title": "Turn a broken laptop LCD backlight into a portable light table",
+      "summary": "The tutorial removes the broken liquid-crystal layer while retaining diffuser sheets and CCFL/LED backlight, turning a non-imaging screen assembly into a drawing light table.",
+      "gap": "Backlight voltage and driver boards vary; uniformity, insulation and long-term temperature are not standardized.",
+      "next_check": "Identify LED or CCFL type, driver input, power specification, insulation and two-hour temperature rise.",
+      "safety": "CCFL inverters generate high voltage, while broken LCD glass and metal edges can cut."
+    }
+  },
+  "laptop-lcd-external-monitor": {
+    "content_id": "L41",
+    "category": "peripheral",
+    "source_platform": "Instructables",
+    "source_url": "https://www.instructables.com/LCD-screen-for-under-35-recycle-old-laptops/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-author-tutorial",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧笔记本 LCD 加控制板变外接显示器",
+      "summary": "作者按面板型号购买对应控制板和电源，把拆下的笔记本 LCD 改成独立外接显示器。",
+      "gap": "旧教程依赖第三方卖家匹配；LVDS/eDP、背光、电源和固件必须按准确面板核对。",
+      "next_check": "读取面板背标完整编号，让控制板供应商书面确认分辨率、接口和背光，再台架测试。",
+      "safety": "不要只按尺寸购买或带电插拔排线；CCFL 版本含高压逆变器。"
+    },
+    "en": {
+      "title": "Add a controller board to use a laptop LCD as an external monitor",
+      "summary": "The author buys a controller and power supply matched to the panel number, turning a removed laptop LCD into a standalone external display.",
+      "gap": "The older tutorial depends on third-party seller matching; LVDS/eDP, backlight, power and firmware must match the exact panel.",
+      "next_check": "Read the complete panel label and obtain written confirmation of resolution, interface and backlight before bench testing.",
+      "safety": "Do not buy by size or hot-plug panel cables; CCFL versions contain a high-voltage inverter."
+    }
+  },
+  "old-laptop-vintage-media-pc": {
+    "content_id": "L42",
+    "category": "computer",
+    "source_platform": "Instructables",
+    "source_url": "https://www.instructables.com/Vintage-Look-Media-PC/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-detailed-build",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "整台旧笔记本重装成复古外观媒体 PC",
+      "summary": "30 步教程复用笔记本主板、IPS 屏、Wi-Fi 天线、摄像头和扬声器，重新制作木质机身与遥控媒体电脑。",
+      "gap": "作者涉及拆电池包并测试 18650；该部分不适合普通用户复制，软件版本也可能过时。",
+      "next_check": "优先做插电版本，核对主板散热、屏线、扬声器功放、自动启动和遥控。",
+      "safety": "不要自行拆解和重组未知状态的笔记本电池包；裸主板与电源要可靠固定。"
+    },
+    "en": {
+      "title": "Rehouse an entire older laptop as a vintage-style media PC",
+      "summary": "A thirty-step build reuses a laptop motherboard, IPS display, Wi-Fi antennas, camera and speakers in a new wooden enclosure with media controls.",
+      "gap": "The author opens a battery pack and evaluates 18650 cells; that step is not suitable for general copying, and software versions may be old.",
+      "next_check": "Build an adapter-powered version first, verifying cooling, display cable, speaker amplifier, autostart and remote control.",
+      "safety": "Do not open and rebuild unknown laptop battery packs without lithium expertise; secure bare boards and power components."
+    }
+  },
+  "recycled-laptop-calendar": {
+    "content_id": "L43",
+    "category": "smarthome",
+    "source_platform": "Instructables",
+    "source_url": "https://www.instructables.com/Wall-Mounted-Google-Calendar-With-a-Recycled-Monit/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-cloud-dependent-build",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧笔记本屏幕做壁挂在线日历",
+      "summary": "作者用回收的笔记本 LCD、匹配控制板和树莓派制作壁挂 Google Calendar，手机更新后墙面自动显示。",
+      "gap": "教程依赖旧浏览器和 Google 页面行为；账号登录、Kiosk、断网和自动恢复需要按当前环境重做。",
+      "next_check": "核对面板控制板、只读日历账号、Kiosk 自启动、断网提示和重启恢复。",
+      "safety": "墙内走线和裸控制板要符合低压供电、散热和防火要求。"
+    },
+    "en": {
+      "title": "Build a wall calendar from a recycled laptop display",
+      "summary": "The author uses a salvaged laptop LCD, matching controller and Raspberry Pi for a wall-mounted Google Calendar that follows phone updates.",
+      "gap": "The tutorial depends on old browser and Google behavior; authentication, kiosk mode, offline handling and recovery need current redesign.",
+      "next_check": "Verify the panel controller, a read-only calendar account, kiosk autostart, offline status and reboot recovery.",
+      "safety": "In-wall wiring and bare controllers require low-voltage power, ventilation and fire-conscious mounting."
+    }
+  },
+  "old-3d-printer-cnc": {
+    "content_id": "L44",
+    "category": "peripheral",
+    "source_platform": "Instructables",
+    "source_url": "https://www.instructables.com/Turn-an-Old-3D-Printer-Into-a-CNC-Machine/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-author-conversion",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧 3D 打印机改轻型 CNC",
+      "summary": "作者测试闲置打印机三轴后，拆除挤出系统、增加独立主轴和刀具，把运动平台改作轻型切削。",
+      "gap": "3D 打印机框架刚度、轴承和防尘通常不适合重切削；精度、材料和急停方案需逐机验证。",
+      "next_check": "从软材料浅切开始，测刚度、跳动、粉尘、限位、急停和电气噪声。",
+      "safety": "旋转刀具会甩出碎片；需要护目、夹具、防护罩、吸尘和可达急停。"
+    },
+    "en": {
+      "title": "Convert an older 3D printer into a light-duty CNC machine",
+      "summary": "The author tests the idle printer's three axes, removes extrusion hardware and adds a separately powered spindle and tool for light cutting.",
+      "gap": "Printer frames, bearings and dust protection are usually unsuitable for heavy machining; accuracy, materials and emergency stop need device-specific tests.",
+      "next_check": "Begin with shallow cuts in soft stock and measure rigidity, runout, dust, limits, emergency stop and electrical noise.",
+      "safety": "Rotating tools can eject debris; use eye protection, clamps, guarding, extraction and an accessible emergency stop."
+    }
+  },
+  "old-laptop-media-center": {
+    "content_id": "L45",
+    "category": "computer",
+    "source_platform": "Instructables",
+    "source_url": "https://www.instructables.com/Convert-an-old-laptop-into-a-Media-Center/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "historical-software-guide",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧笔记本外接电视做媒体中心",
+      "summary": "旧教程让一台 1GB 内存 Acer 笔记本通过 OpenELEC/XBMC 从 U 盘启动并连接电视，说明低规格设备曾可承担 HTPC。",
+      "gap": "OpenELEC/XBMC 版本和安装链接已过时；流媒体 DRM、浏览器、解码和安全更新不能照搬。",
+      "next_check": "保留硬件思路，改用当前受支持系统，并按 CPU/GPU 检查硬解码、HDMI 音频和遥控。",
+      "safety": "老电池鼓包时移除；不要让积尘散热口在电视柜内长期高温运行。"
+    },
+    "en": {
+      "title": "Connect an older laptop to a TV as a media center",
+      "summary": "A historical guide boots OpenELEC/XBMC from USB on a 1 GB Acer laptop connected to a television, showing that low-spec hardware once served as an HTPC.",
+      "gap": "OpenELEC/XBMC versions and links are obsolete; modern DRM, browsers, decoding and security updates cannot be copied directly.",
+      "next_check": "Retain the hardware idea but use a supported current system, checking CPU/GPU decode, HDMI audio and remote control.",
+      "safety": "Remove swollen batteries and do not leave dust-blocked cooling in a hot TV cabinet."
+    }
+  },
+  "old-smartphone-video-monitor": {
+    "content_id": "L46",
+    "category": "camera",
+    "source_platform": "Instructables",
+    "source_url": "https://www.instructables.com/Repurpose-Old-Smartphone-As-Video-Monitor/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-cloud-app-example",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "旧 Samsung S5 改宠物视频监控",
+      "summary": "作者把旧 Samsung S5 作为摄像端，通过当时的第三方应用和账号在另一台手机查看宠物画面。",
+      "gap": "教程依赖的 Eyecura 服务和商店可用性需重新核验；隐私、加密、后台保活和电池长期供电未测试。",
+      "next_check": "确认应用当前存在、数据去向、局域网/云模式、权限、重启恢复和充电限制。",
+      "safety": "摄像头要尊重隐私并避免拍摄他人；老电池长期充电前检查膨胀和温度。"
+    },
+    "en": {
+      "title": "Reuse an old Samsung S5 as a pet video monitor",
+      "summary": "The author uses an old Samsung S5 as the camera endpoint and views a pet from another phone through a third-party app and account available at the time.",
+      "gap": "The Eyecura service and store availability need fresh verification; privacy, encryption, background reliability and continuous charging are untested.",
+      "next_check": "Confirm current app availability, data path, LAN/cloud mode, permissions, reboot recovery and charge limits.",
+      "safety": "Respect privacy and avoid recording others without consent; inspect aged batteries for swelling and heat before continuous charging."
+    }
+  },
+  "router-case-arduino-enclosure": {
+    "content_id": "L47",
+    "category": "smarthome",
+    "source_platform": "Instructables",
+    "source_url": "https://www.instructables.com/Re-purposing-an-Old-Router-Box-for-Your-Arduino-Pr/",
+    "code_url": null,
+    "additional_sources": [],
+    "status": "completed-enclosure-reuse",
+    "reviewed_at": "2026-10-21",
+    "zh": {
+      "title": "废旧路由器外壳和 LED 改 Arduino 项目盒",
+      "summary": "作者复用故障 Thomson TG585 路由器外壳、开关、LED 和电源接口，装入自制家居自动化原型。",
+      "gap": "主要复用机械与简单元件，不是复活路由器主板；不同外壳的 PCB、绝缘和固定方式需重新设计。",
+      "next_check": "确认原电源接口极性、LED 限流、板卡固定、开孔和长期电池/供电方案。",
+      "safety": "必须完全移除或隔离未知原电源电路，避免松动板卡短路。"
+    },
+    "en": {
+      "title": "Reuse a failed router enclosure and LEDs for an Arduino project",
+      "summary": "The author reuses a failed Thomson TG585 router case, switch, LEDs and power connector to house a home-automation prototype.",
+      "gap": "This reuses the mechanics and simple parts rather than reviving the router board; PCB isolation and mounting vary by enclosure.",
+      "next_check": "Verify connector polarity, LED current limiting, board retention, openings and long-term power/battery design.",
+      "safety": "Fully remove or isolate unknown original power circuits and prevent loose boards from shorting."
     }
   }
 }

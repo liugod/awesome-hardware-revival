@@ -1,86 +1,2028 @@
 {
   "postmarketos-nura": {
     "resources": [
-      {"url":"https://postmarketos.org/download/","kind":"official-entry","zh_label":"官方下载安装入口","en_label":"Official download and install entry","zh_note":"当前跳转到 Nura，用于确认迁移后的现行入口；不代表任意手机都有镜像。","en_note":"Currently redirects to Nura and identifies the current entry point; it does not mean every phone has an image."},
-      {"url":"https://wiki.postmarketos.org/wiki/Category:Devices","kind":"device-directory","zh_label":"设备目录","en_label":"Device directory","zh_note":"按设备代号查状态与设备页；自动访问可能被 Anubis 拦截，需要人工浏览。","en_note":"Finds status and pages by device codename; Anubis may require manual browser review."},
-      {"url":"https://gitlab.postmarketos.org/postmarketOS/pmaports","kind":"code-and-packaging","zh_label":"pmaports 设备包与代码","en_label":"pmaports device packages and code","zh_note":"包含设备包、内核和构建定义；仓库存在不等于某台手机功能完整。","en_note":"Contains device packages, kernels and build definitions; repository presence does not prove complete phone functionality."}
+      {
+        "url": "https://postmarketos.org/download/",
+        "kind": "official-entry",
+        "zh_label": "官方下载安装入口",
+        "en_label": "Official download and install entry",
+        "zh_note": "当前跳转到 Nura，用于确认迁移后的现行入口；不代表任意手机都有镜像。",
+        "en_note": "Currently redirects to Nura and identifies the current entry point; it does not mean every phone has an image."
+      },
+      {
+        "url": "https://wiki.postmarketos.org/wiki/Category:Devices",
+        "kind": "device-directory",
+        "zh_label": "设备目录",
+        "en_label": "Device directory",
+        "zh_note": "按设备代号查状态与设备页；自动访问可能被 Anubis 拦截，需要人工浏览。",
+        "en_note": "Finds status and pages by device codename; Anubis may require manual browser review."
+      },
+      {
+        "url": "https://gitlab.postmarketos.org/postmarketOS/pmaports",
+        "kind": "code-and-packaging",
+        "zh_label": "pmaports 设备包与代码",
+        "en_label": "pmaports device packages and code",
+        "zh_note": "包含设备包、内核和构建定义；仓库存在不等于某台手机功能完整。",
+        "en_note": "Contains device packages, kernels and build definitions; repository presence does not prove complete phone functionality."
+      }
     ],
-    "zh":{"stage":"生态仍在运行，入口正迁移到 Nura；设备资料和代码可找到，但尚未逐机型核验。","usable":"只有当前设备页明确列出准确代号、安装路径和功能状态时，才适合进入试装准备；不是通用刷机教程。","works_for":["当前设备目录明确列出的准确设备代号","有对应安装页或构建包，并具备原厂恢复资料的闲置手机"],"not_for":["零售名称相近但设备代号不同的机型","设备页未列出或核心功能状态未知的手机","依赖稳定通话、相机、定位等全部日常功能的主力机"],"value":"用来判断旧手机是否存在 Linux 路线，以及功能缺口在哪里；价值是设备筛选，不是成功保证。","follow":"知道设备代号、愿意读功能矩阵并能恢复原厂系统时继续；只知道品牌型号时先停。"},
-    "en":{"stage":"The ecosystem is active while entry points move to Nura. Device material and code remain available, but model-by-model review is incomplete.","usable":"Proceed only when a current device page names the exact codename, install route and feature state. This is not a universal flashing guide.","works_for":["Exact codenames listed in the current device directory","Spare phones with a matching install page or build package and a documented stock recovery route"],"not_for":["Similar retail names with a different codename","Phones absent from the directory or with unknown core-function status","Daily-driver use requiring reliable calls, camera, positioning and every stock function"],"value":"Helps determine whether an older phone has a Linux route and where functionality is missing. Its value is triage, not a success guarantee.","follow":"Continue if you know the codename, accept feature-matrix review and can restore stock firmware; pause if you only know the retail name."}
+    "zh": {
+      "stage": "生态仍在运行，入口正迁移到 Nura；设备资料和代码可找到，但尚未逐机型核验。",
+      "usable": "只有当前设备页明确列出准确代号、安装路径和功能状态时，才适合进入试装准备；不是通用刷机教程。",
+      "works_for": [
+        "当前设备目录明确列出的准确设备代号",
+        "有对应安装页或构建包，并具备原厂恢复资料的闲置手机"
+      ],
+      "not_for": [
+        "零售名称相近但设备代号不同的机型",
+        "设备页未列出或核心功能状态未知的手机",
+        "依赖稳定通话、相机、定位等全部日常功能的主力机"
+      ],
+      "value": "用来判断旧手机是否存在 Linux 路线，以及功能缺口在哪里；价值是设备筛选，不是成功保证。",
+      "follow": "知道设备代号、愿意读功能矩阵并能恢复原厂系统时继续；只知道品牌型号时先停。"
+    },
+    "en": {
+      "stage": "The ecosystem is active while entry points move to Nura. Device material and code remain available, but model-by-model review is incomplete.",
+      "usable": "Proceed only when a current device page names the exact codename, install route and feature state. This is not a universal flashing guide.",
+      "works_for": [
+        "Exact codenames listed in the current device directory",
+        "Spare phones with a matching install page or build package and a documented stock recovery route"
+      ],
+      "not_for": [
+        "Similar retail names with a different codename",
+        "Phones absent from the directory or with unknown core-function status",
+        "Daily-driver use requiring reliable calls, camera, positioning and every stock function"
+      ],
+      "value": "Helps determine whether an older phone has a Linux route and where functionality is missing. Its value is triage, not a success guarantee.",
+      "follow": "Continue if you know the codename, accept feature-matrix review and can restore stock firmware; pause if you only know the retail name."
+    }
   },
   "libreboot": {
     "resources": [
-      {"url":"https://libreboot.org/docs/install/","kind":"official-support-and-install","zh_label":"官方支持清单与安装文档","en_label":"Official support list and install documentation","zh_note":"列出支持设备、各主板安装入口、内部/外部刷写和安全警告，应从这里确认准确板号。","en_note":"Lists supported devices, board-specific routes, internal/external flashing and safety warnings; start with the exact board."},
-      {"url":"https://codeberg.org/libreboot/lbmk","kind":"build-system","zh_label":"lbmk 构建系统","en_label":"lbmk build system","zh_note":"用于获取和构建源码与镜像；适合核对构建流程，不是兼容清单。","en_note":"Fetches and builds source and images; useful for build review, but not a compatibility list."},
-      {"url":"https://libreboot.org/git.html","kind":"repository-map","zh_label":"官方代码仓库索引","en_label":"Official repository map","zh_note":"解释项目代码分别存放在哪里，用于确认上游仓库与镜像关系。","en_note":"Explains where project code is hosted and distinguishes upstream repositories from mirrors."}
+      {
+        "url": "https://libreboot.org/docs/install/",
+        "kind": "official-support-and-install",
+        "zh_label": "官方支持清单与安装文档",
+        "en_label": "Official support list and install documentation",
+        "zh_note": "列出支持设备、各主板安装入口、内部/外部刷写和安全警告，应从这里确认准确板号。",
+        "en_note": "Lists supported devices, board-specific routes, internal/external flashing and safety warnings; start with the exact board."
+      },
+      {
+        "url": "https://codeberg.org/libreboot/lbmk",
+        "kind": "build-system",
+        "zh_label": "lbmk 构建系统",
+        "en_label": "lbmk build system",
+        "zh_note": "用于获取和构建源码与镜像；适合核对构建流程，不是兼容清单。",
+        "en_note": "Fetches and builds source and images; useful for build review, but not a compatibility list."
+      },
+      {
+        "url": "https://libreboot.org/git.html",
+        "kind": "repository-map",
+        "zh_label": "官方代码仓库索引",
+        "en_label": "Official repository map",
+        "zh_note": "解释项目代码分别存放在哪里，用于确认上游仓库与镜像关系。",
+        "en_note": "Explains where project code is hosted and distinguishes upstream repositories from mirrors."
+      }
     ],
-    "zh":{"stage":"上游项目与文档较完整，存在明确支持设备和安装路线；KitAgain 尚未整理全部板号。","usable":"当前官方清单中的准确主板可进入安装评估；部分可内部刷写，部分必须使用外置编程器。","works_for":["官方列出的 ThinkPad X200/T400/T500/W500/R400/R500","官方列出的 X220/X220T/T420/T420s/T520 与 X230/T430/T530/W530/X230T 路线","当前支持清单中的特定 Chromebook、服务器、台式机和工作站板号"],"not_for":["同系列但未出现在当前支持清单的主板修订","已移除板卡或只有旧教程、没有当前 ROM 的设备","无法确认闪存芯片、备份和外部恢复条件的机器"],"value":"支持清单足以帮助用户判断板号、刷写方式和恢复工具；主要不确定性是固件写入风险。","follow":"能确认主板、完整备份闪存并准备恢复工具时继续；无法承担变砖风险时不要开始。"},
-    "en":{"stage":"The upstream project and documentation are substantial, with explicit supported devices and install routes; KitAgain has not normalized every board.","usable":"Exact boards in the current official list can enter installation assessment. Some support internal flashing; others require external hardware.","works_for":["Official ThinkPad X200/T400/T500/W500/R400/R500 routes","Official X220/X220T/T420/T420s/T520 and X230/T430/T530/W530/X230T routes","Exact Chromebook, server, desktop and workstation boards in the current list"],"not_for":["Board revisions absent from the current list despite a similar family name","Removed boards or devices with only old instructions and no current ROM","Machines whose flash chip, backup and external recovery path cannot be confirmed"],"value":"The support list can support a real board, flashing and recovery decision. Firmware-writing risk is the main issue.","follow":"Continue if you can identify the board, back up the complete flash and prepare recovery hardware; stop if you cannot accept a non-booting machine."}
+    "zh": {
+      "stage": "上游项目与文档较完整，存在明确支持设备和安装路线；KitAgain 尚未整理全部板号。",
+      "usable": "当前官方清单中的准确主板可进入安装评估；部分可内部刷写，部分必须使用外置编程器。",
+      "works_for": [
+        "官方列出的 ThinkPad X200/T400/T500/W500/R400/R500",
+        "官方列出的 X220/X220T/T420/T420s/T520 与 X230/T430/T530/W530/X230T 路线",
+        "当前支持清单中的特定 Chromebook、服务器、台式机和工作站板号"
+      ],
+      "not_for": [
+        "同系列但未出现在当前支持清单的主板修订",
+        "已移除板卡或只有旧教程、没有当前 ROM 的设备",
+        "无法确认闪存芯片、备份和外部恢复条件的机器"
+      ],
+      "value": "支持清单足以帮助用户判断板号、刷写方式和恢复工具；主要不确定性是固件写入风险。",
+      "follow": "能确认主板、完整备份闪存并准备恢复工具时继续；无法承担变砖风险时不要开始。"
+    },
+    "en": {
+      "stage": "The upstream project and documentation are substantial, with explicit supported devices and install routes; KitAgain has not normalized every board.",
+      "usable": "Exact boards in the current official list can enter installation assessment. Some support internal flashing; others require external hardware.",
+      "works_for": [
+        "Official ThinkPad X200/T400/T500/W500/R400/R500 routes",
+        "Official X220/X220T/T420/T420s/T520 and X230/T430/T530/W530/X230T routes",
+        "Exact Chromebook, server, desktop and workstation boards in the current list"
+      ],
+      "not_for": [
+        "Board revisions absent from the current list despite a similar family name",
+        "Removed boards or devices with only old instructions and no current ROM",
+        "Machines whose flash chip, backup and external recovery path cannot be confirmed"
+      ],
+      "value": "The support list can support a real board, flashing and recovery decision. Firmware-writing risk is the main issue.",
+      "follow": "Continue if you can identify the board, back up the complete flash and prepare recovery hardware; stop if you cannot accept a non-booting machine."
+    }
   },
   "kirkwood-nas-debian": {
     "resources": [
-      {"url":"https://forum.doozan.com/read.php?2,12096","kind":"rootfs-thread","zh_label":"Debian rootfs 主帖","en_label":"Debian rootfs primary thread","zh_note":"长期更新的 rootfs、内核和安装讨论入口；需要同时阅读首帖与近期回复。","en_note":"Long-running rootfs, kernel and installation entry; read both the first post and recent replies."},
-      {"url":"https://forum.doozan.com/read.php?3,138456,138516","kind":"device-thread","zh_label":"设备与 U-Boot 讨论帖","en_label":"Device and U-Boot discussion thread","zh_note":"包含具体设备的启动、U-Boot 和恢复讨论；自动抓取可能返回 403。","en_note":"Contains device-specific boot, U-Boot and recovery discussion; automated fetching may return 403."}
+      {
+        "url": "https://forum.doozan.com/read.php?2,12096",
+        "kind": "rootfs-thread",
+        "zh_label": "Debian rootfs 主帖",
+        "en_label": "Debian rootfs primary thread",
+        "zh_note": "长期更新的 rootfs、内核和安装讨论入口；需要同时阅读首帖与近期回复。",
+        "en_note": "Long-running rootfs, kernel and installation entry; read both the first post and recent replies."
+      },
+      {
+        "url": "https://forum.doozan.com/read.php?3,138456,138516",
+        "kind": "device-thread",
+        "zh_label": "设备与 U-Boot 讨论帖",
+        "en_label": "Device and U-Boot discussion thread",
+        "zh_note": "包含具体设备的启动、U-Boot 和恢复讨论；自动抓取可能返回 403。",
+        "en_note": "Contains device-specific boot, U-Boot and recovery discussion; automated fetching may return 403."
+      }
     ],
-    "zh":{"stage":"社区长期维护，但知识分散在论坛首帖和多年回复中，不是统一安装包。","usable":"核对准确型号、SoC、原厂 U-Boot、串口、NAND 布局和当前 rootfs 后，可作为高级改造路线。","works_for":["有专门主帖或确认启动记录的 Kirkwood 设备","NSA325、GoFlex Home、部分 Pogoplug 与 Synology 型号可作为逐帖核查起点","具备 USB-TTL、启动日志和闪存备份的闲置 NAS"],"not_for":["把所有 Kirkwood NAS 当成同一型号","跨品牌或 NAND 布局互换 U-Boot 环境变量","没有串口、没有备份且存有唯一数据的设备"],"value":"能为停服或原系统过旧的 NAS 提供 Debian、内核和启动链线索，最大价值是型号专属恢复经验。","follow":"有串口工具、Linux 基础并能先备份数据和闪存时继续；只想一键刷机时不要跟做。"},
-    "en":{"stage":"The community has maintained this route for years, but knowledge is spread across first posts and long reply chains rather than one installer.","usable":"It becomes an advanced route only after verifying the exact model, SoC, stock U-Boot, serial access, NAND layout and current rootfs.","works_for":["Kirkwood devices with a dedicated thread or confirmed boot report","NSA325, GoFlex Home and selected Pogoplug or Synology models as thread-review starting points","Spare NAS devices with USB-TTL, saved boot logs and flash backups"],"not_for":["Treating every Kirkwood NAS as the same model","Mixing U-Boot environment values across brands or NAND layouts","Devices with no serial access, no backup and irreplaceable data"],"value":"Provides Debian, kernel and boot-chain clues for unsupported NAS hardware; model-specific recovery experience is its strongest value.","follow":"Continue with serial tools, Linux experience and complete backups; do not follow it if you need a one-click installer."}
+    "zh": {
+      "stage": "社区长期维护，但知识分散在论坛首帖和多年回复中，不是统一安装包。",
+      "usable": "核对准确型号、SoC、原厂 U-Boot、串口、NAND 布局和当前 rootfs 后，可作为高级改造路线。",
+      "works_for": [
+        "有专门主帖或确认启动记录的 Kirkwood 设备",
+        "NSA325、GoFlex Home、部分 Pogoplug 与 Synology 型号可作为逐帖核查起点",
+        "具备 USB-TTL、启动日志和闪存备份的闲置 NAS"
+      ],
+      "not_for": [
+        "把所有 Kirkwood NAS 当成同一型号",
+        "跨品牌或 NAND 布局互换 U-Boot 环境变量",
+        "没有串口、没有备份且存有唯一数据的设备"
+      ],
+      "value": "能为停服或原系统过旧的 NAS 提供 Debian、内核和启动链线索，最大价值是型号专属恢复经验。",
+      "follow": "有串口工具、Linux 基础并能先备份数据和闪存时继续；只想一键刷机时不要跟做。"
+    },
+    "en": {
+      "stage": "The community has maintained this route for years, but knowledge is spread across first posts and long reply chains rather than one installer.",
+      "usable": "It becomes an advanced route only after verifying the exact model, SoC, stock U-Boot, serial access, NAND layout and current rootfs.",
+      "works_for": [
+        "Kirkwood devices with a dedicated thread or confirmed boot report",
+        "NSA325, GoFlex Home and selected Pogoplug or Synology models as thread-review starting points",
+        "Spare NAS devices with USB-TTL, saved boot logs and flash backups"
+      ],
+      "not_for": [
+        "Treating every Kirkwood NAS as the same model",
+        "Mixing U-Boot environment values across brands or NAND layouts",
+        "Devices with no serial access, no backup and irreplaceable data"
+      ],
+      "value": "Provides Debian, kernel and boot-chain clues for unsupported NAS hardware; model-specific recovery experience is its strongest value.",
+      "follow": "Continue with serial tools, Linux experience and complete backups; do not follow it if you need a one-click installer."
+    }
   },
   "rebble-services": {
     "resources": [
-      {"url":"https://rebble.io/howto/","kind":"official-howto","zh_label":"Rebble 启用指南","en_label":"Rebble activation guide","zh_note":"说明原 Pebble 服务消失后如何切换到 Rebble，并链接当前设置流程。","en_note":"Explains the move from discontinued Pebble services to Rebble and links the current setup route."},
-      {"url":"https://help.rebble.io/","kind":"help-center","zh_label":"Rebble 帮助中心","en_label":"Rebble help center","zh_note":"包含 Android/iOS 安装、配对、商店、天气、听写、订阅和退出 Rebble 等问题。","en_note":"Covers Android/iOS installation, pairing, store, weather, dictation, subscriptions and removing Rebble."},
-      {"url":"https://rebble.io/projects/","kind":"project-index","zh_label":"Rebble 项目索引","en_label":"Rebble project index","zh_note":"用于查看生态内应用、服务与开发项目，不是单块手表的兼容证明。","en_note":"Lists ecosystem apps, services and development projects; it is not compatibility proof for one watch."}
+      {
+        "url": "https://rebble.io/howto/",
+        "kind": "official-howto",
+        "zh_label": "Rebble 启用指南",
+        "en_label": "Rebble activation guide",
+        "zh_note": "说明原 Pebble 服务消失后如何切换到 Rebble，并链接当前设置流程。",
+        "en_note": "Explains the move from discontinued Pebble services to Rebble and links the current setup route."
+      },
+      {
+        "url": "https://help.rebble.io/",
+        "kind": "help-center",
+        "zh_label": "Rebble 帮助中心",
+        "en_label": "Rebble help center",
+        "zh_note": "包含 Android/iOS 安装、配对、商店、天气、听写、订阅和退出 Rebble 等问题。",
+        "en_note": "Covers Android/iOS installation, pairing, store, weather, dictation, subscriptions and removing Rebble."
+      },
+      {
+        "url": "https://rebble.io/projects/",
+        "kind": "project-index",
+        "zh_label": "Rebble 项目索引",
+        "en_label": "Rebble project index",
+        "zh_note": "用于查看生态内应用、服务与开发项目，不是单块手表的兼容证明。",
+        "en_note": "Lists ecosystem apps, services and development projects; it is not compatibility proof for one watch."
+      }
     ],
-    "zh":{"stage":"社区服务已经可用，并有启用指南与帮助中心；旧应用、手机系统限制和新服务路线仍并行。","usable":"很多 Pebble 手表可恢复应用商店和部分云服务，但需要可用的手机端应用；天气和听写可能依赖订阅。","works_for":["仍能开机和配对的 Pebble Classic、Steel、Time、Time Steel、Round 与 Pebble 2 系列可作为核查对象","能安装或侧载 Pebble 手机应用的 Android/iOS 用户"],"not_for":["假设所有新手机系统都能直接安装旧 Pebble 应用","假设所有原云功能都免费完整恢复","用云服务解决按键、屏幕或电池硬件故障"],"value":"可判断旧 Pebble 还剩哪些软件价值、如何连接、哪些功能要订阅，以及去哪里排查问题。","follow":"手表硬件正常且愿意处理手机侧兼容问题时继续；硬件损坏或不愿侧载应用时收益有限。"},
-    "en":{"stage":"Community services are usable with a setup guide and help center. Legacy apps, phone-OS limits and newer service routes still coexist.","usable":"Many Pebble watches can regain the app store and selected cloud services, but a working phone app is required; weather and dictation may require a subscription.","works_for":["Working Pebble Classic, Steel, Time, Time Steel, Round and Pebble 2 families as exact-device review candidates","Android or iOS users able to install or sideload the Pebble app"],"not_for":["Assuming every new phone OS can directly install the legacy app","Assuming every former cloud function is restored completely and for free","Expecting cloud services to fix broken buttons, screens or batteries"],"value":"Helps decide what software value remains, how connection works, which functions require subscriptions and where to troubleshoot.","follow":"Continue if the watch hardware works and phone-side compatibility work is acceptable; value is limited for broken hardware or when sideloading is unacceptable."}
+    "zh": {
+      "stage": "社区服务已经可用，并有启用指南与帮助中心；旧应用、手机系统限制和新服务路线仍并行。",
+      "usable": "很多 Pebble 手表可恢复应用商店和部分云服务，但需要可用的手机端应用；天气和听写可能依赖订阅。",
+      "works_for": [
+        "仍能开机和配对的 Pebble Classic、Steel、Time、Time Steel、Round 与 Pebble 2 系列可作为核查对象",
+        "能安装或侧载 Pebble 手机应用的 Android/iOS 用户"
+      ],
+      "not_for": [
+        "假设所有新手机系统都能直接安装旧 Pebble 应用",
+        "假设所有原云功能都免费完整恢复",
+        "用云服务解决按键、屏幕或电池硬件故障"
+      ],
+      "value": "可判断旧 Pebble 还剩哪些软件价值、如何连接、哪些功能要订阅，以及去哪里排查问题。",
+      "follow": "手表硬件正常且愿意处理手机侧兼容问题时继续；硬件损坏或不愿侧载应用时收益有限。"
+    },
+    "en": {
+      "stage": "Community services are usable with a setup guide and help center. Legacy apps, phone-OS limits and newer service routes still coexist.",
+      "usable": "Many Pebble watches can regain the app store and selected cloud services, but a working phone app is required; weather and dictation may require a subscription.",
+      "works_for": [
+        "Working Pebble Classic, Steel, Time, Time Steel, Round and Pebble 2 families as exact-device review candidates",
+        "Android or iOS users able to install or sideload the Pebble app"
+      ],
+      "not_for": [
+        "Assuming every new phone OS can directly install the legacy app",
+        "Assuming every former cloud function is restored completely and for free",
+        "Expecting cloud services to fix broken buttons, screens or batteries"
+      ],
+      "value": "Helps decide what software value remains, how connection works, which functions require subscriptions and where to troubleshoot.",
+      "follow": "Continue if the watch hardware works and phone-side compatibility work is acceptable; value is limited for broken hardware or when sideloading is unacceptable."
+    }
   },
   "jelloid-android-jellyfin": {
     "resources": [
-      {"url":"https://www.instructables.com/Jelloid-Jellyfin-on-Android/","kind":"author-tutorial","zh_label":"作者的 13 步安装教程","en_label":"Author's 13-step installation tutorial","zh_note":"包含 Android 上部署 Jellyfin 的完整过程和作者测试说法；缺少独立代码仓库与明确许可核验。","en_note":"Contains the Android Jellyfin setup and author test claims; an independently reviewed repository and clear license remain missing."}
+      {
+        "url": "https://www.instructables.com/Jelloid-Jellyfin-on-Android/",
+        "kind": "author-tutorial",
+        "zh_label": "作者的 13 步安装教程",
+        "en_label": "Author's 13-step installation tutorial",
+        "zh_note": "包含 Android 上部署 Jellyfin 的完整过程和作者测试说法；缺少独立代码仓库与明确许可核验。",
+        "en_note": "Contains the Android Jellyfin setup and author test claims; an independently reviewed repository and clear license remain missing."
+      }
     ],
-    "zh":{"stage":"有完整作者教程和多设备测试说法，但 KitAgain 尚未复现，也未确认脚本维护与许可证。","usable":"可作为闲置 Android 设备运行轻量家庭媒体服务的实验；后台稳定、转码和重启恢复仍未知。","works_for":["作者报告测试过的多台 Motorola、Pixel 和 Fire Tablet，但尚无准确型号矩阵","主要承担直接播放、可长期接电并连接局域网的闲置 Android 设备"],"not_for":["需要可靠硬件转码、多用户高并发或公网暴露的服务器","Android 版本、CPU 架构和后台限制未核对的具体机型","存放唯一媒体副本或要求无人值守稳定运行"],"value":"适合低成本验证旧手机能否当媒体服务器，并发现 Android 后台、存储和网络限制。","follow":"有备用设备和媒体副本、能接受服务中断时继续；依赖稳定转码或唯一数据时选常规服务器。"},
-    "en":{"stage":"A complete author tutorial and multi-device claims exist, but KitAgain has not reproduced it or confirmed maintenance and licensing.","usable":"It is an experiment for a spare Android device to host a light home media service; background reliability, transcoding and reboot recovery remain unknown.","works_for":["Several Motorola devices, a Pixel and a Fire Tablet are author-reported, but no exact model matrix exists","Spare Android devices mainly serving direct-play media on a home LAN"],"not_for":["Servers requiring dependable hardware transcoding, concurrency or public exposure","Models whose Android version, CPU architecture and background limits are unreviewed","Irreplaceable media or unattended long-term service"],"value":"Useful for cheaply testing an old phone as a media server and exposing Android background, storage and network constraints.","follow":"Continue with a spare device and copied media if interruptions are acceptable; use a conventional server for stable transcoding or unique data."}
+    "zh": {
+      "stage": "有完整作者教程和多设备测试说法，但 KitAgain 尚未复现，也未确认脚本维护与许可证。",
+      "usable": "可作为闲置 Android 设备运行轻量家庭媒体服务的实验；后台稳定、转码和重启恢复仍未知。",
+      "works_for": [
+        "作者报告测试过的多台 Motorola、Pixel 和 Fire Tablet，但尚无准确型号矩阵",
+        "主要承担直接播放、可长期接电并连接局域网的闲置 Android 设备"
+      ],
+      "not_for": [
+        "需要可靠硬件转码、多用户高并发或公网暴露的服务器",
+        "Android 版本、CPU 架构和后台限制未核对的具体机型",
+        "存放唯一媒体副本或要求无人值守稳定运行"
+      ],
+      "value": "适合低成本验证旧手机能否当媒体服务器，并发现 Android 后台、存储和网络限制。",
+      "follow": "有备用设备和媒体副本、能接受服务中断时继续；依赖稳定转码或唯一数据时选常规服务器。"
+    },
+    "en": {
+      "stage": "A complete author tutorial and multi-device claims exist, but KitAgain has not reproduced it or confirmed maintenance and licensing.",
+      "usable": "It is an experiment for a spare Android device to host a light home media service; background reliability, transcoding and reboot recovery remain unknown.",
+      "works_for": [
+        "Several Motorola devices, a Pixel and a Fire Tablet are author-reported, but no exact model matrix exists",
+        "Spare Android devices mainly serving direct-play media on a home LAN"
+      ],
+      "not_for": [
+        "Servers requiring dependable hardware transcoding, concurrency or public exposure",
+        "Models whose Android version, CPU architecture and background limits are unreviewed",
+        "Irreplaceable media or unattended long-term service"
+      ],
+      "value": "Useful for cheaply testing an old phone as a media server and exposing Android background, storage and network constraints.",
+      "follow": "Continue with a spare device and copied media if interruptions are acceptable; use a conventional server for stable transcoding or unique data."
+    }
   },
   "eink-display-adapter": {
     "resources": [
-      {"url":"https://hackaday.io/project/7443-e-ink-display-adapter","kind":"project-log","zh_label":"Hackaday 项目与开发日志","en_label":"Hackaday project and development logs","zh_note":"包含 39 针屏幕、高压电源、v2 PCB、元件表、焊接问题和黑白输出进展。","en_note":"Documents the 39-pin panel, high-voltage rails, v2 PCB, components, soldering failures and black-and-white output."},
-      {"url":"https://hackaday.io/project/7443-e-ink-display-adapter/log/50221-working-software","kind":"working-log","zh_label":"黑白显示成功日志","en_label":"Black-and-white output log","zh_note":"记录备用屏成功显示、ESP8266 内存与时序限制，以及首块屏可能损坏。","en_note":"Records successful output on a backup panel, ESP8266 memory/timing limits and likely damage to the first panel."},
-      {"url":"https://github.com/sapir/eink-adapter","kind":"code-and-files","zh_label":"PCB、Gerber 与驱动代码","en_label":"PCB, Gerber and driver code","zh_note":"含 gerber、pcb 和 src；README 说明代码拟用 MIT，但 PCB 与上游组件可能有其他许可。","en_note":"Contains gerber, pcb and src; the README proposes MIT for code while noting other possible PCB and upstream licenses."}
+      {
+        "url": "https://hackaday.io/project/7443-e-ink-display-adapter",
+        "kind": "project-log",
+        "zh_label": "Hackaday 项目与开发日志",
+        "en_label": "Hackaday project and development logs",
+        "zh_note": "包含 39 针屏幕、高压电源、v2 PCB、元件表、焊接问题和黑白输出进展。",
+        "en_note": "Documents the 39-pin panel, high-voltage rails, v2 PCB, components, soldering failures and black-and-white output."
+      },
+      {
+        "url": "https://hackaday.io/project/7443-e-ink-display-adapter/log/50221-working-software",
+        "kind": "working-log",
+        "zh_label": "黑白显示成功日志",
+        "en_label": "Black-and-white output log",
+        "zh_note": "记录备用屏成功显示、ESP8266 内存与时序限制，以及首块屏可能损坏。",
+        "en_note": "Records successful output on a backup panel, ESP8266 memory/timing limits and likely damage to the first panel."
+      },
+      {
+        "url": "https://github.com/sapir/eink-adapter",
+        "kind": "code-and-files",
+        "zh_label": "PCB、Gerber 与驱动代码",
+        "en_label": "PCB, Gerber and driver code",
+        "zh_note": "含 gerber、pcb 和 src；README 说明代码拟用 MIT，但 PCB 与上游组件可能有其他许可。",
+        "en_note": "Contains gerber, pcb and src; the README proposes MIT for code while noting other possible PCB and upstream licenses."
+      }
     ],
-    "zh":{"stage":"v2 硬件曾正常产生电压，并在特定备用屏上得到黑白输出；灰阶和通用适配未完成。","usable":"对能识别 39 针面板、会贴片焊接并理解正负高压的开发者有复刻价值；普通 Kindle 用户不能直接套用。","works_for":["项目实际使用的 39 针拆机电子纸面板及相同电气规格面板","ESP8266 或 STM32 控制实验，但需重查时序、RAM 和 PCB 修订","需要 Gerber、PCB 和驱动源码继续研究的开发者"],"not_for":["假设所有 Kindle 6 英寸屏或所有 39 针屏都兼容","不检查二极管方向、FPC 和修订就直接下单","完整灰阶、成品外壳或长期稳定显示"],"value":"电源轨、连接器、PCB/代码和失败日志能减少逆向工作，但它不是即插即用产品。","follow":"能读取面板编号、测量高压并自行审查 PCB 时继续；普通副屏需求应选完整方案。"},
-    "en":{"stage":"Revision 2 generated the intended rails and black-and-white output on a specific backup panel; grayscale and broad panel support are unfinished.","usable":"Useful to developers who can identify a 39-pin panel, solder SMD parts and handle positive and negative high-voltage rails; not a drop-in Kindle route.","works_for":["The tested 39-pin salvaged panel and panels with the same verified electrical specification","ESP8266 or STM32 experiments after rechecking timing, RAM and PCB revision","Developers needing Gerbers, PCB files and driver source"],"not_for":["Assuming all six-inch Kindle or all 39-pin panels are compatible","Ordering without checking diode orientation, FPC soldering and revision","Complete grayscale, a finished enclosure or long-term stability"],"value":"The power rails, connector, PCB/code and failure logs reduce reverse-engineering work, but this is not plug-and-play.","follow":"Continue only if you can read the panel number, measure high voltage and review the PCB; choose a finished route for an ordinary second-screen need."}
+    "zh": {
+      "stage": "v2 硬件曾正常产生电压，并在特定备用屏上得到黑白输出；灰阶和通用适配未完成。",
+      "usable": "对能识别 39 针面板、会贴片焊接并理解正负高压的开发者有复刻价值；普通 Kindle 用户不能直接套用。",
+      "works_for": [
+        "项目实际使用的 39 针拆机电子纸面板及相同电气规格面板",
+        "ESP8266 或 STM32 控制实验，但需重查时序、RAM 和 PCB 修订",
+        "需要 Gerber、PCB 和驱动源码继续研究的开发者"
+      ],
+      "not_for": [
+        "假设所有 Kindle 6 英寸屏或所有 39 针屏都兼容",
+        "不检查二极管方向、FPC 和修订就直接下单",
+        "完整灰阶、成品外壳或长期稳定显示"
+      ],
+      "value": "电源轨、连接器、PCB/代码和失败日志能减少逆向工作，但它不是即插即用产品。",
+      "follow": "能读取面板编号、测量高压并自行审查 PCB 时继续；普通副屏需求应选完整方案。"
+    },
+    "en": {
+      "stage": "Revision 2 generated the intended rails and black-and-white output on a specific backup panel; grayscale and broad panel support are unfinished.",
+      "usable": "Useful to developers who can identify a 39-pin panel, solder SMD parts and handle positive and negative high-voltage rails; not a drop-in Kindle route.",
+      "works_for": [
+        "The tested 39-pin salvaged panel and panels with the same verified electrical specification",
+        "ESP8266 or STM32 experiments after rechecking timing, RAM and PCB revision",
+        "Developers needing Gerbers, PCB files and driver source"
+      ],
+      "not_for": [
+        "Assuming all six-inch Kindle or all 39-pin panels are compatible",
+        "Ordering without checking diode orientation, FPC soldering and revision",
+        "Complete grayscale, a finished enclosure or long-term stability"
+      ],
+      "value": "The power rails, connector, PCB/code and failure logs reduce reverse-engineering work, but this is not plug-and-play.",
+      "follow": "Continue only if you can read the panel number, measure high voltage and review the PCB; choose a finished route for an ordinary second-screen need."
+    }
   },
   "six-inch-pi-eink": {
     "resources": [
-      {"url":"https://hackaday.io/project/10161-6-inch-pi-e-ink-display","kind":"failed-project-record","zh_label":"项目页与失败记录","en_label":"Project page and failure record","zh_note":"说明 ED060SC4/类似屏与 Raspberry Pi 的目标，并明确两版 PCB 都有错误、无法修成可用。","en_note":"Explains the ED060SC4-or-similar Raspberry Pi goal and records two PCB revisions that could not be made usable."},
-      {"url":"https://hackaday.io/project/10161/logs","kind":"development-logs","zh_label":"全部开发日志","en_label":"All development logs","zh_note":"包含用途设想、元件与 PCB 过程，以及转向 L06 类似项目的原因。","en_note":"Contains intended uses, parts and PCB work, plus why the author moved toward the related L06 project."}
+      {
+        "url": "https://hackaday.io/project/10161-6-inch-pi-e-ink-display",
+        "kind": "failed-project-record",
+        "zh_label": "项目页与失败记录",
+        "en_label": "Project page and failure record",
+        "zh_note": "说明 ED060SC4/类似屏与 Raspberry Pi 的目标，并明确两版 PCB 都有错误、无法修成可用。",
+        "en_note": "Explains the ED060SC4-or-similar Raspberry Pi goal and records two PCB revisions that could not be made usable."
+      },
+      {
+        "url": "https://hackaday.io/project/10161/logs",
+        "kind": "development-logs",
+        "zh_label": "全部开发日志",
+        "en_label": "All development logs",
+        "zh_note": "包含用途设想、元件与 PCB 过程，以及转向 L06 类似项目的原因。",
+        "en_note": "Contains intended uses, parts and PCB work, plus why the author moved toward the related L06 project."
+      }
     ],
-    "zh":{"stage":"停在失败原型阶段：两版 PCB 均因设计错误不可用，作者转而参考另一块转接板。","usable":"没有可以复刻并验收的成品，只适合作为失败资料、ED060SC4 研究入口和项目关系图。","works_for":["研究 ED060SC4 或相近电子纸接口的开发者","了解 Raspberry Pi 直接驱屏、PCB 设计和低功耗终端构想","查找 L06 等相邻方案"],"not_for":["任何 Raspberry Pi 与 Kindle 屏的可工作组合","直接下单、返修或连接两版失败 PCB","已实现太阳能笔记本、外壳、键盘或续航目标"],"value":"明确记录哪些板子没工作、为什么停止以及应转向哪个项目，避免重复采购失败设计。","follow":"只用于研究和失败复盘；找到后继修订与独立成功证据后再进入复刻。"},
-    "en":{"stage":"The project stopped at a failed prototype: two PCB revisions were unusable and the author moved toward another adapter.","usable":"There is no buildable accepted result; it is a failure record, ED060SC4 research entry and project relationship map.","works_for":["Developers researching ED060SC4 or similar e-paper interfaces","Studying direct Raspberry Pi panel drive, PCB design and low-power terminal concepts","Finding adjacent routes such as L06"],"not_for":["Any claimed working Raspberry Pi and Kindle-panel combination","Ordering, patching or connecting either failed PCB revision","A completed solar laptop, enclosure, keyboard or battery-life goal"],"value":"Records which boards failed, why work stopped and where the author turned next, preventing repeated purchases of a known-bad design.","follow":"Use only for research and failure review; reproduce only after a successor revision and independent working evidence appear."}
+    "zh": {
+      "stage": "停在失败原型阶段：两版 PCB 均因设计错误不可用，作者转而参考另一块转接板。",
+      "usable": "没有可以复刻并验收的成品，只适合作为失败资料、ED060SC4 研究入口和项目关系图。",
+      "works_for": [
+        "研究 ED060SC4 或相近电子纸接口的开发者",
+        "了解 Raspberry Pi 直接驱屏、PCB 设计和低功耗终端构想",
+        "查找 L06 等相邻方案"
+      ],
+      "not_for": [
+        "任何 Raspberry Pi 与 Kindle 屏的可工作组合",
+        "直接下单、返修或连接两版失败 PCB",
+        "已实现太阳能笔记本、外壳、键盘或续航目标"
+      ],
+      "value": "明确记录哪些板子没工作、为什么停止以及应转向哪个项目，避免重复采购失败设计。",
+      "follow": "只用于研究和失败复盘；找到后继修订与独立成功证据后再进入复刻。"
+    },
+    "en": {
+      "stage": "The project stopped at a failed prototype: two PCB revisions were unusable and the author moved toward another adapter.",
+      "usable": "There is no buildable accepted result; it is a failure record, ED060SC4 research entry and project relationship map.",
+      "works_for": [
+        "Developers researching ED060SC4 or similar e-paper interfaces",
+        "Studying direct Raspberry Pi panel drive, PCB design and low-power terminal concepts",
+        "Finding adjacent routes such as L06"
+      ],
+      "not_for": [
+        "Any claimed working Raspberry Pi and Kindle-panel combination",
+        "Ordering, patching or connecting either failed PCB revision",
+        "A completed solar laptop, enclosure, keyboard or battery-life goal"
+      ],
+      "value": "Records which boards failed, why work stopped and where the author turned next, preventing repeated purchases of a known-bad design.",
+      "follow": "Use only for research and failure review; reproduce only after a successor revision and independent working evidence appear."
+    }
   },
   "old-tablet-ha-panel": {
     "resources": [
-      {"url":"https://community.home-assistant.io/t/tablet-as-wall-panel/734479","kind":"community-build","zh_label":"11 英寸 Android 墙面板案例","en_label":"11-inch Android wall-panel build","zh_note":"包含廉价平板、Fully Kiosk、MQTT/Node-RED、供电、随机 MAC、散热和持续充电讨论。","en_note":"Covers a cheap tablet, Fully Kiosk, MQTT/Node-RED, power, randomized MAC, cooling and continuous charging."},
-      {"url":"https://community.home-assistant.io/t/on-wall-display-for-ha-dashboard/910288","kind":"device-selection","zh_label":"墙面显示设备选型讨论","en_label":"Wall-display device selection discussion","zh_note":"比较旧手机、Android/iOS 平板、廉价 Lenovo、Xiaomi、Samsung OLED 平板和触屏笔记本。","en_note":"Compares used phones, Android/iOS tablets, a cheap Lenovo, Xiaomi, Samsung OLED tablet and a convertible laptop."}
+      {
+        "url": "https://community.home-assistant.io/t/tablet-as-wall-panel/734479",
+        "kind": "community-build",
+        "zh_label": "11 英寸 Android 墙面板案例",
+        "en_label": "11-inch Android wall-panel build",
+        "zh_note": "包含廉价平板、Fully Kiosk、MQTT/Node-RED、供电、随机 MAC、散热和持续充电讨论。",
+        "en_note": "Covers a cheap tablet, Fully Kiosk, MQTT/Node-RED, power, randomized MAC, cooling and continuous charging."
+      },
+      {
+        "url": "https://community.home-assistant.io/t/on-wall-display-for-ha-dashboard/910288",
+        "kind": "device-selection",
+        "zh_label": "墙面显示设备选型讨论",
+        "en_label": "Wall-display device selection discussion",
+        "zh_note": "比较旧手机、Android/iOS 平板、廉价 Lenovo、Xiaomi、Samsung OLED 平板和触屏笔记本。",
+        "en_note": "Compares used phones, Android/iOS tablets, a cheap Lenovo, Xiaomi, Samsung OLED tablet and a convertible laptop."
+      }
     ],
-    "zh":{"stage":"这是多位用户的设备路线，不是单一项目；浏览器展示与 Kiosk 控制已有案例，长期安全仍需逐机验证。","usable":"较新的旧平板或手机通常可作 Home Assistant 仪表板终端，适合显示和轻量控制，不等于适合隐藏式长期供电。","works_for":["社区建议约 2GB RAM 以上、较新 Android/iOS 和可用 WebView/浏览器的设备","帖子中的 11 英寸廉价 Android 平板能显示，但性能差且有随机 MAC 问题","Xiaomi 平板、Samsung OLED 平板和 iPad 9 等可作为进一步试用对象"],"not_for":["非常老的 WebView 或低内存设备流畅显示复杂仪表板","无充电上限、背部发热或电池老化的平板长期挂墙","ESP32 屏幕直接运行完整 Lovelace 网页"],"value":"先用现有设备测试性能、Kiosk、断电恢复和充电策略，再决定墙体布线和支架。","follow":"先在桌面连续试用；性能和充电限制合格后再上墙。鼓包、异常热或变形立即淘汰。"},
-    "en":{"stage":"This is a multi-user pattern rather than one project. Browser dashboards and kiosk control are demonstrated; long-term safety still needs device-specific checks.","usable":"A reasonably recent spare tablet or phone can often serve as a Home Assistant dashboard terminal for display and light control, but that does not establish safe concealed continuous power.","works_for":["Community guidance suggests roughly 2 GB RAM or more, recent Android/iOS and a usable WebView/browser","The reported cheap 11-inch Android tablet displays a dashboard but is slow and has randomized-MAC issues","Xiaomi tablets, a Samsung OLED tablet and iPad 9 are candidates for further trial"],"not_for":["Very old WebView or low-memory devices rendering complex dashboards smoothly","Aged tablets without charge limits, with heat or worn batteries in permanent wall use","An ESP32 display running a full Lovelace web dashboard directly"],"value":"Tests performance, kiosk behavior, power-loss recovery and charging before committing to wiring and a wall mount.","follow":"Run it on a desk first; mount only after performance and charge limits pass. Retire swelling, unusually hot or deformed devices immediately."}
+    "zh": {
+      "stage": "这是多位用户的设备路线，不是单一项目；浏览器展示与 Kiosk 控制已有案例，长期安全仍需逐机验证。",
+      "usable": "较新的旧平板或手机通常可作 Home Assistant 仪表板终端，适合显示和轻量控制，不等于适合隐藏式长期供电。",
+      "works_for": [
+        "社区建议约 2GB RAM 以上、较新 Android/iOS 和可用 WebView/浏览器的设备",
+        "帖子中的 11 英寸廉价 Android 平板能显示，但性能差且有随机 MAC 问题",
+        "Xiaomi 平板、Samsung OLED 平板和 iPad 9 等可作为进一步试用对象"
+      ],
+      "not_for": [
+        "非常老的 WebView 或低内存设备流畅显示复杂仪表板",
+        "无充电上限、背部发热或电池老化的平板长期挂墙",
+        "ESP32 屏幕直接运行完整 Lovelace 网页"
+      ],
+      "value": "先用现有设备测试性能、Kiosk、断电恢复和充电策略，再决定墙体布线和支架。",
+      "follow": "先在桌面连续试用；性能和充电限制合格后再上墙。鼓包、异常热或变形立即淘汰。"
+    },
+    "en": {
+      "stage": "This is a multi-user pattern rather than one project. Browser dashboards and kiosk control are demonstrated; long-term safety still needs device-specific checks.",
+      "usable": "A reasonably recent spare tablet or phone can often serve as a Home Assistant dashboard terminal for display and light control, but that does not establish safe concealed continuous power.",
+      "works_for": [
+        "Community guidance suggests roughly 2 GB RAM or more, recent Android/iOS and a usable WebView/browser",
+        "The reported cheap 11-inch Android tablet displays a dashboard but is slow and has randomized-MAC issues",
+        "Xiaomi tablets, a Samsung OLED tablet and iPad 9 are candidates for further trial"
+      ],
+      "not_for": [
+        "Very old WebView or low-memory devices rendering complex dashboards smoothly",
+        "Aged tablets without charge limits, with heat or worn batteries in permanent wall use",
+        "An ESP32 display running a full Lovelace web dashboard directly"
+      ],
+      "value": "Tests performance, kiosk behavior, power-loss recovery and charging before committing to wiring and a wall mount.",
+      "follow": "Run it on a desk first; mount only after performance and charge limits pass. Retire swelling, unusually hot or deformed devices immediately."
+    }
   },
   "sonos-play1-pi": {
     "resources": [
-      {"url":"https://www.raspberrypi.com/news/upcycle-a-sonos-play1/","kind":"official-tutorial","zh_label":"Raspberry Pi 官方分步教程","en_label":"Official Raspberry Pi step-by-step tutorial","zh_note":"包含 Play:1 拆机、Pi 3 A+/Zero 2、4Ω 扬声器、DAC/功放、20V 供电、系统与音频测试，并有市电电容警告。","en_note":"Covers Play:1 disassembly, Pi 3 A+/Zero 2, 4-ohm drivers, DAC/amplifier, 20 V power, OS, audio tests and a mains-capacitor warning."}
+      {
+        "url": "https://www.raspberrypi.com/news/upcycle-a-sonos-play1/",
+        "kind": "official-tutorial",
+        "zh_label": "Raspberry Pi 官方分步教程",
+        "en_label": "Official Raspberry Pi step-by-step tutorial",
+        "zh_note": "包含 Play:1 拆机、Pi 3 A+/Zero 2、4Ω 扬声器、DAC/功放、20V 供电、系统与音频测试，并有市电电容警告。",
+        "en_note": "Covers Play:1 disassembly, Pi 3 A+/Zero 2, 4-ohm drivers, DAC/amplifier, 20 V power, OS, audio tests and a mains-capacitor warning."
+      }
     ],
-    "zh":{"stage":"教程形成完整作者构建路线，可复用 Play:1 箱体和扬声器；KitAgain 尚未复现或核对全部修订。","usable":"故障或闲置 Play:1 可移除原主板并改成树莓派有源音箱；需要拆机、焊接、匹配功放和市电安全经验。","works_for":["扬声器单元正常的 Sonos Play:1 箱体与 4Ω 单元","教程使用的 Raspberry Pi 3 Model A+，以及明确提到的 Raspberry Pi Zero 2","能驱动 4Ω 单元的 DAC/功放组合和独立 20V 供电"],"not_for":["假设其他 Sonos 型号内部空间、阻抗和接线相同","保留原主板功能、Sonos 多房间协议或认证","没有市电设备安全经验的人处理原主板电容"],"value":"完成度较高，能直接判断所需 Pi、功放、供电和软件步骤；核心价值是机械与电气路线。","follow":"有焊接和市电安全经验且扬声器单元正常时继续；只想软件解锁或无法安全放电时不要尝试。"},
-    "en":{"stage":"The tutorial presents a complete author build reusing the Play:1 enclosure and drivers; KitAgain has not reproduced it or reviewed every revision.","usable":"A failed or unused Play:1 can become a Raspberry Pi powered speaker after removing the original board. It requires disassembly, soldering, amplifier matching and mains safety.","works_for":["A Sonos Play:1 enclosure with working 4-ohm speaker assembly","Raspberry Pi 3 Model A+ as used, with Raspberry Pi Zero 2 explicitly offered as an alternative","A DAC/amplifier for 4-ohm speakers and an isolated 20 V supply"],"not_for":["Assuming other Sonos models share the same space, impedance and wiring","Retaining original mainboard functions, Sonos multi-room protocol or certification","Users without mains-equipment safety experience handling board capacitors"],"value":"A relatively complete build that exposes the Pi, amplifier, power and software path; its main value is mechanical and electrical guidance.","follow":"Continue with soldering and mains-safety experience when the drivers work; do not attempt it for software-only unlocking or without safe discharge handling."}
+    "zh": {
+      "stage": "教程形成完整作者构建路线，可复用 Play:1 箱体和扬声器；KitAgain 尚未复现或核对全部修订。",
+      "usable": "故障或闲置 Play:1 可移除原主板并改成树莓派有源音箱；需要拆机、焊接、匹配功放和市电安全经验。",
+      "works_for": [
+        "扬声器单元正常的 Sonos Play:1 箱体与 4Ω 单元",
+        "教程使用的 Raspberry Pi 3 Model A+，以及明确提到的 Raspberry Pi Zero 2",
+        "能驱动 4Ω 单元的 DAC/功放组合和独立 20V 供电"
+      ],
+      "not_for": [
+        "假设其他 Sonos 型号内部空间、阻抗和接线相同",
+        "保留原主板功能、Sonos 多房间协议或认证",
+        "没有市电设备安全经验的人处理原主板电容"
+      ],
+      "value": "完成度较高，能直接判断所需 Pi、功放、供电和软件步骤；核心价值是机械与电气路线。",
+      "follow": "有焊接和市电安全经验且扬声器单元正常时继续；只想软件解锁或无法安全放电时不要尝试。"
+    },
+    "en": {
+      "stage": "The tutorial presents a complete author build reusing the Play:1 enclosure and drivers; KitAgain has not reproduced it or reviewed every revision.",
+      "usable": "A failed or unused Play:1 can become a Raspberry Pi powered speaker after removing the original board. It requires disassembly, soldering, amplifier matching and mains safety.",
+      "works_for": [
+        "A Sonos Play:1 enclosure with working 4-ohm speaker assembly",
+        "Raspberry Pi 3 Model A+ as used, with Raspberry Pi Zero 2 explicitly offered as an alternative",
+        "A DAC/amplifier for 4-ohm speakers and an isolated 20 V supply"
+      ],
+      "not_for": [
+        "Assuming other Sonos models share the same space, impedance and wiring",
+        "Retaining original mainboard functions, Sonos multi-room protocol or certification",
+        "Users without mains-equipment safety experience handling board capacitors"
+      ],
+      "value": "A relatively complete build that exposes the Pi, amplifier, power and software path; its main value is mechanical and electrical guidance.",
+      "follow": "Continue with soldering and mains-safety experience when the drivers work; do not attempt it for software-only unlocking or without safe discharge handling."
+    }
   },
   "esp32-old-stereo": {
     "resources": [
-      {"url":"https://hackaday.io/project/183183-esp32-bluetooth-audio-receiver","kind":"author-project","zh_label":"作者项目页与演示说明","en_label":"Author project and demo description","zh_note":"列出 ESP32、VS1053、外置天线、两套代码和视频演示，作者标记为 completed project。","en_note":"Lists ESP32, VS1053, external antenna, two code variants and a video demonstration; the author marks it completed."},
-      {"url":"https://github.com/paulgreg/esp32-bluetooth-audio-generic/","kind":"generic-code","zh_label":"通用 VS1053 版本源码","en_label":"Generic VS1053 source","zh_note":"面向 ESP32-WROOM-32U 与通用 VS1053 板，用于核对引脚、依赖和配置。","en_note":"Targets ESP32-WROOM-32U and a generic VS1053 board for reviewing pinout, dependencies and configuration."},
-      {"url":"https://github.com/paulgreg/esp32-bluetooth-audio-adafruit","kind":"adafruit-code","zh_label":"Adafruit VS1053 版本源码","en_label":"Adafruit VS1053 source","zh_note":"包含接线、配置、库依赖和 Apache-2.0 许可证。","en_note":"Contains wiring, configuration, library dependencies and an Apache-2.0 license."},
-      {"url":"https://www.youtube.com/watch?v=pQRYkuHnd9I","kind":"author-video","zh_label":"作者音频演示视频","en_label":"Author audio demonstration video","zh_note":"用于听取作者演示；本轮确认链接，未做音质测量。","en_note":"Provides the author's demonstration; this review confirms the link without measuring audio quality."}
+      {
+        "url": "https://hackaday.io/project/183183-esp32-bluetooth-audio-receiver",
+        "kind": "author-project",
+        "zh_label": "作者项目页与演示说明",
+        "en_label": "Author project and demo description",
+        "zh_note": "列出 ESP32、VS1053、外置天线、两套代码和视频演示，作者标记为 completed project。",
+        "en_note": "Lists ESP32, VS1053, external antenna, two code variants and a video demonstration; the author marks it completed."
+      },
+      {
+        "url": "https://github.com/paulgreg/esp32-bluetooth-audio-generic/",
+        "kind": "generic-code",
+        "zh_label": "通用 VS1053 版本源码",
+        "en_label": "Generic VS1053 source",
+        "zh_note": "面向 ESP32-WROOM-32U 与通用 VS1053 板，用于核对引脚、依赖和配置。",
+        "en_note": "Targets ESP32-WROOM-32U and a generic VS1053 board for reviewing pinout, dependencies and configuration."
+      },
+      {
+        "url": "https://github.com/paulgreg/esp32-bluetooth-audio-adafruit",
+        "kind": "adafruit-code",
+        "zh_label": "Adafruit VS1053 版本源码",
+        "en_label": "Adafruit VS1053 source",
+        "zh_note": "包含接线、配置、库依赖和 Apache-2.0 许可证。",
+        "en_note": "Contains wiring, configuration, library dependencies and an Apache-2.0 license."
+      },
+      {
+        "url": "https://www.youtube.com/watch?v=pQRYkuHnd9I",
+        "kind": "author-video",
+        "zh_label": "作者音频演示视频",
+        "en_label": "Author audio demonstration video",
+        "zh_note": "用于听取作者演示；本轮确认链接，未做音质测量。",
+        "en_note": "Provides the author's demonstration; this review confirms the link without measuring audio quality."
+      }
     ],
-    "zh":{"stage":"作者标记为完成，并给出两套源码、硬件组成和演示；KitAgain 尚未测量音质、延迟、噪声和稳定性。","usable":"可把手机 A2DP 音频通过 ESP32+VS1053 输出到旧音响线路输入；更适合做外置接收盒。","works_for":["ESP32-WROOM-32U、外置天线与通用 VS1053 MP3 板","普通 ESP32 加 Adafruit VS1053 breakout 的作者路线","有 AUX、Line In 等线路电平输入的旧音响"],"not_for":["只有喇叭端子、没有线路输入的无源音箱","ESP32 直接驱动大功率扬声器","低延迟视频同步、发烧级音质或所有蓝牙编码格式"],"value":"能以可回退的外置盒方式给旧功放增加手机蓝牙输入，元件和源码路线清楚。","follow":"音响有线路输入且能装配低压模块时继续；要求高保真、超低延迟或必须拆市电机箱时选成品接收器。"},
-    "en":{"stage":"The author marks it completed and provides two code variants, hardware components and a demo; KitAgain has not measured quality, latency, noise or stability.","usable":"It can route phone A2DP audio through ESP32+VS1053 into an older stereo's line input, best as a reversible external receiver box.","works_for":["ESP32-WROOM-32U with external antenna and generic VS1053 MP3 board","A regular ESP32 with the author's Adafruit VS1053 breakout route","Older stereos with AUX, Line In or another line-level input"],"not_for":["Passive speakers with only speaker terminals","An ESP32 directly driving high-power speakers","Low-latency video sync, audiophile quality or every Bluetooth codec"],"value":"Adds phone Bluetooth input to an old amplifier through a reversible external box with clear parts and source routes.","follow":"Continue if the stereo has line input and you can assemble low-voltage modules; choose a finished receiver for high fidelity, very low latency or mains-enclosure work."}
+    "zh": {
+      "stage": "作者标记为完成，并给出两套源码、硬件组成和演示；KitAgain 尚未测量音质、延迟、噪声和稳定性。",
+      "usable": "可把手机 A2DP 音频通过 ESP32+VS1053 输出到旧音响线路输入；更适合做外置接收盒。",
+      "works_for": [
+        "ESP32-WROOM-32U、外置天线与通用 VS1053 MP3 板",
+        "普通 ESP32 加 Adafruit VS1053 breakout 的作者路线",
+        "有 AUX、Line In 等线路电平输入的旧音响"
+      ],
+      "not_for": [
+        "只有喇叭端子、没有线路输入的无源音箱",
+        "ESP32 直接驱动大功率扬声器",
+        "低延迟视频同步、发烧级音质或所有蓝牙编码格式"
+      ],
+      "value": "能以可回退的外置盒方式给旧功放增加手机蓝牙输入，元件和源码路线清楚。",
+      "follow": "音响有线路输入且能装配低压模块时继续；要求高保真、超低延迟或必须拆市电机箱时选成品接收器。"
+    },
+    "en": {
+      "stage": "The author marks it completed and provides two code variants, hardware components and a demo; KitAgain has not measured quality, latency, noise or stability.",
+      "usable": "It can route phone A2DP audio through ESP32+VS1053 into an older stereo's line input, best as a reversible external receiver box.",
+      "works_for": [
+        "ESP32-WROOM-32U with external antenna and generic VS1053 MP3 board",
+        "A regular ESP32 with the author's Adafruit VS1053 breakout route",
+        "Older stereos with AUX, Line In or another line-level input"
+      ],
+      "not_for": [
+        "Passive speakers with only speaker terminals",
+        "An ESP32 directly driving high-power speakers",
+        "Low-latency video sync, audiophile quality or every Bluetooth codec"
+      ],
+      "value": "Adds phone Bluetooth input to an old amplifier through a reversible external box with clear parts and source routes.",
+      "follow": "Continue if the stereo has line input and you can assemble low-voltage modules; choose a finished receiver for high fidelity, very low latency or mains-enclosure work."
+    }
+  },
+  "reuse-sony-reader-with-pico": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/203430-reuse-e-reader-with-pico",
+        "kind": "research-log",
+        "zh_label": "作者研究项目与日志",
+        "en_label": "Author research project and log",
+        "zh_note": "页面说明目标、PRS-700、SD 卡假设、电池计划及仍未验证的关键问题。",
+        "en_note": "Describes the goal, PRS-700, SD-card hypothesis, battery plan and unresolved questions."
+      }
+    ],
+    "zh": {
+      "stage": "作者计划让 Pico 改写 SD 卡上的 EPUB/PDF，使旧 Sony PRS-700 成为文本显示器；目前仍在研究和备料。",
+      "usable": "现在只能作为旧阅读器文件注入思路，不能按此页面完成改造。",
+      "works_for": [
+        "Sony PRS-700 这一作者研究对象",
+        "愿意分析 SD 卡读取行为的开发者"
+      ],
+      "not_for": [
+        "需要即用信息屏的普通用户",
+        "把任意阅读器视为相同存储行为"
+      ],
+      "value": "清楚保存了一条避开屏幕高压驱动的替代思路，也明确暴露关键未知。",
+      "follow": "想做协议研究可以继续；想要可靠显示应先选已有工作路线。"
+    },
+    "en": {
+      "stage": "The author plans to let a Pico rewrite EPUB/PDF files on an SD card so an old Sony PRS-700 can display changing text; the work remains at research and parts-gathering stage.",
+      "usable": "It is currently an idea for file injection on an older reader, not a buildable conversion.",
+      "works_for": [
+        "The author's Sony PRS-700 research target",
+        "Developers willing to characterize SD-card behavior"
+      ],
+      "not_for": [
+        "Users needing a ready information display",
+        "Assuming all readers access removable storage identically"
+      ],
+      "value": "Preserves a route that may avoid direct high-voltage panel driving while exposing the unresolved assumptions.",
+      "follow": "Continue for protocol research; choose a demonstrated route for a dependable display."
+    }
+  },
+  "trash-drone-router-platform": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/1529-trash-drone-router-platform/",
+        "kind": "author-project",
+        "zh_label": "Hackaday 项目总页",
+        "en_label": "Hackaday project overview",
+        "zh_note": "包含硬件复用目标、组件、论文、博客和飞控源码入口。",
+        "en_note": "Links the reuse goal, components, paper, blog and flight-controller source."
+      }
+    ],
+    "zh": {
+      "stage": "作者把旧路由器、PIC、Wii 传感器、IP 摄像头和电机组合成低成本联网无人机平台，并公开论文、博客与飞控代码入口。",
+      "usable": "可研究废旧路由器作为机载联网节点的系统思路，不适合作为当前即用无人机套件。",
+      "works_for": [
+        "旧 OpenWrt 类路由器与可替换传感器的实验",
+        "研究低成本空中网络的平台设计"
+      ],
+      "not_for": [
+        "直接复制为可安全飞行的成品",
+        "未经法规和失效测试的户外飞行"
+      ],
+      "value": "把多类废件如何组成完整系统记录在一起，可用于架构与失败模式研究。",
+      "follow": "做历史技术研究可继续；实际飞行应从当前受支持的飞控与安全链开始。"
+    },
+    "en": {
+      "stage": "The author combines old routers, PICs, Wii sensors, IP cameras and motors into a low-cost connected drone platform, with paper, blog and flight-controller links.",
+      "usable": "Useful for studying a salvaged router as an airborne network node, not as a current ready-to-fly kit.",
+      "works_for": [
+        "Experiments with older OpenWrt-class routers and replaceable sensors",
+        "Studying low-cost airborne-network architecture"
+      ],
+      "not_for": [
+        "Copying directly into a safe finished aircraft",
+        "Outdoor flight without regulatory and failure testing"
+      ],
+      "value": "Records how several waste-device classes can form one system and supports architecture and failure analysis.",
+      "follow": "Continue for historical system research; use currently supported flight-control safety paths for real flight."
+    }
+  },
+  "display-server-old-monitors": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/174477-display-server",
+        "kind": "author-project",
+        "zh_label": "作者项目与设计说明",
+        "en_label": "Author project and design notes",
+        "zh_note": "说明静态文档、艺术图片、四种传输方式和 MIT 许可主张。",
+        "en_note": "Describes static documents, art display, four transfer methods and an MIT-license claim."
+      }
+    ],
+    "zh": {
+      "stage": "项目用树莓派驱动闲置显示器，通过 SCP、共享目录、网页或 WebSocket 接收静态文档与艺术图片。",
+      "usable": "架构和传输方式描述清楚，可作为工作台资料屏原型，但发布完成度不明。",
+      "works_for": [
+        "带标准视频输入的闲置 LCD 显示器",
+        "树莓派或其他能驱动显示器的小主机"
+      ],
+      "not_for": [
+        "没有控制板的裸 LCD 面板",
+        "要求维护完善的一键部署"
+      ],
+      "value": "把显示器从普通副屏变成无鼠标干扰的专用资料屏。",
+      "follow": "能自行维护 Linux 启动和传输脚本时值得试；否则使用成熟数字标牌软件。"
+    },
+    "en": {
+      "stage": "The project uses a Raspberry Pi with spare monitors and accepts static documents or art through SCP, shared folders, a web page or WebSocket.",
+      "usable": "The architecture and transfer methods are clear enough for a workbench prototype, while release completeness is unclear.",
+      "works_for": [
+        "Spare LCD monitors with standard video input",
+        "A Raspberry Pi or similar display-capable host"
+      ],
+      "not_for": [
+        "Bare LCD panels without controllers",
+        "Users needing a maintained one-click deployment"
+      ],
+      "value": "Turns a general monitor into a dedicated reference display without pointer or window-management friction.",
+      "follow": "Worth trying if you can maintain Linux boot and transfer scripts; otherwise use maintained signage software."
+    }
+  },
+  "original-ipad-cm4": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/177256-put-a-raspberry-pi-cm4-into-an-original-ipad",
+        "kind": "hardware-project",
+        "zh_label": "作者项目与工程日志",
+        "en_label": "Author project and engineering logs",
+        "zh_note": "记录目标部件、替换主板、CM4 启动、PCB 和外设调试进展。",
+        "en_note": "Documents retained parts, replacement board, CM4 boot, PCB and peripheral progress."
+      }
+    ],
+    "zh": {
+      "stage": "作者为 2010 年 iPad 设计 CM4 替换主板，目标复用外壳、电池、触摸、LCD、天线、扬声器和按键，并记录可启动系统。",
+      "usable": "高级开发者可复用大部分原机结构做 Linux/Android 平板，普通用户仍缺少成熟套件。",
+      "works_for": [
+        "2010 年第一代 iPad 的作者硬件范围",
+        "有细间距焊接和 PCB 调试能力的开发者"
+      ],
+      "not_for": [
+        "其他 iPad 代际直接套用",
+        "只想通过软件更新恢复现代应用"
+      ],
+      "value": "少见地尝试保留原机大量部件，而不是只把外壳当盒子。",
+      "follow": "能审板、处理电池并接受高成本原型时继续；普通用户等待稳定硬件版本。"
+    },
+    "en": {
+      "stage": "The author designs a CM4 replacement board for a 2010 iPad to reuse the enclosure, battery, touch, LCD, antennas, speaker and buttons, with a reported booting system.",
+      "usable": "Advanced builders may reuse much of the original structure for Linux/Android, while no mature consumer kit exists.",
+      "works_for": [
+        "The author's 2010 first-generation iPad scope",
+        "Developers capable of fine-pitch soldering and PCB debug"
+      ],
+      "not_for": [
+        "Applying directly to other iPad generations",
+        "Users seeking a software-only route to modern apps"
+      ],
+      "value": "Unusually aims to retain many original components instead of using only the enclosure.",
+      "follow": "Continue if board review, battery work and prototype cost are acceptable; others should wait for stable hardware."
+    }
+  },
+  "dlt-one-modular-tablet": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/164845-dlt-one-a-damn-linux-tablet",
+        "kind": "design-project",
+        "zh_label": "项目设计与开发日志",
+        "en_label": "Project design and development logs",
+        "zh_note": "说明模块标准、主板/外设复用目标、BOM 与 PCB 修订兼容问题。",
+        "en_note": "Explains module standards, reuse goals, BOM and PCB-revision compatibility issues."
+      }
+    ],
+    "zh": {
+      "stage": "项目提出开放的机械与电气模块标准，让平板的主板、屏幕、电池和外设可升级并跨机型复用。",
+      "usable": "可作为可修复平板设计参考，尚不能让任意旧平板直接模块化。",
+      "works_for": [
+        "开发开放平板或工业终端的人",
+        "研究跨代复用屏幕、电池和外设接口"
+      ],
+      "not_for": [
+        "直接升级现有 iPad 或 Android 平板",
+        "没有 PCB 和结构设计能力的快速改造"
+      ],
+      "value": "提供减少整机报废的模块化设计思路和迭代记录。",
+      "follow": "做硬件平台研究值得继续；处理一台现有旧平板时选择对应机型项目。"
+    },
+    "en": {
+      "stage": "The project proposes open mechanical and electrical module standards so tablet boards, displays, batteries and peripherals can be upgraded and reused across form factors.",
+      "usable": "Useful as a repairable-tablet design reference, but it cannot modularize an arbitrary old tablet.",
+      "works_for": [
+        "People developing open tablets or industrial terminals",
+        "Research into cross-generation display, battery and peripheral reuse"
+      ],
+      "not_for": [
+        "Direct upgrades of existing iPads or Android tablets",
+        "Quick builds without PCB and mechanical-design capability"
+      ],
+      "value": "Provides a modular design approach and iteration record aimed at preventing complete-device disposal.",
+      "follow": "Continue for platform research; use a model-specific project for one existing tablet."
+    }
+  },
+  "automated-disassembler-3d-printer": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/185804-the-disassembler-by-team-table-flip",
+        "kind": "prototype-project",
+        "zh_label": "团队原型项目页",
+        "en_label": "Team prototype project",
+        "zh_note": "描述拆螺丝器、拆焊器、相机识别和基于 3D 打印机运动平台的阶段目标。",
+        "en_note": "Describes the de-screwer, desolderer, camera recognition and 3D-printer motion platform."
+      }
+    ],
+    "zh": {
+      "stage": "团队在家用 3D 打印机运动机构上安装烙铁和相机，用机器视觉寻找焊点并尝试自动拆取元件。",
+      "usable": "可研究如何把废旧打印机变成拆焊实验平台，不能视为自动回收机。",
+      "works_for": [
+        "结构仍能运动的 FDM 3D 打印机",
+        "已断电、已放电的简单手工焊接板实验"
+      ],
+      "not_for": [
+        "复杂多层量产板的自动拆解",
+        "无人看护的高温运行"
+      ],
+      "value": "把元件再利用、视觉识别和旧运动平台连接成可观察的研究方向。",
+      "follow": "有实验室安全条件和算法开发能力时继续；只需偶尔拆件时手工工具更合适。"
+    },
+    "en": {
+      "stage": "The team mounts a soldering iron and camera on a home 3D-printer motion system, using vision to find joints and attempt automated component removal.",
+      "usable": "A research platform for turning an old printer into a desoldering experiment, not an automatic recycling machine.",
+      "works_for": [
+        "FDM printers with functioning motion systems",
+        "Powered-off and discharged simple hand-soldered boards"
+      ],
+      "not_for": [
+        "Automatic processing of complex multilayer production boards",
+        "Unattended high-temperature operation"
+      ],
+      "value": "Connects component reuse, vision and a salvaged motion platform in an observable research path.",
+      "follow": "Continue with lab safety and algorithm skills; use hand tools for occasional component recovery."
+    }
+  },
+  "trash-printer-v3": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/185691-the-trash-printer-version-3",
+        "kind": "hardware-project",
+        "zh_label": "Trash Printer V3 项目页",
+        "en_label": "Trash Printer V3 project",
+        "zh_note": "说明低成本目标、旧打印机零件来源、加工工具和塑料循环路线。",
+        "en_note": "Describes the low-cost goal, salvaged printer parts, tools and plastic-recycling route."
+      }
+    ],
+    "zh": {
+      "stage": "项目尝试用本地废塑料和从旧 3D 打印机回收的运动件，构建易制造的塑料再利用打印系统。",
+      "usable": "适合有制作空间的人研究旧打印机零件和废塑料再利用，不是桌面即插即用设备。",
+      "works_for": [
+        "可回收步进电机、导轨等部件的旧 3D 打印机",
+        "能分类清洁塑料并加工框架的工作室"
+      ],
+      "not_for": [
+        "混合或来源不明塑料直接熔融",
+        "家庭无人看护运行"
+      ],
+      "value": "同时处理旧机器部件和废塑料，且作者强调低工具门槛。",
+      "follow": "有通风、防火和机械制造能力时研究；普通打印需求优先修复现有打印机。"
+    },
+    "en": {
+      "stage": "The project combines local waste plastic with motion parts salvaged from older 3D printers to create an accessible recycling/printing machine.",
+      "usable": "Suitable for equipped makerspaces studying old-printer parts and waste plastic, not a plug-in desktop appliance.",
+      "works_for": [
+        "Older printers yielding stepper motors, rails and related parts",
+        "Workshops able to clean plastic and fabricate a frame"
+      ],
+      "not_for": [
+        "Melting mixed or unknown plastics",
+        "Unattended home operation"
+      ],
+      "value": "Addresses both machine-part reuse and plastic waste with an emphasis on accessible tooling.",
+      "follow": "Research with ventilation, fire protection and fabrication capability; repair an existing printer first for ordinary printing needs."
+    }
+  },
+  "basic-phone-remote-switch": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/159657-convert-your-old-phone-into-a-remote-switch",
+        "kind": "author-tutorial",
+        "zh_label": "作者完成项目与步骤",
+        "en_label": "Completed author project and steps",
+        "zh_note": "包含 Nokia 3310 拆机、振动焊点、Arduino、继电器、代码和误触讨论。",
+        "en_note": "Includes Nokia 3310 disassembly, vibration pads, Arduino, relay, code and false-trigger discussion."
+      }
+    ],
+    "zh": {
+      "stage": "作者从旧 Nokia 类手机振动电机焊点读取来电/短信触发，再由 Arduino 和继电器切换外部负载。",
+      "usable": "在仍有兼容蜂窝网络时可做低压远程触发实验。",
+      "works_for": [
+        "带振动电机且仍可接入当地网络的旧功能机",
+        "低压、可安全失败的测试负载"
+      ],
+      "not_for": [
+        "当地已关闭对应蜂窝制式",
+        "未经电气隔离的水泵和市电设备"
+      ],
+      "value": "展示无需数据网络也能复用旧手机通信链路。",
+      "follow": "只在低压测试和严格白名单下继续；关键控制使用专用工业方案。"
+    },
+    "en": {
+      "stage": "The author reads call/SMS activity from an old Nokia-class phone's vibration-motor pads, then lets an Arduino and relay switch an external load.",
+      "usable": "A low-voltage remote-trigger experiment where a compatible cellular network still operates.",
+      "works_for": [
+        "Feature phones with a vibration motor and local network service",
+        "Low-voltage loads that fail safely"
+      ],
+      "not_for": [
+        "Regions where the required cellular generation is shut down",
+        "Pumps or mains devices without engineered isolation"
+      ],
+      "value": "Demonstrates reuse of an old phone's communication path without mobile data.",
+      "follow": "Continue only with low-voltage tests and strict allowlisting; use industrial controls for critical loads."
+    }
+  },
+  "old-laptop-projector": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/2440-ultimate-old-laptop-recycle-kit",
+        "kind": "prototype-project",
+        "zh_label": "作者原型与进度日志",
+        "en_label": "Author prototype and progress logs",
+        "zh_note": "记录模块化换机思路、LED、菲涅尔镜、第一版原型和结构设计。",
+        "en_note": "Documents the swappable-host idea, LED, Fresnel optics, first prototype and enclosure work."
+      }
+    ],
+    "zh": {
+      "stage": "作者把旧笔记本 LCD、主机和高功率 LED 组合成可更换笔记本核心的投影媒体中心，并记录第一版原型。",
+      "usable": "适合光学和散热实验，不适合期望成品投影机体验的人。",
+      "works_for": [
+        "LCD 和主板仍工作的旧笔记本",
+        "有光学、木工和散热设计能力的制作者"
+      ],
+      "not_for": [
+        "屏幕本身破裂或严重漏光",
+        "需要安静、高亮、可靠家庭影院"
+      ],
+      "value": "展示整台旧笔记本而非单个零件的升级式复用结构。",
+      "follow": "为学习光路可以继续；实际观影先比较修复或二手投影机。"
+    },
+    "en": {
+      "stage": "The author combines an older laptop LCD, host and high-power LED into a projector/media center designed around a swappable laptop core, with a first prototype documented.",
+      "usable": "Suitable for optics and cooling experiments, not for users expecting a finished projector experience.",
+      "works_for": [
+        "Older laptops with working LCD and motherboard",
+        "Builders with optical, woodworking and thermal-design skills"
+      ],
+      "not_for": [
+        "Cracked or badly damaged panels",
+        "Quiet, bright and dependable home cinema"
+      ],
+      "value": "Shows a structure that reuses a whole laptop and allows later host replacement.",
+      "follow": "Continue to learn projection optics; compare repair or a used projector for regular viewing."
+    }
+  },
+  "printer-board-led-art": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/161656-flashing-leds-from-old-printer-electronics",
+        "kind": "author-project",
+        "zh_label": "作者完成项目记录",
+        "en_label": "Completed author project",
+        "zh_note": "说明 MK2002 字库 ROM、计数逻辑、七只 LED 和改板动机。",
+        "en_note": "Explains the MK2002 font ROM, counters, seven LEDs and the board modification."
+      }
+    ],
+    "zh": {
+      "stage": "作者修改 DEC LA30 打印终端的字符发生器板，让计数器轮询字库并用七只 LED 显示点阵行数据。",
+      "usable": "可作为数字逻辑和字库 ROM 教学作品，实用功能有限。",
+      "works_for": [
+        "相同 DEC LA30 字符板或同类可识别字库板",
+        "想观察旧 ROM 字符数据的学习实验"
+      ],
+      "not_for": [
+        "通用打印机主板复用方法",
+        "需要实际打印或显示文字的成品"
+      ],
+      "value": "保留了一种从废板理解早期字符生成逻辑的做法。",
+      "follow": "拥有同板且以学习为目标时跟进；普通废打印机先回收电机、导轨和电源。"
+    },
+    "en": {
+      "stage": "The author modifies a DEC LA30 terminal character-generator board so counters scan its ROM and seven LEDs expose dot-matrix row data.",
+      "usable": "A digital-logic and font-ROM teaching artifact with limited practical function.",
+      "works_for": [
+        "The same DEC LA30 character board or a similar identifiable ROM board",
+        "Learning experiments that expose old font data"
+      ],
+      "not_for": [
+        "A universal printer-mainboard reuse method",
+        "A finished device that prints or displays full text"
+      ],
+      "value": "Preserves a way to learn early character-generation logic from a discarded board.",
+      "follow": "Follow if you own the same board and want to learn; for ordinary printers salvage motors, rails and supplies first."
+    }
+  },
+  "rotary-phone-colorwheel": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/19137-gte-automatic-electric-rotary-colorwheel",
+        "kind": "author-project",
+        "zh_label": "作者完成项目页",
+        "en_label": "Completed author project",
+        "zh_note": "说明二十段色轮、摘挂机状态、五分钟变暗和成品演示。",
+        "en_note": "Describes the twenty-part color wheel, hook state, five-minute dimming and finished demonstration."
+      }
+    ],
+    "zh": {
+      "stage": "作者在老 GTE 转盘电话中加入控制器和灯光，用拨号盘选择颜色，并保留听筒开关作为奇偶颜色控制。",
+      "usable": "可把机械拨号盘和外壳复用为交互灯光作品。",
+      "works_for": [
+        "机构完好的脉冲拨号电话",
+        "愿意保留原外观的低压互动装置"
+      ],
+      "not_for": [
+        "需要继续普通电话通话",
+        "未与外线彻底隔离的设备"
+      ],
+      "value": "提供保留机械手感而赋予新交互的轻量示例。",
+      "follow": "能识别拨号触点并安全隔离时继续；收藏价值高的完整电话先考虑无损方案。"
+    },
+    "en": {
+      "stage": "The author adds control electronics and lighting to an old GTE rotary phone, using dial pulses for colors and the hook switch to select odd/even positions.",
+      "usable": "Reuses the mechanical dial and enclosure as an interactive lighting object.",
+      "works_for": [
+        "Pulse-dial phones with intact mechanics",
+        "Low-voltage interactive pieces retaining the original appearance"
+      ],
+      "not_for": [
+        "Continued ordinary telephone service",
+        "Devices not fully isolated from outside lines"
+      ],
+      "value": "A compact example of preserving tactile mechanics while giving the object a new interaction.",
+      "follow": "Continue if dial contacts can be identified and isolated; prefer nondestructive work on collectible complete phones."
+    }
+  },
+  "phoneblox-modular-phone": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/203651-phoneblox",
+        "kind": "hardware-project",
+        "zh_label": "项目文件与制作说明",
+        "en_label": "Project files and build entry",
+        "zh_note": "包含 V1/V2 外壳、弹簧针 PCB、Gerber、零件和制作入口。",
+        "en_note": "Includes V1/V2 housings, pogo-pin PCBs, Gerbers, parts and build notes."
+      }
+    ],
+    "zh": {
+      "stage": "项目为旧 Android 手机设计 3D 打印外壳、弹簧针 PCB、USB 2.0 和可换电池模块，已上传多份结构与 Gerber 文件。",
+      "usable": "可作为单一手机的模块背板原型，尚不是通用 Phonebloks 系统。",
+      "works_for": [
+        "能找到 USB 与电池焊点的作者式 Android 手机改造",
+        "会 PCB、FPC 和 3D 打印适配的开发者"
+      ],
+      "not_for": [
+        "不拆机即可适配任意现代手机",
+        "把不同手机电池直接互换"
+      ],
+      "value": "提供了比概念图更接近制造的机械和 PCB 文件。",
+      "follow": "有备用机且能审查电源设计时继续；主力机不要作为首个样品。"
+    },
+    "en": {
+      "stage": "The project designs printed housings, pogo-pin PCBs, USB 2.0 and swappable battery modules for an older Android phone, with several mechanical and Gerber files uploaded.",
+      "usable": "A modular-back prototype for one phone, not a universal Phonebloks ecosystem.",
+      "works_for": [
+        "Android-phone experiments with accessible USB and battery points",
+        "Developers able to adapt PCBs, FPCs and printed housings"
+      ],
+      "not_for": [
+        "Tool-free support for arbitrary modern phones",
+        "Directly interchanging batteries across phone models"
+      ],
+      "value": "Provides mechanical and PCB files closer to fabrication than a concept rendering.",
+      "follow": "Continue with a spare phone and power-design review; do not use a primary phone as the first sample."
+    }
+  },
+  "scraptop-phone-dock": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/25510-scraptop",
+        "kind": "concept-and-build-log",
+        "zh_label": "项目目标与工程记录",
+        "en_label": "Project goals and engineering record",
+        "zh_note": "说明 USB OTG、键盘控制、DisplayLink、DVI-LVDS 和供电设想及未完成难点。",
+        "en_note": "Describes USB OTG, keyboard control, DisplayLink, DVI/LVDS and power ideas plus incomplete blockers."
+      }
+    ],
+    "zh": {
+      "stage": "项目尝试保留旧笔记本屏幕、键盘和外壳，通过 USB OTG、DisplayLink、DVI/LVDS 转换让手机成为计算核心。",
+      "usable": "有价值的是整合路线和难点清单，当前不能当作通用转换板。",
+      "works_for": [
+        "外壳、键盘和 LCD 完整但主板报废的特定笔记本",
+        "愿意处理多级视频转换和 USB 控制的开发者"
+      ],
+      "not_for": [
+        "希望单根线连接任意手机和任意笔记本",
+        "电池、LCD 或排线状态未知的机器"
+      ],
+      "value": "把旧笔记本最难复用的键盘和屏幕接口问题集中呈现。",
+      "follow": "做接口研究可继续；实用扩展坞应先确认一个完整型号组合。"
+    },
+    "en": {
+      "stage": "The project aims to retain an old laptop display, keyboard and enclosure while using USB OTG, DisplayLink and DVI/LVDS conversion around a phone as the compute core.",
+      "usable": "Its main value is the integration route and difficulty map, not a universal conversion board.",
+      "works_for": [
+        "Specific laptops with intact enclosure, keyboard and LCD but failed mainboards",
+        "Developers willing to solve layered video and USB control"
+      ],
+      "not_for": [
+        "One-cable support for arbitrary phones and laptops",
+        "Machines with unknown battery, LCD or cable condition"
+      ],
+      "value": "Concentrates the hardest laptop-part reuse problems: keyboard and display interfaces.",
+      "follow": "Continue for interface research; prove one exact combination before pursuing a practical dock."
+    }
+  },
+  "old-laptop-photo-frame": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/183641-digital-photo-frame-from-obsolete-laptop",
+        "kind": "completed-build-log",
+        "zh_label": "作者完整制作与故障日志",
+        "en_label": "Complete author build and fault log",
+        "zh_note": "含 MX Linux、Feh、VNC、结构步骤和未解决的 13.5 kHz 啸叫。",
+        "en_note": "Covers MX Linux, Feh, VNC, mechanical steps and the unresolved 13.5 kHz whine."
+      }
+    ],
+    "zh": {
+      "stage": "作者拆出旧笔记本主板和屏幕，装入 12×18 英寸相框，用 MX Linux、Feh 和 VNC 自动播放照片。",
+      "usable": "可以实际播放照片并远程维护，但高频噪声可能使成品不可接受。",
+      "works_for": [
+        "主板和 LCD 仍工作的旧 x86 笔记本",
+        "能运行轻量 Linux 并从 USB 启动的机器"
+      ],
+      "not_for": [
+        "对高频噪声敏感的房间",
+        "裸板无防护的长期墙装"
+      ],
+      "value": "完整记录了成功功能和一个没有美化的真实缺陷。",
+      "follow": "先整机测试噪声、温度和自动恢复；通过后再拆装进框。"
+    },
+    "en": {
+      "stage": "The author mounts an older laptop motherboard and display in a 12×18-inch frame, using MX Linux, Feh and VNC for an automatic slideshow.",
+      "usable": "It can display photos and be maintained remotely, but high-frequency noise may make the result unacceptable.",
+      "works_for": [
+        "Older x86 laptops with working motherboard and LCD",
+        "Systems able to boot lightweight Linux from USB"
+      ],
+      "not_for": [
+        "Rooms with listeners sensitive to high-frequency noise",
+        "Long-term wall mounting of unprotected boards"
+      ],
+      "value": "Documents both working function and a real unresolved defect without hiding it.",
+      "follow": "Test noise, temperature and reboot recovery as a complete laptop before framing it."
+    }
+  },
+  "laptop-keyboard-usb": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/201738/logs",
+        "kind": "engineering-log",
+        "zh_label": "作者逆向与控制器日志",
+        "en_label": "Author reverse-engineering and controller logs",
+        "zh_note": "记录具体键盘型号、矩阵、回收 STM32、USB 固件和连接器限制。",
+        "en_note": "Records the exact keyboard, matrix, recycled STM32, USB firmware and connector limits."
+      }
+    ],
+    "zh": {
+      "stage": "作者为 Acer/eMachines MP-09B23U4-6983 键盘反查矩阵，并用回收的 STM32 制作 USB 键盘控制器。",
+      "usable": "对准确型号可成为 USB 键盘，方法也适合学习矩阵逆向。",
+      "works_for": [
+        "Acer MP-09B23U4-6983 / PK130C93A00 作者型号",
+        "可逐键测量矩阵和焊接 FPC 的开发者"
+      ],
+      "not_for": [
+        "任意笔记本键盘直接插 USB",
+        "带复杂背光、触控或专用控制芯片但无资料的模块"
+      ],
+      "value": "保留手感好的旧键盘，并展示型号级逆向过程。",
+      "follow": "型号相同可深入；型号不同先把它当新的矩阵测绘项目。"
+    },
+    "en": {
+      "stage": "The author reverse-maps an Acer/eMachines MP-09B23U4-6983 keyboard matrix and uses a salvaged STM32 as a USB keyboard controller.",
+      "usable": "The exact model can become a USB keyboard, and the method teaches matrix reverse engineering.",
+      "works_for": [
+        "The author's Acer MP-09B23U4-6983 / PK130C93A00 model",
+        "Developers able to probe matrices and solder FPC connections"
+      ],
+      "not_for": [
+        "Plugging an arbitrary laptop keyboard directly into USB",
+        "Undocumented modules with complex backlight, touch or dedicated controllers"
+      ],
+      "value": "Preserves a good keyboard feel and demonstrates model-specific reverse engineering.",
+      "follow": "Investigate further for the same model; treat every other model as a new matrix-mapping project."
+    }
+  },
+  "3d-printer-heat-sealer": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/183836/instructions",
+        "kind": "build-instructions",
+        "zh_label": "作者分步改造说明",
+        "en_label": "Author step-by-step conversion",
+        "zh_note": "包含测试旧机、拆喷嘴、改热封头和保持可逆性的提醒。",
+        "en_note": "Covers testing the old printer, removing the nozzle, fitting a sealer and preserving reversibility."
+      }
+    ],
+    "zh": {
+      "stage": "教程利用仍能三轴运动并加热的 FDM 打印机，把喷嘴换成热封头，用于沿程序路径封合薄膜。",
+      "usable": "作为可逆工装实验有明确步骤，适合闲置但运动系统正常的打印机。",
+      "works_for": [
+        "三轴和热端仍工作的 FFF/FDM 打印机",
+        "小批量薄膜封合实验"
+      ],
+      "not_for": [
+        "食品、医疗或压力包装的合规密封",
+        "仍是主要生产工具且不愿停机的打印机"
+      ],
+      "value": "用现有运动控制和热端完成另一种可编程加工。",
+      "follow": "先确保改装完全可回退并做破坏性样片测试；重要包装使用认证设备。"
+    },
+    "en": {
+      "stage": "The instructions reuse an FFF/FDM printer with working three-axis motion and heater, replacing the nozzle with a sealing tool that follows programmed paths.",
+      "usable": "A documented reversible tooling experiment for an idle printer with a functioning motion system.",
+      "works_for": [
+        "FFF/FDM printers with working axes and heater",
+        "Small-batch film-sealing experiments"
+      ],
+      "not_for": [
+        "Regulated food, medical or pressure-package seals",
+        "A primary production printer that cannot be taken offline"
+      ],
+      "value": "Uses existing motion control and heat for a different programmable process.",
+      "follow": "Keep the conversion reversible and destructively test samples first; use certified equipment for important packaging."
+    }
+  },
+  "laptop-lcd-luggable-pc": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/19583-luggable-pc",
+        "kind": "build-log",
+        "zh_label": "Luggable PC 项目与屏幕日志",
+        "en_label": "Luggable PC project and display log",
+        "zh_note": "记录 E1705 面板、控制板、分辨率问题、Mark I 完成和转向 Mark II。",
+        "en_note": "Documents the E1705 panel, controller, resolution issue, completed Mark I and move to Mark II."
+      }
+    ],
+    "zh": {
+      "stage": "作者把显卡故障笔记本的 17 英寸 LCD 配专用控制板，与退役台式机零件组装成可搬运电脑，并完成 Mark I。",
+      "usable": "同类 LCD 可通过匹配控制板成为标准视频显示器，并用于自制一体机。",
+      "works_for": [
+        "Dell Inspiron E1705 的作者面板或有匹配控制板的 LCD",
+        "仍可用的退役 ATX/桌面部件"
+      ],
+      "not_for": [
+        "只按尺寸购买控制板",
+        "希望轻薄和低功耗的便携电脑"
+      ],
+      "value": "包含面板控制板匹配和整机结构的实际经验。",
+      "follow": "能读取精确面板型号并接受体积时继续；先台架点亮再做机箱。"
+    },
+    "en": {
+      "stage": "The author pairs a 17-inch LCD from a GPU-failed laptop with a model-specific controller and retired desktop parts to complete a luggable Mark I computer.",
+      "usable": "A matching LCD can become a standard-video display and part of a custom all-in-one computer.",
+      "works_for": [
+        "The author's Dell Inspiron E1705 panel or LCDs with matched controllers",
+        "Still-functional retired ATX/desktop components"
+      ],
+      "not_for": [
+        "Buying controllers by screen size alone",
+        "Users seeking a thin, low-power portable computer"
+      ],
+      "value": "Includes real experience matching a controller to a panel and integrating a complete system.",
+      "follow": "Continue if the exact panel number is known and size is acceptable; bench-test before building an enclosure."
+    }
+  },
+  "six-laptop-video-wall": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/27790-window-on-the-world",
+        "kind": "project-log",
+        "zh_label": "项目页与六机复用日志",
+        "en_label": "Project and six-laptop reuse log",
+        "zh_note": "描述六台屏幕拼接、PXE、主从节点、摄像头和同型号设备要求。",
+        "en_note": "Describes six tiled screens, PXE, master/worker nodes, camera and matching-device requirements."
+      }
+    ],
+    "zh": {
+      "stage": "项目计划让六台相同旧笔记本通过 PXE 启动并把屏幕拼成窗格，用于城市间视频交流和艺术展示。",
+      "usable": "可作为批量旧笔记本的网络启动拼屏实验，完成度仍需核实。",
+      "works_for": [
+        "尺寸和亮度接近的六台旧笔记本",
+        "能部署 PXE 和处理多节点视频的软件团队"
+      ],
+      "not_for": [
+        "型号差异大且屏幕亮度不一致的随机设备",
+        "追求无边框或低功耗的正式显示墙"
+      ],
+      "value": "展示不拆面板也能通过网络协同复用整机的方法。",
+      "follow": "手上有同批设备且用于艺术实验时继续；普通显示墙先核算能耗与维护。"
+    },
+    "en": {
+      "stage": "The project proposes PXE-booting six similar old laptops and arranging their screens as a window for inter-city video exchange and art display.",
+      "usable": "A network-boot tiled-screen experiment for a batch of old laptops, with final completion still uncertain.",
+      "works_for": [
+        "Six older laptops with similar size and brightness",
+        "Teams able to deploy PXE and multi-node video software"
+      ],
+      "not_for": [
+        "Random models with mismatched panels",
+        "A low-power or bezel-free production video wall"
+      ],
+      "value": "Shows how whole machines can cooperate over the network without extracting their panels.",
+      "follow": "Continue for an art experiment with a matching batch; calculate power and maintenance for regular signage."
+    }
+  },
+  "nokia-n97-cyberdeck": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/203391-nokia-n97-cyberdeck-resurrection",
+        "kind": "engineering-project",
+        "zh_label": "作者逆向工程项目",
+        "en_label": "Author reverse-engineering project",
+        "zh_note": "包含 N97 键盘矩阵、Hirose 连接器、触摸测量、屏幕选择和 PCB 计划。",
+        "en_note": "Includes the N97 keyboard matrix, Hirose connector, touch probing, display choice and PCB plan."
+      }
+    ],
+    "zh": {
+      "stage": "作者逆向 N97 键盘矩阵、FPC 和四线电阻触摸，计划用 Zero 形态 SBC、定制 PCB 与 3.2 英寸 HDMI 屏重建 Linux 掌机。",
+      "usable": "目前是高质量逆向资料和局部原型，还不是可复制成品。",
+      "works_for": [
+        "Nokia N97 外壳、键盘和触摸部件",
+        "能做细间距 PCB 与结构适配的开发者"
+      ],
+      "not_for": [
+        "其他 Nokia 滑盖机直接套用",
+        "无需焊接的普通用户改造"
+      ],
+      "value": "已公开键盘矩阵和连接器识别，降低同机型继续研究成本。",
+      "follow": "以逆向和定制板为目标值得跟进；想要成品掌机需等待完整版本。"
+    },
+    "en": {
+      "stage": "The author maps the N97 keyboard matrix, FPC and four-wire resistive touch, planning a Linux pocket computer with a Zero-form-factor SBC, custom PCB and 3.2-inch HDMI screen.",
+      "usable": "Currently a strong reverse-engineering record and partial prototype, not a reproducible finished device.",
+      "works_for": [
+        "Nokia N97 enclosure, keyboard and touch parts",
+        "Developers able to design fine-pitch PCBs and mechanical adapters"
+      ],
+      "not_for": [
+        "Applying directly to other Nokia sliders",
+        "A solder-free consumer conversion"
+      ],
+      "value": "Published keyboard mapping and connector identification lower the cost of continuing with this exact model.",
+      "follow": "Worth following for reverse engineering and custom-board work; wait for integration if you need a finished pocket computer."
+    }
+  },
+  "salvaged-vu-meter-pi": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/26951-audio-vu-meters-raspberry-pi",
+        "kind": "author-tutorial",
+        "zh_label": "表头分析与驱动教程",
+        "en_label": "Meter analysis and drive tutorial",
+        "zh_note": "包含表头测量、PWM/DAC 方法、校准思路和回收 Hi-Fi 元件场景。",
+        "en_note": "Covers meter characterization, PWM/DAC methods, calibration and salvaged Hi-Fi use."
+      }
+    ],
+    "zh": {
+      "stage": "教程分析回收的 VU 表头灵敏度，并比较 PWM 与 DAC 驱动，让指针显示树莓派负载或音频状态。",
+      "usable": "可把旧音响指针表变成低速状态仪表，教程对新手较友好。",
+      "works_for": [
+        "可独立取出的模拟 VU 表或低压表头",
+        "树莓派 PWM/DAC 状态显示"
+      ],
+      "not_for": [
+        "未知量程下直接接 3.3V/5V",
+        "要求精密快速测量的仪器"
+      ],
+      "value": "帮助用户先测参数再复用，而不是凭外观接线。",
+      "follow": "能测量灵敏度并限流时继续；稀有原机优先无损修复。"
+    },
+    "en": {
+      "stage": "The tutorial measures salvaged VU-meter sensitivity and compares PWM and DAC drive methods for Raspberry Pi load or audio indication.",
+      "usable": "Can turn old audio meters into slow status displays, with beginner-oriented analysis.",
+      "works_for": [
+        "Separately removable analog VU or low-voltage meters",
+        "Raspberry Pi PWM/DAC status output"
+      ],
+      "not_for": [
+        "Direct 3.3V/5V connection at unknown sensitivity",
+        "Precision or fast measurement"
+      ],
+      "value": "Encourages measuring a salvaged part before wiring it by appearance.",
+      "follow": "Continue if sensitivity can be measured and limited; preserve rare complete equipment nondestructively."
+    }
+  },
+  "motorola-advisor-connected": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/183837-motorola-advisor-connected-device",
+        "kind": "project-log",
+        "zh_label": "拆解与设计日志",
+        "en_label": "Teardown and design logs",
+        "zh_note": "记录原 LCD 难点、按键、蜂鸣器、振动、电源和 PyBoard 选择。",
+        "en_note": "Documents the original LCD problem, controls, beeper, vibration, power and PyBoard choice."
+      }
+    ],
+    "zh": {
+      "stage": "作者拆解 Motorola Advisor，复用外壳、按键、蜂鸣器和振动电机，计划用 PyBoard、MicroPython 与替代 LCD 重建联网设备。",
+      "usable": "可作为坚固寻呼机外壳和交互件的拆解参考，完整功能未确认。",
+      "works_for": [
+        "Motorola Advisor 外壳、按键、蜂鸣器和振动件",
+        "MicroPython 小型通知终端实验"
+      ],
+      "not_for": [
+        "继续使用原 POCSAG 网络的通用方案",
+        "直接复用无资料原 LCD"
+      ],
+      "value": "把难复用和可复用部件明确分开，减少盲目逆向。",
+      "follow": "有相同寻呼机且接受换屏换主板时继续；收藏完好设备不宜破坏。"
+    },
+    "en": {
+      "stage": "The author disassembles a Motorola Advisor and plans a PyBoard/MicroPython rebuild reusing the enclosure, keys, beeper and vibration motor with a replacement LCD.",
+      "usable": "A useful teardown reference for the rugged enclosure and interface parts; complete function is unconfirmed.",
+      "works_for": [
+        "Motorola Advisor enclosure, keys, beeper and vibration parts",
+        "Small MicroPython notification-terminal experiments"
+      ],
+      "not_for": [
+        "A universal route to continue original POCSAG service",
+        "Direct reuse of the undocumented original LCD"
+      ],
+      "value": "Separates reusable parts from the difficult display, reducing blind reverse engineering.",
+      "follow": "Continue with the same pager if replacing screen and mainboard is acceptable; preserve complete collectible units."
+    }
+  },
+  "xbox-duke-portable": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/93649-the-duke-portable",
+        "kind": "project-log",
+        "zh_label": "作者项目与两篇日志",
+        "en_label": "Author project and two logs",
+        "zh_note": "说明旧 Duke 外壳、树莓派、电池、HDMI、模式开关和计划功能。",
+        "en_note": "Describes the old Duke shell, Raspberry Pi, battery, HDMI, mode switch and planned functions."
+      }
+    ],
+    "zh": {
+      "stage": "作者利用断线的原版 Xbox Duke 手柄外壳，计划塞入树莓派、电池、HDMI 与控制电路，连接电视玩复古游戏或串流。",
+      "usable": "外壳空间和按键可作为便携主机原型，完成度不足。",
+      "works_for": [
+        "线缆损坏但按键外壳完整的 Xbox Duke 手柄",
+        "需要 HDMI 接电视的树莓派小主机"
+      ],
+      "not_for": [
+        "保留原 Xbox 控制器功能的无损方案",
+        "要求自带屏幕的掌机"
+      ],
+      "value": "展示超大手柄外壳可容纳完整主机和电池。",
+      "follow": "作为个人结构实验可继续；想直接玩游戏应选成熟掌机方案。"
+    },
+    "en": {
+      "stage": "The author uses an original Xbox Duke controller with a broken cable as an enclosure for a Raspberry Pi, battery, HDMI output and controls for retro games or streaming.",
+      "usable": "The enclosure and controls offer a portable-console prototype, but completion is insufficient.",
+      "works_for": [
+        "Xbox Duke controllers with failed cables but intact shell/buttons",
+        "Raspberry Pi systems intended to plug into a TV over HDMI"
+      ],
+      "not_for": [
+        "A nondestructive route retaining original Xbox-controller function",
+        "A handheld with its own screen"
+      ],
+      "value": "Shows that the oversized controller shell can contain a whole computer and battery.",
+      "follow": "Continue as a personal mechanical build; use a mature handheld platform for immediate gaming."
+    }
+  },
+  "digitised-vintage-camera": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/19523-adventures-in-digitising-vintage-cameras",
+        "kind": "project-and-software-log",
+        "zh_label": "作者项目与联网功能日志",
+        "en_label": "Author project and connectivity log",
+        "zh_note": "描述快门、Buildroot、PiCamera、Wi-Fi 热点、网页预览和图库。",
+        "en_note": "Describes shutter input, Buildroot, PiCamera, Wi-Fi access point, live view and gallery."
+      }
+    ],
+    "zh": {
+      "stage": "作者把 Pi 相机与定制 Buildroot 系统装入旧相机，保留快门操作，并提供 Wi-Fi 热点、实时预览和照片图库。",
+      "usable": "作者展示了可拍照和网页控制的工作路径，复刻需结构加工。",
+      "works_for": [
+        "机械结构完整、内部可容纳 Pi 的旧相机壳体",
+        "Pi Camera 与可调整传感器位置的改造"
+      ],
+      "not_for": [
+        "直接让原胶片成像组件变成数码传感器",
+        "没有高压电容处理经验的闪光灯相机拆解"
+      ],
+      "value": "把保留原机操作手感、离线热点和照片管理组合成完整体验。",
+      "follow": "有一台低收藏价值相机和结构加工能力时继续；稀有相机优先保存。"
+    },
+    "en": {
+      "stage": "The author installs a Pi camera and custom Buildroot system in an older camera, retaining shutter operation and adding a Wi-Fi hotspot, live view and photo gallery.",
+      "usable": "The author demonstrates a working capture and web-control route that requires mechanical fabrication.",
+      "works_for": [
+        "Low-value vintage enclosures with room for a Pi",
+        "Pi Camera builds with adjustable sensor placement"
+      ],
+      "not_for": [
+        "Directly turning original film imaging parts into a digital sensor",
+        "Opening flash cameras without high-voltage capacitor experience"
+      ],
+      "value": "Combines original tactile controls, an offline hotspot and photo management into a complete experience.",
+      "follow": "Continue with a noncollectible camera and fabrication skills; preserve rare complete cameras."
+    }
+  },
+  "laptop-webcam-usb": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/110436-laptop-webcam-reuse-made-simple",
+        "kind": "hardware-reuse-guide",
+        "zh_label": "复用方法、转接板与模块清单",
+        "en_label": "Reuse method, adapter and camera list",
+        "zh_note": "说明 USB 线路、常见 3.3V、电缆识别、Linux 工具和已复用摄像头列表。",
+        "en_note": "Covers USB lines, common 3.3 V power, cable identification, Linux tools and reused-camera records."
+      }
+    ],
+    "zh": {
+      "stage": "项目说明许多笔记本摄像头本质上是 USB 设备，并设计 FPC 转接方案，整理多款已识别模块。",
+      "usable": "很多明确识别的模块可成为小型 USB 摄像头。",
+      "works_for": [
+        "项目列表或数据表能确认 USB D+/D-/电源的模块",
+        "Linux UVC 可识别的笔记本摄像头"
+      ],
+      "not_for": [
+        "MIPI/专用接口模块",
+        "未知电压和引脚时直接试接"
+      ],
+      "value": "提供比单一教程更系统的识别流程和转接思路。",
+      "follow": "能查到模块编号或测出 USB 线路时继续；无法识别则不要反复加电。"
+    },
+    "en": {
+      "stage": "The project explains that many laptop cameras are USB devices, develops an FPC adapter approach and records multiple identified modules.",
+      "usable": "Many positively identified modules can become compact USB webcams.",
+      "works_for": [
+        "Modules whose USB data and power pins are confirmed by lists or documentation",
+        "Laptop cameras recognized as Linux UVC devices"
+      ],
+      "not_for": [
+        "MIPI or proprietary-interface modules",
+        "Trial wiring with unknown voltage and pinout"
+      ],
+      "value": "Offers a broader identification process and adapter idea than a single one-off tutorial.",
+      "follow": "Continue when the module number or USB lines can be identified; stop repeated power attempts on unknown hardware."
+    }
+  },
+  "galaga-mini-rebuild": {
+    "resources": [
+      {
+        "url": "https://hackaday.io/project/192892-fixing-galaga",
+        "kind": "repair-project",
+        "zh_label": "作者完成维修项目",
+        "en_label": "Completed author repair project",
+        "zh_note": "说明原机故障、拆除、320×240 替换 LCD、树莓派与 Arduino 重建。",
+        "en_note": "Describes the failure, gutting, 320×240 replacement LCD, Raspberry Pi and Arduino rebuild."
+      }
+    ],
+    "zh": {
+      "stage": "作者在迷你 Galaga 街机故障后拆除原电路，换入同尺寸 LCD，并用树莓派、Arduino 等重建游戏与控制。",
+      "usable": "可让外壳和控制件继续作为复古游戏机，但原硬件功能被替换。",
+      "works_for": [
+        "作者同类迷你 Galaga 柜体",
+        "原板故障但外壳、按钮仍可用的低压迷你街机"
+      ],
+      "not_for": [
+        "要求保留原板收藏价值",
+        "大型 CRT 街机直接照搬"
+      ],
+      "value": "说明何时跳过难以逆向的显示器、直接采用同尺寸替换件。",
+      "follow": "低价值坏机可跟进；稀有原机先做可逆诊断与保存。"
+    },
+    "en": {
+      "stage": "After a Galaga mini cabinet fails, the author removes its electronics, fits a same-size LCD and rebuilds game/control functions with Raspberry Pi and Arduino components.",
+      "usable": "Keeps the enclosure and controls useful as a retro machine while replacing original electronics.",
+      "works_for": [
+        "The author's class of Galaga mini cabinet",
+        "Low-voltage mini arcades with failed boards but usable shell/buttons"
+      ],
+      "not_for": [
+        "Preserving original-board collector value",
+        "Directly copying the method to full-size CRT arcades"
+      ],
+      "value": "Shows when replacing a difficult display is more practical than reverse engineering it.",
+      "follow": "Follow for a low-value failed unit; diagnose and preserve rare original hardware first."
+    }
+  },
+  "amlogic-tv-box-linux": {
+    "resources": [
+      {
+        "url": "https://forum.armbian.com/topic/16976-status-of-armbian-on-tv-boxes-please-read-first",
+        "kind": "forum-faq",
+        "zh_label": "Armbian 电视盒 FAQ",
+        "en_label": "Armbian TV-box FAQ",
+        "zh_note": "明确非官方支持、型号差异、服务器定位、散热和期望边界。",
+        "en_note": "States unofficial support, variant differences, server role, cooling and expectation boundaries."
+      }
+    ],
+    "zh": {
+      "stage": "Armbian 论坛 FAQ 明确把电视盒路线定位为社区实验，建议更适合无头 Linux 服务器而非桌面替代。",
+      "usable": "部分盒子可从 SD/USB 启动成为低成本服务器，但外设常不完整。",
+      "works_for": [
+        "论坛有同板报告的 Amlogic 盒子",
+        "只需以太网、USB 和无头服务的实验"
+      ],
+      "not_for": [
+        "把零售型号当作统一硬件",
+        "要求官方更新、完整 Wi-Fi/蓝牙/视频加速的主力机"
+      ],
+      "value": "论坛把风险和合理用途说得很清楚，可避免把盒子误当稳定 SBC。",
+      "follow": "有串口/备份并接受试验性质时继续；重要服务选正式支持 SBC。"
+    },
+    "en": {
+      "stage": "The Armbian forum FAQ explicitly frames TV-box use as a community experiment and recommends headless Linux-server roles rather than desktop replacement.",
+      "usable": "Some boxes can boot from SD/USB as low-cost servers, often with incomplete peripherals.",
+      "works_for": [
+        "Amlogic boxes with same-board forum reports",
+        "Experiments needing Ethernet, USB and headless services only"
+      ],
+      "not_for": [
+        "Treating a retail name as one hardware configuration",
+        "Primary systems needing official updates and complete wireless/video acceleration"
+      ],
+      "value": "The forum states both sensible use and failure boundaries, preventing TV boxes from being mistaken for supported SBCs.",
+      "follow": "Continue with serial access/backup and experimental expectations; use a supported SBC for important services."
+    }
+  },
+  "t95z-plus-nas": {
+    "resources": [
+      {
+        "url": "https://forum.armbian.com/topic/53474-t95z-plus-second-one-running-great/",
+        "kind": "forum-build-report",
+        "zh_label": "T95Z Plus 用户复现帖",
+        "en_label": "T95Z Plus user build report",
+        "zh_note": "记录第二台机器、Armbian、简单 ZFS NAS、Wi-Fi 状态和不同存储/无线变体。",
+        "en_note": "Records the second unit, Armbian, simple ZFS NAS, Wi-Fi state and storage/wireless variants."
+      }
+    ],
+    "zh": {
+      "stage": "论坛用户报告第二台 T95Z Plus 运行 Armbian，并用 ZFS 池做简单 NAS，同时记录 Wi-Fi 不工作和内部变体。",
+      "usable": "作者的具体变体能做简单头less NAS，但无线和硬件一致性差。",
+      "works_for": [
+        "与报告相同 PCB/存储的 T95Z Plus",
+        "有线网络和 USB 存储的非关键实验 NAS"
+      ],
+      "not_for": [
+        "只凭八角外壳判断兼容",
+        "保存唯一数据或依赖 Wi-Fi 的 NAS"
+      ],
+      "value": "提供一个具体可用结果，同时直接证明同名硬件有差异。",
+      "follow": "能核对内部并接受数据实验风险时继续；重要存储选可维护硬件。"
+    },
+    "en": {
+      "stage": "A forum user reports a second T95Z Plus running Armbian and a ZFS pool as a simple NAS, while recording failed Wi-Fi and internal variants.",
+      "usable": "The reported variant serves as a basic headless NAS, with poor wireless and hardware consistency.",
+      "works_for": [
+        "T95Z Plus units matching the reported PCB/storage",
+        "Noncritical wired-network NAS experiments with USB storage"
+      ],
+      "not_for": [
+        "Assuming compatibility from the octagonal shell",
+        "Unique data or Wi-Fi-dependent storage"
+      ],
+      "value": "Provides a concrete working result while proving variation under the same product name.",
+      "follow": "Continue after internal identification and with disposable data; use maintainable hardware for important storage."
+    }
+  },
+  "universal-retro-keyboard": {
+    "resources": [
+      {
+        "url": "https://forum.vcfed.org/index.php?threads/universal-retro-keyboard-project.73856/",
+        "kind": "forum-development-thread",
+        "zh_label": "VCF 开发讨论帖（本轮直接访问 503）",
+        "en_label": "VCF development thread (direct access returned 503)",
+        "zh_note": "搜索缓存显示矩阵、Apple/OSI 接口、样机、键帽与社区讨论；论坛恢复后需重新直接阅读。",
+        "en_note": "Search cache shows matrices, Apple/OSI interfaces, prototype photos, keycaps and discussion; reread directly after the forum recovers."
+      }
+    ],
+    "zh": {
+      "stage": "作者在 VCF 论坛公开可组合键盘矩阵和接口板，目标替代难找的 Apple II、OSI 等复古电脑键盘，并展示工作样机。",
+      "usable": "对已覆盖机器可获得外观和手感更接近原机的新键盘。",
+      "works_for": [
+        "帖子和项目文件明确覆盖的 Apple II、OSI 等机器",
+        "复古电脑修复和复制机"
+      ],
+      "not_for": [
+        "任意老电脑的万能键盘",
+        "不核对接口电平就接主板"
+      ],
+      "value": "解决原装键盘缺失这一常见复活瓶颈，并保留社区讨论过程。",
+      "follow": "准确机型有对应接口时继续；稀有原键盘先修复保存。"
+    },
+    "en": {
+      "stage": "The author shares modular keyboard matrices and interface boards on the VCF forum to replace scarce Apple II, OSI and other vintage keyboards, including a working prototype.",
+      "usable": "Covered systems can receive a new keyboard closer to the original feel and layout.",
+      "works_for": [
+        "Apple II, OSI and other systems explicitly covered by the thread/files",
+        "Vintage-computer restoration and replicas"
+      ],
+      "not_for": [
+        "A universal keyboard for every old computer",
+        "Connecting without checking interface voltage"
+      ],
+      "value": "Addresses a common restoration blocker—missing original keyboards—while retaining the community development record.",
+      "follow": "Continue when an exact machine has a matching interface; repair and preserve rare original keyboards first."
+    }
+  },
+  "ava-android-ha-panel": {
+    "resources": [
+      {
+        "url": "https://community.home-assistant.io/t/turn-any-android-7-16-device-into-a-ble-smart-home-control-panel/972018/1",
+        "kind": "forum-release-thread",
+        "zh_label": "作者社区发布与反馈帖",
+        "en_label": "Author community release and feedback thread",
+        "zh_note": "说明 Android 范围、32 位、Home Assistant 自动发现、BLE Proxy 和早期用户反馈。",
+        "en_note": "States Android range, 32-bit support, Home Assistant discovery, BLE Proxy and early feedback."
+      }
+    ],
+    "zh": {
+      "stage": "作者发布 Android 7–16、含 32 位支持的 Ava 改版，让闲置设备成为 HA 语音/控制面板，并加入 BLE Proxy 网关。",
+      "usable": "可尝试把仍能装 APK 的旧设备变成本地面板，低端机支持是作者主张。",
+      "works_for": [
+        "Android 7–16 且能安装作者发布 APK 的闲置设备",
+        "Home Assistant 局域网内的面板与 BLE 覆盖实验"
+      ],
+      "not_for": [
+        "无法安全长期供电的老化电池设备",
+        "要求已证明多年稳定的关键家庭控制"
+      ],
+      "value": "把显示、语音和 BLE 三种旧手机价值合在一条路线。",
+      "follow": "用备用设备短期试运行并观察权限/耗电；关键控制保留替代入口。"
+    },
+    "en": {
+      "stage": "The author releases an Ava variant for Android 7–16 including 32-bit devices, turning spares into Home Assistant voice/control panels with a BLE Proxy gateway.",
+      "usable": "A trial path for spare devices that can still install the APK; low-end support is an author claim.",
+      "works_for": [
+        "Spare Android 7–16 devices able to install the author release",
+        "Panel and BLE-coverage experiments on a Home Assistant LAN"
+      ],
+      "not_for": [
+        "Aged batteries that cannot be powered safely",
+        "Critical home control requiring proven multi-year stability"
+      ],
+      "value": "Combines display, voice and BLE roles into one old-phone route.",
+      "follow": "Pilot on a spare device and observe permissions/power; retain another control path for critical functions."
+    }
+  },
+  "laptop-backlight-light-table": {
+    "resources": [
+      {
+        "url": "https://www.instructables.com/Turn-a-broken-laptop-screen-into-a-portable-light-/",
+        "kind": "step-by-step-tutorial",
+        "zh_label": "14 步制作教程",
+        "en_label": "Fourteen-step build tutorial",
+        "zh_note": "展示拆除 LCD、保留背光和扩散层、重装便携灯板的全过程。",
+        "en_note": "Shows LCD removal, preserved backlight/diffusers and reassembly as a portable light table."
+      }
+    ],
+    "zh": {
+      "stage": "教程移除破损液晶层，保留扩散片和 CCFL/LED 背光，把不能显示图像的屏幕组件变成绘图灯板。",
+      "usable": "当 LCD 破裂但背光完好时，可恢复为透光绘图工具。",
+      "works_for": [
+        "背光和扩散层完整的坏笔记本屏幕",
+        "能保留或安全替换原背光驱动的模块"
+      ],
+      "not_for": [
+        "背光也损坏或扩散膜污染严重",
+        "不熟悉 CCFL 高压的人拆老屏"
+      ],
+      "value": "不需要匹配视频控制板，能利用显示失败但照明仍好的部件。",
+      "follow": "LED 背光低压方案更适合继续；CCFL 模块先评估高压风险。"
+    },
+    "en": {
+      "stage": "The tutorial removes the broken liquid-crystal layer while retaining diffuser sheets and CCFL/LED backlight, turning a non-imaging screen assembly into a drawing light table.",
+      "usable": "A panel with failed LCD but working backlight can become a tracing/drawing tool.",
+      "works_for": [
+        "Broken laptop screens with intact backlight and diffuser layers",
+        "Modules whose original backlight driver can be retained or safely replaced"
+      ],
+      "not_for": [
+        "Failed backlights or badly contaminated optical films",
+        "Opening CCFL panels without high-voltage experience"
+      ],
+      "value": "Avoids a video controller and uses the illumination portion when image production is no longer possible.",
+      "follow": "Low-voltage LED backlights are better candidates; assess CCFL high-voltage risk first."
+    }
+  },
+  "laptop-lcd-external-monitor": {
+    "resources": [
+      {
+        "url": "https://www.instructables.com/LCD-screen-for-under-35-recycle-old-laptops/",
+        "kind": "step-by-step-tutorial",
+        "zh_label": "作者外接屏教程",
+        "en_label": "Author external-monitor tutorial",
+        "zh_note": "说明拆屏、按型号匹配控制板、电源、视频输入和外壳选择。",
+        "en_note": "Covers panel removal, model-specific controller, power, video input and enclosure choices."
+      }
+    ],
+    "zh": {
+      "stage": "作者按面板型号购买对应控制板和电源，把拆下的笔记本 LCD 改成独立外接显示器。",
+      "usable": "型号匹配时能成为 HDMI/DVI/VGA 等输入的显示器。",
+      "works_for": [
+        "面板本身正常且能找到精确匹配控制板的 LCD",
+        "愿意制作安全外壳和固定支架的用户"
+      ],
+      "not_for": [
+        "破裂 LCD 或无法读取面板编号",
+        "把 30/40 针和 LVDS/eDP 当作可互换"
+      ],
+      "value": "是最直接、最普遍的笔记本部件复用之一。",
+      "follow": "先确认面板编号和控制板固件；匹配不确定就不要下单。"
+    },
+    "en": {
+      "stage": "The author buys a controller and power supply matched to the panel number, turning a removed laptop LCD into a standalone external display.",
+      "usable": "With a correct match, the panel can accept HDMI/DVI/VGA or similar standard inputs.",
+      "works_for": [
+        "Working LCDs with an exact compatible controller",
+        "Users able to build a safe enclosure and mount"
+      ],
+      "not_for": [
+        "Cracked LCDs or panels without readable identifiers",
+        "Treating 30/40-pin and LVDS/eDP as interchangeable"
+      ],
+      "value": "One of the most direct and broadly useful laptop-part reuse routes.",
+      "follow": "Confirm panel number and controller firmware first; do not order when matching is uncertain."
+    }
+  },
+  "old-laptop-vintage-media-pc": {
+    "resources": [
+      {
+        "url": "https://www.instructables.com/Vintage-Look-Media-PC/",
+        "kind": "step-by-step-build",
+        "zh_label": "30 步完整制作教程",
+        "en_label": "Thirty-step complete build",
+        "zh_note": "覆盖拆机、屏幕、天线、摄像头、扬声器、木工、遥控和电池风险步骤。",
+        "en_note": "Covers teardown, display, antennas, camera, speakers, woodworking, remote and risky battery work."
+      }
+    ],
+    "zh": {
+      "stage": "30 步教程复用笔记本主板、IPS 屏、Wi-Fi 天线、摄像头和扬声器，重新制作木质机身与遥控媒体电脑。",
+      "usable": "主板和屏幕仍工作时，可高度复用整机部件做固定媒体终端。",
+      "works_for": [
+        "屏幕、主板和扬声器尚可工作的旧笔记本",
+        "能制作机箱和重新布置散热的制作者"
+      ],
+      "not_for": [
+        "主板或屏幕已损坏的机器",
+        "没有锂电安全经验却照搬电池步骤"
+      ],
+      "value": "比只拆屏更充分地复用原机部件，并给出完整机械过程。",
+      "follow": "先做无电池插电版本；功能和温度稳定后再完善外壳。"
+    },
+    "en": {
+      "stage": "A thirty-step build reuses a laptop motherboard, IPS display, Wi-Fi antennas, camera and speakers in a new wooden enclosure with media controls.",
+      "usable": "When the board and screen work, many original parts can become a fixed media terminal.",
+      "works_for": [
+        "Older laptops with working display, board and speakers",
+        "Builders able to fabricate an enclosure and redesign cooling"
+      ],
+      "not_for": [
+        "Machines with failed motherboard or panel",
+        "Copying battery-pack work without lithium safety experience"
+      ],
+      "value": "Reuses more of the original machine than a panel-only conversion and documents the full mechanical process.",
+      "follow": "Start adapter-powered without the battery; finish the enclosure after function and temperature remain stable."
+    }
+  },
+  "recycled-laptop-calendar": {
+    "resources": [
+      {
+        "url": "https://www.instructables.com/Wall-Mounted-Google-Calendar-With-a-Recycled-Monit/",
+        "kind": "step-by-step-tutorial",
+        "zh_label": "壁挂日历制作教程",
+        "en_label": "Wall-calendar build tutorial",
+        "zh_note": "说明回收屏、控制板、树莓派、浏览器和木质壁挂结构。",
+        "en_note": "Describes the salvaged display, controller, Raspberry Pi, browser and wooden wall enclosure."
+      }
+    ],
+    "zh": {
+      "stage": "作者用回收的笔记本 LCD、匹配控制板和树莓派制作壁挂 Google Calendar，手机更新后墙面自动显示。",
+      "usable": "可成为家庭日程显示屏，但依赖云账号和网络。",
+      "works_for": [
+        "有匹配视频控制板的旧笔记本 LCD",
+        "能运行当前浏览器的树莓派或小主机"
+      ],
+      "not_for": [
+        "要求完全离线的家庭日历",
+        "把个人主账号永久登录在不受保护的显示器"
+      ],
+      "value": "提供一个清晰、日常可见的旧屏幕用途。",
+      "follow": "使用独立只读账号和自动恢复后值得试；隐私要求高时用本地日历。"
+    },
+    "en": {
+      "stage": "The author uses a salvaged laptop LCD, matching controller and Raspberry Pi for a wall-mounted Google Calendar that follows phone updates.",
+      "usable": "A practical household schedule display that depends on a cloud account and network.",
+      "works_for": [
+        "Laptop LCDs with matched video controllers",
+        "Raspberry Pi or small hosts capable of a current browser"
+      ],
+      "not_for": [
+        "A fully offline household calendar",
+        "Leaving a personal primary account logged into an exposed display"
+      ],
+      "value": "Provides a clear everyday role for an otherwise unused screen.",
+      "follow": "Worth trying with a separate read-only account and recovery; use local calendars when privacy is critical."
+    }
+  },
+  "old-3d-printer-cnc": {
+    "resources": [
+      {
+        "url": "https://www.instructables.com/Turn-an-Old-3D-Printer-Into-a-CNC-Machine/",
+        "kind": "step-by-step-tutorial",
+        "zh_label": "八步 CNC 改造教程",
+        "en_label": "Eight-step CNC conversion",
+        "zh_note": "记录旧机测试、机械重构、独立主轴和初步加工路线。",
+        "en_note": "Documents old-machine testing, mechanical changes, separate spindle and initial machining route."
+      }
+    ],
+    "zh": {
+      "stage": "作者测试闲置打印机三轴后，拆除挤出系统、增加独立主轴和刀具，把运动平台改作轻型切削。",
+      "usable": "可做泡沫、蜡、软木等轻加工实验，不应假定能铣金属。",
+      "works_for": [
+        "机械结构仍可靠的闲置笛卡尔打印机",
+        "低负载软材料雕刻与学习"
+      ],
+      "not_for": [
+        "金属重切削或无人值守",
+        "结构松动、线路暴露且无急停的机器"
+      ],
+      "value": "复用三轴运动系统，但也明确展示机械用途改变后的限制。",
+      "follow": "有机加工防护并接受轻切削时继续；普通打印机能修好时先修复。"
+    },
+    "en": {
+      "stage": "The author tests the idle printer's three axes, removes extrusion hardware and adds a separately powered spindle and tool for light cutting.",
+      "usable": "A learning route for foam, wax, soft wood and other light work, not assumed metal milling.",
+      "works_for": [
+        "Idle Cartesian printers with reliable mechanics",
+        "Low-load engraving and learning on soft materials"
+      ],
+      "not_for": [
+        "Heavy metal cutting or unattended operation",
+        "Loose mechanisms or exposed wiring without emergency stop"
+      ],
+      "value": "Reuses the three-axis platform while exposing the limits caused by changing the machine's process.",
+      "follow": "Continue with machining safeguards and light-cut expectations; repair a still-useful printer first."
+    }
+  },
+  "old-laptop-media-center": {
+    "resources": [
+      {
+        "url": "https://www.instructables.com/Convert-an-old-laptop-into-a-Media-Center/",
+        "kind": "legacy-tutorial",
+        "zh_label": "历史 OpenELEC/XBMC 教程",
+        "en_label": "Historical OpenELEC/XBMC tutorial",
+        "zh_note": "记录旧 Acer、1GB 内存、U 盘安装和电视媒体中心目标；软件已过时。",
+        "en_note": "Records an old Acer, 1 GB RAM, USB installation and TV-media-center goal; software is obsolete."
+      }
+    ],
+    "zh": {
+      "stage": "旧教程让一台 1GB 内存 Acer 笔记本通过 OpenELEC/XBMC 从 U 盘启动并连接电视，说明低规格设备曾可承担 HTPC。",
+      "usable": "作为历史方法可帮助判断旧笔记本是否适合离线本地媒体。",
+      "works_for": [
+        "能稳定启动、带可用视频输出的旧 x86 笔记本",
+        "主要播放本地低码率媒体的场景"
+      ],
+      "not_for": [
+        "直接安装教程中的旧镜像联网使用",
+        "期待所有现代流媒体和 4K 解码"
+      ],
+      "value": "保存最简单的整机复用路线，同时提醒软件时代已经变化。",
+      "follow": "先用当前系统做硬解码与安全更新测试；不合格则转成离线播放或其他用途。"
+    },
+    "en": {
+      "stage": "A historical guide boots OpenELEC/XBMC from USB on a 1 GB Acer laptop connected to a television, showing that low-spec hardware once served as an HTPC.",
+      "usable": "Useful as a historical pattern for deciding whether an old laptop can play local offline media.",
+      "works_for": [
+        "Stable older x86 laptops with usable video output",
+        "Mostly local lower-bitrate media playback"
+      ],
+      "not_for": [
+        "Installing the guide's old image on a network today",
+        "Expecting all modern streaming services and 4K decode"
+      ],
+      "value": "Preserves the simplest whole-machine reuse route while making the outdated software boundary visible.",
+      "follow": "Test current software, hardware decode and updates first; fall back to offline playback or another role."
+    }
+  },
+  "old-smartphone-video-monitor": {
+    "resources": [
+      {
+        "url": "https://www.instructables.com/Repurpose-Old-Smartphone-As-Video-Monitor/",
+        "kind": "author-use-case",
+        "zh_label": "作者旧手机监控案例",
+        "en_label": "Author old-phone monitoring example",
+        "zh_note": "说明 Samsung S5、第三方应用、账号、远程查看和简易支架。",
+        "en_note": "Describes the Samsung S5, third-party app/account, remote viewing and simple mount."
+      }
+    ],
+    "zh": {
+      "stage": "作者把旧 Samsung S5 作为摄像端，通过当时的第三方应用和账号在另一台手机查看宠物画面。",
+      "usable": "旧手机相机和 Wi-Fi 足够时可做临时宠物监控，具体应用路线可能过时。",
+      "works_for": [
+        "摄像头、Wi-Fi 和应用商店仍工作的闲置手机",
+        "短期、非关键的室内观察"
+      ],
+      "not_for": [
+        "安全关键监控或秘密录制",
+        "电池异常、系统无法更新的长期无人值守设备"
+      ],
+      "value": "展示零额外相机硬件的快速验证方式，也暴露云服务依赖。",
+      "follow": "先用本地、可审计应用短期测试；关键监控使用受维护设备。"
+    },
+    "en": {
+      "stage": "The author uses an old Samsung S5 as the camera endpoint and views a pet from another phone through a third-party app and account available at the time.",
+      "usable": "A spare phone with working camera and Wi-Fi can provide temporary pet monitoring, though the specific app route may be obsolete.",
+      "works_for": [
+        "Spare phones with functioning camera, Wi-Fi and app installation",
+        "Short-term noncritical indoor observation"
+      ],
+      "not_for": [
+        "Security-critical surveillance or covert recording",
+        "Unattended long-term use of unsafe batteries or unpatched systems"
+      ],
+      "value": "Demonstrates a no-extra-camera pilot while exposing dependence on a cloud service.",
+      "follow": "Pilot briefly with a local auditable app; use maintained devices for critical monitoring."
+    }
+  },
+  "router-case-arduino-enclosure": {
+    "resources": [
+      {
+        "url": "https://www.instructables.com/Re-purposing-an-Old-Router-Box-for-Your-Arduino-Pr/",
+        "kind": "step-by-step-tutorial",
+        "zh_label": "三步外壳复用教程",
+        "en_label": "Three-step enclosure reuse tutorial",
+        "zh_note": "展示 TG585 外壳、LED、开关、电源口和可拆原型板安装。",
+        "en_note": "Shows the TG585 case, LEDs, switch, power jack and removable prototype-board mounting."
+      }
+    ],
+    "zh": {
+      "stage": "作者复用故障 Thomson TG585 路由器外壳、开关、LED 和电源接口，装入自制家居自动化原型。",
+      "usable": "可快速得到带指示灯、按钮和易开盖的低压项目外壳。",
+      "works_for": [
+        "故障但外壳完整的低压路由器",
+        "Arduino、传感器或门铃接口等低压原型"
+      ],
+      "not_for": [
+        "希望继续使用原路由器网络功能",
+        "把未知原电源板直接接入新项目"
+      ],
+      "value": "低难度复用外壳和人机接口，适合大量常见电子废件。",
+      "follow": "确认低压与绝缘后值得做；原路由器还能修复时优先修复整机。"
+    },
+    "en": {
+      "stage": "The author reuses a failed Thomson TG585 router case, switch, LEDs and power connector to house a home-automation prototype.",
+      "usable": "Provides a low-voltage enclosure with indicators, button and easy access.",
+      "works_for": [
+        "Failed low-voltage routers with intact cases",
+        "Arduino, sensor or doorbell-interface prototypes"
+      ],
+      "not_for": [
+        "Retaining original router networking function",
+        "Connecting an unknown original power board directly to the new project"
+      ],
+      "value": "A low-complexity way to reuse common enclosures and interfaces from electronic waste.",
+      "follow": "Worth doing after low-voltage and insulation checks; repair the whole router first if it remains viable."
+    }
   }
 }

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.7.0 — 2026-10-21
+
+- Expand the public directory to 100 unique projects and leads: 53 reviewed catalog entries plus 47 E0 field leads.
+- Add 37 bilingual decision sheets sourced from Hackaday.io, Instructables, Home Assistant Community, Armbian Community Forum and Vintage Computer Federation Forum.
+- Cover old laptops, phones, tablets, TV boxes, displays, cameras, keyboards, pagers, audio meters, 3D printers, routers and game hardware without treating a search result as compatibility proof.
+- Preserve working, partial, failed, stale and research-only states separately; every new page states practical readiness, device fit, unsupported assumptions, user value, source contents and a stop condition.
+- Show the combined 100-entry count on both homepages while keeping the reviewed catalog and E0 lead totals separate.
+
 ## 1.6.0 — 2026-10-21
 
 - Rewrite both homepages around visitor outcomes: find a device, see what it can become, check fit and know when to stop.

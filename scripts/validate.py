@@ -11,6 +11,8 @@ from urllib.parse import unquote, urlsplit
 
 import jsonschema
 
+from watchlist_merge import load_watchlist
+
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/"docs"
 def load(path): return json.loads(path.read_text(encoding="utf-8"))
@@ -22,8 +24,7 @@ jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()
 projects=data["projects"]
 articles=load(ROOT/"data/articles.json")
 author_socials=load(ROOT/"data/author-socials.json")
-watchlist=load(ROOT/"data/watchlist.json")
-watchlist_details=load(ROOT/"data/watchlist-details.json")
+watchlist,watchlist_details=load_watchlist(ROOT/"data")
 assert articles and len({a["content_id"] for a in articles.values()})==len(articles), "Duplicate article content ID"
 for slug,article in articles.items():
     assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug),slug
@@ -157,8 +158,10 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist.json","watchlist-details.json"]:
+for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
+assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
+assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
 assert set(ids)=={p.stem for p in (OUT/"projects").glob("*.html")}
 for lang in ["zh","en"]:
     assert set(ids)=={p.name for p in (OUT/lang/"projects").iterdir() if p.is_dir()}
