@@ -1,8 +1,13 @@
 # Validation — current build
 
-Date: 2026-10-22. This validates the catalog, device atlas and website, not hardware compatibility.
+Date: 2026-10-23. This validates the catalog, device atlas and website, not hardware compatibility.
 
 ## Local acceptance
+
+- v1.12.0: 31 of 53 reviewed projects have distinct images: 27 attributable upstream assets and 4 clearly labelled KitAgain illustrations. The 12 new upstream assets cover UBports, Termux, OpenMediaVault, RootMyTV, KOReader, Tasmota, Xiaomi Dafang Hacks, Frigate, Rockbox, Retro iPod Spotify, AsteroidOS and the HP Laser macOS driver.
+- v1.12.0: every reviewed-project detail page now opens with a reader decision block for outcome, hardware fit and stop condition; source links are rendered as annotated resource cards in both languages.
+- v1.12.0: `python -X utf8 scripts/validate.py` passed schema, 53 unique project IDs, 30 E1 model reviews, 317 E0 leads, all generated internal links, bilingual exports and the public-file scan.
+- v1.12.0: Chromium rendered the Chinese Tasmota page and English HP Laser page with their upstream images and revised copy. At a 390 × 844 mobile viewport, the Chinese page reported `innerWidth=390` and `scrollWidth=390`; the three decision cards stacked to 358 px each. The desktop homepage rendered 53 project cards and 31 image-bearing cards with no horizontal overflow.
 
 - v1.11.0: 19 distinct project images are mapped to catalog IDs: 15 upstream project assets and 4 KitAgain project-specific illustrations.
 - v1.11.0: every upstream image retains a source page and direct file URL without assuming the repository license covers media; every illustration is explicitly labelled as not an actual device photo.

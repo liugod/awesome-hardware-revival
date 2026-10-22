@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.12.0 — 2026-10-23
+
+- Add 12 attributable upstream visuals for UBports, Termux, OpenMediaVault, RootMyTV, KOReader, Tasmota, Xiaomi Dafang Hacks, Frigate, Rockbox, Retro iPod Spotify, AsteroidOS and the HP Laser macOS driver; 31 of 53 reviewed projects now have distinct images.
+- Prefer interface screenshots, wiring diagrams and actual output photos that help readers understand the resulting use, while retaining the original page, direct asset URL, alt text, caption and conservative media-license status.
+- Rewrite reviewed-project cards and detail pages around visitor decisions: what the project gives you, which hardware must match, when to stop, what to prepare, what can go wrong and how each source link helps.
+- Replace generic source-ledger rows with annotated bilingual resource cards and make the 12 deep-dive case pages use plain, action-oriented headings.
+- Keep all compatibility, evidence and no-hands-on-testing boundaries while moving editorial process details below the practical answer.
+
 ## 1.11.0 — 2026-10-22
 
 - Add distinct visual assets to 19 reviewed projects: 15 upstream device photos, hardware diagrams or interface screenshots, and 4 project-specific KitAgain illustrations.
