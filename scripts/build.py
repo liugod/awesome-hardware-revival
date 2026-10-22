@@ -159,7 +159,7 @@ AI 功能改造 {stats['native']} 条；有明确 AI 辅助开发/配置材料 {
 
 维护状态来自带时间的 API 快照和作者说明。许可证字段优先实际根文件；没有确认的标 UNKNOWN，混合许可不压成一个宽松标签。难度为编辑判断，成本未核价，恢复描述是文档路径而非救砖保证。地区、固件缺少明确材料时保留 null。
 
-X 通过浏览器读取 4 条原始帖子正文，涉及 Onju 与 HP 驱动 2 个案例家族。部分搜索/抓取入口受限；不把转载或搜索摘要当作原帖核验。视频组件出现不等于看过或验证视频。本轮未记录点赞、浏览量作为成功证据。详见 [X 来源记录](../data/x-research.json)。
+正式目录的 X 核查通过浏览器读取 4 条原始帖子正文，涉及 Onju 与 HP 驱动 2 个案例家族；设备图谱另收录 1 条可读取并有项目仓库交叉验证的 GL-AR300M16-Ext 改造线索。部分搜索/抓取入口受限；不把转载、搜索摘要或无法读取的帖子当作原帖核验。视频组件出现不等于看过或验证视频。本轮未记录点赞、浏览量作为成功证据。详见 [X 来源记录](../data/x-research.json)与[设备图谱](../data/device-atlas.json)。
 
 ## 证据等级
 
@@ -184,9 +184,9 @@ E1 不表示项目从未被别人成功使用，只表示本轮核查停留在�
 
 [12 篇完整分析](DEEP_DIVES.zh-CN.md) 包括 XiaoGPT、Open-XiaoAI、Onju、Kindle WHOOP、Kindle Home Assistant、OCLP、HAOS、OpenWrt、Valetudo、wire-pod、HP 打印驱动、OpenLumi。每篇提供原限制、新用途、适配前提、费用未知项、拆装要求、风险与恢复、适合/不适合人群及未执行的验收清单。
 
-## 公开社区线索
+## 设备图谱与公开社区线索
 
-[双语线索数据](../data/watchlist.json)共 {len(watchlist)} 条，覆盖项目论坛、作者网站、Codeberg、GitLab、Hackaday 与 Instructables。每条分别写明已知事实、资料缺口、下一步和停止条件。E0 不自动表示上游项目不成熟。
+[双语线索数据](../data/watchlist.json)共 {len(watchlist)} 条，其中[设备图谱](../data/device-atlas.json)新增 300 个具体设备入口，覆盖中文论坛、X、ESPHome、Tasmota、postmarketOS、作者网站、Codeberg、GitLab、Hackaday 与 Instructables。每条分别写明目标、已知事实、资料缺口、适用边界、下一步和停止条件。E0 不自动表示上游项目不成熟，也不等于兼容认证。
 
 ## 排除
 
@@ -195,7 +195,7 @@ E1 不表示项目从未被别人成功使用，只表示本轮核查停留在�
 ## 明确的空白
 
 - 没有实物硬件与长期稳定性测试；耗电、端到端延迟和可恢复性没有自测数据。
-- X 覆盖集中于 2 个案例，未形成广泛作者样本；没有声称检索穷尽。
+- X 可稳定读取并交叉验证的样本仍少：正式目录集中于 2 个案例家族，设备图谱新增 1 条路由器改造线索；没有声称检索穷尽。
 - 旧手机的逐型号当前镜像、旧 NAS 的启动加载器恢复、停服穿戴服务和区域差异仍需补全。
 - 没有把智能锁、他人账号绑定解除或防盗激活锁绕过当作普通再利用指南。
 - 金额全为未知；没有本地采购价、云账单或长期总成本估计。
@@ -215,7 +215,7 @@ write(ROOT/"research/REPORT.zh-CN.md",report)
 research_body = f'<div class="detail-wrap"><section class="detail-head"><p class="eyebrow">METHOD & COVERAGE</p><h1>先看证据，<br>再谈复活。</h1><p class="intro">{len(projects)} 条资料，{len(category_counts)} 类设备。所有结论都保留来源与未知项。</p></section><section class="prose"><h2>收录意味着什么</h2><p>E1：已读项目说明和部署文档，共 {evidence_counts["E1"]} 条。E2：作者具体实机陈述或演示说明，共 {evidence_counts["E2"]} 条。E3：独立复现，本轮 0 条。本目录实物测试 0 条。</p><p>项目、跨机型平台与前置工具分别标注。53 条归并为 51 个家族，同家族后续版本不算独立成功设备。</p><h2>怎么核查</h2><p>读取 GitHub 元数据、README、许可证及版本信息，重点检查官方型号和安装文档。X 已读 4 条原始帖子，涉及 2 个案例；未播放验证视频，不以互动数据判断成功。</p><p>维护状态与核查时间逐条保留。难度是编辑判断，金额未知写 UNKNOWN，缺失固件/地区条件保留 null。不会将历史教程或文档可访问说成今天已经实测成功。</p><h2>12 篇案例分析</h2><ul>'+"".join(f'<li><a href="projects/{pid}.html">{h(next(p["name"] for p in projects if p["id"]==pid))}</a>：{h(d["search_intent"])}</li>' for pid,d in deep.items())+'</ul><h2>设备覆盖</h2><table><thead><tr><th>类别</th><th>条目</th></tr></thead><tbody>'+"".join(f'<tr><td>{h(labels["category"][k])}</td><td>{n}</td></tr>' for k,n in category_counts.items())+'</tbody></table><h2>候选与空白</h2><ul>'+"".join(f'<li>{link(c["url"],c["name"])} — {h(c["reason"])}</li>' for c in candidates)+f'</ul><p>本轮缺少长期稳定性、能耗、实际费用与独立硬件复现；旧 NAS、当前手机镜像与停服穿戴服务需继续补全。未声称覆盖全网。</p><h2>阅读完整研究</h2><p>{link(REPO+"/blob/main/research/REPORT.zh-CN.md","研究报告 ↗")} · {link(REPO+"/blob/main/research/DEEP_DIVES.zh-CN.md","案例合辑 ↗")} · {link(REPO+"/blob/main/CONTRIBUTING.md","贡献方法 ↗")}</p></section></div>'
 write(OUT/"research.html",page("研究方法、证据分级与覆盖矩阵","公开项目入选方法、证据边界、13 类设备覆盖、12 篇重点案例与待核验空白。",research_body,"research.html"))
 write(OUT/".nojekyll","")
-for name in ["catalog.json","catalog.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json"]:
+for name in ["catalog.json","catalog.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json"]:
     (OUT/"data").mkdir(parents=True,exist_ok=True)
     shutil.copyfile(ROOT/"data"/name,OUT/"data"/name)
 paths = ["","research.html"]+[f"projects/{p['id']}.html" for p in projects]

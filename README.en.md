@@ -4,17 +4,17 @@ An evidence-aware directory for giving existing hardware a useful second life: s
 
 [English website](https://kitagain.com/) · [中文网站](https://kitagain.com/zh/) · [Community forum](https://community.kitagain.com/) · [中文 README](README.md) · [English JSON](docs/data/catalog.en.json) · [English CSV](docs/data/catalog.en.csv) · [Research report (Chinese)](research/REPORT.zh-CN.md)
 
-**Version 1.8.0; project sources reviewed 2026-10-20, field-guide, community-lead and author-attribution sources reviewed 2026-10-21.** The Chinese-facing name is “垃圾佬复活站”; the English brand, domain and repository remain KitAgain. The site now contains **100 projects and community leads**: 53 reviewed project/platform/tool entries and 47 public E0 leads, plus 3 bilingual field guides. This release adds 37 leads found through Hackaday.io, Instructables, Home Assistant, Armbian, VCF and other non-repository sources. Every lead states its completion level, device fit, unsupported assumptions, source contents and continue/stop guidance.
+**Version 1.9.0; reviewed catalog sources dated 2026-10-20 and device-atlas sources dated 2026-10-22.** The Chinese-facing name is “垃圾佬复活站”; the English brand, domain and repository remain KitAgain. The site now covers **400 devices and reuse routes**: 53 reviewed project/platform/tool entries and 347 public E0 device/community leads, plus 3 bilingual field guides. This release adds 300 concrete device entries from ESPHome, Tasmota, postmarketOS, Chinese router and TV-box communities, and one readable X lead corroborated by project repositories. Every lead states its goal, device fit, unsupported assumptions, source contents and continue/stop guidance.
 
 ## What is included
 
 - 10 AI functionality projects, 2 with documented AI-assisted development or setup, 1 AI-adjacent use case, 40 conventional open-source reuse foundations.
 - 12 detailed case analyses covering prerequisites, outcomes, limitations, costs still unknown, disassembly, cloud dependencies, recovery and suggested acceptance steps.
 - Source URLs, review timestamps, README hashes where available, maintenance status, root license observations and explicit unknowns.
-- 47 public E0 field leads and 2 separate exclusions. Related generations are grouped by `family`; prerequisites and leads are not presented as finished hardware outcomes.
+- 347 public E0 device/community leads and 2 separate exclusions. The 300-entry device atlas is kept separate from the reviewed catalog; E0 entries are screening routes, not compatibility certifications or finished hardware outcomes.
 - Project pages lead with a plain-language purpose statement. All 53 reviewed entries expose the repository-owner profile as a traceability link without treating ownership as sole-authorship proof. Separately curated author social profiles require attributable project, repository or author-page evidence; the public coverage ledger is [`author-identity-coverage.json`](docs/data/author-identity-coverage.json).
 
-Evidence: **E1 (50)** = repository/deployment documentation reviewed. **E2 (3)** = specific original-author hardware claims or demonstration descriptions also reviewed. **E3 (0)** = independently reproduced case verified by this catalog. **No hands-on hardware testing was performed.** Four original X posts from two case families were read; embedded videos were not verified.
+Evidence: **E1 (50)** = repository/deployment documentation reviewed. **E2 (3)** = specific original-author hardware claims or demonstration descriptions also reviewed. **E3 (0)** = independently reproduced case verified by this catalog. **No hands-on hardware testing was performed.** Four original X posts from two reviewed case families were read; the atlas adds one readable X lead with project-repository corroboration. Embedded videos were not verified.
 
 ## Start with your device
 

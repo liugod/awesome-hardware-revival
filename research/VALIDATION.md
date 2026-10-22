@@ -1,8 +1,15 @@
 # Validation — current build
 
-Date: 2026-10-20. This validates the catalog and website, not hardware compatibility.
+Date: 2026-10-22. This validates the catalog, device atlas and website, not hardware compatibility.
 
 ## Local acceptance
+
+- v1.9.0: the combined public total is exactly 400: 53 reviewed catalog entries plus 347 E0 leads, including 300 device-atlas records with unique IDs and slugs.
+- v1.9.0: the device atlas contains 100 ESPHome, 100 Tasmota, 50 ophub/Armbian TV-box, 30 Chinese OpenWrt/router, 19 postmarketOS and 1 X-plus-GitHub route.
+- v1.9.0: all 300 new entries include a purpose, practical readiness, device boundary, evidence gap, next check, stop condition and annotated source access state in both languages.
+- v1.9.0: the build emits 822 localized pages, one complete English root and 54 historical URLs, for 877 static HTML pages.
+- v1.9.0: the rendered Chinese atlas showed 347/347 entries; searching `AX3000T` returned exactly one Xiaomi Mi Router AX3000T result, whose Chinese and English detail pages exposed the goal, readiness, device boundary, evidence gap, next check, stop condition and annotated source.
+- v1.9.0: the English AX3000T detail page rendered at 390 × 844 with `innerWidth=390` and `scrollWidth=390`, so no horizontal overflow was observed in the emulated mobile viewport.
 
 - v1.8.0: all 53 reviewed project pages include a repository-owner identity link; validation treats it as traceability rather than sole-authorship proof.
 - v1.8.0: 4 projects have separately curated author social profiles with attribution method and review date. The public coverage ledger contains 53 unique project rows.

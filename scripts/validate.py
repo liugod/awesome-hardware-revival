@@ -25,6 +25,12 @@ projects=data["projects"]
 articles=load(ROOT/"data/articles.json")
 author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
+device_atlas=load(ROOT/"data/device-atlas.json")
+assert len(device_atlas["items"])==300 and device_atlas["counts"]["total"]==300, "Device atlas must contain 300 new records"
+assert len(projects)+len(watchlist)==400, "Public project/device denominator must equal 400"
+assert len({item["slug"] for item in device_atlas["items"]})==300, "Duplicate device-atlas slug"
+assert len({item["content_id"] for item in device_atlas["items"]})==300, "Duplicate device-atlas content ID"
+assert all(item["source_url"].startswith("https://") and item["device"] and item["model"] and item["source_access"] and item["discovery_channel"] for item in device_atlas["items"]), "Incomplete device-atlas record"
 assert articles and len({a["content_id"] for a in articles.values()})==len(articles), "Duplicate article content ID"
 for slug,article in articles.items():
     assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug),slug
@@ -47,7 +53,7 @@ for slug,lead in watchlist.items():
     assert lead["source_url"].startswith("https://"),slug
     assert lead["code_url"] is None or lead["code_url"].startswith("https://"),slug
     assert all(url.startswith("https://") for url in lead["additional_sources"]),slug
-    assert lead["content_id"].startswith("L") and lead["status"] and lead["source_platform"],slug
+    assert re.fullmatch(r"(?:L\d{2,3}|D\d{3})",lead["content_id"]) and lead["status"] and lead["source_platform"],slug
     for lang in ["zh","en"]:
         assert all(lead[lang][key] for key in ["title","summary","gap","next_check","safety"]),slug
         decision=watchlist_details[slug][lang]
@@ -158,7 +164,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json"]:
+for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"

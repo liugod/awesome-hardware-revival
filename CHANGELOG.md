@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.9.0 — 2026-10-22
+
+- Expand the combined public directory from 100 to 400 devices and reuse routes: 53 reviewed entries plus 347 E0 device/community leads.
+- Add a 300-entry device atlas covering ESPHome, Tasmota, postmarketOS, Chinese OpenWrt/router discussions, Chinese Armbian/TV-box documentation and one readable X lead corroborated by project repositories.
+- Generate bilingual decision pages for every device with a clear goal, practical readiness, model boundary, evidence gap, annotated sources, next check and stop condition.
+- Add device/model/source search and source filtering to the bilingual atlas index while keeping every entry readable without JavaScript.
+- Preserve source-access limits and keep E0 device records separate from reviewed E1/E2 projects; no new hardware testing or blanket compatibility claim is made.
+
 ## 1.8.0 — 2026-10-21
 
 - Add a traceable repository-owner identity link to every reviewed project page, covering all 53 catalog entries without treating repository ownership as proof of sole authorship.
