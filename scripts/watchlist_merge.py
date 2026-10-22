@@ -280,4 +280,48 @@ def load_watchlist(data_dir):
             "zh": {key: localized["zh"][key] for key in ["summary", "usable", "works_for", "not_for", "value", "follow"] if key != "summary"} | {"stage": localized["zh"]["summary"]},
             "en": {key: localized["en"][key] for key in ["summary", "usable", "works_for", "not_for", "value", "follow"] if key != "summary"} | {"stage": localized["en"]["summary"]},
         }
+    reviews = json.loads((data_dir / "device-reviews.json").read_text(encoding="utf-8"))
+    assert len(reviews["items"]) == 30, "The first device-review batch must contain exactly 30 records"
+    by_content_id = {lead["content_id"]: slug for slug, lead in base.items()}
+    for review in reviews["items"]:
+        content_id = review["content_id"]
+        if content_id not in by_content_id:
+            raise ValueError(f"Device review points to missing atlas record: {content_id}")
+        slug = by_content_id[content_id]
+        lead = base[slug]
+        review_url = review["source_url"]
+        if review_url not in lead["additional_sources"] and review_url not in {lead["source_url"], lead["code_url"]}:
+            lead["additional_sources"].append(review_url)
+        lead.update({
+            "status": "source-body-reviewed-exact-model",
+            "reviewed_at": reviews["reviewed_at"],
+            "source_access": "source-body-reviewed",
+            "evidence_level": "E1",
+            "upstream_revision": review["upstream_revision"],
+            "deep_review": {lang: review[lang] for lang in ["zh", "en"]},
+        })
+        lead["zh"]["gap"] = "已读取具体型号的配置或维护资料，但 KitAgain 没有实机刷写、测量或长期运行；上游记录也不能保证当前零售批次完全相同。"
+        lead["en"]["gap"] = "An exact-model configuration or maintainer record was read, but KitAgain did not flash, measure or run the hardware long-term, and upstream evidence cannot guarantee an identical current retail revision."
+        lead["zh"]["next_check"] = f"把实物型号、PCB 和主控与资料逐项对照，再从低风险步骤开始验证。{review['zh']['recovery']}"
+        lead["en"]["next_check"] = f"Match the physical model, PCB and controller against the source, then begin with the lowest-risk validation step. {review['en']['recovery']}"
+        details[slug]["zh"].update({
+            "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。",
+            "usable": review["zh"]["result"] + " 使用前仍要遵守本页的型号边界。",
+            "value": review["zh"]["hardware"] + " " + review["zh"]["route"],
+            "follow": review["zh"]["recovery"],
+        })
+        details[slug]["en"].update({
+            "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware.",
+            "usable": review["en"]["result"] + " The model boundary on this page still applies.",
+            "value": review["en"]["hardware"] + " " + review["en"]["route"],
+            "follow": review["en"]["recovery"],
+        })
+        details[slug]["resources"].append({
+            "url": review_url,
+            "kind": "model-specific-source-review",
+            "zh_label": "已读的型号配置或维护记录",
+            "en_label": "Reviewed model configuration or maintainer record",
+            "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+            "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed.",
+        })
     return base, details

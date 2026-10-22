@@ -2394,10 +2394,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Athom-Multi-Target-Sensor-PS02C3MZ/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可在本地读取多目标存在、环境光和相关传感器信号。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Athom Multi Target Sensor PS02C3MZ 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -2406,12 +2414,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Athom Multi Target Sensor PS02C3MZ 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP32；LD2450 多目标雷达、环境光传感器、PIR 输出与板载 CH340C。 用可传数据的 USB-C 线通过板载串口直接刷入 ESPHome；随附线材被上游注明可能只有供电。",
+      "follow": "先保留原配置并确认串口枚举；无法识别 CH340C 或型号不符时停止。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Provides local multi-target presence, ambient-light and related sensor signals. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Athom Multi Target Sensor PS02C3MZ",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -2420,9 +2428,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Athom Multi Target Sensor PS02C3MZ, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP32 with LD2450 multi-target radar, ambient-light sensing, PIR output and onboard CH340C. Flash ESPHome through the onboard serial interface with a data-capable USB-C cable; upstream warns that the supplied cable may be power-only.",
+      "follow": "Keep the original configuration and confirm the CH340C enumerates; stop if serial access or the exact model does not match.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-athom-smart-plug-pg04v3-uk16a": {
@@ -4274,10 +4282,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Nous-A4t/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可实现两个受控输出以及电压、电流、功率和累计电量读取。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Nous A4t 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4286,12 +4302,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Nous A4t 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP8266/ESP8285；双继电器、按钮与 BL0937 电量计量。 上游给出完整 ESPHome GPIO 与校准配置，但没有在该页说明首次刷写入口。",
+      "follow": "首次刷写方法不清楚时不要拆接市电；先确认串口、备份与断电隔离条件。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Can expose two controlled outputs plus voltage, current, power and accumulated energy. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Nous A4t",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4300,9 +4316,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Nous A4t, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP8266/ESP8285 with two relays, a button and BL0937 power metering. Upstream provides a complete ESPHome GPIO and calibration configuration but does not document the initial-flash path on this page.",
+      "follow": "Do not open or wire mains hardware while the first-flash method is unclear; verify serial access, backup and isolation first.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-oxt-1ch-dimmer": {
@@ -4514,10 +4530,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-1-Gen4/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "适合车库门、锅炉和不同 AC/DC 电压的干接点控制。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Shelly 1 Gen4 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4526,12 +4550,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Shelly 1 Gen4 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP32-C6、8 MB 闪存和隔离干接点继电器；标准 1 Gen4 不带功率计量。 上游提供继电器、外部开关、设备按钮、状态灯和内部温度的 ESPHome 配置。",
+      "follow": "首次刷写接口未在本页完整说明；确认硬件版和低压编程方式后再接负载。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Suited to dry-contact control of garage doors, boilers and separate AC/DC circuits. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Shelly 1 Gen4",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4540,9 +4564,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Shelly 1 Gen4, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP32-C6, 8 MB flash and an isolated dry-contact relay; standard 1 Gen4 has no power metering. Upstream provides ESPHome configuration for the relay, external input, device button, status LED and internal temperature.",
+      "follow": "The page does not fully document initial flashing; verify the hardware revision and low-voltage programming route before connecting a load.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-shelly-1pm": {
@@ -4554,10 +4578,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-1PM/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可本地控制负载、记录日用电量并在过温条件下执行保护动作。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Shelly 1PM 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4566,12 +4598,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Shelly 1PM 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP8266；继电器、HLW8012 功率计量、NTC 温度与外部开关输入。 按页面 GPIO 配置 ESPHome，并对功率与温度读数按实物重新校准。",
+      "follow": "先核对接线与编程接口；计量异常或温度传感器不一致时保持继电器关闭。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Enables local load control, daily energy tracking and over-temperature actions. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Shelly 1PM",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4580,9 +4612,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Shelly 1PM, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP8266 with relay, HLW8012 power metering, NTC temperature and external switch input. Apply the documented ESPHome GPIO configuration and recalibrate power and temperature against the physical unit.",
+      "follow": "Verify wiring and the programming interface first; keep the relay off when metering or temperature behavior differs.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-shelly-duo-gu10": {
@@ -4594,10 +4626,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Duo-GU10/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可把灯泡接入本地 Home Assistant，控制亮度和冷暖色温。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Shelly Duo GU10 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4606,12 +4646,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Shelly Duo GU10 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP8266；GPIO4 与 GPIO5 驱动双色温 GU10 灯的暖白与亮度通道。 使用由 Tasmota 模板转换出的 ESPHome CWWW 配置。",
+      "follow": "首次刷写和拆灯步骤没有写明；无法确认安全编程入口时不要打开灯体。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Adds local Home Assistant brightness and color-temperature control. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Shelly Duo GU10",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4620,9 +4660,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Shelly Duo GU10, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP8266 with GPIO4 and GPIO5 driving the warm-white and brightness channels of the GU10 lamp. Use the ESPHome CWWW configuration converted from the Tasmota template.",
+      "follow": "Initial flashing and lamp disassembly are not documented; do not open it without a confirmed safe programming route.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-shelly-plug-s": {
@@ -4634,10 +4674,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Plug-S/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可作为本地智能插座，报告电压、电流、功率、日用电量和温度。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Shelly Plug S 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4646,12 +4694,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Shelly Plug S 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP8266/ESP8285；继电器、按钮、双 LED、HLW8012 计量和内部温度。 上游提供经过贡献者测试的 ESPHome 配置，含功率、过流和过温关断逻辑。",
+      "follow": "先空载校准，异常时保持继电器关闭；首次刷写方式仍需另查精确硬件版资料。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Works as a local smart plug exposing voltage, current, power, daily energy and temperature. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Shelly Plug S",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4660,9 +4708,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Shelly Plug S, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP8266/ESP8285 with relay, button, two LEDs, HLW8012 metering and internal temperature. Upstream provides a contributor-tested ESPHome configuration with power, over-current and over-temperature shutoff logic.",
+      "follow": "Calibrate unloaded and keep the relay off on anomalies; initial flashing still needs exact-revision documentation.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-shelly-plus-1pm": {
@@ -4674,10 +4722,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Plus-1PM/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可实现本地继电器控制、功率/电压测量、温度监控和扩展输入。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Shelly Plus 1PM 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4686,12 +4742,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Shelly Plus 1PM 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP32-U4WDH；已记录 2021 的单核 PCB v0.1.9 与 2026 的双核 PCB v0.2.0。 按硬件版选择 CPU 配置，再配置继电器、BL0937 计量、NTC 与扩展接口。",
+      "follow": "先读 PCB 版本并校准，无法确认单核/双核时不要直接套用编译设置。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Provides local relay control, power and voltage measurement, temperature monitoring and add-on inputs. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Shelly Plus 1PM",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4700,9 +4756,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Shelly Plus 1PM, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP32-U4WDH with a documented 2021 single-core PCB v0.1.9 and 2026 dual-core PCB v0.2.0. Select CPU settings by board revision, then configure the relay, BL0937 metering, NTC and add-on interface.",
+      "follow": "Read the PCB revision and calibrate first; do not reuse build flags when the single/dual-core version is unknown.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-shelly-plus-i4": {
@@ -4714,10 +4770,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Plus-i4/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "把四路实体按键变成本地自动化输入，不直接切换负载。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Shelly Plus i4 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4726,12 +4790,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Shelly Plus i4 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "单核 ESP32-U4WDH、4 MB 闪存和四路墙壁开关输入。 用 ESP-IDF 单核设置运行 ESPHome，把单击、双击和长按转换成 Home Assistant 事件。",
+      "follow": "先在低压编程状态验证四路输入；不要把输入端当作继电器输出。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Turns four physical switches into local automation inputs without directly switching loads. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Shelly Plus i4",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4740,9 +4804,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Shelly Plus i4, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "Single-core ESP32-U4WDH, 4 MB flash and four wall-switch inputs. Run ESPHome with ESP-IDF single-core settings and map single, double and long presses to Home Assistant events.",
+      "follow": "Validate all inputs under low-voltage programming conditions and never treat input terminals as relay outputs.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-shelly-pro-rgbww-pm": {
@@ -4754,10 +4818,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Pro-RGBWW-PM/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可控制五路单色通道或一组 RGBWW 灯带，并保留以太网与实体输入。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Shelly Pro RGBWW PM 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4766,12 +4838,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Shelly Pro RGBWW PM 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP32、8 MB 闪存、五路 PWM、8720 以太网和复用的五路开关输入。 通过 Pro 扩展接口刷写，复位时 GPIO0 接地；上游明确要求不要接 +12 V 编程脚或同时给其他端子 12 V。",
+      "follow": "先在断开负载和 12 V 的状态备份并刷写；需要未映射的计量/温度功能时停止。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Controls five monochrome channels or one RGBWW strip while retaining Ethernet and physical inputs. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Shelly Pro RGBWW PM",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4780,9 +4852,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Shelly Pro RGBWW PM, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP32, 8 MB flash, five PWM channels, 8720 Ethernet and multiplexed five-switch inputs. Flash through the Pro add-on interface with GPIO0 grounded at reset; upstream explicitly says not to connect the +12 V programming pin or power other connectors with 12 V.",
+      "follow": "Back up and flash with loads and 12 V disconnected; stop if the intended use requires the unmapped metering or temperature functions.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-shelly-i4-gen3": {
@@ -4794,10 +4866,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-i4-Gen3/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "把四路墙壁开关动作和温度诊断送入本地自动化。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Shelly i4 Gen3 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4806,12 +4886,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Shelly i4 Gen3 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP32-C3、8 MB 闪存、四路开关输入、复位键、状态灯和 NTC。 使用与 Shelly Plus i4 相同的编程接口，再按页面引脚运行 ESPHome。",
+      "follow": "先确认机壳和 PCB 为 Gen3；输入编号或温度读数异常时断电复核。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Feeds four wall-switch actions and temperature diagnostics into local automation. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Shelly i4 Gen3",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4820,9 +4900,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Shelly i4 Gen3, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP32-C3, 8 MB flash, four switch inputs, reset button, status LED and NTC. Use the same programming interface as Shelly Plus i4, then run ESPHome with the documented Gen3 pins.",
+      "follow": "Confirm the enclosure and PCB are Gen3; power down and re-check when input numbering or temperature is wrong.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-sinilink-xy-wpce": {
@@ -4914,10 +4994,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-BASIC-R2-v1.4/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可本地控制单路继电器，并让按钮和双色指示灯保持一致。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Sonoff BASIC R2 v1.4 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4926,12 +5014,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Sonoff BASIC R2 v1.4 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP8285；GPIO0 按钮、GPIO12 继电器/红灯、GPIO13 蓝色状态灯。 按 v1.4 页面配置 ESPHome；页面同时给出老 PCB 与 2023 PCB 照片用于核对。",
+      "follow": "先按 PCB 照片确认 v1.4；版本不符时不要继续套用 GPIO。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Provides local single-relay control with consistent button and dual-color indicator behavior. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Sonoff BASIC R2 v1.4",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4940,9 +5028,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Sonoff BASIC R2 v1.4, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP8285 with GPIO0 button, GPIO12 relay/red LED and GPIO13 blue status LED. Apply the v1.4 ESPHome configuration and compare the unit against the older and 2023 PCB photos.",
+      "follow": "Match the PCB photos to v1.4 first; stop rather than reuse the GPIO map on another revision.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-sonoff-minir4m": {
@@ -4954,10 +5042,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-MINIR4M/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "换芯成功后可运行 ESPHome 控制继电器、外部开关、按钮和蓝色 LED。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Sonoff MINIR4M 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -4966,12 +5062,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Sonoff MINIR4M 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP32-C3、4 MB 闪存、单继电器、外部输入和按钮；原芯片因 Matter 认证被锁定。 上游明确说明不能直接重刷，路线是准备带 4 MB 内置闪存的新 ESP32-C3 并更换原 IC。",
+      "follow": "没有热风返修、芯片编程和板级检查能力时停止；保留原芯片无法靠软件解锁。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "After a successful chip swap, ESPHome can control the relay, external switch, button and blue LED. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Sonoff MINIR4M",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -4980,9 +5076,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Sonoff MINIR4M, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP32-C3, 4 MB flash, one relay, external input and button; the original chip is flash-locked for Matter certification. Upstream says direct reflashing is impossible; the documented route replaces the IC with a new ESP32-C3 containing 4 MB integrated flash.",
+      "follow": "Stop without hot-air rework, chip programming and board-inspection skills; the original locked chip cannot be software-unlocked by this route.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-sonoff-powr316-16a": {
@@ -4994,10 +5090,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-POWR316-16a/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可本地开关负载并读取电流、电压、功率和累计电量。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Sonoff POWR316 16a 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -5006,12 +5110,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Sonoff POWR316 16a 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP32；16 A 继电器、CSE7766 计量、按钮和两路状态灯。 拆下四颗螺丝接入四针编程口，按住按钮上电进入 bootloader，再刷 ESPHome。",
+      "follow": "编程时与市电完全隔离并先保留原固件信息；型号后缀不符时停止。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Provides local load switching plus current, voltage, power and accumulated-energy readings. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Sonoff POWR316 16a",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -5020,9 +5124,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Sonoff POWR316 16a, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP32 with 16 A relay, CSE7766 metering, button and two status LEDs. Remove four screws, use the four-pin programming header, hold the button while powering to enter the bootloader, then flash ESPHome.",
+      "follow": "Keep programming fully isolated from mains and preserve stock information; stop when the model suffix differs.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-sonoff-s31": {
@@ -5034,10 +5138,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-S31/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可本地控制插座并读取电流、电压、功率、功率因数和电量。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Sonoff S31 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -5046,12 +5158,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Sonoff S31 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP8266、4 MB 闪存、单继电器、按钮、LED 与 CSE7766 电量计。 不能用 tuya-convert；必须拆盖接串口，按住按钮上电进入 bootloader。",
+      "follow": "首次刷写保持继电器 ALWAYS_OFF，只通过 OTA 再调整掉电恢复状态；串口供电时不要带负载。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Provides local plug control plus current, voltage, power, power factor and energy readings. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Sonoff S31",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -5060,9 +5172,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Sonoff S31, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP8266 with 4 MB flash, one relay, button, LEDs and CSE7766 metering. Tuya-convert is not supported; remove the cover, use the serial header and hold the button at power-on for bootloader mode.",
+      "follow": "Keep the relay ALWAYS_OFF for initial flashing and change power-restore behavior only through OTA; never attach a load while powered by the programmer.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-sonoff-thr316": {
@@ -5074,10 +5186,18 @@
         "en_label": "ESPHome device configuration page",
         "zh_note": "上游设备库为这个型号保留的配置入口；本轮确认页面存在，未把页面内容视为 KitAgain 实机验证。",
         "en_note": "The upstream device-database entry for this model. Its presence was confirmed; KitAgain has not treated it as hands-on verification."
+      },
+      {
+        "url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-THR316/index.md",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "可作为准确型号的配置入口；在核对芯片和硬件修订前，不能把它当成即刷即用固件。",
+      "usable": "可本地监测温度，并按设定点控制加热负载。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Sonoff THR316 的设备",
         "愿意核对芯片、PCB 和刷写方式的 ESPHome 用户"
@@ -5086,12 +5206,12 @@
         "只有外壳相似、无法确认内部主控的设备",
         "不具备安全拆机条件的市电设备"
       ],
-      "value": "把分散的 ESPHome 设备配置落到具体型号，方便先判断是否值得拆机和继续查证。",
-      "follow": "如果型号和芯片完全一致，值得继续；任一硬件修订不明时先停在资料核对阶段。",
-      "stage": "目标很明确：为 Sonoff THR316 使用 ESPHome 配置，摆脱或减少原厂云依赖，并接入 Home Assistant 等本地系统。"
+      "value": "ESP32；单继电器、三路 LED、按钮和 RJ9 外接 DS18B20 传感器总线。 按页面 GPIO 与 RJ9 引脚配置 ESPHome，将温度传感器和继电器组合成 Home Assistant 恒温控制。",
+      "follow": "默认上电关闭继电器，先验证传感器温度和长短按逻辑，再连接真实负载。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A model-specific configuration starting point, not a flash-ready guarantee until the chip and board revision match.",
+      "usable": "Monitors temperature locally and switches a heating load around a set point. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is Sonoff THR316",
         "ESPHome users prepared to verify the chip, PCB and flashing route"
@@ -5100,9 +5220,9 @@
         "Lookalike products whose controller cannot be identified",
         "Mains devices without a safe disassembly and isolation setup"
       ],
-      "value": "Maps a scattered ESPHome configuration to a concrete model so a user can decide whether deeper research and disassembly are worthwhile.",
-      "follow": "Continue when the exact model and chip match; stop at research when any hardware revision remains unclear.",
-      "stage": "The goal is clear: use an ESPHome configuration for Sonoff THR316, reduce dependence on the vendor cloud and connect it to a local system such as Home Assistant."
+      "value": "ESP32 with one relay, three LEDs, button and RJ9 bus for an external DS18B20 sensor. Use the documented GPIO and RJ9 pinout to combine the temperature sensor and relay as a Home Assistant thermostat.",
+      "follow": "Keep the relay off at boot and validate sensor readings plus short/long button behavior before connecting a real load.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-esphome-strong-helo-plusb": {
@@ -6114,10 +6234,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/ESP-01-01S-DS18B20-v1",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "可把廉价温度节点接入 Tasmota、MQTT 和本地自动化。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 ESP-01-01S-DS18B20-v1.0 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -6126,12 +6254,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 DS18B20 ESP01 DIY (ESP-01-01S-DS18B20-v1.0) 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "ESP-01/ESP-01S 与 DS18B20 温度探头组合板。 上游模板标记为串口刷写，并链接 ESP-01(S) 通用刷写方法。",
+      "follow": "先用 3.3 V 串口确认可进入刷写模式；供电或引脚不明时停止。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "Turns a low-cost temperature node into a local Tasmota/MQTT sensor. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is ESP-01-01S-DS18B20-v1.0",
         "Tasmota users able to verify the controller and template revision"
@@ -6140,9 +6268,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for DS18B20 ESP01 DIY (ESP-01-01S-DS18B20-v1.0) so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "ESP-01/ESP-01S board paired with a DS18B20 temperature probe. The upstream template marks serial flashing and links the general ESP-01(S) procedure.",
+      "follow": "Confirm 3.3 V serial bootloader access first and stop when power or pins are uncertain.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-esp12f-relay-30a-x4": {
@@ -6154,10 +6282,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/ESP12F_Relay_30A_X4",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "可作为四路本地继电器控制板。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 ESP12F_Relay_30A X4 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -6166,12 +6302,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 ESP-12F 5V/7-28V 4 Channel 30A (ESP12F_Relay_30A X4) 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "ESP-12F、四路标称 30 A 继电器，支持 5 V 或 7–28 V 板级供电。 焊接附带排针并通过串口刷写 Tasmota，再应用四路模板。",
+      "follow": "先用低压和小负载逐路测试；没有隔离外壳、保险和端子核算时不要接大电流。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "Provides a four-channel local relay controller. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is ESP12F_Relay_30A X4",
         "Tasmota users able to verify the controller and template revision"
@@ -6180,9 +6316,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for ESP-12F 5V/7-28V 4 Channel 30A (ESP12F_Relay_30A X4) so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "ESP-12F with four nominal 30 A relays and 5 V or 7–28 V board power. Solder the supplied headers, flash Tasmota over serial and apply the four-channel template.",
+      "follow": "Test each channel at low voltage and low load; do not use high current without enclosure, fuse and terminal calculations.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-gsp1311": {
@@ -6274,10 +6410,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/QRA2",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "硬件匹配时可作为本地红外控制器。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 QRA2 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -6286,12 +6430,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 Remote Control (QRA2) 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "QRA2 红外/蓝牙遥控器，资料记录 WB3S 模组。 模板标为串口刷写，但同时标记 unsupported；需要先确认是否已换成 ESP 兼容模组。",
+      "follow": "未确认模组替换方案前停在拆机识别阶段，不要直接上传 ESP 固件。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "With matching hardware it can become a local IR controller. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is QRA2",
         "Tasmota users able to verify the controller and template revision"
@@ -6300,9 +6444,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for Remote Control (QRA2) so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "QRA2 infrared/Bluetooth remote with a documented WB3S module. The template says serial flashing but is explicitly marked unsupported; first establish whether an ESP-compatible module has replaced WB3S.",
+      "follow": "Stop at module identification until a replacement route is confirmed; do not upload ESP firmware to the stock module.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-sk-w803-01-us": {
@@ -7074,10 +7218,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/blitzwolf_BW-AF1",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "可通过 MQTT/Home Assistant 读取状态并控制烹饪流程。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 BW-AF1 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -7086,12 +7238,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 BlitzWolf Air Fryer (BW-AF1) 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "BlitzWolf BW-AF1 空气炸锅，TYWE3S Wi-Fi 模组与 TuyaMCU 控制板。 撬开上盖接近 TYWE3S，经串口刷 Tasmota，并按文档映射温度、时间、模式和启停 DP。",
+      "follow": "保留原始 DP 信息，先空载验证；任何温控、风机或安全联锁异常都应恢复原系统。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "Exposes status and cooking controls through MQTT/Home Assistant. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is BW-AF1",
         "Tasmota users able to verify the controller and template revision"
@@ -7100,9 +7252,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for BlitzWolf Air Fryer (BW-AF1) so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "BlitzWolf BW-AF1 air fryer with TYWE3S Wi-Fi module and TuyaMCU controller. Pry off the top cover for TYWE3S access, flash Tasmota over serial, then map temperature, time, mode and start/pause datapoints.",
+      "follow": "Preserve original datapoints and test without food first; restore stock operation on any temperature, fan or safety-interlock anomaly.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-blitzwolf-shp10p": {
@@ -7314,10 +7466,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/cloudfree_P1EU",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "可直接作为本地控制和计量插座使用。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 P1EU 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -7326,12 +7486,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 CloudFree EU (P1EU) 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "CloudFree P1EU 欧规插座；模板包含继电器、按钮、指示灯和计量引脚。 上游标记为预装 Tasmota，无需先拆机刷写；应用模板并校准计量。",
+      "follow": "先记录出厂模板并导出配置；模板与实际按钮/计量行为不符时恢复备份。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "Can be used directly as a local-control and power-metering plug. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is P1EU",
         "Tasmota users able to verify the controller and template revision"
@@ -7340,9 +7500,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for CloudFree EU (P1EU) so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "CloudFree P1EU EU plug with relay, button, indicator and metering pins in the template. Upstream marks it preflashed with Tasmota, avoiding an initial disassembly flash; apply the template and calibrate metering.",
+      "follow": "Record the factory template and export settings first; restore the backup when buttons or metering differ.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-connect-smarthome-csh-fstn12": {
@@ -7554,10 +7714,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/eachen-IR-DC6",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "可把空调、电视等红外设备接入本地 Tasmota 控制。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 eachen-IR-DC6 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -7566,12 +7734,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 Eachen IR DC6 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "Eachen IR DC6，TYWE3S 模组、红外发射与接收通道。 模板标为串口刷写，并给出 TYWE3S 直刷接点照片。",
+      "follow": "拆机先核对 TYWE3S 与 3.3 V 接点；模组不同就停止。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "Brings infrared appliances such as AC units and TVs under local Tasmota control. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is eachen-IR-DC6",
         "Tasmota users able to verify the controller and template revision"
@@ -7580,9 +7748,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for Eachen IR DC6 so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "Eachen IR DC6 with TYWE3S module and infrared transmit/receive channels. The template marks serial flashing and includes a photo of TYWE3S programming points.",
+      "follow": "Verify TYWE3S and 3.3 V pads before opening; stop when the module differs.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-efun-sh331w": {
@@ -8474,10 +8642,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/kogan-KAPRA14WFGA",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "可通过 MQTT 控制开关、模式、风速、设温、摆风并读取水满状态。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 KAPRA14WFGA 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -8486,12 +8662,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 Kogan 4.1kW Portable Air Conditioner (Reverse Cycle) (KAPRA14WFGA) 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "Kogan KAPRA14WFGA 4.1 kW 冷暖移动空调，内部 Tuya 模组与 MCU 数据点。 历史模板标为 tuya-convert；Wi-Fi 模组位于顶部控制板旁，需要拆下整个后壳才能接近。",
+      "follow": "先确认原固件可走 OTA；若必须拆机，断电等待并避开高压与制冷系统，未知 DP 不自动写入。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "MQTT can control power, mode, speed, setpoint and swing while reading the water-full state. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is KAPRA14WFGA",
         "Tasmota users able to verify the controller and template revision"
@@ -8500,9 +8676,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for Kogan 4.1kW Portable Air Conditioner (Reverse Cycle) (KAPRA14WFGA) so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "Kogan KAPRA14WFGA 4.1 kW reverse-cycle portable AC with internal Tuya module and MCU datapoints. The historical template marks tuya-convert; physical module access requires removing the full rear shell near the top control panel.",
+      "follow": "Confirm OTA eligibility first; if opening is required, disconnect power and avoid high-voltage/refrigeration sections, and never write unknown datapoints automatically.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-kohree-a19": {
@@ -8954,10 +9130,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/m5stack_core2",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "上游模板称传感器与 SD 卡完整支持，可做本地触控面板或状态屏。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 K010 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -8966,12 +9150,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 M5Stack Core2 (K010) 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "M5Stack Core2 K010，ESP32 触摸屏开发套件，带传感器与 SD 卡。 使用 tasmota32-lvgl 构建和自动配置模板。",
+      "follow": "先记录原厂固件并确认 USB 刷写；屏幕或触摸初始化失败时按准确型号恢复。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "Upstream describes full sensor and SD support for a local touch panel or status display. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is K010",
         "Tasmota users able to verify the controller and template revision"
@@ -8980,9 +9164,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for M5Stack Core2 (K010) so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "M5Stack Core2 K010 ESP32 touchscreen kit with sensors and SD card. Use the tasmota32-lvgl build and automatic-configuration template.",
+      "follow": "Preserve the factory image and verify USB flashing; restore by exact model if display or touch initialization fails.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-magichome-zj-wfmn-b-vl1": {
@@ -9594,10 +9778,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/openenergymonitor_WIFI_RELAY_",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "可运行 Tasmota，作为 MQTT 温控或通用 DIN 继电器节点。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 WIFI_RELAY_ 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -9606,12 +9798,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 OpenEnergyMonitor WiFi MQTT Thermostat (WIFI_RELAY_) 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "OpenEnergyMonitor WiFi MQTT Thermostat DIN 继电器，带 ESP 串口排针。 从按钮一侧按 GND、空脚、3V3、RX、TX 接串口，并在启动时按住按钮进入刷写模式。",
+      "follow": "刷前拍照记录方向并导出原配置；3.3 V 或地线不确定时不要上电。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "Runs Tasmota as an MQTT thermostat or general DIN relay node. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is WIFI_RELAY_",
         "Tasmota users able to verify the controller and template revision"
@@ -9620,9 +9812,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for OpenEnergyMonitor WiFi MQTT Thermostat (WIFI_RELAY_) so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "OpenEnergyMonitor WiFi MQTT Thermostat DIN relay with exposed ESP serial header. From the pushbutton side the header is GND, NC, 3V3, RX, TX; hold the button at boot for flashing mode.",
+      "follow": "Photograph orientation and export original settings before flashing; do not power it when 3.3 V or ground is uncertain.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-philips-9290012799": {
@@ -9874,10 +10066,18 @@
         "en_label": "Tasmota device template",
         "zh_note": "模板库提供型号、设备类型和配置入口；收录只表示存在模板资料，不表示 KitAgain 已刷写成功。",
         "en_note": "The template database provides model and configuration metadata. Inclusion does not mean KitAgain flashed the hardware."
+      },
+      {
+        "url": "https://github.com/blakadder/templates/blob/master/_templates/shelly_1",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "模板和型号入口已经存在，可用于判断路线；在确认当前硬件批次前不应直接套用。",
+      "usable": "可把 Shelly 1 改成本地 Tasmota 干接点控制器。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 shelly_1 的设备",
         "能够验证内部芯片与模板版本的 Tasmota 用户"
@@ -9886,12 +10086,12 @@
         "同品牌但型号或地区规格不同的产品",
         "无法安全拆机或恢复原固件的设备"
       ],
-      "value": "直接给出型号级模板入口，减少在通用刷机教程里猜 GPIO 和设备类型的时间。",
-      "follow": "型号、芯片与模板一致时可继续；芯片换代或模板页标记不支持时停止。",
-      "stage": "目标是按设备模板为 Shelly 1 配置 Tasmota，让开关、灯具、插座或传感器通过本地网页、MQTT 或智能家居系统控制。"
+      "value": "Shelly 1 Gen1，ESP8266、2 MB 闪存、单路干接点继电器和外露编程排针。 用 3.3 V、至少 350 mA 的串口适配器，将 GPIO0 接地进入刷写模式。",
+      "follow": "绝不能同时连接交流电和串口；检查 12 V 跳线位置，保留原模板后再刷。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A real model/template starting point, but not safe to apply until the current hardware revision is confirmed.",
+      "usable": "Converts Shelly 1 into a local Tasmota dry-contact controller. The model boundary on this page still applies.",
       "works_for": [
         "Devices whose exact model is shelly_1",
         "Tasmota users able to verify the controller and template revision"
@@ -9900,9 +10100,9 @@
         "Products with a different model or regional electrical version",
         "Devices without a safe disassembly or stock-firmware recovery route"
       ],
-      "value": "Provides a model-level template entry instead of forcing users to guess GPIO assignments from generic flashing guides.",
-      "follow": "Continue when model, chip and template agree; stop for a changed controller or an upstream unsupported warning.",
-      "stage": "The goal is to configure Tasmota for Shelly 1 so its switch, light, plug or sensor can be controlled locally through the web UI, MQTT or a home-automation system."
+      "value": "Shelly 1 Gen1 with ESP8266, 2 MB flash, one dry-contact relay and exposed programming header. Use a 3.3 V serial adapter capable of at least 350 mA and ground GPIO0 for flashing mode.",
+      "follow": "Never connect AC and serial simultaneously, verify the 12 V jumper, and save the original template before flashing.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-tasmota-shelly-plus-0-10v-dimmer": {
@@ -11634,10 +11834,18 @@
         "en_label": "ophub Armbian supported-device table",
         "zh_note": "维护者文档列出该型号及对应 SoC/镜像系列，并提供备份、外置启动和安装说明。",
         "en_note": "The maintainer documentation lists this model and SoC/image family, with backup, external-boot and installation guidance."
+      },
+      {
+        "url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/414",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "维护者把它列入支持表，可作为选镜像和设备树的起点；实际板型仍需确认。",
+      "usable": "可作为 Armbian 小服务器；社区报告还涉及 LED 显示和风扇 GPIO。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 HK1 Box 且 SoC/主板一致的盒子",
         "愿意先用 USB/TF 做非破坏性启动验证的用户"
@@ -11646,12 +11854,12 @@
         "同名但主板、Wi-Fi 或存储芯片未知的盒子",
         "没有原厂固件备份就准备直接写 eMMC 的设备"
       ],
-      "value": "中文维护文档把盒子型号、芯片和镜像系列放在同一张表里，方便先筛掉明显不匹配的路线。",
-      "follow": "能从外置介质稳定启动、网络和存储正常后再继续；设备树或恢复包不明时停手。",
-      "stage": "目标是让 HK1 Box 从安卓电视盒子变成 Armbian 小主机，可承载 Docker、文件服务、Home Assistant 或轻量网络服务。"
+      "value": "HK1 Box，ophub 支持表列为 Amlogic S905X3，使用 stable 内核路线。 先从 USB/TF 启动并核对 meson-sm1-hk1box-vontar-x3 设备树，再考虑写入 eMMC。",
+      "follow": "保存安卓固件和启动分区，外置启动稳定后再写 eMMC；风扇不转或温度过高时停止。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A maintainer-listed starting point for image and device-tree selection; the physical board still needs confirmation.",
+      "usable": "Can serve as a small Armbian host; the linked report also discusses LED display and fan GPIO. The model boundary on this page still applies.",
       "works_for": [
         "HK1 Box units with a matching SoC and board",
         "Users willing to validate non-destructively from USB or microSD first"
@@ -11660,9 +11868,9 @@
         "Same-name boxes with unknown board, Wi-Fi or storage chips",
         "Devices headed for direct eMMC installation without a stock backup"
       ],
-      "value": "The Chinese maintainer document maps box models to SoC/image families so obvious mismatches can be rejected early.",
-      "follow": "Continue only after stable external boot with working network and storage; stop when the device tree or recovery image is unknown.",
-      "stage": "The goal is to convert HK1 Box from an Android TV box into a small Armbian host for Docker, file services, Home Assistant or light network services."
+      "value": "HK1 Box listed by ophub under Amlogic S905X3 on the stable-kernel route. Boot from USB/microSD and verify the meson-sm1-hk1box-vontar-x3 device tree before considering eMMC installation.",
+      "follow": "Save the Android image and boot partitions and require stable external boot before eMMC; stop on fan failure or unsafe temperature.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-ophub-vontar-x3": {
@@ -11714,10 +11922,18 @@
         "en_label": "ophub Armbian supported-device table",
         "zh_note": "维护者文档列出该型号及对应 SoC/镜像系列，并提供备份、外置启动和安装说明。",
         "en_note": "The maintainer documentation lists this model and SoC/image family, with backup, external-boot and installation guidance."
+      },
+      {
+        "url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/1250",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "维护者把它列入支持表，可作为选镜像和设备树的起点；实际板型仍需确认。",
+      "usable": "可运行 Armbian 服务器系统，但内核与 eMMC 组合需要逐版验证。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 H96 Max X3 且 SoC/主板一致的盒子",
         "愿意先用 USB/TF 做非破坏性启动验证的用户"
@@ -11726,12 +11942,12 @@
         "同名但主板、Wi-Fi 或存储芯片未知的盒子",
         "没有原厂固件备份就准备直接写 eMMC 的设备"
       ],
-      "value": "中文维护文档把盒子型号、芯片和镜像系列放在同一张表里，方便先筛掉明显不匹配的路线。",
-      "follow": "能从外置介质稳定启动、网络和存储正常后再继续；设备树或恢复包不明时停手。",
-      "stage": "目标是让 H96 Max X3 从安卓电视盒子变成 Armbian 小主机，可承载 Docker、文件服务、Home Assistant 或轻量网络服务。"
+      "value": "H96 Max X3，ophub 支持表列为 S905X3，stable 内核路线。 先用 SD/USB 试启并核对专用 DTB；不要把外置启动成功直接等同于 eMMC 可安装。",
+      "follow": "保留能启动的外置介质和旧内核；新内核写入 eMMC 后黑屏时回退，不反复覆盖。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A maintainer-listed starting point for image and device-tree selection; the physical board still needs confirmation.",
+      "usable": "Can run an Armbian server, but kernel and eMMC combinations need version-specific testing. The model boundary on this page still applies.",
       "works_for": [
         "H96 Max X3 units with a matching SoC and board",
         "Users willing to validate non-destructively from USB or microSD first"
@@ -11740,9 +11956,9 @@
         "Same-name boxes with unknown board, Wi-Fi or storage chips",
         "Devices headed for direct eMMC installation without a stock backup"
       ],
-      "value": "The Chinese maintainer document maps box models to SoC/image families so obvious mismatches can be rejected early.",
-      "follow": "Continue only after stable external boot with working network and storage; stop when the device tree or recovery image is unknown.",
-      "stage": "The goal is to convert H96 Max X3 from an Android TV box into a small Armbian host for Docker, file services, Home Assistant or light network services."
+      "value": "H96 Max X3 listed by ophub as S905X3 on the stable-kernel route. Test from SD/USB with the exact DTB and do not equate successful external boot with safe eMMC installation.",
+      "follow": "Keep a bootable external image and known-working kernel; roll back on eMMC black screen rather than repeatedly overwriting.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-ophub-ugoos-x3": {
@@ -11874,10 +12090,18 @@
         "en_label": "ophub Armbian supported-device table",
         "zh_note": "维护者文档列出该型号及对应 SoC/镜像系列，并提供备份、外置启动和安装说明。",
         "en_note": "The maintainer documentation lists this model and SoC/image family, with backup, external-boot and installation guidance."
+      },
+      {
+        "url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/366",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "维护者把它列入支持表，可作为选镜像和设备树的起点；实际板型仍需确认。",
+      "usable": "特定 Q1000/QCA9377 变体有社区报告称三种网络功能可用。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 X96 Air 且 SoC/主板一致的盒子",
         "愿意先用 USB/TF 做非破坏性启动验证的用户"
@@ -11886,12 +12110,12 @@
         "同名但主板、Wi-Fi 或存储芯片未知的盒子",
         "没有原厂固件备份就准备直接写 eMMC 的设备"
       ],
-      "value": "中文维护文档把盒子型号、芯片和镜像系列放在同一张表里，方便先筛掉明显不匹配的路线。",
-      "follow": "能从外置介质稳定启动、网络和存储正常后再继续；设备树或恢复包不明时停手。",
-      "stage": "目标是让 X96 Air 从安卓电视盒子变成 Armbian 小主机，可承载 Docker、文件服务、Home Assistant 或轻量网络服务。"
+      "value": "X96 Air，支持表列为 S905X3；社区 issue 记录 Q1000/QCA9377 变体。 按网卡芯片选择 DTB，从外置介质验证以太网、Wi-Fi 和蓝牙后再决定安装。",
+      "follow": "保留多个已知 DTB 和原安卓镜像；网卡芯片不匹配时不要写 eMMC。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A maintainer-listed starting point for image and device-tree selection; the physical board still needs confirmation.",
+      "usable": "A specific Q1000/QCA9377 variant has a community report of all three network functions working. The model boundary on this page still applies.",
       "works_for": [
         "X96 Air units with a matching SoC and board",
         "Users willing to validate non-destructively from USB or microSD first"
@@ -11900,9 +12124,9 @@
         "Same-name boxes with unknown board, Wi-Fi or storage chips",
         "Devices headed for direct eMMC installation without a stock backup"
       ],
-      "value": "The Chinese maintainer document maps box models to SoC/image families so obvious mismatches can be rejected early.",
-      "follow": "Continue only after stable external boot with working network and storage; stop when the device tree or recovery image is unknown.",
-      "stage": "The goal is to convert X96 Air from an Android TV box into a small Armbian host for Docker, file services, Home Assistant or light network services."
+      "value": "X96 Air listed under S905X3, with a community report for the Q1000/QCA9377 variant. Choose the DTB by network chip and validate Ethernet, Wi-Fi and Bluetooth from external media before installation.",
+      "follow": "Keep known DTBs and the stock Android image; do not write eMMC when the network chip does not match.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-ophub-x96-max-plus-a100": {
@@ -11994,10 +12218,18 @@
         "en_label": "ophub Armbian supported-device table",
         "zh_note": "维护者文档列出该型号及对应 SoC/镜像系列，并提供备份、外置启动和安装说明。",
         "en_note": "The maintainer documentation lists this model and SoC/image family, with backup, external-boot and installation guidance."
+      },
+      {
+        "url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/506",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "维护者把它列入支持表，可作为选镜像和设备树的起点；实际板型仍需确认。",
+      "usable": "社区报告证明它能进入 Armbian，但早期测试没有完全匹配的专用 DTB。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 Tencent Aurora 3Pro 且 SoC/主板一致的盒子",
         "愿意先用 USB/TF 做非破坏性启动验证的用户"
@@ -12006,12 +12238,12 @@
         "同名但主板、Wi-Fi 或存储芯片未知的盒子",
         "没有原厂固件备份就准备直接写 eMMC 的设备"
       ],
-      "value": "中文维护文档把盒子型号、芯片和镜像系列放在同一张表里，方便先筛掉明显不匹配的路线。",
-      "follow": "能从外置介质稳定启动、网络和存储正常后再继续；设备树或恢复包不明时停手。",
-      "stage": "目标是让 Tencent Aurora 3Pro 从安卓电视盒子变成 Armbian 小主机，可承载 Docker、文件服务、Home Assistant 或轻量网络服务。"
+      "value": "腾讯极光盒子 3Pro，S905X3-B；当前支持表把它放在 S905X3 stable 路线。 先从 TF/USB 测试多个相近 DTB，分别记录启动、有线网、Wi-Fi 与蓝牙结果。",
+      "follow": "保留原系统和可启动 DTB；需要同时稳定使用 Wi-Fi/蓝牙时，未解决驱动冲突前不要写 eMMC。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A maintainer-listed starting point for image and device-tree selection; the physical board still needs confirmation.",
+      "usable": "Community evidence shows it can enter Armbian, but early testing lacked a fully matched dedicated DTB. The model boundary on this page still applies.",
       "works_for": [
         "Tencent Aurora 3Pro units with a matching SoC and board",
         "Users willing to validate non-destructively from USB or microSD first"
@@ -12020,9 +12252,9 @@
         "Same-name boxes with unknown board, Wi-Fi or storage chips",
         "Devices headed for direct eMMC installation without a stock backup"
       ],
-      "value": "The Chinese maintainer document maps box models to SoC/image families so obvious mismatches can be rejected early.",
-      "follow": "Continue only after stable external boot with working network and storage; stop when the device tree or recovery image is unknown.",
-      "stage": "The goal is to convert Tencent Aurora 3Pro from an Android TV box into a small Armbian host for Docker, file services, Home Assistant or light network services."
+      "value": "Tencent Aurora 3Pro with S905X3-B, now listed on the S905X3 stable route. Test related DTBs from microSD/USB and record boot, Ethernet, Wi-Fi and Bluetooth separately.",
+      "follow": "Keep stock firmware and a bootable DTB; do not install to eMMC when simultaneous Wi-Fi/Bluetooth is required and the driver conflict remains.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-ophub-x96-max-plus-q1": {
@@ -12754,10 +12986,18 @@
         "en_label": "ophub Armbian supported-device table",
         "zh_note": "维护者文档列出该型号及对应 SoC/镜像系列，并提供备份、外置启动和安装说明。",
         "en_note": "The maintainer documentation lists this model and SoC/image family, with backup, external-boot and installation guidance."
+      },
+      {
+        "url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/517",
+        "kind": "model-specific-source-review",
+        "zh_label": "已读的型号配置或维护记录",
+        "en_label": "Reviewed model configuration or maintainer record",
+        "zh_note": "KitAgain 已读取这份具体型号资料，并把硬件、刷写路线、可实现功能和停止条件整理到本页；仍未进行实机测试。",
+        "en_note": "KitAgain read this exact-model source and summarized hardware, installation, capabilities and stop conditions here; no hands-on test was performed."
       }
     ],
     "zh": {
-      "usable": "维护者把它列入支持表，可作为选镜像和设备树的起点；实际板型仍需确认。",
+      "usable": "可作为 Armbian 小服务器，但 eMMC 安装必须处理这个运营商盒子的分区差异。 使用前仍要遵守本页的型号边界。",
       "works_for": [
         "准确型号为 CM311-1a-YST 且 SoC/主板一致的盒子",
         "愿意先用 USB/TF 做非破坏性启动验证的用户"
@@ -12766,12 +13006,12 @@
         "同名但主板、Wi-Fi 或存储芯片未知的盒子",
         "没有原厂固件备份就准备直接写 eMMC 的设备"
       ],
-      "value": "中文维护文档把盒子型号、芯片和镜像系列放在同一张表里，方便先筛掉明显不匹配的路线。",
-      "follow": "能从外置介质稳定启动、网络和存储正常后再继续；设备树或恢复包不明时停手。",
-      "stage": "目标是让 CM311-1a-YST 从安卓电视盒子变成 Armbian 小主机，可承载 Docker、文件服务、Home Assistant 或轻量网络服务。"
+      "value": "魔百盒 CM311-1a-YST，S905L3A；支持表列为 stable 路线。 先外置启动并核对安卓分区布局，再使用适配该布局的 armbian-install 方案。",
+      "follow": "完整备份 eMMC 分区表和原厂包；安装脚本未明确适配 YST 版本时停在外置启动。",
+      "stage": "具体型号的上游配置或维护记录已读，证据升级为 E1；KitAgain 仍未实机验证。"
     },
     "en": {
-      "usable": "A maintainer-listed starting point for image and device-tree selection; the physical board still needs confirmation.",
+      "usable": "Can become a small Armbian server, but eMMC installation must account for this carrier box's partitions. The model boundary on this page still applies.",
       "works_for": [
         "CM311-1a-YST units with a matching SoC and board",
         "Users willing to validate non-destructively from USB or microSD first"
@@ -12780,9 +13020,9 @@
         "Same-name boxes with unknown board, Wi-Fi or storage chips",
         "Devices headed for direct eMMC installation without a stock backup"
       ],
-      "value": "The Chinese maintainer document maps box models to SoC/image families so obvious mismatches can be rejected early.",
-      "follow": "Continue only after stable external boot with working network and storage; stop when the device tree or recovery image is unknown.",
-      "stage": "The goal is to convert CM311-1a-YST from an Android TV box into a small Armbian host for Docker, file services, Home Assistant or light network services."
+      "value": "CM311-1a-YST carrier box with S905L3A, listed on the stable route. Boot externally, inspect the Android partition layout and use an armbian-install path adapted to that layout.",
+      "follow": "Back up the full eMMC partition table and stock image; remain on external boot until the install script explicitly supports the YST layout.",
+      "stage": "An exact-model upstream configuration or maintainer record was read, raising this route to E1; KitAgain still has not tested the hardware."
     }
   },
   "atlas-ophub-m401a": {

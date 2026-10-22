@@ -161,7 +161,7 @@ class Site:
 <title>{h(title)} · {title_brand}</title><meta name="description" content="{h(description)}">
 <link rel="canonical" href="{h(canonical)}">{alternates}<meta name="theme-color" content="#f5f3eb">
 <meta property="og:title" content="{h(title)} · {title_brand}"><meta property="og:description" content="{h(description)}"><meta property="og:url" content="{h(canonical)}"><meta property="og:type" content="website">
-<link rel="icon" href="{rel('assets/mark.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{rel('assets/style.css')}"><script src="{rel('assets/app.js')}" defer></script>
+<link rel="icon" href="{rel('assets/mark.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{rel('assets/style.css')}?v={h(CONFIG['version'])}"><script src="{rel('assets/app.js')}?v={h(CONFIG['version'])}" defer></script>
 </head><body><a class="skip" href="#main">{self.t('跳到正文','Skip to content')}</a>
 <header class="site-header"><a class="brand" href="{rel(self.lang+'/index.html')}"><span class="brand-mark">↻</span><span>{display_brand}<small>{self.t('KITAGAIN · 旧设备再就业指南','GIVE OLD HARDWARE A NEW JOB')}</small></span></a>
 <nav aria-label="{self.t('主导航','Main navigation')}"><a href="{rel(self.lang+'/index.html')}#catalog">{self.t('找改造方案','Find a route')}</a><a href="{rel(self.lang+'/leads/index.html')}">{self.t('新鲜线索','New leads')}</a><a href="{rel(self.lang+'/research/index.html')}">{self.t('我们怎么查','How we check')}</a><a href="{h(CONFIG['community_url'])}">{self.t('去社区','Community')}</a><a class="language-switch" href="{rel(target)}" lang="{other}" hreflang="{other}">{self.t('English','简体中文')}</a></nav></header>
@@ -191,13 +191,15 @@ class Site:
     def lead_card(self, slug, lead, prefix="leads/"):
         v = lead[self.lang]
         decision = WATCHLIST_DETAILS[slug][self.lang]
+        evidence = lead.get("evidence_level", "E0")
         platform = lead["source_platform"]
         if self.lang == "en":
             platform = {"恩山无线论坛":"Enshan Wireless Forum", "ophub 中文项目文档":"ophub Chinese documentation"}.get(platform, platform)
-        tags = [self.labels["category"][lead["category"]], platform, "E0"]
+        tags = [self.labels["category"][lead["category"]], platform, evidence]
         search = " ".join([v["title"], v["summary"], lead.get("device_name", ""), lead.get("device_model", ""), platform, lead.get("discovery_channel", "")])
-        attrs = f'data-search="{h(search)}" data-source="{h(platform)}" data-channel="{h(lead.get("discovery_channel", "legacy"))}"'
-        return f"""<article class="project" {attrs}><div class="tags">{''.join(f'<span>{h(tag)}</span>' for tag in tags)}</div><h3><a href="{prefix}{slug}/">{h(v['title'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('当前可用程度','Practical readiness')}</b>{h(decision['usable'])}</p><p class="limit"><b>{self.t('待核缺口','Review gap')}</b> {h(v['gap'])}</p><div class="card-end"><span class="status attention">{self.t('E0 / 需核对准确硬件','E0 / exact hardware check required')}</span><span>{h(lead['content_id'])}</span></div></article>"""
+        attrs = f'data-search="{h(search)}" data-source="{h(platform)}" data-evidence="{h(evidence)}" data-channel="{h(lead.get("discovery_channel", "legacy"))}"'
+        status = self.t("E1 / 已读具体型号资料", "E1 / exact-model source reviewed") if evidence == "E1" else self.t("E0 / 需核对准确硬件", "E0 / exact hardware check required")
+        return f"""<article class="project" {attrs}><div class="tags">{''.join(f'<span>{h(tag)}</span>' for tag in tags)}</div><h3><a href="{prefix}{slug}/">{h(v['title'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('当前可用程度','Practical readiness')}</b>{h(decision['usable'])}</p><p class="limit"><b>{self.t('待核缺口','Review gap')}</b> {h(v['gap'])}</p><div class="card-end"><span class="status {'attention' if evidence == 'E0' else ''}">{status}</span><span>{h(lead['content_id'])}</span></div></article>"""
 
     def home(self):
         t = self.t
@@ -209,21 +211,23 @@ class Site:
         filters = "".join(f'<label>{label}<select id="{key}" name="{key}"><option value="">{t("全部","All")}</option>{options(values)}</select></label>' for key,label,values in groups)
         topics = "".join(f'<a class="feature" href="guides/{gid}/"><span class="serial">0{i+1} / {t("路线比较","ROUTE COMPARISON")}</span><h3>{h(g[self.lang]["title"])}</h3><p>{h(g[self.lang]["intro"])}</p><span class="text-link">{t("查看条件与选择依据","Compare requirements and routes")} ↗</span></a>' for i,(gid,g) in enumerate(GUIDES.items()))
         articles = "".join(f'<a class="feature" href="articles/{slug}/"><span class="serial">{h(a["content_id"])} / {t("实用指南","FIELD GUIDE")}</span><h3>{h(a[self.lang]["title"])}</h3><p>{h(a[self.lang]["intro"])}</p><span class="text-link">{t("阅读核对清单与来源","Read the checklist and sources")} ↗</span></a>' for slug,a in ARTICLES.items())
+        reviewed_device_count = sum(lead.get("evidence_level") == "E1" for lead in WATCHLIST.values())
+        e0_lead_count = len(WATCHLIST) - reviewed_device_count
         featured = []
-        wanted_routes = ["x-router", "openwrt-cn", "armbian-cn", "esphome"]
-        for route in wanted_routes:
-            match = next(((slug, lead) for slug, lead in WATCHLIST.items() if lead.get("route_type") == route), None)
+        wanted_content_ids = ["D076", "D241", "D127", "D300"]
+        for content_id in wanted_content_ids:
+            match = next(((slug, lead) for slug, lead in WATCHLIST.items() if lead.get("content_id") == content_id), None)
             if match:
                 featured.append(match)
         if len(featured) < 4:
             featured += [(slug, lead) for slug, lead in WATCHLIST.items() if (slug, lead) not in featured][:4-len(featured)]
         leads = "".join(self.lead_card(slug,lead) for slug,lead in featured)
         body = f"""<section class="hero"><div class="hero-copy"><p class="eyebrow">DON'T BIN IT. REBUILD IT.</p><h1>{t('别急着扔。<br>让旧硬件重新上岗。','Don’t bin it.<br>Give it another job.')}</h1><p class="intro">{t('输入设备或型号，看看它能变成信息屏、家庭服务器、媒体播放器，还是本地智能设备。每条路线都告诉你：适不适配、难在哪里、什么时候该停手。','Search a device or model to see whether it can become a display, home server, media player or local smart device. Every route shows what fits, what is difficult and when to stop.')}</p><a class="primary" href="#catalog">{t('看看它还能干什么','See what it can become')} ↓</a><a class="secondary" href="{h(CONFIG['community_url'])}">{t('拿不准？去社区问问','Not sure? Ask the community')} ↗</a></div>
-<aside class="field-note"><span class="eyebrow">START HERE</span><div class="big-count">{len(PROJECTS)+len(WATCHLIST)}<span>{t('种设备与改造路线','devices and reuse routes')}</span></div><dl><div><dt>{t('深度核查项目','Reviewed projects')}</dt><dd>{len(PROJECTS)}</dd></div><div><dt>{t('设备与社区线索','Device and community leads')}</dt><dd>{len(WATCHLIST)}</dd></div><div><dt>{t('动手指南','Practical guides')}</dt><dd>{len(ARTICLES)}</dd></div></dl><p>{t('把兼容条件、准备工作和踩坑点放在一起，帮你少买错配件，也少刷坏一台机器。','Compatibility, preparation and common failure points in one place, so you can avoid the wrong parts and risky flashes.')}</p><small>{t('内容更新','CONTENT UPDATED')} {CONTENT_DATE}</small></aside></section>
+<aside class="field-note"><span class="eyebrow">START HERE</span><div class="big-count">{len(PROJECTS)+len(WATCHLIST)}<span>{t('种设备与改造路线','devices and reuse routes')}</span></div><dl><div><dt>{t('核查项目','Reviewed projects')}</dt><dd>{len(PROJECTS)}</dd></div><div><dt>{t('已读型号资料','Model sources reviewed')}</dt><dd>{reviewed_device_count}</dd></div><div><dt>{t('待核线索','E0 leads')}</dt><dd>{e0_lead_count}</dd></div></dl><p>{t('把兼容条件、准备工作和踩坑点放在一起，帮你少买错配件，也少刷坏一台机器。','Compatibility, preparation and common failure points in one place, so you can avoid the wrong parts and risky flashes.')}</p><small>{t('内容更新','CONTENT UPDATED')} {CONTENT_DATE}</small></aside></section>
 <div class="facts-strip"><span><b>✓</b>{t('按手里的设备找方案','Start with the hardware you own')}</span><span><b>✓</b>{t('先看清型号和条件','Check the exact model first')}</span><span><b>✓</b>{t('成功与失败经验都保留','Learn from successes and failures')}</span></div>
 <section class="featured"><div class="section-heading"><p class="eyebrow">{t('不知道从哪开始？','NOT SURE WHERE TO START?')}</p><h2>{t('先选你手里的设备','Choose the device you already have')}</h2></div><div class="feature-grid">{topics}</div></section>
 <section class="featured"><div class="section-heading"><p class="eyebrow">{t('准备动手？','READY TO TINKER?')}</p><h2>{t('先把关键条件查清楚','Check the important details first')}</h2></div><div class="feature-grid">{articles}</div></section>
-<section class="featured"><div class="section-heading"><p class="eyebrow">{t('从中文社区、X 和设备数据库继续找','FOUND ACROSS THE OPEN WEB')}</p><h2>{t('设备图谱已经扩展到 400 条','The atlas now covers 400 devices and routes')}</h2><p>{t('每条 E0 设备线索都说明目标、当前证据、硬件边界、风险和下一步。它们是筛选入口，不冒充实机验证。','Every E0 device lead states the goal, current evidence, hardware boundary, risk and next step. These are screening entries, not hands-on verification.')}</p></div><div class="project-grid">{leads}</div><p><a class="secondary" href="leads/">{t('搜索全部设备与线索','Search all devices and leads')} / {len(WATCHLIST)} ↗</a></p></section>
+<section class="featured"><div class="section-heading"><p class="eyebrow">{t('从中文社区、X 和设备数据库继续找','FOUND ACROSS THE OPEN WEB')}</p><h2>{t('400 条路线里，30 条已完成型号级资料核查','30 exact-model sources reviewed across 400 routes')}</h2><p>{t('E1 设备页已经写明芯片、刷写入口、可实现功能、版本边界和恢复条件；其余 E0 线索继续保留，方便后续筛选。两种等级都不冒充 KitAgain 实机验证。','E1 device pages now state the chip, installation route, expected functions, revision boundary and recovery conditions. The remaining E0 leads stay searchable for follow-up. Neither level is presented as KitAgain hardware testing.')}</p></div><div class="project-grid">{leads}</div><p><a class="secondary" href="leads/">{t('搜索全部设备与线索','Search all devices and leads')} / {len(WATCHLIST)} ↗</a></p></section>
 <section id="catalog" class="catalog"><div class="section-heading"><h2>{t('直接搜索你的设备','Search for your device')} <span class="muted">/ {len(PROJECTS)}</span></h2><p>{t('不知道项目名也没关系，输入设备、型号或你想实现的用途。','You do not need to know a project name. Search by device, model or the job you want it to do.')}</p></div>
 <form id="filters" class="filters" role="search"><div class="search-field"><label for="q">{t('搜索设备、型号或项目（支持中英文）','Search devices, models or projects (Chinese or English)')}</label><input id="q" name="q" type="search" placeholder="{t('例如 Kindle、LX06、打印机…','Try Kindle, LX06, printer…')}" autocomplete="off"></div>
 <div class="filter-grid">{filters}</div><div class="filter-bottom"><p id="result-count" role="status" aria-live="polite">{t('显示','Showing')} {len(PROJECTS)} / {len(PROJECTS)}</p><div><button type="button" id="share">{t('复制筛选链接','Copy filtered link')}</button><button type="reset">{t('清除筛选','Clear filters')}</button></div></div><span id="share-status" role="status"></span></form>
@@ -315,25 +319,32 @@ class Site:
 
     def leads(self):
         cards = "".join(self.lead_card(slug,lead,"") for slug,lead in WATCHLIST.items())
+        reviewed_count = sum(lead.get("evidence_level") == "E1" for lead in WATCHLIST.values())
+        e0_count = len(WATCHLIST) - reviewed_count
         source_names = lambda lead: ({"恩山无线论坛":"Enshan Wireless Forum", "ophub 中文项目文档":"ophub Chinese documentation"}.get(lead["source_platform"], lead["source_platform"]) if self.lang == "en" else lead["source_platform"])
         sources = collections.Counter(source_names(lead) for lead in WATCHLIST.values())
         source_options = "".join(f'<option value="{h(source)}">{h(source)} ({count})</option>' for source,count in sources.most_common())
         intro = self.t(
-            f"这里汇集 {len(WATCHLIST)} 条设备与社区线索，来源包括中文论坛、X、作者网站、制作社区以及 ESPHome、Tasmota、postmarketOS 等上游设备库。它们当前均为 E0：适合筛选和继续核查，还不是兼容认证。",
-            f"This section contains {len(WATCHLIST)} device and community leads from Chinese forums, X, author sites, maker communities and upstream databases such as ESPHome, Tasmota and postmarketOS. Every entry is E0: useful for screening and follow-up, not compatibility certification."
+            f"这里汇集 {len(WATCHLIST)} 条设备与社区路线，来源包括中文论坛、X、作者网站、制作社区以及 ESPHome、Tasmota、postmarketOS 等上游设备库。其中 {reviewed_count} 条已读取具体型号资料并标为 E1，另有 {e0_count} 条 E0 待继续核查；E1 仍不等于 KitAgain 实机验证。",
+            f"This section contains {len(WATCHLIST)} device and community routes from Chinese forums, X, author sites, maker communities and upstream databases such as ESPHome, Tasmota and postmarketOS. {reviewed_count} exact-model sources have been read and marked E1; {e0_count} remain E0. E1 still does not mean KitAgain tested the hardware."
         )
-        search = f'<form id="lead-filters" class="filters" role="search"><div class="search-field"><label for="lead-q">{self.t("搜索设备、型号或来源","Search device, model or source")}</label><input id="lead-q" type="search" placeholder="{self.t("例如 AX3000T、N1、ESPHome…","Try AX3000T, N1, ESPHome…")}" autocomplete="off"></div><div class="filter-grid"><label>{self.t("来源","Source")}<select id="lead-source"><option value="">{self.t("全部来源","All sources")}</option>{source_options}</select></label></div><div class="filter-bottom"><p id="lead-result-count" role="status" aria-live="polite">{self.t("显示","Showing")} {len(WATCHLIST)} / {len(WATCHLIST)}</p><button type="reset">{self.t("清除筛选","Clear filters")}</button></div></form>'
-        sections = f'<aside class="boundary"><b>{self.t("E0 的含义","What E0 means")}</b><p>{self.t("页面确认了设备与来源之间的联系，也明确写出还缺什么。开始刷机或拆机前，必须再核对准确型号、硬件修订和恢复方式。","Each page confirms the connection between a device and its source, and states what remains missing. Verify the exact model, hardware revision and recovery route before flashing or disassembly.")}</p></aside>{search}<div id="lead-grid" class="project-grid">{cards}</div><div id="lead-empty" class="empty" hidden><h3>{self.t("暂时没有匹配设备","No matching device")}</h3><p>{self.t("换一个型号、品牌或来源词试试。","Try another model, brand or source term.")}</p></div>'
+        search = f'<form id="lead-filters" class="filters" role="search"><div class="search-field"><label for="lead-q">{self.t("搜索设备、型号或来源","Search device, model or source")}</label><input id="lead-q" type="search" placeholder="{self.t("例如 AX3000T、N1、ESPHome…","Try AX3000T, N1, ESPHome…")}" autocomplete="off"></div><div class="filter-grid"><label>{self.t("来源","Source")}<select id="lead-source"><option value="">{self.t("全部来源","All sources")}</option>{source_options}</select></label><label>{self.t("证据","Evidence")}<select id="lead-evidence"><option value="">{self.t("全部证据","All evidence")}</option><option value="E1">E1 · {self.t("具体型号资料已读","Exact-model source reviewed")}</option><option value="E0">E0 · {self.t("待继续核查","Further review needed")}</option></select></label></div><div class="filter-bottom"><p id="lead-result-count" role="status" aria-live="polite">{self.t("显示","Showing")} {len(WATCHLIST)} / {len(WATCHLIST)}</p><button type="reset">{self.t("清除筛选","Clear filters")}</button></div></form>'
+        sections = f'<aside class="boundary"><b>{self.t("先看证据等级","Check the evidence level")}</b><p>{self.t("E1 表示已经读取具体型号的配置或维护记录；E0 表示目前只确认了设备与来源之间的联系。两者都需要在动手前核对准确型号、硬件修订和恢复方式。","E1 means an exact-model configuration or maintainer record was read. E0 means only the device/source connection is established. Both still require exact model, hardware revision and recovery checks before action.")}</p></aside>{search}<div id="lead-grid" class="project-grid">{cards}</div><div id="lead-empty" class="empty" hidden><h3>{self.t("暂时没有匹配设备","No matching device")}</h3><p>{self.t("换一个型号、品牌或来源词试试。","Try another model, brand or source term.")}</p></div>'
         self.article(self.t("设备图谱与社区线索","Device atlas and community leads"),intro,sections,"leads/index.html")
         for slug,lead in WATCHLIST.items():
             v = lead[self.lang]
             details = WATCHLIST_DETAILS[slug]
             decision = details[self.lang]
-            sections = f'<p class="muted">{h(lead["content_id"])} · E0 · {self.t("资料核查","Sources reviewed")} {h(lead["reviewed_at"])} · {self.t("未进行实机测试","No hands-on hardware tests")}</p>'
+            evidence = lead.get("evidence_level", "E0")
+            sections = f'<p class="muted">{h(lead["content_id"])} · {evidence} · {self.t("资料核查","Sources reviewed")} {h(lead["reviewed_at"])} · {self.t("未进行实机测试","No hands-on hardware tests")}</p>'
+            if lead.get("deep_review"):
+                review = lead["deep_review"][self.lang]
+                sections += f'<aside class="lead-verdict"><p class="eyebrow">{self.t("具体型号资料已读","EXACT-MODEL SOURCE REVIEWED")}</p><div class="decision-grid"><div><b>{self.t("硬件确认","Hardware")}</b><p>{h(review["hardware"])}</p></div><div><b>{self.t("改造路线","Installation route")}</b><p>{h(review["route"])}</p></div><div><b>{self.t("可以做到什么","Expected result")}</b><p>{h(review["result"])}</p></div><div><b>{self.t("不能扩大解释的边界","Boundary")}</b><p>{h(review["boundary"])}</p></div></div><p><b>{self.t("恢复与停止条件","Recovery and stop condition")}</b> {h(review["recovery"])}</p><small>{self.t("上游版本","Upstream revision")} {h(lead["upstream_revision"])}</small></aside>'
             sections += f'<aside class="lead-verdict"><p class="eyebrow">{self.t("先判断是否值得继续","DECIDE BEFORE YOU BUILD")}</p><div class="decision-grid"><div><b>{self.t("当前阶段","Current stage")}</b><p>{h(decision["stage"])}</p></div><div><b>{self.t("现在能用到什么程度","Practical readiness")}</b><p>{h(decision["usable"])}</p></div></div></aside>'
             sections += f'<h2>{self.t("适用设备与不能这样用的情况","Device fit and limits")}</h2><div class="before-after"><div><h3>{self.t("已知可参考或可继续核查","Known fit or worth checking")}</h3>{ul(decision["works_for"])}</div><div><h3>{self.t("不能视为已支持","Not established or unsuitable")}</h3>{ul(decision["not_for"])}</div></div>'
             sections += f'<h2>{self.t("对用户有什么价值","Why this lead is useful")}</h2><p>{h(decision["value"])}</p><aside class="boundary"><b>{self.t("是否值得继续跟进","Should you continue?")}</b><p>{h(decision["follow"])}</p></aside>'
-            sections += f'<h2>{self.t("为什么仍是 E0","Why it remains E0")}</h2><p>{h(v["gap"])}</p>'
+            gap_heading = self.t("E1 还没有证明什么", "What E1 still does not prove") if evidence == "E1" else self.t("为什么仍是 E0", "Why it remains E0")
+            sections += f'<h2>{gap_heading}</h2><p>{h(v["gap"])}</p>'
             sections += f'<h2>{self.t("下一步核验","Next review step")}</h2><p>{h(v["next_check"])}</p>'
             sections += f'<h2>{self.t("风险与停止条件","Risk and stop condition")}</h2><p>{h(v["safety"])}</p>'
             resources = "".join(f'<li><div class="resource-head">{self.link(item["url"], item[self.lang+"_label"]+" ↗")}<span>{h(item["kind"])}</span></div><p>{h(item[self.lang+"_note"])}</p><small>{h(item["url"])}</small></li>' for item in details["resources"])

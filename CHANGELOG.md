@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.10.0 — 2026-10-22
+
+- Review 30 exact-model upstream sources across ESPHome, Tasmota and ophub/Armbian, while keeping the public denominator at 400 routes.
+- Add model-specific hardware, installation, expected-result, revision-boundary and recovery fields in Chinese and English.
+- Split the device layer into 30 E1 source-reviewed routes and 317 E0 leads; E1 still means source review rather than KitAgain hardware testing.
+- Surface the reviewed-device counts and representative E1 pages on the homepage and device atlas.
+- Export `device-reviews.json` and validate its upstream revisions, bilingual decision fields and rendered source links.
+
 ## 1.9.0 — 2026-10-22
 
 - Expand the combined public directory from 100 to 400 devices and reuse routes: 53 reviewed entries plus 347 E0 device/community leads.

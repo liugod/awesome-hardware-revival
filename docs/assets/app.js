@@ -25,6 +25,7 @@
   if (leadForm) {
     const leadQuery = document.querySelector("#lead-q");
     const leadSource = document.querySelector("#lead-source");
+    const leadEvidence = document.querySelector("#lead-evidence");
     const leadCards = [...document.querySelectorAll("#lead-grid .project")];
     const leadCount = document.querySelector("#lead-result-count");
     const leadEmpty = document.querySelector("#lead-empty");
@@ -33,17 +34,20 @@
       let visible = 0;
       leadCards.forEach(card => {
         const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
-          (!leadSource.value || card.dataset.source === leadSource.value);
+          (!leadSource.value || card.dataset.source === leadSource.value) &&
+          (!leadEvidence.value || card.dataset.evidence === leadEvidence.value);
         card.hidden = !match;
         if (match) visible++;
       });
       leadCount.textContent = t(`显示 ${visible} / ${leadCards.length} 条`, `Showing ${visible} / ${leadCards.length}`);
       leadEmpty.hidden = visible !== 0;
     };
-    leadForm.addEventListener("input", applyLeadFilters);
-    leadForm.addEventListener("change", applyLeadFilters);
+    [leadQuery, leadSource, leadEvidence].forEach(control => {
+      control.addEventListener("input", applyLeadFilters);
+      control.addEventListener("change", applyLeadFilters);
+    });
     leadForm.addEventListener("submit", event => event.preventDefault());
-    leadForm.addEventListener("reset", () => { leadQuery.value = ""; leadSource.value = ""; applyLeadFilters(); });
+    leadForm.addEventListener("reset", () => { leadQuery.value = ""; leadSource.value = ""; leadEvidence.value = ""; applyLeadFilters(); });
   }
   const form = document.querySelector("#filters");
   if (!form) return;

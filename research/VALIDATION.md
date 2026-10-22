@@ -4,6 +4,11 @@ Date: 2026-10-22. This validates the catalog, device atlas and website, not hard
 
 ## Local acceptance
 
+- v1.10.0: the public denominator remains 400: 53 reviewed catalog entries, 30 E1 exact-model device-source reviews and 317 E0 device/community leads.
+- v1.10.0: all 30 model reviews carry a 40-character upstream blob revision, a direct model-specific source, and bilingual hardware, installation, expected-result, boundary and recovery fields.
+- v1.10.0: the reviewed batch covers 15 ESPHome devices, 10 Tasmota devices and 5 ophub/Armbian TV boxes; no review is promoted to E3 or described as KitAgain hardware testing.
+- v1.10.0: rendered cards and detail pages distinguish E1 source-reviewed devices from E0 leads and expose every reviewed source in the public resource list.
+
 - v1.9.0: the combined public total is exactly 400: 53 reviewed catalog entries plus 347 E0 leads, including 300 device-atlas records with unique IDs and slugs.
 - v1.9.0: the device atlas contains 100 ESPHome, 100 Tasmota, 50 ophub/Armbian TV-box, 30 Chinese OpenWrt/router, 19 postmarketOS and 1 X-plus-GitHub route.
 - v1.9.0: all 300 new entries include a purpose, practical readiness, device boundary, evidence gap, next check, stop condition and annotated source access state in both languages.

@@ -26,11 +26,19 @@ articles=load(ROOT/"data/articles.json")
 author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
 device_atlas=load(ROOT/"data/device-atlas.json")
+device_reviews=load(ROOT/"data/device-reviews.json")
 assert len(device_atlas["items"])==300 and device_atlas["counts"]["total"]==300, "Device atlas must contain 300 new records"
 assert len(projects)+len(watchlist)==400, "Public project/device denominator must equal 400"
 assert len({item["slug"] for item in device_atlas["items"]})==300, "Duplicate device-atlas slug"
 assert len({item["content_id"] for item in device_atlas["items"]})==300, "Duplicate device-atlas content ID"
 assert all(item["source_url"].startswith("https://") and item["device"] and item["model"] and item["source_access"] and item["discovery_channel"] for item in device_atlas["items"]), "Incomplete device-atlas record"
+assert len(device_reviews["items"])==30, "Expected 30 exact-model source reviews"
+assert len({item["content_id"] for item in device_reviews["items"]})==30, "Duplicate device-review content ID"
+assert {item["content_id"] for item in device_reviews["items"]}<={item["content_id"] for item in device_atlas["items"]}, "Device review points outside atlas"
+assert all(re.fullmatch(r"[0-9a-f]{40}",item["upstream_revision"]) and item["source_url"].startswith("https://") for item in device_reviews["items"]), "Invalid device-review source revision"
+for item in device_reviews["items"]:
+    for lang in ["zh","en"]:
+        assert all(item[lang][key] for key in ["hardware","route","result","boundary","recovery"]),item["content_id"]
 assert articles and len({a["content_id"] for a in articles.values()})==len(articles), "Duplicate article content ID"
 for slug,article in articles.items():
     assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug),slug
@@ -64,6 +72,12 @@ for slug,lead in watchlist.items():
     assert all(item["url"].startswith("https://") and all(item[key] for key in ["kind","zh_label","en_label","zh_note","en_note"]) for item in resources),slug
     legacy_urls={lead["source_url"],*lead["additional_sources"]}|({lead["code_url"]} if lead["code_url"] else set())
     assert legacy_urls<={item["url"] for item in resources},(slug,"legacy source missing from annotated resources")
+    if lead.get("evidence_level")=="E1":
+        assert lead["status"]=="source-body-reviewed-exact-model" and lead["source_access"]=="source-body-reviewed",slug
+        assert re.fullmatch(r"[0-9a-f]{40}",lead["upstream_revision"]),slug
+        for lang in ["zh","en"]:
+            assert all(lead["deep_review"][lang][key] for key in ["hardware","route","result","boundary","recovery"]),slug
+assert sum(lead.get("evidence_level")=="E1" for lead in watchlist.values())==30,"Merged E1 device-review count"
 ids=[p["id"] for p in projects]
 assert len(ids)==len(set(i.lower() for i in ids)), "Duplicate ID"
 assert set(p["family"] for p in projects)<=set(ids), "Missing family anchor"
@@ -164,7 +178,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json"]:
+for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
@@ -223,4 +237,4 @@ for file in ROOT.rglob("*"):
     assert "\ufffd" not in text,("UTF8 replacement character",file)
     for pattern in secret_patterns:
         assert not re.search(pattern,text),("Potential sensitive content",file)
-print(json.dumps({"schema":"PASS","unique_ids":len(ids),"families":len(set(p["family"] for p in projects)),"categories":len(set(p["category"] for p in projects)),"deep_dives":len(deep),"html_pages_and_internal_links":"PASS","csv_json_parity":"PASS","public_file_scan":"PASS","evidence":dict(collections.Counter(p["evidence"]["level"] for p in projects))},ensure_ascii=False,indent=2))
+print(json.dumps({"schema":"PASS","unique_ids":len(ids),"families":len(set(p["family"] for p in projects)),"categories":len(set(p["category"] for p in projects)),"deep_dives":len(deep),"device_source_reviews":len(device_reviews["items"]),"remaining_e0_leads":len(watchlist)-len(device_reviews["items"]),"html_pages_and_internal_links":"PASS","csv_json_parity":"PASS","public_file_scan":"PASS","catalog_evidence":dict(collections.Counter(p["evidence"]["level"] for p in projects))},ensure_ascii=False,indent=2))

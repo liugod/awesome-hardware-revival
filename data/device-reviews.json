@@ -1,0 +1,188 @@
+{
+  "schema_version": "1.0",
+  "version": "1.10.0",
+  "reviewed_at": "2026-10-22",
+  "purpose": "Model-specific source reviews for selected device-atlas entries. E1 means the linked configuration or maintainer documentation was read; it does not mean KitAgain tested the hardware.",
+  "items": [
+    {
+      "content_id": "D010", "upstream_revision": "38e27c05b9359a4f50f228664f5067eba6ef0d61",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Athom-Multi-Target-Sensor-PS02C3MZ/index.md",
+      "zh": {"hardware": "ESP32；LD2450 多目标雷达、环境光传感器、PIR 输出与板载 CH340C。", "route": "用可传数据的 USB-C 线通过板载串口直接刷入 ESPHome；随附线材被上游注明可能只有供电。", "result": "可在本地读取多目标存在、环境光和相关传感器信号。", "boundary": "资料针对 PS02C3MZ；不能推广到外观相似的其他 Athom 存在传感器。", "recovery": "先保留原配置并确认串口枚举；无法识别 CH340C 或型号不符时停止。"},
+      "en": {"hardware": "ESP32 with LD2450 multi-target radar, ambient-light sensing, PIR output and onboard CH340C.", "route": "Flash ESPHome through the onboard serial interface with a data-capable USB-C cable; upstream warns that the supplied cable may be power-only.", "result": "Provides local multi-target presence, ambient-light and related sensor signals.", "boundary": "The page covers PS02C3MZ, not every similar-looking Athom presence sensor.", "recovery": "Keep the original configuration and confirm the CH340C enumerates; stop if serial access or the exact model does not match."}
+    },
+    {
+      "content_id": "D057", "upstream_revision": "803c1694e89c5e871ff2aec8306dbe8070f6759b",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Nous-A4t/index.md",
+      "zh": {"hardware": "ESP8266/ESP8285；双继电器、按钮与 BL0937 电量计量。", "route": "上游给出完整 ESPHome GPIO 与校准配置，但没有在该页说明首次刷写入口。", "result": "可实现两个受控输出以及电压、电流、功率和累计电量读取。", "boundary": "页面图片注明 Tasmota 版本插座；必须核对 A4T 批次和内部模组。", "recovery": "首次刷写方法不清楚时不要拆接市电；先确认串口、备份与断电隔离条件。"},
+      "en": {"hardware": "ESP8266/ESP8285 with two relays, a button and BL0937 power metering.", "route": "Upstream provides a complete ESPHome GPIO and calibration configuration but does not document the initial-flash path on this page.", "result": "Can expose two controlled outputs plus voltage, current, power and accumulated energy.", "boundary": "The page image identifies a Tasmota-version plug; verify the A4T revision and internal module.", "recovery": "Do not open or wire mains hardware while the first-flash method is unclear; verify serial access, backup and isolation first."}
+    },
+    {
+      "content_id": "D063", "upstream_revision": "d43ab203c7f94a6d4b4d520c7fae05e329517238",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-1-Gen4/index.md",
+      "zh": {"hardware": "ESP32-C6、8 MB 闪存和隔离干接点继电器；标准 1 Gen4 不带功率计量。", "route": "上游提供继电器、外部开关、设备按钮、状态灯和内部温度的 ESPHome 配置。", "result": "适合车库门、锅炉和不同 AC/DC 电压的干接点控制。", "boundary": "不要把 Shelly 1 Gen4 与带 PM 的 Shelly 1PM Gen4 混为同一型号。", "recovery": "首次刷写接口未在本页完整说明；确认硬件版和低压编程方式后再接负载。"},
+      "en": {"hardware": "ESP32-C6, 8 MB flash and an isolated dry-contact relay; standard 1 Gen4 has no power metering.", "route": "Upstream provides ESPHome configuration for the relay, external input, device button, status LED and internal temperature.", "result": "Suited to dry-contact control of garage doors, boilers and separate AC/DC circuits.", "boundary": "Do not confuse Shelly 1 Gen4 with the power-metering Shelly 1PM Gen4.", "recovery": "The page does not fully document initial flashing; verify the hardware revision and low-voltage programming route before connecting a load."}
+    },
+    {
+      "content_id": "D064", "upstream_revision": "906e964e49c9206004ae84134c7bf3862b36c6ae",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-1PM/index.md",
+      "zh": {"hardware": "ESP8266；继电器、HLW8012 功率计量、NTC 温度与外部开关输入。", "route": "按页面 GPIO 配置 ESPHome，并对功率与温度读数按实物重新校准。", "result": "可本地控制负载、记录日用电量并在过温条件下执行保护动作。", "boundary": "页面中的校准点来自示例，不能当成所有 Shelly 1PM 的计量认证值。", "recovery": "先核对接线与编程接口；计量异常或温度传感器不一致时保持继电器关闭。"},
+      "en": {"hardware": "ESP8266 with relay, HLW8012 power metering, NTC temperature and external switch input.", "route": "Apply the documented ESPHome GPIO configuration and recalibrate power and temperature against the physical unit.", "result": "Enables local load control, daily energy tracking and over-temperature actions.", "boundary": "Example calibration points are not certified values for every Shelly 1PM.", "recovery": "Verify wiring and the programming interface first; keep the relay off when metering or temperature behavior differs."}
+    },
+    {
+      "content_id": "D065", "upstream_revision": "cb13fa60e04d5a9ec694be8cca9dcb047418867d",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Duo-GU10/index.md",
+      "zh": {"hardware": "ESP8266；GPIO4 与 GPIO5 驱动双色温 GU10 灯的暖白与亮度通道。", "route": "使用由 Tasmota 模板转换出的 ESPHome CWWW 配置。", "result": "可把灯泡接入本地 Home Assistant，控制亮度和冷暖色温。", "boundary": "该页面只给 GPIO 与运行配置，没有证明所有地区版本内部硬件一致。", "recovery": "首次刷写和拆灯步骤没有写明；无法确认安全编程入口时不要打开灯体。"},
+      "en": {"hardware": "ESP8266 with GPIO4 and GPIO5 driving the warm-white and brightness channels of the GU10 lamp.", "route": "Use the ESPHome CWWW configuration converted from the Tasmota template.", "result": "Adds local Home Assistant brightness and color-temperature control.", "boundary": "The page documents GPIO and runtime configuration, not identical internals across every regional revision.", "recovery": "Initial flashing and lamp disassembly are not documented; do not open it without a confirmed safe programming route."}
+    },
+    {
+      "content_id": "D066", "upstream_revision": "36deabb762b82194229a1057345ebab5c075351a",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Plug-S/index.md",
+      "zh": {"hardware": "ESP8266/ESP8285；继电器、按钮、双 LED、HLW8012 计量和内部温度。", "route": "上游提供经过贡献者测试的 ESPHome 配置，含功率、过流和过温关断逻辑。", "result": "可作为本地智能插座，报告电压、电流、功率、日用电量和温度。", "boundary": "示例中的 10 A、2400 W 与 70°C 是配置值，不是 KitAgain 的负载安全认证。", "recovery": "先空载校准，异常时保持继电器关闭；首次刷写方式仍需另查精确硬件版资料。"},
+      "en": {"hardware": "ESP8266/ESP8285 with relay, button, two LEDs, HLW8012 metering and internal temperature.", "route": "Upstream provides a contributor-tested ESPHome configuration with power, over-current and over-temperature shutoff logic.", "result": "Works as a local smart plug exposing voltage, current, power, daily energy and temperature.", "boundary": "The sample 10 A, 2400 W and 70°C values are configuration examples, not KitAgain safety certification.", "recovery": "Calibrate unloaded and keep the relay off on anomalies; initial flashing still needs exact-revision documentation."}
+    },
+    {
+      "content_id": "D067", "upstream_revision": "9b81037ab6cf33b07a021cfec250063a508ba803",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Plus-1PM/index.md",
+      "zh": {"hardware": "ESP32-U4WDH；已记录 2021 的单核 PCB v0.1.9 与 2026 的双核 PCB v0.2.0。", "route": "按硬件版选择 CPU 配置，再配置继电器、BL0937 计量、NTC 与扩展接口。", "result": "可实现本地继电器控制、功率/电压测量、温度监控和扩展输入。", "boundary": "两版 CPU 设置不同；页面明确提醒计量与 NTC 数值只是粗略起点。", "recovery": "先读 PCB 版本并校准，无法确认单核/双核时不要直接套用编译设置。"},
+      "en": {"hardware": "ESP32-U4WDH with a documented 2021 single-core PCB v0.1.9 and 2026 dual-core PCB v0.2.0.", "route": "Select CPU settings by board revision, then configure the relay, BL0937 metering, NTC and add-on interface.", "result": "Provides local relay control, power and voltage measurement, temperature monitoring and add-on inputs.", "boundary": "CPU settings differ between revisions; the page calls its metering and NTC values rough estimates.", "recovery": "Read the PCB revision and calibrate first; do not reuse build flags when the single/dual-core version is unknown."}
+    },
+    {
+      "content_id": "D068", "upstream_revision": "802a43d2728b514e8111ec0a59ead74763f81029",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Plus-i4/index.md",
+      "zh": {"hardware": "单核 ESP32-U4WDH、4 MB 闪存和四路墙壁开关输入。", "route": "用 ESP-IDF 单核设置运行 ESPHome，把单击、双击和长按转换成 Home Assistant 事件。", "result": "把四路实体按键变成本地自动化输入，不直接切换负载。", "boundary": "它是输入模块，不是四路继电器；页面主要给运行配置，首次刷写仍需单独核对。", "recovery": "先在低压编程状态验证四路输入；不要把输入端当作继电器输出。"},
+      "en": {"hardware": "Single-core ESP32-U4WDH, 4 MB flash and four wall-switch inputs.", "route": "Run ESPHome with ESP-IDF single-core settings and map single, double and long presses to Home Assistant events.", "result": "Turns four physical switches into local automation inputs without directly switching loads.", "boundary": "This is an input module, not a four-relay controller; initial flashing needs separate confirmation.", "recovery": "Validate all inputs under low-voltage programming conditions and never treat input terminals as relay outputs."}
+    },
+    {
+      "content_id": "D069", "upstream_revision": "df46b0ffac4d289a1210d6eb3fdd1cd90a97c93d",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-Pro-RGBWW-PM/index.md",
+      "zh": {"hardware": "ESP32、8 MB 闪存、五路 PWM、8720 以太网和复用的五路开关输入。", "route": "通过 Pro 扩展接口刷写，复位时 GPIO0 接地；上游明确要求不要接 +12 V 编程脚或同时给其他端子 12 V。", "result": "可控制五路单色通道或一组 RGBWW 灯带，并保留以太网与实体输入。", "boundary": "页面仍把 NTC、电压监控和部分计量引脚标为未知，PM 功能不能视为完整实现。", "recovery": "先在断开负载和 12 V 的状态备份并刷写；需要未映射的计量/温度功能时停止。"},
+      "en": {"hardware": "ESP32, 8 MB flash, five PWM channels, 8720 Ethernet and multiplexed five-switch inputs.", "route": "Flash through the Pro add-on interface with GPIO0 grounded at reset; upstream explicitly says not to connect the +12 V programming pin or power other connectors with 12 V.", "result": "Controls five monochrome channels or one RGBWW strip while retaining Ethernet and physical inputs.", "boundary": "NTC, voltage-monitor and some metering pins remain unknown on the page, so PM is not a complete implementation.", "recovery": "Back up and flash with loads and 12 V disconnected; stop if the intended use requires the unmapped metering or temperature functions."}
+    },
+    {
+      "content_id": "D070", "upstream_revision": "dc48b7ad06090fd98a55f8ddec4641a1c50bca58",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Shelly-i4-Gen3/index.md",
+      "zh": {"hardware": "ESP32-C3、8 MB 闪存、四路开关输入、复位键、状态灯和 NTC。", "route": "使用与 Shelly Plus i4 相同的编程接口，再按页面引脚运行 ESPHome。", "result": "把四路墙壁开关动作和温度诊断送入本地自动化。", "boundary": "Gen3 引脚与旧 Plus i4 不同，不能交换配置。", "recovery": "先确认机壳和 PCB 为 Gen3；输入编号或温度读数异常时断电复核。"},
+      "en": {"hardware": "ESP32-C3, 8 MB flash, four switch inputs, reset button, status LED and NTC.", "route": "Use the same programming interface as Shelly Plus i4, then run ESPHome with the documented Gen3 pins.", "result": "Feeds four wall-switch actions and temperature diagnostics into local automation.", "boundary": "Gen3 pins differ from the older Plus i4 and configurations are not interchangeable.", "recovery": "Confirm the enclosure and PCB are Gen3; power down and re-check when input numbering or temperature is wrong."}
+    },
+    {
+      "content_id": "D073", "upstream_revision": "a19302ebf234325ed9551cfc4bad670a0e186aa8",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-BASIC-R2-v1.4/index.md",
+      "zh": {"hardware": "ESP8285；GPIO0 按钮、GPIO12 继电器/红灯、GPIO13 蓝色状态灯。", "route": "按 v1.4 页面配置 ESPHome；页面同时给出老 PCB 与 2023 PCB 照片用于核对。", "result": "可本地控制单路继电器，并让按钮和双色指示灯保持一致。", "boundary": "v1.4 的蓝/红 LED 行为与更早版本不同，红灯不能在不改硬件时独立控制。", "recovery": "先按 PCB 照片确认 v1.4；版本不符时不要继续套用 GPIO。"},
+      "en": {"hardware": "ESP8285 with GPIO0 button, GPIO12 relay/red LED and GPIO13 blue status LED.", "route": "Apply the v1.4 ESPHome configuration and compare the unit against the older and 2023 PCB photos.", "result": "Provides local single-relay control with consistent button and dual-color indicator behavior.", "boundary": "v1.4 LED behavior differs from earlier versions and the red LED cannot be controlled independently without modification.", "recovery": "Match the PCB photos to v1.4 first; stop rather than reuse the GPIO map on another revision."}
+    },
+    {
+      "content_id": "D074", "upstream_revision": "b53bd833ac4ce33a31af02677357f415a43150d4",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-MINIR4M/index.md",
+      "zh": {"hardware": "ESP32-C3、4 MB 闪存、单继电器、外部输入和按钮；原芯片因 Matter 认证被锁定。", "route": "上游明确说明不能直接重刷，路线是准备带 4 MB 内置闪存的新 ESP32-C3 并更换原 IC。", "result": "换芯成功后可运行 ESPHome 控制继电器、外部开关、按钮和蓝色 LED。", "boundary": "这不是普通串口刷机，而是芯片级返修；焊接和市电风险都很高。", "recovery": "没有热风返修、芯片编程和板级检查能力时停止；保留原芯片无法靠软件解锁。"},
+      "en": {"hardware": "ESP32-C3, 4 MB flash, one relay, external input and button; the original chip is flash-locked for Matter certification.", "route": "Upstream says direct reflashing is impossible; the documented route replaces the IC with a new ESP32-C3 containing 4 MB integrated flash.", "result": "After a successful chip swap, ESPHome can control the relay, external switch, button and blue LED.", "boundary": "This is chip-level rework rather than ordinary serial flashing, with high soldering and mains risk.", "recovery": "Stop without hot-air rework, chip programming and board-inspection skills; the original locked chip cannot be software-unlocked by this route."}
+    },
+    {
+      "content_id": "D075", "upstream_revision": "666a723a7f4d8835fa90c2a4e03185d80ac09cb8",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-POWR316-16a/index.md",
+      "zh": {"hardware": "ESP32；16 A 继电器、CSE7766 计量、按钮和两路状态灯。", "route": "拆下四颗螺丝接入四针编程口，按住按钮上电进入 bootloader，再刷 ESPHome。", "result": "可本地开关负载并读取电流、电压、功率和累计电量。", "boundary": "资料针对 POWR316 16 A，不覆盖 POWR316D、POWR320D 或不同计量芯片版本。", "recovery": "编程时与市电完全隔离并先保留原固件信息；型号后缀不符时停止。"},
+      "en": {"hardware": "ESP32 with 16 A relay, CSE7766 metering, button and two status LEDs.", "route": "Remove four screws, use the four-pin programming header, hold the button while powering to enter the bootloader, then flash ESPHome.", "result": "Provides local load switching plus current, voltage, power and accumulated-energy readings.", "boundary": "The page covers POWR316 16 A, not POWR316D, POWR320D or revisions with another metering chip.", "recovery": "Keep programming fully isolated from mains and preserve stock information; stop when the model suffix differs."}
+    },
+    {
+      "content_id": "D076", "upstream_revision": "b4479b1b9673a0843caf749d842fcef3c644746a",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-S31/index.md",
+      "zh": {"hardware": "ESP8266、4 MB 闪存、单继电器、按钮、LED 与 CSE7766 电量计。", "route": "不能用 tuya-convert；必须拆盖接串口，按住按钮上电进入 bootloader。", "result": "可本地控制插座并读取电流、电压、功率、功率因数和电量。", "boundary": "上游要求 board: esp12e 才能使用完整 4 MB；网页服务器可能使较慢的 ESP8266 不稳定。", "recovery": "首次刷写保持继电器 ALWAYS_OFF，只通过 OTA 再调整掉电恢复状态；串口供电时不要带负载。"},
+      "en": {"hardware": "ESP8266 with 4 MB flash, one relay, button, LEDs and CSE7766 metering.", "route": "Tuya-convert is not supported; remove the cover, use the serial header and hold the button at power-on for bootloader mode.", "result": "Provides local plug control plus current, voltage, power, power factor and energy readings.", "boundary": "Upstream requires board: esp12e to expose all 4 MB and warns that a web server may destabilize the slower ESP8266.", "recovery": "Keep the relay ALWAYS_OFF for initial flashing and change power-restore behavior only through OTA; never attach a load while powered by the programmer."}
+    },
+    {
+      "content_id": "D077", "upstream_revision": "e541dd90d8c17fdb786ece92ad47443ca852b40a",
+      "source_url": "https://github.com/esphome/devices.esphome.io/blob/main/src/docs/devices/Sonoff-THR316/index.md",
+      "zh": {"hardware": "ESP32；单继电器、三路 LED、按钮和 RJ9 外接 DS18B20 传感器总线。", "route": "按页面 GPIO 与 RJ9 引脚配置 ESPHome，将温度传感器和继电器组合成 Home Assistant 恒温控制。", "result": "可本地监测温度，并按设定点控制加热负载。", "boundary": "示例假设接入 DS18B20；其他温湿度探头和 THR316D 不能直接套用。", "recovery": "默认上电关闭继电器，先验证传感器温度和长短按逻辑，再连接真实负载。"},
+      "en": {"hardware": "ESP32 with one relay, three LEDs, button and RJ9 bus for an external DS18B20 sensor.", "route": "Use the documented GPIO and RJ9 pinout to combine the temperature sensor and relay as a Home Assistant thermostat.", "result": "Monitors temperature locally and switches a heating load around a set point.", "boundary": "The example assumes DS18B20; other temperature/humidity probes and THR316D are not drop-in equivalents.", "recovery": "Keep the relay off at boot and validate sensor readings plus short/long button behavior before connecting a real load."}
+    },
+    {
+      "content_id": "D103", "upstream_revision": "34c83167b8776411e52676c4ee96237f4056731c",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/ESP-01-01S-DS18B20-v1",
+      "zh": {"hardware": "ESP-01/ESP-01S 与 DS18B20 温度探头组合板。", "route": "上游模板标记为串口刷写，并链接 ESP-01(S) 通用刷写方法。", "result": "可把廉价温度节点接入 Tasmota、MQTT 和本地自动化。", "boundary": "模板只给 GPIO 与基础入口，没有逐板校准或防水探头质量保证。", "recovery": "先用 3.3 V 串口确认可进入刷写模式；供电或引脚不明时停止。"},
+      "en": {"hardware": "ESP-01/ESP-01S board paired with a DS18B20 temperature probe.", "route": "The upstream template marks serial flashing and links the general ESP-01(S) procedure.", "result": "Turns a low-cost temperature node into a local Tasmota/MQTT sensor.", "boundary": "The template supplies GPIO and entry guidance, not calibration or waterproof-probe quality assurance.", "recovery": "Confirm 3.3 V serial bootloader access first and stop when power or pins are uncertain."}
+    },
+    {
+      "content_id": "D104", "upstream_revision": "ee8e91aa1cc077086d189f386410670dd371a201",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/ESP12F_Relay_30A_X4",
+      "zh": {"hardware": "ESP-12F、四路标称 30 A 继电器，支持 5 V 或 7–28 V 板级供电。", "route": "焊接附带排针并通过串口刷写 Tasmota，再应用四路模板。", "result": "可作为四路本地继电器控制板。", "boundary": "30 A 是继电器标称，不代表整板走线、端子、散热和安装环境都能持续承载。", "recovery": "先用低压和小负载逐路测试；没有隔离外壳、保险和端子核算时不要接大电流。"},
+      "en": {"hardware": "ESP-12F with four nominal 30 A relays and 5 V or 7–28 V board power.", "route": "Solder the supplied headers, flash Tasmota over serial and apply the four-channel template.", "result": "Provides a four-channel local relay controller.", "boundary": "A 30 A relay marking does not certify PCB traces, terminals, cooling or the enclosure for continuous current.", "recovery": "Test each channel at low voltage and low load; do not use high current without enclosure, fuse and terminal calculations."}
+    },
+    {
+      "content_id": "D107", "upstream_revision": "a9285668d90190bfea9d2d53fdd0c327f96768d3",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/QRA2",
+      "zh": {"hardware": "QRA2 红外/蓝牙遥控器，资料记录 WB3S 模组。", "route": "模板标为串口刷写，但同时标记 unsupported；需要先确认是否已换成 ESP 兼容模组。", "result": "硬件匹配时可作为本地红外控制器。", "boundary": "原装 WB3S 不能按普通 ESP8266 Tasmota 流程直接处理。", "recovery": "未确认模组替换方案前停在拆机识别阶段，不要直接上传 ESP 固件。"},
+      "en": {"hardware": "QRA2 infrared/Bluetooth remote with a documented WB3S module.", "route": "The template says serial flashing but is explicitly marked unsupported; first establish whether an ESP-compatible module has replaced WB3S.", "result": "With matching hardware it can become a local IR controller.", "boundary": "Stock WB3S hardware is not an ordinary ESP8266 Tasmota target.", "recovery": "Stop at module identification until a replacement route is confirmed; do not upload ESP firmware to the stock module."}
+    },
+    {
+      "content_id": "D127", "upstream_revision": "40701b825f3e801f32fa58b8570330c0da1da503",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/blitzwolf_BW-AF1",
+      "zh": {"hardware": "BlitzWolf BW-AF1 空气炸锅，TYWE3S Wi-Fi 模组与 TuyaMCU 控制板。", "route": "撬开上盖接近 TYWE3S，经串口刷 Tasmota，并按文档映射温度、时间、模式和启停 DP。", "result": "可通过 MQTT/Home Assistant 读取状态并控制烹饪流程。", "boundary": "这是发热电器；远程控制不能替代现场看护，DP 映射只针对已记录固件。", "recovery": "保留原始 DP 信息，先空载验证；任何温控、风机或安全联锁异常都应恢复原系统。"},
+      "en": {"hardware": "BlitzWolf BW-AF1 air fryer with TYWE3S Wi-Fi module and TuyaMCU controller.", "route": "Pry off the top cover for TYWE3S access, flash Tasmota over serial, then map temperature, time, mode and start/pause datapoints.", "result": "Exposes status and cooking controls through MQTT/Home Assistant.", "boundary": "This is a heating appliance; remote control never replaces supervision and datapoint mapping applies only to the documented firmware.", "recovery": "Preserve original datapoints and test without food first; restore stock operation on any temperature, fan or safety-interlock anomaly."}
+    },
+    {
+      "content_id": "D133", "upstream_revision": "002504ea45cdcd787f432fffef2538b3a8455df1",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/cloudfree_P1EU",
+      "zh": {"hardware": "CloudFree P1EU 欧规插座；模板包含继电器、按钮、指示灯和计量引脚。", "route": "上游标记为预装 Tasmota，无需先拆机刷写；应用模板并校准计量。", "result": "可直接作为本地控制和计量插座使用。", "boundary": "只适用于 P1EU 欧规版，不能套到其他插头或不同代际。", "recovery": "先记录出厂模板并导出配置；模板与实际按钮/计量行为不符时恢复备份。"},
+      "en": {"hardware": "CloudFree P1EU EU plug with relay, button, indicator and metering pins in the template.", "route": "Upstream marks it preflashed with Tasmota, avoiding an initial disassembly flash; apply the template and calibrate metering.", "result": "Can be used directly as a local-control and power-metering plug.", "boundary": "Only the P1EU EU version is covered, not other plugs or generations.", "recovery": "Record the factory template and export settings first; restore the backup when buttons or metering differ."}
+    },
+    {
+      "content_id": "D139", "upstream_revision": "86b2ce34f871c8ba8dfea2ad2fed61b8a7642a02",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/eachen-IR-DC6",
+      "zh": {"hardware": "Eachen IR DC6，TYWE3S 模组、红外发射与接收通道。", "route": "模板标为串口刷写，并给出 TYWE3S 直刷接点照片。", "result": "可把空调、电视等红外设备接入本地 Tasmota 控制。", "boundary": "外观相似的 Docooler/通用 IR Hub 可能更换模组，不能只看机壳。", "recovery": "拆机先核对 TYWE3S 与 3.3 V 接点；模组不同就停止。"},
+      "en": {"hardware": "Eachen IR DC6 with TYWE3S module and infrared transmit/receive channels.", "route": "The template marks serial flashing and includes a photo of TYWE3S programming points.", "result": "Brings infrared appliances such as AC units and TVs under local Tasmota control.", "boundary": "Similar Docooler/generic IR hubs may use another module; enclosure appearance is insufficient.", "recovery": "Verify TYWE3S and 3.3 V pads before opening; stop when the module differs."}
+    },
+    {
+      "content_id": "D162", "upstream_revision": "bdcd0a71db55fe59acbf0ac6ed6623c5133bbd2d",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/kogan-KAPRA14WFGA",
+      "zh": {"hardware": "Kogan KAPRA14WFGA 4.1 kW 冷暖移动空调，内部 Tuya 模组与 MCU 数据点。", "route": "历史模板标为 tuya-convert；Wi-Fi 模组位于顶部控制板旁，需要拆下整个后壳才能接近。", "result": "可通过 MQTT 控制开关、模式、风速、设温、摆风并读取水满状态。", "boundary": "tuya-convert 是否仍适用取决于原固件；模板还记录两个未知 DP。", "recovery": "先确认原固件可走 OTA；若必须拆机，断电等待并避开高压与制冷系统，未知 DP 不自动写入。"},
+      "en": {"hardware": "Kogan KAPRA14WFGA 4.1 kW reverse-cycle portable AC with internal Tuya module and MCU datapoints.", "route": "The historical template marks tuya-convert; physical module access requires removing the full rear shell near the top control panel.", "result": "MQTT can control power, mode, speed, setpoint and swing while reading the water-full state.", "boundary": "Tuya-convert depends on stock firmware and two datapoints remain unknown in the template.", "recovery": "Confirm OTA eligibility first; if opening is required, disconnect power and avoid high-voltage/refrigeration sections, and never write unknown datapoints automatically."}
+    },
+    {
+      "content_id": "D174", "upstream_revision": "882b871653fd23fcf651161c7dafda6a638783c2",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/m5stack_core2",
+      "zh": {"hardware": "M5Stack Core2 K010，ESP32 触摸屏开发套件，带传感器与 SD 卡。", "route": "使用 tasmota32-lvgl 构建和自动配置模板。", "result": "上游模板称传感器与 SD 卡完整支持，可做本地触控面板或状态屏。", "boundary": "仅针对 Core2/K010；Core、CoreS3 和克隆板不是同一模板。", "recovery": "先记录原厂固件并确认 USB 刷写；屏幕或触摸初始化失败时按准确型号恢复。"},
+      "en": {"hardware": "M5Stack Core2 K010 ESP32 touchscreen kit with sensors and SD card.", "route": "Use the tasmota32-lvgl build and automatic-configuration template.", "result": "Upstream describes full sensor and SD support for a local touch panel or status display.", "boundary": "Only Core2/K010 is covered; Core, CoreS3 and clones use different targets.", "recovery": "Preserve the factory image and verify USB flashing; restore by exact model if display or touch initialization fails."}
+    },
+    {
+      "content_id": "D190", "upstream_revision": "b9fedcc64138a3eb90b549c36b2fd55a21e080d2",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/openenergymonitor_WIFI_RELAY_",
+      "zh": {"hardware": "OpenEnergyMonitor WiFi MQTT Thermostat DIN 继电器，带 ESP 串口排针。", "route": "从按钮一侧按 GND、空脚、3V3、RX、TX 接串口，并在启动时按住按钮进入刷写模式。", "result": "可运行 Tasmota，作为 MQTT 温控或通用 DIN 继电器节点。", "boundary": "排针顺序必须按文档方向识别，不能把空脚或供电脚猜反。", "recovery": "刷前拍照记录方向并导出原配置；3.3 V 或地线不确定时不要上电。"},
+      "en": {"hardware": "OpenEnergyMonitor WiFi MQTT Thermostat DIN relay with exposed ESP serial header.", "route": "From the pushbutton side the header is GND, NC, 3V3, RX, TX; hold the button at boot for flashing mode.", "result": "Runs Tasmota as an MQTT thermostat or general DIN relay node.", "boundary": "Header orientation must match the documentation; do not guess NC and power pins.", "recovery": "Photograph orientation and export original settings before flashing; do not power it when 3.3 V or ground is uncertain."}
+    },
+    {
+      "content_id": "D197", "upstream_revision": "2f25844d2266c0b58be60972cbdd2ae1ce3bf4b1",
+      "source_url": "https://github.com/blakadder/templates/blob/master/_templates/shelly_1",
+      "zh": {"hardware": "Shelly 1 Gen1，ESP8266、2 MB 闪存、单路干接点继电器和外露编程排针。", "route": "用 3.3 V、至少 350 mA 的串口适配器，将 GPIO0 接地进入刷写模式。", "result": "可把 Shelly 1 改成本地 Tasmota 干接点控制器。", "boundary": "上游特别警告 V1/V2/V3 标签差异，V2 用户手册的市电端子图曾有错误。", "recovery": "绝不能同时连接交流电和串口；检查 12 V 跳线位置，保留原模板后再刷。"},
+      "en": {"hardware": "Shelly 1 Gen1 with ESP8266, 2 MB flash, one dry-contact relay and exposed programming header.", "route": "Use a 3.3 V serial adapter capable of at least 350 mA and ground GPIO0 for flashing mode.", "result": "Converts Shelly 1 into a local Tasmota dry-contact controller.", "boundary": "Upstream warns about V1/V2/V3 differences and an incorrect mains-terminal drawing in the V2 user guide.", "recovery": "Never connect AC and serial simultaneously, verify the 12 V jumper, and save the original template before flashing."}
+    },
+    {
+      "content_id": "D241", "upstream_revision": "4a96bb2b63c4b3ce36051e439f48f309af4fef79",
+      "source_url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/414",
+      "zh": {"hardware": "HK1 Box，ophub 支持表列为 Amlogic S905X3，使用 stable 内核路线。", "route": "先从 USB/TF 启动并核对 meson-sm1-hk1box-vontar-x3 设备树，再考虑写入 eMMC。", "result": "可作为 Armbian 小服务器；社区报告还涉及 LED 显示和风扇 GPIO。", "boundary": "同名盒子的风扇、显示、网卡和主板会变化；issue 414 主要是特定亚克力风扇版问题。", "recovery": "保存安卓固件和启动分区，外置启动稳定后再写 eMMC；风扇不转或温度过高时停止。"},
+      "en": {"hardware": "HK1 Box listed by ophub under Amlogic S905X3 on the stable-kernel route.", "route": "Boot from USB/microSD and verify the meson-sm1-hk1box-vontar-x3 device tree before considering eMMC installation.", "result": "Can serve as a small Armbian host; the linked report also discusses LED display and fan GPIO.", "boundary": "Fan, display, network and board variants exist under the same name; issue 414 concerns a specific acrylic fan model.", "recovery": "Save the Android image and boot partitions and require stable external boot before eMMC; stop on fan failure or unsafe temperature."}
+    },
+    {
+      "content_id": "D243", "upstream_revision": "4a96bb2b63c4b3ce36051e439f48f309af4fef79",
+      "source_url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/1250",
+      "zh": {"hardware": "H96 Max X3，ophub 支持表列为 S905X3，stable 内核路线。", "route": "先用 SD/USB 试启并核对专用 DTB；不要把外置启动成功直接等同于 eMMC 可安装。", "result": "可运行 Armbian 服务器系统，但内核与 eMMC 组合需要逐版验证。", "boundary": "历史 issue 1250 报告 6.1.22 可从 SD 启动却在 eMMC 黑屏，而 5.15.105 可用。", "recovery": "保留能启动的外置介质和旧内核；新内核写入 eMMC 后黑屏时回退，不反复覆盖。"},
+      "en": {"hardware": "H96 Max X3 listed by ophub as S905X3 on the stable-kernel route.", "route": "Test from SD/USB with the exact DTB and do not equate successful external boot with safe eMMC installation.", "result": "Can run an Armbian server, but kernel and eMMC combinations need version-specific testing.", "boundary": "Historical issue 1250 reports 6.1.22 booting from SD but black-screening on eMMC while 5.15.105 worked.", "recovery": "Keep a bootable external image and known-working kernel; roll back on eMMC black screen rather than repeatedly overwriting."}
+    },
+    {
+      "content_id": "D247", "upstream_revision": "4a96bb2b63c4b3ce36051e439f48f309af4fef79",
+      "source_url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/366",
+      "zh": {"hardware": "X96 Air，支持表列为 S905X3；社区 issue 记录 Q1000/QCA9377 变体。", "route": "按网卡芯片选择 DTB，从外置介质验证以太网、Wi-Fi 和蓝牙后再决定安装。", "result": "特定 Q1000/QCA9377 变体有社区报告称三种网络功能可用。", "boundary": "这个结果不能推广到所有 X96 Air；Q1000 与其他网卡/内存版必须分开。", "recovery": "保留多个已知 DTB 和原安卓镜像；网卡芯片不匹配时不要写 eMMC。"},
+      "en": {"hardware": "X96 Air listed under S905X3, with a community report for the Q1000/QCA9377 variant.", "route": "Choose the DTB by network chip and validate Ethernet, Wi-Fi and Bluetooth from external media before installation.", "result": "A specific Q1000/QCA9377 variant has a community report of all three network functions working.", "boundary": "The result does not cover every X96 Air; Q1000 and other network/memory revisions must be separated.", "recovery": "Keep known DTBs and the stock Android image; do not write eMMC when the network chip does not match."}
+    },
+    {
+      "content_id": "D250", "upstream_revision": "4a96bb2b63c4b3ce36051e439f48f309af4fef79",
+      "source_url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/506",
+      "zh": {"hardware": "腾讯极光盒子 3Pro，S905X3-B；当前支持表把它放在 S905X3 stable 路线。", "route": "先从 TF/USB 测试多个相近 DTB，分别记录启动、有线网、Wi-Fi 与蓝牙结果。", "result": "社区报告证明它能进入 Armbian，但早期测试没有完全匹配的专用 DTB。", "boundary": "issue 506 记录 Wi-Fi 与蓝牙不能同时驱动，且不同 DTB 的系统负载和网卡表现不同。", "recovery": "保留原系统和可启动 DTB；需要同时稳定使用 Wi-Fi/蓝牙时，未解决驱动冲突前不要写 eMMC。"},
+      "en": {"hardware": "Tencent Aurora 3Pro with S905X3-B, now listed on the S905X3 stable route.", "route": "Test related DTBs from microSD/USB and record boot, Ethernet, Wi-Fi and Bluetooth separately.", "result": "Community evidence shows it can enter Armbian, but early testing lacked a fully matched dedicated DTB.", "boundary": "Issue 506 reports Wi-Fi and Bluetooth could not operate together and DTBs differed in load and network behavior.", "recovery": "Keep stock firmware and a bootable DTB; do not install to eMMC when simultaneous Wi-Fi/Bluetooth is required and the driver conflict remains."}
+    },
+    {
+      "content_id": "D269", "upstream_revision": "4a96bb2b63c4b3ce36051e439f48f309af4fef79",
+      "source_url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/517",
+      "zh": {"hardware": "魔百盒 CM311-1a-YST，S905L3A；支持表列为 stable 路线。", "route": "先外置启动并核对安卓分区布局，再使用适配该布局的 armbian-install 方案。", "result": "可作为 Armbian 小服务器，但 eMMC 安装必须处理这个运营商盒子的分区差异。", "boundary": "issue 517 记录默认安装会因安卓分区不同出现 BTRFS 报错，不能套用其他 CM311 变体步骤。", "recovery": "完整备份 eMMC 分区表和原厂包；安装脚本未明确适配 YST 版本时停在外置启动。"},
+      "en": {"hardware": "CM311-1a-YST carrier box with S905L3A, listed on the stable route.", "route": "Boot externally, inspect the Android partition layout and use an armbian-install path adapted to that layout.", "result": "Can become a small Armbian server, but eMMC installation must account for this carrier box's partitions.", "boundary": "Issue 517 reports BTRFS errors from the differing Android layout; instructions for other CM311 variants are not interchangeable.", "recovery": "Back up the full eMMC partition table and stock image; remain on external boot until the install script explicitly supports the YST layout."}
+    }
+  ]
+}
