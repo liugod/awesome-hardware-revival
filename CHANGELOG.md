@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.11.0 — 2026-10-22
+
+- Add distinct visual assets to 19 reviewed projects: 15 upstream device photos, hardware diagrams or interface screenshots, and 4 project-specific KitAgain illustrations.
+- Prefer exact project/device imagery and use illustrations only where the upstream repository has no suitable visual; label every illustration as not an actual device photo.
+- Publish bilingual alt text, captions, source pages, direct source-file URLs and conservative image-license status in `project-images.json`.
+- Render responsive project thumbnails and full detail-page figures with `cover` or `contain` behavior chosen per asset, using optimized local WebP copies instead of hotlinks.
+- Validate image IDs, files, attribution, captions and rendered bilingual pages.
+
 ## 1.10.0 — 2026-10-22
 
 - Review 30 exact-model upstream sources across ESPHome, Tasmota and ophub/Armbian, while keeping the public denominator at 400 routes.

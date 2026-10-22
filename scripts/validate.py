@@ -19,9 +19,28 @@ def load(path): return json.loads(path.read_text(encoding="utf-8"))
 data=load(ROOT/"data/catalog.json")
 config=load(ROOT/"site.config.json")
 BASE=config["base_url"].rstrip("/")+"/"
+assert 'document.querySelectorAll("#project-grid .project")' in (OUT/"assets/app.js").read_text(encoding="utf-8"),"Homepage filters must not count featured lead cards"
 schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
+project_image_data=load(ROOT/"data/project-images.json")
+project_images={item["project_id"]:item for item in project_image_data["entries"]}
+assert project_image_data["version"]==config["version"]==data["version"],"Project-image version mismatch"
+assert len(project_images)==len(project_image_data["entries"]),"Duplicate project-image ID"
+assert set(project_images)<=set(p["id"] for p in projects),"Project image points to missing project"
+for pid,image in project_images.items():
+    assert image["source_kind"] in {"upstream-project-asset","kitagain-project-illustration"},pid
+    assert image["fit"] in {"cover","contain"},pid
+    assert all(image[key] for key in ["source_file","local_file","source_page","alt_zh","alt_en","caption_zh","caption_en","image_license_status"]),pid
+    assert image["source_page"].startswith("https://") and not image["local_file"].startswith("docs/"),pid
+    assert (ROOT/image["source_file"]).is_file() and (OUT/image["local_file"]).is_file(),pid
+    assert (OUT/image["local_file"]).stat().st_size>5000,pid
+    if image["source_kind"]=="upstream-project-asset":
+        assert image["source_url"] and image["source_url"].startswith("https://"),pid
+        assert image["image_license_status"]=="not-separately-stated",pid
+    else:
+        assert image["source_url"] is None and image.get("prompt_summary"),pid
+        assert "不是实机照片" in image["caption_zh"] and "not an actual device photo" in image["caption_en"],pid
 articles=load(ROOT/"data/articles.json")
 author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
@@ -178,7 +197,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json"]:
+for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
@@ -199,6 +218,13 @@ for lang in ["zh","en"]:
         owner_parts=[part for part in repo.path.split("/") if part]
         if repo.netloc in {"github.com","codeberg.org"} and len(owner_parts)>=2:
             assert f"{repo.scheme}://{repo.netloc}/{owner_parts[0]}" in parser.refs,(lang,pid,"missing repository owner identity")
+        if pid in project_images:
+            image=project_images[pid]
+            expected="../../../"+image["local_file"]
+            assert expected in parser.refs,(lang,pid,"missing project detail image")
+            assert image["source_page"] in parser.refs,(lang,pid,"missing image attribution link")
+            markup=(OUT/lang/"projects"/pid/"index.html").read_text(encoding="utf-8")
+            assert "project-media" in markup and image["caption_zh" if lang=="zh" else "caption_en"] in markup,(lang,pid,"missing image caption")
 english=load(OUT/"data/catalog.en.json")
 assert [p["id"] for p in english["projects"]]==ids
 for p,e in zip(projects,english["projects"]):

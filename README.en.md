@@ -4,7 +4,9 @@ An evidence-aware directory for giving existing hardware a useful second life: s
 
 [English website](https://kitagain.com/) · [中文网站](https://kitagain.com/zh/) · [Community forum](https://community.kitagain.com/) · [中文 README](README.md) · [English JSON](docs/data/catalog.en.json) · [English CSV](docs/data/catalog.en.csv) · [Research report (Chinese)](research/REPORT.zh-CN.md)
 
-**Version 1.10.0; reviewed catalog sources dated 2026-10-20 and device-atlas sources dated 2026-10-22.** The Chinese-facing name is “垃圾佬复活站”; the English brand, domain and repository remain KitAgain. The site now covers **400 devices and reuse routes**: 53 reviewed project/platform/tool entries, 30 E1 device routes whose exact-model sources were read, and 317 public E0 device/community leads, plus 3 bilingual field guides. The new model reviews cover ESPHome, Tasmota and ophub/Armbian and state hardware, installation route, expected result, revision boundary and recovery conditions. E1 still does not mean KitAgain tested the hardware.
+**Version 1.11.0; reviewed catalog sources dated 2026-10-20 and device-atlas sources dated 2026-10-22.** The Chinese-facing name is “垃圾佬复活站”; the English brand, domain and repository remain KitAgain. The site covers **400 devices and reuse routes**: 53 reviewed project/platform/tool entries, 30 E1 device routes whose exact-model sources were read, and 317 public E0 device/community leads, plus 3 bilingual field guides. The first visual release gives 19 projects distinct images: 15 device photos, hardware diagrams or interface screenshots from project repositories or author pages, plus 4 clearly labelled project-specific illustrations where no suitable original was available.
+
+Image provenance and captions are published in [`project-images.json`](data/project-images.json). A repository license is not assumed to license every image: upstream assets retain their source page and file URL, while illustrations explicitly state that they are not actual device photos.
 
 ## What is included
 

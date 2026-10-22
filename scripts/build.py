@@ -14,6 +14,8 @@ config = json.loads((ROOT / "site.config.json").read_text(encoding="utf-8"))
 BASE = config["base_url"].rstrip("/") + "/"
 REPO = config["repository_url"]
 data = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
+project_image_data = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
+project_images = {item["project_id"]: item for item in project_image_data["entries"]}
 deep = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
 candidates = json.loads((ROOT / "data/candidates.json").read_text(encoding="utf-8"))
 watchlist, watchlist_details = load_watchlist(ROOT / "data")
@@ -59,14 +61,26 @@ def tags(p):
               labels["difficulty"][p["difficulty"]], p["evidence"]["level"]]
     return '<div class="tags">' + "".join(f"<span>{h(v)}</span>" for v in values) + "</div>"
 
+def card_image(p):
+    image = project_images.get(p["id"])
+    if not image:
+        return ""
+    return f'<a class="project-thumb {h(image["fit"])}" href="projects/{p["id"]}.html"><img src="{h(image["local_file"])}" alt="{h(image["alt_zh"])}" loading="lazy" decoding="async"></a>'
+
+def detail_image(p):
+    image = project_images.get(p["id"])
+    if not image:
+        return ""
+    return f'<figure class="project-media {h(image["fit"])}"><img src="../{h(image["local_file"])}" alt="{h(image["alt_zh"])}" decoding="async"><figcaption>{h(image["caption_zh"])} <a href="{h(image["source_page"])}">查看图片来源 ↗</a></figcaption></figure>'
+
 def card(p):
     attrs = {"id":p["id"],"category":p["category"],"ai":p["ai_relation"],"difficulty":p["difficulty"],"evidence":p["evidence"]["level"],"use":"|".join(p["use_cases"])}
     search = " ".join([p["name"], p["summary_zh"], p["device_scope"], *p["keywords"], *p["use_cases"]])
     attrtext = " ".join(f'data-{k}="{h(v)}"' for k,v in attrs.items())
     status = labels["maintenance"][p["maintenance"]["status"]]
     special = p["maintenance"]["status"] != "not-archived"
-    return f"""<article class="project" {attrtext} data-search="{h(search)}">
-{tags(p)}<h3><a href="projects/{p['id']}.html">{h(p['name'])}<span aria-hidden="true"> ↗</span></a></h3>
+    return f"""<article class="project {'has-image' if p['id'] in project_images else ''}" {attrtext} data-search="{h(search)}">
+{card_image(p)}{tags(p)}<h3><a href="projects/{p['id']}.html">{h(p['name'])}<span aria-hidden="true"> ↗</span></a></h3>
 <p class="summary">{h(p['summary_zh'])}</p><p class="device"><b>适配范围</b> {h(p['device_scope'])}</p>
 <p class="limit">{h(p['limitations'][0])}</p>
 <div class="card-end"><span class="status {'attention' if special else ''}">{h(status)}</span><span>{h(p['method'])}</span></div>
@@ -121,7 +135,7 @@ for p in projects:
     if d:
         detail = f'<section class="prose"><h2>这台设备发生了什么变化</h2><div class="before-after"><div><h3>原本的限制</h3><p>{h(d["before"])}</p></div><div><h3>新的用途</h3><p>{h(d["after"])}</p></div></div><p>{h(d["analysis"])}</p><h3>适合谁</h3><p>{h(d["fit"])}</p><h3>哪些情况先不要选</h3><p>{h(d["not_fit"])}</p><h3>建议复现验收步骤</h3>{items(d["acceptance"])}<p class="muted">以上是后续实测清单，本目录尚未执行这些硬件步骤。</p></section>'
         deep_md += f"## {p['name']}\n\n**{d['search_intent']}**\n\n{d['before']}\n\n{d['after']}\n\n{d['analysis']}\n\n- 型号：{p['device_scope']}\n- 固件：{p['firmware_requirement'] or '待按具体型号核实'}\n- 方法与难度：{p['method']} / {labels['difficulty'][p['difficulty']]}\n- 拆机 / 焊接 / 云服务：{' / '.join(req_labels.get(p['requirements'][k],p['requirements'][k]) for k in ['disassembly','soldering','cloud_api'])}\n- 额外成本：待核价；{'、'.join(p['cost']['items'])}\n- 证据：{evidence['level']} — {evidence['reason']}\n- 数据风险：{p['risk']['data_loss']}；设备失效风险：{p['risk']['bricking']}（编辑按路径提示，未实测）\n- 恢复：{p['risk']['recovery']}\n- 适合：{d['fit']}\n- 不适合：{d['not_fit']}\n\n建议验收（未执行）：\n\n"+ "".join(f"- {a}\n" for a in d["acceptance"])+f"\n[教程]({p['tutorial_url']}) · [适配范围]({p['compatibility_url']}) · [完整条目]({BASE}projects/{pid}.html)\n\n"
-    detail_body = f"""<div class="detail-wrap"><a class="back" href="../index.html#catalog">← 返回项目目录</a><section class="detail-head">{tags(p)}<h1>{h(p['name'])}</h1><p class="intro">{h(p['summary_zh'])}</p>
+    detail_body = f"""<div class="detail-wrap"><a class="back" href="../index.html#catalog">← 返回项目目录</a><section class="detail-head">{tags(p)}<h1>{h(p['name'])}</h1><p class="intro">{h(p['summary_zh'])}</p>{detail_image(p)}
 <p class="muted">{h(type_labels[p['entry_type']])} · 家族 {h(p['family'])} · 核查 {h(p['checked_at'][:10])}</p><div class="actions">{link(p['repo_url'],'源码仓库 ↗')}{link(p['tutorial_url'],'原始教程 ↗')}{link(p['compatibility_url'],'型号适配依据 ↗')}</div></section>
 <aside class="boundary"><b>先确认边界</b><p>{h(p['device_scope'])}</p>{items(p['limitations'])}<p>固件：{h(p['firmware_requirement'])} · 地区要求：{h(p['region_requirement'])}</p></aside>
 {detail}
@@ -217,7 +231,7 @@ write(ROOT/"research/REPORT.zh-CN.md",report)
 research_body = f'<div class="detail-wrap"><section class="detail-head"><p class="eyebrow">METHOD & COVERAGE</p><h1>先看证据，<br>再谈复活。</h1><p class="intro">{len(projects)} 条资料，{len(category_counts)} 类设备。所有结论都保留来源与未知项。</p></section><section class="prose"><h2>收录意味着什么</h2><p>E1：已读项目说明和部署文档，共 {evidence_counts["E1"]} 条。E2：作者具体实机陈述或演示说明，共 {evidence_counts["E2"]} 条。E3：独立复现，本轮 0 条。本目录实物测试 0 条。</p><p>项目、跨机型平台与前置工具分别标注。53 条归并为 51 个家族，同家族后续版本不算独立成功设备。</p><h2>怎么核查</h2><p>读取 GitHub 元数据、README、许可证及版本信息，重点检查官方型号和安装文档。X 已读 4 条原始帖子，涉及 2 个案例；未播放验证视频，不以互动数据判断成功。</p><p>维护状态与核查时间逐条保留。难度是编辑判断，金额未知写 UNKNOWN，缺失固件/地区条件保留 null。不会将历史教程或文档可访问说成今天已经实测成功。</p><h2>12 篇案例分析</h2><ul>'+"".join(f'<li><a href="projects/{pid}.html">{h(next(p["name"] for p in projects if p["id"]==pid))}</a>：{h(d["search_intent"])}</li>' for pid,d in deep.items())+'</ul><h2>设备覆盖</h2><table><thead><tr><th>类别</th><th>条目</th></tr></thead><tbody>'+"".join(f'<tr><td>{h(labels["category"][k])}</td><td>{n}</td></tr>' for k,n in category_counts.items())+'</tbody></table><h2>候选与空白</h2><ul>'+"".join(f'<li>{link(c["url"],c["name"])} — {h(c["reason"])}</li>' for c in candidates)+f'</ul><p>本轮缺少长期稳定性、能耗、实际费用与独立硬件复现；旧 NAS、当前手机镜像与停服穿戴服务需继续补全。未声称覆盖全网。</p><h2>阅读完整研究</h2><p>{link(REPO+"/blob/main/research/REPORT.zh-CN.md","研究报告 ↗")} · {link(REPO+"/blob/main/research/DEEP_DIVES.zh-CN.md","案例合辑 ↗")} · {link(REPO+"/blob/main/CONTRIBUTING.md","贡献方法 ↗")}</p></section></div>'
 write(OUT/"research.html",page("研究方法、证据分级与覆盖矩阵","公开项目入选方法、证据边界、13 类设备覆盖、12 篇重点案例与待核验空白。",research_body,"research.html"))
 write(OUT/".nojekyll","")
-for name in ["catalog.json","catalog.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json"]:
+for name in ["catalog.json","catalog.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json"]:
     (OUT/"data").mkdir(parents=True,exist_ok=True)
     shutil.copyfile(ROOT/"data"/name,OUT/"data"/name)
 paths = ["","research.html"]+[f"projects/{p['id']}.html" for p in projects]

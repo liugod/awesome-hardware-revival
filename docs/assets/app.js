@@ -53,7 +53,7 @@
   if (!form) return;
   const keys = ["q", "category", "use", "ai", "difficulty", "evidence"];
   const controls = Object.fromEntries(keys.map(k => [k, document.getElementById(k)]));
-  const cards = [...document.querySelectorAll(".project")];
+  const cards = [...document.querySelectorAll("#project-grid .project")];
   const count = document.querySelector("#result-count");
   function readURL() {
     const params = new URLSearchParams(location.search);

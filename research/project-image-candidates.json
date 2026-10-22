@@ -1,0 +1,550 @@
+[
+  {
+    "id": "xiaogpt",
+    "repository": "yihong0618/xiaogpt",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/yihong0618/xiaogpt/blob/main/README.md",
+    "candidates": [
+      "https://user-images.githubusercontent.com/15976103/220028375-c193a859-48a1-4270-95b6-ef540e54a621.png",
+      "https://user-images.githubusercontent.com/15976103/226802344-9c71f543-b73c-4a47-8703-4c200c434dec.png"
+    ]
+  },
+  {
+    "id": "open-xiaoai",
+    "repository": "idootop/open-xiaoai",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/idootop/open-xiaoai/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/idootop/open-xiaoai/main/docs/images/cover.jpg",
+      "https://raw.githubusercontent.com/idootop/open-xiaoai/main/docs/images/xiaozhi.jpg",
+      "https://raw.githubusercontent.com/idootop/open-xiaoai/main/docs/images/kws.jpg",
+      "https://raw.githubusercontent.com/idootop/open-xiaoai/main/docs/images/migpt.jpg"
+    ]
+  },
+  {
+    "id": "mi-gpt",
+    "repository": "idootop/mi-gpt",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/idootop/mi-gpt/blob/main/README.md",
+    "candidates": [
+      "https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=e02e62fbb9c746cdb61c6559c186ac44&claim_uid=LdwexZ8z7Ggu3lJ&theme=small",
+      "https://raw.githubusercontent.com/idootop/mi-gpt/main/assets/sponsors/302banner2.jpg"
+    ]
+  },
+  {
+    "id": "onju-voice",
+    "repository": "justLV/onju-voice",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/justLV/onju-voice/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/justLV/onju-voice/master/images/header_white.jpg",
+      "https://raw.githubusercontent.com/justLV/onju-voice/master/images/rich.png",
+      "https://raw.githubusercontent.com/justLV/onju-voice/master/images/copper.png",
+      "https://raw.githubusercontent.com/justLV/onju-voice/master/images/render.png"
+    ]
+  },
+  {
+    "id": "onju-v2",
+    "repository": "justLV/onju-v2",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/justLV/onju-v2/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/justLV/onju-v2/master/images/header_white.jpg",
+      "https://raw.githubusercontent.com/justLV/onju-v2/master/images/copper.png",
+      "https://raw.githubusercontent.com/justLV/onju-v2/master/images/render.png"
+    ]
+  },
+  {
+    "id": "wyoming-satellite",
+    "repository": "rhasspy/wyoming-satellite",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/rhasspy/wyoming-satellite/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "linux-voice-assistant",
+    "repository": "OHF-Voice/linux-voice-assistant",
+    "default_branch": "main",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/OHF-Voice/linux-voice-assistant/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "lineageos",
+    "error": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "id": "ubports",
+    "repository": "ubports/ubports-installer",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/ubports/ubports-installer/blob/master/README.md",
+    "candidates": [
+      "https://i.ibb.co/CPq1pL9/linux.png",
+      "https://i.ibb.co/Qn2NXq9/apple.png",
+      "https://i.ibb.co/RNk81kH/windows10.png"
+    ]
+  },
+  {
+    "id": "termux",
+    "repository": "termux/termux-app",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/termux/termux-app/blob/master/README.md",
+    "candidates": [
+      "https://jitpack.io/v/termux/termux-app.svg",
+      "https://raw.githubusercontent.com/termux/termux-app/master/site/assets/sponsors/github.png",
+      "https://raw.githubusercontent.com/termux/termux-app/master/site/assets/sponsors/nlnet-ngi-mobifree.png",
+      "https://raw.githubusercontent.com/termux/termux-app/master/site/assets/sponsors/cloudflare.png"
+    ]
+  },
+  {
+    "id": "droidcam",
+    "repository": "dev47apps/droidcam-linux-client",
+    "default_branch": "master",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/dev47apps/droidcam-linux-client/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "deskreen",
+    "repository": "pavlobu/deskreen",
+    "default_branch": "master",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/pavlobu/deskreen/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/pavlobu/deskreen/master/resources/icon.png"
+    ]
+  },
+  {
+    "id": "oclp",
+    "repository": "dortania/OpenCore-Legacy-Patcher",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/dortania/OpenCore-Legacy-Patcher/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/OC-Patcher.png"
+    ]
+  },
+  {
+    "id": "mrchromebox",
+    "repository": "MrChromebox/scripts",
+    "default_branch": "main",
+    "license": "Unlicense",
+    "readme_url": "https://github.com/MrChromebox/scripts/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "haos",
+    "repository": "home-assistant/operating-system",
+    "default_branch": "dev",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/home-assistant/operating-system/blob/dev/README.md",
+    "candidates": []
+  },
+  {
+    "id": "openmediavault",
+    "repository": "openmediavault/openmediavault",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/openmediavault/openmediavault/blob/master/README.md",
+    "candidates": [
+      "https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg"
+    ]
+  },
+  {
+    "id": "dietpi",
+    "repository": "MichaIng/DietPi",
+    "default_branch": "dev",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/MichaIng/DietPi/blob/dev/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/MichaIng/DietPi-Website/master/images/dietpi-logo_180x180.png",
+      "https://raw.githubusercontent.com/MichaIng/DietPi-Website/master/images/login-systemhaus-logo.jpg"
+    ]
+  },
+  {
+    "id": "openwrt",
+    "repository": "openwrt/openwrt",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/openwrt/openwrt/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/openwrt/openwrt/main/include/logo.png"
+    ]
+  },
+  {
+    "id": "freshTomato",
+    "repository": "FreshTomato-Project/freshtomato-arm",
+    "default_branch": "arm-master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/FreshTomato-Project/freshtomato-arm/blob/arm-master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "libreelec",
+    "repository": "LibreELEC/LibreELEC.tv",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/LibreELEC/LibreELEC.tv/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "coreelec",
+    "repository": "CoreELEC/CoreELEC",
+    "default_branch": "coreelec-22",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/CoreELEC/CoreELEC/blob/coreelec-22/README.md",
+    "candidates": []
+  },
+  {
+    "id": "armbian-tv",
+    "repository": "ophub/amlogic-s9xxx-armbian",
+    "default_branch": "main",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/README.md",
+    "candidates": [
+      "https://github.com/user-attachments/assets/74e55052-031b-48f8-9aca-e5f1dd9e256a"
+    ]
+  },
+  {
+    "id": "webos-homebrew",
+    "repository": "webosbrew/webos-homebrew-channel",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/webosbrew/webos-homebrew-channel/blob/main/README.md",
+    "candidates": [
+      "https://user-images.githubusercontent.com/13520633/149569503-c9e13f40-ec44-43f0-b330-94a8a26081e5.png"
+    ]
+  },
+  {
+    "id": "rootmytv",
+    "repository": "RootMyTV/RootMyTV.github.io",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/RootMyTV/RootMyTV.github.io/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/RootMyTV/RootMyTV.github.io/main/img/header_logo.png"
+    ]
+  },
+  {
+    "id": "koreader",
+    "repository": "koreader/koreader",
+    "default_branch": "master",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/koreader/koreader/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/koreader/koreader.github.io/master/koreader-logo.png",
+      "https://github.com/koreader/koreader-artwork/raw/master/koreader-menu-thumbnail.png",
+      "https://github.com/koreader/koreader-artwork/raw/master/koreader-footnotes-thumbnail.png",
+      "https://github.com/koreader/koreader-artwork/raw/master/koreader-dictionary-thumbnail.png"
+    ]
+  },
+  {
+    "id": "kindle-carousel",
+    "repository": "qadzek/kindle-carousel",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/qadzek/kindle-carousel/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "kindle-ha",
+    "repository": "sibbl/hass-lovelace-kindle-screensaver",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/sibbl/hass-lovelace-kindle-screensaver/main/assets/sample.png"
+    ]
+  },
+  {
+    "id": "kindle-dashboard",
+    "repository": "alexishida/kindle-dashboard",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/alexishida/kindle-dashboard/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/painel.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/kindle-config.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/kindle-install.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/logins.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/pip.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/exemplo.jpg"
+    ]
+  },
+  {
+    "id": "kindle-phonekit",
+    "repository": "Keylessboi/kindle-phonekit",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/Keylessboi/kindle-phonekit/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Keylessboi/kindle-phonekit/master/marketing/pocket-assistant/assets/readme-banner.png"
+    ]
+  },
+  {
+    "id": "kindle-whoop",
+    "repository": "kaibuildsai/kindle-for-whoop",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/kaibuildsai/kindle-for-whoop/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/kaibuildsai/kindle-for-whoop/main/docs/assets/real-device-next-day.jpg",
+      "https://raw.githubusercontent.com/kaibuildsai/kindle-for-whoop/main/docs/assets/real-device-morning.jpg",
+      "https://raw.githubusercontent.com/kaibuildsai/kindle-for-whoop/main/docs/assets/browser-kindle-parity.jpg"
+    ]
+  },
+  {
+    "id": "winterbreak",
+    "repository": "KindleModding/WinterBreak",
+    "default_branch": "winterbreak",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/KindleModding/WinterBreak/blob/winterbreak/README.md",
+    "candidates": [
+      "https://storage.ko-fi.com/cdn/brandasset/v2/support_me_on_kofi_dark.png"
+    ]
+  },
+  {
+    "id": "fbink",
+    "repository": "NiLuJe/FBInk",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/NiLuJe/FBInk/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_readme.png",
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_image.png",
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_alpha.png",
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_bars.png",
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_ot.png"
+    ]
+  },
+  {
+    "id": "valetudo",
+    "repository": "Hypfer/Valetudo",
+    "default_branch": "master",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/Hypfer/Valetudo/blob/master/README.md",
+    "candidates": [
+      "https://github.com/Hypfer/Valetudo/blob/master/assets/logo/valetudo_logo_with_name.svg",
+      "https://github.com/Hypfer/valetudo/raw/master/docs/pages/general/img/operation_principle.png",
+      "https://github.com/user-attachments/assets/21b6cb92-43e8-4c49-b7f4-e15bedaab094",
+      "https://github.com/user-attachments/assets/e4b32931-1116-4d19-bece-e48746a89664",
+      "https://github.com/user-attachments/assets/4fdad83d-3df1-4d24-929b-004ce6b3bff0",
+      "https://github.com/user-attachments/assets/422d54c8-6546-4616-9cd6-c1239be78c32",
+      "https://github.com/user-attachments/assets/28e7dea0-db0a-482b-92ba-8e9774b2416f",
+      "https://github.com/user-attachments/assets/f9217069-ee10-42f4-8897-0c90703201b7",
+      "https://github.com/user-attachments/assets/d7281e75-32c7-4a1e-a10b-95aef3b06a78",
+      "https://raw.githubusercontent.com/Hypfer/Valetudo/master/assets/misc/star-history.svg"
+    ]
+  },
+  {
+    "id": "wirepod",
+    "repository": "kercre123/wire-pod",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/kercre123/wire-pod/blob/main/README.md",
+    "candidates": [
+      "https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png"
+    ]
+  },
+  {
+    "id": "openlumi",
+    "repository": "openlumi/openlumi.github.io",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/openlumi/openlumi.github.io/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_menu.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_scan.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_connect1.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_connect2.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_disable_ap.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/gateway_pinout_gpio.png"
+    ]
+  },
+  {
+    "id": "tasmota",
+    "repository": "arendst/Tasmota",
+    "default_branch": "development",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/arendst/Tasmota/blob/development/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/arendst/Tasmota/development/tools/logo/TASMOTA_FullLogo_Vector.svg#gh-light-mode-only",
+      "https://raw.githubusercontent.com/arendst/Tasmota/development/tools/logo/TASMOTA_FullLogo_Vector_White.svg#gh-dark-mode-only",
+      "https://user-images.githubusercontent.com/5904370/68332933-e6e5a600-00d7-11ea-885d-50395f7239a1.png"
+    ]
+  },
+  {
+    "id": "openbeken",
+    "repository": "openshwprojects/OpenBK7231T_App",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/openshwprojects/OpenBK7231T_App/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "esphome",
+    "repository": "esphome/esphome",
+    "default_branch": "dev",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/esphome/esphome/blob/dev/README.md",
+    "candidates": [
+      "https://media.esphome.io/logo/logo-text-on-light.svg",
+      "https://media.esphome.io/logo/logo-text-on-dark.svg"
+    ]
+  },
+  {
+    "id": "openipc",
+    "repository": "OpenIPC/firmware",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/OpenIPC/firmware/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/OpenIPC/.github/refs/heads/main/assets/telegram-button.svg"
+    ]
+  },
+  {
+    "id": "dafang",
+    "repository": "EliasKotlyar/Xiaomi-Dafang-Hacks",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/dafang.png",
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/xiaofang.png",
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/sannce.jpg",
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/t20.png",
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/ebaina.png"
+    ]
+  },
+  {
+    "id": "thingino",
+    "repository": "themactep/thingino-firmware",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/themactep/thingino-firmware/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "frigate",
+    "repository": "blakeblackshear/frigate",
+    "default_branch": "dev",
+    "license": "MIT",
+    "readme_url": "https://github.com/blakeblackshear/frigate/blob/dev/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/blakeblackshear/frigate/dev/docs/static/img/branding/frigate.png",
+      "https://github.com/blakeblackshear/frigate/assets/569905/5e713cb9-9db5-41dc-947a-6937c3bc376e",
+      "https://github.com/blakeblackshear/frigate/assets/569905/6fed96e8-3b18-40e5-9ddc-31e6f3c9f2ff",
+      "https://github.com/blakeblackshear/frigate/assets/569905/d6788a15-0eeb-4427-a8d4-80b93cae3d74",
+      "https://github.com/blakeblackshear/frigate/assets/569905/d7885fc3-bfe6-452f-b7d0-d957cb3e31f5",
+      "https://hosted.weblate.org/widget/frigate-nvr/multi-auto.svg"
+    ]
+  },
+  {
+    "id": "squeezelite",
+    "repository": "ralph-irving/squeezelite",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/ralph-irving/squeezelite/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "lyrion",
+    "repository": "LMS-Community/slimserver",
+    "default_branch": "public/9.2",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/LMS-Community/slimserver/blob/public/9.2/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/LMS-Community/slimserver-platforms/public/9.0/win32/res/SqueezeCenter.ico"
+    ]
+  },
+  {
+    "id": "rockbox",
+    "repository": "Rockbox/rockbox",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/Rockbox/rockbox/blob/master/docs/README",
+    "candidates": []
+  },
+  {
+    "id": "spotify-ipod",
+    "repository": "dupontgu/retro-ipod-spotify-client",
+    "default_branch": "master",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/dupontgu/retro-ipod-spotify-client/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/dupontgu/retro-ipod-spotify-client/master/docs/sPot_schematic.png"
+    ]
+  },
+  {
+    "id": "infinitime",
+    "repository": "InfiniTimeOrg/InfiniTime",
+    "default_branch": "main",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/InfiniTimeOrg/InfiniTime/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/logo/watchface_collage.png"
+    ]
+  },
+  {
+    "id": "asteroidos",
+    "repository": "AsteroidOS/asteroid",
+    "default_branch": "2.0",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/AsteroidOS/asteroid/blob/2.0/README.md",
+    "candidates": []
+  },
+  {
+    "id": "batocera",
+    "repository": "batocera-linux/batocera.linux",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/batocera-linux/batocera.linux/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "lakka",
+    "repository": "libretro/Lakka-LibreELEC",
+    "default_branch": "Lakka-v6.1",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/libretro/Lakka-LibreELEC/blob/Lakka-v6.1/README.md",
+    "candidates": []
+  },
+  {
+    "id": "bazzite",
+    "repository": "ublue-os/bazzite",
+    "default_branch": "main",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/ublue-os/bazzite/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/desktop1.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/desktop2.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/gamemode.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/waydroid.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/distrobox.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/gnome1.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/gnome2.png?raw=true",
+      "https://repobeats.axiom.co/api/embed/86b500d79c613015ad16f56df76c8e13f3fd98ae.svg",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/Bazzite.svg",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/download.png?raw=true",
+      "https://api.star-history.com/svg?repos=ublue-os/bazzite&type=Date",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/Bazzite_Light.svg",
+      "https://api.star-history.com/svg?repos=ublue-os/bazzite&type=Date&theme=dark"
+    ]
+  },
+  {
+    "id": "printer-spl3",
+    "repository": "Kuberwastaken/hp-laser-1008a-macos",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md",
+    "candidates": []
+  }
+]

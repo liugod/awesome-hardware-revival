@@ -4,6 +4,11 @@ Date: 2026-10-22. This validates the catalog, device atlas and website, not hard
 
 ## Local acceptance
 
+- v1.11.0: 19 distinct project images are mapped to catalog IDs: 15 upstream project assets and 4 KitAgain project-specific illustrations.
+- v1.11.0: every upstream image retains a source page and direct file URL without assuming the repository license covers media; every illustration is explicitly labelled as not an actual device photo.
+- v1.11.0: the build uses optimized local WebP copies, bilingual alt text and captions, and per-image `cover` or `contain` behavior.
+- v1.11.0: Chromium rendered the Onju Voice upstream-device photo and XiaoGPT labelled illustration. At a 390 × 844 mobile viewport, `innerWidth` and document `scrollWidth` were both 390; the homepage reported 53/53 formal projects and found 19 image-bearing project cards.
+
 - v1.10.0: the public denominator remains 400: 53 reviewed catalog entries, 30 E1 exact-model device-source reviews and 317 E0 device/community leads.
 - v1.10.0: all 30 model reviews carry a 40-character upstream blob revision, a direct model-specific source, and bilingual hardware, installation, expected-result, boundary and recovery fields.
 - v1.10.0: the reviewed batch covers 15 ESPHome devices, 10 Tasmota devices and 5 ophub/Armbian TV boxes; no review is promoted to E3 or described as KitAgain hardware testing.

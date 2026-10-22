@@ -20,6 +20,8 @@ REPO = CONFIG["repository_url"]
 assert urlsplit(BASE).scheme == "https" and not urlsplit(BASE).query and not urlsplit(BASE).fragment
 DATA = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 DEVICE_ATLAS = json.loads((ROOT / "data/device-atlas.json").read_text(encoding="utf-8"))
+PROJECT_IMAGE_DATA = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
+PROJECT_IMAGES = {item["project_id"]: item for item in PROJECT_IMAGE_DATA["entries"]}
 DEEP = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
 EN = json.loads((ROOT / "data/i18n/en.json").read_text(encoding="utf-8"))
 DEEP_EN = json.loads((ROOT / "data/i18n/deep-dives.en.json").read_text(encoding="utf-8"))
@@ -179,6 +181,23 @@ class Site:
             self.labels["category"][p["category"]], self.labels["ai"][p["ai_relation"]],
             self.labels["difficulty"][p["difficulty"]], p["evidence"]["level"]]) + "</div>"
 
+    def card_image(self, p, prefix=""):
+        image = PROJECT_IMAGES.get(p["id"])
+        if not image:
+            return ""
+        alt = image["alt_zh" if self.lang == "zh" else "alt_en"]
+        src = f'{prefix}../{image["local_file"]}'
+        return f'<a class="project-thumb {h(image["fit"])}" href="{prefix}projects/{p["id"]}/"><img src="{h(src)}" alt="{h(alt)}" loading="lazy" decoding="async"></a>'
+
+    def detail_image(self, p, current):
+        image = PROJECT_IMAGES.get(p["id"])
+        if not image:
+            return ""
+        alt = image["alt_zh" if self.lang == "zh" else "alt_en"]
+        caption = image["caption_zh" if self.lang == "zh" else "caption_en"]
+        source_label = self.t("查看图片来源", "View image source")
+        return f'''<figure class="project-media {h(image["fit"])}"><img src="{h(self.rel(image["local_file"], current))}" alt="{h(alt)}" decoding="async"><figcaption>{h(caption)} <a href="{h(image["source_page"])}">{source_label} ↗</a></figcaption></figure>'''
+
     def card(self, p, prefix=""):
         e = localized(p, "en")
         v = localized(p, self.lang)
@@ -186,7 +205,7 @@ class Site:
         search = " ".join([p["name"], p["summary_zh"], p["device_scope"], e["summary"], e["device_scope"], *p["keywords"], *p["model_examples"], *p["use_cases"], *(en for uid,zh,en in USES if zh in p["use_cases"])])
         attrs["search"] = search
         attr = " ".join(f'data-{k}="{h(v)}"' for k,v in attrs.items())
-        return f"""<article class="project" {attr}>{self.tags(p)}<h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('适配范围','Device scope')}</b>{h(v['device_scope'])}</p><p class="limit">{h(v['limitations'][0])}</p><div class="card-end"><span class="status {'attention' if p['maintenance']['status'] != 'not-archived' else ''}">{h(self.labels['maintenance'][p['maintenance']['status']])}</span><span>{h(v['method'])}</span></div></article>"""
+        return f"""<article class="project {'has-image' if p['id'] in PROJECT_IMAGES else ''}" {attr}>{self.card_image(p,prefix)}{self.tags(p)}<h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('适配范围','Device scope')}</b>{h(v['device_scope'])}</p><p class="limit">{h(v['limitations'][0])}</p><div class="card-end"><span class="status {'attention' if p['maintenance']['status'] != 'not-archived' else ''}">{h(self.labels['maintenance'][p['maintenance']['status']])}</span><span>{h(v['method'])}</span></div></article>"""
 
     def lead_card(self, slug, lead, prefix="leads/"):
         v = lead[self.lang]
@@ -244,6 +263,7 @@ class Site:
         d = (DEEP_EN if self.lang == "en" else DEEP).get(p["id"])
         current = f"projects/{p['id']}.html" if legacy else f"{self.lang}/projects/{p['id']}/index.html"
         rel = lambda x: self.rel(x, current)
+        project_media = self.detail_image(p, current)
         extra = ""
         if d:
             extra = f'<section class="prose" id="analysis"><h2>{t("这台设备发生了什么变化","What changes for this device")}</h2><div class="before-after"><div><h3>{t("原本的限制","Before")}</h3><p>{h(d["before"])}</p></div><div><h3>{t("新的用途","After")}</h3><p>{h(d["after"])}</p></div></div><p>{h(d["analysis"])}</p><h3>{t("适合谁","A good fit for")}</h3><p>{h(d["fit"])}</p><h3>{t("哪些情况先不要选","Not a good fit for")}</h3><p>{h(d["not_fit"])}</p><h3>{t("建议复现验收步骤","Proposed reproduction checks")}</h3>{ul(d["acceptance"])}<p class="muted">{t("这些硬件步骤尚未由本目录执行。","These hardware checks have not been performed by this catalog.")}</p></section>'
@@ -261,7 +281,7 @@ class Site:
             identity_links += f'<li>{self.link(repo_owner["url"], repo_owner["name"]+" · "+repo_owner["platform"]+" ↗")}<span class="muted"> — {t("源码仓库所有者账号；不据此推断其为唯一作者","Source-repository owner account; this does not establish sole authorship")}</span></li>'
         identity_links += "".join(f'<li>{self.link(item["url"], item["name"]+" · "+item["platform"]+" ↗")}<span class="muted"> — {h(item[self.lang+"_role"])}</span></li>' for item in socials)
         social_section = f'<h2>{t("项目账号与已核实作者主页","Project identity and verified author profiles")}</h2><ul class="sources">{identity_links}</ul><p class="muted">{t("仓库所有者账号用于追溯项目来源；作者社交账号只有在项目资料、仓库或作者主页能确认归属时才收录。","Repository-owner accounts provide project traceability. Author social profiles are listed only when attribution is confirmed by project materials, the repository or the author profile.")}</p>' if identity_links else ""
-        body = f"""<div class="detail-wrap"><a class="back" href="{rel(self.lang+'/index.html')}#catalog">← {t('返回项目目录','Back to catalog')}</a><section class="detail-head">{self.tags(p)}<h1>{h(p['name'])}</h1><div class="project-purpose"><span>{t('这个项目能做什么','What this project does')}</span><p>{h(v['summary'])}</p></div><p class="muted">{types[p['entry_type']]} · {t('家族','Family')} {h(p['family'])} · {t('核查','Reviewed')} {p['checked_at'][:10]}</p><div class="actions">{self.link(p['repo_url'],t('源码仓库','Source repository')+' ↗')}{self.link(p['tutorial_url'],t('原始教程','Original tutorial')+' ↗')}{self.link(p['compatibility_url'],t('型号适配依据','Compatibility source')+' ↗')}</div></section>
+        body = f"""<div class="detail-wrap"><a class="back" href="{rel(self.lang+'/index.html')}#catalog">← {t('返回项目目录','Back to catalog')}</a><section class="detail-head">{self.tags(p)}<h1>{h(p['name'])}</h1><div class="project-purpose"><span>{t('这个项目能做什么','What this project does')}</span><p>{h(v['summary'])}</p></div>{project_media}<p class="muted">{types[p['entry_type']]} · {t('家族','Family')} {h(p['family'])} · {t('核查','Reviewed')} {p['checked_at'][:10]}</p><div class="actions">{self.link(p['repo_url'],t('源码仓库','Source repository')+' ↗')}{self.link(p['tutorial_url'],t('原始教程','Original tutorial')+' ↗')}{self.link(p['compatibility_url'],t('型号适配依据','Compatibility source')+' ↗')}</div></section>
 <aside class="boundary"><b>{t('先确认边界','Check the boundaries first')}</b><p>{h(v['device_scope'])}</p>{ul(v['limitations'])}<p>{t('固件','Firmware')}: {h(v['firmware_requirement'] or t('待核实','Unknown'))} · {t('地区要求','Region requirement')}: {h(v['region_requirement'] or t('待核实','Unknown'))}</p></aside>{extra}
 <section class="prose"><h2>{t('动手需要什么','What you need')}</h2><dl class="spec-grid">{''.join(f'<div><dt>{h(k)}</dt><dd>{h(val)}</dd></div>' for k,val in specs)}</dl><h3>{t('可能需要的额外投入','Possible additional costs')}</h3>{ul(v['cost_items'])}<p>{t('未核价；开源许可证不代表硬件、托管、电力和云服务总成本为零。','Prices have not been checked. An open-source license does not make hardware, hosting, electricity or cloud services free.')}</p>
 <h2>{t('风险与恢复','Risks and recovery')}</h2><p>{t('数据风险','Data-loss risk')}: {h(t(*RISKS[p['risk']['data_loss']]))}; {t('设备失效风险','Bricking risk')}: {h(t(*RISKS[p['risk']['bricking']]))}. {t('按路径给出的提示，未实测，不表示每台设备必然发生。','Route-based guidance, not hardware-tested; these outcomes are not inevitable for every device.')}</p><p>{h(v['recovery'])}</p><p>{self.link(p['risk']['recovery_url'],t('恢复资料','Recovery documentation'))}</p>
