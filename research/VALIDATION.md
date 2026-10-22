@@ -4,6 +4,11 @@ Date: 2026-10-23. This validates the catalog, device atlas and website, not hard
 
 ## Local acceptance
 
+- v1.13.0: `hardware-tags.json` covers all 53 reviewed projects; the 47 legacy field leads use curated bilingual tags and the 300 device-atlas entries plus exact-model reviews use their recorded device/model fields, giving all 400 public routes at least one hardware tag.
+- v1.13.0: every reviewed-project card/detail page and every lead card/detail page renders separate clickable hardware tags. The project and lead indexes restore `q` from the URL and preserve it across language switches.
+- v1.13.0: `python -X utf8 scripts/validate.py` passed schema, tag coverage/kinds/uniqueness, all 877 generated HTML pages, internal links and public data exports.
+- v1.13.0: Chromium clicked `LX06` from Open-XiaoAI and showed 2 matching reviewed projects; clicked `GL-AR300M16-Ext` from its detail page and showed exactly 1 matching lead. The HP Laser detail page rendered six separate model tags at 390 px with `innerWidth=scrollWidth=390`.
+
 - v1.12.0: 31 of 53 reviewed projects have distinct images: 27 attributable upstream assets and 4 clearly labelled KitAgain illustrations. The 12 new upstream assets cover UBports, Termux, OpenMediaVault, RootMyTV, KOReader, Tasmota, Xiaomi Dafang Hacks, Frigate, Rockbox, Retro iPod Spotify, AsteroidOS and the HP Laser macOS driver.
 - v1.12.0: every reviewed-project detail page now opens with a reader decision block for outcome, hardware fit and stop condition; source links are rendered as annotated resource cards in both languages.
 - v1.12.0: `python -X utf8 scripts/validate.py` passed schema, 53 unique project IDs, 30 E1 model reviews, 317 E0 leads, all generated internal links, bilingual exports and the public-file scan.

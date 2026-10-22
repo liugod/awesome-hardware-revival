@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.13.0 — 2026-10-23
+
+- Add an evidence-bounded hardware-tag ledger covering all 53 reviewed projects and all 347 device/community leads.
+- Render every exact model, device name, or supported hardware family as a separate, prominent tag on cards and detail pages in both languages.
+- Make hardware tags clickable: each tag opens the relevant catalog or lead index with the device/model query applied and preserved in the URL.
+- Include tag text in search while keeping exact models, device families, and hardware platforms distinct; no model is inferred beyond the existing reviewed scope.
+- Validate complete tag coverage, bilingual labels, unique tags, rendered detail-page tags, public data export, and shareable lead searches.
+
 ## 1.12.0 — 2026-10-23
 
 - Add 12 attributable upstream visuals for UBports, Termux, OpenMediaVault, RootMyTV, KOReader, Tasmota, Xiaomi Dafang Hacks, Frigate, Rockbox, Retro iPod Spotify, AsteroidOS and the HP Laser macOS driver; 31 of 53 reviewed projects now have distinct images.

@@ -11,8 +11,14 @@
       link.href = url.href;
     });
   }
+  function scrollToCurrentHash() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const target = document.getElementById(id);
+    if (target) requestAnimationFrame(() => target.scrollIntoView({ block: "start" }));
+  }
   syncLanguageLinks();
-  window.addEventListener("hashchange", syncLanguageLinks);
+  window.addEventListener("hashchange", () => { syncLanguageLinks(); scrollToCurrentHash(); });
   const project = new URLSearchParams(location.search).get("project");
   const context = document.querySelector("#project-context");
   if (context && project && /^[a-zA-Z0-9-]{1,80}$/.test(project)) {
@@ -29,7 +35,13 @@
     const leadCards = [...document.querySelectorAll("#lead-grid .project")];
     const leadCount = document.querySelector("#lead-result-count");
     const leadEmpty = document.querySelector("#lead-empty");
-    const applyLeadFilters = () => {
+    const readLeadURL = () => {
+      const params = new URLSearchParams(location.search);
+      leadQuery.value = params.get("q") || "";
+      leadSource.value = params.get("source") || "";
+      leadEvidence.value = params.get("evidence") || "";
+    };
+    const applyLeadFilters = (updateURL = true) => {
       const terms = leadQuery.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
       let visible = 0;
       leadCards.forEach(card => {
@@ -41,6 +53,13 @@
       });
       leadCount.textContent = t(`显示 ${visible} / ${leadCards.length} 条`, `Showing ${visible} / ${leadCards.length}`);
       leadEmpty.hidden = visible !== 0;
+      if (updateURL) {
+        const url = new URL(location.href);
+        [["q", leadQuery], ["source", leadSource], ["evidence", leadEvidence]].forEach(([key, control]) =>
+          control.value ? url.searchParams.set(key, control.value) : url.searchParams.delete(key));
+        history.replaceState(null, "", url);
+        syncLanguageLinks();
+      }
     };
     [leadQuery, leadSource, leadEvidence].forEach(control => {
       control.addEventListener("input", applyLeadFilters);
@@ -48,6 +67,10 @@
     });
     leadForm.addEventListener("submit", event => event.preventDefault());
     leadForm.addEventListener("reset", () => { leadQuery.value = ""; leadSource.value = ""; leadEvidence.value = ""; applyLeadFilters(); });
+    window.addEventListener("popstate", () => { readLeadURL(); applyLeadFilters(false); });
+    readLeadURL();
+    applyLeadFilters(false);
+    scrollToCurrentHash();
   }
   const form = document.querySelector("#filters");
   if (!form) return;
@@ -85,6 +108,7 @@
   }
   readURL();
   apply(false);
+  scrollToCurrentHash();
   form.addEventListener("input", () => apply());
   form.addEventListener("change", () => apply());
   form.addEventListener("submit", e => e.preventDefault());

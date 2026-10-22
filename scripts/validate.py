@@ -25,7 +25,11 @@ jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()
 projects=data["projects"]
 project_image_data=load(ROOT/"data/project-images.json")
 project_images={item["project_id"]:item for item in project_image_data["entries"]}
+hardware_tag_data=load(ROOT/"data/hardware-tags.json")
+project_hardware_tags=hardware_tag_data["projects"]
+lead_hardware_tags=hardware_tag_data["leads"]
 assert project_image_data["version"]==config["version"]==data["version"],"Project-image version mismatch"
+assert hardware_tag_data["version"]==config["version"],"Hardware-tag version mismatch"
 assert len(project_images)==len(project_image_data["entries"]),"Duplicate project-image ID"
 assert set(project_images)<=set(p["id"] for p in projects),"Project image points to missing project"
 for pid,image in project_images.items():
@@ -48,6 +52,21 @@ device_atlas=load(ROOT/"data/device-atlas.json")
 device_reviews=load(ROOT/"data/device-reviews.json")
 assert len(device_atlas["items"])==300 and device_atlas["counts"]["total"]==300, "Device atlas must contain 300 new records"
 assert len(projects)+len(watchlist)==400, "Public project/device denominator must equal 400"
+assert set(project_hardware_tags)=={p["id"] for p in projects},"Reviewed-project hardware-tag coverage mismatch"
+assert set(lead_hardware_tags)<=set(watchlist),"Hardware tags point to missing leads"
+allowed_tag_kinds={"exact-model","device-family","hardware-platform"}
+for owner,entries in [*project_hardware_tags.items(),*lead_hardware_tags.items()]:
+    assert entries and all(set(item)=={"zh","en","kind"} and item["zh"] and item["en"] and item["kind"] in allowed_tag_kinds for item in entries),owner
+    for lang in ["zh","en"]:
+        assert len({item[lang].casefold() for item in entries})==len(entries),(owner,lang,"duplicate hardware tag")
+def lead_tag_values(slug,lead,lang):
+    if slug in lead_hardware_tags:
+        return [item[lang] for item in lead_hardware_tags[slug]]
+    values=[]
+    for value in [lead.get("device_model"),lead.get("device_name")]:
+        if value and value not in values: values.append(value)
+    return values
+assert all(lead_tag_values(slug,lead,"zh") and lead_tag_values(slug,lead,"en") for slug,lead in watchlist.items()),"Every lead needs a hardware model/name tag"
 assert len({item["slug"] for item in device_atlas["items"]})==300, "Duplicate device-atlas slug"
 assert len({item["content_id"] for item in device_atlas["items"]})==300, "Duplicate device-atlas content ID"
 assert all(item["source_url"].startswith("https://") and item["device"] and item["model"] and item["source_access"] and item["discovery_channel"] for item in device_atlas["items"]), "Incomplete device-atlas record"
@@ -175,6 +194,7 @@ for lang in ["zh","en"]:
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")
         page=pages[(OUT/lang/"leads"/slug/"index.html").resolve()]
         assert page.canonical==[f"{BASE}{lang}/leads/{slug}/"]
+        assert 'class="hardware-tag"' in (OUT/lang/"leads"/slug/"index.html").read_text(encoding="utf-8"),(lang,slug,"missing hardware tag")
         expected=[item["url"] for item in watchlist_details[slug]["resources"]]
         assert all(url in page.refs for url in expected),(lang,slug,"missing lead source")
     for slug,article in articles.items():
@@ -197,7 +217,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json"]:
+for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
@@ -211,6 +231,7 @@ for lang in ["zh","en"]:
     assert set(ids)=={p.name for p in (OUT/lang/"projects").iterdir() if p.is_dir()}
     for pid in ids:
         parser=pages[(OUT/lang/"projects"/pid/"index.html").resolve()]
+        assert 'class="hardware-tag"' in (OUT/lang/"projects"/pid/"index.html").read_text(encoding="utf-8"),(lang,pid,"missing hardware tag")
         assert parser.canonical==[f"{BASE}{lang}/projects/{pid}/"]
         assert parser.alternates["en"]==f"{BASE}en/projects/{pid}/"
         assert parser.alternates["zh-CN"]==f"{BASE}zh/projects/{pid}/"

@@ -8,7 +8,7 @@ import json
 import posixpath
 import re
 from pathlib import Path
-from urllib.parse import urlsplit
+from urllib.parse import quote, urlsplit
 
 from watchlist_merge import load_watchlist
 
@@ -22,6 +22,9 @@ DATA = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 DEVICE_ATLAS = json.loads((ROOT / "data/device-atlas.json").read_text(encoding="utf-8"))
 PROJECT_IMAGE_DATA = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
 PROJECT_IMAGES = {item["project_id"]: item for item in PROJECT_IMAGE_DATA["entries"]}
+HARDWARE_TAG_DATA = json.loads((ROOT / "data/hardware-tags.json").read_text(encoding="utf-8"))
+PROJECT_HARDWARE_TAGS = HARDWARE_TAG_DATA["projects"]
+LEAD_HARDWARE_TAGS = HARDWARE_TAG_DATA["leads"]
 DEEP = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
 EN = json.loads((ROOT / "data/i18n/en.json").read_text(encoding="utf-8"))
 DEEP_EN = json.loads((ROOT / "data/i18n/deep-dives.en.json").read_text(encoding="utf-8"))
@@ -181,6 +184,27 @@ class Site:
             self.labels["category"][p["category"]], self.labels["ai"][p["ai_relation"]],
             self.labels["difficulty"][p["difficulty"]], p["evidence"]["level"]]) + "</div>"
 
+    def hardware_tags(self, values, base, anchor):
+        label = self.t("适配硬件", "Hardware")
+        links = "".join(
+            f'<a class="hardware-tag" href="{h(base)}?q={quote(value, safe="")}#{h(anchor)}">{h(value)}</a>'
+            for value in values
+        )
+        return f'<div class="hardware-tags" aria-label="{label}"><span>{label}</span>{links}</div>'
+
+    def project_hardware_tags(self, p, base, anchor="catalog"):
+        values = [item[self.lang] for item in PROJECT_HARDWARE_TAGS[p["id"]]]
+        return self.hardware_tags(values, base, anchor)
+
+    def lead_hardware_values(self, slug, lead):
+        if slug in LEAD_HARDWARE_TAGS:
+            return [item[self.lang] for item in LEAD_HARDWARE_TAGS[slug]]
+        values = []
+        for value in [lead.get("device_model"), lead.get("device_name")]:
+            if value and value not in values:
+                values.append(value)
+        return values
+
     def card_image(self, p, prefix=""):
         image = PROJECT_IMAGES.get(p["id"])
         if not image:
@@ -202,10 +226,11 @@ class Site:
         e = localized(p, "en")
         v = localized(p, self.lang)
         attrs = {"id":p["id"],"category":p["category"],"ai":p["ai_relation"],"difficulty":p["difficulty"],"evidence":p["evidence"]["level"],"use":"|".join(USE_IDS[u] for u in p["use_cases"])}
-        search = " ".join([p["name"], p["summary_zh"], p["device_scope"], e["summary"], e["device_scope"], *p["keywords"], *p["model_examples"], *p["use_cases"], *(en for uid,zh,en in USES if zh in p["use_cases"])])
+        hardware_values = [item[self.lang] for item in PROJECT_HARDWARE_TAGS[p["id"]]]
+        search = " ".join([p["name"], p["summary_zh"], p["device_scope"], e["summary"], e["device_scope"], *p["keywords"], *p["model_examples"], *hardware_values, *p["use_cases"], *(en for uid,zh,en in USES if zh in p["use_cases"])])
         attrs["search"] = search
         attr = " ".join(f'data-{k}="{h(v)}"' for k,v in attrs.items())
-        return f"""<article class="project {'has-image' if p['id'] in PROJECT_IMAGES else ''}" {attr}>{self.card_image(p,prefix)}{self.tags(p)}<h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('先看你的设备','Check your hardware first')}</b>{h(v['device_scope'])}</p><p class="limit"><b>{self.t('别忽略','Watch out')}</b> {h(v['limitations'][0])}</p><div class="card-end"><span class="status {'attention' if p['maintenance']['status'] != 'not-archived' else ''}">{h(self.labels['maintenance'][p['maintenance']['status']])}</span><span>{h(v['method'])}</span></div></article>"""
+        return f"""<article class="project {'has-image' if p['id'] in PROJECT_IMAGES else ''}" {attr}>{self.card_image(p,prefix)}{self.tags(p)}{self.project_hardware_tags(p,prefix)}<h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('先看你的设备','Check your hardware first')}</b>{h(v['device_scope'])}</p><p class="limit"><b>{self.t('别忽略','Watch out')}</b> {h(v['limitations'][0])}</p><div class="card-end"><span class="status {'attention' if p['maintenance']['status'] != 'not-archived' else ''}">{h(self.labels['maintenance'][p['maintenance']['status']])}</span><span>{h(v['method'])}</span></div></article>"""
 
     def lead_card(self, slug, lead, prefix="leads/"):
         v = lead[self.lang]
@@ -215,10 +240,10 @@ class Site:
         if self.lang == "en":
             platform = {"恩山无线论坛":"Enshan Wireless Forum", "ophub 中文项目文档":"ophub Chinese documentation"}.get(platform, platform)
         tags = [self.labels["category"][lead["category"]], platform, evidence]
-        search = " ".join([v["title"], v["summary"], lead.get("device_name", ""), lead.get("device_model", ""), platform, lead.get("discovery_channel", "")])
+        search = " ".join([v["title"], v["summary"], lead.get("device_name", ""), lead.get("device_model", ""), *self.lead_hardware_values(slug,lead), platform, lead.get("discovery_channel", "")])
         attrs = f'data-search="{h(search)}" data-source="{h(platform)}" data-evidence="{h(evidence)}" data-channel="{h(lead.get("discovery_channel", "legacy"))}"'
         status = self.t("E1 / 已读具体型号资料", "E1 / exact-model source reviewed") if evidence == "E1" else self.t("E0 / 需核对准确硬件", "E0 / exact hardware check required")
-        return f"""<article class="project" {attrs}><div class="tags">{''.join(f'<span>{h(tag)}</span>' for tag in tags)}</div><h3><a href="{prefix}{slug}/">{h(v['title'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('当前可用程度','Practical readiness')}</b>{h(decision['usable'])}</p><p class="limit"><b>{self.t('待核缺口','Review gap')}</b> {h(v['gap'])}</p><div class="card-end"><span class="status {'attention' if evidence == 'E0' else ''}">{status}</span><span>{h(lead['content_id'])}</span></div></article>"""
+        return f"""<article class="project" {attrs}><div class="tags">{''.join(f'<span>{h(tag)}</span>' for tag in tags)}</div>{self.hardware_tags(self.lead_hardware_values(slug,lead),prefix,'lead-grid')}<h3><a href="{prefix}{slug}/">{h(v['title'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('当前可用程度','Practical readiness')}</b>{h(decision['usable'])}</p><p class="limit"><b>{self.t('待核缺口','Review gap')}</b> {h(v['gap'])}</p><div class="card-end"><span class="status {'attention' if evidence == 'E0' else ''}">{status}</span><span>{h(lead['content_id'])}</span></div></article>"""
 
     def home(self):
         t = self.t
@@ -289,7 +314,7 @@ class Site:
             identity_links += f'<li>{self.link(repo_owner["url"], repo_owner["name"]+" · "+repo_owner["platform"]+" ↗")}<span class="muted"> — {t("源码仓库所有者账号；不据此推断其为唯一作者","Source-repository owner account; this does not establish sole authorship")}</span></li>'
         identity_links += "".join(f'<li>{self.link(item["url"], item["name"]+" · "+item["platform"]+" ↗")}<span class="muted"> — {h(item[self.lang+"_role"])}</span></li>' for item in socials)
         social_section = f'<h2>{t("项目账号与已核实作者主页","Project identity and verified author profiles")}</h2><ul class="sources">{identity_links}</ul><p class="muted">{t("仓库所有者账号用于追溯项目来源；作者社交账号只有在项目资料、仓库或作者主页能确认归属时才收录。","Repository-owner accounts provide project traceability. Author social profiles are listed only when attribution is confirmed by project materials, the repository or the author profile.")}</p>' if identity_links else ""
-        body = f"""<div class="detail-wrap"><a class="back" href="{rel(self.lang+'/index.html')}#catalog">← {t('继续找别的改造方案','Find another reuse route')}</a><section class="detail-head">{self.tags(p)}<h1>{h(p['name'])}</h1><div class="project-purpose"><span>{t('先说人话：它能带来什么','The useful bit first')}</span><p>{h(v['summary'])}</p></div><div class="reader-snapshot"><div><b>{t('做成以后','What you get')}</b>{outcome_list}</div><div><b>{t('你手里的设备要对得上','Your hardware must match')}</b><p>{h(v['device_scope'])}</p></div><div><b>{t('遇到这种情况先停手','Stop here if')}</b><p>{h(v['limitations'][0])}</p></div></div>{project_media}<p class="muted">{t('这是一条','This is a')} {types[p['entry_type']]} · {t('最近核对公开资料','Public sources last checked')} {p['checked_at'][:10]}</p><div class="actions">{self.link(p['repo_url'],t('去项目主页看看','Open the project page')+' ↗')}{self.link(p['tutorial_url'],t('照着原教程动手','Follow the original guide')+' ↗')}{self.link(p['compatibility_url'],t('先确认我的型号','Check my exact model')+' ↗')}</div></section>
+        body = f"""<div class="detail-wrap"><a class="back" href="{rel(self.lang+'/index.html')}#catalog">← {t('继续找别的改造方案','Find another reuse route')}</a><section class="detail-head">{self.tags(p)}{self.project_hardware_tags(p,rel(self.lang+'/index.html'))}<h1>{h(p['name'])}</h1><div class="project-purpose"><span>{t('先说人话：它能带来什么','The useful bit first')}</span><p>{h(v['summary'])}</p></div><div class="reader-snapshot"><div><b>{t('做成以后','What you get')}</b>{outcome_list}</div><div><b>{t('你手里的设备要对得上','Your hardware must match')}</b><p>{h(v['device_scope'])}</p></div><div><b>{t('遇到这种情况先停手','Stop here if')}</b><p>{h(v['limitations'][0])}</p></div></div>{project_media}<p class="muted">{t('这是一条','This is a')} {types[p['entry_type']]} · {t('最近核对公开资料','Public sources last checked')} {p['checked_at'][:10]}</p><div class="actions">{self.link(p['repo_url'],t('去项目主页看看','Open the project page')+' ↗')}{self.link(p['tutorial_url'],t('照着原教程动手','Follow the original guide')+' ↗')}{self.link(p['compatibility_url'],t('先确认我的型号','Check my exact model')+' ↗')}</div></section>
 <aside class="boundary"><b>{t('动手前，把设备和这几项逐一对上','Before you start, match these details')}</b><p>{h(v['device_scope'])}</p>{ul(v['limitations'])}<p>{t('固件','Firmware')}: {h(v['firmware_requirement'] or t('待核实','Unknown'))} · {t('地区版本','Region')}: {h(v['region_requirement'] or t('待核实','Unknown'))}</p></aside>{extra}
 <section class="prose"><h2>{t('你要准备什么','What to prepare')}</h2><dl class="spec-grid">{''.join(f'<div><dt>{h(k)}</dt><dd>{h(val)}</dd></div>' for k,val in specs)}</dl><h3>{t('还可能要花的钱','Things you may still need to buy or run')}</h3>{ul(v['cost_items'])}<p>{t('这些价格还没有核实。软件开源，也可能仍要买转接件、主板、存储，或承担电费和服务费。','Prices have not been checked. Open-source software can still require adapters, boards, storage, electricity or paid services.')}</p>
 <h2>{t('最坏会怎样，怎么退回来','What can go wrong, and how to get back')}</h2><p>{t('数据丢失风险','Data-loss risk')}: {h(t(*RISKS[p['risk']['data_loss']]))}; {t('刷坏或无法启动的风险','Bricking / boot-failure risk')}: {h(t(*RISKS[p['risk']['bricking']]))}. {t('这是按操作路线给出的提醒，还没有在每台设备上实测。','This is route-based guidance and has not been tested on every device.')}</p><p>{h(v['recovery'])}</p><p>{self.link(p['risk']['recovery_url'],t('先收藏恢复资料','Save the recovery guide'))}</p>
@@ -364,7 +389,8 @@ class Site:
             details = WATCHLIST_DETAILS[slug]
             decision = details[self.lang]
             evidence = lead.get("evidence_level", "E0")
-            sections = f'<p class="muted">{h(lead["content_id"])} · {evidence} · {self.t("资料核查","Sources reviewed")} {h(lead["reviewed_at"])} · {self.t("未进行实机测试","No hands-on hardware tests")}</p>'
+            sections = self.hardware_tags(self.lead_hardware_values(slug,lead),"../","lead-grid")
+            sections += f'<p class="muted">{h(lead["content_id"])} · {evidence} · {self.t("资料核查","Sources reviewed")} {h(lead["reviewed_at"])} · {self.t("未进行实机测试","No hands-on hardware tests")}</p>'
             if lead.get("deep_review"):
                 review = lead["deep_review"][self.lang]
                 sections += f'<aside class="lead-verdict"><p class="eyebrow">{self.t("具体型号资料已读","EXACT-MODEL SOURCE REVIEWED")}</p><div class="decision-grid"><div><b>{self.t("硬件确认","Hardware")}</b><p>{h(review["hardware"])}</p></div><div><b>{self.t("改造路线","Installation route")}</b><p>{h(review["route"])}</p></div><div><b>{self.t("可以做到什么","Expected result")}</b><p>{h(review["result"])}</p></div><div><b>{self.t("不能扩大解释的边界","Boundary")}</b><p>{h(review["boundary"])}</p></div></div><p><b>{self.t("恢复与停止条件","Recovery and stop condition")}</b> {h(review["recovery"])}</p><small>{self.t("上游版本","Upstream revision")} {h(lead["upstream_revision"])}</small></aside>'
