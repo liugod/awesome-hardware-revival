@@ -10,6 +10,7 @@ try {
   await page.goto(`${base}/zh/`, { waitUntil: "networkidle" });
   checks.reviewedCards = await page.locator("#project-grid .project").count();
   checks.reviewedCardsWithTags = await page.locator("#project-grid .project:has(.hardware-tag)").count();
+  checks.version = (await page.locator("footer").innerText()).includes("v1.13.0");
   const lx06 = page.locator('[data-id="open-xiaoai"] .hardware-tag', { hasText: "LX06" });
   await lx06.click();
   await page.waitForURL(/\?q=LX06/);
@@ -31,7 +32,7 @@ try {
   checks.mobileWidth = await mobile.evaluate(() => ({ inner: innerWidth, scroll: document.documentElement.scrollWidth }));
   await mobile.close();
 
-  if (checks.reviewedCards !== 53 || checks.reviewedCardsWithTags !== 53) throw new Error("Reviewed-project tag coverage failed");
+  if (checks.reviewedCards !== 53 || checks.reviewedCardsWithTags !== 53 || !checks.version) throw new Error("Reviewed-project tag coverage or version failed");
   if (checks.projectQuery !== "LX06" || checks.openXiaoVisible !== 1 || checks.projectVisible < 1) throw new Error("Project tag search failed");
   if (!checks.leadDetailTags.includes("GL-AR300M16-Ext") || checks.leadQuery !== "GL-AR300M16-Ext" || checks.leadVisible !== 1) throw new Error("Lead tag search failed");
   if (checks.mobileTags.length !== 6 || checks.mobileWidth.inner !== checks.mobileWidth.scroll) throw new Error("Mobile tag layout failed");
