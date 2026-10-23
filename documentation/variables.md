@@ -15,6 +15,7 @@ No secret is bundled in `docs/`, client JavaScript, source data, or the public e
 ## Pre-release checklist
 
 - Confirm all product/data versions match.
+- Confirm five score weights total 100%, all totals use 0.5-star steps, evidence is independent, and exactly 147 project-source rows need review.
 - Confirm no local credential, private key, token, machine path, or secret file is staged.
 - Build and validate from canonical data.
 - Review generated diff and public outbound URLs.

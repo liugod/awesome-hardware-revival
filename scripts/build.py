@@ -37,6 +37,10 @@ directory_export = build_directory_export(
     version=config["version"],
     generated_at=data["compiled_at"],
 )
+score_distribution_zh = "、".join(
+    f"{bucket} 星 {count} 条"
+    for bucket, count in directory_export["counts"]["score_distribution"].items()
+)
 
 def h(value):
     return html.escape(str(value if value is not None else "待核实"))
@@ -221,9 +225,9 @@ E1 不表示项目从未被别人成功使用，只表示本轮核查停留在�
 
 [项目来源发现层](../data/project-leads.json)包含 {len(project_leads)} 个仓库级 E0 候选，与正式目录 {len(projects)} 个仓库合计 {len(projects)+len(project_leads)} 个互不重复的项目来源。发现层覆盖 NAS/家庭服务器、Kindle/电子书、手机、摄像头、音频、IoT、机器人、游戏、穿戴与外设等方向，并保留仓库归档状态、最后 push、默认分支、API 许可证标识和核查时间。这里的 README 入口读取只用于确认项目方向；没有型号级安装、兼容、恢复或长期稳定性证据就不升级为 E1。
 
-## 1–5 分核查成熟度
+## 1–5 星复活价值评分
 
-统一目录 {directory_export['counts']['entries']} / {directory_export['counts']['entries']} 条记录都有评分及四项分解，并可从 [JSON](../data/directory.json) / [CSV](../data/directory.csv) 下载。评分只衡量来源、具体性、恢复说明与维护信息的核查成熟度，不衡量热度、质量、安全性或成功率；E0/E1/E2/E3 分别封顶 2/3/4/5 分。当前分布为 1 分 {directory_export['counts']['score_distribution']['1']}、2 分 {directory_export['counts']['score_distribution']['2']}、3 分 {directory_export['counts']['score_distribution']['3']}、4 分 {directory_export['counts']['score_distribution']['4']}、5 分 {directory_export['counts']['score_distribution']['5']}。
+统一目录 {directory_export['counts']['entries']} / {directory_export['counts']['entries']} 条记录都有总星级、加权平均与五项原始分，并可从 [JSON](../data/directory.json) / [CSV](../data/directory.csv) 下载。权重为可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%，加权后四舍五入到最近 0.5 星。E0–E3 是独立证据等级，不参与加权或封顶。缺少可比较事实时使用明确标注的 3 分中性值，并不表示已经核实为中等；{len(project_leads)} 个 E0 仓库候选全部标为 `needs_review: true`。当前分布为 {score_distribution_zh}。
 
 ## 排除
 

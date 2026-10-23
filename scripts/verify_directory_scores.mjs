@@ -7,28 +7,77 @@ const directory = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "d
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "site.config.json"), "utf8"));
 const expected = directory.counts.entries;
 const expectedScore4 = directory.entries.filter(entry => entry.score.score >= 4).length;
+const expectedScore5 = directory.entries.filter(entry => entry.score.score >= 5).length;
+const expectedE2 = directory.counts.evidence_distribution.E2 || 0;
+const expectedHalfStars = ["1.5", "2.5", "3.5", "4.5"];
+const combinedThreshold = 1.5;
+const expectedE0AtThreshold = directory.entries.filter(entry => entry.evidence_level === "E0" && entry.score.score >= combinedThreshold).length;
+const scoreTextPattern = /[1-5](?:\.5)?\s*\/\s*5/;
 const browser = await chromium.launch({ headless: true });
 const checks = {};
+
+const descending = scores => scores.every((score, index) => index === 0 || scores[index - 1] >= score);
 
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const errors = [];
   page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
   page.on("pageerror", error => errors.push(error.message));
+
+  const checkDefaultSort = async ({ pathName, form, sort, score, grid, reset = false }) => {
+    await page.goto(`${base}${pathName}`, { waitUntil: "networkidle" });
+    const scores = await page.locator(`${grid} .project:not([hidden])`).evaluateAll(cards => cards.map(card => Number(card.dataset.score)));
+    const result = {
+      sort: await page.locator(sort).inputValue(),
+      sortInURL: new URL(page.url()).searchParams.get("sort"),
+      descending: descending(scores),
+      count: scores.length,
+      firstScores: scores.slice(0, 8),
+      halfStarOptions: await page.locator(`${score} option`).evaluateAll(options => options.map(option => option.value).filter(value => value.endsWith(".5")))
+    };
+    if (reset) {
+      await page.locator(sort).selectOption("title-asc");
+      await page.locator(`${form} button[type="reset"]`).click();
+      const resetScores = await page.locator(`${grid} .project:not([hidden])`).evaluateAll(cards => cards.map(card => Number(card.dataset.score)));
+      result.resetSort = await page.locator(sort).inputValue();
+      result.resetSortInURL = new URL(page.url()).searchParams.get("sort");
+      result.resetDescending = descending(resetScores);
+    }
+    return result;
+  };
+
+  checks.defaultSort = {
+    home: await checkDefaultSort({ pathName: "/", form: "#filters", sort: "#sort", score: "#score", grid: "#project-grid", reset: true }),
+    directory: await checkDefaultSort({ pathName: "/zh/directory/", form: "#directory-filters", sort: "#directory-sort", score: "#directory-score", grid: "#directory-grid" }),
+    projectSources: await checkDefaultSort({ pathName: "/zh/project-sources/", form: "#project-source-filters", sort: "#project-source-sort", score: "#project-source-score", grid: "#project-source-grid" }),
+    leads: await checkDefaultSort({ pathName: "/zh/leads/", form: "#lead-filters", sort: "#lead-sort", score: "#lead-score", grid: "#lead-grid", reset: true })
+  };
+
+  for (const [name, result] of Object.entries(checks.defaultSort)) {
+    if (result.sort !== "score-desc" || result.sortInURL !== null || !result.descending) throw new Error(`${name} default star sorting failed`);
+    if (!expectedHalfStars.every(value => result.halfStarOptions.includes(value))) throw new Error(`${name} half-star filter options failed`);
+    if ("resetSort" in result && (result.resetSort !== "score-desc" || result.resetSortInURL !== null || !result.resetDescending)) throw new Error(`${name} reset star sorting failed`);
+  }
+
   await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
   checks.cards = await page.locator("#directory-grid .project").count();
   checks.cardsWithScores = await page.locator("#directory-grid .project:has(.rating)").count();
   checks.version = (await page.locator("footer").innerText()).includes(`v${config.version}`);
+  checks.directoryNeedsReview = await page.locator('#directory-grid .project[data-kind="project-source-lead"] .needs-review').count();
 
   await page.locator("#directory-evidence").selectOption("E2");
   checks.e2Visible = await page.locator("#directory-grid .project:not([hidden])").count();
+  await page.locator("#directory-evidence").selectOption("E0");
+  await page.locator("#directory-score").selectOption(String(combinedThreshold));
+  checks.combinedE0ScoreVisible = await page.locator("#directory-grid .project:not([hidden])").count();
+  checks.combinedE0ScoreValid = await page.locator("#directory-grid .project:not([hidden])").evaluateAll((cards, threshold) => cards.every(card => card.dataset.evidence === "E0" && Number(card.dataset.score) >= threshold), combinedThreshold);
+
   await page.locator("#directory-evidence").selectOption("");
   await page.locator("#directory-score").selectOption("4");
   checks.score4Visible = await page.locator("#directory-grid .project:not([hidden])").count();
   checks.scoreURL = new URL(page.url()).searchParams.get("score");
   await page.locator("#directory-score").selectOption("5");
   checks.score5Visible = await page.locator("#directory-grid .project:not([hidden])").count();
-  checks.emptyVisible = await page.locator("#directory-empty:not([hidden])").count();
 
   await page.locator("#directory-score").selectOption("");
   await page.locator("#directory-kind").selectOption("reviewed-project");
@@ -41,44 +90,63 @@ try {
 
   await page.goto(`${base}/zh/projects/xiaogpt/`, { waitUntil: "networkidle" });
   checks.projectRating = (await page.locator(".rating-panel .rating strong").innerText()).trim();
+  checks.projectRatingComponents = await page.locator(".rating-panel dl > div").count();
   await page.goto(`${base}/zh/leads/atlas-x-gl-ar300m16-ext-wifi-pineapple/`, { waitUntil: "networkidle" });
   checks.leadRating = (await page.locator(".rating-panel .rating strong").innerText()).trim();
+  checks.leadRatingComponents = await page.locator(".rating-panel dl > div").count();
 
   await page.goto(`${base}/zh/project-sources/`, { waitUntil: "networkidle" });
   checks.projectSources = await page.locator("#project-source-grid .project").count();
+  checks.projectSourceNeedsReview = await page.locator('#project-source-grid .project[data-kind="project-source-lead"] .needs-review').count();
+  const firstLeadHref = await page.locator('#project-source-grid .project[data-kind="project-source-lead"] h3 a').first().getAttribute("href");
+  if (!firstLeadHref) throw new Error("Project-source index produced no E0 detail link");
   await page.locator("#project-source-evidence").selectOption("E0");
   checks.projectSourcesE0 = await page.locator("#project-source-grid .project:not([hidden])").count();
   await page.locator("#project-source-evidence").selectOption("");
   await page.locator("#project-source-q").fill("NAS");
   checks.projectSourcesNas = await page.locator("#project-source-grid .project:not([hidden])").count();
-  const firstLeadHref = await page.locator('#project-source-grid .project[data-kind="project-source-lead"]:not([hidden]) h3 a').first().getAttribute("href");
-  if (!firstLeadHref) throw new Error("Project-source NAS search produced no E0 detail link");
   await page.goto(new URL(firstLeadHref, page.url()).href, { waitUntil: "networkidle" });
   checks.projectLeadRating = (await page.locator(".rating-panel .rating strong").innerText()).trim();
+  checks.projectLeadRatingComponents = await page.locator(".rating-panel dl > div").count();
+  checks.projectLeadNeedsReview = await page.locator(".needs-review").count();
 
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const mobileMeasure = async (pathName, grid) => {
+    await mobile.goto(`${base}${pathName}`, { waitUntil: "networkidle" });
+    return {
+      width: await mobile.evaluate(() => ({ inner: innerWidth, scroll: document.documentElement.scrollWidth })),
+      visible: await mobile.locator(`${grid} .project:not([hidden])`).count()
+    };
+  };
+  checks.mobile = {
+    home: await mobileMeasure("/", "#project-grid"),
+    directory: await mobileMeasure("/zh/directory/?q=Kindle", "#directory-grid"),
+    projectSources: await mobileMeasure("/zh/project-sources/?q=NAS", "#project-source-grid"),
+    leads: await mobileMeasure("/zh/leads/", "#lead-grid")
+  };
   await mobile.goto(`${base}/zh/directory/?q=Kindle`, { waitUntil: "networkidle" });
-  checks.mobileWidth = await mobile.evaluate(() => ({ inner: innerWidth, scroll: document.documentElement.scrollWidth }));
-  checks.mobileVisible = await mobile.locator("#directory-grid .project:not([hidden])").count();
-  await mobile.screenshot({ path: path.join(process.cwd(), "research", "validation-v1.14-directory-mobile.png"), fullPage: true });
+  await mobile.screenshot({ path: path.join(process.cwd(), "research", "validation-v1.15-directory-mobile.png"), fullPage: true });
   await mobile.goto(`${base}/zh/project-sources/?q=NAS`, { waitUntil: "networkidle" });
-  checks.projectSourceMobileWidth = await mobile.evaluate(() => ({ inner: innerWidth, scroll: document.documentElement.scrollWidth }));
-  checks.projectSourceMobileVisible = await mobile.locator("#project-source-grid .project:not([hidden])").count();
-  await mobile.screenshot({ path: path.join(process.cwd(), "research", "validation-v1.14-project-sources-mobile.png"), fullPage: true });
+  await mobile.screenshot({ path: path.join(process.cwd(), "research", "validation-v1.15-project-sources-mobile.png"), fullPage: true });
   await mobile.close();
 
   if (checks.cards !== expected || checks.cardsWithScores !== expected) throw new Error("Directory or score coverage failed");
   if (!checks.version) throw new Error("Version footer failed");
-  if (checks.e2Visible !== 3) throw new Error("E2 filter failed");
-  if (checks.score4Visible !== expectedScore4 || checks.scoreURL !== "4") throw new Error("Score filter or URL state failed");
-  if (checks.score5Visible !== 0 || checks.emptyVisible !== 1) throw new Error("Evidence-capped empty state failed");
+  if (checks.e2Visible !== expectedE2) throw new Error("E2 filter failed");
+  if (checks.combinedE0ScoreVisible !== expectedE0AtThreshold || !checks.combinedE0ScoreValid) throw new Error("Independent evidence and star filters failed");
+  if (checks.score4Visible !== expectedScore4 || checks.scoreURL !== "4" || checks.score5Visible !== expectedScore5) throw new Error("Star filter or URL state failed");
   if (checks.reviewedVisible !== directory.counts.reviewed_projects) throw new Error("Entry-kind filter failed");
   if (checks.projectLeadVisible !== directory.counts.project_source_leads) throw new Error("Project-source kind filter failed");
+  if (checks.directoryNeedsReview !== directory.counts.project_source_leads || checks.projectSourceNeedsReview !== directory.counts.project_source_leads || checks.projectLeadNeedsReview !== 1) throw new Error("Needs-review marker coverage failed");
   if (checks.projectSources !== directory.counts.independent_project_sources || checks.projectSourcesE0 !== directory.counts.project_source_leads || checks.projectSourcesNas < 1) throw new Error("Project-source index/filter failed");
-  if (checks.kindleVisible < 1 || checks.mobileVisible !== checks.kindleVisible) throw new Error("Bilingual/device search persistence failed");
-  if (checks.mobileWidth.inner !== checks.mobileWidth.scroll) throw new Error("Mobile directory overflow");
-  if (checks.projectSourceMobileVisible !== checks.projectSourcesNas || checks.projectSourceMobileWidth.inner !== checks.projectSourceMobileWidth.scroll) throw new Error("Mobile project-source search/overflow failed");
-  if (!/^\d\/5$/.test(checks.projectRating) || !/^\d\/5$/.test(checks.leadRating) || checks.projectLeadRating !== "1/5") throw new Error("Detail score panel failed");
+  if (checks.kindleVisible < 1 || checks.mobile.directory.visible !== checks.kindleVisible) throw new Error("Bilingual/device search persistence failed");
+  if (checks.mobile.projectSources.visible !== checks.projectSourcesNas) throw new Error("Project-source mobile search persistence failed");
+  if (checks.mobile.home.visible !== directory.counts.reviewed_projects || checks.mobile.leads.visible !== directory.counts.device_or_community_routes) throw new Error("Mobile list coverage failed");
+  for (const [name, result] of Object.entries(checks.mobile)) {
+    if (result.width.inner !== result.width.scroll) throw new Error(`Mobile ${name} overflow`);
+  }
+  if (![checks.projectRating, checks.leadRating, checks.projectLeadRating].every(value => scoreTextPattern.test(value))) throw new Error("Detail half-star score format failed");
+  if (![checks.projectRatingComponents, checks.leadRatingComponents, checks.projectLeadRatingComponents].every(value => value === 5)) throw new Error("Five-dimension detail panel failed");
   if (errors.length) throw new Error(`Browser errors: ${errors.join(" | ")}`);
   console.log(JSON.stringify(checks, null, 2));
   await page.close();

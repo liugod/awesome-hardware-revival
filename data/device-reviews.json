@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "reviewed_at": "2026-10-22",
   "purpose": "Model-specific source reviews for selected device-atlas entries. E1 means the linked configuration or maintainer documentation was read; it does not mean KitAgain tested the hardware.",
   "items": [

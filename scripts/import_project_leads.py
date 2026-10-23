@@ -106,10 +106,11 @@ def main() -> None:
         item["source_access"] = "repository-metadata-reviewed"
         item["readme_access"] = "opening-section-read"
         item["fork"] = False
+        item["needs_review"] = True
 
     generated_at = max(item["checked_at"] for item in selected)
     payload = {
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
         "version": config["version"],
         "generated_at": generated_at,
         "published_at": datetime.fromisoformat(generated_at.replace("Z", "+00:00")).astimezone(timezone(timedelta(hours=8))).date().isoformat(),
@@ -118,6 +119,7 @@ def main() -> None:
         "evidence_boundary_en": "These are repository-level E0 discovery sources, not reviewed compatibility, installation, or hands-on project entries.",
         "counts": {
             "total": len(selected),
+            "needs_review": len(selected),
             "evidence": {"E0": len(selected), "E1": 0, "E2": 0, "E3": 0},
             "categories": dict(sorted(collections.Counter(item["category"] for item in selected).items())),
         },

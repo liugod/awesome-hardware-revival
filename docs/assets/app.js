@@ -181,7 +181,7 @@
       leadSource.value = params.get("source") || "";
       leadEvidence.value = params.get("evidence") || "";
       leadScore.value = params.get("score") || "";
-      leadSort.value = params.get("sort") || "default";
+      leadSort.value = params.get("sort") || "score-desc";
     };
     const applyLeadFilters = (updateURL = true) => {
       const terms = leadQuery.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
@@ -200,7 +200,7 @@
       if (updateURL) {
         const url = new URL(location.href);
         [["q", leadQuery], ["source", leadSource], ["evidence", leadEvidence], ["score", leadScore], ["sort", leadSort]].forEach(([key, control]) => {
-          const isDefault = key === "sort" && control.value === "default";
+          const isDefault = key === "sort" && control.value === "score-desc";
           control.value && !isDefault ? url.searchParams.set(key, control.value) : url.searchParams.delete(key);
         });
         history.replaceState(null, "", url);
@@ -212,7 +212,7 @@
       control.addEventListener("change", applyLeadFilters);
     });
     leadForm.addEventListener("submit", event => event.preventDefault());
-    leadForm.addEventListener("reset", () => { leadQuery.value = ""; leadSource.value = ""; leadEvidence.value = ""; leadScore.value = ""; leadSort.value = "default"; applyLeadFilters(); });
+    leadForm.addEventListener("reset", event => { event.preventDefault(); leadQuery.value = ""; leadSource.value = ""; leadEvidence.value = ""; leadScore.value = ""; leadSort.value = "score-desc"; applyLeadFilters(); });
     window.addEventListener("popstate", () => { readLeadURL(); applyLeadFilters(false); });
     readLeadURL();
     applyLeadFilters(false);
@@ -228,7 +228,7 @@
   const count = document.querySelector("#result-count");
   function readURL() {
     const params = new URLSearchParams(location.search);
-    keys.forEach(k => { controls[k].value = params.get(k) || ""; });
+    keys.forEach(k => { controls[k].value = params.get(k) || (k === "sort" ? "score-desc" : ""); });
     // Retain old shared links whose use filter contained Chinese labels.
     const legacyUses = {"语音助手":"voice-assistant","Linux终端":"linux-terminal","信息屏":"information-display","副屏":"second-screen","复古游戏":"retro-gaming","媒体中心":"media-center","存储服务器":"storage-server","家庭服务器":"home-server","对话终端":"conversation","应用扩展":"app-extension","摄像头":"camera","智能家居":"smart-home","游戏系统":"gaming-os","离线控制":"offline-control","系统延寿":"os-life-extension","网络设备":"networking","视频分析":"video-analysis","阅读扩展":"reading","音乐播放":"music","驱动修复":"driver-repair"};
     if (legacyUses[params.get("use")]) controls.use.value = legacyUses[params.get("use")];
@@ -251,7 +251,11 @@
     sortCards(grid, cards, controls.sort.value);
     if (updateURL) {
       const url = new URL(location.href);
-      keys.forEach(k => controls[k].value ? url.searchParams.set(k, controls[k].value) : url.searchParams.delete(k));
+      keys.forEach(k => {
+        const value = controls[k].value;
+        const isDefault = k === "sort" && value === "score-desc";
+        value && !isDefault ? url.searchParams.set(k, value) : url.searchParams.delete(k);
+      });
       history.replaceState(null, "", url);
     }
     syncLanguageLinks();
@@ -262,7 +266,7 @@
   form.addEventListener("input", () => apply());
   form.addEventListener("change", () => apply());
   form.addEventListener("submit", e => e.preventDefault());
-  form.addEventListener("reset", () => { keys.forEach(k => { controls[k].value = ""; }); apply(); });
+  form.addEventListener("reset", event => { event.preventDefault(); keys.forEach(k => { controls[k].value = k === "sort" ? "score-desc" : ""; }); apply(); });
   window.addEventListener("popstate", () => { readURL(); apply(false); });
   document.querySelector("#share").addEventListener("click", async () => {
     const target = document.querySelector("#share-status");

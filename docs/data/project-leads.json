@@ -1,6 +1,6 @@
 {
-  "schema_version": "1.0.0",
-  "version": "1.14.0",
+  "schema_version": "1.1.0",
+  "version": "1.15.0",
   "generated_at": "2026-10-23T17:05:02Z",
   "published_at": "2026-10-24",
   "selection_method": "Verified non-fork GitHub repositories, deduplicated against the reviewed catalog and selected in category rounds.",
@@ -8,6 +8,7 @@
   "evidence_boundary_en": "These are repository-level E0 discovery sources, not reviewed compatibility, installation, or hands-on project entries.",
   "counts": {
     "total": 147,
+    "needs_review": 147,
     "evidence": {
       "E0": 147,
       "E1": 0,
@@ -52,7 +53,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "iotsound",
@@ -77,7 +79,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "librespot",
@@ -102,7 +105,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "moode",
@@ -127,7 +131,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "mopidy",
@@ -152,7 +157,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "music-player-daemon",
@@ -177,7 +183,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "owntone-server",
@@ -202,7 +209,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "rpi-audio-receiver",
@@ -227,7 +235,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "raspotify",
@@ -252,7 +261,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "raudio",
@@ -277,7 +287,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "snapcast",
@@ -302,7 +313,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "spotifyd",
@@ -327,7 +339,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "squeezelite-esp32-upstream",
@@ -352,7 +365,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "volumio2",
@@ -377,7 +391,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "camera-link",
@@ -402,7 +417,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "go2rtc",
@@ -427,7 +443,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "kerberos-agent",
@@ -452,7 +469,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "libgphoto2",
@@ -477,7 +495,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "mediamtx",
@@ -502,7 +521,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "motion-daemon",
@@ -527,7 +547,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "motioneye",
@@ -552,7 +573,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "motioneyeos",
@@ -577,7 +599,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "neolink",
@@ -602,7 +625,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "openmiko",
@@ -627,7 +651,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "remote-cam-android",
@@ -652,7 +677,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "scrypted",
@@ -678,7 +704,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "shinobi",
@@ -703,7 +730,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "vcamdroid",
@@ -728,7 +756,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "wyze-hacks",
@@ -753,7 +782,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "wz-mini-hacks",
@@ -778,7 +808,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "yi-hack-allwinner-v2",
@@ -803,7 +834,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "yi-hack-mstar",
@@ -828,7 +860,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "armbian-build",
@@ -853,7 +886,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "brunch",
@@ -878,7 +912,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "chromebrew",
@@ -903,7 +938,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "pikvm",
@@ -928,7 +964,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "tinypilot",
@@ -953,7 +990,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "cobalt-kobo-sdk",
@@ -978,7 +1016,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "freemarkable",
@@ -1003,7 +1042,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "kfmon",
@@ -1028,7 +1068,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "kindle-dash-k4nt",
@@ -1053,7 +1094,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "kobowriter",
@@ -1078,7 +1120,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "kindle-kpm",
@@ -1103,7 +1146,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "nickelmenu",
@@ -1128,7 +1172,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "okreader",
@@ -1153,7 +1198,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "openepaperlink",
@@ -1179,7 +1225,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "plato-kobo-reader",
@@ -1204,7 +1251,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "quill-kobo-reader",
@@ -1229,7 +1277,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "rekindle",
@@ -1254,7 +1303,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "remarkable-entware",
@@ -1279,7 +1329,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "remarkable-hacks",
@@ -1304,7 +1355,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "remoteink-pocketbook",
@@ -1329,7 +1381,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "rmkit",
@@ -1354,7 +1407,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "toltec",
@@ -1379,7 +1433,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "ultimate-manga-reader",
@@ -1404,7 +1459,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "amberelec",
@@ -1430,7 +1486,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "ark-4",
@@ -1456,7 +1513,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "chimeraos",
@@ -1481,7 +1539,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "freedvdboot",
@@ -1507,7 +1566,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "gp2040-ce",
@@ -1533,7 +1593,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "luma3ds",
@@ -1559,7 +1620,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "main-mister",
@@ -1585,7 +1647,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "moonlight-qt",
@@ -1610,7 +1673,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "nintendont",
@@ -1636,7 +1700,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "nxdk",
@@ -1662,7 +1727,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "onion-ui",
@@ -1688,7 +1754,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "open-ps2-loader",
@@ -1714,7 +1781,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "retropie-setup",
@@ -1739,7 +1807,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "rocknix",
@@ -1765,7 +1834,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "sunshine",
@@ -1790,7 +1860,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "twilight-menu",
@@ -1816,7 +1887,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "usb-loader-gx",
@@ -1842,7 +1914,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "xbox-softmodding-tool",
@@ -1868,7 +1941,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "ava-pro",
@@ -1893,7 +1967,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "freekiosk",
@@ -1918,7 +1993,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "kiosk-satellite",
@@ -1943,7 +2019,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "kite-aos",
@@ -1968,7 +2045,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "linux-deploy",
@@ -1993,7 +2071,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "marathon-shell",
@@ -2018,7 +2097,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "maru-os",
@@ -2043,7 +2123,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "scrcpy",
@@ -2068,7 +2149,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "webview-kiosk",
@@ -2093,7 +2175,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "adguard-home",
@@ -2118,7 +2201,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "asuswrt-merlin-ng",
@@ -2143,7 +2227,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "casaos",
@@ -2168,7 +2253,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "cockpit",
@@ -2193,7 +2279,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "cosmos-server",
@@ -2218,7 +2305,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "easynas",
@@ -2243,7 +2331,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "freifunk-gluon",
@@ -2268,7 +2357,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "libremesh-lime-packages",
@@ -2293,7 +2383,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "mergerfs",
@@ -2318,7 +2409,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "meshtastic-firmware",
@@ -2343,7 +2435,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "nethserver-ns8-core",
@@ -2368,7 +2461,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "openwisp-controller",
@@ -2393,7 +2487,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "openzfs",
@@ -2418,7 +2513,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "opnsense-core",
@@ -2443,7 +2539,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "pfsense",
@@ -2468,7 +2565,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "restic",
@@ -2493,7 +2591,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "rockstor",
@@ -2518,7 +2617,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "runtipi",
@@ -2543,7 +2643,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "airsane",
@@ -2568,7 +2669,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "brlaser",
@@ -2593,7 +2695,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "cups",
@@ -2618,7 +2721,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "cups-filters",
@@ -2644,7 +2748,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "hid-remapper",
@@ -2669,7 +2774,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "ipp-usb",
@@ -2694,7 +2800,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "klipper",
@@ -2719,7 +2826,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "libfreenect",
@@ -2745,7 +2853,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "libratbag",
@@ -2771,7 +2880,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "liquidctl",
@@ -2797,7 +2907,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "marlin",
@@ -2822,7 +2933,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "octoprint",
@@ -2847,7 +2959,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "opentabletdriver",
@@ -2873,7 +2986,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "printer-driver-ptouch",
@@ -2899,7 +3013,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "qmk-firmware",
@@ -2924,7 +3039,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "reprapfirmware",
@@ -2949,7 +3065,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "sane-airscan",
@@ -2975,7 +3092,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "cleanflight",
@@ -3001,7 +3119,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "cozmo-python-sdk",
@@ -3027,7 +3146,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "create-robot",
@@ -3053,7 +3173,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "dorita980",
@@ -3079,7 +3200,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "inav",
@@ -3105,7 +3227,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "irobot-edu-python-sdk",
@@ -3131,7 +3254,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "openbot",
@@ -3157,7 +3281,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "vector-python-sdk",
@@ -3183,7 +3308,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "atc-mi-thermometer",
@@ -3209,7 +3335,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "espurna",
@@ -3235,7 +3362,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "esp-homekit-devices",
@@ -3261,7 +3389,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "libretiny",
@@ -3287,7 +3416,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "ltchiptool",
@@ -3313,7 +3443,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "nspanel-ha-blueprint",
@@ -3339,7 +3470,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "openmqttgateway",
@@ -3365,7 +3497,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "rtl-433",
@@ -3390,7 +3523,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "shelly-homekit",
@@ -3416,7 +3550,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "tuya-cloudcutter",
@@ -3441,7 +3576,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "tuya-convert",
@@ -3466,7 +3602,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "wled",
@@ -3491,7 +3628,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "zigbee2mqtt",
@@ -3516,7 +3654,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "zigpy",
@@ -3542,7 +3681,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "amazmod",
@@ -3568,7 +3708,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "galileo-fitbit",
@@ -3594,7 +3735,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "openhaystack",
@@ -3620,7 +3762,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "openwatch-launcher",
@@ -3646,7 +3789,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "openwatch-wiite-c7s",
@@ -3672,7 +3816,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "pebble-legacy-firmware-patcher",
@@ -3698,7 +3843,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "rebbleos",
@@ -3724,7 +3870,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     },
     {
       "id": "wasp-os",
@@ -3750,7 +3897,8 @@
       "evidence_level": "E0",
       "source_access": "repository-metadata-reviewed",
       "readme_access": "opening-section-read",
-      "fork": false
+      "fork": false,
+      "needs_review": true
     }
   ]
 }

@@ -26,11 +26,13 @@ Use when building or refreshing a directory of old-device reuse, firmware, cloud
 
 For a large project-source expansion, query the repository API and README instead of copying search results. Canonicalize owner/repository URLs, reject forks, 404s, profile repositories, obvious mirrors and migrated read-only copies, then deduplicate against the reviewed catalog and every parallel research batch. Store description, archive state, last push, default branch, API license identifier, check time and bilingual scope/use summaries. Publish these rows as E0 until installation, exact-model compatibility and recovery sources are reviewed item by item.
 
-## Evidence-capped 1–5 score
+## Independent five-dimension revival stars
 
-Use the score only for review maturity. Never describe it as popularity, quality, safety or success probability. Score source evidence, source specificity, recovery clarity and maintenance visibility, then enforce hard ceilings: E0 at most 2, E1 at most 3, E2 at most 4 and E3 at most 5. Metadata-only repository discoveries stay at 1. A score of 5 requires a traceable independent reproduction; it cannot be created from stars, recent pushes, README wording or an author demonstration.
+Keep the 1–5 revival-value stars independent from E0–E3. Score five raw dimensions from 1–5: feasibility/ease (easier is higher), expected cost (lower is higher), documentation/community activity, practical value, and bricking/security risk (lower is higher). Publish explicit weights totaling 100%, calculate the weighted average, and round to the nearest 0.5 star with exact ties upward. Evidence level never enters or caps the arithmetic.
 
-Every public row must have a score, explanation, component values, evidence level, source URL and stable bilingual detail URLs in the unified JSON/CSV. Validate 100% score coverage, JSON/CSV parity, evidence ceilings and rendered filtering. Keep project-source downloads separate from the full route export so users can see which denominator they are using.
+Do not invent numeric facts from prose. If comparable structured facts are unavailable, use an explicitly disclosed neutral placeholder and record its basis as `unknown-neutral` or `unreviewed-neutral`; a neutral 3 is not proof of average performance. Repository-metadata discoveries remain E0, provisional, and `needs_review: true` until installation, exact-device compatibility, rollback, and safety sources are reviewed item by item. Recent pushes may inform only the docs/community dimension and never prove hardware support.
+
+Every public row must expose the five raw scores, per-dimension basis, weighted average, half-star total, independent evidence level, review-needed state, source URL, and stable bilingual detail URLs in the unified JSON/CSV. Validate 100% coverage, weights totaling 100%, score recomputation, all nine half-star buckets, JSON/CSV parity, independent star/evidence filtering, default star-desc sorting, and rendered review markers. Keep project-source downloads separate from the full route export so users can see which denominator they are using.
 
 ## Update discipline
 

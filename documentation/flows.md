@@ -21,7 +21,7 @@
 
 - Actor: anonymous visitor.
 - Sequence: visitor opens or downloads versioned static JSON/CSV generated from the same canonical records as the pages.
-- Integrity rule: unified JSON/CSV IDs, scores, evidence, source URLs, and entry counts must match in `scripts/validate.py`. The separate project-source JSON/CSV must preserve all 147 E0 rows while the project-source index combines them with 53 reviewed repositories.
+- Integrity rule: unified JSON/CSV IDs, five raw scores, weights, weighted/rounded totals, independent evidence grades, review-needed state, source URLs, and entry counts must match in `scripts/validate.py`. The separate project-source JSON/CSV must preserve all 147 E0 rows with `needs_review: true` while the project-source index combines them with 53 reviewed repositories.
 - Side effects: client-side download only.
 
 ## Contribution and correction

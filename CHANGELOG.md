@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.15.0 — 2026-10-24
+
+- Replace the evidence-capped review-maturity score with independent five-dimension revival-value stars: feasibility/ease 25%, low cost 15%, docs/community 20%, practical value 20%, and low bricking/security risk 20%, rounded to the nearest 0.5 star.
+- Keep E0–E3 as a separate, independently filterable evidence tag; it no longer enters or caps the star calculation.
+- Preserve all 147 repository-level E0 candidates without deep review and add `needs_review: true` plus compact bilingual “待验证 / To verify” markers to their cards and detail pages.
+- Store the five raw scores, weighted average, rounded total, per-dimension basis, evidence grade, and review-needed state in the unified JSON/CSV; add half-star filters and a nine-bucket distribution.
+- Default the homepage, unified directory, project-source index, and device/community list to stars descending while retaining star and evidence controls, URL state, reset behavior, and concise cards.
+- Rebuild all bilingual/static pages and exports at v1.15.0; validate 547/547 score coverage, 147 review-needed candidates, JSON/CSV parity, independent evidence/star filtering, default sorting, and mobile overflow.
+
 ## 1.14.0 — 2026-10-24
 
 - Publish exactly 200 repository-unique project sources: 53 existing E1/E2 reviewed projects plus 147 new E0 GitHub discoveries spanning NAS/home servers, Kindle/e-readers, mobile, cameras, audio, IoT, robots, wearables, gaming and peripherals.

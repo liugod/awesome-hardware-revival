@@ -1,161 +1,230 @@
-"""Evidence-capped, deterministic scoring for every public KitAgain route.
+"""Deterministic five-dimension revival-value scoring for KitAgain.
 
-The score measures review maturity, not popularity, project quality, safety, or
-the probability that a user's hardware will work.  Evidence is a hard ceiling:
-an E0 lead cannot outrank an E1 source review, and a five is reserved for E3.
+The 1–5 star score is an editorial comparison across feasibility, expected
+cost, documentation/community activity, practical value, and operational
+risk. Evidence level (E0–E3) is deliberately separate: it never caps or enters
+the arithmetic. Repository-discovery rows remain clearly provisional.
 """
 
 from __future__ import annotations
 
 import collections
 import csv
+from datetime import datetime
 import io
 import json
+import math
 from urllib.parse import urljoin
 
 
-SCORING_VERSION = "1.0.0"
-EVIDENCE_SCORE = {"E0": 1, "E1": 3, "E2": 4, "E3": 5}
-EVIDENCE_CAP = {"E0": 2, "E1": 3, "E2": 4, "E3": 5}
-LOW_ACCESS = {
-    "repository-metadata-reviewed",
-    "index-confirmed-not-body-reviewed",
-    "category-index-reviewed",
+SCORING_VERSION = "2.0.0"
+WEIGHTS = {
+    "feasibility": 25,
+    "cost": 15,
+    "docs_community": 20,
+    "practical_value": 20,
+    "risk": 20,
 }
+COMPONENTS = tuple(WEIGHTS)
 BODY_ACCESS = {
     "source-page-reviewed",
     "source-body-reviewed",
     "post-text-and-project-read",
 }
+HALF_STAR_BUCKETS = tuple(step / 2 for step in range(2, 11))
 
 
-def _rounded(value: float) -> int:
-    """Round positive scores without Python's banker-rounding surprise."""
-    return int(value + 0.5)
+def _round_half(value: float) -> float:
+    """Round a positive value to the nearest half, with exact ties upward."""
+    return math.floor(value * 2 + 0.5) / 2
 
 
-def _score_record(evidence: str, components: dict[str, int], *, force: int | None = None) -> dict:
-    weighted = (
-        components["evidence"] * 0.50
-        + components["source_specificity"] * 0.20
-        + components["recovery_clarity"] * 0.20
-        + components["maintenance_visibility"] * 0.10
-    )
-    score = force if force is not None else _rounded(weighted)
-    score = max(1, min(score, EVIDENCE_CAP[evidence]))
-    labels = {
-        1: ("线索入口", "Discovery lead"),
-        2: ("可继续核查", "Ready for deeper review"),
-        3: ("资料已读", "Source reviewed"),
-        4: ("作者实机证据", "Author hardware evidence"),
-        5: ("独立复现已核验", "Independent reproduction verified"),
-    }
-    zh_label, en_label = labels[score]
+def _format_score(value: float) -> str:
+    return str(int(value)) if value.is_integer() else f"{value:.1f}"
+
+
+def _parse_time(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def _recent(last_push: str | None, checked_at: str | None, days: int = 365) -> bool:
+    pushed = _parse_time(last_push)
+    checked = _parse_time(checked_at)
+    return bool(pushed and checked and 0 <= (checked - pushed).days <= days)
+
+
+def _score_label(score: float) -> tuple[str, str]:
+    if score <= 1.5:
+        return "谨慎评估", "Caution"
+    if score <= 2.5:
+        return "条件较多", "More constraints"
+    if score <= 3.5:
+        return "值得比较", "Worth comparing"
+    if score <= 4.5:
+        return "较易落地", "Strong candidate"
+    return "综合条件突出", "Excellent fit"
+
+
+def _score_record(
+    components: dict[str, int],
+    basis: dict[str, str],
+    *,
+    provisional: bool = False,
+) -> dict:
+    assert set(components) == set(COMPONENTS)
+    assert set(basis) == set(COMPONENTS)
+    assert all(isinstance(value, int) and 1 <= value <= 5 for value in components.values())
+    weighted = sum(components[key] * WEIGHTS[key] for key in COMPONENTS) / 100
+    score = _round_half(weighted)
+    zh_label, en_label = _score_label(score)
     return {
         "score": score,
+        "weighted_average": round(weighted, 3),
         "scale": 5,
+        "rounding": "nearest-0.5",
         "label_zh": zh_label,
         "label_en": en_label,
-        "evidence_cap": EVIDENCE_CAP[evidence],
         "components": components,
-        "disclaimer_zh": "核查成熟度，不是项目质量、成功率、安全性或用户口碑评分。",
-        "disclaimer_en": "Review maturity, not project quality, success probability, safety, or a user rating.",
+        "component_basis": basis,
+        "provisional": provisional,
+        "disclaimer_zh": "复活价值的相对编辑评分，不是兼容保证或安全证明；E0–E3 证据等级另行标注。",
+        "disclaimer_en": "A relative editorial revival-value score, not a compatibility guarantee or safety proof; E0–E3 evidence is shown separately.",
     }
 
 
 def score_project(project: dict) -> dict:
-    evidence = project["evidence"]["level"]
-    model_specific = bool(project.get("model_examples"))
-    recovery = project.get("risk", {}).get("recovery") or ""
-    recovery_url = project.get("risk", {}).get("recovery_url")
-    maintenance = project.get("maintenance", {})
-    components = {
-        "evidence": EVIDENCE_SCORE[evidence],
-        "source_specificity": 5 if model_specific else 4,
-        "recovery_clarity": 5 if recovery_url else (4 if recovery else 1),
-        # Visibility measures whether the state was recorded with a check date,
-        # not whether the project happens to be active. Archived is not worse
-        # evidence when its archival state is explicit and dated.
-        "maintenance_visibility": 5 if maintenance.get("status") and maintenance.get("checked_at") else 1,
+    feasibility = {"easy": 5, "medium": 3, "high": 1}[project["difficulty"]]
+    # Every reviewed project currently has UNKNOWN monetary cost. Neutral 3 is
+    # explicit imputation; item counts are not treated as price evidence.
+    cost = 3
+
+    source_urls = {
+        url
+        for url in [
+            project.get("repo_url"),
+            project.get("tutorial_url"),
+            project.get("compatibility_url"),
+            *(source.get("url") for source in project.get("sources", [])),
+        ]
+        if url
     }
-    record = _score_record(evidence, components)
-    record["reason_zh"] = (
-        f"{evidence} 设定 {record['evidence_cap']} 分证据上限；项目资料含"
-        f"{'具体型号示例' if model_specific else '设备范围'}、恢复说明和带日期的维护状态。"
+    maintenance = project.get("maintenance", {})
+    active = maintenance.get("status") == "not-archived" and _recent(
+        maintenance.get("last_push_at"), maintenance.get("checked_at")
     )
-    record["reason_en"] = (
-        f"{evidence} sets an evidence ceiling of {record['evidence_cap']}; the record includes "
-        f"{'model examples' if model_specific else 'a device scope'}, recovery guidance, and dated maintenance metadata."
+    if len(source_urls) >= 2 and active:
+        docs_community = 5
+        docs_basis = f"reviewed-urls:{len(source_urls)};recent-non-archived"
+    elif len(source_urls) >= 2:
+        docs_community = 4
+        docs_basis = f"reviewed-urls:{len(source_urls)};activity-not-assumed"
+    elif source_urls:
+        docs_community = 3
+        docs_basis = "one-reviewed-url"
+    else:
+        docs_community = 1
+        docs_basis = "no-reviewed-url"
+
+    practical_value = 3 if project["entry_type"] == "prerequisite" else 4
+
+    data_loss_score = {"not-expected": 5, "possible": 3, "expected": 1}.get(
+        project.get("risk", {}).get("data_loss"), 3
     )
+    bricking_score = {"not-expected": 5, "workflow-dependent": 3, "possible": 2, "expected": 1}.get(
+        project.get("risk", {}).get("bricking"), 3
+    )
+    # Security has not been assessed independently, so even a low-bricking
+    # software route cannot exceed neutral 3 on the combined risk dimension.
+    risk = min(data_loss_score, bricking_score, 3)
+    components = {
+        "feasibility": feasibility,
+        "cost": cost,
+        "docs_community": docs_community,
+        "practical_value": practical_value,
+        "risk": risk,
+    }
+    basis = {
+        "feasibility": f"catalog-difficulty:{project['difficulty']}",
+        "cost": "unknown-neutral",
+        "docs_community": docs_basis,
+        "practical_value": f"reviewed-entry-type:{project['entry_type']}",
+        "risk": f"structured-data-loss:{project['risk']['data_loss']};bricking:{project['risk']['bricking']};security-unreviewed",
+    }
+    record = _score_record(components, basis)
+    record["reason_zh"] = "按现有难度、未知成本、已读资料、复活用途与结构化风险字段计算；证据等级不参与加权或封顶。"
+    record["reason_en"] = "Calculated from existing difficulty, unknown cost, reviewed documentation, revival use, and structured risk fields; evidence level neither enters nor caps the score."
     return record
 
 
 def score_lead(lead: dict, decision: dict) -> dict:
-    evidence = lead.get("evidence_level", "E0")
     access = lead.get("source_access")
-    exact_model = bool(lead.get("device_model"))
     deep_review = bool(lead.get("deep_review"))
     if deep_review:
-        specificity = 5
-        recovery = 4
-        visibility = 4
-    elif exact_model and access in BODY_ACCESS:
-        specificity = 4
-        recovery = 3
-        visibility = 3
-    elif exact_model:
-        specificity = 3
-        recovery = 2
-        visibility = 2
+        docs_community = 4
+        docs_basis = "exact-model-source-body-reviewed"
+    elif access in BODY_ACCESS:
+        docs_community = 3
+        docs_basis = f"source-access:{access}"
     else:
-        specificity = 2
-        recovery = 3 if decision.get("follow") else 2
-        visibility = 3 if access in BODY_ACCESS or access is None else 2
+        docs_community = 2
+        docs_basis = f"source-access:{access or 'unspecified'}"
+    # The device/community ledger does not contain comparable structured cost,
+    # ease, value, or security measurements. Use a disclosed neutral value
+    # instead of extracting numbers from prose.
     components = {
-        "evidence": EVIDENCE_SCORE[evidence],
-        "source_specificity": specificity,
-        "recovery_clarity": recovery,
-        "maintenance_visibility": visibility,
+        "feasibility": 3,
+        "cost": 3,
+        "docs_community": docs_community,
+        "practical_value": 3,
+        "risk": 3,
     }
-    force = None
-    if evidence == "E0":
-        # Metadata/index-only discovery remains level 1 even when the model name
-        # itself is exact. A page/body review or curated case sheet can reach 2.
-        force = 1 if access in LOW_ACCESS else 2
-    record = _score_record(evidence, components, force=force)
-    access_note_zh = "只核到索引或仓库元数据" if access in LOW_ACCESS else "已有来源页或判断表"
-    access_note_en = "only an index or repository metadata was checked" if access in LOW_ACCESS else "a source page or decision sheet is available"
-    record["reason_zh"] = (
-        f"{evidence} 设定 {record['evidence_cap']} 分证据上限；{access_note_zh}。"
-        "该分数不把设备页存在视为刷机成功。"
-    )
-    record["reason_en"] = (
-        f"{evidence} sets an evidence ceiling of {record['evidence_cap']}; {access_note_en}. "
-        "The score does not treat the existence of a device page as a successful build."
-    )
+    basis = {
+        "feasibility": "unknown-neutral",
+        "cost": "unknown-neutral",
+        "docs_community": docs_basis,
+        "practical_value": "unknown-neutral",
+        "risk": "unknown-neutral;security-unreviewed",
+    }
+    record = _score_record(components, basis)
+    record["reason_zh"] = "设备/社区路线仅对资料与社区维度使用现有核查状态；其余不可比较字段以 3 分中性值计入，并不表示已验证为中等。"
+    record["reason_en"] = "Only the documentation/community dimension uses the current review state; other non-comparable fields use a neutral 3, which does not mean they were verified as average."
     return record
 
 
 def score_project_lead(lead: dict) -> dict:
-    """Score an E0 repository discovery record without implying compatibility."""
-    evidence = lead.get("evidence_level", "E0")
-    assert evidence == "E0", f"Project-source lead {lead.get('id')} must remain E0"
+    """Score an E0 repository discovery without implying a deep review."""
+    assert lead.get("evidence_level", "E0") == "E0", f"Project-source lead {lead.get('id')} must remain E0"
+    if lead.get("archived"):
+        docs_community = 1
+        docs_basis = "repository-archived"
+    elif _recent(lead.get("pushed_at"), lead.get("checked_at")):
+        docs_community = 3
+        docs_basis = "repository-metadata;push-within-365-days"
+    else:
+        docs_community = 2
+        docs_basis = "repository-metadata;activity-not-assumed"
     components = {
-        "evidence": EVIDENCE_SCORE[evidence],
-        "source_specificity": 3 if lead.get("device_scope_zh") and lead.get("device_scope_en") else 2,
-        "recovery_clarity": 1,
-        "maintenance_visibility": 4 if lead.get("checked_at") and lead.get("pushed_at") else 1,
+        "feasibility": 3,
+        "cost": 3,
+        "docs_community": docs_community,
+        "practical_value": 3,
+        "risk": 3,
     }
-    record = _score_record(evidence, components, force=1)
-    record["reason_zh"] = (
-        "E0 设定 2 分证据上限；目前只核对了 GitHub 仓库元数据与 README 入口，"
-        "尚未逐项阅读安装、准确型号兼容与恢复资料，因此保持 1 分。"
-    )
-    record["reason_en"] = (
-        "E0 sets an evidence ceiling of 2. Only GitHub repository metadata and the README entry point "
-        "were checked; installation, exact-device compatibility, and recovery material were not "
-        "reviewed item by item, so the score remains 1."
-    )
+    basis = {
+        "feasibility": "unreviewed-neutral",
+        "cost": "unreviewed-neutral",
+        "docs_community": docs_basis,
+        "practical_value": "unreviewed-neutral",
+        "risk": "unreviewed-neutral;security-unreviewed",
+    }
+    record = _score_record(components, basis, provisional=True)
+    record["reason_zh"] = "仅依据仓库元数据给出暂定比较分；可行性、成本、实用价值、刷坏/安全风险均未深审，以 3 分中性占位并标记待验证。"
+    record["reason_en"] = "A provisional comparison based only on repository metadata; feasibility, cost, practical value, and bricking/security risk were not deeply reviewed, use a neutral 3, and remain marked for verification."
     return record
 
 
@@ -194,6 +263,7 @@ def build_directory_export(
             "title_en": project["name"],
             "category": project["category"],
             "evidence_level": project["evidence"]["level"],
+            "needs_review": False,
             "score": project_scores[pid],
             "source_url": project["repo_url"],
             "detail_url_zh": urljoin(base, f"zh/projects/{pid}/"),
@@ -209,6 +279,7 @@ def build_directory_export(
             "title_en": lead["en"]["title"],
             "category": lead["category"],
             "evidence_level": lead.get("evidence_level", "E0"),
+            "needs_review": False,
             "score": lead_scores[slug],
             "source_url": lead["source_url"],
             "detail_url_zh": urljoin(base, f"zh/leads/{slug}/"),
@@ -225,6 +296,7 @@ def build_directory_export(
             "title_en": lead["name"],
             "category": lead["category"],
             "evidence_level": lead["evidence_level"],
+            "needs_review": lead["needs_review"],
             "score": project_lead_scores[lead_id],
             "source_url": lead["repo_url"],
             "detail_url_zh": urljoin(base, f"zh/project-leads/{lead_id}/"),
@@ -235,14 +307,15 @@ def build_directory_export(
     evidence = collections.Counter(entry["evidence_level"] for entry in entries)
     categories = collections.Counter(entry["category"] for entry in entries)
     return {
-        "schema_version": "1.0.0",
+        "schema_version": "2.0.0",
         "scoring_version": SCORING_VERSION,
         "version": version,
         "generated_at": generated_at,
-        "score_name_zh": "核查成熟度",
-        "score_name_en": "Review maturity",
-        "score_scope_zh": "1–5 分只衡量 KitAgain 对来源、型号边界、恢复与维护信息的核查成熟度；不衡量热度、项目质量、安全性或成功率。",
-        "score_scope_en": "The 1–5 score measures only KitAgain review maturity for sources, model boundaries, recovery, and maintenance visibility; it is not popularity, project quality, safety, or success probability.",
+        "score_name_zh": "复活价值综合星级",
+        "score_name_en": "Revival value stars",
+        "score_scope_zh": "五维相对编辑评分，按 0.5 星取整；E0–E3 是独立证据等级，不参与加权或封顶。缺少可比较事实时使用明确标注的 3 分中性值，不代表已核验为中等。",
+        "score_scope_en": "A relative five-dimension editorial score rounded to 0.5 stars. E0–E3 is an independent evidence grade and neither enters nor caps the score. A disclosed neutral 3 is used when comparable facts are unavailable; it does not mean verified average performance.",
+        "weights": WEIGHTS,
         "counts": {
             "entries": len(entries),
             "independent_project_sources": len(projects) + len(project_leads),
@@ -251,16 +324,17 @@ def build_directory_export(
             "device_or_community_routes": len(watchlist),
             "unique_primary_source_urls": len({entry["source_url"] for entry in entries}),
             "score_coverage": len(entries),
-            "score_distribution": {str(score): distribution.get(score, 0) for score in range(1, 6)},
+            "needs_review": sum(entry["needs_review"] for entry in entries),
+            "score_distribution": {_format_score(score): distribution.get(score, 0) for score in HALF_STAR_BUCKETS},
             "evidence_distribution": dict(sorted(evidence.items())),
             "category_distribution": dict(sorted(categories.items())),
         },
-        "rubric": {
-            "1": {"zh": "仅核到公开索引或仓库元数据，仍是 E0 发现线索。", "en": "Only a public index or repository metadata was checked; still an E0 discovery lead."},
-            "2": {"zh": "来源页或判断表已读，但兼容与部署证据仍不足，保持 E0。", "en": "A source page or decision sheet was read, but compatibility/deployment evidence remains insufficient; still E0."},
-            "3": {"zh": "已读部署、配置或准确型号资料，属于 E1；不代表实机成功。", "en": "Deployment, configuration, or exact-model material was read (E1); this is not a hands-on success."},
-            "4": {"zh": "在 E1 基础上另有作者具体实机陈述或演示说明，属于 E2。", "en": "E1 plus a specific author hardware claim or demonstration description (E2)."},
-            "5": {"zh": "独立使用者的可追溯复现已核验，属于 E3；当前为 0 条。", "en": "A traceable independent reproduction was verified (E3); currently zero entries."},
+        "dimensions": {
+            "feasibility": {"weight": WEIGHTS["feasibility"], "zh": "可行性 / 上手难度（越容易分越高）", "en": "Feasibility / ease (easier is higher)"},
+            "cost": {"weight": WEIGHTS["cost"], "zh": "成本（越低分越高）", "en": "Cost (lower is higher)"},
+            "docs_community": {"weight": WEIGHTS["docs_community"], "zh": "文档与社区活跃度", "en": "Documentation and community activity"},
+            "practical_value": {"weight": WEIGHTS["practical_value"], "zh": "实用价值", "en": "Practical value"},
+            "risk": {"weight": WEIGHTS["risk"], "zh": "刷坏与安全风险（风险越低分越高）", "en": "Bricking and security risk (lower risk is higher)"},
         },
         "entries": entries,
     }
@@ -270,9 +344,9 @@ def directory_csv(export: dict) -> str:
     output = io.StringIO(newline="")
     fields = [
         "entry_id", "content_id", "kind", "title_zh", "title_en", "category",
-        "evidence_level", "score", "score_label_zh", "score_label_en",
-        "evidence_component", "source_specificity_component",
-        "recovery_clarity_component", "maintenance_visibility_component",
+        "evidence_level", "needs_review", "score", "weighted_average",
+        "score_label_zh", "score_label_en", "feasibility", "cost",
+        "docs_community", "practical_value", "risk", "component_basis",
         "source_url", "detail_url_zh", "detail_url_en", "reviewed_at",
         "score_reason_zh", "score_reason_en",
     ]
@@ -282,14 +356,13 @@ def directory_csv(export: dict) -> str:
         score = entry["score"]
         components = score["components"]
         writer.writerow({
-            **{key: entry[key] for key in ["entry_id", "content_id", "kind", "title_zh", "title_en", "category", "evidence_level", "source_url", "detail_url_zh", "detail_url_en", "reviewed_at"]},
+            **{key: entry[key] for key in ["entry_id", "content_id", "kind", "title_zh", "title_en", "category", "evidence_level", "needs_review", "source_url", "detail_url_zh", "detail_url_en", "reviewed_at"]},
             "score": score["score"],
+            "weighted_average": score["weighted_average"],
             "score_label_zh": score["label_zh"],
             "score_label_en": score["label_en"],
-            "evidence_component": components["evidence"],
-            "source_specificity_component": components["source_specificity"],
-            "recovery_clarity_component": components["recovery_clarity"],
-            "maintenance_visibility_component": components["maintenance_visibility"],
+            **{key: components[key] for key in COMPONENTS},
+            "component_basis": json.dumps(score["component_basis"], ensure_ascii=False, separators=(",", ":")),
             "score_reason_zh": score["reason_zh"],
             "score_reason_en": score["reason_en"],
         })
@@ -300,7 +373,7 @@ def project_leads_csv(project_leads: list[dict]) -> str:
     """Create a flat, bilingual export for independent E0 project sources."""
     output = io.StringIO(newline="")
     fields = [
-        "content_id", "id", "name", "repo_url", "category", "evidence_level",
+        "content_id", "id", "name", "repo_url", "category", "evidence_level", "needs_review",
         "summary_zh", "summary_en", "device_scope_zh", "device_scope_en",
         "use_case_zh", "use_case_en", "github_description", "archived",
         "pushed_at", "license_spdx", "default_branch", "checked_at",

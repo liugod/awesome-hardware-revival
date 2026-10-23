@@ -5,11 +5,11 @@
 | Use case | Rule and expected behavior | Evidence | Status / gate |
 | --- | --- | --- | --- |
 | Canonical catalog | Schema, unique IDs, evidence invariants, unknown costs, translations | `scripts/validate.py`, `data/catalog.schema.json` | Existing; CI-required |
-| Full directory export | Every public entry has one evidence-capped score; JSON/CSV IDs and facts match | `scripts/scoring.py`, `scripts/validate.py` | Existing; CI-required |
-| 200 project sources | 53 reviewed + 147 repository-unique E0 sources; no URL collision; E0 score stays 1; project-source JSON/CSV and pages match | `scripts/import_project_leads.py`, `scripts/validate.py` | Existing; CI-required |
+| Full directory export | Every public entry has five integer raw scores, weights totaling 100%, a correctly rounded half-star total, independent evidence, and JSON/CSV parity | `scripts/scoring.py`, `scripts/validate.py` | Existing; CI-required |
+| 200 project sources | 53 reviewed + 147 repository-unique E0 sources; no URL collision; all 147 retain E0 and `needs_review: true`; project-source JSON/CSV and pages match | `scripts/import_project_leads.py`, `scripts/validate.py` | Existing; CI-required |
 | Static routes | One H1/canonical, reciprocal language links, internal links and anchors resolve | `scripts/validate.py` | Existing; CI-required |
 | Hardware search | Model tags restore URL queries and return expected cards | `scripts/verify_hardware_tags.mjs` | Existing; guarded local/public browser check |
-| Score directory | Search, evidence/kind/score filters, URL state, empty state, 200-source index, E0 detail, mobile overflow | `scripts/verify_directory_scores.mjs` | Existing; guarded local/public browser check |
+| Star directory | Homepage and list defaults sort stars descending; half-star and evidence filters remain independent; URL/reset state, 147 markers, five detail dimensions, and mobile overflow work | `scripts/verify_directory_scores.mjs` | Existing; guarded local/public browser check |
 | Public-file safety | No common token/private-key/private-machine-path pattern or replacement character | `scripts/validate.py` | Existing; CI-required |
 | Deterministic build | Generated `docs/` and research files have no post-build diff | `.github/workflows/validate.yml` | Existing; CI-required |
 
