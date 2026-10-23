@@ -57,15 +57,15 @@ Date: 2026-10-24. This validates the catalog, project-source discovery layer, de
 ## Publication acceptance
 
 - Public repository: https://github.com/liugod/awesome-hardware-revival
-- Site: https://liugod.github.io/awesome-hardware-revival/
-- Initial content commit: `39e5b423fae4c9d3203d73c5d1e65cbd9e6172ca`.
-- GitHub `Validate catalog and site` workflow passed on that commit; Pages was enabled from `main:/docs`.
-- Independent GitHub Contents API readback matched local README, catalog JSON and index HTML byte-for-byte.
-- Independent public HTTPS GETs matched local index HTML, JSON, CSV, sitemap and HP detail HTML byte-for-byte on 2026-10-20 at 10:40:56 UTC.
-- Catalog JSON SHA-256: `0d5cf367ff0f0d560d519fa5600145aa771b367fce80c71f7b4d1d18264670ad`.
-- Catalog CSV SHA-256: `f857e898708342db54bbebcd049e6fc1b879fb871fef8e34ab2971cae180c5d9`.
-- Chrome opened the public HTTPS page and rendered its title, navigation, counts and project entries. Public-page screenshot captured.
-- Browser download automation timed out. The CSV URL itself was independently retrieved and hash-verified; successful browser download-manager completion is **not** claimed. Full interaction tests above were performed on the local build; deployed files were then independently matched to that build.
+- Canonical site: https://kitagain.com/; repository homepage metadata also points to this URL. Pages reports `built`, CNAME `kitagain.com`, source `main:/docs`.
+- v1.14.0 content commit: `e44488910ed4d3188d6b475701e5b745e73604e0`.
+- GitHub `Validate catalog and site` run [39993882577](https://github.com/liugod/awesome-hardware-revival/actions/runs/39993882577) and `pages-build-deployment` run [39993881925](https://github.com/liugod/awesome-hardware-revival/actions/runs/39993881925) both completed successfully for that commit.
+- GitHub Contents API readback matched local Git blobs for README, project-source JSON, unified JSON/CSV, root HTML, Chinese 200-source index and sitemap.
+- Independent HTTPS GETs returned 200 and matched local SHA-256 byte-for-byte for the root page, Chinese project-source and unified-directory pages, project-source JSON/CSV, unified JSON/CSV and sitemap.
+- Release hashes: `project-leads.json` `1dd9fbadfacee001eb764c97ce7e9f274ade4a68dc56409c317ebbe190366676`; `project-leads.csv` `bacbaedb4da425143987c53f0ee988a4b112e54a9bf13aaa32cd2044284a974a`; `directory.json` `0adc1ad1e5421c0e59970f4ae974a18e87a411233fd108fe8a78ab529e6393cd`; `directory.csv` `597d003506b5cd79ee915639d4add3c2e649493bef9c920d14c5e75cc60a4173`; `sitemap.xml` `21859b95165d85d91557c6cc4b32addc469462313706c525276ffab99cf4f2ef`.
+- Public Chromium readback rendered 547 scored directory cards, 147 E0 project-source cards, 200 project-source index cards, 3 `NAS` results, the E0 detail score `1/5`, the English `200 independent project sources` heading, and 390 px pages with no horizontal overflow.
+
+The initial 2026-10-20 publication used commit `39e5b423fae4c9d3203d73c5d1e65cbd9e6172ca` and the pre-custom-domain GitHub Pages URL. Those earlier catalog JSON/CSV hashes are historical release evidence, not current v1.14.0 hashes.
 
 ## Limits
 
