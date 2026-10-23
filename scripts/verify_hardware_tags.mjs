@@ -1,7 +1,9 @@
 import { chromium } from "file:///C:/Users/liuji/AppData/Roaming/npm/node_modules/playwright/index.mjs";
+import fs from "node:fs";
 import path from "node:path";
 
 const base = process.env.KITAGAIN_PREVIEW || "http://127.0.0.1:4185";
+const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "site.config.json"), "utf8"));
 const browser = await chromium.launch({ headless: true });
 const checks = {};
 
@@ -10,14 +12,14 @@ try {
   await page.goto(`${base}/zh/`, { waitUntil: "networkidle" });
   checks.reviewedCards = await page.locator("#project-grid .project").count();
   checks.reviewedCardsWithTags = await page.locator("#project-grid .project:has(.hardware-tag)").count();
-  checks.version = (await page.locator("footer").innerText()).includes("v1.13.0");
+  checks.version = (await page.locator("footer").innerText()).includes(`v${config.version}`);
   const lx06 = page.locator('[data-id="open-xiaoai"] .hardware-tag', { hasText: "LX06" });
   await lx06.click();
   await page.waitForURL(/\?q=LX06/);
   checks.projectQuery = await page.locator("#q").inputValue();
   checks.projectVisible = await page.locator("#project-grid .project:not([hidden])").count();
   checks.openXiaoVisible = await page.locator('[data-id="open-xiaoai"]:not([hidden])').count();
-  await page.locator('[data-id="open-xiaoai"]').screenshot({ path: path.join(process.cwd(), "research", "validation-v1.13-hardware-tags.png") });
+  await page.locator('[data-id="open-xiaoai"]').screenshot({ path: path.join(process.cwd(), "research", `validation-v${config.version}-hardware-tags.png`) });
 
   await page.goto(`${base}/zh/leads/atlas-x-gl-ar300m16-ext-wifi-pineapple/`, { waitUntil: "networkidle" });
   checks.leadDetailTags = await page.locator(".hardware-tag").allTextContents();

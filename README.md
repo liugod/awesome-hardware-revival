@@ -2,11 +2,15 @@
 
 **手里有什么设备 → 还能做什么 → 哪个方案有证据 → 动手前核对什么。**
 
-[中文导航站](https://kitagain.com/zh/) · [English website](https://kitagain.com/) · [社区论坛](https://community.kitagain.com/) · [English README](README.en.md) · [30 天执行计划](research/NEXT-30-DAYS.zh-CN.md) · [研究报告](research/REPORT.zh-CN.md) · [12 篇案例分析](research/DEEP_DIVES.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
+[中文导航站](https://kitagain.com/zh/) · [English website](https://kitagain.com/) · [200 个项目来源](https://kitagain.com/zh/project-sources/) · [全站目录](https://kitagain.com/zh/directory/) · [评分方法](https://kitagain.com/zh/scoring/) · [社区论坛](https://community.kitagain.com/) · [English README](README.en.md) · [研究报告](research/REPORT.zh-CN.md) · [提交项目或复现](https://github.com/liugod/awesome-hardware-revival/issues/new/choose)
 
 从小爱音箱和 Nest Mini，到 Kindle、旧电脑、路由器、摄像头、停服机器人和缺驱动的打印机。这个目录把公开代码、作者案例与适配限制放在一起，帮助你判断下一步是否值得尝试。
 
-**v1.13.0 · 正式目录核查 2026-10-20，设备图谱核查 2026-10-22，标签与图片更新 2026-10-23**：中文名为“垃圾佬复活站”，英文品牌、域名和仓库名继续使用 KitAgain。现在共有 **400 种设备与改造路线**：53 条正式项目/平台/工具、30 条已读取具体型号资料的 E1 设备路线、317 条 E0 设备与社区线索，另有 3 篇双语实用指南。每条路线都显示独立的硬件名称或型号标签，点击标签即可按同一设备搜索；标签明确区分准确型号、设备家族和硬件平台，未把推测型号当成事实。31 个正式项目已有各自不同的图片：27 张来自项目仓库、作者页面或项目官网的设备实拍、硬件图与界面截图，4 张是在缺少合格原图时制作并明确标注的项目专属示意插图。
+**v1.14.0 · 项目来源发现层更新 2026-10-24**：中文名为“垃圾佬复活站”，英文品牌、域名和仓库名继续使用 KitAgain。现在有 **200 个按仓库 URL 去重的独立项目来源**：53 个 E1/E2 深审项目/平台/工具，加 147 个经 GitHub API 与 README 入口核对的 E0 发现候选。另有 347 条设备与社区路线（30 条 E1、317 条 E0），所以[全站统一目录](https://kitagain.com/zh/directory/)共有 **547 条公开记录**、451 个不同主来源 URL。项目来源数、深审项目数和设备路线数是三套明确分母，不把同一上游的多个设备型号冒充独立项目。
+
+547 / 547 条记录都有 1–5 分“核查成熟度”及四项分解。评分受证据等级硬封顶：E0 ≤ 2、E1 ≤ 3、E2 ≤ 4、E3 ≤ 5；它不是热度、项目质量、安全性、用户口碑或成功率。本版分布为 1 分 341 条、2 分 123 条、3 分 80 条、4 分 3 条、5 分 0 条。147 个仓库发现候选全部保持 E0 / 1 分：仓库存在和 README 可读不等于兼容、安装或恢复资料已审。
+
+每条原有设备路线仍显示独立的硬件名称或型号标签，点击标签即可按同一设备搜索；标签明确区分准确型号、设备家族和硬件平台，未把推测型号当成事实。31 个正式项目已有各自不同的图片：27 张来自项目仓库、作者页面或项目官网的设备实拍、硬件图与界面截图，4 张是在缺少合格原图时制作并明确标注的项目专属示意插图。
 
 项目页先回答用户最关心的五件事：做成以后能得到什么、手里的设备是否对得上、什么情况应该停手、最坏会怎样、原始链接分别能帮什么。资料等级、维护状态与授权边界仍保留，但放在实际判断之后。
 
@@ -19,7 +23,7 @@
 | AI 周边用途 | 1 | 例如显示 AI 工具用量，不代表设备运行模型 |
 | 传统复活基础设施 | 40 | 系统、固件、本地服务和显示工具，不随意贴 AI 标签 |
 
-正式目录证据分布：**E1 50 条、E2 3 条、E3 0 条**；设备图谱另有 **E1 30 条、E0 317 条**。本目录没有实机测试；所有金额未知，不以 0 冒充免费。完整字段见 [JSON](data/catalog.json) / [CSV（UTF-8 BOM）](data/catalog.csv)。
+正式目录证据分布：**E1 50 条、E2 3 条、E3 0 条**；项目发现层 **E0 147 条**；设备图谱另有 **E1 30 条、E0 317 条**。本目录没有实机测试；所有金额未知，不以 0 冒充免费。深审字段见 [JSON](data/catalog.json) / [CSV](data/catalog.csv)，项目发现层见 [JSON](data/project-leads.json) / [CSV](data/project-leads.csv)，547 条统一评分与 URL 见 [JSON](data/directory.json) / [CSV](data/directory.csv)。
 
 ## 从设备开始
 
@@ -52,7 +56,7 @@
 - **E1**：本轮已读源码仓库的部署、适配资料；不代表本目录运行成功。
 - **E2**：另有作者具体实机陈述或演示说明；仍是作者证据。
 - **E3**：另一个独立使用者的可追溯复现记录已核验；初版没有。
-- **E0**：公开设备/社区线索或 KitAgain 尚未完成型号资料核验的项目，共 317 条。300 条设备级入口放在[设备图谱](data/device-atlas.json)，其中 30 条已经通过[型号资料核查表](data/device-reviews.json)升级为 E1；早期线索放在[社区线索数据](data/watchlist.json)与[扩展研究数据](data/watchlist-expansion.json)，用户判断字段和带说明的链接统一生成到[线索判断表](data/watchlist-details.json)。二手报道或范围不符的内容仍留在[排除区](data/candidates.json)。
+- **E0**：包括 147 个仓库级项目发现候选和 317 条设备/社区线索。前者只核到 GitHub API 与 README 入口；后者中 300 条设备级入口放在[设备图谱](data/device-atlas.json)，其中另有 30 条已经通过[型号资料核查表](data/device-reviews.json)升级为 E1。早期线索放在[社区线索数据](data/watchlist.json)与[扩展研究数据](data/watchlist-expansion.json)，用户判断字段和带说明的链接统一生成到[线索判断表](data/watchlist-details.json)。二手报道或范围不符的内容仍留在[排除区](data/candidates.json)。
 
 逐条记录型号、固件、地区、拆机/焊接/云 API、许可证、归档与迁移、成本未知项、数据损失与恢复。安装应用、替换固件、云服务替代、换板和维修故障分开描述。未归档不表示当前兼容；HTTP 能打开不表示实质验证通过；来源 hash 不表示硬件测试通过。
 
@@ -62,7 +66,7 @@
 
 硬件名称与型号标签单独维护在 `data/hardware-tags.json`，并在构建时检查 53 个正式项目和 347 条线索是否都有可搜索标签。
 
-主目录为 `data/catalog.json`，300 条设备级入口位于 `data/device-atlas.json`，其中 30 条型号级核查位于 `data/device-reviews.json`；编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`，三篇实用指南位于 `data/articles.json`，公开设备线索由设备图谱、`data/watchlist.json` 和 `data/watchlist-expansion.json` 合并生成。已核实作者社交账号单独维护在 `data/author-socials.json`；构建同时生成覆盖 53 个正式条目的 [`author-identity-coverage.json`](docs/data/author-identity-coverage.json)，仓库所有者入口与个人作者账号分开标注，不把仓库归属写成唯一作者证明。站点有 822 个语言页面、1 个完整英文根路径页面和 54 个保留的旧 URL，共 877 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
+主目录为 `data/catalog.json`，147 个 E0 仓库来源位于 `data/project-leads.json`，300 条设备级入口位于 `data/device-atlas.json`，其中 30 条型号级核查位于 `data/device-reviews.json`；`data/directory.json` / CSV 汇总全部 547 条记录与评分。编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`，三篇实用指南位于 `data/articles.json`，公开设备线索由设备图谱、`data/watchlist.json` 和 `data/watchlist-expansion.json` 合并生成。已核实作者社交账号单独维护在 `data/author-socials.json`；构建同时生成覆盖 53 个正式条目的 [`author-identity-coverage.json`](docs/data/author-identity-coverage.json)，仓库所有者入口与个人作者账号分开标注，不把仓库归属写成唯一作者证明。站点有 1122 个规范公开 URL/语言页面、1 个完整英文根路径页面和 54 个保留的旧 URL，共 1177 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
 
 英文 [JSON](docs/data/catalog.en.json) / [CSV](docs/data/catalog.en.csv) 可下载。[独立社区论坛](https://community.kitagain.com/)已上线基础服务；其中文界面、版块与管理流程仍在完善，目录纠错继续使用 GitHub Issues。
 

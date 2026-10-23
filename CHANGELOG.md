@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.14.0 — 2026-10-24
+
+- Publish exactly 200 repository-unique project sources: 53 existing E1/E2 reviewed projects plus 147 new E0 GitHub discoveries spanning NAS/home servers, Kindle/e-readers, mobile, cameras, audio, IoT, robots, wearables, gaming and peripherals.
+- Verify every discovery through the GitHub API and README entry point, exclude forks, 404s, profile repositories, obvious mirrors and read-only migrations, and keep all 147 at E0 without compatibility or installation claims.
+- Add an evidence-capped 1–5 review-maturity score to all 547 public records. E0/E1/E2/E3 are capped at 2/3/4/5; the score is explicitly not popularity, quality, safety or success probability.
+- Add bilingual 200-source and 547-entry indexes, 147 bilingual discovery detail pages, score/kind/category/search filters, and downloadable project-source plus unified JSON/CSV exports.
+- Rebuild the sitemap and 1,177 static HTML files; validate 547/547 score coverage, 451 distinct primary-source URLs, JSON/CSV parity, internal links, public-file safety and browser interactions.
+- Add release architecture, flow, permission, variable, test and SEO documentation, and update the reusable research skill with repository deduplication and evidence-capped scoring gates.
+
 ## 1.13.0 — 2026-10-23
 
 - Add an evidence-bounded hardware-tag ledger covering all 53 reviewed projects and all 347 device/community leads.

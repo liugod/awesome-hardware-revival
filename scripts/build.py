@@ -6,6 +6,7 @@ import pathlib
 import shutil
 from urllib.parse import quote
 
+from scoring import build_directory_export, directory_csv, export_json_text, project_leads_csv
 from watchlist_merge import load_watchlist
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -14,6 +15,8 @@ config = json.loads((ROOT / "site.config.json").read_text(encoding="utf-8"))
 BASE = config["base_url"].rstrip("/") + "/"
 REPO = config["repository_url"]
 data = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
+project_lead_data = json.loads((ROOT / "data/project-leads.json").read_text(encoding="utf-8"))
+project_leads = project_lead_data["projects"]
 project_image_data = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
 project_images = {item["project_id"]: item for item in project_image_data["entries"]}
 deep = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
@@ -24,6 +27,16 @@ e0_lead_count = len(watchlist) - reviewed_device_count
 projects = data["projects"]
 labels = data["labels"]
 DATE = data["compiled_at"][:10]
+PROJECT_LEAD_DATE = project_lead_data["published_at"]
+directory_export = build_directory_export(
+    projects=projects,
+    project_leads=project_leads,
+    watchlist=watchlist,
+    details=watchlist_details,
+    base_url=BASE,
+    version=config["version"],
+    generated_at=data["compiled_at"],
+)
 
 def h(value):
     return html.escape(str(value if value is not None else "待核实"))
@@ -151,11 +164,11 @@ coverage = "\n".join(f"| {labels['category'][k]} | {v} |" for k,v in category_co
 candidate_md = "\n".join(f"- [{c['name']}]({c['url']}) — `{c['status']}`：{c['reason']}" for c in candidates)
 report = f"""# 老硬件复活项目研究 · v{data['version']}
 
-核查日期：{DATE}（条目保留 UTC 原始时间；本报告按 Asia/Shanghai 阅读）。
+正式目录核查日期：{DATE}；项目来源发现层更新：{PROJECT_LEAD_DATE}（条目保留 UTC 原始时间；本报告按 Asia/Shanghai 阅读）。
 
 ## 结论与适用范围
 
-正式目录收录 {len(projects)} 条公开项目、平台和前置工具，覆盖 {len(category_counts)} 类设备，归并为 {len(set(p['family'] for p in projects))} 个项目家族。设备与社区层另有 {reviewed_device_count} 条已读具体型号资料的 E1 路线、{e0_lead_count} 条 E0 线索与 {len(candidates)} 条排除记录。它们不是成功实机改造：正式目录 E1 文档与代码证据 {evidence_counts['E1']} 条、E2 作者实机陈述/演示 {evidence_counts['E2']} 条，设备层 E1 {reviewed_device_count} 条，E3 独立复现 0 条，本目录亲手测试 0 条。
+正式目录收录 {len(projects)} 条公开项目、平台和前置工具，覆盖 {len(category_counts)} 类设备，归并为 {len(set(p['family'] for p in projects))} 个项目家族。项目来源发现层另收录 {len(project_leads)} 个 GitHub 仓库级 E0 候选；它们与正式目录按仓库 URL 去重后，合计正好 **{len(projects)+len(project_leads)} 个独立项目来源**。设备与社区层另有 {reviewed_device_count} 条已读具体型号资料的 E1 路线、{e0_lead_count} 条 E0 线索与 {len(candidates)} 条排除记录。统一目录共 {directory_export['counts']['entries']} 条记录、{directory_export['counts']['unique_primary_source_urls']} 个不同主来源 URL。它们不是成功实机改造：正式目录 E1 文档与代码证据 {evidence_counts['E1']} 条、E2 作者实机陈述/演示 {evidence_counts['E2']} 条，设备层 E1 {reviewed_device_count} 条，E3 独立复现 0 条，本目录亲手测试 0 条。
 
 AI 功能改造 {stats['native']} 条；有明确 AI 辅助开发/配置材料 {stats['assisted']} 条；AI 周边用途 {stats['adjacent']} 条；传统开源复活基础设施 {stats['infrastructure']} 条。不能因为项目可以与大模型结合就把它称为 AI 项目。AI 辅助配置与 AI 编写底层驱动也不是同一种证据。
 
@@ -171,7 +184,7 @@ AI 功能改造 {stats['native']} 条；有明确 AI 辅助开发/配置材料 {
 
 以设备和失效原因组合检索 GitHub、官方网站与 X。检索词包括 old hardware reuse、Nest Mini LLM PCB、Kindle dashboard jailbreak、Vector wire-pod、HP Laser macOS Claude driver、router firmware、IP camera local firmware，以及对应中文设备名。
 
-正式目录使用 GitHub 只读 API 取得仓库元数据、README、根许可证与最近 release 列表。社区线索继续读取项目论坛、作者网站、Codeberg、GitLab、Hackaday、Instructables 与社交平台原帖。逐项阅读适配、部署、失败与恢复片段，保留来源 URL 和核查时间，不重新发布上游教程全文。不存在的旧路径、镜像或跳转不自动视为项目失效，标为 E0 继续核实。
+正式目录使用 GitHub 只读 API 取得仓库元数据、README、根许可证与最近 release 列表。新增项目来源发现层通过 GitHub API 与 README 入口确认仓库存在、非 fork，并排除 404、profile 仓库、明显镜像与只读迁移副本；尚未逐项阅读安装、准确型号兼容和恢复资料，因此全部保持 E0。社区线索继续读取项目论坛、作者网站、Codeberg、GitLab、Hackaday、Instructables 与社交平台原帖。逐项阅读适配、部署、失败与恢复片段，保留来源 URL 和核查时间，不重新发布上游教程全文。不存在的旧路径、镜像或跳转不自动视为项目失效，标为 E0 继续核实。
 
 维护状态来自带时间的 API 快照和作者说明。许可证字段优先实际根文件；没有确认的标 UNKNOWN，混合许可不压成一个宽松标签。难度为编辑判断，成本未核价，恢复描述是文档路径而非救砖保证。地区、固件缺少明确材料时保留 null。
 
@@ -181,8 +194,8 @@ AI 功能改造 {stats['native']} 条；有明确 AI 辅助开发/配置材料 {
 
 | 等级 | 本目录含义 | 条数 |
 | --- | --- | ---: |
-| E0 | 公开线索、项目未完成或 KitAgain 尚未查完；生成独立线索页 | 不计 53 条正式目录 |
-| E1 | 已读项目源码仓库说明与部署/适配文档；未验证实机 | {evidence_counts['E1']} |
+| E0 | 公开线索、项目未完成或 KitAgain 尚未查完；生成独立线索页 | 项目来源 {len(project_leads)}；设备/社区 {e0_lead_count} |
+| E1 | 已读项目源码仓库说明与部署/适配文档；未验证实机 | 正式项目 {evidence_counts['E1']}；设备路线 {reviewed_device_count} |
 | E2 | 在 E1 基础上，有本轮读到的作者具体实机陈述或演示说明 | {evidence_counts['E2']} |
 | E3 | 有另一个独立使用者的可追溯复现记录且本轮已核验 | 0 |
 
@@ -203,6 +216,14 @@ E1 不表示项目从未被别人成功使用，只表示本轮核查停留在�
 ## 设备图谱与公开社区线索
 
 [双语设备与线索数据](../data/watchlist.json)共 {len(watchlist)} 条，其中[设备图谱](../data/device-atlas.json)包含 300 个具体设备入口，覆盖中文论坛、X、ESPHome、Tasmota、postmarketOS、作者网站、Codeberg、GitLab、Hackaday 与 Instructables。[型号资料核查表](../data/device-reviews.json)已把其中 {reviewed_device_count} 条升级为 E1，逐条记录芯片或 SoC、刷写入口、可实现功能、版本边界与恢复条件；剩余 {e0_lead_count} 条继续为 E0。E1 只表示具体型号资料已读，不等于兼容认证或 KitAgain 实机测试。
+
+## 200 个独立项目来源
+
+[项目来源发现层](../data/project-leads.json)包含 {len(project_leads)} 个仓库级 E0 候选，与正式目录 {len(projects)} 个仓库合计 {len(projects)+len(project_leads)} 个互不重复的项目来源。发现层覆盖 NAS/家庭服务器、Kindle/电子书、手机、摄像头、音频、IoT、机器人、游戏、穿戴与外设等方向，并保留仓库归档状态、最后 push、默认分支、API 许可证标识和核查时间。这里的 README 入口读取只用于确认项目方向；没有型号级安装、兼容、恢复或长期稳定性证据就不升级为 E1。
+
+## 1–5 分核查成熟度
+
+统一目录 {directory_export['counts']['entries']} / {directory_export['counts']['entries']} 条记录都有评分及四项分解，并可从 [JSON](../data/directory.json) / [CSV](../data/directory.csv) 下载。评分只衡量来源、具体性、恢复说明与维护信息的核查成熟度，不衡量热度、质量、安全性或成功率；E0/E1/E2/E3 分别封顶 2/3/4/5 分。当前分布为 1 分 {directory_export['counts']['score_distribution']['1']}、2 分 {directory_export['counts']['score_distribution']['2']}、3 分 {directory_export['counts']['score_distribution']['3']}、4 分 {directory_export['counts']['score_distribution']['4']}、5 分 {directory_export['counts']['score_distribution']['5']}。
 
 ## 排除
 
@@ -231,7 +252,10 @@ write(ROOT/"research/REPORT.zh-CN.md",report)
 research_body = f'<div class="detail-wrap"><section class="detail-head"><p class="eyebrow">METHOD & COVERAGE</p><h1>先看证据，<br>再谈复活。</h1><p class="intro">{len(projects)} 条资料，{len(category_counts)} 类设备。所有结论都保留来源与未知项。</p></section><section class="prose"><h2>收录意味着什么</h2><p>E1：已读项目说明和部署文档，共 {evidence_counts["E1"]} 条。E2：作者具体实机陈述或演示说明，共 {evidence_counts["E2"]} 条。E3：独立复现，本轮 0 条。本目录实物测试 0 条。</p><p>项目、跨机型平台与前置工具分别标注。53 条归并为 51 个家族，同家族后续版本不算独立成功设备。</p><h2>怎么核查</h2><p>读取 GitHub 元数据、README、许可证及版本信息，重点检查官方型号和安装文档。X 已读 4 条原始帖子，涉及 2 个案例；未播放验证视频，不以互动数据判断成功。</p><p>维护状态与核查时间逐条保留。难度是编辑判断，金额未知写 UNKNOWN，缺失固件/地区条件保留 null。不会将历史教程或文档可访问说成今天已经实测成功。</p><h2>12 篇案例分析</h2><ul>'+"".join(f'<li><a href="projects/{pid}.html">{h(next(p["name"] for p in projects if p["id"]==pid))}</a>：{h(d["search_intent"])}</li>' for pid,d in deep.items())+'</ul><h2>设备覆盖</h2><table><thead><tr><th>类别</th><th>条目</th></tr></thead><tbody>'+"".join(f'<tr><td>{h(labels["category"][k])}</td><td>{n}</td></tr>' for k,n in category_counts.items())+'</tbody></table><h2>候选与空白</h2><ul>'+"".join(f'<li>{link(c["url"],c["name"])} — {h(c["reason"])}</li>' for c in candidates)+f'</ul><p>本轮缺少长期稳定性、能耗、实际费用与独立硬件复现；旧 NAS、当前手机镜像与停服穿戴服务需继续补全。未声称覆盖全网。</p><h2>阅读完整研究</h2><p>{link(REPO+"/blob/main/research/REPORT.zh-CN.md","研究报告 ↗")} · {link(REPO+"/blob/main/research/DEEP_DIVES.zh-CN.md","案例合辑 ↗")} · {link(REPO+"/blob/main/CONTRIBUTING.md","贡献方法 ↗")}</p></section></div>'
 write(OUT/"research.html",page("研究方法、证据分级与覆盖矩阵","公开项目入选方法、证据边界、13 类设备覆盖、12 篇重点案例与待核验空白。",research_body,"research.html"))
 write(OUT/".nojekyll","")
-for name in ["catalog.json","catalog.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json"]:
+write(ROOT/"data/directory.json", export_json_text(directory_export))
+write(ROOT/"data/directory.csv", directory_csv(directory_export))
+write(ROOT/"data/project-leads.csv", project_leads_csv(project_leads))
+for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json"]:
     (OUT/"data").mkdir(parents=True,exist_ok=True)
     shutil.copyfile(ROOT/"data"/name,OUT/"data"/name)
 paths = ["","research.html"]+[f"projects/{p['id']}.html" for p in projects]

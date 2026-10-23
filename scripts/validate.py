@@ -11,6 +11,7 @@ from urllib.parse import unquote, urlsplit
 
 import jsonschema
 
+from scoring import build_directory_export, directory_csv, export_json_text, project_leads_csv, score_all
 from watchlist_merge import load_watchlist
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
@@ -18,6 +19,8 @@ OUT=ROOT/"docs"
 def load(path): return json.loads(path.read_text(encoding="utf-8"))
 data=load(ROOT/"data/catalog.json")
 config=load(ROOT/"site.config.json")
+project_lead_data=load(ROOT/"data/project-leads.json")
+project_leads=project_lead_data["projects"]
 BASE=config["base_url"].rstrip("/")+"/"
 assert 'document.querySelectorAll("#project-grid .project")' in (OUT/"assets/app.js").read_text(encoding="utf-8"),"Homepage filters must not count featured lead cards"
 schema=load(ROOT/"data/catalog.schema.json")
@@ -50,8 +53,30 @@ author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
 device_atlas=load(ROOT/"data/device-atlas.json")
 device_reviews=load(ROOT/"data/device-reviews.json")
+assert device_atlas["version"]==device_reviews["version"]==config["version"],"Device-data version mismatch"
+assert project_lead_data["version"]==config["version"],"Project-source version mismatch"
 assert len(device_atlas["items"])==300 and device_atlas["counts"]["total"]==300, "Device atlas must contain 300 new records"
-assert len(projects)+len(watchlist)==400, "Public project/device denominator must equal 400"
+assert len(projects)+len(watchlist)==400, "Reviewed-project/device-route denominator must equal 400"
+assert len(projects)+len(project_leads)==200, "Independent project-source denominator must equal 200"
+assert len(projects)+len(project_leads)+len(watchlist)==547, "Unified public-entry denominator must equal 547"
+assert len(project_leads)==project_lead_data["counts"]["total"]==147,"Expected 147 E0 project-source leads"
+assert len({lead["id"] for lead in project_leads})==len(project_leads),"Duplicate project-source ID"
+assert len({lead["content_id"] for lead in project_leads})==len(project_leads),"Duplicate project-source content ID"
+assert len({lead["repo_url"].casefold() for lead in project_leads})==len(project_leads),"Duplicate project-source repository"
+assert not ({lead["repo_url"].casefold() for lead in project_leads}&{project["repo_url"].casefold() for project in projects}),"Project-source lead duplicates reviewed catalog"
+project_lead_fields={"content_id","id","name","repo_url","category","evidence_level","summary_zh","summary_en","device_scope_zh","device_scope_en","use_case_zh","use_case_en","github_description","archived","pushed_at","license_spdx","default_branch","checked_at","source_access","readme_access","reason_zh","reason_en","fork"}
+for lead in project_leads:
+    assert project_lead_fields<=set(lead),lead.get("id")
+    assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",lead["id"]),lead["id"]
+    assert lead["content_id"]==f"PS-{lead['id']}" and lead["category"] in data["labels"]["category"],lead["id"]
+    assert lead["repo_url"].startswith("https://github.com/") and lead["repo_url"].count("/")==4,lead["id"]
+    assert lead["evidence_level"]=="E0" and lead["source_access"]=="repository-metadata-reviewed" and lead["readme_access"]=="opening-section-read",lead["id"]
+    assert lead["fork"] is False and isinstance(lead["archived"],bool),lead["id"]
+    assert re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z",lead["checked_at"]),lead["id"]
+    assert all(lead[key] for key in ["name","summary_zh","summary_en","device_scope_zh","device_scope_en","use_case_zh","use_case_en","pushed_at","default_branch","reason_zh","reason_en"]),lead["id"]
+    assert lead["github_description"] is None or isinstance(lead["github_description"],str),lead["id"]
+assert project_lead_data["counts"]["evidence"]=={"E0":147,"E1":0,"E2":0,"E3":0}
+assert project_lead_data["counts"]["categories"]==dict(sorted(collections.Counter(lead["category"] for lead in project_leads).items()))
 assert set(project_hardware_tags)=={p["id"] for p in projects},"Reviewed-project hardware-tag coverage mismatch"
 assert set(lead_hardware_tags)<=set(watchlist),"Hardware tags point to missing leads"
 allowed_tag_kinds={"exact-model","device-family","hardware-platform"}
@@ -116,6 +141,14 @@ for slug,lead in watchlist.items():
         for lang in ["zh","en"]:
             assert all(lead["deep_review"][lang][key] for key in ["hardware","route","result","boundary","recovery"]),slug
 assert sum(lead.get("evidence_level")=="E1" for lead in watchlist.values())==30,"Merged E1 device-review count"
+project_scores,lead_scores,project_lead_scores=score_all(projects,watchlist,watchlist_details,project_leads)
+all_scores=[*project_scores.values(),*lead_scores.values(),*project_lead_scores.values()]
+assert len(all_scores)==len(projects)+len(watchlist)+len(project_leads),"Score coverage mismatch"
+assert all(isinstance(item["score"],int) and 1<=item["score"]<=5 for item in all_scores),"Score out of range"
+caps={"E0":2,"E1":3,"E2":4,"E3":5}
+assert all(project_scores[p["id"]]["score"]<=caps[p["evidence"]["level"]] for p in projects),"Project score exceeds evidence cap"
+assert all(lead_scores[slug]["score"]<=caps[lead.get("evidence_level","E0")] for slug,lead in watchlist.items()),"Lead score exceeds evidence cap"
+assert all(project_lead_scores[lead["id"]]["score"]==1 for lead in project_leads),"E0 project-source leads must remain score 1"
 ids=[p["id"] for p in projects]
 assert len(ids)==len(set(i.lower() for i in ids)), "Duplicate ID"
 assert set(p["family"] for p in projects)<=set(ids), "Missing family anchor"
@@ -176,7 +209,7 @@ for file in OUT.rglob("*.html"):
     assert parser.alternates["x-default"]==BASE,file
     if file.is_relative_to(OUT/"en"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
-assert len(pages)==2*(len(projects)+8+len(articles)+len(watchlist))+len(projects)+2
+assert len(pages)==2*(len(projects)+11+len(articles)+len(watchlist)+len(project_leads))+len(projects)+2
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 assert root_page.lang=="en" and root_page.canonical==[BASE]
@@ -187,6 +220,19 @@ assert config["community_url"] in root_page.refs
 for lang in ["zh","en"]:
     assert config["community_url"] in pages[(OUT/lang/"index.html").resolve()].refs
     assert config["community_url"] in pages[(OUT/lang/"community/index.html").resolve()].refs
+    directory_page=pages[(OUT/lang/"directory/index.html").resolve()]
+    assert "directory-grid" in directory_page.ids and "directory-filters" in directory_page.ids
+    assert "directory.json" in " ".join(directory_page.refs) and "directory.csv" in " ".join(directory_page.refs)
+    project_source_index=pages[(OUT/lang/"project-sources/index.html").resolve()]
+    assert "project-source-grid" in project_source_index.ids and "project-source-filters" in project_source_index.ids
+    assert "project-leads.json" in " ".join(project_source_index.refs) and "project-leads.csv" in " ".join(project_source_index.refs)
+    for project in projects:
+        assert f"../projects/{project['id']}/" in project_source_index.refs,(lang,project["id"],"missing reviewed project-source link")
+    for lead in project_leads:
+        assert f"../project-leads/{lead['id']}/" in project_source_index.refs,(lang,lead["id"],"missing E0 project-source link")
+        source_page=pages[(OUT/lang/"project-leads"/lead["id"]/"index.html").resolve()]
+        assert source_page.canonical==[f"{BASE}{lang}/project-leads/{lead['id']}/"]
+        assert lead["repo_url"] in source_page.refs,(lang,lead["id"],"missing upstream repository link")
     home=pages[(OUT/lang/"index.html").resolve()]
     assert "leads/" in home.refs,(lang,"missing field-leads homepage link")
     leads_index=pages[(OUT/lang/"leads/index.html").resolve()]
@@ -217,7 +263,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json"]:
+for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
@@ -262,13 +308,30 @@ for p,row in zip(english["projects"],enrows):
     for key in ["summary","device_scope","method"]:assert p[key]==row[key]
     for key in ["requirements","cost","risk","evidence","limitations","translation"]:assert p[key]==json.loads(row[key])
 assert set(load(OUT/"data/deep-dives.en.json"))==set(deep)
+directory=load(ROOT/"data/directory.json")
+expected_directory=build_directory_export(projects=projects,project_leads=project_leads,watchlist=watchlist,details=watchlist_details,base_url=BASE,version=config["version"],generated_at=data["compiled_at"])
+assert directory==expected_directory,"Unified directory JSON is stale"
+assert (ROOT/"data/directory.csv").read_text(encoding="utf-8-sig")==directory_csv(directory).removeprefix("\ufeff"),"Unified directory CSV is stale"
+assert directory["counts"]["entries"]==len(projects)+len(project_leads)+len(watchlist)
+assert directory["counts"]["independent_project_sources"]==200
+assert directory["counts"]["project_source_leads"]==147
+assert directory["counts"]["score_coverage"]==directory["counts"]["entries"]
+assert directory["counts"]["unique_primary_source_urls"]>=200,"Fewer than 200 distinct primary-source URLs"
+with (ROOT/"data/directory.csv").open(encoding="utf-8-sig",newline="") as f:
+    directory_rows=list(csv.DictReader(f))
+assert [row["entry_id"] for row in directory_rows]==[entry["entry_id"] for entry in directory["entries"]],"Unified JSON/CSV entry mismatch"
+assert all(int(row["score"])==entry["score"]["score"] and row["source_url"]==entry["source_url"] for row,entry in zip(directory_rows,directory["entries"])),"Unified JSON/CSV facts mismatch"
+with (ROOT/"data/project-leads.csv").open(encoding="utf-8-sig",newline="") as f:
+    project_lead_rows=list(csv.DictReader(f))
+assert [row["id"] for row in project_lead_rows]==[lead["id"] for lead in project_leads],"Project-source JSON/CSV entry mismatch"
+assert (ROOT/"data/project-leads.csv").read_text(encoding="utf-8-sig")==project_leads_csv(project_leads).removeprefix("\ufeff"),"Project-source CSV is stale"
 mapping=load(OUT/"data/url-mapping.json")["mappings"]
 assert len(mapping)==len(projects)
 for source,target in mapping.items():
     assert pages[(OUT/source).resolve()].canonical==[BASE+target]
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+8+len(articles)+len(watchlist))
+assert len(urls)==len(set(urls))==2*(len(projects)+11+len(articles)+len(watchlist)+len(project_leads))
 assert BASE in urls and BASE+"en/" not in urls
 for url in urls:
     assert url.startswith(BASE)
@@ -284,4 +347,4 @@ for file in ROOT.rglob("*"):
     assert "\ufffd" not in text,("UTF8 replacement character",file)
     for pattern in secret_patterns:
         assert not re.search(pattern,text),("Potential sensitive content",file)
-print(json.dumps({"schema":"PASS","unique_ids":len(ids),"families":len(set(p["family"] for p in projects)),"categories":len(set(p["category"] for p in projects)),"deep_dives":len(deep),"device_source_reviews":len(device_reviews["items"]),"remaining_e0_leads":len(watchlist)-len(device_reviews["items"]),"html_pages_and_internal_links":"PASS","csv_json_parity":"PASS","public_file_scan":"PASS","catalog_evidence":dict(collections.Counter(p["evidence"]["level"] for p in projects))},ensure_ascii=False,indent=2))
+print(json.dumps({"schema":"PASS","unique_ids":len(ids),"families":len(set(p["family"] for p in projects)),"categories":len(set(p["category"] for p in projects)),"deep_dives":len(deep),"independent_project_sources":len(projects)+len(project_leads),"project_source_leads":len(project_leads),"device_source_reviews":len(device_reviews["items"]),"remaining_e0_leads":len(watchlist)-len(device_reviews["items"]),"directory_entries":directory["counts"]["entries"],"distinct_primary_source_urls":directory["counts"]["unique_primary_source_urls"],"score_coverage":directory["counts"]["score_coverage"],"score_distribution":directory["counts"]["score_distribution"],"html_pages_and_internal_links":"PASS","csv_json_parity":"PASS","public_file_scan":"PASS","catalog_evidence":dict(collections.Counter(p["evidence"]["level"] for p in projects))},ensure_ascii=False,indent=2))

@@ -1,8 +1,14 @@
 # Validation — current build
 
-Date: 2026-10-23. This validates the catalog, device atlas and website, not hardware compatibility.
+Date: 2026-10-24. This validates the catalog, project-source discovery layer, device atlas and website, not hardware compatibility.
 
 ## Local acceptance
+
+- v1.14.0: exactly 200 repository-unique project sources are public: 53 existing E1/E2 reviewed projects plus 147 E0 GitHub discoveries selected from 159 cross-batch unique candidates. The discovery pass confirmed repository API access, `fork=false`, and a readable README entry point; it did not promote compatibility, installation, recovery, or hands-on claims.
+- v1.14.0: the unified directory contains 547 records from 451 distinct primary-source URLs. All 547 have an explainable score and evidence cap; distribution is score 1 = 341, score 2 = 123, score 3 = 80, score 4 = 3, score 5 = 0. All 147 project-source discoveries remain E0 / 1.
+- v1.14.0: `python -X utf8 scripts/validate.py` passed the 200-source denominator, project/repository deduplication, 547/547 scoring coverage, JSON/CSV parity, 1,177 generated HTML files, 1,122 unique sitemap URLs, internal links, bilingual pages and public-file safety scan.
+- v1.14.0: Chromium rendered 547/547 scored cards, filtered exactly 147 E0 project sources and 53 reviewed projects, returned 3 project sources for `NAS` and 13 unified records for `Kindle`, preserved the mobile query, rendered project/device/E0-detail scores as 3/5, 2/5 and 1/5, and reported `innerWidth=scrollWidth=390` on both mobile indexes.
+- v1.14.0: visual captures were inspected at `research/validation-v1.14-project-sources-mobile.png`, `research/validation-v1.14-directory-mobile.png`, and `research/validation-v1.14.0-hardware-tags.png`; the historical v1.13 screenshot remains byte-identical to its committed version.
 
 - v1.13.0: `hardware-tags.json` covers all 53 reviewed projects; the 47 legacy field leads use curated bilingual tags and the 300 device-atlas entries plus exact-model reviews use their recorded device/model fields, giving all 400 public routes at least one hardware tag.
 - v1.13.0: every reviewed-project card/detail page and every lead card/detail page renders separate clickable hardware tags. The project and lead indexes restore `q` from the URL and preserve it across language switches.

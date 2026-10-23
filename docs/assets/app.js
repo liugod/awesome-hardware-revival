@@ -2,6 +2,15 @@
 (() => {
   const english = document.documentElement.lang === "en";
   const t = (zh, en) => english ? en : zh;
+  const sortCards = (grid, cards, mode) => {
+    if (!grid) return;
+    const sorted = [...cards].sort((a, b) => {
+      if (mode === "score-desc") return Number(b.dataset.score) - Number(a.dataset.score) || a.dataset.title.localeCompare(b.dataset.title, document.documentElement.lang);
+      if (mode === "title-asc") return a.dataset.title.localeCompare(b.dataset.title, document.documentElement.lang);
+      return Number(a.dataset.order) - Number(b.dataset.order);
+    });
+    sorted.forEach(card => grid.append(card));
+  };
   const switchLinks = [...document.querySelectorAll(".language-switch")];
   function syncLanguageLinks() {
     switchLinks.forEach(link => {
@@ -27,12 +36,143 @@
     const contribute = document.querySelector("#contribute-link");
     if (contribute) contribute.href += "?project=" + encodeURIComponent(project);
   }
+  const directoryForm = document.querySelector("#directory-filters");
+  if (directoryForm) {
+    const controls = {
+      q: document.querySelector("#directory-q"),
+      category: document.querySelector("#directory-category"),
+      evidence: document.querySelector("#directory-evidence"),
+      score: document.querySelector("#directory-score"),
+      kind: document.querySelector("#directory-kind"),
+      sort: document.querySelector("#directory-sort")
+    };
+    const cards = [...document.querySelectorAll("#directory-grid .project")];
+    cards.forEach((card, index) => { card.dataset.order = index; });
+    const grid = document.querySelector("#directory-grid");
+    const count = document.querySelector("#directory-result-count");
+    const empty = document.querySelector("#directory-empty");
+    const keys = Object.keys(controls);
+    const readURL = () => {
+      const params = new URLSearchParams(location.search);
+      keys.forEach(key => { controls[key].value = params.get(key) || (key === "sort" ? "score-desc" : ""); });
+    };
+    const apply = (updateURL = true) => {
+      const terms = controls.q.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+      let visible = 0;
+      cards.forEach(card => {
+        const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
+          (!controls.category.value || card.dataset.category === controls.category.value) &&
+          (!controls.evidence.value || card.dataset.evidence === controls.evidence.value) &&
+          (!controls.score.value || Number(card.dataset.score) >= Number(controls.score.value)) &&
+          (!controls.kind.value || card.dataset.kind === controls.kind.value);
+        card.hidden = !match;
+        if (match) visible++;
+      });
+      sortCards(grid, cards, controls.sort.value);
+      count.textContent = t(`显示 ${visible} / ${cards.length} 条`, `Showing ${visible} / ${cards.length}`);
+      empty.hidden = visible !== 0;
+      if (updateURL) {
+        const url = new URL(location.href);
+        keys.forEach(key => {
+          const value = controls[key].value;
+          const isDefault = key === "sort" && value === "score-desc";
+          value && !isDefault ? url.searchParams.set(key, value) : url.searchParams.delete(key);
+        });
+        history.replaceState(null, "", url);
+        syncLanguageLinks();
+      }
+    };
+    Object.values(controls).forEach(control => {
+      control.addEventListener("input", apply);
+      control.addEventListener("change", apply);
+    });
+    directoryForm.addEventListener("submit", event => event.preventDefault());
+    directoryForm.addEventListener("reset", () => {
+      Object.entries(controls).forEach(([key, control]) => { control.value = key === "sort" ? "score-desc" : ""; });
+      apply();
+    });
+    window.addEventListener("popstate", () => { readURL(); apply(false); });
+    document.querySelector("#directory-share").addEventListener("click", async () => {
+      const target = document.querySelector("#directory-share-status");
+      try {
+        await navigator.clipboard.writeText(location.href);
+        target.textContent = t("已复制当前筛选链接", "Filtered link copied");
+      } catch {
+        target.textContent = t("请复制地址栏链接；筛选条件已经写入网址。", "Copy the address-bar URL; it already contains the filters.");
+      }
+    });
+    readURL();
+    apply(false);
+    scrollToCurrentHash();
+  }
+  const sourceForm = document.querySelector("#project-source-filters");
+  if (sourceForm) {
+    const controls = {
+      q: document.querySelector("#project-source-q"),
+      category: document.querySelector("#project-source-category"),
+      evidence: document.querySelector("#project-source-evidence"),
+      score: document.querySelector("#project-source-score"),
+      sort: document.querySelector("#project-source-sort")
+    };
+    const cards = [...document.querySelectorAll("#project-source-grid .project")];
+    cards.forEach((card, index) => { card.dataset.order = index; });
+    const grid = document.querySelector("#project-source-grid");
+    const count = document.querySelector("#project-source-result-count");
+    const empty = document.querySelector("#project-source-empty");
+    const keys = Object.keys(controls);
+    const readURL = () => {
+      const params = new URLSearchParams(location.search);
+      keys.forEach(key => { controls[key].value = params.get(key) || (key === "sort" ? "score-desc" : ""); });
+    };
+    const apply = (updateURL = true) => {
+      const terms = controls.q.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+      let visible = 0;
+      cards.forEach(card => {
+        const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
+          (!controls.category.value || card.dataset.category === controls.category.value) &&
+          (!controls.evidence.value || card.dataset.evidence === controls.evidence.value) &&
+          (!controls.score.value || Number(card.dataset.score) >= Number(controls.score.value));
+        card.hidden = !match;
+        if (match) visible++;
+      });
+      sortCards(grid, cards, controls.sort.value);
+      count.textContent = t(`显示 ${visible} / ${cards.length} 条`, `Showing ${visible} / ${cards.length}`);
+      empty.hidden = visible !== 0;
+      if (updateURL) {
+        const url = new URL(location.href);
+        keys.forEach(key => {
+          const value = controls[key].value;
+          const isDefault = key === "sort" && value === "score-desc";
+          value && !isDefault ? url.searchParams.set(key, value) : url.searchParams.delete(key);
+        });
+        history.replaceState(null, "", url);
+        syncLanguageLinks();
+      }
+    };
+    Object.values(controls).forEach(control => {
+      control.addEventListener("input", apply);
+      control.addEventListener("change", apply);
+    });
+    sourceForm.addEventListener("submit", event => event.preventDefault());
+    sourceForm.addEventListener("reset", () => {
+      Object.entries(controls).forEach(([key, control]) => { control.value = key === "sort" ? "score-desc" : ""; });
+      apply();
+    });
+    window.addEventListener("popstate", () => { readURL(); apply(false); });
+    readURL();
+    apply(false);
+    scrollToCurrentHash();
+  }
   const leadForm = document.querySelector("#lead-filters");
   if (leadForm) {
     const leadQuery = document.querySelector("#lead-q");
     const leadSource = document.querySelector("#lead-source");
     const leadEvidence = document.querySelector("#lead-evidence");
+    const leadScore = document.querySelector("#lead-score");
+    const leadSort = document.querySelector("#lead-sort");
     const leadCards = [...document.querySelectorAll("#lead-grid .project")];
+    leadCards.forEach((card, index) => { card.dataset.order = index; });
+    const leadGrid = document.querySelector("#lead-grid");
     const leadCount = document.querySelector("#lead-result-count");
     const leadEmpty = document.querySelector("#lead-empty");
     const readLeadURL = () => {
@@ -40,6 +180,8 @@
       leadQuery.value = params.get("q") || "";
       leadSource.value = params.get("source") || "";
       leadEvidence.value = params.get("evidence") || "";
+      leadScore.value = params.get("score") || "";
+      leadSort.value = params.get("sort") || "default";
     };
     const applyLeadFilters = (updateURL = true) => {
       const terms = leadQuery.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
@@ -47,26 +189,30 @@
       leadCards.forEach(card => {
         const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
           (!leadSource.value || card.dataset.source === leadSource.value) &&
-          (!leadEvidence.value || card.dataset.evidence === leadEvidence.value);
+          (!leadEvidence.value || card.dataset.evidence === leadEvidence.value) &&
+          (!leadScore.value || Number(card.dataset.score) >= Number(leadScore.value));
         card.hidden = !match;
         if (match) visible++;
       });
       leadCount.textContent = t(`显示 ${visible} / ${leadCards.length} 条`, `Showing ${visible} / ${leadCards.length}`);
       leadEmpty.hidden = visible !== 0;
+      sortCards(leadGrid, leadCards, leadSort.value);
       if (updateURL) {
         const url = new URL(location.href);
-        [["q", leadQuery], ["source", leadSource], ["evidence", leadEvidence]].forEach(([key, control]) =>
-          control.value ? url.searchParams.set(key, control.value) : url.searchParams.delete(key));
+        [["q", leadQuery], ["source", leadSource], ["evidence", leadEvidence], ["score", leadScore], ["sort", leadSort]].forEach(([key, control]) => {
+          const isDefault = key === "sort" && control.value === "default";
+          control.value && !isDefault ? url.searchParams.set(key, control.value) : url.searchParams.delete(key);
+        });
         history.replaceState(null, "", url);
         syncLanguageLinks();
       }
     };
-    [leadQuery, leadSource, leadEvidence].forEach(control => {
+    [leadQuery, leadSource, leadEvidence, leadScore, leadSort].forEach(control => {
       control.addEventListener("input", applyLeadFilters);
       control.addEventListener("change", applyLeadFilters);
     });
     leadForm.addEventListener("submit", event => event.preventDefault());
-    leadForm.addEventListener("reset", () => { leadQuery.value = ""; leadSource.value = ""; leadEvidence.value = ""; applyLeadFilters(); });
+    leadForm.addEventListener("reset", () => { leadQuery.value = ""; leadSource.value = ""; leadEvidence.value = ""; leadScore.value = ""; leadSort.value = "default"; applyLeadFilters(); });
     window.addEventListener("popstate", () => { readLeadURL(); applyLeadFilters(false); });
     readLeadURL();
     applyLeadFilters(false);
@@ -74,9 +220,11 @@
   }
   const form = document.querySelector("#filters");
   if (!form) return;
-  const keys = ["q", "category", "use", "ai", "difficulty", "evidence"];
+  const keys = ["q", "category", "use", "ai", "difficulty", "evidence", "score", "sort"];
   const controls = Object.fromEntries(keys.map(k => [k, document.getElementById(k)]));
   const cards = [...document.querySelectorAll("#project-grid .project")];
+  cards.forEach((card, index) => { card.dataset.order = index; });
+  const grid = document.querySelector("#project-grid");
   const count = document.querySelector("#result-count");
   function readURL() {
     const params = new URLSearchParams(location.search);
@@ -91,14 +239,16 @@
     cards.forEach(card => {
       const text = card.dataset.search.toLocaleLowerCase();
       const match = terms.every(t => text.includes(t)) &&
-        keys.slice(1).every(k => !controls[k].value || (k === "use"
+        ["category", "use", "ai", "difficulty", "evidence"].every(k => !controls[k].value || (k === "use"
           ? card.dataset.use.split("|").includes(controls[k].value)
-          : card.dataset[k] === controls[k].value));
+          : card.dataset[k] === controls[k].value)) &&
+        (!controls.score.value || Number(card.dataset.score) >= Number(controls.score.value));
       card.hidden = !match;
       if (match) visible++;
     });
     count.textContent = t(`显示 ${visible} / ${cards.length} 个条目`, `Showing ${visible} / ${cards.length} entries`);
     document.querySelector("#empty").hidden = visible !== 0;
+    sortCards(grid, cards, controls.sort.value);
     if (updateURL) {
       const url = new URL(location.href);
       keys.forEach(k => controls[k].value ? url.searchParams.set(k, controls[k].value) : url.searchParams.delete(k));
