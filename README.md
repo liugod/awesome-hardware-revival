@@ -6,9 +6,11 @@
 
 从小爱音箱和 Nest Mini，到 Kindle、旧电脑、路由器、摄像头、停服机器人和缺驱动的打印机。这个目录把公开代码、作者案例与适配限制放在一起，帮助你判断下一步是否值得尝试。
 
-**v1.15.0 · 五维复活星级更新 2026-10-24**：中文名为“垃圾佬复活站”，英文品牌、域名和仓库名继续使用 KitAgain。现在有 **200 个按仓库 URL 去重的独立项目来源**：53 个 E1/E2 深审项目/平台/工具，加 147 个经 GitHub API 与 README 入口核对的 E0 发现候选。另有 347 条设备与社区路线（30 条 E1、317 条 E0），所以[全站统一目录](https://kitagain.com/zh/directory/)共有 **547 条公开记录**、451 个不同主来源 URL。项目来源数、深审项目数和设备路线数是三套明确分母，不把同一上游的多个设备型号冒充独立项目。
+**v1.16.0 · 可空证据评分更新 2026-10-24**：中文名为“垃圾佬复活站”，英文品牌、域名和仓库名继续使用 KitAgain。现在有 **200 个按仓库 URL 去重的独立项目来源**：53 个 E1/E2 深审项目/平台/工具，加 147 个经 GitHub API 与 README 入口核对的 E0 发现候选。另有 347 条设备与社区路线（30 条 E1、317 条 E0），所以[全站统一目录](https://kitagain.com/zh/directory/)共有 **547 条公开记录**、451 个不同主来源 URL。项目来源数、深审项目数和设备路线数是三套明确分母，不把同一上游的多个设备型号冒充独立项目。
 
-547 / 547 条记录都有 1–5 星“复活价值”及五项原始分：可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%，加权后四舍五入到最近 0.5 星。E0–E3 是独立证据标签，不参与评分或封顶；默认按星级从高到低排列。本版半星分布为：1 星 0、1.5 星 0、2 星 0、2.5 星 14、3 星 511、3.5 星 21、4 星 1、4.5 星 0、5 星 0。147 个仓库发现候选全部保持 E0，标记 `needs_review: true` / “待验证”；它们没有被深审，缺失维度使用明确记录的中性占位，不冒充兼容、安全或成本结论。
+五项“复活价值”维度仍为：可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%。没有可核验来源的维度保存为 `null`，不再用中性 3 分补位；至少 3 个维度有证据时，才把这些维度的原权重按比例重新归一并计算总分，再四舍五入到最近 0.5 星。当前 **95 / 547 条有星级，452 条显示“??? / 尚未评分”**；默认排序为已评分条目按星级降序、尚未评分条目随后。本版已评分分布为：1 星 1、1.5 星 3、2 星 2、2.5 星 6、3 星 35、3.5 星 8、4 星 35、4.5 星 5、5 星 0。
+
+首批重新研究并评分 **49 条** Kindle/电子书、路由器、旧迷你电脑/NAS 和智能音箱路线，逐维依据与 156 个去重来源 URL 记录在 [`scoring-evidence.json`](data/scoring-evidence.json)。E0–E3 仍是独立证据标签，不参与评分或封顶。147 个仓库发现候选全部保持 E0 和 `needs_review: true` / “待验证”；本批评分取证不会自动升级兼容性证据等级。
 
 每条原有设备路线仍显示独立的硬件名称或型号标签，点击标签即可按同一设备搜索；标签明确区分准确型号、设备家族和硬件平台，未把推测型号当成事实。31 个正式项目已有各自不同的图片：27 张来自项目仓库、作者页面或项目官网的设备实拍、硬件图与界面截图，4 张是在缺少合格原图时制作并明确标注的项目专属示意插图。
 
@@ -23,7 +25,7 @@
 | AI 周边用途 | 1 | 例如显示 AI 工具用量，不代表设备运行模型 |
 | 传统复活基础设施 | 40 | 系统、固件、本地服务和显示工具，不随意贴 AI 标签 |
 
-正式目录证据分布：**E1 50 条、E2 3 条、E3 0 条**；项目发现层 **E0 147 条**；设备图谱另有 **E1 30 条、E0 317 条**。本目录没有实机测试；所有金额未知，不以 0 冒充免费。深审字段见 [JSON](data/catalog.json) / [CSV](data/catalog.csv)，项目发现层见 [JSON](data/project-leads.json) / [CSV](data/project-leads.csv)，547 条统一评分与 URL 见 [JSON](data/directory.json) / [CSV](data/directory.csv)。
+正式目录证据分布：**E1 50 条、E2 3 条、E3 0 条**；项目发现层 **E0 147 条**；设备图谱另有 **E1 30 条、E0 317 条**。本目录没有实机测试；未取得成本证据时保持 `null`，不以 0 或 3 冒充事实。深审字段见 [JSON](data/catalog.json) / [CSV](data/catalog.csv)，项目发现层见 [JSON](data/project-leads.json) / [CSV](data/project-leads.csv)，547 条统一评分与 URL 见 [JSON](data/directory.json) / [CSV](data/directory.csv)，逐维评分来源见[评分证据台账](data/scoring-evidence.json)。
 
 ## 从设备开始
 
@@ -66,7 +68,7 @@
 
 硬件名称与型号标签单独维护在 `data/hardware-tags.json`，并在构建时检查 53 个正式项目和 347 条线索是否都有可搜索标签。
 
-主目录为 `data/catalog.json`，147 个 E0 仓库来源位于 `data/project-leads.json`，300 条设备级入口位于 `data/device-atlas.json`，其中 30 条型号级核查位于 `data/device-reviews.json`；`data/directory.json` / CSV 汇总全部 547 条记录的总星级、加权平均、五项原始分、分项依据、独立证据等级与待验证状态。编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`，三篇实用指南位于 `data/articles.json`，公开设备线索由设备图谱、`data/watchlist.json` 和 `data/watchlist-expansion.json` 合并生成。已核实作者社交账号单独维护在 `data/author-socials.json`；构建同时生成覆盖 53 个正式条目的 [`author-identity-coverage.json`](docs/data/author-identity-coverage.json)，仓库所有者入口与个人作者账号分开标注，不把仓库归属写成唯一作者证明。站点有 1122 个规范公开 URL/语言页面、1 个完整英文根路径页面和 54 个保留的旧 URL，共 1177 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
+主目录为 `data/catalog.json`，147 个 E0 仓库来源位于 `data/project-leads.json`，300 条设备级入口位于 `data/device-atlas.json`，其中 30 条型号级核查位于 `data/device-reviews.json`；`data/scoring-evidence.json` 保存首批 49 条逐维评分取证，`data/directory.json` / CSV 汇总全部 547 条记录的 nullable 总星级、加权平均、五项原始分、有效权重、分项依据与来源、独立证据等级及待验证状态。编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`，三篇实用指南位于 `data/articles.json`，公开设备线索由设备图谱、`data/watchlist.json` 和 `data/watchlist-expansion.json` 合并生成。已核实作者社交账号单独维护在 `data/author-socials.json`；构建同时生成覆盖 53 个正式条目的 [`author-identity-coverage.json`](docs/data/author-identity-coverage.json)，仓库所有者入口与个人作者账号分开标注，不把仓库归属写成唯一作者证明。站点有 1122 个规范公开 URL/语言页面、1 个完整英文根路径页面和 54 个保留的旧 URL，共 1177 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
 
 英文 [JSON](docs/data/catalog.en.json) / [CSV](docs/data/catalog.en.csv) 可下载。[独立社区论坛](https://community.kitagain.com/)已上线基础服务；其中文界面、版块与管理流程仍在完善，目录纠错继续使用 GitHub Issues。
 

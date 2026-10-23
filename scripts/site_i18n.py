@@ -7,6 +7,7 @@ import io
 import json
 import posixpath
 import re
+import shutil
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
@@ -22,6 +23,11 @@ assert urlsplit(BASE).scheme == "https" and not urlsplit(BASE).query and not url
 DATA = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 PROJECT_LEAD_DATA = json.loads((ROOT / "data/project-leads.json").read_text(encoding="utf-8"))
 PROJECT_LEADS = PROJECT_LEAD_DATA["projects"]
+SCORING_EVIDENCE_PATH = ROOT / "data/scoring-evidence.json"
+SCORING_EVIDENCE = json.loads(SCORING_EVIDENCE_PATH.read_text(encoding="utf-8")) if SCORING_EVIDENCE_PATH.exists() else {}
+SCORING_EVIDENCE_ITEMS = SCORING_EVIDENCE.get("entries", {})
+if isinstance(SCORING_EVIDENCE_ITEMS, dict):
+    SCORING_EVIDENCE_ITEMS = list(SCORING_EVIDENCE_ITEMS.values())
 DEVICE_ATLAS = json.loads((ROOT / "data/device-atlas.json").read_text(encoding="utf-8"))
 PROJECT_IMAGE_DATA = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
 PROJECT_IMAGES = {item["project_id"]: item for item in PROJECT_IMAGE_DATA["entries"]}
@@ -37,6 +43,16 @@ ATLAS_DATE = DEVICE_ATLAS["reviewed_at"][:10]
 CONTENT_DATE = max(DATE, ATLAS_DATE)
 PROJECT_LEAD_DATE = PROJECT_LEAD_DATA["published_at"]
 CONTENT_DATE = max(CONTENT_DATE, PROJECT_LEAD_DATE)
+SCORING_DATES = [
+    value[:10]
+    for value in [
+        SCORING_EVIDENCE.get("checked_at"),
+        *(entry.get("checked_at") for entry in SCORING_EVIDENCE_ITEMS),
+    ]
+    if value
+]
+SCORING_DATE = max(SCORING_DATES) if SCORING_DATES else CONTENT_DATE
+CONTENT_DATE = max(CONTENT_DATE, SCORING_DATE)
 LABELS_EN = {
     "category": dict(zip(DATA["labels"]["category"], ["Speakers & voice","Phones & tablets","Computers & thin clients","Routers & NAS","TVs & TV boxes","E-readers & e-ink","Robots","Smart home","Cameras","Music & audio","Watches & wearables","Gaming","Printers & peripherals"])),
     "ai": {"native":"AI functionality","assisted":"AI-assisted development/setup","adjacent":"AI-adjacent uses","infrastructure":"Traditional reuse infrastructure"},
@@ -133,6 +149,16 @@ def score_text(value):
 def score_filter_options():
     return "".join(f'<option value="{score_text(value)}">≥ {score_text(value)}/5</option>' for value in SCORE_FILTER_VALUES)
 
+
+def score_sort_key(record, title):
+    """Rated entries first, descending; unrated entries last, then title."""
+    value = record["score"]
+    return (value is None, -(value or 0), title.casefold())
+
+
+def score_data_value(record):
+    return "" if record["score"] is None else score_text(record["score"])
+
 def digest(obj):
     return hashlib.sha256(json.dumps(obj, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
 
@@ -202,20 +228,36 @@ class Site:
         label = record["label_zh" if self.lang == "zh" else "label_en"]
         disclaimer = record["disclaimer_zh" if self.lang == "zh" else "disclaimer_en"]
         css = "rating compact" if compact else "rating"
+        if record["score"] is None:
+            marker = self.t("??? / 尚未评分", "??? / Not yet rated")
+            evidence_count = self.t(f'{record["evidenced_dimensions"]}/5 个维度已取证', f'{record["evidenced_dimensions"]}/5 dimensions evidenced')
+            accessible = self.t(f"复活星级：{marker}", f"Revival stars: {marker}")
+            return f'<div class="{css} unrated" title="{h(disclaimer)}" aria-label="{h(accessible)}"><span>{self.t("复活星级","Revival stars")}</span><strong>{h(marker)}</strong><small>{h(evidence_count)}</small></div>'
         return f'<div class="{css}" title="{h(disclaimer)}"><span>{self.t("复活星级","Revival stars")}</span><strong>★ {score_text(record["score"])}/5</strong><small>{h(label)}</small></div>'
 
     def rating_detail(self, record, method_href):
         components = record["components"]
         reason = record["reason_zh" if self.lang == "zh" else "reason_en"]
+        effective = record["effective_weights"]
         rows = [
-            (self.t("可行性 / 易上手", "Feasibility / ease"), components["feasibility"], WEIGHTS["feasibility"]),
-            (self.t("低成本", "Low cost"), components["cost"], WEIGHTS["cost"]),
-            (self.t("文档与社区", "Docs & community"), components["docs_community"], WEIGHTS["docs_community"]),
-            (self.t("实用价值", "Practical value"), components["practical_value"], WEIGHTS["practical_value"]),
-            (self.t("低刷坏 / 安全风险", "Low bricking / security risk"), components["risk"], WEIGHTS["risk"]),
+            ("feasibility", self.t("可行性 / 易上手", "Feasibility / ease")),
+            ("cost", self.t("低成本", "Low cost")),
+            ("docs_community", self.t("文档与社区", "Docs & community")),
+            ("practical_value", self.t("实用价值", "Practical value")),
+            ("risk", self.t("低刷坏 / 安全风险", "Low bricking / security risk")),
         ]
         provisional = f'<span class="needs-review">{self.t("待验证", "To verify")}</span>' if record["provisional"] else ""
-        return f'''<aside class="rating-panel">{provisional}{self.rating(record, compact=False)}<p>{h(reason)}</p><dl>{''.join(f'<div><dt>{h(label)} · {weight}%</dt><dd>{value}/5</dd></div>' for label,value,weight in rows)}</dl><p class="muted">{h(record["disclaimer_zh" if self.lang == "zh" else "disclaimer_en"])} <a href="{h(method_href)}">{self.t("查看权重与算法","See weights and formula")} ↗</a></p></aside>'''
+        def dimension_row(key, label):
+            value = components[key]
+            if value is None:
+                result = self.t("未取证 / 不计分", "No evidence / not scored")
+            elif record["score"] is None:
+                result = f'{value}/5 <small>· {self.t("已取证，但不足 3 维","evidenced, but fewer than 3 dimensions")}</small>'
+            else:
+                effective_text = self.t("有效权重", "effective weight")
+                result = f'{value}/5 <small>· {effective_text} {score_text(effective[key])}%</small>'
+            return f'<div><dt>{h(label)} · {WEIGHTS[key]}%</dt><dd>{result}</dd></div>'
+        return f'''<aside class="rating-panel">{provisional}{self.rating(record, compact=False)}<p>{h(reason)}</p><dl>{''.join(dimension_row(key,label) for key,label in rows)}</dl><p class="muted">{h(record["disclaimer_zh" if self.lang == "zh" else "disclaimer_en"])} <a href="{h(method_href)}">{self.t("查看权重与算法","See weights and formula")} ↗</a></p></aside>'''
 
     def hardware_tags(self, values, base, anchor):
         label = self.t("适配硬件", "Hardware")
@@ -259,7 +301,7 @@ class Site:
         e = localized(p, "en")
         v = localized(p, self.lang)
         score = PROJECT_SCORES[p["id"]]
-        attrs = {"id":p["id"],"category":p["category"],"ai":p["ai_relation"],"difficulty":p["difficulty"],"evidence":p["evidence"]["level"],"score":score["score"],"kind":"reviewed-project","title":p["name"],"use":"|".join(USE_IDS[u] for u in p["use_cases"])}
+        attrs = {"id":p["id"],"category":p["category"],"ai":p["ai_relation"],"difficulty":p["difficulty"],"evidence":p["evidence"]["level"],"score":score_data_value(score),"rated":str(score["score"] is not None).lower(),"kind":"reviewed-project","title":p["name"],"use":"|".join(USE_IDS[u] for u in p["use_cases"])}
         hardware_values = [item[self.lang] for item in PROJECT_HARDWARE_TAGS[p["id"]]]
         search = " ".join([p["name"], p["summary_zh"], p["device_scope"], e["summary"], e["device_scope"], *p["keywords"], *p["model_examples"], *hardware_values, *p["use_cases"], *(en for uid,zh,en in USES if zh in p["use_cases"])])
         attrs["search"] = search
@@ -276,7 +318,7 @@ class Site:
             platform = {"恩山无线论坛":"Enshan Wireless Forum", "ophub 中文项目文档":"ophub Chinese documentation"}.get(platform, platform)
         tags = [self.labels["category"][lead["category"]], platform, evidence]
         search = " ".join([v["title"], v["summary"], lead.get("device_name", ""), lead.get("device_model", ""), *self.lead_hardware_values(slug,lead), platform, lead.get("discovery_channel", "")])
-        attrs = f'data-search="{h(search)}" data-title="{h(v["title"])}" data-category="{h(lead["category"])}" data-source="{h(platform)}" data-evidence="{h(evidence)}" data-score="{score["score"]}" data-kind="device-or-community-route" data-channel="{h(lead.get("discovery_channel", "legacy"))}"'
+        attrs = f'data-search="{h(search)}" data-title="{h(v["title"])}" data-category="{h(lead["category"])}" data-source="{h(platform)}" data-evidence="{h(evidence)}" data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="device-or-community-route" data-channel="{h(lead.get("discovery_channel", "legacy"))}"'
         status = self.t("E1 / 已读具体型号资料", "E1 / exact-model source reviewed") if evidence == "E1" else self.t("E0 / 需核对准确硬件", "E0 / exact hardware check required")
         return f"""<article class="project" {attrs}><div class="tags">{''.join(f'<span>{h(tag)}</span>' for tag in tags)}</div>{self.rating(score)}{self.hardware_tags(self.lead_hardware_values(slug,lead),prefix,'lead-grid')}<h3><a href="{prefix}{slug}/">{h(v['title'])} ↗</a></h3><p class="summary">{h(v['summary'])}</p><p class="device"><b>{self.t('当前可用程度','Practical readiness')}</b>{h(decision['usable'])}</p><p class="limit"><b>{self.t('待核缺口','Review gap')}</b> {h(v['gap'])}</p><div class="card-end"><span class="status {'attention' if evidence == 'E0' else ''}">{status}</span><span>{h(lead['content_id'])}</span></div></article>"""
 
@@ -292,7 +334,7 @@ class Site:
         attrs = (
             f'data-search="{h(search)}" data-title="{h(lead["name"])}" '
             f'data-category="{h(lead["category"])}" data-evidence="E0" '
-            f'data-score="{score["score"]}" data-kind="project-source-lead" data-needs-review="true"'
+            f'data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="project-source-lead" data-needs-review="true"'
         )
         state = self.t("仓库已归档", "Repository archived") if lead["archived"] else self.t("仓库未归档", "Repository not archived")
         return f'''<article class="project" {attrs}><div class="tags"><span>{h(self.labels["category"][lead["category"]])}</span><span>{self.t("独立项目来源","Independent project source")}</span><span>E0</span><span class="needs-review">{self.t("待验证","To verify")}</span></div>{self.rating(score)}<h3><a href="{h(prefix+lead['id']+'/')}">{h(lead['name'])} ↗</a></h3><p class="summary">{h(summary)}</p><p class="device"><b>{self.t("可继续核对的设备范围","Hardware scope to review")}</b>{h(device_scope)}</p><p class="limit"><b>{self.t("候选用途","Candidate use")}</b> {h(use_case)}</p><div class="card-end"><span class="status attention">{h(state)} · E0</span><span>{h(lead['content_id'])}</span></div></article>'''
@@ -342,9 +384,9 @@ class Site:
 <section id="catalog" class="catalog"><div class="section-heading"><h2>{t('直接搜索你的设备','Search for your device')} <span class="muted">/ {len(PROJECTS)}</span></h2><p>{t('不知道项目名也没关系，输入设备、型号或你想实现的用途。','You do not need to know a project name. Search by device, model or the job you want it to do.')}</p></div>
 <form id="filters" class="filters" role="search"><div class="search-field"><label for="q">{t('搜索设备、型号或项目（支持中英文）','Search devices, models or projects (Chinese or English)')}</label><input id="q" name="q" type="search" placeholder="{t('例如 Kindle、LX06、打印机…','Try Kindle, LX06, printer…')}" autocomplete="off"></div>
 <div class="filter-grid">{filters}</div><div class="filter-bottom"><p id="result-count" role="status" aria-live="polite">{t('显示','Showing')} {len(PROJECTS)} / {len(PROJECTS)}</p><div><button type="button" id="share">{t('复制筛选链接','Copy filtered link')}</button><button type="reset">{t('清除筛选','Clear filters')}</button></div></div><span id="share-status" role="status"></span></form>
-<p class="evidence-note">{t('复活星级比较可行性、成本、文档与社区、实用价值和风险；E0–E3 是独立证据标签，不参与加权或封顶。收录与星级都不保证你的型号兼容。','Revival stars compare feasibility, cost, docs and community, practical value, and risk. E0–E3 is an independent evidence tag and neither enters nor caps the score. Inclusion and stars do not guarantee compatibility.')} <a href="scoring/">{t('查看评分方法','Scoring method')} ↗</a></p>
+<p class="evidence-note">{t('复活星级只使用有来源的维度；不足 3 个有证据维度显示“??? / 尚未评分”。E0–E3 是独立证据标签。','Revival stars use only source-backed dimensions; fewer than three display “??? / Not yet rated”. E0–E3 is a separate evidence tag.')} <a href="scoring/">{t('查看评分方法','Scoring method')} ↗</a></p>
 <noscript><p>{t('JavaScript 未启用；仍可阅读完整目录并使用浏览器查找。','JavaScript is disabled. The full catalog is readable; use your browser’s Find command.')}</p></noscript>
-<div id="project-grid" class="project-grid">{''.join(self.card(p) for p in sorted(PROJECTS,key=lambda item:(-PROJECT_SCORES[item['id']]['score'],item['name'].casefold())))}</div>
+<div id="project-grid" class="project-grid">{''.join(self.card(p) for p in sorted(PROJECTS,key=lambda item:score_sort_key(PROJECT_SCORES[item['id']],item['name'])))}</div>
 <div id="empty" class="empty" hidden><h3>{t('暂时没有匹配条目','No matching entries')}</h3><p>{t('减少筛选条件，或提交设备线索。','Try fewer filters, or contribute a device lead.')}</p><a href="contribute/">{t('提交线索','Contribute a lead')} ↗</a></div></section>
 <section class="closing"><div><p class="eyebrow">PASS IT ON</p><h2>{t('你手里的旧设备，也许正缺一条靠谱路线。','Your old device may only need the right route.')}</h2><p>{t('分享准确型号、做成了什么、哪里失败和怎样恢复，下一位垃圾佬就能少走一点弯路。','Share the exact model, the result, the failure point and the recovery. The next builder can start with better information.')}</p></div><a class="primary" href="contribute/">{t('分享一次改造','Share a build')} ↗</a></section>"""
         self.page(t("旧设备别急着扔，让它重新上岗","Give old hardware another job"),t("按设备和型号寻找旧硬件改造路线，快速了解能做什么、适配条件和停止条件。","Find a practical reuse route for old hardware, with clear outcomes, compatibility checks and stop conditions."),body)
@@ -420,18 +462,19 @@ class Site:
             f'<tr><td><b>{bucket}/5</b></td><td>{distribution[bucket]}</td></tr>'
             for bucket in distribution
         )
+        distribution_rows += f'<tr><td><b>{t("尚未评分", "Not yet rated")}</b></td><td>{DIRECTORY_EXPORT["counts"]["not_yet_rated"]}</td></tr>'
         dimension_rows = "".join(
             f'<tr><td><b>{h(item[self.lang])}</b></td><td>{item["weight"]}%</td></tr>'
             for item in DIRECTORY_EXPORT["dimensions"].values()
         )
         scoring = f'''<aside class="boundary"><b>{t("星级回答什么","What the stars answer")}</b><p>{t("它用于比较一条复活路线的落地条件，不是兼容保证、安全认证或成功率。E0–E3 单独表示来源证据深度，不参与星级加权，也不设置上限。","It compares the conditions for putting a revival route into practice. It is not a compatibility guarantee, safety certification, or success rate. E0–E3 separately describes evidence depth and neither enters nor caps the stars.")}</p></aside>
 <h2>{t("五个维度与权重","Five dimensions and weights")}</h2><table><thead><tr><th>{t("维度","Dimension")}</th><th>{t("权重","Weight")}</th></tr></thead><tbody>{dimension_rows}</tbody></table>
-<h2>{t("计算方式","Calculation")}</h2><p>{t("每个维度先给 1–5 分：越容易、成本越低、文档与社区越好、实用价值越高、刷坏与安全风险越低，分数越高。按上表权重求加权平均，再四舍五入到最近的 0.5 星；正好落在中点时向上取整。","Each dimension receives 1–5 points: easier feasibility, lower cost, better docs/community, greater practical value, and lower bricking/security risk score higher. The weighted average is rounded to the nearest 0.5 star, with exact ties rounded upward.")}</p>
-<h2>{t("未知项怎样处理","How unknowns are handled")}</h2><p>{t("缺少可比较事实时使用 3 分中性值，并在 JSON/CSV 的 component_basis 中写明 unknown-neutral 或 unreviewed-neutral。3 分只是计算占位，不表示已经核实为中等。147 个 E0 仓库候选只用已有元数据形成暂定星级，全部标记“待验证”。","When comparable facts are unavailable, a neutral 3 is used and recorded as unknown-neutral or unreviewed-neutral in JSON/CSV component_basis. It is a calculation placeholder, not verified average performance. The 147 E0 repository candidates use only existing metadata for provisional stars and are all marked To verify.")}</p>
+<h2>{t("计算方式","Calculation")}</h2><p>{t("每个有可核验来源的维度给 1–5 分。仅将已取证维度的原权重按比例重新归一到 100%，再求加权平均；四舍五入到最近的 0.5 星，正好落在中点时向上取整。","Each source-backed dimension receives 1–5 points. Only the original weights of evidenced dimensions are proportionally renormalized to 100% before averaging. The result is rounded to the nearest 0.5 star, with exact ties rounded upward.")}</p>
+<h2>{t("未知项怎样处理","How unknowns are handled")}</h2><p>{t("缺少证据的维度保留为 null，不再用 3 分占位，也不进入分母。少于 3 个维度有证据时，总分和加权平均均为 null，页面显示“??? / 尚未评分”，并排在所有已评分条目之后。","Unevidenced dimensions remain null: no neutral 3 is imputed and their weights do not enter the denominator. With fewer than three evidenced dimensions, both the total and weighted average are null; the page shows “??? / Not yet rated” and sorts the entry after every rated item.")}</p>
 <h2>{t("当前半星分布","Current half-star distribution")}</h2><table><thead><tr><th>{t("星级","Stars")}</th><th>{t("当前条数","Current entries")}</th></tr></thead><tbody>{distribution_rows}</tbody></table>
 <h2>{t("不会进入评分的因素","What is deliberately excluded")}</h2>{ul([t("E0–E3 证据等级本身","The E0–E3 evidence grade itself"),t("star、点赞、浏览量和搜索热度","Repository stars, likes, views, and search popularity"),t("未经核实的成功率或兼容承诺","Unverified success rates or compatibility promises"),t("把最近 push 直接当成设备可用证明","Treating a recent push as proof that hardware works")])}
-<h2>{t("全量覆盖与数据下载","Coverage and downloads")}</h2><p>{t(f"当前 {DIRECTORY_EXPORT['counts']['score_coverage']} / {DIRECTORY_EXPORT['counts']['entries']} 条公开路线都有星级。统一 JSON/CSV 保存总星级、加权平均、五项原始分、分项依据、独立证据等级、待验证状态、来源 URL 和中英文详情 URL。",f"All {DIRECTORY_EXPORT['counts']['score_coverage']} / {DIRECTORY_EXPORT['counts']['entries']} public routes have stars. The unified JSON/CSV stores total stars, weighted average, five raw component scores, component basis, independent evidence grade, review-needed state, source URL, and Chinese/English detail URLs.")}</p><p><a href="../../data/directory.json" download>JSON</a> · <a href="../../data/directory.csv" download>CSV</a> · <a href="../directory/">{t("打开全站目录","Open the full directory")} ↗</a></p>'''
-        self.article(t("1–5 星复活价值评分","1–5 revival-value stars"),t("五维加权、半星取整、证据等级独立。","Five weighted dimensions, half-star rounding, and independent evidence grades."),scoring,"scoring/index.html")
+<h2>{t("全量覆盖与数据下载","Coverage and downloads")}</h2><p>{t(f"当前 {DIRECTORY_EXPORT['counts']['rated']} / {DIRECTORY_EXPORT['counts']['entries']} 条有星级，{DIRECTORY_EXPORT['counts']['not_yet_rated']} 条尚未评分。统一 JSON/CSV 保存 nullable 的总分与五项原始分、有效权重、分项依据与来源 URL，以及独立证据等级。",f"{DIRECTORY_EXPORT['counts']['rated']} / {DIRECTORY_EXPORT['counts']['entries']} entries currently have stars; {DIRECTORY_EXPORT['counts']['not_yet_rated']} are not yet rated. Unified JSON/CSV stores nullable totals and raw dimensions, effective weights, per-dimension basis and source URLs, plus the independent evidence grade.")}</p><p><a href="../../data/directory.json" download>JSON</a> · <a href="../../data/directory.csv" download>CSV</a> · <a href="../../data/scoring-evidence.json" download>{t("评分取证台账","Scoring evidence ledger")}</a> · <a href="../directory/">{t("打开全站目录","Open the full directory")} ↗</a></p>'''
+        self.article(t("1–5 星复活价值评分","1–5 revival-value stars"),t("只计有证据维度、权重重新归一、证据等级独立。","Source-backed dimensions only, renormalized weights, and independent evidence grades."),scoring,"scoring/index.html")
 
     def guides(self):
         for gid, guide in GUIDES.items():
@@ -459,38 +502,40 @@ class Site:
         t = self.t
         all_cards = []
         for project in PROJECTS:
-            score = PROJECT_SCORES[project["id"]]["score"]
-            all_cards.append((score, project["name"].casefold(), self.card(project, "../")))
+            record = PROJECT_SCORES[project["id"]]
+            all_cards.append((*score_sort_key(record, project["name"]), self.card(project, "../")))
         for slug, lead in WATCHLIST.items():
-            score = LEAD_SCORES[slug]["score"]
-            all_cards.append((score, lead[self.lang]["title"].casefold(), self.lead_card(slug, lead, "../leads/")))
+            record = LEAD_SCORES[slug]
+            all_cards.append((*score_sort_key(record, lead[self.lang]["title"]), self.lead_card(slug, lead, "../leads/")))
         for lead in PROJECT_LEADS:
-            score = PROJECT_LEAD_SCORES[lead["id"]]["score"]
-            all_cards.append((score, lead["name"].casefold(), self.project_lead_card(lead, "../project-leads/")))
-        all_cards.sort(key=lambda item: (-item[0], item[1]))
+            record = PROJECT_LEAD_SCORES[lead["id"]]
+            all_cards.append((*score_sort_key(record, lead["name"]), self.project_lead_card(lead, "../project-leads/")))
+        all_cards.sort(key=lambda item: item[:3])
         category_options = "".join(f'<option value="{h(key)}">{h(value)}</option>' for key,value in self.labels["category"].items())
         evidence_options = "".join(f'<option value="{level}">{level} · {h(self.labels["evidence"][level])}</option>' for level in ["E0","E1","E2","E3"])
         score_options = score_filter_options()
         counts = DIRECTORY_EXPORT["counts"]
         body = f'''<div class="detail-wrap wide"><section class="detail-head"><p class="eyebrow">ONE INDEX / CLEAR EVIDENCE</p><h1>{t("全部设备与改造记录","All hardware-revival records")}</h1><p class="intro">{t(f"统一检索 {counts['entries']} 条公开记录，来自 {counts['unique_primary_source_urls']} 个不同主来源 URL。其中 200 个是互不重复的项目仓库来源：53 个深审项目加 147 个 E0 发现候选；另有 347 条设备/社区路线。三个分母分别标注，不把同一上游的不同设备型号冒充独立项目。",f"Search {counts['entries']} public records from {counts['unique_primary_source_urls']} distinct primary-source URLs. Exactly 200 are unique project-repository sources: 53 reviewed projects plus 147 E0 discoveries; another 347 are device/community routes. Each denominator stays explicit, and multiple devices from one upstream are not presented as independent projects.")}</p><div class="actions"><a href="../../data/directory.json" download>{t("下载全量 JSON","Download full JSON")}</a><a href="../../data/directory.csv" download>{t("下载全量 CSV","Download full CSV")}</a><a href="../project-sources/">{t("查看 200 个项目来源","Browse 200 project sources")} ↗</a><a href="../scoring/">{t("评分方法","Scoring method")} ↗</a></div></section>
-<aside class="boundary"><b>{t("星级与证据分开看","Read stars and evidence separately")}</b><p>{t("1–5 星比较可行性、成本、文档与社区、实用价值和风险，并按 0.5 星取整。E0–E3 是独立证据标签，不参与加权或封顶；147 个仓库候选另标“待验证”。","The 1–5 stars compare feasibility, cost, docs/community, practical value, and risk, rounded to 0.5. E0–E3 is an independent evidence tag and neither enters nor caps the score; the 147 repository candidates are additionally marked To verify.")}</p></aside>
+<aside class="boundary"><b>{t("星级与证据分开看","Read stars and evidence separately")}</b><p>{t("只对有可核验来源的维度计分，已取证权重重新归一；少于 3 个维度时显示“??? / 尚未评分”并排在已评分条目之后。E0–E3 仍是独立证据标签。","Only source-backed dimensions are scored and their weights are renormalized. Fewer than three dimensions displays “??? / Not yet rated” and sorts after rated entries. E0–E3 remains an independent evidence tag.")}</p></aside>
 <form id="directory-filters" class="filters" role="search"><div class="search-field"><label for="directory-q">{t("搜索设备、型号、项目或来源","Search device, model, project, or source")}</label><input id="directory-q" type="search" placeholder="{t('例如 NAS、Kindle、AX3000T、ESPHome…','Try NAS, Kindle, AX3000T, ESPHome…')}" autocomplete="off"></div><div class="filter-grid"><label>{t("设备","Device")}<select id="directory-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("证据","Evidence")}<select id="directory-evidence"><option value="">{t("全部证据","All evidence")}</option>{evidence_options}</select></label><label>{t("最低星级","Minimum stars")}<select id="directory-score"><option value="">{t("不限","Any score")}</option>{score_options}</select></label><label>{t("条目类型","Entry type")}<select id="directory-kind"><option value="">{t("全部类型","All types")}</option><option value="reviewed-project">{t("深审项目","Reviewed project")}</option><option value="project-source-lead">{t("E0 项目来源","E0 project source")}</option><option value="device-or-community-route">{t("设备或社区路线","Device/community route")}</option></select></label><label>{t("排序","Sort")}<select id="directory-sort"><option value="score-desc">{t("星级：高到低","Stars: high to low")}</option><option value="title-asc">{t("名称：A–Z","Name: A–Z")}</option></select></label></div><div class="filter-bottom"><p id="directory-result-count" role="status" aria-live="polite">{t("显示","Showing")} {counts['entries']} / {counts['entries']}</p><div><button type="button" id="directory-share">{t("复制筛选链接","Copy filtered link")}</button><button type="reset">{t("清除筛选","Clear filters")}</button></div></div><span id="directory-share-status" role="status"></span></form>
-<div id="directory-grid" class="project-grid">{''.join(card for _,_,card in all_cards)}</div><div id="directory-empty" class="empty" hidden><h3>{t("暂时没有匹配路线","No matching route")}</h3><p>{t("减少一个筛选条件，或换一个设备/型号词。","Remove a filter or try another device/model term.")}</p></div></div>'''
+<div id="directory-grid" class="project-grid">{''.join(item[-1] for item in all_cards)}</div><div id="directory-empty" class="empty" hidden><h3>{t("暂时没有匹配路线","No matching route")}</h3><p>{t("减少一个筛选条件，或换一个设备/型号词。","Remove a filter or try another device/model term.")}</p></div></div>'''
         self.page(t(f"全部 {counts['entries']} 条硬件复活记录",f"All {counts['entries']} hardware-revival records"),t("统一搜索设备、型号、项目、来源、复活星级和独立证据等级。","Search every device, model, project, source, revival-star score, and independent evidence grade."),body,"directory/index.html")
 
     def project_sources(self):
         t = self.t
         cards = []
         for project in PROJECTS:
-            cards.append((PROJECT_SCORES[project["id"]]["score"], project["name"].casefold(), self.card(project, "../")))
+            record = PROJECT_SCORES[project["id"]]
+            cards.append((*score_sort_key(record, project["name"]), self.card(project, "../")))
         for lead in PROJECT_LEADS:
-            cards.append((PROJECT_LEAD_SCORES[lead["id"]]["score"], lead["name"].casefold(), self.project_lead_card(lead, "../project-leads/")))
-        cards.sort(key=lambda item: (-item[0], item[1]))
+            record = PROJECT_LEAD_SCORES[lead["id"]]
+            cards.append((*score_sort_key(record, lead["name"]), self.project_lead_card(lead, "../project-leads/")))
+        cards.sort(key=lambda item: item[:3])
         category_options = "".join(f'<option value="{h(key)}">{h(value)}</option>' for key,value in self.labels["category"].items())
         body = f'''<div class="detail-wrap wide"><section class="detail-head"><p class="eyebrow">200 UNIQUE PROJECT REPOSITORIES</p><h1>{t("200 个独立项目来源","200 independent project sources")}</h1><p class="intro">{t(f"这里按仓库 URL 去重列出 {len(PROJECTS)} 个深审项目与 {len(PROJECT_LEADS)} 个 E0 GitHub 发现候选，合计正好 200 个独立项目来源。E0 只确认仓库存在、非 fork，并读取元数据与 README 入口；不表示具体设备兼容、安装成功或长期稳定。",f"This index deduplicates by repository URL: {len(PROJECTS)} reviewed projects plus {len(PROJECT_LEADS)} E0 GitHub discoveries, exactly 200 independent project sources. E0 confirms that a non-fork repository exists and that its metadata and README entry point were read; it does not establish device compatibility, installation success, or long-term stability.")}</p><div class="actions"><a href="../../data/project-leads.json" download>{t("下载 147 条 E0 JSON","Download 147 E0 JSON")}</a><a href="../../data/project-leads.csv" download>{t("下载 147 条 E0 CSV","Download 147 E0 CSV")}</a><a href="../directory/?kind=project-source-lead">{t("在全站目录只看 E0 项目来源","Show E0 project sources in full directory")} ↗</a></div></section>
 <aside class="boundary"><b>{t("两层不能混写","Keep the layers separate")}</b><p>{t("53 个深审项目已读部署或适配来源，证据为 E1/E2；147 个发现候选全部保持 E0。两层都没有 KitAgain 实机测试，E3 仍为 0。","The 53 reviewed projects have deployment or compatibility sources reviewed at E1/E2; all 147 discoveries remain E0. Neither layer has KitAgain hands-on hardware tests, and E3 remains zero.")}</p></aside>
 <form id="project-source-filters" class="filters" role="search"><div class="search-field"><label for="project-source-q">{t("搜索项目、设备范围或用途","Search project, hardware scope, or use")}</label><input id="project-source-q" type="search" placeholder="{t('例如 NAS、Kindle、camera、IoT…','Try NAS, Kindle, camera, IoT…')}" autocomplete="off"></div><div class="filter-grid"><label>{t("设备","Device")}<select id="project-source-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("证据","Evidence")}<select id="project-source-evidence"><option value="">{t("全部证据","All evidence")}</option><option value="E0">E0 · {t("发现候选","Discovery")}</option><option value="E1">E1 · {t("资料已读","Source reviewed")}</option><option value="E2">E2 · {t("作者实机证据","Author hardware evidence")}</option></select></label><label>{t("最低星级","Minimum stars")}<select id="project-source-score"><option value="">{t("不限","Any score")}</option>{score_filter_options()}</select></label><label>{t("排序","Sort")}<select id="project-source-sort"><option value="score-desc">{t("星级：高到低","Stars: high to low")}</option><option value="title-asc">{t("名称：A–Z","Name: A–Z")}</option></select></label></div><div class="filter-bottom"><p id="project-source-result-count" role="status" aria-live="polite">{t("显示","Showing")} {len(PROJECTS)+len(PROJECT_LEADS)} / {len(PROJECTS)+len(PROJECT_LEADS)}</p><button type="reset">{t("清除筛选","Clear filters")}</button></div></form>
-<noscript><p>{t("JavaScript 未启用；全部 200 个来源仍可阅读并使用浏览器查找。","JavaScript is disabled; all 200 sources remain readable and searchable with browser Find.")}</p></noscript><div id="project-source-grid" class="project-grid">{''.join(card for _,_,card in cards)}</div><div id="project-source-empty" class="empty" hidden><h3>{t("暂时没有匹配项目来源","No matching project source")}</h3><p>{t("减少一个筛选条件，或换一个设备/用途词。","Remove a filter or try another device/use term.")}</p></div></div>'''
+<noscript><p>{t("JavaScript 未启用；全部 200 个来源仍可阅读并使用浏览器查找。","JavaScript is disabled; all 200 sources remain readable and searchable with browser Find.")}</p></noscript><div id="project-source-grid" class="project-grid">{''.join(item[-1] for item in cards)}</div><div id="project-source-empty" class="empty" hidden><h3>{t("暂时没有匹配项目来源","No matching project source")}</h3><p>{t("减少一个筛选条件，或换一个设备/用途词。","Remove a filter or try another device/use term.")}</p></div></div>'''
         self.page(t("200 个独立项目来源","200 independent project sources"),t("按仓库 URL 去重的硬件复活项目来源，明确区分 E0 发现候选与 E1/E2 深审项目。","Hardware-revival project sources deduplicated by repository URL, with E0 discoveries separated from E1/E2 reviewed projects."),body,"project-sources/index.html")
 
         for lead in PROJECT_LEADS:
@@ -505,7 +550,7 @@ class Site:
             self.article(lead["name"], summary, sections, f"project-leads/{lead['id']}/index.html")
 
     def leads(self):
-        ordered_leads = sorted(WATCHLIST.items(), key=lambda item: (-LEAD_SCORES[item[0]]["score"], item[1][self.lang]["title"].casefold()))
+        ordered_leads = sorted(WATCHLIST.items(), key=lambda item: score_sort_key(LEAD_SCORES[item[0]], item[1][self.lang]["title"]))
         cards = "".join(self.lead_card(slug,lead,"") for slug,lead in ordered_leads)
         reviewed_count = sum(lead.get("evidence_level") == "E1" for lead in WATCHLIST.values())
         e0_count = len(WATCHLIST) - reviewed_count
@@ -546,7 +591,7 @@ GUIDES = json.loads((ROOT / "data/guides.json").read_text(encoding="utf-8"))
 ARTICLES = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
 WATCHLIST, WATCHLIST_DETAILS = load_watchlist(ROOT / "data")
 AUTHOR_SOCIALS = json.loads((ROOT / "data/author-socials.json").read_text(encoding="utf-8"))
-PROJECT_SCORES, LEAD_SCORES, PROJECT_LEAD_SCORES = score_all(PROJECTS, WATCHLIST, WATCHLIST_DETAILS, PROJECT_LEADS)
+PROJECT_SCORES, LEAD_SCORES, PROJECT_LEAD_SCORES = score_all(PROJECTS, WATCHLIST, WATCHLIST_DETAILS, PROJECT_LEADS, SCORING_EVIDENCE)
 DIRECTORY_EXPORT = build_directory_export(
     projects=PROJECTS,
     project_leads=PROJECT_LEADS,
@@ -554,7 +599,8 @@ DIRECTORY_EXPORT = build_directory_export(
     details=WATCHLIST_DETAILS,
     base_url=BASE,
     version=CONFIG["version"],
-    generated_at=DATA["compiled_at"],
+    generated_at=SCORING_EVIDENCE.get("generated_at", DATA["compiled_at"]),
+    scoring_evidence=SCORING_EVIDENCE,
 )
 
 def build():
@@ -578,6 +624,7 @@ def build():
     write(OUT/"data/directory.csv",directory_csv(DIRECTORY_EXPORT))
     write(OUT/"data/project-leads.json",json.dumps(PROJECT_LEAD_DATA,ensure_ascii=False,indent=2)+"\n")
     write(OUT/"data/project-leads.csv",project_leads_csv(PROJECT_LEADS))
+    shutil.copyfile(SCORING_EVIDENCE_PATH, OUT/"data/scoring-evidence.json")
     identity_coverage = []
     for p in PROJECTS:
         owner = repository_owner_account(p["repo_url"])

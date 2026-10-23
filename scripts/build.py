@@ -17,6 +17,8 @@ REPO = config["repository_url"]
 data = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 project_lead_data = json.loads((ROOT / "data/project-leads.json").read_text(encoding="utf-8"))
 project_leads = project_lead_data["projects"]
+scoring_evidence = json.loads((ROOT / "data/scoring-evidence.json").read_text(encoding="utf-8"))
+scoring_evidence_entries = scoring_evidence["entries"]
 project_image_data = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
 project_images = {item["project_id"]: item for item in project_image_data["entries"]}
 deep = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
@@ -28,6 +30,8 @@ projects = data["projects"]
 labels = data["labels"]
 DATE = data["compiled_at"][:10]
 PROJECT_LEAD_DATE = project_lead_data["published_at"]
+SCORING_DATE = scoring_evidence["checked_at"][:10]
+CONTENT_DATE = max(DATE, PROJECT_LEAD_DATE, SCORING_DATE)
 directory_export = build_directory_export(
     projects=projects,
     project_leads=project_leads,
@@ -35,7 +39,8 @@ directory_export = build_directory_export(
     details=watchlist_details,
     base_url=BASE,
     version=config["version"],
-    generated_at=data["compiled_at"],
+    generated_at=scoring_evidence.get("generated_at", data["compiled_at"]),
+    scoring_evidence=scoring_evidence,
 )
 score_distribution_zh = "、".join(
     f"{bucket} 星 {count} 条"
@@ -227,7 +232,7 @@ E1 不表示项目从未被别人成功使用，只表示本轮核查停留在�
 
 ## 1–5 星复活价值评分
 
-统一目录 {directory_export['counts']['entries']} / {directory_export['counts']['entries']} 条记录都有总星级、加权平均与五项原始分，并可从 [JSON](../data/directory.json) / [CSV](../data/directory.csv) 下载。权重为可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%，加权后四舍五入到最近 0.5 星。E0–E3 是独立证据等级，不参与加权或封顶。缺少可比较事实时使用明确标注的 3 分中性值，并不表示已经核实为中等；{len(project_leads)} 个 E0 仓库候选全部标为 `needs_review: true`。当前分布为 {score_distribution_zh}。
+统一目录 {directory_export['counts']['rated']} / {directory_export['counts']['entries']} 条记录有星级，另有 {directory_export['counts']['not_yet_rated']} 条显示“??? / 尚未评分”。权重为可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%；没有来源支撑的维度保存为 null。至少 3 个维度有证据时，只在这些维度之间按原始权重比例重新归一，再四舍五入到最近 0.5 星；不足 3 个维度不计算总星级。E0–E3 是独立证据等级，不参与加权或封顶。首批重新研究 {len(scoring_evidence_entries)} 条 Kindle/电子书、路由器、旧迷你电脑/NAS 与智能音箱路线，并在 [评分证据台账](../data/scoring-evidence.json)记录逐维来源。{len(project_leads)} 个 E0 仓库候选继续标为 `needs_review: true`。已评分条目的当前分布为 {score_distribution_zh}。
 
 ## 排除
 
@@ -259,11 +264,11 @@ write(OUT/".nojekyll","")
 write(ROOT/"data/directory.json", export_json_text(directory_export))
 write(ROOT/"data/directory.csv", directory_csv(directory_export))
 write(ROOT/"data/project-leads.csv", project_leads_csv(project_leads))
-for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json"]:
+for name in ["catalog.json","catalog.csv","directory.json","directory.csv","scoring-evidence.json","project-leads.json","project-leads.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json"]:
     (OUT/"data").mkdir(parents=True,exist_ok=True)
     shutil.copyfile(ROOT/"data"/name,OUT/"data"/name)
 paths = ["","research.html"]+[f"projects/{p['id']}.html" for p in projects]
-write(OUT/"sitemap.xml",'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"\n".join(f"<url><loc>{BASE}{p}</loc><lastmod>{DATE}</lastmod></url>" for p in paths)+"\n</urlset>\n")
-print(f"Built {len(paths)} HTML pages; {len(deep)} deep dives; deterministic data date {DATE}.")
+write(OUT/"sitemap.xml",'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"\n".join(f"<url><loc>{BASE}{p}</loc><lastmod>{CONTENT_DATE}</lastmod></url>" for p in paths)+"\n</urlset>\n")
+print(f"Built {len(paths)} HTML pages; {len(deep)} deep dives; deterministic content date {CONTENT_DATE}.")
 from site_i18n import build as build_bilingual
 build_bilingual()

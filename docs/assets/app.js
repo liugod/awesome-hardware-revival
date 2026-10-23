@@ -2,10 +2,23 @@
 (() => {
   const english = document.documentElement.lang === "en";
   const t = (zh, en) => english ? en : zh;
+  const cardScore = card => {
+    const raw = card.dataset.score;
+    if (raw === undefined || raw === "") return null;
+    const value = Number(raw);
+    return Number.isFinite(value) ? value : null;
+  };
   const sortCards = (grid, cards, mode) => {
     if (!grid) return;
     const sorted = [...cards].sort((a, b) => {
-      if (mode === "score-desc") return Number(b.dataset.score) - Number(a.dataset.score) || a.dataset.title.localeCompare(b.dataset.title, document.documentElement.lang);
+      if (mode === "score-desc") {
+        const aScore = cardScore(a);
+        const bScore = cardScore(b);
+        if (aScore === null && bScore !== null) return 1;
+        if (aScore !== null && bScore === null) return -1;
+        if (aScore !== null && bScore !== null && aScore !== bScore) return bScore - aScore;
+        return a.dataset.title.localeCompare(b.dataset.title, document.documentElement.lang);
+      }
       if (mode === "title-asc") return a.dataset.title.localeCompare(b.dataset.title, document.documentElement.lang);
       return Number(a.dataset.order) - Number(b.dataset.order);
     });
@@ -63,7 +76,7 @@
         const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
           (!controls.category.value || card.dataset.category === controls.category.value) &&
           (!controls.evidence.value || card.dataset.evidence === controls.evidence.value) &&
-          (!controls.score.value || Number(card.dataset.score) >= Number(controls.score.value)) &&
+          (!controls.score.value || (cardScore(card) !== null && cardScore(card) >= Number(controls.score.value))) &&
           (!controls.kind.value || card.dataset.kind === controls.kind.value);
         card.hidden = !match;
         if (match) visible++;
@@ -131,7 +144,7 @@
         const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
           (!controls.category.value || card.dataset.category === controls.category.value) &&
           (!controls.evidence.value || card.dataset.evidence === controls.evidence.value) &&
-          (!controls.score.value || Number(card.dataset.score) >= Number(controls.score.value));
+          (!controls.score.value || (cardScore(card) !== null && cardScore(card) >= Number(controls.score.value)));
         card.hidden = !match;
         if (match) visible++;
       });
@@ -190,7 +203,7 @@
         const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
           (!leadSource.value || card.dataset.source === leadSource.value) &&
           (!leadEvidence.value || card.dataset.evidence === leadEvidence.value) &&
-          (!leadScore.value || Number(card.dataset.score) >= Number(leadScore.value));
+          (!leadScore.value || (cardScore(card) !== null && cardScore(card) >= Number(leadScore.value)));
         card.hidden = !match;
         if (match) visible++;
       });
@@ -242,7 +255,7 @@
         ["category", "use", "ai", "difficulty", "evidence"].every(k => !controls[k].value || (k === "use"
           ? card.dataset.use.split("|").includes(controls[k].value)
           : card.dataset[k] === controls[k].value)) &&
-        (!controls.score.value || Number(card.dataset.score) >= Number(controls.score.value));
+        (!controls.score.value || (cardScore(card) !== null && cardScore(card) >= Number(controls.score.value)));
       card.hidden = !match;
       if (match) visible++;
     });

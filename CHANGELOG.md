@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.16.0 — 2026-10-24
+
+- Remove neutral 3-point placeholders: every unevidenced scoring dimension is now `null`, and the weighted average uses only evidenced dimensions with their original weights proportionally renormalized.
+- Require at least three evidenced dimensions for a total; otherwise JSON/CSV totals stay null, cards show `??? / 尚未评分` or `??? / Not yet rated`, and unrated entries sort after all rated entries.
+- Re-research and rescore 49 Kindle/e-reader, router, old mini-PC/NAS, and smart-speaker routes using 156 unique source URLs recorded per dimension in a public scoring-evidence ledger.
+- Publish 95 rated and 452 not-yet-rated entries. The rated half-star distribution is 1: 1, 1.5: 3, 2: 2, 2.5: 6, 3: 35, 3.5: 8, 4: 35, 4.5: 5, and 5: 0.
+- Keep E0–E3 independent from stars and preserve all 147 E0 repository discoveries with `needs_review: true`; scoring research does not promote their compatibility evidence grade.
+- Extend validation for nullable raw scores, the three-dimension threshold, renormalized arithmetic, effective weights, evidence-ledger/source parity, rated-first sorting, exact bilingual unrated markers, and JSON/CSV/public-copy parity.
+- Rebuild the bilingual static site, exports, reports, and sitemap at v1.16.0. This release is committed locally only; no push or Pages deployment is part of this change set.
+
 ## 1.15.0 — 2026-10-24
 
 - Replace the evidence-capped review-maturity score with independent five-dimension revival-value stars: feasibility/ease 25%, low cost 15%, docs/community 20%, practical value 20%, and low bricking/security risk 20%, rounded to the nearest 0.5 star.

@@ -22,6 +22,9 @@ data=load(ROOT/"data/catalog.json")
 config=load(ROOT/"site.config.json")
 project_lead_data=load(ROOT/"data/project-leads.json")
 project_leads=project_lead_data["projects"]
+scoring_evidence=load(ROOT/"data/scoring-evidence.json")
+scoring_evidence_items=scoring_evidence["entries"]
+if isinstance(scoring_evidence_items,dict):scoring_evidence_items=list(scoring_evidence_items.values())
 BASE=config["base_url"].rstrip("/")+"/"
 assert 'document.querySelectorAll("#project-grid .project")' in (OUT/"assets/app.js").read_text(encoding="utf-8"),"Homepage filters must not count featured lead cards"
 schema=load(ROOT/"data/catalog.schema.json")
@@ -54,6 +57,44 @@ author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
 device_atlas=load(ROOT/"data/device-atlas.json")
 device_reviews=load(ROOT/"data/device-reviews.json")
+assert scoring_evidence["version"]==config["version"] and scoring_evidence["scoring_model"]=="3.0.0","Scoring-evidence version mismatch"
+assert scoring_evidence["policy"]["weights"]==WEIGHTS and scoring_evidence["policy"]["unscored_value"] is None,"Scoring-evidence policy mismatch"
+assert scoring_evidence["policy"]["minimum_evidenced_dimensions"]==3 and scoring_evidence["policy"]["renormalize_evidenced_weights"] is True,"Scoring-evidence threshold mismatch"
+assert scoring_evidence["policy"]["rounding"]=="nearest-0.5-half-up" and scoring_evidence["policy"]["evidence_grade_independent"] is True,"Scoring-evidence rounding/evidence policy mismatch"
+raw_scoring_entries=scoring_evidence["entries"]
+if isinstance(raw_scoring_entries,dict):
+    scoring_entry_pairs=list(raw_scoring_entries.items())
+else:
+    scoring_entry_pairs=[(entry["entry_id"],entry) for entry in raw_scoring_entries]
+scoring_entry_ids=[entry_id for entry_id,_ in scoring_entry_pairs]
+valid_scoring_entry_ids={f"project:{p['id']}" for p in projects}|{f"lead:{slug}" for slug in watchlist}|{f"project-lead:{lead['id']}" for lead in project_leads}
+assert len(scoring_entry_ids)==len(set(scoring_entry_ids)) and set(scoring_entry_ids)<=valid_scoring_entry_ids,"Invalid or duplicate scoring-evidence entry_id"
+declared_actual=scoring_evidence.get("actual_entries",scoring_evidence.get("counts",{}).get("actual_entries"))
+assert declared_actual==len(scoring_entry_pairs),"Scoring-evidence actual_entries mismatch"
+allowed_scoring_topics={"kindle-ereader","router","old-mini-pc-nas","smart-speaker"}
+assert set(scoring_evidence["scope"])==allowed_scoring_topics,"Scoring-evidence scope mismatch"
+batch_scoring_date=scoring_evidence["checked_at"][:10]
+assert re.fullmatch(r"\d{4}-\d{2}-\d{2}",batch_scoring_date),"Invalid scoring-evidence check date"
+for entry_id,entry in scoring_entry_pairs:
+    assert entry.get("entry_id",entry_id)==entry_id and entry["topic"] in allowed_scoring_topics,entry_id
+    assert entry["checked_at"][:10]==batch_scoring_date,(entry_id,"Scoring-evidence check date")
+    assert set(entry["components"])==set(COMPONENTS),entry_id
+    scored_components=0
+    for key,component in entry["components"].items():
+        if component is None:
+            continue
+        assert isinstance(component,dict) and set(component)>={"score","basis_zh","basis_en","sources"},(entry_id,key)
+        value=component["score"]
+        assert isinstance(value,int) and not isinstance(value,bool) and 1<=value<=5,(entry_id,key)
+        scored_components+=1
+        assert component["basis_zh"] and component["basis_en"] and component["sources"],(entry_id,key,"Scored dimension needs bilingual basis and sources")
+        for url in component["sources"]:
+            parsed=urlsplit(url)
+            assert parsed.scheme=="https" and parsed.netloc,(entry_id,key,"Score source must be HTTPS")
+            assert not ("search" in parsed.path.casefold() and parsed.query),(entry_id,key,"Search-result URL is not a scoring source")
+    assert scored_components>=3,(entry_id,"Enrichment entry requires at least three evidenced dimensions")
+    serialized=json.dumps(entry,ensure_ascii=False).casefold()
+    assert "unknown-neutral" not in serialized and "unreviewed-neutral" not in serialized,entry_id
 assert device_atlas["version"]==device_reviews["version"]==config["version"],"Device-data version mismatch"
 assert project_lead_data["version"]==config["version"],"Project-source version mismatch"
 assert len(device_atlas["items"])==300 and device_atlas["counts"]["total"]==300, "Device atlas must contain 300 new records"
@@ -143,17 +184,33 @@ for slug,lead in watchlist.items():
         for lang in ["zh","en"]:
             assert all(lead["deep_review"][lang][key] for key in ["hardware","route","result","boundary","recovery"]),slug
 assert sum(lead.get("evidence_level")=="E1" for lead in watchlist.values())==30,"Merged E1 device-review count"
-project_scores,lead_scores,project_lead_scores=score_all(projects,watchlist,watchlist_details,project_leads)
+project_scores,lead_scores,project_lead_scores=score_all(projects,watchlist,watchlist_details,project_leads,scoring_evidence)
 all_scores=[*project_scores.values(),*lead_scores.values(),*project_lead_scores.values()]
 assert len(all_scores)==len(projects)+len(watchlist)+len(project_leads),"Score coverage mismatch"
 assert sum(WEIGHTS.values())==100 and set(WEIGHTS)==set(COMPONENTS),"Score weights must total 100"
 for item in all_scores:
-    assert isinstance(item["score"],(int,float)) and 1<=item["score"]<=5 and float(item["score"]*2).is_integer(),"Score must use half-star steps"
     assert set(item["components"])==set(COMPONENTS) and set(item["component_basis"])==set(COMPONENTS),"Five score dimensions required"
-    assert all(isinstance(value,int) and 1<=value<=5 for value in item["components"].values()),"Raw score out of range"
-    weighted=sum(item["components"][key]*WEIGHTS[key] for key in COMPONENTS)/100
-    rounded=math.floor(weighted*2+0.5)/2
-    assert item["weighted_average"]==round(weighted,3) and item["score"]==rounded,"Score arithmetic mismatch"
+    assert set(item["component_sources"])==set(COMPONENTS) and set(item["effective_weights"])==set(COMPONENTS),"Score evidence fields incomplete"
+    assert all(value is None or (isinstance(value,int) and not isinstance(value,bool) and 1<=value<=5) for value in item["components"].values()),"Raw score out of range"
+    evidenced=[key for key in COMPONENTS if item["components"][key] is not None]
+    assert item["evidenced_dimensions"]==len(evidenced),"Evidenced-dimension count mismatch"
+    assert set(item["score_sources"])=={url for key in COMPONENTS for url in item["component_sources"][key]},"Score-source union mismatch"
+    for key in COMPONENTS:
+        if item["components"][key] is None:
+            assert item["component_basis"][key] is None and item["component_sources"][key]==[] and item["effective_weights"][key] is None,"Unscored dimension must be empty"
+        else:
+            assert item["component_basis"][key] and item["component_sources"][key],"Scored dimension requires basis and sources"
+            assert all(url.startswith("https://") for url in item["component_sources"][key]),"Score sources must be HTTPS"
+    if len(evidenced)<3:
+        assert item["score"] is None and item["weighted_average"] is None,"Fewer than three evidenced dimensions must be unrated"
+    else:
+        denominator=sum(WEIGHTS[key] for key in evidenced)
+        weighted=sum(item["components"][key]*WEIGHTS[key] for key in evidenced)/denominator
+        rounded=math.floor(weighted*2+0.5)/2
+        assert item["weighted_average"]==round(weighted,3) and item["score"]==rounded,"Renormalized score arithmetic mismatch"
+        assert isinstance(item["score"],(int,float)) and 1<=item["score"]<=5 and float(item["score"]*2).is_integer(),"Score must use half-star steps"
+        assert abs(sum(item["effective_weights"][key] for key in evidenced)-100)<0.01,"Effective weights must renormalize to 100%"
+    assert "unknown-neutral" not in json.dumps(item,ensure_ascii=False).casefold() and "unreviewed-neutral" not in json.dumps(item,ensure_ascii=False).casefold(),"Neutral placeholder basis is forbidden"
     assert "evidence_cap" not in item,"Evidence must not cap revival stars"
 assert all(project_lead_scores[lead["id"]]["provisional"] is True for lead in project_leads),"E0 project-source scores must remain provisional"
 ids=[p["id"] for p in projects]
@@ -256,6 +313,8 @@ for lang in ["zh","en"]:
     scoring_markup=(OUT/lang/"scoring/index.html").read_text(encoding="utf-8")
     assert all(f">{weight}%<" in scoring_markup for weight in WEIGHTS.values()),(lang,"score weights missing")
     assert "E0–E3" in scoring_markup and "0.5" in scoring_markup,(lang,"evidence separation or half-star explanation missing")
+    assert "null" in scoring_markup and "scoring-evidence.json" in scoring_markup,(lang,"nullable scoring or evidence-ledger link missing")
+    assert ("尚未评分" if lang=="zh" else "Not yet rated") in scoring_markup,(lang,"unrated explanation missing")
     for slug,lead in watchlist.items():
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")
         page=pages[(OUT/lang/"leads"/slug/"index.html").resolve()]
@@ -283,7 +342,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json"]:
+for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json","scoring-evidence.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
@@ -329,27 +388,37 @@ for p,row in zip(english["projects"],enrows):
     for key in ["requirements","cost","risk","evidence","limitations","translation"]:assert p[key]==json.loads(row[key])
 assert set(load(OUT/"data/deep-dives.en.json"))==set(deep)
 directory=load(ROOT/"data/directory.json")
-expected_directory=build_directory_export(projects=projects,project_leads=project_leads,watchlist=watchlist,details=watchlist_details,base_url=BASE,version=config["version"],generated_at=data["compiled_at"])
+expected_directory=build_directory_export(projects=projects,project_leads=project_leads,watchlist=watchlist,details=watchlist_details,base_url=BASE,version=config["version"],generated_at=scoring_evidence.get("generated_at",data["compiled_at"]),scoring_evidence=scoring_evidence)
 assert directory==expected_directory,"Unified directory JSON is stale"
 assert (ROOT/"data/directory.csv").read_text(encoding="utf-8-sig")==directory_csv(directory).removeprefix("\ufeff"),"Unified directory CSV is stale"
 assert directory["counts"]["entries"]==len(projects)+len(project_leads)+len(watchlist)
 assert directory["counts"]["independent_project_sources"]==200
 assert directory["counts"]["project_source_leads"]==147
-assert directory["counts"]["score_coverage"]==directory["counts"]["entries"]
+assert directory["schema_version"]==directory["scoring_version"]=="3.0.0"
+assert directory["counts"]["score_coverage"]==directory["counts"]["rated"]
+assert directory["counts"]["rated"]+directory["counts"]["not_yet_rated"]==directory["counts"]["entries"]
 assert directory["weights"]==WEIGHTS and directory["counts"]["needs_review"]==147
 expected_buckets={str(int(value)) if value.is_integer() else f"{value:.1f}" for value in HALF_STAR_BUCKETS}
 assert set(directory["counts"]["score_distribution"])==expected_buckets
-assert sum(directory["counts"]["score_distribution"].values())==directory["counts"]["entries"]
+assert sum(directory["counts"]["score_distribution"].values())==directory["counts"]["rated"]
 assert sum(entry["needs_review"] for entry in directory["entries"])==147
 assert all(entry["needs_review"]==(entry["kind"]=="project-source-lead") for entry in directory["entries"])
 assert directory["counts"]["unique_primary_source_urls"]>=200,"Fewer than 200 distinct primary-source URLs"
 with (ROOT/"data/directory.csv").open(encoding="utf-8-sig",newline="") as f:
     directory_rows=list(csv.DictReader(f))
 assert [row["entry_id"] for row in directory_rows]==[entry["entry_id"] for entry in directory["entries"]],"Unified JSON/CSV entry mismatch"
-assert all(float(row["score"])==entry["score"]["score"] and float(row["weighted_average"])==entry["score"]["weighted_average"] and row["needs_review"].lower()==str(entry["needs_review"]).lower() and row["source_url"]==entry["source_url"] for row,entry in zip(directory_rows,directory["entries"])),"Unified JSON/CSV facts mismatch"
 for row,entry in zip(directory_rows,directory["entries"]):
-    assert all(int(row[key])==entry["score"]["components"][key] for key in COMPONENTS),(entry["entry_id"],"Raw score CSV mismatch")
+    expected_score=entry["score"]["score"]
+    expected_average=entry["score"]["weighted_average"]
+    assert (row["score"]=="" if expected_score is None else float(row["score"])==expected_score),(entry["entry_id"],"CSV total score mismatch")
+    assert (row["weighted_average"]=="" if expected_average is None else float(row["weighted_average"])==expected_average),(entry["entry_id"],"CSV weighted average mismatch")
+    assert row["needs_review"].lower()==str(entry["needs_review"]).lower() and row["source_url"]==entry["source_url"],(entry["entry_id"],"Unified JSON/CSV facts mismatch")
+    assert all((row[key]=="" if entry["score"]["components"][key] is None else int(row[key])==entry["score"]["components"][key]) for key in COMPONENTS),(entry["entry_id"],"Raw score CSV mismatch")
     assert json.loads(row["component_basis"])==entry["score"]["component_basis"],(entry["entry_id"],"Score basis CSV mismatch")
+    assert json.loads(row["component_sources"])==entry["score"]["component_sources"],(entry["entry_id"],"Score sources CSV mismatch")
+    assert json.loads(row["score_sources"])==entry["score"]["score_sources"],(entry["entry_id"],"Score-source union CSV mismatch")
+    assert json.loads(row["effective_weights"])==entry["score"]["effective_weights"],(entry["entry_id"],"Effective-weight CSV mismatch")
+    assert int(row["evidenced_dimensions"])==entry["score"]["evidenced_dimensions"],(entry["entry_id"],"Evidenced-dimension CSV mismatch")
 with (ROOT/"data/project-leads.csv").open(encoding="utf-8-sig",newline="") as f:
     project_lead_rows=list(csv.DictReader(f))
 assert [row["id"] for row in project_lead_rows]==[lead["id"] for lead in project_leads],"Project-source JSON/CSV entry mismatch"
@@ -363,7 +432,9 @@ import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
 assert len(urls)==len(set(urls))==2*(len(projects)+11+len(articles)+len(watchlist)+len(project_leads))
 lastmods=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}lastmod")]
-assert len(lastmods)==len(urls) and set(lastmods)=={max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"])},"Sitemap lastmod mismatch"
+scoring_dates=[value[:10] for value in [scoring_evidence.get("checked_at"),*(entry.get("checked_at") for entry in scoring_evidence_items)] if value]
+expected_lastmod=max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"],*scoring_dates)
+assert len(lastmods)==len(urls) and set(lastmods)=={expected_lastmod},"Sitemap lastmod mismatch"
 assert BASE in urls and BASE+"en/" not in urls
 for url in urls:
     assert url.startswith(BASE)
@@ -379,4 +450,4 @@ for file in ROOT.rglob("*"):
     assert "\ufffd" not in text,("UTF8 replacement character",file)
     for pattern in secret_patterns:
         assert not re.search(pattern,text),("Potential sensitive content",file)
-print(json.dumps({"schema":"PASS","unique_ids":len(ids),"families":len(set(p["family"] for p in projects)),"categories":len(set(p["category"] for p in projects)),"deep_dives":len(deep),"independent_project_sources":len(projects)+len(project_leads),"project_source_leads":len(project_leads),"device_source_reviews":len(device_reviews["items"]),"remaining_e0_leads":len(watchlist)-len(device_reviews["items"]),"directory_entries":directory["counts"]["entries"],"distinct_primary_source_urls":directory["counts"]["unique_primary_source_urls"],"score_coverage":directory["counts"]["score_coverage"],"score_weights":directory["weights"],"score_distribution":directory["counts"]["score_distribution"],"needs_review":directory["counts"]["needs_review"],"html_pages_and_internal_links":"PASS","csv_json_parity":"PASS","public_file_scan":"PASS","catalog_evidence":dict(collections.Counter(p["evidence"]["level"] for p in projects))},ensure_ascii=False,indent=2))
+print(json.dumps({"schema":"PASS","unique_ids":len(ids),"families":len(set(p["family"] for p in projects)),"categories":len(set(p["category"] for p in projects)),"deep_dives":len(deep),"independent_project_sources":len(projects)+len(project_leads),"project_source_leads":len(project_leads),"device_source_reviews":len(device_reviews["items"]),"remaining_e0_leads":len(watchlist)-len(device_reviews["items"]),"scoring_batch_entries":len(scoring_entry_pairs),"directory_entries":directory["counts"]["entries"],"distinct_primary_source_urls":directory["counts"]["unique_primary_source_urls"],"rated":directory["counts"]["rated"],"not_yet_rated":directory["counts"]["not_yet_rated"],"score_weights":directory["weights"],"score_distribution":directory["counts"]["score_distribution"],"needs_review":directory["counts"]["needs_review"],"html_pages_and_internal_links":"PASS","csv_json_parity":"PASS","public_file_scan":"PASS","catalog_evidence":dict(collections.Counter(p["evidence"]["level"] for p in projects))},ensure_ascii=False,indent=2))

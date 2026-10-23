@@ -8,7 +8,7 @@ The public site has no backend, account system, analytics, database, runtime AI,
 
 ## Stack and data flow
 
-1. Editors update canonical JSON and reviewed translations. `project-leads.json` is the E0 repository-discovery ledger; it is not merged into the reviewed catalog.
+1. Editors update canonical JSON and reviewed translations. `project-leads.json` is the E0 repository-discovery ledger; `scoring-evidence.json` separately stores source-backed, per-dimension scoring overrides and does not promote E0–E3.
 2. `scripts/build.py` compiles reports, exports, legacy pages, and invokes `scripts/site_i18n.py`.
 3. `scripts/scoring.py` derives five-dimension revival-value stars, kept independent from E0–E3, and emits the unified JSON/CSV export.
 4. `scripts/validate.py` checks schema, evidence invariants, translations, generated pages, internal links, exports, and public-file safety.
@@ -24,7 +24,7 @@ The public site has no backend, account system, analytics, database, runtime AI,
 
 ## Known risks and assumptions
 
-- Revival stars compare feasibility/ease, expected cost, docs/community activity, practical value, and bricking/security risk. E0–E3 separately describes evidence depth and never enters or caps the stars (`scripts/scoring.py`). Unknown-neutral values are calculation placeholders, not verified average performance; all 147 metadata-only repository discoveries remain E0 and `needs_review: true`.
+- Revival stars compare feasibility/ease, expected cost, docs/community activity, practical value, and bricking/security risk. E0–E3 separately describes evidence depth and never enters or caps the stars (`scripts/scoring.py`). An unevidenced dimension is `null`; with at least three evidenced dimensions, only their original weights are proportionally renormalized. Otherwise the total is null and shown as “Not yet rated”. All 147 repository discoveries remain E0 and `needs_review: true` even when separate scoring research exists.
 - Upstream compatibility, releases, licenses, and URLs can drift after the recorded check time (`data/catalog.json`, device and lead data).
 - Generated files must stay synchronized with canonical inputs; CI detects drift in `docs/` and generated research reports (`.github/workflows/validate.yml`).
 - GitHub Pages availability does not prove browser interactions, downloads, or hardware outcomes; those are separate acceptance gates (`research/VALIDATION.md`).
