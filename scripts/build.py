@@ -74,8 +74,7 @@ def page(title, description, body, path="", level=0, script=False):
 <header class="site-header"><a class="brand" href="{prefix}index.html"><span class="brand-mark">↻</span><span>垃圾佬复活站<small>KITAGAIN · 硬件复活野外指南</small></span></a>
 <nav aria-label="主导航"><a href="{prefix}index.html#catalog">项目目录</a><a href="{prefix}research.html">研究方法</a><a href="{REPO}">GitHub ↗</a></nav></header>
 <main id="main">{body}</main>
-<footer><p>让仍能工作的硬件，找到下一份工作。</p><div>资料核查 {DATE} · v{h(data['version'])} · 未进行实机测试<br>
-<a href="{prefix}data/catalog.json" download>JSON 数据</a> / <a href="{prefix}data/catalog.csv" download>CSV 数据</a> / <a href="{REPO}/blob/main/README.en.md">English</a> / <a href="{REPO}/issues/new/choose">补充与纠错</a><br>原创文字与目录 CC BY 4.0 · 站点代码 MIT · 第三方项目按各自许可</div></footer>
+<footer><nav class="footer-links" aria-label="页脚链接"><a href="{prefix}zh/about/">关于</a><span aria-hidden="true"> · </span><a href="{prefix}zh/about/#downloads">数据下载</a><span aria-hidden="true"> · </span><a href="{REPO}">GitHub</a><span aria-hidden="true"> · </span><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></nav></footer>
 </body></html>"""
 
 def tags(p):

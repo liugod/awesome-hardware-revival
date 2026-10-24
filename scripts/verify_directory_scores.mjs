@@ -42,11 +42,14 @@ const auditCardGrid = async (targetPage, grid) => targetPage.locator(`${grid} .p
   const reports = cards.map((card, index) => {
     const children = [...card.children];
     const outcome = card.querySelector(":scope > p.card-outcome");
+    const outcomeStyle = outcome ? getComputedStyle(outcome) : null;
     const forbidden = card.querySelectorAll("img,.tags,.hardware-tags,.device,.limit,.card-end,.project-thumb,.rating-panel").length;
     const valid = children.length === 3 &&
       children[0].tagName === "H3" && children[0].querySelectorAll("a").length === 1 &&
       children[1].matches("p.card-outcome") && children[2].matches("div.card-meta") &&
+      children[2].children.length === 2 &&
       card.querySelectorAll(".card-rating").length === 1 && card.querySelectorAll(".evidence-tag").length === 1 &&
+      outcomeStyle?.whiteSpace === "nowrap" && outcomeStyle?.overflowX === "hidden" && outcomeStyle?.textOverflow === "ellipsis" &&
       forbidden === 0;
     return {
       index,
@@ -63,6 +66,25 @@ const auditCardGrid = async (targetPage, grid) => targetPage.locator(`${grid} .p
     failures: reports.filter(report => !report.valid || report.outcomeLines > 1.25).slice(0, 5)
   };
 });
+
+const auditFooter = async (targetPage, lang) => targetPage.locator("footer .footer-links").evaluate((footer, { expectedLang, repositoryURL }) => {
+  const labels = expectedLang === "zh" ? ["关于", "数据下载", "GitHub", "CC BY 4.0"] : ["About", "Data download", "GitHub", "CC BY 4.0"];
+  const links = [...footer.querySelectorAll(":scope > a")];
+  const children = [...footer.children];
+  const normalized = footer.innerText.replace(/\s+/g, " ").trim();
+  const linkLabels = links.map(link => link.textContent.trim());
+  const aboutPath = new URL(links[0]?.href || location.href).pathname;
+  const downloadURL = new URL(links[1]?.href || location.href);
+  const expectedAboutPaths = [`/${expectedLang}/about/`, `/${expectedLang}/about/index.html`];
+  const tops = links.map(link => Math.round(link.getBoundingClientRect().top));
+  const forbiddenMetadata = /v\d+\.\d+\.\d+|\d{4}-\d{2}-\d{2}|未进行实机测试|No hands-on hardware tests|not physically tested/i.test(normalized);
+  const structure = children.length === 7 && children.every((child, index) => index % 2 === 0 ? child.tagName === "A" : child.tagName === "SPAN");
+  const valid = normalized === labels.join(" · ") && JSON.stringify(linkLabels) === JSON.stringify(labels) &&
+    expectedAboutPaths.includes(aboutPath) && expectedAboutPaths.includes(downloadURL.pathname) && downloadURL.hash === "#downloads" &&
+    (links[2]?.href || "").replace(/\/$/, "") === repositoryURL.replace(/\/$/, "") && links[3]?.href === "https://creativecommons.org/licenses/by/4.0/" &&
+    structure && !forbiddenMetadata && new Set(tops).size === 1 && footer.scrollWidth <= footer.clientWidth;
+  return { valid, normalized, linkLabels, aboutPath, download: `${downloadURL.pathname}${downloadURL.hash}`, structure, forbiddenMetadata, singleLine: new Set(tops).size === 1, width: { client: footer.clientWidth, scroll: footer.scrollWidth } };
+}, { expectedLang: lang, repositoryURL: config.repository_url });
 
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
@@ -103,7 +125,7 @@ try {
     if (result.resetSort !== "score-desc" || result.resetSortInURL !== null || !result.resetDescending) throw new Error(`${name} reset star sorting failed`);
   }
 
-  const checkHomepage = async ({ pathName, placeholder, directoryPath }) => {
+  const checkHomepage = async ({ pathName, placeholder, directoryPath, lang }) => {
     await page.goto(`${base}${pathName}`, { waitUntil: "networkidle" });
     const result = await page.evaluate(expectedPlaceholder => {
       const subtitle = document.querySelector("main .home-subtitle");
@@ -124,7 +146,7 @@ try {
         forbidden: document.querySelectorAll("main .field-note,main .facts-strip,main .featured,main .closing,main #filters,main #project-grid,main .primary,main .secondary").length
       };
     }, placeholder);
-    result.version = (await page.locator("footer").innerText()).includes(`v${config.version}`);
+    result.footer = await auditFooter(page, lang);
     await page.locator("#home-q").fill("Kindle");
     await Promise.all([
       page.waitForURL(url => url.pathname === directoryPath && url.searchParams.get("q") === "Kindle"),
@@ -136,11 +158,11 @@ try {
   };
 
   checks.home = {
-    zh: await checkHomepage({ pathName: "/zh/", placeholder: "输入你的设备", directoryPath: "/zh/directory/" }),
-    en: await checkHomepage({ pathName: "/", placeholder: "Enter your device", directoryPath: "/en/directory/" })
+    zh: await checkHomepage({ pathName: "/zh/", placeholder: "输入你的设备", directoryPath: "/zh/directory/", lang: "zh" }),
+    en: await checkHomepage({ pathName: "/", placeholder: "Enter your device", directoryPath: "/en/directory/", lang: "en" })
   };
   for (const [lang, result] of Object.entries(checks.home)) {
-    if (result.h1 !== 1 || result.searches !== 1 || !result.placeholderMatches || result.subtitleLines > 1.25 || result.categories < 4 || !result.categoriesValid || result.forbidden !== 0 || !result.version || result.submittedQuery !== "Kindle") {
+    if (result.h1 !== 1 || result.searches !== 1 || !result.placeholderMatches || result.subtitleLines > 1.25 || result.categories < 4 || !result.categoriesValid || result.forbidden !== 0 || !result.footer.valid || result.submittedQuery !== "Kindle") {
       throw new Error(`${lang} simplified homepage failed: ${JSON.stringify(result)}`);
     }
   }
@@ -150,7 +172,7 @@ try {
   checks.directoryCardContract = await auditCardGrid(page, "#directory-grid");
   checks.ratedCards = await page.locator('#directory-grid .project[data-rated="true"]:has(.card-rating:not(.unrated))').count();
   checks.unratedCards = await page.locator('#directory-grid .project[data-rated="false"]:has(.card-rating.unrated)').count();
-  checks.version = (await page.locator("footer").innerText()).includes(`v${config.version}`);
+  checks.directoryFooter = await auditFooter(page, "zh");
   checks.directoryNeedsReview = await page.locator('#directory-grid .project[data-kind="project-source-lead"] .evidence-tag').count();
   checks.directoryNeedsReviewText = await page.locator('#directory-grid .project[data-kind="project-source-lead"] .evidence-tag').evaluateAll(tags => tags.every(tag => /(待验证|To verify)/.test(tag.textContent)));
 
@@ -228,24 +250,31 @@ try {
   checks.englishUnratedDetail = await auditRecordDetail(new URL(unratedEntry.detail_url_en).pathname);
   checks.englishProjectDetail = await auditRecordDetail("/en/projects/dietpi/", "DietPi");
 
-  const auditAbout = async pathName => {
+  const auditAbout = async (pathName, lang) => {
     await page.goto(`${base}${pathName}`, { waitUntil: "networkidle" });
-    return page.evaluate(() => {
+    const result = await page.evaluate(({ version, expectedLang }) => {
       const text = document.querySelector("main")?.innerText || "";
+      const release = document.querySelector("#release")?.innerText || "";
+      const downloads = [...document.querySelectorAll("#downloads a[download]")].map(link => link.getAttribute("href"));
       return {
         h1: document.querySelectorAll("main h1").length,
-        anchors: ["evidence", "scoring", "contribute"].filter(id => document.getElementById(id)).length,
+        anchors: ["release", "evidence", "scoring", "contribute", "downloads"].filter(id => document.getElementById(id)).length,
         weightRows: document.querySelectorAll("table.scoring-weights tbody tr").length,
         evidenceRange: text.includes("E0") && text.includes("E3"),
         halfStar: text.includes("0.5"),
         nullable: text.includes("null"),
-        contribution: document.querySelectorAll('main a[href*="issues/new/choose"]').length
+        contribution: document.querySelectorAll('main a[href*="issues/new/choose"]').length,
+        release: release.includes(`v${version}`) && release.includes(expectedLang === "zh" ? "未进行实机测试" : "No hands-on hardware tests"),
+        downloads,
+        downloadPairs: ["directory.json", "directory.csv", expectedLang === "zh" ? "catalog.json" : "catalog.en.json", expectedLang === "zh" ? "catalog.csv" : "catalog.en.csv", "project-leads.json", "project-leads.csv", "scoring-evidence.json"].every(name => downloads.some(href => href.endsWith(name)))
       };
-    });
+    }, { version: config.version, expectedLang: lang });
+    result.footer = await auditFooter(page, lang);
+    return result;
   };
   checks.about = {
-    zh: await auditAbout("/zh/about/"),
-    en: await auditAbout("/en/about/")
+    zh: await auditAbout("/zh/about/", "zh"),
+    en: await auditAbout("/en/about/", "en")
   };
 
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
@@ -253,8 +282,10 @@ try {
   mobile.on("pageerror", error => errors.push(`mobile: ${error.message}`));
   const mobileMeasure = async (pathName, grid = null) => {
     await mobile.goto(`${base}${pathName}`, { waitUntil: "networkidle" });
+    const lang = pathName.startsWith("/zh/") ? "zh" : "en";
     return {
       width: await mobile.evaluate(() => ({ inner: innerWidth, scroll: document.documentElement.scrollWidth })),
+      footer: await auditFooter(mobile, lang),
       visible: grid ? await mobile.locator(`${grid} .project:not([hidden])`).count() : null,
       subtitleLines: await mobile.locator(".home-subtitle").count() ? await mobile.locator(".home-subtitle").evaluate(element => {
         const style = getComputedStyle(element);
@@ -290,7 +321,7 @@ try {
   for (const [name, result] of Object.entries({ directory: checks.directoryCardContract, projectSources: checks.projectSourceCardContract, leads: checks.leadCardContract, mobileDirectory: checks.mobileDirectoryCardContract })) {
     if (!result.valid || result.maxOutcomeLines > 1.25) throw new Error(`${name} four-field card contract failed: ${JSON.stringify(result.failures)}`);
   }
-  if (!checks.version) throw new Error("Version footer failed");
+  if (!checks.directoryFooter.valid) throw new Error(`Directory footer failed: ${JSON.stringify(checks.directoryFooter)}`);
   if (checks.e2Visible !== expectedE2) throw new Error("E2 filter failed");
   if (checks.combinedE0ScoreVisible !== expectedE0AtThreshold || !checks.combinedE0ScoreValid) throw new Error("Independent evidence and star filters failed");
   if (checks.score4Visible !== expectedScore4 || checks.scoreURL !== "4" || checks.score5Visible !== expectedScore5) throw new Error("Star filter or URL state failed");
@@ -303,6 +334,7 @@ try {
   if (checks.mobile.leads.visible !== directory.counts.device_or_community_routes) throw new Error("Mobile lead list coverage failed");
   for (const [name, result] of Object.entries(checks.mobile)) {
     if (result.width.scroll > result.width.inner) throw new Error(`Mobile ${name} overflow`);
+    if (!result.footer.valid) throw new Error(`Mobile ${name} footer failed: ${JSON.stringify(result.footer)}`);
     if (result.subtitleLines !== null && result.subtitleLines > 1.25) throw new Error(`Mobile ${name} subtitle exceeds one line`);
     if (result.overlongParagraphs.length) throw new Error(`Mobile ${name} detail paragraph exceeds three lines: ${result.overlongParagraphs[0]}`);
   }
@@ -323,7 +355,7 @@ try {
   if (!ratingDisplayMatches(checks.projectLeadDetail.rating, projectLeadEntry.score.score) || checks.projectLeadDetail.unrated !== Number(projectLeadEntry.score.score === null)) throw new Error("Project-lead detail rating failed");
   if (!ratingDisplayMatches(checks.englishUnratedDetail.rating, unratedEntry.score.score, "Not yet rated")) throw new Error("English not-yet-rated marker failed");
   for (const [lang, result] of Object.entries(checks.about)) {
-    if (result.h1 !== 1 || result.anchors !== 3 || result.weightRows !== 5 || !result.evidenceRange || !result.halfStar || !result.nullable || result.contribution < 1) {
+    if (result.h1 !== 1 || result.anchors !== 5 || result.weightRows !== 5 || !result.evidenceRange || !result.halfStar || !result.nullable || result.contribution < 1 || !result.release || !result.downloadPairs || result.downloads.length !== 7 || !result.footer.valid) {
       throw new Error(`${lang} About content failed: ${JSON.stringify(result)}`);
     }
   }

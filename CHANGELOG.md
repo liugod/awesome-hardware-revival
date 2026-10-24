@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.18.0 - 2026-10-24
+
+- Compress every Chinese and English page footer to one line with only About, Data download, GitHub, and CC BY 4.0 links.
+- Move the current version, catalog/device-atlas/project-source review dates, and no-hands-on-testing boundary to the bilingual About pages.
+- Add a bilingual About download section covering the full directory, localized reviewed catalog, E0 project-source exports, and the scoring-evidence ledger.
+- Keep all list cards limited to the name, one-line new job, stars or the unrated label, and evidence tag; add an all-page audit covering all 2,240 rendered cards.
+- Preserve all 547 records and complete JSON/CSV exports, rebuild the 1,124-URL sitemap, and publish the display-only release as v1.18.0.
+
 ## 1.17.0 — 2026-10-24
 
 - Simplify the bilingual homepage to one headline, one device search field, a one-line subtitle, and compact popular-category links.

@@ -13,10 +13,12 @@ try {
   page.on("console", message => { if (message.type() === "error") errors.push(message.text()); });
   page.on("pageerror", error => errors.push(error.message));
 
+  await page.goto(`${base}/zh/about/`, { waitUntil: "networkidle" });
+  checks.version = (await page.locator("#release").innerText()).includes(`v${config.version}`);
+
   await page.goto(`${base}/zh/directory/?kind=reviewed-project`, { waitUntil: "networkidle" });
   checks.reviewedCards = await page.locator("#directory-grid .project:not([hidden])").count();
   checks.cardHardwareTags = await page.locator("#directory-grid .project .hardware-tag").count();
-  checks.version = (await page.locator("footer").innerText()).includes(`v${config.version}`);
 
   await page.goto(`${base}/zh/projects/open-xiaoai/`, { waitUntil: "networkidle" });
   checks.projectDetailTags = await page.locator(".record-detail .hardware-tag").allTextContents();

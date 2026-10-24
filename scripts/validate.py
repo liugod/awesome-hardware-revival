@@ -265,6 +265,50 @@ class Page(HTMLParser):
     def handle_data(self,text):
         if not self.skip_text and not self.switch_depth:self.text.append(text)
 
+class FooterAudit(HTMLParser):
+    """Require the same compact four-link footer on every generated page."""
+    def __init__(self):
+        super().__init__()
+        self.in_footer=False;self.footer_count=0;self.text=[];self.anchors=[];self.current_anchor=None;self.forbidden=[]
+    def handle_starttag(self,tag,attrs):
+        values=dict(attrs)
+        if tag=="footer":
+            assert not self.in_footer,"Nested footer"
+            self.in_footer=True;self.footer_count+=1
+            return
+        if not self.in_footer:return
+        if tag in {"p","div","br"}:self.forbidden.append(tag)
+        if tag=="a":
+            assert self.current_anchor is None,"Nested footer link"
+            self.current_anchor={"href":values.get("href", ""),"text":[]}
+    def handle_endtag(self,tag):
+        if tag=="a" and self.current_anchor is not None:
+            self.anchors.append((self.current_anchor["href"]," ".join("".join(self.current_anchor["text"]).split())))
+            self.current_anchor=None
+        elif tag=="footer":
+            self.in_footer=False
+    def handle_data(self,text):
+        if not self.in_footer:return
+        self.text.append(text)
+        if self.current_anchor is not None:self.current_anchor["text"].append(text)
+
+def audit_footer(markup,lang,label):
+    parser=FooterAudit();parser.feed(markup)
+    expected_labels=["关于","数据下载","GitHub","CC BY 4.0"] if lang=="zh-CN" else ["About","Data download","GitHub","CC BY 4.0"]
+    expected_text=" · ".join(expected_labels)
+    normalized=" ".join("".join(parser.text).split())
+    assert parser.footer_count==1 and not parser.forbidden,(label,"footer structure",parser.footer_count,parser.forbidden)
+    assert normalized==expected_text,(label,"footer text",normalized)
+    assert [text for _,text in parser.anchors]==expected_labels,(label,"footer link labels",parser.anchors)
+    hrefs=[href for href,_ in parser.anchors]
+    about_target=(OUT/("zh" if lang=="zh-CN" else "en")/"about/index.html").resolve()
+    about_ref=urlsplit(hrefs[0]);download_ref=urlsplit(hrefs[1])
+    about_resolved=(label.parent/unquote(about_ref.path)).resolve()
+    download_resolved=(label.parent/unquote(download_ref.path)).resolve()
+    assert about_resolved==download_resolved==about_target and not about_ref.fragment and download_ref.fragment=="downloads",(label,"localized footer routes",hrefs[:2])
+    assert hrefs[2]==config["repository_url"] and hrefs[3]=="https://creativecommons.org/licenses/by/4.0/",(label,"external footer routes",hrefs[2:])
+    assert not re.search(r"v\d+\.\d+\.\d+|\d{4}-\d{2}-\d{2}|未进行实机测试|No hands-on hardware tests|not physically tested",normalized,re.I),(label,"footer metadata must live on About")
+
 class ProjectCardAudit(HTMLParser):
     """Audit the visible contract of every generated list card."""
     def __init__(self):
@@ -313,14 +357,22 @@ def audit_project_cards(markup,label):
     return len(parser.cards)
 
 pages={}
+card_page_count=0
+generated_card_count=0
 for file in OUT.rglob("*.html"):
-    parser=Page();parser.feed(file.read_text(encoding="utf-8"));pages[file.resolve()]=parser
+    markup=file.read_text(encoding="utf-8")
+    parser=Page();parser.feed(markup);pages[file.resolve()]=parser
     assert parser.h1==1 and parser.has_title and parser.lang in {"zh-CN","en"},file
     assert len(parser.canonical)==1 and parser.canonical[0].startswith(BASE),file
     assert set(parser.alternates)=={"zh-CN","en","x-default"},file
     assert parser.alternates["x-default"]==BASE,file
+    audit_footer(markup,parser.lang,file)
+    if '<article class="project"' in markup:
+        generated_card_count+=audit_project_cards(markup,("all generated cards",file))
+        card_page_count+=1
     if file.is_relative_to(OUT/"en"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
+assert card_page_count==18 and generated_card_count==2240,("complete generated card audit",card_page_count,generated_card_count)
 assert len(pages)==2*(len(projects)+12+len(articles)+len(watchlist)+len(project_leads))+len(projects)+2
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
@@ -371,12 +423,17 @@ for lang in ["zh","en"]:
     assert '<select id="lead-sort"><option value="score-desc">' in (OUT/lang/"leads/index.html").read_text(encoding="utf-8"),(lang,"lead default star sort")
     about=pages[(OUT/lang/"about/index.html").resolve()]
     about_markup=(OUT/lang/"about/index.html").read_text(encoding="utf-8")
-    assert about.canonical==[f"{BASE}{lang}/about/"] and {"evidence","scoring","contribute"}<=about.ids,(lang,"About anchors")
+    assert about.canonical==[f"{BASE}{lang}/about/"] and {"release","evidence","scoring","contribute","downloads"}<=about.ids,(lang,"About anchors")
     assert 'class="scoring-weights"' in about_markup,(lang,"About scoring table")
     assert all(f">{weight}%<" in about_markup for weight in WEIGHTS.values()),(lang,"About score weights missing")
     assert ">E0<" in about_markup and ">E3<" in about_markup and "0.5" in about_markup,(lang,"About evidence levels or half-star explanation missing")
     assert "null" in about_markup,(lang,"About nullable scoring explanation missing")
     assert ("待评分" if lang=="zh" else "Not yet rated") in about_markup,(lang,"About unrated explanation missing")
+    assert f"v{config['version']}" in about_markup and all(date in about_markup for date in [data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"]]),(lang,"About release status")
+    assert ("未进行实机测试" if lang=="zh" else "No hands-on hardware tests") in about_markup,(lang,"About hands-on boundary")
+    expected_catalog="catalog.en" if lang=="en" else "catalog"
+    expected_downloads=["directory.json","directory.csv",f"{expected_catalog}.json",f"{expected_catalog}.csv","project-leads.json","project-leads.csv","scoring-evidence.json"]
+    assert all(name in " ".join(about.refs) for name in expected_downloads),(lang,"About data downloads")
     assert config["repository_url"]+"/issues/new/choose" in about.refs,(lang,"About contribution link")
     for slug,lead in watchlist.items():
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")

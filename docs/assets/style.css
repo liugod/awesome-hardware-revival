@@ -901,13 +901,32 @@ p{
 }
 
 footer{
-  padding:42px 0 56px;
+  display:block;
+  overflow:hidden;
+  padding:24px 0 32px;
   border-color:var(--line);
 }
 
-footer div{
+.footer-links{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:nowrap;
+  min-width:0;
+  margin:0;
   color:var(--muted);
-  line-height:1.8;
+  font-size:13px;
+  line-height:1.4;
+  white-space:nowrap;
+}
+
+.footer-links a,
+.footer-links span{
+  flex:0 0 auto;
+}
+
+.footer-links span{
+  padding:0 4px;
 }
 
 @media(min-width:641px){
@@ -1166,6 +1185,10 @@ footer div{
   }
 
   footer{
-    padding:34px 0 44px;
+    padding:22px 0 28px;
+  }
+
+  .footer-links{
+    font-size:clamp(10.5px,3vw,13px);
   }
 }

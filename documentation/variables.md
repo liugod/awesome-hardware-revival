@@ -5,7 +5,7 @@
 | `base_url` | Builders, canonical links, sitemap | Public | `site.config.json` | Change with domain migration | Broken canonical/hreflang URLs if inconsistent |
 | `repository_url` | Pages and contribution links | Public | `site.config.json` | Change with repository migration | Links point to wrong owner/repository |
 | `community_url` | Navigation and contribution copy | Public | `site.config.json` | Change with community migration | Users reach wrong service |
-| `version` | Assets, footer, exports | Public | `site.config.json` and versioned data | Bump for releases | Mixed generated versions if not synchronized |
+| `version` | Assets, About release status, exports | Public | `site.config.json` and versioned data | Bump for releases | Mixed generated versions if not synchronized |
 | `KITAGAIN_PREVIEW` | Playwright acceptance scripts | Local/CI process | Optional environment variable | N/A | Testing the wrong origin if set incorrectly |
 | GitHub CLI credentials | Optional read-only collection/publish operations | Workstation secret | External credential store | Provider policy | Repository/account compromise if exposed |
 | `GITHUB_TOKEN` | GitHub Actions | CI secret | GitHub-provided | Per job | Workflow privilege; current validation needs read-only contents |
