@@ -26,7 +26,8 @@ scoring_evidence=load(ROOT/"data/scoring-evidence.json")
 scoring_evidence_items=scoring_evidence["entries"]
 if isinstance(scoring_evidence_items,dict):scoring_evidence_items=list(scoring_evidence_items.values())
 BASE=config["base_url"].rstrip("/")+"/"
-assert 'document.querySelectorAll("#project-grid .project")' in (OUT/"assets/app.js").read_text(encoding="utf-8"),"Homepage filters must not count featured lead cards"
+app_javascript=(OUT/"assets/app.js").read_text(encoding="utf-8")
+assert 'document.querySelectorAll("#directory-grid .project")' in app_javascript,"Directory filters must target directory cards"
 schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
@@ -255,14 +256,61 @@ class Page(HTMLParser):
         if tag=="link" and a.get("rel")=="alternate":self.alternates[a.get("hreflang")]=a.get("href")
         if tag in ("script","style"):self.skip_text+=1
         if tag=="a" and a.get("class")=="language-switch":self.switch_depth+=1
-        if tag in ("a","link","script","img"):
-            ref=a.get("href") or a.get("src")
+        if tag in ("a","link","script","img","form"):
+            ref=a.get("href") or a.get("src") or a.get("action")
             if ref:self.refs.append(ref)
     def handle_endtag(self,tag):
         if tag in ("script","style"):self.skip_text-=1
         if tag=="a" and self.switch_depth:self.switch_depth-=1
     def handle_data(self,text):
         if not self.skip_text and not self.switch_depth:self.text.append(text)
+
+class ProjectCardAudit(HTMLParser):
+    """Audit the visible contract of every generated list card."""
+    def __init__(self):
+        super().__init__()
+        self.current=None
+        self.cards=[]
+        self.void_tags={"area","base","br","col","embed","hr","img","input","link","meta","param","source","track","wbr"}
+    def handle_starttag(self,tag,attrs):
+        a=dict(attrs)
+        classes=set(a.get("class","").split())
+        if tag=="article" and "project" in classes:
+            assert self.current is None,"Nested project card"
+            self.current={"direct":[],"depth":0,"classes":collections.Counter(),"tags":collections.Counter()}
+            return
+        if self.current is None:return
+        self.current["depth"]+=1
+        self.current["tags"][tag]+=1
+        self.current["classes"].update(classes)
+        if self.current["depth"]==1:
+            self.current["direct"].append((tag,classes))
+        if tag in self.void_tags:self.current["depth"]-=1
+    def handle_startendtag(self,tag,attrs):
+        if self.current is None:return
+        a=dict(attrs);classes=set(a.get("class","").split())
+        self.current["tags"][tag]+=1;self.current["classes"].update(classes)
+        if self.current["depth"]==0:self.current["direct"].append((tag,classes))
+    def handle_endtag(self,tag):
+        if self.current is None:return
+        if tag=="article" and self.current["depth"]==0:
+            self.cards.append(self.current);self.current=None;return
+        self.current["depth"]-=1
+        assert self.current["depth"]>=0,"Malformed project card"
+
+def audit_project_cards(markup,label):
+    parser=ProjectCardAudit();parser.feed(markup)
+    assert parser.cards,(label,"no project cards")
+    forbidden={"tags","hardware-tags","device","limit","card-end","project-thumb","rating-panel"}
+    for index,card in enumerate(parser.cards):
+        direct=card["direct"]
+        assert len(direct)==3,(label,index,"card must have exactly three direct visible groups",direct)
+        assert direct[0][0]=="h3" and direct[1][0]=="p" and "card-outcome" in direct[1][1],(label,index,"card title/outcome structure")
+        assert direct[2][0]=="div" and "card-meta" in direct[2][1],(label,index,"card metadata structure")
+        assert card["classes"]["card-rating"]==1 and card["classes"]["evidence-tag"]==1,(label,index,"rating/evidence coverage")
+        assert not (forbidden&set(card["classes"])),(label,index,"legacy card field remains",forbidden&set(card["classes"]))
+        assert card["tags"]["img"]==0,(label,index,"list cards must not show images")
+    return len(parser.cards)
 
 pages={}
 for file in OUT.rglob("*.html"):
@@ -273,13 +321,13 @@ for file in OUT.rglob("*.html"):
     assert parser.alternates["x-default"]==BASE,file
     if file.is_relative_to(OUT/"en"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
-assert len(pages)==2*(len(projects)+11+len(articles)+len(watchlist)+len(project_leads))+len(projects)+2
+assert len(pages)==2*(len(projects)+12+len(articles)+len(watchlist)+len(project_leads))+len(projects)+2
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 assert root_page.lang=="en" and root_page.canonical==[BASE]
 assert english_home.canonical==[BASE]
 assert root_page.alternates["en"]==BASE and root_page.alternates["zh-CN"]==BASE+"zh/"
-assert "project-grid" in root_page.ids and "filters" in root_page.ids
+assert "home-search" in root_page.ids and "home-q" in root_page.ids
 assert config["community_url"] in root_page.refs
 for lang in ["zh","en"]:
     assert config["community_url"] in pages[(OUT/lang/"index.html").resolve()].refs
@@ -288,12 +336,14 @@ for lang in ["zh","en"]:
     assert "directory-grid" in directory_page.ids and "directory-filters" in directory_page.ids
     assert "directory.json" in " ".join(directory_page.refs) and "directory.csv" in " ".join(directory_page.refs)
     directory_markup=(OUT/lang/"directory/index.html").read_text(encoding="utf-8")
+    audit_project_cards(directory_markup,(lang,"directory"))
     assert directory_markup.count('data-needs-review="true"')==147,(lang,"directory needs-review markers")
     assert '<select id="directory-sort"><option value="score-desc">' in directory_markup,(lang,"directory default star sort")
     project_source_index=pages[(OUT/lang/"project-sources/index.html").resolve()]
     assert "project-source-grid" in project_source_index.ids and "project-source-filters" in project_source_index.ids
     assert "project-leads.json" in " ".join(project_source_index.refs) and "project-leads.csv" in " ".join(project_source_index.refs)
     project_source_markup=(OUT/lang/"project-sources/index.html").read_text(encoding="utf-8")
+    audit_project_cards(project_source_markup,(lang,"project sources"))
     assert project_source_markup.count('data-needs-review="true"')==147,(lang,"project-source needs-review markers")
     assert '<select id="project-source-sort"><option value="score-desc">' in project_source_markup,(lang,"project-source default star sort")
     for project in projects:
@@ -303,27 +353,43 @@ for lang in ["zh","en"]:
         source_page=pages[(OUT/lang/"project-leads"/lead["id"]/"index.html").resolve()]
         assert source_page.canonical==[f"{BASE}{lang}/project-leads/{lead['id']}/"]
         assert lead["repo_url"] in source_page.refs,(lang,lead["id"],"missing upstream repository link")
-        assert (OUT/lang/"project-leads"/lead["id"]/"index.html").read_text(encoding="utf-8").count('class="needs-review"')==1,(lang,lead["id"],"missing compact review marker")
+        source_markup=(OUT/lang/"project-leads"/lead["id"]/"index.html").read_text(encoding="utf-8")
+        assert source_markup.count('class="needs-review"')==1,(lang,lead["id"],"missing compact review marker")
+        assert 'class="detail-wrap record-detail"' in source_markup and source_markup.count('class="about-link"')==1,(lang,lead["id"],"simplified project-source detail")
+        assert '<ul' in source_markup,(lang,lead["id"],"project-source detail bullets")
+        assert 'class="detail-score"' in source_markup and 'class="detail-rating' in source_markup and 'class="rating-panel"' not in source_markup,(lang,lead["id"],"simplified project-source score")
     home=pages[(OUT/lang/"index.html").resolve()]
-    assert "leads/" in home.refs,(lang,"missing field-leads homepage link")
     home_markup=(OUT/lang/"index.html").read_text(encoding="utf-8")
-    assert '<select id="sort" name="sort"><option value="score-desc">' in home_markup,(lang,"homepage default star sort")
+    expected_placeholder="输入你的设备" if lang=="zh" else "Enter your device"
+    assert "home-search" in home.ids and "home-q" in home.ids,(lang,"homepage search")
+    assert f'placeholder="{expected_placeholder}"' in home_markup,(lang,"homepage search placeholder")
+    assert home_markup.count('class="home-subtitle"')==1,(lang,"homepage subtitle")
+    assert home_markup.count('class="category-entry"')>=4,(lang,"homepage popular categories")
+    assert all(token not in home_markup for token in ['id="filters"','id="project-grid"','class="field-note"','class="facts-strip"','class="featured"','class="closing"']),(lang,"legacy homepage section remains")
     leads_index=pages[(OUT/lang/"leads/index.html").resolve()]
+    audit_project_cards((OUT/lang/"leads/index.html").read_text(encoding="utf-8"),(lang,"device leads"))
     assert '<select id="lead-sort"><option value="score-desc">' in (OUT/lang/"leads/index.html").read_text(encoding="utf-8"),(lang,"lead default star sort")
-    scoring_markup=(OUT/lang/"scoring/index.html").read_text(encoding="utf-8")
-    assert all(f">{weight}%<" in scoring_markup for weight in WEIGHTS.values()),(lang,"score weights missing")
-    assert "E0–E3" in scoring_markup and "0.5" in scoring_markup,(lang,"evidence separation or half-star explanation missing")
-    assert "null" in scoring_markup and "scoring-evidence.json" in scoring_markup,(lang,"nullable scoring or evidence-ledger link missing")
-    assert ("待评分" if lang=="zh" else "Not yet rated") in scoring_markup,(lang,"unrated explanation missing")
+    about=pages[(OUT/lang/"about/index.html").resolve()]
+    about_markup=(OUT/lang/"about/index.html").read_text(encoding="utf-8")
+    assert about.canonical==[f"{BASE}{lang}/about/"] and {"evidence","scoring","contribute"}<=about.ids,(lang,"About anchors")
+    assert 'class="scoring-weights"' in about_markup,(lang,"About scoring table")
+    assert all(f">{weight}%<" in about_markup for weight in WEIGHTS.values()),(lang,"About score weights missing")
+    assert ">E0<" in about_markup and ">E3<" in about_markup and "0.5" in about_markup,(lang,"About evidence levels or half-star explanation missing")
+    assert "null" in about_markup,(lang,"About nullable scoring explanation missing")
+    assert ("待评分" if lang=="zh" else "Not yet rated") in about_markup,(lang,"About unrated explanation missing")
+    assert config["repository_url"]+"/issues/new/choose" in about.refs,(lang,"About contribution link")
     for slug,lead in watchlist.items():
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")
         page=pages[(OUT/lang/"leads"/slug/"index.html").resolve()]
         assert page.canonical==[f"{BASE}{lang}/leads/{slug}/"]
         assert 'class="hardware-tag"' in (OUT/lang/"leads"/slug/"index.html").read_text(encoding="utf-8"),(lang,slug,"missing hardware tag")
+        lead_markup=(OUT/lang/"leads"/slug/"index.html").read_text(encoding="utf-8")
+        assert 'class="detail-wrap record-detail"' in lead_markup and lead_markup.count('class="about-link"')==1,(lang,slug,"simplified lead detail")
+        assert '<ul' in lead_markup,(lang,slug,"lead detail bullets")
+        assert 'class="detail-score"' in lead_markup and 'class="detail-rating' in lead_markup and 'class="rating-panel"' not in lead_markup,(lang,slug,"simplified lead score")
         expected=[item["url"] for item in watchlist_details[slug]["resources"]]
         assert all(url in page.refs for url in expected),(lang,slug,"missing lead source")
     for slug,article in articles.items():
-        assert f"articles/{slug}/" in home.refs,(lang,slug,"missing homepage article link")
         page=pages[(OUT/lang/"articles"/slug/"index.html").resolve()]
         assert page.canonical==[f"{BASE}{lang}/articles/{slug}/"]
         assert all(source["url"] in page.refs for source in article["sources"]),(lang,slug,"missing source")
@@ -356,7 +422,11 @@ for lang in ["zh","en"]:
     assert set(ids)=={p.name for p in (OUT/lang/"projects").iterdir() if p.is_dir()}
     for pid in ids:
         parser=pages[(OUT/lang/"projects"/pid/"index.html").resolve()]
-        assert 'class="hardware-tag"' in (OUT/lang/"projects"/pid/"index.html").read_text(encoding="utf-8"),(lang,pid,"missing hardware tag")
+        markup=(OUT/lang/"projects"/pid/"index.html").read_text(encoding="utf-8")
+        assert 'class="hardware-tag"' in markup,(lang,pid,"missing hardware tag")
+        assert 'class="detail-wrap record-detail"' in markup and markup.count('class="about-link"')==1,(lang,pid,"simplified project detail")
+        assert '<ul' in markup,(lang,pid,"project detail bullets")
+        assert 'class="detail-score"' in markup and 'class="detail-rating' in markup and 'class="rating-panel"' not in markup,(lang,pid,"simplified project score")
         assert parser.canonical==[f"{BASE}{lang}/projects/{pid}/"]
         assert parser.alternates["en"]==f"{BASE}en/projects/{pid}/"
         assert parser.alternates["zh-CN"]==f"{BASE}zh/projects/{pid}/"
@@ -369,7 +439,6 @@ for lang in ["zh","en"]:
             expected="../../../"+image["local_file"]
             assert expected in parser.refs,(lang,pid,"missing project detail image")
             assert image["source_page"] in parser.refs,(lang,pid,"missing image attribution link")
-            markup=(OUT/lang/"projects"/pid/"index.html").read_text(encoding="utf-8")
             assert "project-media" in markup and image["caption_zh" if lang=="zh" else "caption_en"] in markup,(lang,pid,"missing image caption")
 english=load(OUT/"data/catalog.en.json")
 assert [p["id"] for p in english["projects"]]==ids
@@ -434,12 +503,13 @@ for source,target in mapping.items():
     assert pages[(OUT/source).resolve()].canonical==[BASE+target]
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+11+len(articles)+len(watchlist)+len(project_leads))
+assert len(urls)==len(set(urls))==2*(len(projects)+12+len(articles)+len(watchlist)+len(project_leads))
 lastmods=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}lastmod")]
 scoring_dates=[value[:10] for value in [scoring_evidence.get("checked_at"),*(entry.get("checked_at") for entry in scoring_evidence_items)] if value]
 expected_lastmod=max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"],*scoring_dates)
 assert len(lastmods)==len(urls) and set(lastmods)=={expected_lastmod},"Sitemap lastmod mismatch"
 assert BASE in urls and BASE+"en/" not in urls
+assert BASE+"zh/about/" in urls and BASE+"en/about/" in urls
 for url in urls:
     assert url.startswith(BASE)
     target=OUT/url[len(BASE):]

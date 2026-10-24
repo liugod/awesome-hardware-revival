@@ -2,6 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const root = process.cwd();
+const config = JSON.parse(fs.readFileSync(path.join(root, "site.config.json"), "utf8"));
 const ledgerPath = path.join(root, "data", "scoring-evidence.json");
 const ledger = JSON.parse(fs.readFileSync(ledgerPath, "utf8"));
 const entries = Array.isArray(ledger.entries) ? ledger.entries : Object.values(ledger.entries || {});
@@ -22,7 +23,7 @@ async function worker() {
           redirect: "follow",
           headers: {
             "accept": "text/html,application/xhtml+xml,text/plain,application/json;q=0.9,*/*;q=0.8",
-            "user-agent": "KitAgain-v1.16-source-verifier",
+            "user-agent": `KitAgain-v${config.version}-source-verifier`,
           },
           signal: AbortSignal.timeout(30_000),
         });

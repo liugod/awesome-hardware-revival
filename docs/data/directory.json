@@ -1,7 +1,7 @@
 {
   "schema_version": "3.0.0",
   "scoring_version": "3.0.0",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "generated_at": "2026-10-24T00:00:00+08:00",
   "score_name_zh": "复活价值综合星级",
   "score_name_en": "Revival value stars",

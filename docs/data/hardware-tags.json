@@ -1,5 +1,5 @@
 {
-  "version": "1.16.0",
+  "version": "1.17.0",
   "policy": {
     "zh": "每个标签只表示一个具体型号、设备名称或有明确资料边界的硬件家族；不把兼容性句子、用途或未经来源支持的型号塞进标签。",
     "en": "Each tag names one exact model, device, or source-bounded hardware family. Compatibility prose, use cases, and unsupported model guesses do not become tags."

@@ -37,3 +37,5 @@ Every public row must expose five nullable raw scores, per-dimension bilingual b
 ## Update discipline
 
 Metadata refresh is not content review. Read changed documents before refreshing editorial review dates or upgrading evidence. Keep version, sitemap, JSON/CSV exports, report counts, browser tests and build artifacts consistent. Use the issue forms for exact model-level success and failure reports.
+
+For a display-only simplification, preserve every source row and every JSON/CSV field. Move secondary facts from compact cards to stable detail pages instead of deleting them; keep core search, score/evidence filters, default sorting, canonical URLs, and narrow-screen access. Before release, compare entry counts and export parity with the baseline, bump all coordinated version fields, rebuild the sitemap, and verify both rendered languages and the deployed artifact independently.

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.17.0 — 2026-10-24
+
+- Simplify the bilingual homepage to one headline, one device search field, a one-line subtitle, and compact popular-category links.
+- Reduce list cards to the device or project name, one-line new job, revival stars or the exact unrated label, and the independent evidence tag; keep complete facts on detail pages and in exports.
+- Restructure detail pages around a heading and concise bullet points, and consolidate the evidence system, scoring algorithm, and contribution guidance on new Chinese and English About pages.
+- Increase whitespace and type size, reduce the color palette, and preserve star-desc defaults, star/evidence filters, bilingual parity, and 390 px layouts without horizontal overflow.
+- Keep all 547 records and the complete JSON/CSV exports unchanged apart from the release version; rebuild the sitemap with both About pages and publish the display-only release as v1.17.0.
+
 ## 1.16.0 — 2026-10-24
 
 - Remove neutral 3-point placeholders: every unevidenced scoring dimension is now `null`, and the weighted average uses only evidenced dimensions with their original weights proportionally renormalized.
