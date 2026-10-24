@@ -215,8 +215,12 @@ class Site:
         footer_about = rel(self.lang + "/about/index.html")
         display_brand = self.t("垃圾佬复活站", "KitAgain")
         title_brand = self.t("垃圾佬复活站 · KitAgain", "KitAgain")
-        alternates = "".join(f'<link rel="alternate" hreflang="{code}" href="{BASE if lang == "en" and tail == "index.html" else BASE+lang+"/"+("" if tail == "index.html" else tail.removesuffix("index.html"))}">' for lang,code in [("zh","zh-CN"),("en","en")])
-        alternates += f'<link rel="alternate" hreflang="x-default" href="{BASE}">'
+        alternate_urls = {
+            code: BASE if lang == "en" and tail == "index.html" else BASE + lang + "/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
+            for lang, code in [("zh", "zh-CN"), ("en", "en")]
+        }
+        alternates = "".join(f'<link rel="alternate" hreflang="{code}" href="{url}">' for code, url in alternate_urls.items())
+        alternates += f'<link rel="alternate" hreflang="x-default" href="{alternate_urls["en"]}">'
         markup = f"""<!doctype html>
 <html lang="{self.t('zh-CN','en')}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{h(title)} · {title_brand}</title><meta name="description" content="{h(description)}">

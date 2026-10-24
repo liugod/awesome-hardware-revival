@@ -459,7 +459,7 @@ for file in OUT.rglob("*.html"):
     assert parser.h1==1 and parser.has_title and parser.lang in {"zh-CN","en"},file
     assert len(parser.canonical)==1 and parser.canonical[0].startswith(BASE),file
     assert set(parser.alternates)=={"zh-CN","en","x-default"},file
-    assert parser.alternates["x-default"]==BASE,file
+    assert parser.alternates["x-default"]==parser.alternates["en"],file
     audit_footer(markup,parser.lang,file)
     if '<article class="project"' in markup:
         generated_card_count+=audit_project_cards(markup,("all generated cards",file))
