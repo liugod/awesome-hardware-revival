@@ -11,7 +11,18 @@ import shutil
 from pathlib import Path
 from urllib.parse import quote, urlsplit
 
-from scoring import WEIGHTS, build_directory_export, directory_csv, export_json_text, project_leads_csv, score_all
+from scoring import (
+    WEIGHTS,
+    action_guide,
+    build_directory_export,
+    directory_csv,
+    export_json_text,
+    lead_action_context,
+    project_action_context,
+    project_lead_action_context,
+    project_leads_csv,
+    score_all,
+)
 from watchlist_merge import load_watchlist
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -23,11 +34,14 @@ assert urlsplit(BASE).scheme == "https" and not urlsplit(BASE).query and not url
 DATA = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 PROJECT_LEAD_DATA = json.loads((ROOT / "data/project-leads.json").read_text(encoding="utf-8"))
 PROJECT_LEADS = PROJECT_LEAD_DATA["projects"]
+LISTED_PROJECT_LEADS = [lead for lead in PROJECT_LEADS if lead.get("display_status", "listed") == "listed"]
 SCORING_EVIDENCE_PATH = ROOT / "data/scoring-evidence.json"
 SCORING_EVIDENCE = json.loads(SCORING_EVIDENCE_PATH.read_text(encoding="utf-8")) if SCORING_EVIDENCE_PATH.exists() else {}
 SCORING_EVIDENCE_ITEMS = SCORING_EVIDENCE.get("entries", {})
 if isinstance(SCORING_EVIDENCE_ITEMS, dict):
     SCORING_EVIDENCE_ITEMS = list(SCORING_EVIDENCE_ITEMS.values())
+COST_EVIDENCE_PATH = ROOT / "data/cost-evidence-v120.json"
+COST_EVIDENCE = json.loads(COST_EVIDENCE_PATH.read_text(encoding="utf-8")) if COST_EVIDENCE_PATH.exists() else {}
 DEVICE_ATLAS = json.loads((ROOT / "data/device-atlas.json").read_text(encoding="utf-8"))
 PROJECT_IMAGE_DATA = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
 PROJECT_IMAGES = {item["project_id"]: item for item in PROJECT_IMAGE_DATA["entries"]}
@@ -244,6 +258,47 @@ class Site:
         provisional = f'<span class="needs-review">{self.t("待验证", "To verify")}</span>' if record["provisional"] else ""
         return f'''<section class="detail-score" aria-label="{self.t('复活星级','Revival stars')}">{provisional}{self.rating(record, compact=False)}<ul><li>{h(evidence_count)}</li><li>{h(reason)}</li></ul></section>'''
 
+    def action_guide_detail(self, record, explicit=None, *, context=None):
+        guide = action_guide(record, explicit, context=context)
+        if guide is None:
+            return ""
+        labels = {
+            "what_you_need": self.t("你需要什么", "What you need"),
+            "rough_steps": self.t("大致步骤", "Rough steps"),
+            "when_to_stop": self.t("何时停止", "When to stop"),
+        }
+        blocks = []
+        for key in ("what_you_need", "rough_steps", "when_to_stop"):
+            item = guide[key]
+            source_links = " · ".join(
+                self.link(url, self.t(f"教程 {index}", f"Guide {index}") + " ↗")
+                for index, url in enumerate(item["sources"], 1)
+            )
+            blocks.append(f'<li><b>{h(labels[key])}</b> {h(item[self.lang])}<span class="action-sources">{source_links}</span></li>')
+        return f'<section class="action-guide"><h2>{self.t("开始前的三点", "Three checks before starting")}</h2><ul class="detail-list">{"".join(blocks)}</ul></section>'
+
+    def cost_detail(self, record):
+        evidence = record.get("cost_evidence")
+        if evidence is None:
+            return ""
+        used = evidence.get("used_price_range") or evidence.get("used_price", {}).get("range") or self.t("缺少可靠来源", "No reliable source")
+        mod = evidence.get("modding_cost_range") or evidence.get("modding_cost", {}).get("range") or self.t("缺少可靠来源", "No reliable source")
+        def format_range(value):
+            if not isinstance(value, dict):
+                return value
+            if value.get("low") is not None and value.get("high") is not None and value.get("currency"):
+                amount = f'{value["low"]:g}–{value["high"]:g} {value["currency"]}'
+                scope = value.get("scope_zh" if self.lang == "zh" else "scope_en")
+                return amount + (f" · {scope}" if scope else "")
+            return value.get(self.lang) or value.get("display") or json.dumps(value, ensure_ascii=False)
+        used = format_range(used)
+        mod = format_range(mod)
+        links = []
+        for url in list(dict.fromkeys((evidence.get("used_price_sources") or []) + (evidence.get("modding_cost_sources") or []))):
+            links.append(self.link(url, self.t("价格来源", "Price source") + f" {len(links)+1} ↗"))
+        source_html = f'<span class="action-sources">{" · ".join(links)}</span>' if links else ""
+        return f'<li><b>{self.t("二手价范围", "Used-price range")}</b> {h(used)}</li><li><b>{self.t("改造成本", "Modification cost")}</b> {h(mod)}{source_html}</li>'
+
     def evidence_tag(self, level, needs_review=False):
         suffix = f' · {self.t("待验证", "To verify")}' if needs_review else ""
         label = self.labels["evidence"].get(level, level)
@@ -321,10 +376,10 @@ class Site:
         ])
         attrs = (
             f'data-search="{h(search)}" data-title="{h(lead["name"])}" '
-            f'data-category="{h(lead["category"])}" data-evidence="E0" '
-            f'data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="project-source-lead" data-needs-review="true"'
+            f'data-category="{h(lead["category"])}" data-evidence="{h(lead["evidence_level"])}" '
+            f'data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="project-source-lead" data-needs-review="{str(lead["needs_review"]).lower()}"'
         )
-        return f'''<article class="project" {attrs}><h3><a href="{h(prefix+lead['id']+'/')}">{h(lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag("E0", needs_review=True)}</div></article>'''
+        return f'''<article class="project" {attrs}><h3><a href="{h(prefix+lead['id']+'/')}">{h(lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}</div></article>'''
 
     def home(self):
         t = self.t
@@ -378,14 +433,13 @@ class Site:
             (t("拆机", "Disassembly"), t(*REQS[p["requirements"]["disassembly"]])),
             (t("焊接", "Soldering"), t(*REQS[p["requirements"]["soldering"]])),
             (t("云 API / 服务", "Cloud API / service"), t(*REQS[p["requirements"]["cloud_api"]])),
-            (t("成本", "Cost"), t("待核价 / UNKNOWN", "Not priced / UNKNOWN")),
         ]
         requirement_items = "".join(f'<li><b>{h(label)}</b> {h(value)}</li>' for label, value in requirements)
         limitation_items = "".join(f'<li><b>{t("停止条件", "Stop condition")}</b> {h(value)}</li>' for value in v["limitations"])
         cost_items = "".join(f'<li><b>{t("可能成本", "Possible cost")}</b> {h(value)}</li>' for value in v["cost_items"])
         body = f"""<div class="detail-wrap record-detail"><a class="back" href="{rel(self.lang+'/directory/index.html')}">← {t('返回全部路线','Back to all routes')}</a><section class="detail-head"><h1>{h(p['name'])}</h1><ul class="detail-list detail-intro"><li>{h(v['summary'])}</li></ul><div class="detail-meta-row">{self.evidence_tag(p['evidence']['level'])}<a class="about-link" href="{rel(self.lang+'/about/index.html')}">{t('了解证据与评分','About evidence and scoring')} ↗</a></div>{self.rating_detail(PROJECT_SCORES[p['id']])}{project_media}</section>
 <section><h2>{t('它能变成什么','What it can become')}</h2>{outcome_list}<ul class="detail-list"><li><b>{t('设备范围','Hardware scope')}</b> {h(v['device_scope'])}</li><li><b>{t('设备类别','Category')}</b> {h(self.labels['category'][p['category']])}</li><li><b>{t('AI 关系','AI relationship')}</b> {h(self.labels['ai'][p['ai_relation']])}</li><li><b>{t('路线类型','Route type')}</b> {h(types[p['entry_type']])}</li><li><b>{t('资料最近核对','Sources last checked')}</b> {p['checked_at'][:10]}</li></ul>{self.project_hardware_tags(p,rel(self.lang+'/directory/index.html'),'directory-grid')}</section>
-<section><h2>{t('动手前','Before you start')}</h2><ul class="detail-list">{requirement_items}{limitation_items}<li><b>{t('固件','Firmware')}</b> {h(v['firmware_requirement'] or t('待核实','Unknown'))}</li><li><b>{t('地区版本','Region')}</b> {h(v['region_requirement'] or t('待核实','Unknown'))}</li>{cost_items}</ul><ul class="detail-links"><li>{self.link(p['repo_url'],t('项目主页','Project page')+' ↗')}</li><li>{self.link(p['tutorial_url'],t('原始教程','Original guide')+' ↗')}</li><li>{self.link(p['compatibility_url'],t('型号兼容资料','Compatibility source')+' ↗')}</li></ul></section>
+<section><h2>{t('动手前','Before you start')}</h2><ul class="detail-list">{requirement_items}{limitation_items}<li><b>{t('固件','Firmware')}</b> {h(v['firmware_requirement'] or t('待核实','Unknown'))}</li><li><b>{t('地区版本','Region')}</b> {h(v['region_requirement'] or t('待核实','Unknown'))}</li>{self.cost_detail(PROJECT_SCORES[p['id']])}{cost_items}</ul><ul class="detail-links"><li>{self.link(p['repo_url'],t('项目主页','Project page')+' ↗')}</li><li>{self.link(p['tutorial_url'],t('原始教程','Original guide')+' ↗')}</li><li>{self.link(p['compatibility_url'],t('型号兼容资料','Compatibility source')+' ↗')}</li></ul></section>{self.action_guide_detail(PROJECT_SCORES[p['id']], context=project_action_context(p, EN['projects'][p['id']]))}
 <section><h2>{t('风险与恢复','Risk and recovery')}</h2><ul class="detail-list"><li><b>{t('数据丢失风险','Data-loss risk')}</b> {h(t(*RISKS[p['risk']['data_loss']]))}</li><li><b>{t('刷坏 / 无法启动风险','Bricking / boot-failure risk')}</b> {h(t(*RISKS[p['risk']['bricking']]))}</li><li><b>{t('恢复路线','Recovery route')}</b> {h(v['recovery'])}</li><li>{self.link(p['risk']['recovery_url'],t('恢复资料','Recovery guide')+' ↗')}</li></ul></section>{extra}
 <section><h2>{t('证据、维护与来源','Evidence, maintenance, and sources')}</h2><ul class="detail-list"><li><b>{p['evidence']['level']} · {h(self.labels['evidence'][p['evidence']['level']])}</b> {h(v['evidence_reason'])}</li><li><b>{t('实机状态','Hands-on status')}</b> {t('KitAgain 未对此设备进行实机测试。','KitAgain has not tested this device hands-on.')}</li><li><b>{t('维护状态','Maintenance')}</b> {h(self.labels['maintenance'][p['maintenance']['status']])}</li><li><b>{t('GitHub 最后 push','Last GitHub push')}</b> {h(p['maintenance']['last_push_at'] or t('待核实','Unknown'))}</li><li><b>{t('仓库许可证','Repository license')}</b> {self.link(p['license']['url'],license_label)}</li><li>{t('近期 push 不证明型号可用；根许可证也不自动覆盖固件、模型、品牌或第三方组件。','A recent push does not prove model compatibility, and a root license does not automatically cover firmware, models, brands, or third-party components.')}</li></ul><ul class="resource-list">{sources}</ul></section>{social_section}</div>"""
         self.page(p["name"]+t("：适配设备与复现条件",": compatibility and reproduction"),v["summary"]+" "+v["device_scope"],body,f"projects/{p['id']}/index.html",current if legacy else None)
@@ -407,14 +461,14 @@ class Site:
         reviewed_catalog_csv = "catalog.en.csv" if self.lang == "en" else "catalog.csv"
         about = f'''<section id="release"><h2>{t("版本与核查状态", "Release and review status")}</h2><ul class="detail-list"><li><b>{t("当前版本", "Current version")}</b> v{CONFIG["version"]}</li><li><b>{t("核查日期", "Review dates")}</b> {t(f"正式目录 {DATE}；设备图谱 {ATLAS_DATE}；项目来源发现层 {PROJECT_LEAD_DATE}。", f"Reviewed catalog {DATE}; device atlas {ATLAS_DATE}; project-source discovery {PROJECT_LEAD_DATE}.")}</li><li><b>{t("实机状态", "Hands-on status")}</b> {t("未进行实机测试。条目收录不等于兼容认证、安全认证或成功保证。", "No hands-on hardware tests. Inclusion is not a compatibility certification, safety certification, or success guarantee.")}</li></ul></section>
 <section id="evidence"><h2>{t("证据等级", "Evidence levels")}</h2><ul class="detail-list"><li><b>E0</b> {t("只确认条目和来源的关联，还要核对准确型号、安装与恢复。", "Discovery only; exact model, installation, and recovery still need review.")}</li><li><b>E1</b> {t("已读源码、部署文档或设备兼容资料。", "Source, deployment, or device-compatibility documentation reviewed.")}</li><li><b>E2</b> {t("有作者的实机陈述或演示。", "Author hardware claim or demonstration available.")}</li><li><b>E3</b> {t("有已核验的独立复现。", "Verified independent reproduction available.")}</li></ul><p>{t("证据等级与复活星级独立；它不参与加权，也不限制星级上限。", "Evidence levels are independent of revival stars: they neither enter the weighted score nor cap it.")}</p></section>
-<section id="scoring"><h2>{t("复活星级", "Revival stars")}</h2><table class="scoring-weights"><thead><tr><th>{t("维度", "Dimension")}</th><th>{t("权重", "Weight")}</th></tr></thead><tbody>{about_dimension_rows}</tbody></table><ul class="detail-list"><li>{t("每个有可核验来源的维度给 1–5 分；没有证据时保存为 null，不用中性 3 分补位。", "Each source-backed dimension receives 1–5 points; an unevidenced dimension is stored as null, never replaced by a neutral 3.")}</li><li>{t("只在已取证维度之间把原权重按比例重新归一到 100%。", "Only evidenced dimensions have their original weights proportionally renormalized to 100%.")}</li><li>{t("至少 3 个维度有证据才计算总分；否则显示“待评分”，并排在已评分条目之后。", "A total requires at least 3 evidenced dimensions; otherwise it displays ‘Not yet rated’ and sorts after every rated entry.")}</li><li>{t("加权平均四舍五入到最近的 0.5 星，正好落在中点时向上取整。", "The weighted average is rounded to the nearest 0.5 star, with exact ties rounded upward.")}</li></ul></section>
+<section id="scoring"><h2>{t("复活星级", "Revival stars")}</h2><table class="scoring-weights"><thead><tr><th>{t("维度", "Dimension")}</th><th>{t("权重", "Weight")}</th></tr></thead><tbody>{about_dimension_rows}</tbody></table><ul class="detail-list"><li>{t("每个有可核验来源的维度给 1–5 分；没有证据时保存为 null，不用中性 3 分补位。", "Each source-backed dimension receives 1–5 points; an unevidenced dimension is stored as null, never replaced by a neutral 3.")}</li><li>{t("成本维度必须同时有二手设备价格范围和完整改造零件/工具投入来源；任一半缺失就保持 null。", "Cost requires sources for both the used-device price range and the complete parts/tools modification input; if either half is missing, it remains null.")}</li><li>{t("只在已取证维度之间把原权重按比例重新归一到 100%。", "Only evidenced dimensions have their original weights proportionally renormalized to 100%.")}</li><li>{t("至少 3 个维度有证据才计算总分；否则显示“待评分”，并排在已评分条目之后。", "A total requires at least 3 evidenced dimensions; otherwise it displays ‘Not yet rated’ and sorts after every rated entry.")}</li><li>{t("加权平均四舍五入到最近的 0.5 星，正好落在中点时向上取整。", "The weighted average is rounded to the nearest 0.5 star, with exact ties rounded upward.")}</li></ul></section>
 <section id="contribute"><h2>{t("贡献指南", "Contribution guide")}</h2>{ul([t("写明项目 ID、准确型号、硬件修订、固件和地区。", "Include project ID, exact model, hardware revision, firmware, and region."),t("附上源版本、操作日期和原始步骤链接。", "Include upstream revision, operation date, and original instruction links."),t("保留成功、失败、恢复结果和可核验材料。", "Keep successes, failures, recovery outcomes, and verifiable evidence."),t("不要公开唯一序列号、账号、令牌或密钥。", "Do not publish unique serial numbers, accounts, tokens, or secrets.")], "detail-list")}<p><a href="{REPO}/issues/new/choose">{t("提交项目、纠错或复现记录", "Submit a project, correction, or reproduction report")} ↗</a></p></section>
-<section id="downloads"><h2>{t("数据下载", "Data download")}</h2><ul class="detail-list"><li><b>{t("全站统一目录", "Full directory")}</b> <a href="../../data/directory.json" download>JSON</a> · <a href="../../data/directory.csv" download>CSV</a></li><li><b>{t("深审项目目录", "Reviewed catalog")}</b> <a href="../../data/{reviewed_catalog_json}" download>JSON</a> · <a href="../../data/{reviewed_catalog_csv}" download>CSV</a></li><li><b>{t("E0 项目来源", "E0 project sources")}</b> <a href="../../data/project-leads.json" download>JSON</a> · <a href="../../data/project-leads.csv" download>CSV</a></li><li><b>{t("评分取证台账", "Scoring evidence ledger")}</b> <a href="../../data/scoring-evidence.json" download>JSON</a></li><li><b>{t("目录入口", "Directory links")}</b> <a href="../project-sources/">{t("200 个项目来源", "200 project sources")}</a> · <a href="#scoring">{t("评分方法", "Scoring method")}</a></li></ul></section>'''
+<section id="downloads"><h2>{t("数据下载", "Data download")}</h2><ul class="detail-list"><li><b>{t("全站统一目录", "Full directory")}</b> <a href="../../data/directory.json" download>JSON</a> · <a href="../../data/directory.csv" download>CSV</a></li><li><b>{t("深审项目目录", "Reviewed catalog")}</b> <a href="../../data/{reviewed_catalog_json}" download>JSON</a> · <a href="../../data/{reviewed_catalog_csv}" download>CSV</a></li><li><b>{t("项目来源与展示判定", "Project sources and display decisions")}</b> <a href="../../data/project-leads.json" download>JSON</a> · <a href="../../data/project-leads.csv" download>CSV</a></li><li><b>{t("评分取证台账", "Scoring evidence ledger")}</b> <a href="../../data/scoring-evidence.json" download>JSON</a> · <a href="../../data/scoring-evidence-batch2-v120.json" download>{t("第二批", "Batch 2")}</a></li><li><b>{t("成本取证与行动指南", "Cost evidence and action guides")}</b> <a href="../../data/cost-evidence-v120.json" download>{t("成本", "Cost")}</a> · <a href="../../data/action-guides-v120.json" download>{t("指南", "Guides")}</a></li><li><b>{t("E0 深审台账", "E0 deep-audit ledger")}</b> <a href="../../data/e0-audit-v120.json" download>JSON</a></li><li><b>{t("目录入口", "Directory links")}</b> <a href="../project-sources/">{t("项目来源", "Project sources")}</a> · <a href="#scoring">{t("评分方法", "Scoring method")}</a></li></ul></section>'''
         self.article(t("关于 KitAgain", "About KitAgain"),t("版本、证据、评分、贡献与数据下载放在一处。", "Release status, evidence, scoring, contribution, and downloads in one place."),about,"about/index.html")
         method = f"""<h2>{t('收录意味着什么','What inclusion means')}</h2><p>{t(f'E0：公开发现条目 {evidence_counts.get("E0", 0)} 条。E1：已读源码、部署文档或设备兼容资料，{evidence_counts.get("E1", 0)} 条。E2：作者实机陈述或演示，{evidence_counts.get("E2", 0)} 条。E3：独立复现，{evidence_counts.get("E3", 0)} 条。本目录实机测试 0 条。',f'E0: {evidence_counts.get("E0", 0)} public discovery entries. E1: source, deployment, or device-compatibility documentation reviewed, {evidence_counts.get("E1", 0)} entries. E2: author hardware claims or demonstrations, {evidence_counts.get("E2", 0)}. E3: verified independent reproduction, {evidence_counts.get("E3", 0)}. Catalog hands-on hardware tests: 0.')}</p>
 <h2>{t('我们如何核查','How we review')}</h2><p>{t('以设备和失效原因寻找原始仓库、项目论坛、作者网站、Codeberg、GitLab、Hackaday、Instructables、安装文档、型号表及社交平台原帖。保存来源和核查时间；搜索摘要与转载只作线索。型号、固件、地区未知时保留未知，不把未归档等同持续可用。','We search original repositories, project forums, author sites, Codeberg, GitLab, Hackaday, Instructables, install documentation, model tables and original social posts by device and failure mode. Source URLs and review dates are retained; search snippets and reposts are leads only. Unknown model, firmware or region requirements stay unknown. An unarchived project is not proof of continued usability.')}</p>
 <h2>{t('AI 关系与项目家族','AI relationships and project families')}</h2><p>{t('AI 功能改造、AI 辅助开发/配置、AI 周边用途和传统基础设施分开标注。同家族后继版本不是独立复现，平台与前置工具也不是完成的改造案例。','AI functionality, documented AI-assisted development/setup, AI-adjacent uses and traditional infrastructure are separate categories. Successor versions in one family are not independent reproductions; platforms and prerequisite tools are not completed modification cases.')}</p>
-<h2>{t('证据的空白','Evidence gaps')}</h2><p>{t('没有长期耗电、稳定性或恢复实测；成本未核价。难度是编辑判断。X 阅读集中于两个案例家族，不声称穷尽搜索或核验视频。','There are no long-term power, stability or recovery tests, and costs are not priced. Difficulty is editorial judgment. X reading covers two case families; neither exhaustive search nor video verification is claimed.')}</p>
+<h2>{t('证据的空白','Evidence gaps')}</h2><p>{t('没有长期耗电、稳定性或恢复实测；只有二手价与完整改造投入都可引用时才评分成本，其余保持 null。难度是编辑判断。X 阅读集中于两个案例家族，不声称穷尽搜索或核验视频。','There are no long-term power, stability or recovery tests. Cost is scored only when both used price and complete modification inputs are citable; otherwise it remains null. Difficulty is editorial judgment. X reading covers two case families; neither exhaustive search nor video verification is claimed.')}</p>
 <h2>{t('双语同步','Translation discipline')}</h2><p>{t('两种语言共享稳定 ID 与事实字段。译文记录源内容哈希；源文变动后必须复核，不能把翻译日期当作上游重新核查日期。','Both languages share stable IDs and factual fields. Translations record a source-content hash and must be reviewed when the source changes. Translation dates are not fresh upstream verification dates.')}</p><p><a href="../contribute/">{t('贡献方法与核验流程','Contribution and review process')} ↗</a></p>"""
         self.article(t("先看证据，再谈复活。","Evidence before revival."),t("有来源，也明确记录未知项。","Traceable sources and explicit unknowns."),method,"research/index.html")
         contribute = f"""<h2>{t('提交什么','What to include')}</h2>{ul([t('项目 ID、准确型号、硬件修订、固件与地区','Project ID, exact model, hardware revision, firmware and region'),t('上游版本、操作日期及原始步骤链接','Upstream version, operation date and original instructions'),t('成功与失败功能、恢复结果及可核验材料','Working and failed functions, recovery results and verifiable evidence'),t('不要公开设备唯一序列号、账号、令牌或密钥','Do not publish unique serial numbers, accounts, tokens or secrets')])}
@@ -478,7 +532,7 @@ class Site:
         for slug, lead in WATCHLIST.items():
             record = LEAD_SCORES[slug]
             all_cards.append((*score_sort_key(record, lead[self.lang]["title"]), self.lead_card(slug, lead, "../leads/")))
-        for lead in PROJECT_LEADS:
+        for lead in LISTED_PROJECT_LEADS:
             record = PROJECT_LEAD_SCORES[lead["id"]]
             all_cards.append((*score_sort_key(record, lead["name"]), self.project_lead_card(lead, "../project-leads/")))
         all_cards.sort(key=lambda item: item[:3])
@@ -486,10 +540,11 @@ class Site:
         evidence_options = "".join(f'<option value="{level}">{level} · {h(self.labels["evidence"][level])}</option>' for level in ["E0","E1","E2","E3"])
         score_options = score_filter_options()
         counts = DIRECTORY_EXPORT["counts"]
+        visible_count = counts["listed_entries"]
         body = f'''<div class="detail-wrap wide directory-page"><section class="detail-head directory-head"><h1>{t("全部设备与改造记录","All hardware-revival records")}</h1></section>
-<form id="directory-filters" class="filters directory-filters" role="search"><div class="search-field"><label class="sr-only" for="directory-q">{t("搜索设备、型号、项目或来源","Search device, model, project, or source")}</label><input id="directory-q" type="search" placeholder="{t('搜索设备、型号、项目或来源','Search device, model, project, or source')}" autocomplete="off"></div><div class="filter-grid directory-filter-row"><label>{t("设备","Device")}<select id="directory-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("最低星级","Minimum stars")}<select id="directory-score"><option value="">{t("不限","Any score")}</option>{score_options}</select></label><label>{t("证据","Evidence")}<select id="directory-evidence"><option value="">{t("全部证据","All evidence")}</option>{evidence_options}</select></label><a class="directory-info" href="../about/#scoring" aria-label="{t('了解评分与证据','About scoring and evidence')}" title="{t('了解评分与证据','About scoring and evidence')}">ⓘ</a></div><p id="directory-result-count" class="sr-only" role="status" aria-live="polite">{t("显示","Showing")} {counts['entries']} / {counts['entries']}</p></form>
+<form id="directory-filters" class="filters directory-filters" role="search"><div class="search-field"><label class="sr-only" for="directory-q">{t("搜索设备、型号、项目或来源","Search device, model, project, or source")}</label><input id="directory-q" type="search" placeholder="{t('搜索设备、型号、项目或来源','Search device, model, project, or source')}" autocomplete="off"></div><div class="filter-grid directory-filter-row"><label>{t("设备","Device")}<select id="directory-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("最低星级","Minimum stars")}<select id="directory-score"><option value="">{t("不限","Any score")}</option>{score_options}</select></label><label>{t("证据","Evidence")}<select id="directory-evidence"><option value="">{t("全部证据","All evidence")}</option>{evidence_options}</select></label><a class="directory-info" href="../about/#scoring" aria-label="{t('了解评分与证据','About scoring and evidence')}" title="{t('了解评分与证据','About scoring and evidence')}">ⓘ</a></div><p id="directory-result-count" class="sr-only" role="status" aria-live="polite">{t("显示","Showing")} {visible_count} / {visible_count}</p></form>
 <div id="directory-grid" class="project-grid">{''.join(item[-1] for item in all_cards)}</div><div id="directory-empty" class="empty" hidden><h3>{t("暂时没有匹配路线","No matching route")}</h3><p>{t("减少一个筛选条件，或换一个设备/型号词。","Remove a filter or try another device/model term.")}</p></div></div>'''
-        self.page(t(f"全部 {counts['entries']} 条硬件复活记录",f"All {counts['entries']} hardware-revival records"),t("统一搜索设备、型号、项目、来源、复活星级和独立证据等级。","Search every device, model, project, source, revival-star score, and independent evidence grade."),body,"directory/index.html")
+        self.page(t(f"全部 {visible_count} 条硬件复活记录",f"All {visible_count} hardware-revival records"),t("统一搜索设备、型号、项目、来源、复活星级和独立证据等级。","Search every device, model, project, source, revival-star score, and independent evidence grade."),body,"directory/index.html")
 
     def project_sources(self):
         t = self.t
@@ -497,18 +552,18 @@ class Site:
         for project in PROJECTS:
             record = PROJECT_SCORES[project["id"]]
             cards.append((*score_sort_key(record, project["name"]), self.card(project, "../")))
-        for lead in PROJECT_LEADS:
+        for lead in LISTED_PROJECT_LEADS:
             record = PROJECT_LEAD_SCORES[lead["id"]]
             cards.append((*score_sort_key(record, lead["name"]), self.project_lead_card(lead, "../project-leads/")))
         cards.sort(key=lambda item: item[:3])
         category_options = "".join(f'<option value="{h(key)}">{h(value)}</option>' for key,value in self.labels["category"].items())
-        body = f'''<div class="detail-wrap wide"><section class="detail-head"><p class="eyebrow">200 UNIQUE PROJECT REPOSITORIES</p><h1>{t("200 个独立项目来源","200 independent project sources")}</h1><p class="intro">{t(f"这里按仓库 URL 去重列出 {len(PROJECTS)} 个深审项目与 {len(PROJECT_LEADS)} 个 E0 GitHub 发现候选，合计正好 200 个独立项目来源。E0 只确认仓库存在、非 fork，并读取元数据与 README 入口；不表示具体设备兼容、安装成功或长期稳定。",f"This index deduplicates by repository URL: {len(PROJECTS)} reviewed projects plus {len(PROJECT_LEADS)} E0 GitHub discoveries, exactly 200 independent project sources. E0 confirms that a non-fork repository exists and that its metadata and README entry point were read; it does not establish device compatibility, installation success, or long-term stability.")}</p><div class="actions"><a href="../../data/project-leads.json" download>{t("下载 147 条 E0 JSON","Download 147 E0 JSON")}</a><a href="../../data/project-leads.csv" download>{t("下载 147 条 E0 CSV","Download 147 E0 CSV")}</a><a href="../directory/">{t("打开全站目录","Open the full directory")} ↗</a></div></section>
-<aside class="boundary"><b>{t("两层不能混写","Keep the layers separate")}</b><p>{t("53 个深审项目已读部署或适配来源，证据为 E1/E2；147 个发现候选全部保持 E0。两层都没有 KitAgain 实机测试，E3 仍为 0。","The 53 reviewed projects have deployment or compatibility sources reviewed at E1/E2; all 147 discoveries remain E0. Neither layer has KitAgain hands-on hardware tests, and E3 remains zero.")}</p></aside>
-<form id="project-source-filters" class="filters" role="search"><div class="search-field"><label for="project-source-q">{t("搜索项目、设备范围或用途","Search project, hardware scope, or use")}</label><input id="project-source-q" type="search" placeholder="{t('例如 NAS、Kindle、camera、IoT…','Try NAS, Kindle, camera, IoT…')}" autocomplete="off"></div><div class="filter-grid"><label>{t("设备","Device")}<select id="project-source-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("证据","Evidence")}<select id="project-source-evidence"><option value="">{t("全部证据","All evidence")}</option><option value="E0">E0 · {t("发现候选","Discovery")}</option><option value="E1">E1 · {t("资料已读","Source reviewed")}</option><option value="E2">E2 · {t("作者实机证据","Author hardware evidence")}</option></select></label><label>{t("最低星级","Minimum stars")}<select id="project-source-score"><option value="">{t("不限","Any score")}</option>{score_filter_options()}</select></label><label>{t("排序","Sort")}<select id="project-source-sort"><option value="score-desc">{t("星级：高到低","Stars: high to low")}</option><option value="title-asc">{t("名称：A–Z","Name: A–Z")}</option></select></label></div><div class="filter-bottom"><p id="project-source-result-count" role="status" aria-live="polite">{t("显示","Showing")} {len(PROJECTS)+len(PROJECT_LEADS)} / {len(PROJECTS)+len(PROJECT_LEADS)}</p><button type="reset">{t("清除筛选","Clear filters")}</button></div></form>
-<noscript><p>{t("JavaScript 未启用；全部 200 个来源仍可阅读并使用浏览器查找。","JavaScript is disabled; all 200 sources remain readable and searchable with browser Find.")}</p></noscript><div id="project-source-grid" class="project-grid">{''.join(item[-1] for item in cards)}</div><div id="project-source-empty" class="empty" hidden><h3>{t("暂时没有匹配项目来源","No matching project source")}</h3><p>{t("减少一个筛选条件，或换一个设备/用途词。","Remove a filter or try another device/use term.")}</p></div></div>'''
-        self.page(t("200 个独立项目来源","200 independent project sources"),t("按仓库 URL 去重的硬件复活项目来源，明确区分 E0 发现候选与 E1/E2 深审项目。","Hardware-revival project sources deduplicated by repository URL, with E0 discoveries separated from E1/E2 reviewed projects."),body,"project-sources/index.html")
+        body = f'''<div class="detail-wrap wide"><section class="detail-head"><p class="eyebrow">PROJECT REPOSITORIES</p><h1>{t("项目来源","Project sources")}</h1><p class="intro">{t(f"数据仍保留 {len(PROJECTS)} 个深审项目与 {len(PROJECT_LEADS)} 个仓库发现候选；本页展示 {len(PROJECTS)+len(LISTED_PROJECT_LEADS)} 条，深审判定下架的候选只保留在下载数据中。",f"The data retains {len(PROJECTS)} reviewed projects and {len(PROJECT_LEADS)} repository discoveries; this page lists {len(PROJECTS)+len(LISTED_PROJECT_LEADS)}, while deeply audited rejections remain only in the downloads.")}</p><div class="actions"><a href="../../data/project-leads.json" download>{t("下载 147 条候选 JSON","Download 147 candidates JSON")}</a><a href="../../data/project-leads.csv" download>{t("下载 147 条候选 CSV","Download 147 candidates CSV")}</a><a href="../directory/">{t("打开全站目录","Open the full directory")} ↗</a></div></section>
+<aside class="boundary"><b>{t("证据等级独立","Evidence stays independent")}</b><p>{t("仓库深审可把候选升级为 E1/E2、保留为 E0，或从展示中下架；数据始终保留审计结果与来源。","A deep audit may upgrade a discovery to E1/E2, keep it at E0, or delist it from display; the data always retains the outcome and sources.")}</p></aside>
+<form id="project-source-filters" class="filters" role="search"><div class="search-field"><label for="project-source-q">{t("搜索项目、设备范围或用途","Search project, hardware scope, or use")}</label><input id="project-source-q" type="search" placeholder="{t('例如 NAS、Kindle、camera、IoT…','Try NAS, Kindle, camera, IoT…')}" autocomplete="off"></div><div class="filter-grid"><label>{t("设备","Device")}<select id="project-source-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("证据","Evidence")}<select id="project-source-evidence"><option value="">{t("全部证据","All evidence")}</option><option value="E0">E0 · {t("发现候选","Discovery")}</option><option value="E1">E1 · {t("资料已读","Source reviewed")}</option><option value="E2">E2 · {t("作者实机证据","Author hardware evidence")}</option></select></label><label>{t("最低星级","Minimum stars")}<select id="project-source-score"><option value="">{t("不限","Any score")}</option>{score_filter_options()}</select></label><label>{t("排序","Sort")}<select id="project-source-sort"><option value="score-desc">{t("星级：高到低","Stars: high to low")}</option><option value="title-asc">{t("名称：A–Z","Name: A–Z")}</option></select></label></div><div class="filter-bottom"><p id="project-source-result-count" role="status" aria-live="polite">{t("显示","Showing")} {len(PROJECTS)+len(LISTED_PROJECT_LEADS)} / {len(PROJECTS)+len(LISTED_PROJECT_LEADS)}</p><button type="reset">{t("清除筛选","Clear filters")}</button></div></form>
+<noscript><p>{t("JavaScript 未启用；全部展示中的来源仍可阅读并使用浏览器查找。","JavaScript is disabled; all displayed sources remain readable and searchable with browser Find.")}</p></noscript><div id="project-source-grid" class="project-grid">{''.join(item[-1] for item in cards)}</div><div id="project-source-empty" class="empty" hidden><h3>{t("暂时没有匹配项目来源","No matching project source")}</h3><p>{t("减少一个筛选条件，或换一个设备/用途词。","Remove a filter or try another device/use term.")}</p></div></div>'''
+        self.page(t("项目来源","Project sources"),t("按仓库 URL 去重的硬件复活项目来源，保留 30 条深审的证据与展示判定。","Hardware-revival project sources deduplicated by repository URL with evidence and display decisions from the 30-item deep audit."),body,"project-sources/index.html")
 
-        for lead in PROJECT_LEADS:
+        for lead in LISTED_PROJECT_LEADS:
             summary = lead["summary_zh" if self.lang == "zh" else "summary_en"]
             device_scope = lead["device_scope_zh" if self.lang == "zh" else "device_scope_en"]
             use_case = lead["use_case_zh" if self.lang == "zh" else "use_case_en"]
@@ -516,7 +571,10 @@ class Site:
             archive_state = t("是；上游仓库已归档", "Yes; the upstream repository is archived") if lead["archived"] else t("否；核查时未归档", "No; not archived when checked")
             license_value = lead["license_spdx"] or t("待核实 / UNKNOWN", "Unknown / UNKNOWN")
             github_description = lead["github_description"] or t("GitHub API 未返回描述；不作补写。", "GitHub API returned no description; none was inferred.")
-            sections = f'''<div class="detail-meta-row">{self.evidence_tag("E0", needs_review=True)}<a class="about-link" href="../../about/">{t("了解证据与评分", "About evidence and scoring")} ↗</a></div>{self.rating_detail(PROJECT_LEAD_SCORES[lead["id"]])}<h2>{t("候选路线","Candidate route")}</h2><ul class="detail-list"><li><b>{t("可能用途","Candidate use")}</b> {h(use_case)}</li><li><b>{t("设备范围","Hardware scope")}</b> {h(device_scope)}</li><li><b>{t("目前已知","What is known")}</b> {h(summary)}</li><li><b>GitHub</b> {h(github_description)}</li><li><b>{t("为什么仍是 E0","Why this remains E0")}</b> {h(reason)}</li><li><b>{t("核查记录","Review record")}</b> {h(lead["content_id"])} · {h(lead["checked_at"])}</li></ul><h2>{t("动手前","Before you start")}</h2><ul class="detail-list"><li>{t("如果找不到与准确型号、硬件修订和固件相符的安装与恢复资料，不要刷写、拆机或购买配件。","Do not flash, disassemble, or buy parts without installation and recovery material for the exact model, hardware revision, and firmware.")}</li></ul><h2>{t("仓库快照","Repository snapshot")}</h2><ul class="detail-list"><li><b>{t("归档","Archived")}</b> {h(archive_state)}</li><li><b>{t("最后 push","Last push")}</b> {h(lead["pushed_at"])}</li><li><b>{t("默认分支","Default branch")}</b> {h(lead["default_branch"])}</li><li><b>{t("API 许可证标识","API license identifier")}</b> {h(license_value)}</li><li>{t("许可证快照不自动覆盖固件、模型、图片、商标或第三方组件；最后 push 也不证明设备兼容。","The license snapshot does not automatically cover firmware, models, images, trademarks, or third-party components; a recent push does not prove compatibility.")}</li></ul><ul class="detail-links"><li>{self.link(lead["repo_url"],t("打开上游仓库","Open upstream repository")+" ↗")}</li><li><a href="../../project-sources/">{t("返回 200 个项目来源","Back to 200 project sources")} ↗</a></li></ul>'''
+            audit_reason = lead.get("audit_reason_zh" if self.lang == "zh" else "audit_reason_en")
+            audit_item = f'<li><b>{t("深审结论","Deep-audit outcome")}</b> {h(audit_reason)}</li>' if audit_reason else ""
+            audit_links = "".join(f'<li>{self.link(url,t("深审来源","Audit source")+" ↗")}</li>' for url in lead.get("audit_sources", []))
+            sections = f'''<div class="detail-meta-row">{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}<a class="about-link" href="../../about/">{t("了解证据与评分", "About evidence and scoring")} ↗</a></div>{self.rating_detail(PROJECT_LEAD_SCORES[lead["id"]])}<h2>{t("候选路线","Candidate route")}</h2><ul class="detail-list"><li><b>{t("可能用途","Candidate use")}</b> {h(use_case)}</li><li><b>{t("设备范围","Hardware scope")}</b> {h(device_scope)}</li><li><b>{t("目前已知","What is known")}</b> {h(summary)}</li><li><b>GitHub</b> {h(github_description)}</li><li><b>{t("证据说明","Evidence note")}</b> {h(reason)}</li>{audit_item}<li><b>{t("核查记录","Review record")}</b> {h(lead["content_id"])} · {h(lead.get("audit_checked_at") or lead["checked_at"])}</li></ul>{self.cost_detail(PROJECT_LEAD_SCORES[lead["id"]]) and '<h2>'+t("成本取证","Cost evidence")+'</h2><ul class="detail-list">'+self.cost_detail(PROJECT_LEAD_SCORES[lead["id"]])+'</ul>'}{self.action_guide_detail(PROJECT_LEAD_SCORES[lead["id"]], lead.get("action_guide"), context=project_lead_action_context(lead))}<h2>{t("动手前","Before you start")}</h2><ul class="detail-list"><li>{t("如果找不到与准确型号、硬件修订和固件相符的安装与恢复资料，不要刷写、拆机或购买配件。","Do not flash, disassemble, or buy parts without installation and recovery material for the exact model, hardware revision, and firmware.")}</li></ul><h2>{t("仓库快照","Repository snapshot")}</h2><ul class="detail-list"><li><b>{t("归档","Archived")}</b> {h(archive_state)}</li><li><b>{t("最后 push","Last push")}</b> {h(lead["pushed_at"])}</li><li><b>{t("默认分支","Default branch")}</b> {h(lead["default_branch"])}</li><li><b>{t("API 许可证标识","API license identifier")}</b> {h(license_value)}</li><li>{t("许可证快照不自动覆盖固件、模型、图片、商标或第三方组件；最后 push 也不证明设备兼容。","The license snapshot does not automatically cover firmware, models, images, trademarks, or third-party components; a recent push does not prove compatibility.")}</li></ul><ul class="detail-links">{audit_links}<li>{self.link(lead["repo_url"],t("打开上游仓库","Open upstream repository")+" ↗")}</li><li><a href="../../project-sources/">{t("返回项目来源","Back to project sources")} ↗</a></li></ul>'''
             self.article(lead["name"], summary, sections, f"project-leads/{lead['id']}/index.html", record=True)
 
     def leads(self):
@@ -543,6 +601,9 @@ class Site:
             sections += self.hardware_tags(self.lead_hardware_values(slug,lead),"../../directory/","directory-grid")
             sections += f'<ul class="detail-list"><li><b>{self.t("记录", "Record")}</b> {h(lead["content_id"])}</li><li><b>{self.t("资料核查", "Sources reviewed")}</b> {h(lead["reviewed_at"])}</li><li><b>{self.t("实机状态", "Hands-on status")}</b> {self.t("KitAgain 未进行实机测试", "No KitAgain hands-on hardware test")}</li></ul>'
             sections += self.rating_detail(LEAD_SCORES[slug])
+            if self.cost_detail(LEAD_SCORES[slug]):
+                sections += f'<h2>{self.t("成本取证", "Cost evidence")}</h2><ul class="detail-list">{self.cost_detail(LEAD_SCORES[slug])}</ul>'
+            sections += self.action_guide_detail(LEAD_SCORES[slug], context=lead_action_context(lead))
             if lead.get("deep_review"):
                 review = lead["deep_review"][self.lang]
                 sections += f'<h2>{self.t("具体型号核查", "Exact-model review")}</h2><ul class="detail-list"><li><b>{self.t("硬件确认", "Hardware")}</b> {h(review["hardware"])}</li><li><b>{self.t("改造路线", "Installation route")}</b> {h(review["route"])}</li><li><b>{self.t("可以做到什么", "Expected result")}</b> {h(review["result"])}</li><li><b>{self.t("不能扩大解释的边界", "Boundary")}</b> {h(review["boundary"])}</li><li><b>{self.t("恢复与停止条件", "Recovery and stop condition")}</b> {h(review["recovery"])}</li><li><b>{self.t("上游版本", "Upstream revision")}</b> {h(lead["upstream_revision"])}</li></ul>'
@@ -557,7 +618,7 @@ GUIDES = json.loads((ROOT / "data/guides.json").read_text(encoding="utf-8"))
 ARTICLES = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))
 WATCHLIST, WATCHLIST_DETAILS = load_watchlist(ROOT / "data")
 AUTHOR_SOCIALS = json.loads((ROOT / "data/author-socials.json").read_text(encoding="utf-8"))
-PROJECT_SCORES, LEAD_SCORES, PROJECT_LEAD_SCORES = score_all(PROJECTS, WATCHLIST, WATCHLIST_DETAILS, PROJECT_LEADS, SCORING_EVIDENCE)
+PROJECT_SCORES, LEAD_SCORES, PROJECT_LEAD_SCORES = score_all(PROJECTS, WATCHLIST, WATCHLIST_DETAILS, PROJECT_LEADS, SCORING_EVIDENCE, COST_EVIDENCE)
 DIRECTORY_EXPORT = build_directory_export(
     projects=PROJECTS,
     project_leads=PROJECT_LEADS,
@@ -566,11 +627,22 @@ DIRECTORY_EXPORT = build_directory_export(
     base_url=BASE,
     version=CONFIG["version"],
     generated_at=SCORING_EVIDENCE.get("generated_at", DATA["compiled_at"]),
+    project_i18n=EN["projects"],
     scoring_evidence=SCORING_EVIDENCE,
+    cost_evidence=COST_EVIDENCE,
 )
 
 def build():
     assert CONFIG["version"] == DATA["version"], "Product versions differ"
+    for lead in PROJECT_LEADS:
+        if lead.get("display_status", "listed") == "listed":
+            continue
+        for lang in ("zh", "en"):
+            stale = OUT / lang / "project-leads" / lead["id"] / "index.html"
+            stale.unlink(missing_ok=True)
+            parent = stale.parent
+            if parent.exists() and not any(parent.iterdir()):
+                parent.rmdir()
     for p in PROJECTS:
         record = EN["projects"][p["id"]]
         assert record["source_sha256"] == digest(p) and record["status"] == "reviewed", ("Translation stale",p["id"])
@@ -591,6 +663,9 @@ def build():
     write(OUT/"data/project-leads.json",json.dumps(PROJECT_LEAD_DATA,ensure_ascii=False,indent=2)+"\n")
     write(OUT/"data/project-leads.csv",project_leads_csv(PROJECT_LEADS))
     shutil.copyfile(SCORING_EVIDENCE_PATH, OUT/"data/scoring-evidence.json")
+    for path in [COST_EVIDENCE_PATH, ROOT/"data/scoring-evidence-batch2-v120.json", ROOT/"data/e0-audit-v120.json", ROOT/"data/action-guides-v120.json"]:
+        if path.exists():
+            shutil.copyfile(path, OUT/"data"/path.name)
     identity_coverage = []
     for p in PROJECTS:
         owner = repository_owner_account(p["repo_url"])

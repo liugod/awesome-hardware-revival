@@ -16,7 +16,7 @@ assert(new Set(entries.map((entry) => entry.entry_id)).size === 95, "entry IDs m
 assert(data.filled === entries.filter((entry) => entry.cost_score !== null).length, "filled mismatch");
 assert(data.lacking_source === entries.filter((entry) => entry.cost_score === null).length, "lacking_source mismatch");
 assert(data.filled + data.lacking_source === 95, "top-level counts must sum to 95");
-assert(!text.includes("???") && !text.includes("\ufffd"), "mojibake marker found");
+assert(!text.includes("?".repeat(3)) && !text.includes("\ufffd"), "mojibake marker found");
 
 const required = [
   "entry_id",
@@ -129,8 +129,12 @@ async function worker() {
 await Promise.all(Array.from({ length: 10 }, worker));
 const failures = results.filter((result) => !result.ok);
 const browserFallback = new Set(data.source_validation?.browser_fallback_urls ?? []);
-const fallbackVerified = failures.filter((result) => browserFallback.has(result.url));
-const unresolved = failures.filter((result) => !browserFallback.has(result.url));
+const fallbackEligibleStatuses = new Set([null, 401, 403, 429, 451]);
+const fallbackVerified = failures.filter(
+  (result) => browserFallback.has(result.url) && fallbackEligibleStatuses.has(result.status),
+);
+const unresolved = failures.filter((result) => !fallbackVerified.includes(result));
+const uncitedFallbacks = [...browserFallback].filter((url) => !urls.includes(url));
 const statusCounts = {};
 for (const result of results) {
   const key = String(result.status ?? "ERR");
@@ -146,6 +150,7 @@ console.log(
       browser_fallback_verified: fallbackVerified.length,
       verified_total: results.length - unresolved.length,
       unresolved: unresolved.length,
+      uncited_browser_fallbacks: uncitedFallbacks,
       status_counts: statusCounts,
       automated_failures: failures,
       unresolved_failures: unresolved,
@@ -154,4 +159,4 @@ console.log(
     2,
   ),
 );
-if (unresolved.length) process.exitCode = 1;
+if (unresolved.length || uncitedFallbacks.length) process.exitCode = 1;

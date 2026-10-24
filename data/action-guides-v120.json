@@ -1,0 +1,1810 @@
+{
+  "schema_version": "1.0.0",
+  "version": "1.20.0",
+  "generated_at": "2026-10-24T00:00:00+08:00",
+  "minimum_score": 4,
+  "count": 63,
+  "entries": [
+    {
+      "entry_id": "project:xiaogpt",
+      "what_you_need": {
+        "zh": "XiaoGPT：设备范围为“小爱音箱；README 示例 LX06，其他型号须核对 hardware 参数”；上手方式是“服务桥接”。",
+        "en": "XiaoGPT: use hardware within “Xiaomi XiaoAI speakers; the README uses LX06.”; the recorded route is “Service bridge.”",
+        "sources": [
+          "https://github.com/yihong0618/xiaogpt/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“服务桥接”，再只按已核目标验收：让已有小爱音箱转接大模型，保留原设备语音入口。",
+        "en": "Follow the linked guide for “Service bridge,” then validate only the checked outcome: Connect an existing XiaoAI speaker to a language model while retaining its voice input.",
+        "sources": [
+          "https://github.com/yihong0618/xiaogpt/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "XiaoGPT：出现“依赖小米账号和语音接口；并非完全离线固件。”就停止；退出或回退按记录处理：停止桥接进程可停止转发；本条路径不替换音箱固件。",
+        "en": "XiaoGPT: stop when “Depends on a Xiaomi account and voice interfaces; this is not fully offline firmware.” applies; use the recorded exit or recovery path: Stopping the bridge stops forwarding requests; this route does not replace speaker firmware.",
+        "sources": [
+          "https://github.com/yihong0618/xiaogpt/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:termux",
+      "what_you_need": {
+        "zh": "Termux：设备范围为“满足当前 Android 版本要求的手机/平板”；上手方式是“安装应用”。",
+        "en": "Termux: use hardware within “Phones/tablets meeting the current Android version requirements.”; the recorded route is “Install application.”",
+        "sources": [
+          "https://github.com/termux/termux-app",
+          "https://github.com/termux/termux-app/blob/master/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装应用”，再只按已核目标验收：无需替换系统，在闲置 Android 上运行命令行与轻量服务。",
+        "en": "Follow the linked guide for “Install application,” then validate only the checked outcome: Run command-line tools and lightweight services on idle Android hardware without replacing the OS.",
+        "sources": [
+          "https://github.com/termux/termux-app",
+          "https://github.com/termux/termux-app/blob/master/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Termux：出现“Android 后台限制和版本支持仍存在，不等于完整 Linux 内核环境。”就停止；退出或回退按记录处理：卸载前导出 Termux 私有目录；卸载应用通常会删除该应用数据。",
+        "en": "Termux: stop when “Android background limits and version support still apply; this is not a complete Linux kernel environment.” applies; use the recorded exit or recovery path: Export the Termux private directory before uninstalling.",
+        "sources": [
+          "https://github.com/termux/termux-app",
+          "https://github.com/termux/termux-app/blob/master/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:droidcam",
+      "what_you_need": {
+        "zh": "DroidCam Linux client：设备范围为“兼容 DroidCam 移动应用的手机 + Linux 电脑”；上手方式是“安装应用”。",
+        "en": "DroidCam Linux client: use hardware within “Phones compatible with the DroidCam mobile app and a Linux computer.”; the recorded route is “Install application.”",
+        "sources": [
+          "https://github.com/dev47apps/droidcam-linux-client",
+          "https://github.com/dev47apps/droidcam-linux-client/blob/master/README.md",
+          "https://www.dev47apps.com/droidcam/linux/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装应用”，再只按已核目标验收：将闲置手机作为电脑视频输入设备。",
+        "en": "Follow the linked guide for “Install application,” then validate only the checked outcome: Use an idle phone as a computer video input.",
+        "sources": [
+          "https://github.com/dev47apps/droidcam-linux-client",
+          "https://github.com/dev47apps/droidcam-linux-client/blob/master/README.md",
+          "https://www.dev47apps.com/droidcam/linux/"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "DroidCam Linux client：出现“此仓库是 Linux 客户端，不能推断移动端全部开源；持续供电需检查电池。”就停止；退出或回退按记录处理：卸载客户端与虚拟摄像头模块；持续充电设备检查电池状况。",
+        "en": "DroidCam Linux client: stop when “This repository is the Linux client; it does not establish that the entire mobile app is open source.” applies; use the recorded exit or recovery path: Uninstall the client and virtual camera module.",
+        "sources": [
+          "https://github.com/dev47apps/droidcam-linux-client",
+          "https://github.com/dev47apps/droidcam-linux-client/blob/master/README.md",
+          "https://www.dev47apps.com/droidcam/linux/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:deskreen",
+      "what_you_need": {
+        "zh": "Deskreen：设备范围为“具有兼容现代浏览器的旧平板/手机/电脑”；上手方式是“安装应用”。",
+        "en": "Deskreen: use hardware within “Old tablets, phones or computers with a compatible modern browser.”; the recorded route is “Install application.”",
+        "sources": [
+          "https://deskreen.com/faq",
+          "https://github.com/pavlobu/deskreen",
+          "https://github.com/pavlobu/deskreen/blob/master/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装应用”，再只按已核目标验收：用浏览器接收桌面共享，让旧平板成为辅助显示终端。",
+        "en": "Follow the linked guide for “Install application,” then validate only the checked outcome: Turn an old tablet into an auxiliary display endpoint receiving desktop sharing in a browser.",
+        "sources": [
+          "https://deskreen.com/faq",
+          "https://github.com/pavlobu/deskreen",
+          "https://github.com/pavlobu/deskreen/blob/master/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Deskreen：出现“独立扩展屏通常还需虚拟显示适配器；过旧浏览器可能无法运行。”就停止；退出或回退按记录处理：停止共享或卸载桌面端；不替换平板固件。",
+        "en": "Deskreen: stop when “An independently extended desktop usually also needs a virtual display adapter.” applies; use the recorded exit or recovery path: Stop sharing or uninstall the desktop application.",
+        "sources": [
+          "https://deskreen.com/faq",
+          "https://github.com/pavlobu/deskreen",
+          "https://github.com/pavlobu/deskreen/blob/master/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:haos",
+      "what_you_need": {
+        "zh": "Home Assistant OS：设备范围为“官方安装文档支持的 Generic x86-64 / 单板机”；上手方式是“替换系统”。",
+        "en": "Home Assistant OS: use hardware within “Generic x86-64 hosts / single-board computers supported by the official installation documentation.”; the recorded route is “Replace OS.”",
+        "sources": [
+          "https://github.com/home-assistant/operating-system",
+          "https://github.com/home-assistant/operating-system/blob/dev/README.md",
+          "https://www.home-assistant.io/installation/generic-x86-64/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“替换系统”，再只按已核目标验收：把旧小主机或瘦客户机改为家庭自动化服务器。",
+        "en": "Follow the linked guide for “Replace OS,” then validate only the checked outcome: Turn an old mini PC or thin client into a home automation server.",
+        "sources": [
+          "https://github.com/home-assistant/operating-system",
+          "https://github.com/home-assistant/operating-system/blob/dev/README.md",
+          "https://www.home-assistant.io/installation/generic-x86-64/"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Home Assistant OS：出现“要满足架构、启动方式及存储条件；安装映像会覆盖目标磁盘。”就停止；退出或回退按记录处理：映像写入会覆盖目标磁盘；先保存全盘镜像，后续用原系统安装介质恢复。",
+        "en": "Home Assistant OS: stop when “Architecture, boot mode and storage requirements apply.” applies; use the recorded exit or recovery path: Writing the image overwrites the target disk.",
+        "sources": [
+          "https://github.com/home-assistant/operating-system",
+          "https://github.com/home-assistant/operating-system/blob/dev/README.md",
+          "https://www.home-assistant.io/installation/generic-x86-64/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:openmediavault",
+      "what_you_need": {
+        "zh": "OpenMediaVault：设备范围为“满足安装要求的 x86-64 或受支持 ARM 主机”；上手方式是“替换系统”。",
+        "en": "OpenMediaVault: use hardware within “x86-64 or supported ARM hosts meeting installation requirements.”; the recorded route is “Replace OS.”",
+        "sources": [
+          "https://docs.openmediavault.org/en/stable/installation/index.html",
+          "https://github.com/openmediavault/openmediavault",
+          "https://github.com/openmediavault/openmediavault/blob/master/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“替换系统”，再只按已核目标验收：把旧 PC 和存储硬件改造成局域网 NAS。",
+        "en": "Follow the linked guide for “Replace OS,” then validate only the checked outcome: Turn an old PC and storage hardware into a LAN NAS.",
+        "sources": [
+          "https://docs.openmediavault.org/en/stable/installation/index.html",
+          "https://github.com/openmediavault/openmediavault",
+          "https://github.com/openmediavault/openmediavault/blob/master/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "OpenMediaVault：出现“操作系统盘与数据盘规划、旧硬盘健康及备份需单独评估。”就停止；退出或回退按记录处理：先备份数据和配置；NAS 或 RAID 本身不能替代独立备份。",
+        "en": "OpenMediaVault: stop when “Plan OS and data disks separately, assess old-disk health and arrange backups.” applies; use the recorded exit or recovery path: Back up data and configuration first.",
+        "sources": [
+          "https://docs.openmediavault.org/en/stable/installation/index.html",
+          "https://github.com/openmediavault/openmediavault",
+          "https://github.com/openmediavault/openmediavault/blob/master/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:dietpi",
+      "what_you_need": {
+        "zh": "DietPi：设备范围为“下载页提供映像的单板机及 x86_64 主机”；上手方式是“替换系统”。",
+        "en": "DietPi: use hardware within “Single-board computers and x86_64 hosts with images on the download page.”; the recorded route is “Replace OS.”",
+        "sources": [
+          "https://dietpi.com/docs/",
+          "https://github.com/MichaIng/DietPi",
+          "https://github.com/MichaIng/DietPi/blob/dev/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“替换系统”，再只按已核目标验收：以轻量系统和软件管理降低旧单板机部署服务的负担。",
+        "en": "Follow the linked guide for “Replace OS,” then validate only the checked outcome: Reduce the work of deploying services on old single-board computers with a lightweight OS and software management.",
+        "sources": [
+          "https://dietpi.com/docs/",
+          "https://github.com/MichaIng/DietPi",
+          "https://github.com/MichaIng/DietPi/blob/dev/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "DietPi：出现“映像、架构和 RAM 限制按目标设备核对，不保证任何旧板都可用。”就停止；退出或回退按记录处理：待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "en": "DietPi: stop when “Check the image, architecture and RAM limits for the target.” applies; use the recorded exit or recovery path: Verify the recovery procedure for the exact model.",
+        "sources": [
+          "https://dietpi.com/docs/",
+          "https://github.com/MichaIng/DietPi",
+          "https://github.com/MichaIng/DietPi/blob/dev/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:libreelec",
+      "what_you_need": {
+        "zh": "LibreELEC：设备范围为“官方映像覆盖的 Generic x86_64、Raspberry Pi 等设备”；上手方式是“替换系统”。",
+        "en": "LibreELEC: use hardware within “Generic x86_64, Raspberry Pi and other devices with official images.”; the recorded route is “Replace OS.”",
+        "sources": [
+          "https://github.com/LibreELEC/LibreELEC.tv",
+          "https://github.com/LibreELEC/LibreELEC.tv/blob/master/README.md",
+          "https://libreelec.tv/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“替换系统”，再只按已核目标验收：将旧小主机或支持的设备改为专用 Kodi 播放器。",
+        "en": "Follow the linked guide for “Replace OS,” then validate only the checked outcome: Turn an old mini PC or supported device into a dedicated Kodi player.",
+        "sources": [
+          "https://github.com/LibreELEC/LibreELEC.tv",
+          "https://github.com/LibreELEC/LibreELEC.tv/blob/master/README.md",
+          "https://libreelec.tv/"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "LibreELEC：出现“不是为所有智能电视提供通用固件；DRM 服务可用性另行判断。”就停止；退出或回退按记录处理：待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "en": "LibreELEC: stop when “This is not universal firmware for every smart TV.” applies; use the recorded exit or recovery path: Verify the recovery procedure for the exact model.",
+        "sources": [
+          "https://github.com/LibreELEC/LibreELEC.tv",
+          "https://github.com/LibreELEC/LibreELEC.tv/blob/master/README.md",
+          "https://libreelec.tv/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:koreader",
+      "what_you_need": {
+        "zh": "KOReader：设备范围为“支持的 Kindle、Kobo、PocketBook、Android 阅读设备”；上手方式是“安装应用”。",
+        "en": "KOReader: use hardware within “Supported Kindle, Kobo, PocketBook and Android reading devices.”; the recorded route is “Install application.”",
+        "sources": [
+          "https://github.com/koreader/koreader",
+          "https://github.com/koreader/koreader/blob/master/README.md",
+          "https://github.com/koreader/koreader/wiki"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装应用”，再只按已核目标验收：延长旧电子书阅读器在多格式阅读、排版与同步方面的用途。",
+        "en": "Follow the linked guide for “Install application,” then validate only the checked outcome: Extend multiformat reading, typography and synchronization on old e-readers.",
+        "sources": [
+          "https://github.com/koreader/koreader",
+          "https://github.com/koreader/koreader/blob/master/README.md",
+          "https://github.com/koreader/koreader/wiki"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "KOReader：出现“各平台安装前提不同；Kindle 一般需要可用的 jailbreak。”就停止；退出或回退按记录处理：按平台卸载应用；jailbreak 与引导修改的恢复是另一个步骤。",
+        "en": "KOReader: stop when “Installation prerequisites vary by platform.” applies; use the recorded exit or recovery path: Uninstall the app using the platform's procedure.",
+        "sources": [
+          "https://github.com/koreader/koreader",
+          "https://github.com/koreader/koreader/blob/master/README.md",
+          "https://github.com/koreader/koreader/wiki"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:kindle-carousel",
+      "what_you_need": {
+        "zh": "Kindle Carousel：设备范围为“项目教程中的旧 Kindle，逐项检查机型与 jailbreak 前提”；上手方式是“安装脚本”。",
+        "en": "Kindle Carousel: use hardware within “Old Kindles covered by the project tutorial; check model and jailbreak prerequisites individually.”; the recorded route is “Install scripts.”",
+        "sources": [
+          "https://github.com/qadzek/kindle-carousel",
+          "https://github.com/qadzek/kindle-carousel/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装脚本”，再只按已核目标验收：将旧 Kindle 变为可切换内容的信息看板。",
+        "en": "Follow the linked guide for “Install scripts,” then validate only the checked outcome: Turn an old Kindle into an information display with switchable content.",
+        "sources": [
+          "https://github.com/qadzek/kindle-carousel",
+          "https://github.com/qadzek/kindle-carousel/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Kindle Carousel：出现“刷新速度、按键和网络脚本适配不应假设跨型号通用。”就停止；退出或回退按记录处理：停用 Kindle 脚本并移除自动启动项；jailbreak 恢复需另查型号。",
+        "en": "Kindle Carousel: stop when “Do not assume refresh behavior, buttons and networking scripts work across all models.” applies; use the recorded exit or recovery path: Disable the Kindle scripts and remove automatic startup entries.",
+        "sources": [
+          "https://github.com/qadzek/kindle-carousel",
+          "https://github.com/qadzek/kindle-carousel/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:kindle-ha",
+      "what_you_need": {
+        "zh": "HA Lovelace Kindle Screensaver：设备范围为“能运行截图显示脚本的 jailbroken Kindle”；上手方式是“安装脚本”。",
+        "en": "HA Lovelace Kindle Screensaver: use hardware within “Jailbroken Kindles capable of running the screenshot display scripts.”; the recorded route is “Install scripts.”",
+        "sources": [
+          "https://github.com/sibbl/hass-lovelace-kindle-4",
+          "https://github.com/sibbl/hass-lovelace-kindle-screensaver",
+          "https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装脚本”，再只按已核目标验收：由服务端渲染 Home Assistant 页面，旧 Kindle 只负责显示。",
+        "en": "Follow the linked guide for “Install scripts,” then validate only the checked outcome: Render Home Assistant pages on a server and use an old Kindle only for display.",
+        "sources": [
+          "https://github.com/sibbl/hass-lovelace-kindle-4",
+          "https://github.com/sibbl/hass-lovelace-kindle-screensaver",
+          "https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "HA Lovelace Kindle Screensaver：出现“需另有 Home Assistant 与截图服务，屏幕不是在运行完整浏览器应用。”就停止；退出或回退按记录处理：删除定时下载/显示脚本，撤销 HA 访问令牌；原阅读用途保留情况依赖安装方式。",
+        "en": "HA Lovelace Kindle Screensaver: stop when “Needs Home Assistant and a screenshot service.” applies; use the recorded exit or recovery path: Remove scheduled download/display scripts and revoke the Home Assistant token.",
+        "sources": [
+          "https://github.com/sibbl/hass-lovelace-kindle-4",
+          "https://github.com/sibbl/hass-lovelace-kindle-screensaver",
+          "https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:kindle-dashboard",
+      "what_you_need": {
+        "zh": "Kindle Dashboard：设备范围为“已越狱并具备 SSH / FBInk 的 Kindle Paperwhite”；上手方式是“安装应用与脚本”。",
+        "en": "Kindle Dashboard: use hardware within “Jailbroken Kindle Paperwhite with SSH / FBInk.”; the recorded route is “Install application and scripts.”",
+        "sources": [
+          "https://github.com/alexishida/kindle-dashboard",
+          "https://github.com/alexishida/kindle-dashboard/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装应用与脚本”，再只按已核目标验收：把旧 Paperwhite 作为 AI 工具用量与桌面信息屏。",
+        "en": "Follow the linked guide for “Install application and scripts,” then validate only the checked outcome: Use an old Paperwhite as a desktop information screen displaying AI tool usage.",
+        "sources": [
+          "https://github.com/alexishida/kindle-dashboard",
+          "https://github.com/alexishida/kindle-dashboard/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Kindle Dashboard：出现“显示 AI 用量不等于设备运行 AI；项目不负责 jailbreak。”就停止；退出或回退按记录处理：使用项目 UI 移除 Kindle 脚本；这不会自动撤销 jailbreak。",
+        "en": "Kindle Dashboard: stop when “Displaying AI usage does not mean running AI on the device.” applies; use the recorded exit or recovery path: Remove Kindle scripts using the project UI.",
+        "sources": [
+          "https://github.com/alexishida/kindle-dashboard",
+          "https://github.com/alexishida/kindle-dashboard/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:esphome",
+      "what_you_need": {
+        "zh": "ESPHome：设备范围为“支持平台与设备配置覆盖的 ESP 等微控制器设备”；上手方式是“替换固件”。",
+        "en": "ESPHome: use hardware within “ESP and other microcontroller devices covered by supported platforms and device configurations.”; the recorded route is “Replace firmware.”",
+        "sources": [
+          "https://esphome.io/",
+          "https://github.com/esphome/esphome",
+          "https://github.com/esphome/esphome/blob/dev/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“替换固件”，再只按已核目标验收：为可编程的旧传感器、插座和 DIY 板重新配置本地用途。",
+        "en": "Follow the linked guide for “Replace firmware,” then validate only the checked outcome: Reconfigure programmable old sensors, plugs and DIY boards for local uses.",
+        "sources": [
+          "https://esphome.io/",
+          "https://github.com/esphome/esphome",
+          "https://github.com/esphome/esphome/blob/dev/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "ESPHome：出现“按具体设备配置判断复用，不把购买新开发板的演示计为旧硬件成功案例。”就停止；退出或回退按记录处理：待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "en": "ESPHome: stop when “Assess reuse by exact device configuration.” applies; use the recorded exit or recovery path: Verify the recovery procedure for the exact model.",
+        "sources": [
+          "https://esphome.io/",
+          "https://github.com/esphome/esphome",
+          "https://github.com/esphome/esphome/blob/dev/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:frigate",
+      "what_you_need": {
+        "zh": "Frigate：设备范围为“能提供受支持视频流的旧 IP 摄像头 + 满足要求的服务器”；上手方式是“安装分析服务器”。",
+        "en": "Frigate: use hardware within “Old IP cameras providing supported streams, plus a server meeting requirements.”; the recorded route is “Install analysis server.”",
+        "sources": [
+          "https://docs.frigate.video/",
+          "https://github.com/blakeblackshear/frigate",
+          "https://github.com/blakeblackshear/frigate/blob/dev/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装分析服务器”，再只按已核目标验收：让已有摄像头接入本地目标检测与录像系统。",
+        "en": "Follow the linked guide for “Install analysis server,” then validate only the checked outcome: Connect existing cameras to local object detection and recording.",
+        "sources": [
+          "https://docs.frigate.video/",
+          "https://github.com/blakeblackshear/frigate",
+          "https://github.com/blakeblackshear/frigate/blob/dev/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Frigate：出现“AI 在服务器上运行，不能恢复已损坏或无法输出视频流的摄像头。”就停止；退出或回退按记录处理：停止服务不会替换摄像头固件；删除服务前备份需要保留的录像与配置。",
+        "en": "Frigate: stop when “AI runs on the server.” applies; use the recorded exit or recovery path: Stopping the service does not replace camera firmware.",
+        "sources": [
+          "https://docs.frigate.video/",
+          "https://github.com/blakeblackshear/frigate",
+          "https://github.com/blakeblackshear/frigate/blob/dev/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:squeezelite",
+      "what_you_need": {
+        "zh": "Squeezelite：设备范围为“可运行支持平台二进制的旧 PC / Linux 单板机”；上手方式是“安装播放器”。",
+        "en": "Squeezelite: use hardware within “Old PC / Linux single-board computer able to run a supported-platform binary.”; the recorded route is “Install player.”",
+        "sources": [
+          "https://github.com/ralph-irving/squeezelite",
+          "https://github.com/ralph-irving/squeezelite/blob/master/README.md",
+          "https://ralph-irving.github.io/squeezelite.html"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装播放器”，再只按已核目标验收：将旧主机转为轻量网络音频播放器，连接 Squeezebox 生态服务器。",
+        "en": "Follow the linked guide for “Install player,” then validate only the checked outcome: Turn an old host into a lightweight network audio player for Squeezebox-compatible servers.",
+        "sources": [
+          "https://github.com/ralph-irving/squeezelite",
+          "https://github.com/ralph-irving/squeezelite/blob/master/README.md",
+          "https://ralph-irving.github.io/squeezelite.html"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Squeezelite：出现“是软件播放器，不保证修复任意实体 Squeezebox 的云功能。”就停止；退出或回退按记录处理：停用/卸载播放器即可取消此用途。",
+        "en": "Squeezelite: stop when “A software player does not guarantee restoration of cloud features on every physical Squeezebox.” applies; use the recorded exit or recovery path: Stop or uninstall the player to end this use.",
+        "sources": [
+          "https://github.com/ralph-irving/squeezelite",
+          "https://github.com/ralph-irving/squeezelite/blob/master/README.md",
+          "https://ralph-irving.github.io/squeezelite.html"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:lyrion",
+      "what_you_need": {
+        "zh": "Lyrion Music Server：设备范围为“Squeezebox 生态播放器及支持的自建播放器”；上手方式是“云服务替代”。",
+        "en": "Lyrion Music Server: use hardware within “Squeezebox ecosystem players and supported DIY players.”; the recorded route is “Cloud service replacement.”",
+        "sources": [
+          "https://github.com/LMS-Community/slimserver",
+          "https://github.com/LMS-Community/slimserver/blob/public/9.2/README.md",
+          "https://lyrion.org/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“云服务替代”，再只按已核目标验收：用本地音乐服务器延续 Squeezebox 设备和播放器生态。",
+        "en": "Follow the linked guide for “Cloud service replacement,” then validate only the checked outcome: Continue using Squeezebox devices and compatible players with a local music server.",
+        "sources": [
+          "https://github.com/LMS-Community/slimserver",
+          "https://github.com/LMS-Community/slimserver/blob/public/9.2/README.md",
+          "https://lyrion.org/"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Lyrion Music Server：出现“在线音乐服务依赖各自插件与服务政策，不能保证所有历史功能。”就停止；退出或回退按记录处理：备份音乐库索引与配置，旧厂商云不一定可恢复。",
+        "en": "Lyrion Music Server: stop when “Online music depends on individual plugins and service policies.” applies; use the recorded exit or recovery path: Back up music-library indexes and configuration.",
+        "sources": [
+          "https://github.com/LMS-Community/slimserver",
+          "https://github.com/LMS-Community/slimserver/blob/public/9.2/README.md",
+          "https://lyrion.org/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:batocera",
+      "what_you_need": {
+        "zh": "Batocera.linux：设备范围为“官方提供映像的 PC / 单板机 / 掌机”；上手方式是“外置启动或替换系统”。",
+        "en": "Batocera.linux: use hardware within “PCs / single-board computers / handhelds with official images.”; the recorded route is “External boot or OS replacement.”",
+        "sources": [
+          "https://github.com/batocera-linux/batocera.linux",
+          "https://github.com/batocera-linux/batocera.linux/blob/master/README.md",
+          "https://wiki.batocera.org/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“外置启动或替换系统”，再只按已核目标验收：将旧电脑或支持的设备转成专用复古游戏平台。",
+        "en": "Follow the linked guide for “External boot or OS replacement,” then validate only the checked outcome: Turn old computers or supported devices into dedicated retro-gaming systems.",
+        "sources": [
+          "https://github.com/batocera-linux/batocera.linux",
+          "https://github.com/batocera-linux/batocera.linux/blob/master/README.md",
+          "https://wiki.batocera.org/"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Batocera.linux：出现“性能受硬件限制；系统不授予游戏 ROM 的版权。”就停止；退出或回退按记录处理：外置启动可移除介质回到原系统；若安装到内部磁盘需先备份。",
+        "en": "Batocera.linux: stop when “Performance is hardware-limited.” applies; use the recorded exit or recovery path: Remove external boot media to return to the original OS.",
+        "sources": [
+          "https://github.com/batocera-linux/batocera.linux",
+          "https://github.com/batocera-linux/batocera.linux/blob/master/README.md",
+          "https://wiki.batocera.org/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:lakka",
+      "what_you_need": {
+        "zh": "Lakka：设备范围为“Lakka 官方提供映像的 PC / 单板机”；上手方式是“外置启动或替换系统”。",
+        "en": "Lakka: use hardware within “PCs / single-board computers with official Lakka images.”; the recorded route is “External boot or OS replacement.”",
+        "sources": [
+          "https://github.com/libretro/Lakka-LibreELEC",
+          "https://github.com/libretro/Lakka-LibreELEC/blob/Lakka-v6.1/README.md",
+          "https://www.lakka.tv/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“外置启动或替换系统”，再只按已核目标验收：用轻量 RetroArch 系统复用旧 PC 与受支持单板机。",
+        "en": "Follow the linked guide for “External boot or OS replacement,” then validate only the checked outcome: Reuse old PCs and supported single-board computers with a lightweight RetroArch system.",
+        "sources": [
+          "https://github.com/libretro/Lakka-LibreELEC",
+          "https://github.com/libretro/Lakka-LibreELEC/blob/Lakka-v6.1/README.md",
+          "https://www.lakka.tv/"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Lakka：出现“需核对 GPU、音频和启动兼容性；游戏内容另行合法获取。”就停止；退出或回退按记录处理：待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "en": "Lakka: stop when “Check GPU, audio and boot compatibility.” applies; use the recorded exit or recovery path: Verify the recovery procedure for the exact model.",
+        "sources": [
+          "https://github.com/libretro/Lakka-LibreELEC",
+          "https://github.com/libretro/Lakka-LibreELEC/blob/Lakka-v6.1/README.md",
+          "https://www.lakka.tv/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:bazzite",
+      "what_you_need": {
+        "zh": "Bazzite：设备范围为“满足当前硬件要求的 PC 及受支持掌机”；上手方式是“替换系统”。",
+        "en": "Bazzite: use hardware within “PCs meeting current hardware requirements and supported handhelds.”; the recorded route is “Replace OS.”",
+        "sources": [
+          "https://docs.bazzite.gg/",
+          "https://github.com/ublue-os/bazzite",
+          "https://github.com/ublue-os/bazzite/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“替换系统”，再只按已核目标验收：为仍有可用性能的 PC 或掌机提供可维护的游戏系统。",
+        "en": "Follow the linked guide for “Replace OS,” then validate only the checked outcome: Provide a maintainable gaming OS for PCs and handhelds with sufficient remaining performance.",
+        "sources": [
+          "https://docs.bazzite.gg/",
+          "https://github.com/ublue-os/bazzite",
+          "https://github.com/ublue-os/bazzite/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Bazzite：出现“不是超老电脑通用方案；GPU 支持与镜像类型是硬门槛。”就停止；退出或回退按记录处理：待具体型号核实恢复流程；本目录未验证救砖，操作前先备份。",
+        "en": "Bazzite: stop when “Not a universal solution for very old computers.” applies; use the recorded exit or recovery path: Verify the recovery procedure for the exact model.",
+        "sources": [
+          "https://docs.bazzite.gg/",
+          "https://github.com/ublue-os/bazzite",
+          "https://github.com/ublue-os/bazzite/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project:printer-spl3",
+      "what_you_need": {
+        "zh": "HP Laser 1008a macOS driver：设备范围为“HP Laser 1003/1006/1008 a/w USB + Apple Silicon macOS 26（作者测试范围）”；上手方式是“安装驱动”。",
+        "en": "HP Laser 1008a macOS driver: use hardware within “HP Laser 1003/1006/1008 a/w over USB + Apple Silicon macOS 26 (author's test scope).”; the recorded route is “Install driver.”",
+        "sources": [
+          "https://cdn.kuber.studio/chat/hp-laser-1008a-driver",
+          "https://github.com/Kuberwastaken/hp-laser-1008a-macos",
+          "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接教程完成“安装驱动”，再只按已核目标验收：用原生 macOS 打印链路恢复无官方 macOS 驱动的 HP Laser 系列用途。",
+        "en": "Follow the linked guide for “Install driver,” then validate only the checked outcome: Restore use of selected HP Laser printers without official macOS drivers through the native macOS print path.",
+        "sources": [
+          "https://cdn.kuber.studio/chat/hp-laser-1008a-driver",
+          "https://github.com/Kuberwastaken/hp-laser-1008a-macos",
+          "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "HP Laser 1008a macOS driver：出现“AI 开发过程须由作者原始材料支持；USB 测试不代表 Wi-Fi 已验证。”就停止；退出或回退按记录处理：仓库提供 uninstall.sh，README 解释如何撤销对 ippusbd 的更改；安装器需要管理员权限。",
+        "en": "HP Laser 1008a macOS driver: stop when “AI-assisted development needs original author evidence.” applies; use the recorded exit or recovery path: The repository provides uninstall.sh.",
+        "sources": [
+          "https://cdn.kuber.studio/chat/hp-laser-1008a-driver",
+          "https://github.com/Kuberwastaken/hp-laser-1008a-macos",
+          "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-ax3600",
+      "what_you_need": {
+        "zh": "Xiaomi AX3600：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_ax3600 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi AX3600: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_ax3600, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=qualcommax%2Fipq807x&id=xiaomi_ax3600",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_ax3600，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi AX3600 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_ax3600 in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi AX3600 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=qualcommax%2Fipq807x&id=xiaomi_ax3600",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi AX3600：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_ax3600 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi AX3600: extend its life with OpenWrt: stop if profile xiaomi_ax3600 does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=qualcommax%2Fipq807x&id=xiaomi_ax3600",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-ax9000",
+      "what_you_need": {
+        "zh": "Xiaomi AX9000：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_ax9000 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi AX9000: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_ax9000, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=qualcommax%2Fipq807x&id=xiaomi_ax9000",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_ax9000，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi AX9000 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_ax9000 in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi AX9000 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=qualcommax%2Fipq807x&id=xiaomi_ax9000",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi AX9000：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_ax9000 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi AX9000: extend its life with OpenWrt: stop if profile xiaomi_ax9000 does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=qualcommax%2Fipq807x&id=xiaomi_ax9000",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-wr30u",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router WR30U：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-wr30u-stock 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router WR30U: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-wr30u-stock, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=mediatek%2Ffilogic&id=xiaomi_mi-router-wr30u-stock",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-wr30u-stock，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router WR30U 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-wr30u-stock in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router WR30U into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=mediatek%2Ffilogic&id=xiaomi_mi-router-wr30u-stock",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router WR30U：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-wr30u-stock 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router WR30U: extend its life with OpenWrt: stop if profile xiaomi_mi-router-wr30u-stock does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=mediatek%2Ffilogic&id=xiaomi_mi-router-wr30u-stock",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-redmi-router-ax6000",
+      "what_you_need": {
+        "zh": "Xiaomi Redmi Router AX6000：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_redmi-router-ax6000-stock 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Redmi Router AX6000: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_redmi-router-ax6000-stock, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=mediatek%2Ffilogic&id=xiaomi_redmi-router-ax6000-stock",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_redmi-router-ax6000-stock，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Redmi Router AX6000 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_redmi-router-ax6000-stock in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Redmi Router AX6000 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=mediatek%2Ffilogic&id=xiaomi_redmi-router-ax6000-stock",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Redmi Router AX6000：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_redmi-router-ax6000-stock 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Redmi Router AX6000: extend its life with OpenWrt: stop if profile xiaomi_redmi-router-ax6000-stock does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=mediatek%2Ffilogic&id=xiaomi_redmi-router-ax6000-stock",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-router-ax3200",
+      "what_you_need": {
+        "zh": "Xiaomi Router AX3200：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_redmi-router-ax6s 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Router AX3200: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_redmi-router-ax6s, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=mediatek%2Fmt7622&id=xiaomi_redmi-router-ax6s",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_redmi-router-ax6s，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Router AX3200 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_redmi-router-ax6s in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Router AX3200 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=mediatek%2Fmt7622&id=xiaomi_redmi-router-ax6s",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Router AX3200：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_redmi-router-ax6s 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Router AX3200: extend its life with OpenWrt: stop if profile xiaomi_redmi-router-ax6s does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=mediatek%2Fmt7622&id=xiaomi_redmi-router-ax6s",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-miwifi-range-extender-ac1200-ra75",
+      "what_you_need": {
+        "zh": "Xiaomi MiWiFi Range Extender AC1200 RA75：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-ra75 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi MiWiFi Range Extender AC1200 RA75: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-ra75, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-ra75",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-ra75，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi MiWiFi Range Extender AC1200 RA75 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-ra75 in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi MiWiFi Range Extender AC1200 RA75 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-ra75",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi MiWiFi Range Extender AC1200 RA75：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-ra75 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi MiWiFi Range Extender AC1200 RA75: extend its life with OpenWrt: stop if profile xiaomi_mi-ra75 does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-ra75",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-3-pro",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router 3 Pro：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-3-pro 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router 3 Pro: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-3-pro, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-3-pro",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-3-pro，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router 3 Pro 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-3-pro in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router 3 Pro into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-3-pro",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router 3 Pro：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-3-pro 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router 3 Pro: extend its life with OpenWrt: stop if profile xiaomi_mi-router-3-pro does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-3-pro",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-3g-v2",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router 3G v2：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-3g-v2 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router 3G v2: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-3g-v2, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-3g-v2",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-3g-v2，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router 3G v2 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-3g-v2 in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router 3G v2 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-3g-v2",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router 3G v2：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-3g-v2 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router 3G v2: extend its life with OpenWrt: stop if profile xiaomi_mi-router-3g-v2 does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-3g-v2",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-3g",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router 3G：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-3g 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router 3G: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-3g, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-3g",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-3g，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router 3G 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-3g in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router 3G into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-3g",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router 3G：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-3g 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router 3G: extend its life with OpenWrt: stop if profile xiaomi_mi-router-3g does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-3g",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router 4：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-4 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router 4: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-4, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-4",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-4，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router 4 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-4 in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router 4 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-4",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router 4：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-4 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router 4: extend its life with OpenWrt: stop if profile xiaomi_mi-router-4 does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-4",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-100m-international-edition-v2",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router 4A 100M International Edition V2：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-4a-100m-intl-v2 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router 4A 100M International Edition V2: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-4a-100m-intl-v2, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4a-100m-intl-v2",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-4a-100m-intl-v2，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router 4A 100M International Edition V2 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-4a-100m-intl-v2 in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router 4A 100M International Edition V2 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4a-100m-intl-v2",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router 4A 100M International Edition V2：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-4a-100m-intl-v2 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router 4A 100M International Edition V2: extend its life with OpenWrt: stop if profile xiaomi_mi-router-4a-100m-intl-v2 does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4a-100m-intl-v2",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-100m-international-edition",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router 4A 100M International Edition：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-4a-100m-intl 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router 4A 100M International Edition: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-4a-100m-intl, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4a-100m-intl",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-4a-100m-intl，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router 4A 100M International Edition 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-4a-100m-intl in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router 4A 100M International Edition into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4a-100m-intl",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router 4A 100M International Edition：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-4a-100m-intl 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router 4A 100M International Edition: extend its life with OpenWrt: stop if profile xiaomi_mi-router-4a-100m-intl does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4a-100m-intl",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-100m-edition",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router 4A 100M Edition：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-4a-100m 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router 4A 100M Edition: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-4a-100m, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4a-100m",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-4a-100m，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router 4A 100M Edition 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-4a-100m in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router 4A 100M Edition into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4a-100m",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router 4A 100M Edition：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-4a-100m 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router 4A 100M Edition: extend its life with OpenWrt: stop if profile xiaomi_mi-router-4a-100m does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4a-100m",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-gigabit-edition-v2",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router 4A Gigabit Edition v2：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-4a-gigabit-v2 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router 4A Gigabit Edition v2: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-4a-gigabit-v2, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-4a-gigabit-v2",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-4a-gigabit-v2，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router 4A Gigabit Edition v2 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-4a-gigabit-v2 in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router 4A Gigabit Edition v2 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-4a-gigabit-v2",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router 4A Gigabit Edition v2：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-4a-gigabit-v2 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router 4A Gigabit Edition v2: extend its life with OpenWrt: stop if profile xiaomi_mi-router-4a-gigabit-v2 does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-4a-gigabit-v2",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4c",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router 4C：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-4c 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router 4C: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-4c, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4c",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-4c，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router 4C 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-4c in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router 4C into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4c",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router 4C：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-4c 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router 4C: extend its life with OpenWrt: stop if profile xiaomi_mi-router-4c does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_mi-router-4c",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-ac2100",
+      "what_you_need": {
+        "zh": "Xiaomi Mi Router AC2100：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_mi-router-ac2100 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Mi Router AC2100: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_mi-router-ac2100, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-ac2100",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_mi-router-ac2100，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Mi Router AC2100 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_mi-router-ac2100 in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Mi Router AC2100 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-ac2100",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Mi Router AC2100：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_mi-router-ac2100 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Mi Router AC2100: extend its life with OpenWrt: stop if profile xiaomi_mi-router-ac2100 does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_mi-router-ac2100",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-miwifi-3a",
+      "what_you_need": {
+        "zh": "Xiaomi MiWiFi 3A：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_miwifi-3a 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi MiWiFi 3A: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_miwifi-3a, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_miwifi-3a",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_miwifi-3a，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi MiWiFi 3A 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_miwifi-3a in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi MiWiFi 3A into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_miwifi-3a",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi MiWiFi 3A：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_miwifi-3a 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi MiWiFi 3A: extend its life with OpenWrt: stop if profile xiaomi_miwifi-3a does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_miwifi-3a",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-miwifi-3c",
+      "what_you_need": {
+        "zh": "Xiaomi MiWiFi 3C：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_miwifi-3c 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi MiWiFi 3C: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_miwifi-3c, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_miwifi-3c",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_miwifi-3c，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi MiWiFi 3C 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_miwifi-3c in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi MiWiFi 3C into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_miwifi-3c",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi MiWiFi 3C：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_miwifi-3c 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi MiWiFi 3C: extend its life with OpenWrt: stop if profile xiaomi_miwifi-3c does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt76x8&id=xiaomi_miwifi-3c",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-miwifi-mini",
+      "what_you_need": {
+        "zh": "Xiaomi MiWiFi Mini：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_miwifi-mini 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi MiWiFi Mini: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_miwifi-mini, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7620&id=xiaomi_miwifi-mini",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_miwifi-mini，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi MiWiFi Mini 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_miwifi-mini in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi MiWiFi Mini into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7620&id=xiaomi_miwifi-mini",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi MiWiFi Mini：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_miwifi-mini 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi MiWiFi Mini: extend its life with OpenWrt: stop if profile xiaomi_miwifi-mini does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7620&id=xiaomi_miwifi-mini",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-redmi-router-ac2100",
+      "what_you_need": {
+        "zh": "Xiaomi Redmi Router AC2100：刷 OpenWrt 延长路由器寿命：只准备与 OpenWrt 配置档 xiaomi_redmi-router-ac2100 相符的准确硬件版本，并先打开该设备的 Info。",
+        "en": "Xiaomi Redmi Router AC2100: extend its life with OpenWrt: use only the exact hardware revision matching OpenWrt profile xiaomi_redmi-router-ac2100, and open that device's Info first.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_redmi-router-ac2100",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "在固件选择器定位 xiaomi_redmi-router-ac2100，阅读 Info 的首次安装入口后按该型号步骤执行；已核目标是：目标是把 Xiaomi Redmi Router AC2100 改成可继续维护的 OpenWrt 路由器，用于拨号、旁路由、无线接入或基础网络服务。",
+        "en": "Resolve xiaomi_redmi-router-ac2100 in Firmware Selector, read its first-install Info, then follow only that model's steps; checked outcome: The goal is to turn Xiaomi Redmi Router AC2100 into a maintainable OpenWrt router for routing, access-point or basic network-service duties.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_redmi-router-ac2100",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Xiaomi Redmi Router AC2100：刷 OpenWrt 延长路由器寿命：如果配置档 xiaomi_redmi-router-ac2100 与准确硬件修订不匹配，或该配置档的 Info 无法确认本机型首次安装与恢复路径，就停止；不要只凭镜像文件名刷写。",
+        "en": "Xiaomi Redmi Router AC2100: extend its life with OpenWrt: stop if profile xiaomi_redmi-router-ac2100 does not match the exact hardware revision, or if its Info does not confirm this model's first-install and recovery path; do not flash an image based on its filename alone.",
+        "sources": [
+          "https://firmware-selector.openwrt.org/?version=25.12.6&target=ramips%2Fmt7621&id=xiaomi_redmi-router-ac2100",
+          "https://github.com/openwrt/openwrt/blob/main/README.md",
+          "https://github.com/openwrt/firmware-selector-openwrt-org/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:cobalt-kobo-sdk",
+      "what_you_need": {
+        "zh": "Cobalt 的已核前提：上游提供浏览器安装器和命令行安装器，支持矩阵列出已测试 Kobo 型号；但固件 5.x 尚不支持，仍须先核对型号与固件。",
+        "en": "Checked prerequisites for Cobalt: Upstream provides browser and command-line installers plus a tested-device matrix, but Kobo firmware 5.x is not supported and the exact model/firmware must still be checked.",
+        "sources": [
+          "https://github.com/BandarLabs/Cobalt/blob/main/README.md",
+          "https://github.com/BandarLabs/Cobalt/blob/main/docs/DEVICES.md",
+          "https://github.com/BandarLabs/Cobalt/blob/main/docs/INSTALL.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接上游安装/配置路径执行 Cobalt；本次有证据的目标仅为：同一平台提供启动器、应用商店、签名应用更新与多种离线/联网应用，同时保留 Kobo 原阅读器。",
+        "en": "Follow the linked upstream install/configuration path for Cobalt; the evidenced target is limited to: One platform provides a launcher, app store, signed app updates, and many offline/online apps while retaining Kobo's stock reader.",
+        "sources": [
+          "https://github.com/BandarLabs/Cobalt/blob/main/README.md",
+          "https://github.com/BandarLabs/Cobalt/blob/main/docs/DEVICES.md",
+          "https://github.com/BandarLabs/Cobalt/blob/main/docs/INSTALL.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Cobalt：若无法接受以下风险或没有对应回退路径就停止：上游记录签名清单校验、安装中断保留工作版本，并提供恢复与卸载流程；仍属于对阅读器的软件修改。",
+        "en": "Cobalt: Stop if this risk is unacceptable or no matching rollback path exists: Upstream documents signed-manifest verification, preserving the working version after interrupted installs, plus recovery and uninstall procedures; it still modifies reader software.",
+        "sources": [
+          "https://github.com/BandarLabs/Cobalt/blob/main/README.md",
+          "https://github.com/BandarLabs/Cobalt/blob/main/docs/INSTALL.md",
+          "https://github.com/BandarLabs/Cobalt/blob/main/docs/DEVICES.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:freemarkable",
+      "what_you_need": {
+        "zh": "freeMarkable 的已核前提：GUI 会自动识别 reMarkable 1/2/Paper Pro 架构并执行安装，但仍要求 Python 3.10、SSH、USB/Wi-Fi 和联网下载。",
+        "en": "Checked prerequisites for freeMarkable: The GUI auto-detects reMarkable 1/2/Paper Pro architectures and drives installation, but Python 3.10, SSH, USB/Wi-Fi, and internet access remain prerequisites.",
+        "sources": [
+          "https://github.com/wowitsjack/freeMarkable/blob/master/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接上游安装/配置路径执行 freeMarkable；本次有证据的目标仅为：可安装 XOVI、AppLoad 与 KOReader，并覆盖三代 reMarkable，能把封闭设备转为可运行第三方应用的终端。",
+        "en": "Follow the linked upstream install/configuration path for freeMarkable; the evidenced target is limited to: It installs XOVI, AppLoad, and KOReader across three reMarkable generations, enabling third-party applications on otherwise closed devices.",
+        "sources": [
+          "https://github.com/wowitsjack/freeMarkable/blob/master/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "freeMarkable：若无法接受以下风险或没有对应回退路径就停止：上游明确在修改前自动备份，提供备份恢复、完整卸载与错误回退；仍要求设备在安装期间保持充足电量。",
+        "en": "freeMarkable: Stop if this risk is unacceptable or no matching rollback path exists: Upstream documents automatic pre-change backups, restore management, full uninstall, and recovery fallbacks, while requiring adequate charge during installation.",
+        "sources": [
+          "https://github.com/wowitsjack/freeMarkable/blob/master/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:kfmon",
+      "what_you_need": {
+        "zh": "受支持固件的 Kobo、USB 数据线、KFMon 一键包。",
+        "en": "A Kobo on supported firmware, a USB data cable, and the KFMon one-click package.",
+        "sources": [
+          "https://github.com/NiLuJe/kfmon/blob/master/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "排除 fmon/KSM 冲突，完整解压到 USB 根目录，弹出并重启，再用日志确认启动。",
+        "en": "Remove fmon/KSM conflicts, extract the archive intact to the USB root, eject and reboot, then confirm startup from the log.",
+        "sources": [
+          "https://github.com/NiLuJe/kfmon/blob/master/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "固件低于 2.9.0、无法确认现有启动器，或安装包目录校验失败时停止。",
+        "en": "Stop if firmware is below 2.9.0, the existing launcher cannot be identified, or the installer directory checks fail.",
+        "sources": [
+          "https://github.com/NiLuJe/kfmon/blob/master/README.md",
+          "https://github.com/NiLuJe/kfmon/blob/master/tools/install.sh"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:nickelmenu",
+      "what_you_need": {
+        "zh": "运行 4.6 至 4.x 固件的 Kobo、USB 线和官方 KoboRoot.tgz。",
+        "en": "A Kobo running firmware 4.6 through 4.x, a USB cable, and the official KoboRoot.tgz.",
+        "sources": [
+          "https://pgaskin.net/NickelMenu/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "复制包到 .kobo，重启确认菜单出现，再按内置文档创建配置。",
+        "en": "Copy the package to .kobo, reboot and confirm the menu appears, then create the configuration using the bundled documentation.",
+        "sources": [
+          "https://pgaskin.net/NickelMenu/"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "设备已升级到 5.x、主菜单未出现且重装仍失败，或故障保护自动卸载时停止。",
+        "en": "Stop on firmware 5.x, if the menu remains absent after reinstalling, or if the failsafe removes the extension.",
+        "sources": [
+          "https://pgaskin.net/NickelMenu/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:plato-kobo-reader",
+      "what_you_need": {
+        "zh": "README 清单内的 Kobo、符合要求的 4.x 固件、Plato 发行包与 USB 连接。",
+        "en": "A Kobo listed in the README, qualifying 4.x firmware, a Plato release package, and USB access.",
+        "sources": [
+          "https://github.com/baskerville/plato/blob/master/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "核对型号与固件，按 GUIDE 部署文件并配置启动入口，先用副本文档验证。",
+        "en": "Check the model and firmware, deploy the files and configure a launcher per the GUIDE, then test with copied documents first.",
+        "sources": [
+          "https://github.com/baskerville/plato/blob/master/README.md",
+          "https://github.com/baskerville/plato/blob/master/doc/GUIDE.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "型号不在上游清单、固件不满足 4.X 且 X≥6，或启动器条件无法确认时停止。",
+        "en": "Stop if the model is not listed, firmware does not satisfy 4.X with X at least 6, or launcher prerequisites cannot be confirmed.",
+        "sources": [
+          "https://github.com/baskerville/plato/blob/master/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:rekindle",
+      "what_you_need": {
+        "zh": "可用浏览器的墨水屏设备；可选全屏模式另需已越狱 Kindle、匹配固件和 USB/KPM。",
+        "en": "An e-ink device with a usable browser; optional fullscreen mode additionally needs a jailbroken Kindle, matching firmware, and USB or KPM access.",
+        "sources": [
+          "https://github.com/ReKindleOS/ReKindle/blob/main/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "先用浏览器 PWA 与 probe 验证；只有能力匹配且理解恢复脚本时才部署全屏助手。",
+        "en": "Validate the browser PWA and probe first; deploy the fullscreen helper only when capabilities match and the recovery scripts are understood.",
+        "sources": [
+          "https://github.com/ReKindleOS/ReKindle/blob/main/README.md",
+          "https://github.com/ReKindleOS/ReKindle/blob/main/kindle/README.txt"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "probe 显示关键能力缺失、Kindle 未越狱或固件不匹配，或恢复脚本无法访问时停止全屏改造。",
+        "en": "Stop the fullscreen modification if the probe lacks required capabilities, the Kindle is not jailbroken or firmware-matched, or the recovery script is unavailable.",
+        "sources": [
+          "https://github.com/ReKindleOS/ReKindle/blob/main/README.md",
+          "https://github.com/ReKindleOS/ReKindle/blob/main/kindle/ReKindleStop.sh"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:rmkit",
+      "what_you_need": {
+        "zh": "README 明列设备；reMarkable 需 Toltec/opkg，rM2 另需 rm2fb；Kobo 需 USB 连接。",
+        "en": "A README-listed device; reMarkable needs Toltec/opkg, rM2 also needs rm2fb, and Kobo needs USB access.",
+        "sources": [
+          "https://github.com/rmkit-dev/rmkit/blob/master/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按设备家族选择安装方式，只安装需要的应用；先确认 remux 停用方法。",
+        "en": "Choose the device-family-specific install path, install only the needed app, and confirm how to disable remux first.",
+        "sources": [
+          "https://github.com/rmkit-dev/rmkit/blob/master/README.md",
+          "https://rmkit.dev/apps/remux"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Kobo 不在安装段三款清单、rM2 未配置 rm2fb，或现有包管理器状态不明时停止。",
+        "en": "Stop if the Kobo is not one of the three models in the install section, rm2fb is missing on rM2, or the existing package-manager state is unknown.",
+        "sources": [
+          "https://github.com/rmkit-dev/rmkit/blob/master/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:ultimate-manga-reader",
+      "what_you_need": {
+        "zh": "Ultimate Manga Reader 的已核前提：装好 NickelMenu 后，只需下载发布包并解压到 Kobo 根目录；自行构建才需要 Qt6、工具链和平台插件。",
+        "en": "Checked prerequisites for Ultimate Manga Reader: After NickelMenu is installed, the release archive is simply extracted to the Kobo root; Qt6, toolchains, and platform plugins are only needed for source builds.",
+        "sources": [
+          "https://github.com/Rain92/UltimateMangaReader/blob/master/README.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接上游安装/配置路径执行 Ultimate Manga Reader；本次有证据的目标仅为：为 Kobo 优化在线漫画、多来源检索、离线下载、收藏、进度、手势、前灯和睡眠模式，使用闭环完整。",
+        "en": "Follow the linked upstream install/configuration path for Ultimate Manga Reader; the evidenced target is limited to: It provides a complete Kobo-focused manga loop with multiple sources, search, offline downloads, favorites, progress, gestures, front-light control, and sleep mode.",
+        "sources": [
+          "https://github.com/Rain92/UltimateMangaReader/blob/master/README.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Ultimate Manga Reader：未取得独立恢复/风险评分；实际设备或版本不满足这条已核前提时停止：Kobo 墨水屏设备；具体型号、网络和固件要求尚未核验。",
+        "en": "Ultimate Manga Reader: No independent recovery/risk score is available; stop if the actual device or version does not meet this checked boundary: Kobo E-Ink devices; exact models, network, and firmware requirements were not checked.",
+        "sources": [
+          "https://github.com/Rain92/UltimateMangaReader/blob/master/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:ava-pro",
+      "what_you_need": {
+        "zh": "Android 5.0/API 21 以上的 arm64-v8a 或 armeabi-v7a 设备，至少 1 GB 内存与 100 MB 空间；已运行并装好 ESPHome 集成的 Home Assistant；两者在同一局域网，且能授予麦克风、悬浮窗和前台服务权限。",
+        "en": "An arm64-v8a or armeabi-v7a device on Android 5.0/API 21 or later with at least 1 GB RAM and 100 MB storage; a running Home Assistant with the ESPHome integration; both on the same LAN, with microphone, overlay, and foreground-service permissions available.",
+        "sources": [
+          "https://github.com/knoop7/Ava-Pro/wiki/System-Requirements",
+          "https://github.com/knoop7/Ava-Pro/wiki/Quick-Start"
+        ]
+      },
+      "rough_steps": {
+        "zh": "安装 APK 并授予必需权限；在 Home Assistant 添加 ESPHome；到 Ava 的 Voice Config 启动服务，在 HA 配置发现的设备，选择语音管线和唤醒词，确认状态为 Connected。自动发现失败时，手动填入设备 IP 与 Add this device 卡片显示的实际端口。",
+        "en": "Install the APK and grant the required permissions; add ESPHome in Home Assistant; start the service under Ava's Voice Config, configure the discovered device in HA, select a voice pipeline and wake word, and confirm Connected. If discovery fails, add the device manually using its IP and the actual port shown on Ava's Add this device card.",
+        "sources": [
+          "https://github.com/knoop7/Ava-Pro/wiki/Quick-Start"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Android 版本或 CPU 架构不支持、无法授予必需权限、设备与 HA 不在同一局域网，或服务实际端口不可达时停止；手动 IP+端口仍连不上时，不要继续配置可选功能。",
+        "en": "Stop if the Android version or CPU architecture is unsupported, required permissions cannot be granted, the device and HA are not on the same LAN, or the service's actual port is unreachable. If manual IP-and-port setup still cannot connect, do not continue to optional features.",
+        "sources": [
+          "https://github.com/knoop7/Ava-Pro/wiki/System-Requirements",
+          "https://github.com/knoop7/Ava-Pro/wiki/Quick-Start"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:freekiosk",
+      "what_you_need": {
+        "zh": "Android 8.0 以上平板、目标网址或应用以及 4–6 位 PIN。若要完整锁定的 Device Owner 模式，还需电脑、USB 线、ADB，并能移除平板上的所有活动账号。",
+        "en": "An Android 8.0+ tablet, the target URL or app, and a 4–6 digit PIN. Full-lockdown Device Owner mode additionally requires a computer, USB cable, ADB, and the ability to remove every active account from the tablet.",
+        "sources": [
+          "https://github.com/RushB-fr/freekiosk/blob/main/docs/installation.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "基础测试：安装并打开 FreeKiosk，连点右下角秘密按钮 5 次，输入 PIN，设定网址/应用后启动 Kiosk。完整锁定：先安装但不打开应用，授权 USB 调试，用 adb devices 确认连接，再运行 dpm set-device-owner；只有显示 Success 后才打开应用并配置。",
+        "en": "For a basic test, install and open FreeKiosk, tap the bottom-right secret button five times, enter the PIN, set the URL/app, and start kiosk mode. For full lockdown, install but do not open the app, authorize USB debugging, confirm the device with adb devices, then run dpm set-device-owner; open and configure FreeKiosk only after the command reports Success.",
+        "sources": [
+          "https://github.com/RushB-fr/freekiosk/blob/main/docs/installation.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Android 低于 8.0、adb 显示 unauthorized/无设备、活动账号无法移除，或 dpm 未返回 Success 时停止，不要当作 Device Owner 已生效。卸载前必须用应用内 Remove Device Owner 或 ADB remove-active-admin；Exit Kiosk Mode 不会移除设备所有者。",
+        "en": "Stop if Android is below 8.0, adb shows unauthorized/no device, active accounts cannot be removed, or dpm does not report Success; do not assume Device Owner is active. Before uninstalling, use Remove Device Owner in the app or ADB remove-active-admin—Exit Kiosk Mode does not remove device ownership.",
+        "sources": [
+          "https://github.com/RushB-fr/freekiosk/blob/main/docs/installation.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:scrcpy",
+      "what_you_need": {
+        "zh": "Android 5.0+ 设备、可操作屏幕以首次授权、USB 数据线和 Windows/macOS/Linux 电脑。",
+        "en": "An Android 5.0+ device, an operable screen for first authorization, a USB data cable, and a Windows/macOS/Linux computer.",
+        "sources": [
+          "https://github.com/Genymobile/scrcpy",
+          "https://developer.android.com/studio/debug/dev-options#Enable-debugging"
+        ]
+      },
+      "rough_steps": {
+        "zh": "开启开发者选项与 USB 调试，连接并确认授权，从官方包启动；稳定后再考虑无线连接。",
+        "en": "Enable developer options and USB debugging, connect and approve authorization, launch the official build, and consider wireless use only after stable USB operation.",
+        "sources": [
+          "https://github.com/Genymobile/scrcpy",
+          "https://developer.android.com/studio/debug/dev-options#Enable-debugging"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Android 低于 API 21、屏幕损坏导致无法确认首次授权，或下载来源不是官方仓库时停止。",
+        "en": "Stop if Android is below API 21, a broken screen prevents first-time authorization, or the download is not from the official repository.",
+        "sources": [
+          "https://github.com/Genymobile/scrcpy"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:webview-kiosk",
+      "what_you_need": {
+        "zh": "Android 设备、要固定展示的 Home URL，以及可用的设备凭据或生物识别，用于进入受保护的设置。只在网页确有需要时准备相机、麦克风、位置或 NFC 权限。",
+        "en": "An Android device, the Home URL to display, and working device credentials or biometrics for protected settings. Plan camera, microphone, location, or NFC permissions only when the target web app actually needs them.",
+        "sources": [
+          "https://github.com/nktnet1/webview-kiosk/blob/main/docs/content/docs/index.mdx",
+          "https://github.com/nktnet1/webview-kiosk/blob/main/docs/content/docs/settings/web-content.mdx",
+          "https://github.com/nktnet1/webview-kiosk/blob/main/docs/content/docs/security.mdx"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按安装页选择可核验的安装渠道；在 Web Content 设定 Home URL，测试页面、必要权限与设置解锁；从 Setting Actions 导出 JSON/Base64 配置备份；最后才启用屏幕固定/Lock Task，需要时再设为默认 Launcher。",
+        "en": "Choose a verifiable install channel from the installation page; set the Home URL under Web Content; test the page, required permissions, and settings unlock; export a JSON/Base64 settings backup from Setting Actions; only then enable screen pinning/Lock Task and, if needed, select the app as the default launcher.",
+        "sources": [
+          "https://github.com/nktnet1/webview-kiosk/blob/main/docs/content/docs/installation.mdx",
+          "https://github.com/nktnet1/webview-kiosk/blob/main/docs/content/docs/settings/web-content.mdx",
+          "https://github.com/nktnet1/webview-kiosk/blob/main/docs/content/docs/setting-actions.mdx"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "在设置解锁方式、Kiosk Control Panel 或导出配置备份未实测前，不要设默认 Launcher 或持久锁定。启用 Device Owner 时，若无法清除额外用户/账号或 dpm set-device-owner 失败，就停止并保留普通屏幕固定模式。",
+        "en": "Do not make the app the default launcher or enable persistent lockdown until settings authentication, the Kiosk Control Panel, and an exported configuration backup have been tested. For Device Owner setup, stop if extra users/accounts cannot be cleared or dpm set-device-owner fails; keep the device in ordinary screen-pinning mode instead.",
+        "sources": [
+          "https://github.com/nktnet1/webview-kiosk/blob/main/docs/content/docs/security.mdx",
+          "https://github.com/nktnet1/webview-kiosk/blob/main/docs/content/docs/setting-actions.mdx"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:adguard-home",
+      "what_you_need": {
+        "zh": "受支持架构的常开旧主机、固定局域网地址、管理员权限和原 DNS 配置记录。",
+        "en": "An always-on older host on a supported architecture, a stable LAN address, administrator access, and a record of the original DNS configuration.",
+        "sources": [
+          "https://adguard-dns.io/kb/adguard-home/getting-started/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "安装并先在单台客户端验证，再逐步把 DHCP/DNS 指向新服务。",
+        "en": "Install and validate on one client first, then move DHCP/DNS clients to the new service gradually.",
+        "sources": [
+          "https://adguard-dns.io/kb/adguard-home/getting-started/"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "主机架构不在官方构建内、53 端口冲突无法解决，或不能恢复原 DNS 设置时停止。",
+        "en": "Stop if the host architecture lacks an official build, port 53 conflicts cannot be resolved, or the original DNS settings cannot be restored.",
+        "sources": [
+          "https://adguard-dns.io/kb/adguard-home/getting-started/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:asuswrt-merlin-ng",
+      "what_you_need": {
+        "zh": "支持列表中的精确型号、有线电脑、匹配固件及校验值、原厂恢复固件。",
+        "en": "An exact supported model, a wired computer, the matching image and checksum, and stock recovery firmware.",
+        "sources": [
+          "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+          "https://www.asuswrt-merlin.net/download",
+          "https://www.asus.com/support/faq/1000814/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "核对机身型号与支持表，校验镜像，经有线管理页升级，重启后再恢复必要配置。",
+        "en": "Match the chassis model to the support table, verify the image, upgrade from the wired management UI, then restore only needed settings after reboot.",
+        "sources": [
+          "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+          "https://www.asuswrt-merlin.net/download"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "型号不在当前支持表、只能找到停止支持镜像、校验不符或无法准备原厂恢复固件时停止。",
+        "en": "Stop if the model is not currently supported, only an unsupported legacy image exists, the checksum differs, or stock recovery firmware cannot be prepared.",
+        "sources": [
+          "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+          "https://www.asuswrt-merlin.net/download",
+          "https://www.asus.com/support/faq/1000814/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:casaos",
+      "what_you_need": {
+        "zh": "支持架构的旧电脑/开发板、全新已测试系统、网线与独立数据备份。",
+        "en": "An older computer/board on a supported architecture, a fresh tested OS, Ethernet, and an independent data backup.",
+        "sources": [
+          "https://wiki.casaos.io/en/get-started"
+        ]
+      },
+      "rough_steps": {
+        "zh": "先备份数据，在全新系统运行官方安装器，从局域网访问并逐个部署应用。",
+        "en": "Back up data, run the official installer on a fresh system, access it over the LAN, and deploy applications one at a time.",
+        "sources": [
+          "https://wiki.casaos.io/en/get-started",
+          "https://github.com/IceWhaleTech/CasaOS"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "架构/系统不在支持表、机器承载唯一数据副本，或无法区分系统盘与数据盘时停止。",
+        "en": "Stop if the architecture/OS is not listed, the machine holds the only data copy, or system and data disks cannot be distinguished.",
+        "sources": [
+          "https://wiki.casaos.io/en/get-started",
+          "https://github.com/IceWhaleTech/CasaOS"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:cockpit",
+      "what_you_need": {
+        "zh": "Cockpit 的已核前提：Cockpit 在多种 Linux 发行版中直接提供软件包，安装后通过浏览器登录真实系统会话，无需替换系统。",
+        "en": "Checked prerequisites for Cockpit: Cockpit is packaged by many Linux distributions and exposes a real system session in the browser after installation without replacing the OS.",
+        "sources": [
+          "https://github.com/cockpit-project/cockpit/blob/main/README.md",
+          "https://cockpit-project.org/running.html",
+          "https://cockpit-project.org/guide/latest/https.html"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接上游安装/配置路径执行 Cockpit；本次有证据的目标仅为：可从浏览器管理旧 Linux 主机的容器、存储、网络、服务与日志，并通过 SSH 跳转到其他主机。",
+        "en": "Follow the linked upstream install/configuration path for Cockpit; the evidenced target is limited to: It manages containers, storage, networking, services, and logs on an old Linux host and can jump to other machines over SSH.",
+        "sources": [
+          "https://github.com/cockpit-project/cockpit/blob/main/README.md",
+          "https://cockpit-project.org/running.html",
+          "https://cockpit-project.org/guide/latest/https.html"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Cockpit：若无法接受以下风险或没有对应回退路径就停止：Web 会话具有真实系统管理权限，端口暴露或账户配置错误影响较大；官方默认要求 HTTPS，并用系统 PAM 或 SSH 认证。",
+        "en": "Cockpit: Stop if this risk is unacceptable or no matching rollback path exists: The web session carries real system-administration authority, so exposure or account mistakes have high impact; official defaults require HTTPS and use system PAM or SSH authentication.",
+        "sources": [
+          "https://cockpit-project.org/guide/latest/https.html",
+          "https://cockpit-project.org/guide/latest/authentication",
+          "https://github.com/cockpit-project/cockpit/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:cosmos-server",
+      "what_you_need": {
+        "zh": "Cosmos Server 的已核前提：官方提供独立服务自动安装和 Docker 路线、首次设置向导与卸载方式；完整存储功能仍需若干系统依赖。",
+        "en": "Checked prerequisites for Cosmos Server: Official docs provide standalone-service and Docker routes, a first-setup wizard, and uninstall steps; full storage features still require several system dependencies.",
+        "sources": [
+          "https://cosmos-cloud.io/docs/index/",
+          "https://cosmos-cloud.io/docs/setup/",
+          "https://github.com/azukaar/Cosmos-Server/blob/master/readme.md"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接上游安装/配置路径执行 Cosmos Server；本次有证据的目标仅为：集成应用商店、磁盘与网络存储、反向代理、自动 HTTPS、认证和多因素验证，覆盖家庭服务器的核心操作。",
+        "en": "Follow the linked upstream install/configuration path for Cosmos Server; the evidenced target is limited to: It combines an app store, disk and network storage, reverse proxy, automatic HTTPS, authentication, and MFA for core home-server operations.",
+        "sources": [
+          "https://cosmos-cloud.io/docs/index/",
+          "https://cosmos-cloud.io/docs/setup/",
+          "https://github.com/azukaar/Cosmos-Server/blob/master/readme.md"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "Cosmos Server：若无法接受以下风险或没有对应回退路径就停止：管理容器需访问 Docker socket，自动安装还会以 root 安装依赖；一旦管理面被攻破，影响范围可覆盖整台主机和应用。",
+        "en": "Cosmos Server: Stop if this risk is unacceptable or no matching rollback path exists: Container management needs Docker-socket access and the automatic installer runs as root to add dependencies, so compromise of the management plane can affect the whole host and its apps.",
+        "sources": [
+          "https://cosmos-cloud.io/docs/index/",
+          "https://cosmos-cloud.io/docs/setup/",
+          "https://github.com/azukaar/Cosmos-Server/blob/master/readme.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:easynas",
+      "what_you_need": {
+        "zh": "EasyNAS 的已核前提：x86_64 有启动安装 ISO，ARM 有磁盘镜像；首启向导和 Web UI 管理磁盘、存储池、共享与插件。",
+        "en": "Checked prerequisites for EasyNAS: x86_64 has a bootable installer ISO and ARM has disk images; a first-boot wizard and web UI manage disks, pools, shares, and add-ons.",
+        "sources": [
+          "https://github.com/easysysio/EasyNAS/blob/main/README.md",
+          "https://easynas.org/"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接上游安装/配置路径执行 EasyNAS；本次有证据的目标仅为：提供 Btrfs 存储池、RAID、压缩、快照、自描述池与 Samba/NFS 等完整 NAS 功能。",
+        "en": "Follow the linked upstream install/configuration path for EasyNAS; the evidenced target is limited to: It provides Btrfs pools, RAID, compression, snapshots, self-describing pools, Samba/NFS, and other full NAS functions.",
+        "sources": [
+          "https://github.com/easysysio/EasyNAS/blob/main/README.md",
+          "https://easynas.org/"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "EasyNAS：若无法接受以下风险或没有对应回退路径就停止：安装器会写系统盘，数据盘流程包含擦除和准备；自描述池利于重装后发现，但不能替代备份和目标盘确认。",
+        "en": "EasyNAS: Stop if this risk is unacceptable or no matching rollback path exists: The installer writes a system disk and data-disk workflows include wiping/preparation; self-describing pools aid rediscovery but do not replace backups and target-disk checks.",
+        "sources": [
+          "https://github.com/easysysio/EasyNAS/blob/main/README.md",
+          "https://easynas.org/"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:nethserver-ns8-core",
+      "what_you_need": {
+        "zh": "NethServer 8 Core 的已核前提：可在干净的受支持 Linux 上安装并用 Web 管理，但要求 x86-64、静态 IP、SSD、外网与正确 DNS，且不支持 LXC。",
+        "en": "Checked prerequisites for NethServer 8 Core: It installs on a clean supported Linux system with web administration, but requires x86-64, static IP, SSD, Internet, correct DNS, and does not support LXC.",
+        "sources": [
+          "https://docs.nethserver.org/docs/administrator-manual/installation/system_requirements",
+          "https://github.com/NethServer/ns8-core/blob/main/README.md",
+          "https://docs.nethserver.org/docs/administrator-manual/configuration/backup"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接上游安装/配置路径执行 NethServer 8 Core；本次有证据的目标仅为：单机可运行多种容器化服务器应用，之后还能扩为多节点集群，并内置应用级备份、保留策略和恢复。",
+        "en": "Follow the linked upstream install/configuration path for NethServer 8 Core; the evidenced target is limited to: A single node can run multiple containerized server apps, later expand into a cluster, and use built-in app backups, retention policies, and restores.",
+        "sources": [
+          "https://docs.nethserver.org/docs/administrator-manual/installation/system_requirements",
+          "https://github.com/NethServer/ns8-core/blob/main/README.md",
+          "https://docs.nethserver.org/docs/administrator-manual/configuration/backup"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "NethServer 8 Core：若无法接受以下风险或没有对应回退路径就停止：官方要求干净专用主机并提示端口、DNS 和外联约束；加密集群备份与灾难恢复降低回退风险，但配置错误可影响整组应用。",
+        "en": "NethServer 8 Core: Stop if this risk is unacceptable or no matching rollback path exists: Official guidance requires a clean dedicated host and documents port, DNS, and outbound constraints; encrypted cluster backups and disaster recovery reduce rollback risk, but mistakes can affect all hosted apps.",
+        "sources": [
+          "https://docs.nethserver.org/docs/administrator-manual/installation/system_requirements",
+          "https://docs.nethserver.org/docs/administrator-manual/configuration/backup",
+          "https://github.com/NethServer/ns8-core/blob/main/README.md"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:opnsense-core",
+      "what_you_need": {
+        "zh": "兼容 amd64 小主机、至少两块可靠网卡、安装 U 盘、配置备份与本地控制台。",
+        "en": "A compatible amd64 small host, at least two reliable NICs, an installer USB, a configuration backup, and local console access.",
+        "sources": [
+          "https://docs.opnsense.org/manual/hardware.html",
+          "https://docs.opnsense.org/manual/install.html"
+        ]
+      },
+      "rough_steps": {
+        "zh": "核对硬件与吞吐，校验镜像，先以 Live/Importer 验证网卡和配置，再选择目标盘安装。",
+        "en": "Check hardware and throughput, verify the image, validate NICs and configuration with Live/Importer first, then select the target disk for installation.",
+        "sources": [
+          "https://docs.opnsense.org/manual/hardware.html",
+          "https://docs.opnsense.org/manual/install.html"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "不是 amd64、关键网卡不在 FreeBSD 支持范围、无法本地访问，或无法确认将被清空的目标盘时停止。",
+        "en": "Stop if the host is not amd64, a critical NIC lacks FreeBSD support, local access is unavailable, or the disk that will be erased cannot be identified with certainty.",
+        "sources": [
+          "https://docs.opnsense.org/manual/hardware.html",
+          "https://docs.opnsense.org/manual/install.html"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:pfsense",
+      "what_you_need": {
+        "zh": "满足最低要求的 amd64 主机、兼容网卡、安装 U 盘、本地控制台和 config.xml 备份。",
+        "en": "An amd64 host meeting minimums, compatible NICs, installer USB, local console, and a config.xml backup.",
+        "sources": [
+          "https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html",
+          "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html"
+        ]
+      },
+      "rough_steps": {
+        "zh": "备份配置，确认网卡与目标盘，启动安装器，必要时先导入配置，再完成接口分配。",
+        "en": "Back up configuration, identify NICs and the target disk, boot the installer, import configuration if needed, then complete interface assignment.",
+        "sources": [
+          "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html",
+          "https://docs.netgate.com/pfsense/en/latest/backup/restore.html"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "CPU 不是 amd64、关键网卡不兼容、没有离线配置备份，或无法确认将被覆盖的磁盘时停止。",
+        "en": "Stop if the CPU is not amd64, a critical NIC is incompatible, no offline configuration backup exists, or the disk to be overwritten cannot be identified.",
+        "sources": [
+          "https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html",
+          "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:restic",
+      "what_you_need": {
+        "zh": "restic 的已核前提：跨 Linux、macOS、Windows 与 BSD 提供单一命令行工作流，快速指南从建库、备份、查看到恢复均有可复制步骤。",
+        "en": "Checked prerequisites for restic: A single command-line workflow spans Linux, macOS, Windows, and BSD, with copyable quick-start steps from repository creation through backup, listing, and restore.",
+        "sources": [
+          "https://github.com/restic/restic/blob/master/README.md",
+          "https://restic.readthedocs.io/en/latest/010_introduction.html",
+          "https://restic.readthedocs.io/en/latest/030_preparing_a_new_repo.html"
+        ]
+      },
+      "rough_steps": {
+        "zh": "按链接上游安装/配置路径执行 restic；本次有证据的目标仅为：为旧 NAS/小主机提供加密、去重、快照式备份和多种本地/远端后端，并支持校验与恢复。",
+        "en": "Follow the linked upstream install/configuration path for restic; the evidenced target is limited to: It gives an old NAS/mini PC encrypted, deduplicated snapshot backups across many local/remote backends, with verification and restore workflows.",
+        "sources": [
+          "https://github.com/restic/restic/blob/master/README.md",
+          "https://restic.readthedocs.io/en/latest/010_introduction.html",
+          "https://restic.readthedocs.io/en/latest/030_preparing_a_new_repo.html"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "restic：若无法接受以下风险或没有对应回退路径就停止：备份本身不改写固件，但密码丢失会使数据不可恢复，同机仓库也不构成真实备份；必须验证恢复并妥善保管密钥。",
+        "en": "restic: Stop if this risk is unacceptable or no matching rollback path exists: It does not rewrite firmware, but losing the password makes data irrecoverable and a same-machine repository is not a real backup; restore testing and key custody are essential.",
+        "sources": [
+          "https://github.com/restic/restic/blob/master/README.md",
+          "https://restic.readthedocs.io/en/latest/030_preparing_a_new_repo.html",
+          "https://restic.readthedocs.io/en/latest/010_introduction.html"
+        ]
+      }
+    },
+    {
+      "entry_id": "project-lead:rockstor",
+      "what_you_need": {
+        "zh": "兼容主机、独立系统盘、健康数据盘、安装介质、配置备份和独立文件备份。",
+        "en": "A compatible host, dedicated system disk, healthy data disks, installation media, configuration backup, and independent file backup.",
+        "sources": [
+          "https://github.com/rockstor/rockstor-core",
+          "https://rockstor.com/docs/installation/installer-howto.html",
+          "https://rockstor.com/docs/interface/system/config_backup.html"
+        ]
+      },
+      "rough_steps": {
+        "zh": "备份配置与文件，断开数据盘，安装系统并完成初始配置，关机接回数据盘，先导入池再恢复配置。",
+        "en": "Back up settings and files, disconnect data disks, install and initialize the system, power down, reconnect data disks, import pools, then restore configuration.",
+        "sources": [
+          "https://rockstor.com/docs/installation/installer-howto.html",
+          "https://rockstor.com/docs/interface/system/config_backup.html"
+        ]
+      },
+      "when_to_stop": {
+        "zh": "没有独立文件备份、无法识别系统盘/数据盘、存储池已降级且恢复方案不清晰时停止。",
+        "en": "Stop if no independent file backup exists, system and data disks cannot be distinguished, or the pool is degraded without a clear recovery plan.",
+        "sources": [
+          "https://rockstor.com/docs/installation/installer-howto.html",
+          "https://rockstor.com/docs/interface/system/config_backup.html"
+        ]
+      }
+    }
+  ]
+}

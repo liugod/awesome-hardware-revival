@@ -12,7 +12,7 @@ The site uses stable use-case IDs. Older shared URLs with Chinese use labels are
 
 ## Build and acceptance
 
-Run `python -X utf8 scripts/build.py` and `python -X utf8 scripts/validate.py`. Validation checks schema, 53 reviewed IDs in both languages, all 547 directory rows, shared facts, JSON/CSV parity, 1,179 HTML pages, language links, canonicals, internal links, historical mappings, 1,124 sitemap URLs, English text fallbacks, and public-file hygiene.
+Run `python -X utf8 scripts/build.py` and `python -X utf8 scripts/validate.py`. Validation checks schema, 53 reviewed IDs in both languages, all 547 retained directory rows and the 543 displayed subset, shared facts, JSON/CSV parity, 1,171 HTML pages, language links, canonicals, internal links, historical mappings, 1,116 sitemap URLs, English text fallbacks, and public-file hygiene.
 
 Also verify the rendered UI: the single-search homepage and category links; compact four-field cards; default star-desc order; the directory's category, score and evidence filters; no-results and reload behavior; matching-page language switches; record-detail bullets and About links. Confirm the directory has no visible entry-type or sort control, and that its scoring info icon reaches About. Check desktop plus a 390 px viewport for horizontal overflow and first-card visibility. Hardware acceptance lists remain proposed, unexecuted tests.
 

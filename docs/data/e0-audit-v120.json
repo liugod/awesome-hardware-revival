@@ -1,0 +1,2543 @@
+{
+  "schema_version": 1,
+  "version": "1.20.0",
+  "batch_id": "e0-deep-audit-v120",
+  "checked_at": "2026-10-24",
+  "method_zh": "从 147 条项目来源 E0 候选中选择 30 条用途较明确、潜在复用价值较高的路线，逐条阅读上游安装、兼容与恢复资料。仅有可访问的一手项目资料时升为 E1；上游还提供具体实机测试陈述或演示时才升为 E2。未找到足够资料则保留 E0；不构成当前可执行硬件复活路线的条目仅从展示中移除，原始数据保留。",
+  "method_en": "Thirty comparatively useful, clearly scoped routes were selected from the 147 project-source E0 candidates. Upstream installation, compatibility, and recovery material was read for every route. Accessible first-party project documentation supports E1; E2 additionally requires a concrete upstream hands-on statement or demonstration. Insufficiently documented routes stay E0. Items that are not a current, actionable hardware-revival route are delisted from display while their source records remain intact.",
+  "counts": {
+    "audited": 30,
+    "upgraded_e1": 18,
+    "upgraded_e2": 7,
+    "stays_e0": 1,
+    "rejected_delisted": 4
+  },
+  "source_validation": {
+    "checked_at": "2026-10-24",
+    "unique_urls": 88,
+    "verified_total": 88,
+    "unresolved": 0,
+    "browser_fallback_urls": [
+      "https://rmkit.dev/apps/remux",
+      "https://www.asuswrt-merlin.net/download",
+      "https://www.youtube.com/watch?v=NXKzFG61lNs",
+      "https://www.youtube.com/watch?v=BZc-kp4dDRw",
+      "https://developer.android.com/studio/debug/dev-options#Enable-debugging",
+      "https://support.wyze.com/hc/en-us/articles/360031490871-How-to-flash-your-Wyze-Cam-firmware-manually"
+    ],
+    "note_zh": "88 个唯一 HTTPS 引用全部复核；GitHub 文件与 release 通过 API/raw/git 核对，35 个非 GitHub URL 直接返回 200，6 个反爬或重定向页面通过浏览器 UA/页面打开回读，YouTube 另核对 oEmbed 标题与作者。",
+    "note_en": "All 88 unique HTTPS citations were checked. GitHub files and releases were verified through API/raw/git; 35 non-GitHub URLs returned 200 directly; six anti-bot or redirecting pages were read back with a browser user agent/page open, with YouTube titles and authors additionally checked through oEmbed."
+  },
+  "entries": [
+    {
+      "entry_id": "project-lead:kfmon",
+      "project_id": "kfmon",
+      "name": "KFMon",
+      "category": "ereader",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "上游 README 明确给出 Kobo 固件最低要求、安装流程、冲突项、日志位置与卸载方法；证据足以确认一条有边界且可回退的安装路线，但没有把文档陈述当作本轮独立实机复现。",
+      "rationale_en": "The upstream README documents the minimum Kobo firmware, installation flow, conflicting launchers, log location, and uninstall path. This supports a bounded and reversible documented route, but it is not treated as an independent hands-on reproduction in this audit.",
+      "evidence_sources": [
+        {
+          "title": "KFMon README",
+          "publisher": "NiLuJe/kfmon",
+          "url": "https://github.com/NiLuJe/kfmon/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "KFMon installer helper",
+          "publisher": "NiLuJe/kfmon",
+          "url": "https://github.com/NiLuJe/kfmon/blob/master/tools/install.sh",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "KFMon uninstall script",
+          "publisher": "NiLuJe/kfmon",
+          "url": "https://github.com/NiLuJe/kfmon/blob/master/scripts/uninstall/kfmon-uninstall.sh",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented",
+        "zh": "把官方一键包完整解压到 Kobo 的 USB 根目录，安全弹出并重启；不要手工拆散归档目录。",
+        "en": "Extract the official one-click archive intact to the Kobo USB root, safely eject, and reboot; do not manually rearrange the archive contents.",
+        "source_urls": [
+          "https://github.com/NiLuJe/kfmon/blob/master/README.md",
+          "https://github.com/NiLuJe/kfmon/blob/master/tools/install.sh"
+        ]
+      },
+      "compatibility": {
+        "status": "bounded",
+        "zh": "上游要求 Nickel 固件不低于 2.9.0，并提示先移除会修改同一启动脚本的 fmon；KSM 启动方式也会阻止 KFMon。",
+        "en": "Upstream requires Nickel firmware 2.9.0 or newer and warns that fmon modifies the same startup script; a booting KSM setup can also inhibit KFMon.",
+        "source_urls": [
+          "https://github.com/NiLuJe/kfmon/blob/master/README.md"
+        ]
+      },
+      "recovery": {
+        "status": "documented",
+        "zh": "使用上游卸载包，或按 README 删除规则文件和 KFMon 目录；固件更新后通常需要重新安装。",
+        "en": "Use the upstream uninstall package, or remove the documented rule and KFMon directories manually; firmware updates normally require reinstalling KFMon.",
+        "source_urls": [
+          "https://github.com/NiLuJe/kfmon/blob/master/README.md",
+          "https://github.com/NiLuJe/kfmon/blob/master/scripts/uninstall/kfmon-uninstall.sh"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/NiLuJe/kfmon/blob/master/README.md"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "受支持固件的 Kobo、USB 数据线、KFMon 一键包。",
+          "en": "A Kobo on supported firmware, a USB data cable, and the KFMon one-click package.",
+          "source_urls": [
+            "https://github.com/NiLuJe/kfmon/blob/master/README.md"
+          ]
+        },
+        "rough_steps": {
+          "zh": "排除 fmon/KSM 冲突，完整解压到 USB 根目录，弹出并重启，再用日志确认启动。",
+          "en": "Remove fmon/KSM conflicts, extract the archive intact to the USB root, eject and reboot, then confirm startup from the log.",
+          "source_urls": [
+            "https://github.com/NiLuJe/kfmon/blob/master/README.md"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "固件低于 2.9.0、无法确认现有启动器，或安装包目录校验失败时停止。",
+          "en": "Stop if firmware is below 2.9.0, the existing launcher cannot be identified, or the installer directory checks fail.",
+          "source_urls": [
+            "https://github.com/NiLuJe/kfmon/blob/master/README.md",
+            "https://github.com/NiLuJe/kfmon/blob/master/tools/install.sh"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:nickelmenu",
+      "project_id": "nickelmenu",
+      "name": "NickelMenu",
+      "category": "ereader",
+      "outcome": "upgraded-e2",
+      "resulting_evidence_level": "E2",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "作者站点给出完整安装、配置、卸载与故障保护说明，并明确列出已完整测试的固件范围，因此在 E1 文档基础上具备作者具体测试陈述。当前页面同时明确不兼容 5.x 固件。",
+      "rationale_en": "The author's site provides complete installation, configuration, uninstall, and failsafe documentation and names a fully tested firmware range, adding a concrete upstream test statement to the E1 documentation. The current page also explicitly excludes firmware 5.x.",
+      "evidence_sources": [
+        {
+          "title": "NickelMenu documentation",
+          "publisher": "Patrick Gaskin",
+          "url": "https://pgaskin.net/NickelMenu/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "NickelMenu source repository",
+          "publisher": "pgaskin/NickelMenu",
+          "url": "https://github.com/pgaskin/NickelMenu",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-and-author-tested",
+        "zh": "把发行版 KoboRoot.tgz 复制到 .kobo，安全弹出并等待重启，再创建 .adds/nm/config。",
+        "en": "Copy the release KoboRoot.tgz into .kobo, safely eject and wait for reboot, then create .adds/nm/config.",
+        "source_urls": [
+          "https://pgaskin.net/NickelMenu/"
+        ]
+      },
+      "compatibility": {
+        "status": "bounded",
+        "zh": "要求固件 4.6+；作者页面称已完整测试 4.20.14622 至 4.31.19086，并明确当前不兼容 5.x。",
+        "en": "Firmware 4.6+ is required; the author reports full testing from 4.20.14622 through 4.31.19086 and explicitly says 5.x is currently incompatible.",
+        "source_urls": [
+          "https://pgaskin.net/NickelMenu/"
+        ]
+      },
+      "recovery": {
+        "status": "documented-failsafe",
+        "zh": "致命错误会触发自动移除；也可创建 .adds/nm/uninstall 后重启进行卸载。",
+        "en": "Fatal errors trigger an automatic removal failsafe; users can also create .adds/nm/uninstall and reboot to uninstall.",
+        "source_urls": [
+          "https://pgaskin.net/NickelMenu/"
+        ]
+      },
+      "tutorial_sources": [
+        "https://pgaskin.net/NickelMenu/"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "运行 4.6 至 4.x 固件的 Kobo、USB 线和官方 KoboRoot.tgz。",
+          "en": "A Kobo running firmware 4.6 through 4.x, a USB cable, and the official KoboRoot.tgz.",
+          "source_urls": [
+            "https://pgaskin.net/NickelMenu/"
+          ]
+        },
+        "rough_steps": {
+          "zh": "复制包到 .kobo，重启确认菜单出现，再按内置文档创建配置。",
+          "en": "Copy the package to .kobo, reboot and confirm the menu appears, then create the configuration using the bundled documentation.",
+          "source_urls": [
+            "https://pgaskin.net/NickelMenu/"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "设备已升级到 5.x、主菜单未出现且重装仍失败，或故障保护自动卸载时停止。",
+          "en": "Stop on firmware 5.x, if the menu remains absent after reinstalling, or if the failsafe removes the extension.",
+          "source_urls": [
+            "https://pgaskin.net/NickelMenu/"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:plato-kobo-reader",
+      "project_id": "plato-kobo-reader",
+      "name": "Plato",
+      "category": "ereader",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "上游 README 给出支持的 20 款 Kobo 与固件边界，GUIDE 给出安装、启动与配置方式。资料足以建立具体兼容路线，但本轮没有独立复现或作者逐机实测声明。",
+      "rationale_en": "The upstream README names twenty supported Kobo models and a firmware boundary, while the GUIDE documents installation, launch, and configuration. This establishes a specific documented route without an independent reproduction or a model-by-model hands-on claim in this audit.",
+      "evidence_sources": [
+        {
+          "title": "Plato README and supported devices",
+          "publisher": "baskerville/plato",
+          "url": "https://github.com/baskerville/plato/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Plato user guide",
+          "publisher": "baskerville/plato",
+          "url": "https://github.com/baskerville/plato/blob/master/doc/GUIDE.md",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented",
+        "zh": "按 GUIDE 使用发行包安装，并通过上游说明的启动器入口启动 Plato。",
+        "en": "Install a release package as described in the GUIDE and launch Plato through one of the documented launcher paths.",
+        "source_urls": [
+          "https://github.com/baskerville/plato/blob/master/doc/GUIDE.md"
+        ]
+      },
+      "compatibility": {
+        "status": "model-and-firmware-list",
+        "zh": "README 列出具体 Kobo 型号，并要求 4.X.Y 且 X 不低于 6；未在清单内的设备不作兼容推断。",
+        "en": "The README lists specific Kobo models and requires 4.X.Y firmware with X at least 6; compatibility is not inferred for unlisted devices.",
+        "source_urls": [
+          "https://github.com/baskerville/plato/blob/master/README.md"
+        ]
+      },
+      "recovery": {
+        "status": "remove-addon-files",
+        "zh": "GUIDE 将 Plato 作为用户存储上的附加阅读器管理；先保留原阅读器与文档备份，出现启动问题时移除相应附加文件。",
+        "en": "The GUIDE manages Plato as an add-on in user storage; retain the stock reader and document backups, and remove the add-on files if it no longer launches.",
+        "source_urls": [
+          "https://github.com/baskerville/plato/blob/master/doc/GUIDE.md"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/baskerville/plato/blob/master/doc/GUIDE.md"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "README 清单内的 Kobo、符合要求的 4.x 固件、Plato 发行包与 USB 连接。",
+          "en": "A Kobo listed in the README, qualifying 4.x firmware, a Plato release package, and USB access.",
+          "source_urls": [
+            "https://github.com/baskerville/plato/blob/master/README.md"
+          ]
+        },
+        "rough_steps": {
+          "zh": "核对型号与固件，按 GUIDE 部署文件并配置启动入口，先用副本文档验证。",
+          "en": "Check the model and firmware, deploy the files and configure a launcher per the GUIDE, then test with copied documents first.",
+          "source_urls": [
+            "https://github.com/baskerville/plato/blob/master/README.md",
+            "https://github.com/baskerville/plato/blob/master/doc/GUIDE.md"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "型号不在上游清单、固件不满足 4.X 且 X≥6，或启动器条件无法确认时停止。",
+          "en": "Stop if the model is not listed, firmware does not satisfy 4.X with X at least 6, or launcher prerequisites cannot be confirmed.",
+          "source_urls": [
+            "https://github.com/baskerville/plato/blob/master/README.md"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:quill-kobo-reader",
+      "project_id": "quill-kobo-reader",
+      "name": "Quill",
+      "category": "ereader",
+      "outcome": "upgraded-e2",
+      "resulting_evidence_level": "E2",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "上游 README 给出整机镜像与 Nickel 附加方式、恢复出厂能力和刷坏警告；发布说明还记录具体 Kobo 型号支持及在多款设备上的调试，构成作者实机层陈述。",
+      "rationale_en": "The upstream README documents full-image and Nickel add-on paths, factory reset, and bricking warnings. Release notes additionally name specific Kobo support and debugging across devices, providing an upstream hands-on statement.",
+      "evidence_sources": [
+        {
+          "title": "Quill README",
+          "publisher": "Quill-OS/quill",
+          "url": "https://github.com/Quill-OS/quill/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Quill releases",
+          "publisher": "Quill-OS/quill",
+          "url": "https://github.com/Quill-OS/quill/releases",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-and-device-specific",
+        "zh": "Windows 用 Rufus、Linux/macOS 用上游给出的写盘流程把匹配设备的镜像写入 Kobo SD 卡；Nickel 附加包是另一条且已标为暂停维护的路径。",
+        "en": "Use Rufus on Windows or the documented image-writing flow on Linux/macOS to write the device-matched image to the Kobo SD card; the Nickel add-on is a separate path marked unmaintained for now.",
+        "source_urls": [
+          "https://github.com/Quill-OS/quill/blob/master/README.md"
+        ]
+      },
+      "compatibility": {
+        "status": "release-specific-model-list",
+        "zh": "只能选择发布说明明确列出的 Kobo 型号及对应镜像，不能把“Kobo 等设备”扩展到未列型号。",
+        "en": "Use only Kobo models and matching images explicitly named in release notes; the broad phrase 'Kobos and other devices' is not extended to unlisted models.",
+        "source_urls": [
+          "https://github.com/Quill-OS/quill/releases",
+          "https://github.com/Quill-OS/quill/blob/master/README.md"
+        ]
+      },
+      "recovery": {
+        "status": "factory-reset-documented",
+        "zh": "上游提供完整恢复出厂功能，但刷写整机镜像仍可能使设备失效；操作前保存原 SD 卡完整镜像。",
+        "en": "Upstream provides a full factory-reset function, but whole-image flashing can still brick a device; preserve a complete image of the original SD card first.",
+        "source_urls": [
+          "https://github.com/Quill-OS/quill/blob/master/README.md"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/Quill-OS/quill/blob/master/README.md",
+        "https://github.com/Quill-OS/quill/releases"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "发布说明列出的 Kobo、可拆取或访问的 SD 卡、匹配镜像、读卡器和原卡备份空间。",
+          "en": "A release-listed Kobo, access to its SD card, the matching image, a card reader, and storage for a full original-card backup.",
+          "source_urls": [
+            "https://github.com/Quill-OS/quill/blob/master/README.md",
+            "https://github.com/Quill-OS/quill/releases"
+          ]
+        },
+        "rough_steps": {
+          "zh": "确认型号与镜像，完整备份原卡，再按平台说明写盘并首次启动验证。",
+          "en": "Match the model and image, make a complete original-card backup, then write the image using the platform instructions and verify the first boot.",
+          "source_urls": [
+            "https://github.com/Quill-OS/quill/blob/master/README.md"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "没有精确型号镜像、无法备份原卡，或只能找到已暂停维护的 Nickel 附加包时停止。",
+          "en": "Stop if no exact model image exists, the original card cannot be backed up, or only the currently unmaintained Nickel add-on is available.",
+          "source_urls": [
+            "https://github.com/Quill-OS/quill/blob/master/README.md",
+            "https://github.com/Quill-OS/quill/releases"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:rekindle",
+      "project_id": "rekindle",
+      "name": "ReKindle",
+      "category": "ereader",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "README 把无越狱 PWA 与可选的 Kindle 全屏脚本明确分开，并说明现代、旧 Kindle 与 Kobo 的构建差异；Kindle 子目录保留安装和恢复脚本。当前证据支持 E1，不把宽泛设备描述视为逐机实测。",
+      "rationale_en": "The README clearly separates the no-jailbreak PWA from the optional Kindle fullscreen script and documents build differences for modern Kindles, older Kindles, and Kobo. The Kindle directory includes install and recovery scripts. This supports E1 without treating the broad device wording as model-by-model testing.",
+      "evidence_sources": [
+        {
+          "title": "ReKindle README",
+          "publisher": "ReKindleOS/ReKindle",
+          "url": "https://github.com/ReKindleOS/ReKindle/blob/main/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "ReKindle Kindle helper notes",
+          "publisher": "ReKindleOS/ReKindle",
+          "url": "https://github.com/ReKindleOS/ReKindle/blob/main/kindle/README.txt",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "ReKindle Kindle stop and GUI-restore script",
+          "publisher": "ReKindleOS/ReKindle",
+          "url": "https://github.com/ReKindleOS/ReKindle/blob/main/kindle/ReKindleStop.sh",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-two-path",
+        "zh": "低风险路径是在设备浏览器打开 PWA 并收藏；仅已越狱且满足说明的 Kindle 才考虑 USB/KPM 全屏脚本。",
+        "en": "The low-risk path is opening and bookmarking the PWA in the device browser; consider the USB/KPM fullscreen script only on a jailbroken Kindle that meets its documented prerequisites.",
+        "source_urls": [
+          "https://github.com/ReKindleOS/ReKindle/blob/main/README.md"
+        ]
+      },
+      "compatibility": {
+        "status": "build-tier-boundaries",
+        "zh": "上游区分 5.16.4+ Chromium Kindle、旧 Kindle 的 Lite 构建，以及 Kobo/旧浏览器的 Legacy 构建；具体机型仍需在 probe 页面核对能力。",
+        "en": "Upstream separates Chromium Kindles on 5.16.4+, a Lite build for older Kindles, and a Legacy build for Kobo/old browsers; exact devices still need capability checking through the probe page.",
+        "source_urls": [
+          "https://github.com/ReKindleOS/ReKindle/blob/main/README.md"
+        ]
+      },
+      "recovery": {
+        "status": "documented-for-optional-script",
+        "zh": "普通 PWA 不改根文件系统；全屏脚本的上游目录包含退出与恢复脚本，若恢复链无法确认则不要安装该可选部分。",
+        "en": "The normal PWA does not modify the root filesystem; the fullscreen helper directory contains exit and recovery scripts, and the optional helper should not be installed unless that recovery chain is understood.",
+        "source_urls": [
+          "https://github.com/ReKindleOS/ReKindle/blob/main/README.md",
+          "https://github.com/ReKindleOS/ReKindle/blob/main/kindle/README.txt",
+          "https://github.com/ReKindleOS/ReKindle/blob/main/kindle/ReKindleStop.sh"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/ReKindleOS/ReKindle/blob/main/README.md",
+        "https://github.com/ReKindleOS/ReKindle/blob/main/kindle/README.txt"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "可用浏览器的墨水屏设备；可选全屏模式另需已越狱 Kindle、匹配固件和 USB/KPM。",
+          "en": "An e-ink device with a usable browser; optional fullscreen mode additionally needs a jailbroken Kindle, matching firmware, and USB or KPM access.",
+          "source_urls": [
+            "https://github.com/ReKindleOS/ReKindle/blob/main/README.md"
+          ]
+        },
+        "rough_steps": {
+          "zh": "先用浏览器 PWA 与 probe 验证；只有能力匹配且理解恢复脚本时才部署全屏助手。",
+          "en": "Validate the browser PWA and probe first; deploy the fullscreen helper only when capabilities match and the recovery scripts are understood.",
+          "source_urls": [
+            "https://github.com/ReKindleOS/ReKindle/blob/main/README.md",
+            "https://github.com/ReKindleOS/ReKindle/blob/main/kindle/README.txt"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "probe 显示关键能力缺失、Kindle 未越狱或固件不匹配，或恢复脚本无法访问时停止全屏改造。",
+          "en": "Stop the fullscreen modification if the probe lacks required capabilities, the Kindle is not jailbroken or firmware-matched, or the recovery script is unavailable.",
+          "source_urls": [
+            "https://github.com/ReKindleOS/ReKindle/blob/main/README.md",
+            "https://github.com/ReKindleOS/ReKindle/blob/main/kindle/ReKindleStop.sh"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:remarkable-hacks",
+      "project_id": "remarkable-hacks",
+      "name": "reMarkable Hacks",
+      "category": "ereader",
+      "outcome": "upgraded-e2",
+      "resulting_evidence_level": "E2",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "作者仓库列出 rM1/rM2 与精确固件、演示、安装、清除和灾难恢复步骤，同时明确数据丢失与崩溃风险。具体演示和固件级支持构成 E2，但仅限旧版 2.15.1.1189 路线。",
+      "rationale_en": "The author repository names rM1/rM2 and exact firmware, provides a demo plus installation, purge, and emergency recovery, and explicitly warns of data loss and crashes. The concrete demonstration and firmware-level support justify E2, limited to the legacy 2.15.1.1189 route.",
+      "evidence_sources": [
+        {
+          "title": "reMarkable Hacks README",
+          "publisher": "ddvk/remarkable-hacks",
+          "url": "https://github.com/ddvk/remarkable-hacks/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "reMarkable Hacks repository demo and patch history",
+          "publisher": "ddvk/remarkable-hacks",
+          "url": "https://github.com/ddvk/remarkable-hacks",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-and-demonstrated",
+        "zh": "记录设备 SSH 密码，确认 rM1/rM2 固件为支持版本，通过 USB/网络 SSH 执行上游补丁脚本，并按提示决定是否持久化。",
+        "en": "Record the device SSH password, confirm a supported rM1/rM2 firmware, run the upstream patch script over USB/network SSH, and follow its prompt before making the change persistent.",
+        "source_urls": [
+          "https://github.com/ddvk/remarkable-hacks/blob/master/README.md"
+        ]
+      },
+      "compatibility": {
+        "status": "legacy-exact-version",
+        "zh": "上游最新支持仅为 rM1/rM2 的 2.15.1.1189；更高 3.x 固件不在本条兼容范围。",
+        "en": "Upstream's latest supported version is 2.15.1.1189 on rM1/rM2; later 3.x firmware is outside this entry's compatibility boundary.",
+        "source_urls": [
+          "https://github.com/ddvk/remarkable-hacks/blob/master/README.md"
+        ]
+      },
+      "recovery": {
+        "status": "documented-high-risk",
+        "zh": "上游提供 purge 和恢复 xochitl 二进制的命令，并特别警告故障时不要先做恢复出厂；安装前必须保存 SSH 密码和文档备份。",
+        "en": "Upstream documents purge and restoration of the xochitl binary and specifically warns not to factory-reset first after failure; preserve the SSH password and document backups before installation.",
+        "source_urls": [
+          "https://github.com/ddvk/remarkable-hacks/blob/master/README.md"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/ddvk/remarkable-hacks/blob/master/README.md"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "rM1/rM2、精确 2.15.1.1189 固件、SSH 密码、USB/网络连接和文档备份。",
+          "en": "An rM1/rM2 on exactly 2.15.1.1189, its SSH password, USB/network access, and document backups.",
+          "source_urls": [
+            "https://github.com/ddvk/remarkable-hacks/blob/master/README.md"
+          ]
+        },
+        "rough_steps": {
+          "zh": "核对固件并保存密码，通过 SSH 运行上游脚本，先临时试用，再按提示持久化。",
+          "en": "Verify firmware and save the password, run the upstream script over SSH, test it temporarily, then make it persistent only through the documented prompt.",
+          "source_urls": [
+            "https://github.com/ddvk/remarkable-hacks/blob/master/README.md"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "固件不是 2.15.1.1189、没有 SSH 密码/备份，或安装后出现双 xochitl 与花屏时停止并按恢复段处理。",
+          "en": "Stop if firmware is not 2.15.1.1189, the SSH password or backups are missing, or duplicate xochitl processes produce a garbled screen; follow the recovery section.",
+          "source_urls": [
+            "https://github.com/ddvk/remarkable-hacks/blob/master/README.md"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:toltec",
+      "project_id": "toltec",
+      "name": "Toltec",
+      "category": "ereader",
+      "outcome": "rejected-delisted",
+      "resulting_evidence_level": "E0",
+      "display_decision": "delist-keep-data",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "上游仓库已归档，项目首页明确建议最新 reMarkable OS 用户改用 Vellum 与 reManager；Toltec 兼容表只覆盖旧 OS。它因此不满足“当前可执行复活路线”的展示边界，但原候选和本审计记录保留。",
+      "rationale_en": "The upstream repository is archived, and its front page explicitly directs users on current reMarkable OS releases to Vellum and reManager; Toltec's compatibility table is limited to older OS versions. It therefore fails the current actionable-revival display boundary, while the original candidate and this audit record remain preserved.",
+      "evidence_sources": [
+        {
+          "title": "Toltec repository notice",
+          "publisher": "toltec-dev/toltec",
+          "url": "https://github.com/toltec-dev/toltec",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Toltec install and compatibility notice",
+          "publisher": "Toltec",
+          "url": "https://toltec-dev.org/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "reMarkable recovery guide linked by Toltec",
+          "publisher": "remarkable.guide",
+          "url": "https://remarkable.guide/tech/recovery.html",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "rejection_basis": {
+        "zh": "当前展示要求可用于当前受支持系统的可执行路线；归档项目自身把最新 OS 用户导向替代方案，因此留作历史数据而不继续展示。",
+        "en": "Current display scope requires an actionable route for a presently supported system. The archived project itself redirects current-OS users to successors, so it is retained as historical data but removed from display.",
+        "source_urls": [
+          "https://github.com/toltec-dev/toltec",
+          "https://toltec-dev.org/"
+        ]
+      },
+      "installation": {
+        "status": "historical-only",
+        "zh": "Toltec 首页仍记录旧系统 SSH 安装命令，但不应套用到兼容表以外的系统。",
+        "en": "The Toltec site still records the historical SSH install command, but it must not be applied outside its compatibility table.",
+        "source_urls": [
+          "https://toltec-dev.org/"
+        ]
+      },
+      "compatibility": {
+        "status": "superseded",
+        "zh": "仅旧版 reMarkable OS 在 Toltec 兼容表内；最新 OS 明确改看 Vellum/reManager。",
+        "en": "Only older reMarkable OS versions fall within Toltec's compatibility table; current OS users are explicitly directed to Vellum/reManager.",
+        "source_urls": [
+          "https://toltec-dev.org/",
+          "https://github.com/toltec-dev/toltec"
+        ]
+      },
+      "recovery": {
+        "status": "external-guide-linked",
+        "zh": "Toltec 页面链接独立恢复指南，但这不足以把归档旧路线恢复为当前推荐项。",
+        "en": "Toltec links a separate recovery guide, but that does not make the archived legacy route a current recommendation.",
+        "source_urls": [
+          "https://toltec-dev.org/",
+          "https://remarkable.guide/tech/recovery.html"
+        ]
+      },
+      "tutorial_sources": [
+        "https://toltec-dev.org/"
+      ],
+      "action_guide": null
+    },
+    {
+      "entry_id": "project-lead:rmkit",
+      "project_id": "rmkit",
+      "name": "rmkit",
+      "category": "ereader",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "README 明确列出 reMarkable 与有限 Kobo 型号，给出 Toltec/opkg 和 Kobo 包两条安装路径及关闭 remux 的恢复开关。它是开发/应用框架而非完整替代系统，因此仅按文档提升至 E1。",
+      "rationale_en": "The README explicitly lists reMarkable and a limited set of Kobo models, documents Toltec/opkg and Kobo-package installation paths, and provides a switch to disable remux. It is an application framework rather than a full replacement OS, so the evidence is upgraded only to E1.",
+      "evidence_sources": [
+        {
+          "title": "rmkit README",
+          "publisher": "rmkit-dev/rmkit",
+          "url": "https://github.com/rmkit-dev/rmkit/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "remux app documentation",
+          "publisher": "rmkit",
+          "url": "https://rmkit.dev/apps/remux",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-by-device-family",
+        "zh": "reMarkable 路径经已配置的 Toltec/opkg 安装；Kobo 仅对 README 明列型号使用 KoboRoot.tgz。",
+        "en": "The reMarkable path installs through an already configured Toltec/opkg setup; Kobo uses KoboRoot.tgz only on models explicitly named in the README.",
+        "source_urls": [
+          "https://github.com/rmkit-dev/rmkit/blob/master/README.md"
+        ]
+      },
+      "compatibility": {
+        "status": "explicit-limited-list",
+        "zh": "README 标注 rM1/rM2；Kobo 安装段进一步限定 Clara HD、Libra H2O 和 Elipsa 2E，rM2 另需 rm2fb。",
+        "en": "The README marks rM1/rM2, narrows the Kobo install section to Clara HD, Libra H2O, and Elipsa 2E, and requires rm2fb for rM2.",
+        "source_urls": [
+          "https://github.com/rmkit-dev/rmkit/blob/master/README.md"
+        ]
+      },
+      "recovery": {
+        "status": "disable-path-documented",
+        "zh": "Kobo 可删除 .adds/rmkit/enable_remux 以停用 remux；reMarkable 包应使用原包管理器移除。",
+        "en": "On Kobo, remove .adds/rmkit/enable_remux to disable remux; reMarkable packages should be removed through the same package manager used to install them.",
+        "source_urls": [
+          "https://github.com/rmkit-dev/rmkit/blob/master/README.md"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/rmkit-dev/rmkit/blob/master/README.md",
+        "https://rmkit.dev/apps/remux"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "README 明列设备；reMarkable 需 Toltec/opkg，rM2 另需 rm2fb；Kobo 需 USB 连接。",
+          "en": "A README-listed device; reMarkable needs Toltec/opkg, rM2 also needs rm2fb, and Kobo needs USB access.",
+          "source_urls": [
+            "https://github.com/rmkit-dev/rmkit/blob/master/README.md"
+          ]
+        },
+        "rough_steps": {
+          "zh": "按设备家族选择安装方式，只安装需要的应用；先确认 remux 停用方法。",
+          "en": "Choose the device-family-specific install path, install only the needed app, and confirm how to disable remux first.",
+          "source_urls": [
+            "https://github.com/rmkit-dev/rmkit/blob/master/README.md",
+            "https://rmkit.dev/apps/remux"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "Kobo 不在安装段三款清单、rM2 未配置 rm2fb，或现有包管理器状态不明时停止。",
+          "en": "Stop if the Kobo is not one of the three models in the install section, rm2fb is missing on rM2, or the existing package-manager state is unknown.",
+          "source_urls": [
+            "https://github.com/rmkit-dev/rmkit/blob/master/README.md"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:openepaperlink",
+      "project_id": "openepaperlink",
+      "name": "OpenEPaperLink",
+      "category": "ereader",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "上游明确把系统拆成接入点与价签固件，列出 ESP32、价签射频、ZBS Flasher 等物料，并把最新标签与刷写资料集中到 Wiki。README 也警告部分旧说明已过时，因此仅按当前 Wiki/发行版的具体型号处理并升至 E1。",
+      "rationale_en": "Upstream separates the system into access-point and tag firmware, lists the ESP32, tag radio, and ZBS flasher requirements, and moves current tag/flashing guidance to its Wiki. The README also warns that some historical material is obsolete, so only current Wiki/release model guidance is accepted and the route is upgraded to E1.",
+      "evidence_sources": [
+        {
+          "title": "OpenEPaperLink README",
+          "publisher": "OpenEPaperLink/OpenEPaperLink",
+          "url": "https://github.com/OpenEPaperLink/OpenEPaperLink",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OpenEPaperLink Wiki",
+          "publisher": "OpenEPaperLink/OpenEPaperLink",
+          "url": "https://github.com/OpenEPaperLink/OpenEPaperLink/wiki",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OpenEPaperLink releases",
+          "publisher": "OpenEPaperLink/OpenEPaperLink",
+          "url": "https://github.com/OpenEPaperLink/OpenEPaperLink/releases",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OpenEPaperLink tag flasher helper",
+          "publisher": "OpenEPaperLink/OpenEPaperLink",
+          "url": "https://github.com/OpenEPaperLink/OpenEPaperLink/blob/master/Tag_Flasher/OEPL-Flasher.py",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-hardware-chain",
+        "zh": "按 Wiki 的精确价签页面选择刷写接口和固件，先搭建兼容 ESP32 接入点，再刷写价签；不要沿用 README 中标为历史的射频协处理器方式。",
+        "en": "Use the exact tag page in the Wiki to choose a flasher and firmware, build a compatible ESP32 access point first, then flash the tag; do not follow the README's historical RF-coprocessor path.",
+        "source_urls": [
+          "https://github.com/OpenEPaperLink/OpenEPaperLink",
+          "https://github.com/OpenEPaperLink/OpenEPaperLink/wiki"
+        ]
+      },
+      "compatibility": {
+        "status": "per-tag-wiki",
+        "zh": "只接受 Wiki 或当前发行资产明确列出的标签/芯片/刷写方式；相同外壳不能替代芯片识别。",
+        "en": "Accept only tag, chip, and flashing combinations explicitly listed in the Wiki or current release assets; a matching enclosure is not a substitute for chip identification.",
+        "source_urls": [
+          "https://github.com/OpenEPaperLink/OpenEPaperLink/wiki",
+          "https://github.com/OpenEPaperLink/OpenEPaperLink/releases"
+        ]
+      },
+      "recovery": {
+        "status": "backup-before-write",
+        "zh": "上游刷写工具支持读取固件/信息页；写入前先读取并保存原内容与 MAC，无法读取时不继续。",
+        "en": "The upstream flasher supports reading firmware/information pages; read and preserve the original contents and MAC before writing, and do not continue if they cannot be read.",
+        "source_urls": [
+          "https://github.com/OpenEPaperLink/OpenEPaperLink/blob/master/Tag_Flasher/OEPL-Flasher.py",
+          "https://github.com/OpenEPaperLink/OpenEPaperLink"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/OpenEPaperLink/OpenEPaperLink/wiki",
+        "https://github.com/OpenEPaperLink/OpenEPaperLink"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "Wiki 明列的电子价签、兼容 ESP32、对应刷写接口/夹具和当前发行固件。",
+          "en": "A Wiki-listed shelf tag, compatible ESP32, the matching flasher/jig, and current release firmware.",
+          "source_urls": [
+            "https://github.com/OpenEPaperLink/OpenEPaperLink",
+            "https://github.com/OpenEPaperLink/OpenEPaperLink/wiki"
+          ]
+        },
+        "rough_steps": {
+          "zh": "识别标签芯片，备份原闪存/MAC，搭建并验证接入点，再按型号页刷写标签。",
+          "en": "Identify the tag chip, back up original flash/MAC, build and verify the access point, then flash the tag using its model page.",
+          "source_urls": [
+            "https://github.com/OpenEPaperLink/OpenEPaperLink/wiki",
+            "https://github.com/OpenEPaperLink/OpenEPaperLink/blob/master/Tag_Flasher/OEPL-Flasher.py"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "芯片/标签不在 Wiki、原固件或 MAC 无法读取，或只能找到已标过时的说明时停止。",
+          "en": "Stop if the chip/tag is not in the Wiki, original firmware or MAC cannot be read, or only documentation marked obsolete is available.",
+          "source_urls": [
+            "https://github.com/OpenEPaperLink/OpenEPaperLink",
+            "https://github.com/OpenEPaperLink/OpenEPaperLink/wiki"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:kindle-kpm",
+      "project_id": "kindle-kpm",
+      "name": "KPM",
+      "category": "ereader",
+      "outcome": "stays-e0",
+      "resulting_evidence_level": "E0",
+      "display_decision": "keep-candidate",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方仓库说明了包钩子与包内卸载机制，官方软件源也证明 KPM 命令在使用，但没有给出可核验的 Kindle 型号/固件支持表、KPM 自身端到端安装前提和失败恢复流程。第三方 Wiki 的安装脚本指向另一仓库，不能替代本项目的一手兼容证据，因此保留 E0。",
+      "rationale_en": "The official repository documents package hooks and per-package uninstall behavior, and the official package repository shows KPM commands in use. It does not provide a verifiable Kindle model/firmware matrix, end-to-end prerequisites for installing KPM itself, or a failure-recovery path. A third-party Wiki points its installer at a different repository and cannot substitute for first-party compatibility evidence, so this candidate stays E0.",
+      "evidence_sources": [
+        {
+          "title": "KPM source README",
+          "publisher": "KindleModding/KPM",
+          "url": "https://github.com/KindleModding/KPM",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Official Kindle Modding package repository",
+          "publisher": "Kindle Modding Community",
+          "url": "https://repo.kindlemodding.org/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "KPM package authoring rules",
+          "publisher": "Kindle Modding",
+          "url": "https://kindlemodding.org/kindle-dev/kpm/creating-a-package.html",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "insufficient-first-party-end-user-guidance",
+        "zh": "本轮未找到同一官方项目提供的完整终端用户安装流程与机型/固件前提。",
+        "en": "This audit did not find a complete end-user installation flow and model/firmware prerequisites from the same official project.",
+        "source_urls": [
+          "https://github.com/KindleModding/KPM",
+          "https://repo.kindlemodding.org/"
+        ]
+      },
+      "compatibility": {
+        "status": "unverified",
+        "zh": "“Kindles”不是型号与固件兼容表，不能据此提升证据等级。",
+        "en": "The word 'Kindles' is not a model-and-firmware compatibility matrix and is insufficient for an evidence upgrade.",
+        "source_urls": [
+          "https://github.com/KindleModding/KPM"
+        ]
+      },
+      "recovery": {
+        "status": "package-hooks-only",
+        "zh": "上游说明软件包可以有 uninstall.sh，但没有记录 KPM 自身安装失败后的恢复步骤。",
+        "en": "Upstream documents optional uninstall.sh hooks for packages, but not recovery from a failed installation of KPM itself.",
+        "source_urls": [
+          "https://github.com/KindleModding/KPM",
+          "https://kindlemodding.org/kindle-dev/kpm/creating-a-package.html"
+        ]
+      },
+      "tutorial_sources": [],
+      "action_guide": null
+    },
+    {
+      "entry_id": "project-lead:adguard-home",
+      "project_id": "adguard-home",
+      "name": "AdGuard Home",
+      "category": "network",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方 README 与知识库给出支持的操作系统/架构、自动与手动安装、服务模式和卸载参数，足以确认旧小主机作为 DNS 过滤节点的文档路线；没有将软件可安装推断成任意路由器固件兼容。",
+      "rationale_en": "The official README and knowledge base document supported operating systems/architectures, automated and manual installation, service operation, and the uninstall flag. This supports a documented route for an older small host used as a DNS filter, without inferring compatibility with arbitrary router firmware.",
+      "evidence_sources": [
+        {
+          "title": "AdGuard Home README",
+          "publisher": "AdGuard",
+          "url": "https://github.com/AdguardTeam/AdGuardHome/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "AdGuard Home getting started",
+          "publisher": "AdGuard Knowledge Base",
+          "url": "https://adguard-dns.io/kb/adguard-home/getting-started/",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-multi-platform",
+        "zh": "先在支持的 Linux、macOS、Windows 或 BSD 主机上安装，再按知识库配置服务和局域网客户端 DNS。",
+        "en": "Install on a supported Linux, macOS, Windows, or BSD host, then configure the service and LAN client DNS using the knowledge base.",
+        "source_urls": [
+          "https://github.com/AdguardTeam/AdGuardHome/blob/master/README.md",
+          "https://adguard-dns.io/kb/adguard-home/getting-started/"
+        ]
+      },
+      "compatibility": {
+        "status": "os-and-architecture-list",
+        "zh": "知识库列出 Linux 的 amd64、x86、ARM64、ARMv5/6/7 等构建；路由器只有在其系统与架构满足上游条件时才可考虑。",
+        "en": "The knowledge base lists Linux builds including amd64, x86, ARM64, and ARMv5/6/7; a router is a candidate only when its OS and architecture meet upstream requirements.",
+        "source_urls": [
+          "https://adguard-dns.io/kb/adguard-home/getting-started/"
+        ]
+      },
+      "recovery": {
+        "status": "uninstall-documented",
+        "zh": "自动安装脚本支持 -u 卸载；切换 DNS 前保留原 DHCP/DNS 设置，以便先把客户端恢复到原解析器。",
+        "en": "The automated installer supports -u for uninstall; preserve the original DHCP/DNS settings before cutover so clients can be returned to the previous resolver first.",
+        "source_urls": [
+          "https://github.com/AdguardTeam/AdGuardHome/blob/master/README.md",
+          "https://adguard-dns.io/kb/adguard-home/getting-started/"
+        ]
+      },
+      "tutorial_sources": [
+        "https://adguard-dns.io/kb/adguard-home/getting-started/"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "受支持架构的常开旧主机、固定局域网地址、管理员权限和原 DNS 配置记录。",
+          "en": "An always-on older host on a supported architecture, a stable LAN address, administrator access, and a record of the original DNS configuration.",
+          "source_urls": [
+            "https://adguard-dns.io/kb/adguard-home/getting-started/"
+          ]
+        },
+        "rough_steps": {
+          "zh": "安装并先在单台客户端验证，再逐步把 DHCP/DNS 指向新服务。",
+          "en": "Install and validate on one client first, then move DHCP/DNS clients to the new service gradually.",
+          "source_urls": [
+            "https://adguard-dns.io/kb/adguard-home/getting-started/"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "主机架构不在官方构建内、53 端口冲突无法解决，或不能恢复原 DNS 设置时停止。",
+          "en": "Stop if the host architecture lacks an official build, port 53 conflicts cannot be resolved, or the original DNS settings cannot be restored.",
+          "source_urls": [
+            "https://adguard-dns.io/kb/adguard-home/getting-started/"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:asuswrt-merlin-ng",
+      "project_id": "asuswrt-merlin-ng",
+      "name": "Asuswrt-Merlin",
+      "category": "network",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "项目 Wiki 提供精确支持机型，官网发行页把现役与停止支持机型分开并提供校验值；华硕官方恢复模式文档提供失败恢复入口。资料足以升为 E1，但不把机型列名视为本轮实机复现。",
+      "rationale_en": "The project Wiki provides an exact model list, the official project download page separates current and unsupported models and publishes checksums, and ASUS documents rescue mode. This supports E1 without treating a model listing as a hands-on reproduction in this audit.",
+      "evidence_sources": [
+        {
+          "title": "Asuswrt-Merlin source README",
+          "publisher": "RMerl/asuswrt-merlin.ng",
+          "url": "https://github.com/RMerl/asuswrt-merlin.ng",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Supported devices",
+          "publisher": "Asuswrt-Merlin Wiki",
+          "url": "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Asuswrt-Merlin downloads and checksums",
+          "publisher": "Asuswrt-Merlin",
+          "url": "https://www.asuswrt-merlin.net/download",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "ASUS Firmware Restoration",
+          "publisher": "ASUS Support",
+          "url": "https://www.asus.com/support/faq/1000814/",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "model-specific-firmware-upload",
+        "zh": "先从支持列表确认完整型号，再下载对应固件并核对官网 SHA-256，按项目/华硕固件升级流程上传。",
+        "en": "Confirm the exact model in the support list, download its matching image, verify the official SHA-256, and upload it through the documented project/ASUS firmware update flow.",
+        "source_urls": [
+          "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+          "https://www.asuswrt-merlin.net/download"
+        ]
+      },
+      "compatibility": {
+        "status": "exact-model-list",
+        "zh": "仅支持 Wiki 当前列出的华硕型号；下载页“停止支持”区的旧型号不得按现役路线推荐。",
+        "en": "Only ASUS models currently listed in the Wiki are supported; models in the download page's unsupported section must not be presented as a current route.",
+        "source_urls": [
+          "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+          "https://www.asuswrt-merlin.net/download"
+        ]
+      },
+      "recovery": {
+        "status": "vendor-rescue-mode",
+        "zh": "华硕官方文档说明救援模式和 Firmware Restoration；操作前下载精确型号的原厂固件并记录配置。",
+        "en": "ASUS documents rescue mode and Firmware Restoration; download stock firmware for the exact model and record the configuration before changing firmware.",
+        "source_urls": [
+          "https://www.asus.com/support/faq/1000814/"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+        "https://www.asus.com/support/faq/1000814/"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "支持列表中的精确型号、有线电脑、匹配固件及校验值、原厂恢复固件。",
+          "en": "An exact supported model, a wired computer, the matching image and checksum, and stock recovery firmware.",
+          "source_urls": [
+            "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+            "https://www.asuswrt-merlin.net/download",
+            "https://www.asus.com/support/faq/1000814/"
+          ]
+        },
+        "rough_steps": {
+          "zh": "核对机身型号与支持表，校验镜像，经有线管理页升级，重启后再恢复必要配置。",
+          "en": "Match the chassis model to the support table, verify the image, upgrade from the wired management UI, then restore only needed settings after reboot.",
+          "source_urls": [
+            "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+            "https://www.asuswrt-merlin.net/download"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "型号不在当前支持表、只能找到停止支持镜像、校验不符或无法准备原厂恢复固件时停止。",
+          "en": "Stop if the model is not currently supported, only an unsupported legacy image exists, the checksum differs, or stock recovery firmware cannot be prepared.",
+          "source_urls": [
+            "https://github.com/RMerl/asuswrt-merlin.ng/wiki/Supported-Devices",
+            "https://www.asuswrt-merlin.net/download",
+            "https://www.asus.com/support/faq/1000814/"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:casaos",
+      "project_id": "casaos",
+      "name": "CasaOS",
+      "category": "network",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方 Wiki 与 README 明确列出 amd64/arm64/armv7、已测试的 Debian/Ubuntu/Raspberry Pi OS、安装和卸载命令，足以确认旧小主机家庭服务器路线。应用数据备份仍需由用户另行安排，因此不提升到 E2。",
+      "rationale_en": "The official Wiki and README explicitly list amd64/arm64/armv7, tested Debian/Ubuntu/Raspberry Pi OS combinations, and install/uninstall commands, supporting an older small-host home-server route. Application-data backup still requires separate user planning, so the evidence remains E1.",
+      "evidence_sources": [
+        {
+          "title": "CasaOS README",
+          "publisher": "IceWhaleTech/CasaOS",
+          "url": "https://github.com/IceWhaleTech/CasaOS",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "CasaOS Get Started",
+          "publisher": "CasaOS Wiki",
+          "url": "https://wiki.casaos.io/en/get-started",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-one-line-installer",
+        "zh": "在官方已测试的全新基础系统上运行上游一键安装命令，完成后从同网段浏览器访问。",
+        "en": "Run the upstream one-line installer on a freshly installed, officially tested base system, then access it from a browser on the same network.",
+        "source_urls": [
+          "https://wiki.casaos.io/en/get-started",
+          "https://github.com/IceWhaleTech/CasaOS"
+        ]
+      },
+      "compatibility": {
+        "status": "architecture-and-os-list",
+        "zh": "官方列出 amd64/x86-64、arm64、armv7；Debian 12 为推荐测试组合，Ubuntu Server 20.04 与 Raspberry Pi OS 也标为已测试。",
+        "en": "Officially listed architectures are amd64/x86-64, arm64, and armv7; Debian 12 is the tested recommendation, with Ubuntu Server 20.04 and Raspberry Pi OS also marked tested.",
+        "source_urls": [
+          "https://wiki.casaos.io/en/get-started"
+        ]
+      },
+      "recovery": {
+        "status": "software-uninstall-documented",
+        "zh": "README 给出 casaos-uninstall 与卸载脚本；卸载不等于备份 Docker 应用卷和用户数据，改造前需另做数据备份。",
+        "en": "The README provides casaos-uninstall and an uninstall script; uninstalling is not a backup of Docker volumes or user data, which must be backed up separately before modification.",
+        "source_urls": [
+          "https://github.com/IceWhaleTech/CasaOS"
+        ]
+      },
+      "tutorial_sources": [
+        "https://wiki.casaos.io/en/get-started"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "支持架构的旧电脑/开发板、全新已测试系统、网线与独立数据备份。",
+          "en": "An older computer/board on a supported architecture, a fresh tested OS, Ethernet, and an independent data backup.",
+          "source_urls": [
+            "https://wiki.casaos.io/en/get-started"
+          ]
+        },
+        "rough_steps": {
+          "zh": "先备份数据，在全新系统运行官方安装器，从局域网访问并逐个部署应用。",
+          "en": "Back up data, run the official installer on a fresh system, access it over the LAN, and deploy applications one at a time.",
+          "source_urls": [
+            "https://wiki.casaos.io/en/get-started",
+            "https://github.com/IceWhaleTech/CasaOS"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "架构/系统不在支持表、机器承载唯一数据副本，或无法区分系统盘与数据盘时停止。",
+          "en": "Stop if the architecture/OS is not listed, the machine holds the only data copy, or system and data disks cannot be distinguished.",
+          "source_urls": [
+            "https://wiki.casaos.io/en/get-started",
+            "https://github.com/IceWhaleTech/CasaOS"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:openwisp-controller",
+      "project_id": "openwisp-controller",
+      "name": "OpenWISP Controller",
+      "category": "network",
+      "outcome": "rejected-delisted",
+      "resulting_evidence_level": "E0",
+      "display_decision": "delist-keep-data",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方架构与设备配置文档表明，本仓库是用于配置、监控和升级已经运行 OpenWrt/OpenWISP agent 的网络控制器；硬件刷写与兼容性由 OpenWrt 路线承担。它不单独构成旧路由器复活项目，故从展示中移除但保留数据。",
+      "rationale_en": "Official architecture and device-configuration documentation shows that this repository is a network controller for configuring, monitoring, and upgrading devices already running OpenWrt/OpenWISP agents; hardware flashing and compatibility belong to the OpenWrt route. It is not a standalone old-router revival project, so it is delisted while its data remains preserved.",
+      "evidence_sources": [
+        {
+          "title": "OpenWISP Controller repository",
+          "publisher": "OpenWISP",
+          "url": "https://github.com/openwisp/openwisp-controller",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Configure an OpenWrt device",
+          "publisher": "OpenWISP Documentation",
+          "url": "https://openwisp.io/docs/stable/user/configure-device.html",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OpenWISP architecture",
+          "publisher": "OpenWISP Documentation",
+          "url": "https://openwisp.io/docs/stable/general/architecture.html",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "rejection_basis": {
+        "zh": "展示对象应给出硬件从原状态到新用途的直接路线；Controller 只管理已安装兼容固件和 agent 的设备，属于后置基础设施。",
+        "en": "Display scope requires a direct path from existing hardware to a new use. Controller manages devices only after compatible firmware and agents are installed, making it downstream infrastructure.",
+        "source_urls": [
+          "https://openwisp.io/docs/stable/user/configure-device.html",
+          "https://openwisp.io/docs/stable/general/architecture.html"
+        ]
+      },
+      "installation": {
+        "status": "server-component-not-device-revival",
+        "zh": "官方文档可部署 OpenWISP 服务端并在 OpenWrt 设备安装 agent，但这不是目标路由器的刷机步骤。",
+        "en": "Official docs install the OpenWISP server and agents on OpenWrt devices, but this is not the target router's firmware-flashing path.",
+        "source_urls": [
+          "https://openwisp.io/docs/stable/user/configure-device.html",
+          "https://github.com/openwisp/openwisp-controller"
+        ]
+      },
+      "compatibility": {
+        "status": "depends-on-openwrt",
+        "zh": "设备必须先支持并运行 OpenWrt；Controller 不提供独立硬件支持表。",
+        "en": "A device must first support and run OpenWrt; Controller does not provide an independent hardware support table.",
+        "source_urls": [
+          "https://openwisp.io/docs/stable/user/configure-device.html"
+        ]
+      },
+      "recovery": {
+        "status": "delegated-to-openwrt",
+        "zh": "设备刷写失败与固件恢复需遵循 OpenWrt 设备资料，不由 Controller 文档覆盖。",
+        "en": "Device flashing failure and firmware recovery must follow OpenWrt device documentation and are not covered by Controller documentation.",
+        "source_urls": [
+          "https://openwisp.io/docs/stable/user/configure-device.html"
+        ]
+      },
+      "tutorial_sources": [
+        "https://openwisp.io/docs/stable/user/configure-device.html"
+      ],
+      "action_guide": null
+    },
+    {
+      "entry_id": "project-lead:opnsense-core",
+      "project_id": "opnsense-core",
+      "name": "OPNsense Core",
+      "category": "network",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方文档给出 amd64 硬件边界、不同吞吐等级、镜像校验、安装盘、实时环境与配置导入恢复，能够把旧 x86 小主机转换为防火墙的步骤与回退界定清楚，故升为 E1。",
+      "rationale_en": "Official documentation covers the amd64 hardware boundary, throughput tiers, image verification, installation media, live environment, and configuration-import recovery. It clearly bounds conversion of an older x86 small host into a firewall, supporting E1.",
+      "evidence_sources": [
+        {
+          "title": "OPNsense hardware sizing",
+          "publisher": "OPNsense Documentation",
+          "url": "https://docs.opnsense.org/manual/hardware.html",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OPNsense installation and importer",
+          "publisher": "OPNsense Documentation",
+          "url": "https://docs.opnsense.org/manual/install.html",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OPNsense configuration backup",
+          "publisher": "OPNsense Documentation",
+          "url": "https://docs.opnsense.org/manual/backups.html",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-and-image-verified",
+        "zh": "下载匹配的 VGA/serial/DVD 镜像，按官方公钥与 SHA-256 校验，制作安装介质，从实时环境确认网卡后再写入目标盘。",
+        "en": "Download the matching VGA/serial/DVD image, verify it using the official public key and SHA-256, create installation media, and confirm interfaces in the live environment before writing the target disk.",
+        "source_urls": [
+          "https://docs.opnsense.org/manual/install.html"
+        ]
+      },
+      "compatibility": {
+        "status": "amd64-and-freebsd-drivers",
+        "zh": "当前文档限定 x86-64/amd64，并以 FreeBSD 硬件兼容性为准；性能还取决于网卡和目标吞吐。",
+        "en": "Current docs require x86-64/amd64 and defer hardware compatibility to FreeBSD; performance also depends on NICs and target throughput.",
+        "source_urls": [
+          "https://docs.opnsense.org/manual/hardware.html"
+        ]
+      },
+      "recovery": {
+        "status": "live-import-and-backup",
+        "zh": "完整镜像提供 Importer，可从现有磁盘或 FAT/FAT32 USB 导入 config.xml，并可先在不覆盖旧安装的实时环境运行；配置也可从网页备份恢复。",
+        "en": "Full images provide an Importer for config.xml from an existing disk or FAT/FAT32 USB and can run the imported configuration live without overwriting the old install; web configuration backup/restore is also documented.",
+        "source_urls": [
+          "https://docs.opnsense.org/manual/install.html",
+          "https://docs.opnsense.org/manual/backups.html"
+        ]
+      },
+      "tutorial_sources": [
+        "https://docs.opnsense.org/manual/install.html",
+        "https://docs.opnsense.org/manual/hardware.html"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "兼容 amd64 小主机、至少两块可靠网卡、安装 U 盘、配置备份与本地控制台。",
+          "en": "A compatible amd64 small host, at least two reliable NICs, an installer USB, a configuration backup, and local console access.",
+          "source_urls": [
+            "https://docs.opnsense.org/manual/hardware.html",
+            "https://docs.opnsense.org/manual/install.html"
+          ]
+        },
+        "rough_steps": {
+          "zh": "核对硬件与吞吐，校验镜像，先以 Live/Importer 验证网卡和配置，再选择目标盘安装。",
+          "en": "Check hardware and throughput, verify the image, validate NICs and configuration with Live/Importer first, then select the target disk for installation.",
+          "source_urls": [
+            "https://docs.opnsense.org/manual/hardware.html",
+            "https://docs.opnsense.org/manual/install.html"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "不是 amd64、关键网卡不在 FreeBSD 支持范围、无法本地访问，或无法确认将被清空的目标盘时停止。",
+          "en": "Stop if the host is not amd64, a critical NIC lacks FreeBSD support, local access is unavailable, or the disk that will be erased cannot be identified with certainty.",
+          "source_urls": [
+            "https://docs.opnsense.org/manual/hardware.html",
+            "https://docs.opnsense.org/manual/install.html"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:pfsense",
+      "project_id": "pfsense",
+      "name": "pfSense",
+      "category": "network",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "Netgate 官方文档明确规定 amd64、内存/磁盘/网卡最低要求、安装介质会覆盖整盘，并提供安装时查找与恢复 config.xml 的流程。它构成旧 x86 主机路由/防火墙改造的 E1 文档路线。",
+      "rationale_en": "Official Netgate documentation specifies amd64, minimum RAM/disk/NIC requirements, warns that installation overwrites the disk, and documents locating and restoring config.xml during installation. This supports an E1 old-x86-host router/firewall route.",
+      "evidence_sources": [
+        {
+          "title": "pfSense minimum hardware requirements",
+          "publisher": "Netgate Documentation",
+          "url": "https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "pfSense installation walkthrough",
+          "publisher": "Netgate Documentation",
+          "url": "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Restoring pfSense backups",
+          "publisher": "Netgate Documentation",
+          "url": "https://docs.netgate.com/pfsense/en/latest/backup/restore.html",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-destructive-install",
+        "zh": "制作官方安装介质，在本地控制台确认接口与目标盘后安装；安装会覆盖目标磁盘。",
+        "en": "Create official installation media and verify interfaces and the target disk from the local console before installing; installation overwrites the target disk.",
+        "source_urls": [
+          "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html"
+        ]
+      },
+      "compatibility": {
+        "status": "amd64-minimums",
+        "zh": "最低要求为 64 位 amd64、1GB RAM、8GB 磁盘和兼容网卡；实际吞吐可能要求更高规格。",
+        "en": "Minimums are 64-bit amd64, 1 GB RAM, an 8 GB disk, and compatible NICs; real throughput may require more capable hardware.",
+        "source_urls": [
+          "https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html"
+        ]
+      },
+      "recovery": {
+        "status": "configuration-restore-documented",
+        "zh": "安装器可从原安装或 FAT/FAT32 USB 查找并恢复配置；官方也记录从备份恢复及不同硬件接口差异。",
+        "en": "The installer can locate and restore configuration from an existing installation or FAT/FAT32 USB; official docs also cover backup restore and interface differences on changed hardware.",
+        "source_urls": [
+          "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html",
+          "https://docs.netgate.com/pfsense/en/latest/backup/restore.html"
+        ]
+      },
+      "tutorial_sources": [
+        "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html",
+        "https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "满足最低要求的 amd64 主机、兼容网卡、安装 U 盘、本地控制台和 config.xml 备份。",
+          "en": "An amd64 host meeting minimums, compatible NICs, installer USB, local console, and a config.xml backup.",
+          "source_urls": [
+            "https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html",
+            "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html"
+          ]
+        },
+        "rough_steps": {
+          "zh": "备份配置，确认网卡与目标盘，启动安装器，必要时先导入配置，再完成接口分配。",
+          "en": "Back up configuration, identify NICs and the target disk, boot the installer, import configuration if needed, then complete interface assignment.",
+          "source_urls": [
+            "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html",
+            "https://docs.netgate.com/pfsense/en/latest/backup/restore.html"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "CPU 不是 amd64、关键网卡不兼容、没有离线配置备份，或无法确认将被覆盖的磁盘时停止。",
+          "en": "Stop if the CPU is not amd64, a critical NIC is incompatible, no offline configuration backup exists, or the disk to be overwritten cannot be identified.",
+          "source_urls": [
+            "https://docs.netgate.com/pfsense/en/latest/hardware/minimum-requirements.html",
+            "https://docs.netgate.com/pfsense/en/latest/install/install-walkthrough.html"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:rockstor",
+      "project_id": "rockstor",
+      "name": "Rockstor",
+      "category": "network",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "项目 README 将 Rockstor 定位为普通 PC/Pi4/ARM64 上的 DIY NAS，官方安装文档与配置备份文档分别覆盖系统盘写入、存储池导入和配置恢复。该路线可执行但数据风险高，升为 E1。",
+      "rationale_en": "The project README positions Rockstor as a DIY NAS for commodity PC/Pi4/ARM64 hardware, while official install and configuration-backup docs cover system-disk installation, pool import, and settings restore. The route is actionable but data-sensitive, supporting E1.",
+      "evidence_sources": [
+        {
+          "title": "Rockstor project README",
+          "publisher": "rockstor/rockstor-core",
+          "url": "https://github.com/rockstor/rockstor-core",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Rockstor installer how-to",
+          "publisher": "Rockstor Documentation",
+          "url": "https://rockstor.com/docs/installation/installer-howto.html",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Rockstor configuration backup and restore",
+          "publisher": "Rockstor Documentation",
+          "url": "https://rockstor.com/docs/interface/system/config_backup.html",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-nas-install",
+        "zh": "用官方镜像安装到独立系统盘；为降低误擦风险，上电安装时断开数据盘，初始配置完成后再接回并导入池。",
+        "en": "Install the official image to a dedicated system disk; reduce accidental erasure risk by disconnecting data disks during installation, reconnecting and importing pools only after initial setup.",
+        "source_urls": [
+          "https://rockstor.com/docs/installation/installer-howto.html"
+        ]
+      },
+      "compatibility": {
+        "status": "commodity-pc-pi4-arm64",
+        "zh": "上游定位覆盖普通 PC、Pi4/ARM64，但具体存储控制器和磁盘健康仍需逐机核验。",
+        "en": "Upstream targets commodity PCs and Pi4/ARM64, but storage controllers and disk health still require machine-specific checks.",
+        "source_urls": [
+          "https://github.com/rockstor/rockstor-core",
+          "https://rockstor.com/docs/installation/installer-howto.html"
+        ]
+      },
+      "recovery": {
+        "status": "pool-import-and-config-restore",
+        "zh": "先重新连接并导入现有存储池/共享，再上传配置备份；配置备份不是用户文件备份。",
+        "en": "Reconnect and import existing pools/shares before uploading a configuration backup; the configuration backup is not a backup of user files.",
+        "source_urls": [
+          "https://rockstor.com/docs/interface/system/config_backup.html"
+        ]
+      },
+      "tutorial_sources": [
+        "https://rockstor.com/docs/installation/installer-howto.html",
+        "https://rockstor.com/docs/interface/system/config_backup.html"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "兼容主机、独立系统盘、健康数据盘、安装介质、配置备份和独立文件备份。",
+          "en": "A compatible host, dedicated system disk, healthy data disks, installation media, configuration backup, and independent file backup.",
+          "source_urls": [
+            "https://github.com/rockstor/rockstor-core",
+            "https://rockstor.com/docs/installation/installer-howto.html",
+            "https://rockstor.com/docs/interface/system/config_backup.html"
+          ]
+        },
+        "rough_steps": {
+          "zh": "备份配置与文件，断开数据盘，安装系统并完成初始配置，关机接回数据盘，先导入池再恢复配置。",
+          "en": "Back up settings and files, disconnect data disks, install and initialize the system, power down, reconnect data disks, import pools, then restore configuration.",
+          "source_urls": [
+            "https://rockstor.com/docs/installation/installer-howto.html",
+            "https://rockstor.com/docs/interface/system/config_backup.html"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "没有独立文件备份、无法识别系统盘/数据盘、存储池已降级且恢复方案不清晰时停止。",
+          "en": "Stop if no independent file backup exists, system and data disks cannot be distinguished, or the pool is degraded without a clear recovery plan.",
+          "source_urls": [
+            "https://rockstor.com/docs/installation/installer-howto.html",
+            "https://rockstor.com/docs/interface/system/config_backup.html"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:mergerfs",
+      "project_id": "mergerfs",
+      "name": "mergerfs",
+      "category": "network",
+      "outcome": "rejected-delisted",
+      "resulting_evidence_level": "E0",
+      "display_decision": "delist-keep-data",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "上游明确将 mergerfs 定义为基于 FUSE、合并既有目录路径的联合文件系统，并明确“不提供 RAID 奇偶校验”。它是存储方案组件，不包含旧硬件的系统安装、设备兼容或整机恢复路线，因此不满足独立硬件复活条目边界。",
+      "rationale_en": "Upstream explicitly defines mergerfs as a FUSE union filesystem over existing directory paths and states that it does not provide RAID-like parity. It is a storage-stack component without an old-hardware OS install, device-compatibility, or whole-system recovery path, so it fails the standalone hardware-revival entry boundary.",
+      "evidence_sources": [
+        {
+          "title": "mergerfs README",
+          "publisher": "trapexit/mergerfs",
+          "url": "https://github.com/trapexit/mergerfs",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "mergerfs QuickStart",
+          "publisher": "mergerfs Documentation",
+          "url": "https://trapexit.github.io/mergerfs/latest/quickstart/",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "rejection_basis": {
+        "zh": "条目只能在与 NAS/操作系统等完整路线绑定时作为组件引用，不应作为能够单独复活设备的项目卡展示。原始发现记录仍保留。",
+        "en": "The project may be cited as a component within a complete NAS/OS route, but it should not appear as a project card that independently revives hardware. The original discovery record remains preserved.",
+        "source_urls": [
+          "https://github.com/trapexit/mergerfs",
+          "https://trapexit.github.io/mergerfs/latest/quickstart/"
+        ]
+      },
+      "installation": {
+        "status": "component-install-only",
+        "zh": "QuickStart 说明在现有 Linux 文件系统上安装并挂载 mergerfs，不负责安装主机操作系统。",
+        "en": "QuickStart installs and mounts mergerfs on an existing Linux filesystem; it does not install the host operating system.",
+        "source_urls": [
+          "https://trapexit.github.io/mergerfs/latest/quickstart/"
+        ]
+      },
+      "compatibility": {
+        "status": "filesystem-paths-not-hardware",
+        "zh": "兼容性围绕分支文件系统与路径行为，不是旧 NAS/主机型号支持。",
+        "en": "Compatibility concerns branch filesystems and path behavior, not old NAS/host model support.",
+        "source_urls": [
+          "https://github.com/trapexit/mergerfs"
+        ]
+      },
+      "recovery": {
+        "status": "not-a-data-protection-layer",
+        "zh": "上游明确不提供 RAID 奇偶校验，不能把解除挂载或重建池配置描述为数据恢复。",
+        "en": "Upstream explicitly does not provide RAID parity, so unmounting or rebuilding pool configuration must not be described as data recovery.",
+        "source_urls": [
+          "https://github.com/trapexit/mergerfs"
+        ]
+      },
+      "tutorial_sources": [
+        "https://trapexit.github.io/mergerfs/latest/quickstart/"
+      ],
+      "action_guide": null
+    },
+    {
+      "entry_id": "project-lead:atc-mi-thermometer",
+      "project_id": "atc-mi-thermometer",
+      "name": "ATC MiThermometer",
+      "category": "smarthome",
+      "outcome": "upgraded-e2",
+      "resulting_evidence_level": "E2",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "作者 README 明确列出 LYWSD03MMC 硬件修订、OTA 与串口救砖流程、原厂固件恢复文件，并链接作者实机演示视频和网页刷写器，满足 E2。",
+      "rationale_en": "The author README names LYWSD03MMC hardware revisions, documents OTA and serial unbrick procedures, links stock recovery firmware, and provides an author hardware demonstration plus web flasher, supporting E2.",
+      "evidence_sources": [
+        {
+          "title": "ATC MiThermometer README",
+          "publisher": "atc1441/ATC_MiThermometer",
+          "url": "https://github.com/atc1441/ATC_MiThermometer/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Telink web flasher",
+          "publisher": "ATC1441",
+          "url": "https://atc1441.github.io/TelinkFlasher.html",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "ATC MiThermometer hardware demonstration",
+          "publisher": "ATC1441",
+          "url": "https://www.youtube.com/watch?v=NXKzFG61lNs",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "ota-demonstrated",
+        "zh": "下载最新 ATC_Thermometer.bin，在兼容浏览器打开作者 Web Flasher，连接、激活并选择正确固件后刷写。",
+        "en": "Download the latest ATC_Thermometer.bin, open the author's Web Flasher in a compatible browser, connect and activate, then select the correct firmware and flash.",
+        "source_urls": [
+          "https://github.com/atc1441/ATC_MiThermometer/blob/master/README.md",
+          "https://atc1441.github.io/TelinkFlasher.html",
+          "https://www.youtube.com/watch?v=NXKzFG61lNs"
+        ]
+      },
+      "compatibility": {
+        "status": "model-and-hardware-revision",
+        "zh": "此条只覆盖 Xiaomi LYWSD03MMC；README 当前声明 B1.4、B1.5、B1.6 与 B1.9 兼容，并对特定官方固件利用条件作出限制。",
+        "en": "This entry covers Xiaomi LYWSD03MMC only; the README currently states compatibility for B1.4, B1.5, B1.6, and B1.9 and limits the exploit path to a specific stock firmware.",
+        "source_urls": [
+          "https://github.com/atc1441/ATC_MiThermometer/blob/master/README.md"
+        ]
+      },
+      "recovery": {
+        "status": "stock-and-serial-recovery",
+        "zh": "上游提供原厂固件回刷；OTA 失效时可按接线图用 USB-UART 与 ATCtelink.py 重新刷写。",
+        "en": "Upstream provides stock firmware for reflashing; if OTA fails, the wiring diagram plus USB-UART and ATCtelink.py provide an unbrick path.",
+        "source_urls": [
+          "https://github.com/atc1441/ATC_MiThermometer/blob/master/README.md"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/atc1441/ATC_MiThermometer/blob/master/README.md",
+        "https://www.youtube.com/watch?v=NXKzFG61lNs"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "LYWSD03MMC、兼容 Web Bluetooth 的浏览器、正确固件；救砖另需 USB-UART 与接线工具。",
+          "en": "An LYWSD03MMC, a Web Bluetooth-compatible browser, and the correct firmware; unbricking additionally needs USB-UART and wiring tools.",
+          "source_urls": [
+            "https://github.com/atc1441/ATC_MiThermometer/blob/master/README.md",
+            "https://atc1441.github.io/TelinkFlasher.html"
+          ]
+        },
+        "rough_steps": {
+          "zh": "确认硬件修订与原固件，保存必要绑定信息，连接 Web Flasher，激活后刷入匹配镜像并重启。",
+          "en": "Confirm the hardware revision and stock firmware, preserve required binding data, connect in Web Flasher, activate, flash the matching image, and reboot.",
+          "source_urls": [
+            "https://github.com/atc1441/ATC_MiThermometer/blob/master/README.md"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "型号/修订不匹配、无法确认镜像、绑定信息未保存，或没有串口恢复能力时停止。",
+          "en": "Stop if model/revision does not match, the image cannot be identified, binding data is not preserved, or serial recovery is unavailable.",
+          "source_urls": [
+            "https://github.com/atc1441/ATC_MiThermometer/blob/master/README.md"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:libretiny",
+      "project_id": "libretiny",
+      "name": "LibreTiny",
+      "category": "smarthome",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方文档提供芯片、模组、开发板与功能支持矩阵，并明确用“未测试/损坏/未实现”区分能力；Getting Started 说明构建环境。它是替代固件开发平台而非设备成品固件，按准确芯片边界升为 E1。",
+      "rationale_en": "Official documentation provides chip, module, board, and feature-support matrices and explicitly distinguishes untested, broken, and unimplemented capabilities; Getting Started covers the build environment. It is an alternative-firmware development platform rather than finished device firmware, so it is upgraded to E1 within exact chip boundaries.",
+      "evidence_sources": [
+        {
+          "title": "LibreTiny repository",
+          "publisher": "LibreTiny",
+          "url": "https://github.com/libretiny-eu/libretiny",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "LibreTiny Getting Started",
+          "publisher": "LibreTiny Documentation",
+          "url": "https://docs.libretiny.eu/docs/getting-started/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Supported boards, modules and CPUs",
+          "publisher": "LibreTiny Documentation",
+          "url": "https://docs.libretiny.eu/docs/status/supported/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "ltchiptool flashing documentation",
+          "publisher": "LibreTiny Documentation",
+          "url": "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "development-platform-documented",
+        "zh": "先按 Getting Started 配置 PlatformIO/开发环境，为精确芯片和板定义构建固件，再使用该芯片适配的刷写工具。",
+        "en": "Set up PlatformIO/development tooling from Getting Started, build firmware for an exact chip and board definition, then use a flashing tool appropriate to that chip.",
+        "source_urls": [
+          "https://docs.libretiny.eu/docs/getting-started/",
+          "https://github.com/libretiny-eu/libretiny"
+        ]
+      },
+      "compatibility": {
+        "status": "chip-board-feature-matrix",
+        "zh": "必须逐项核对受支持芯片、板定义和所需功能；文档中的问号、感叹号或叉号分别表示未测试、损坏或未实现。",
+        "en": "Check the supported chip, board definition, and every required feature; question, warning, and cross marks in the matrix mean untested, broken, or unimplemented.",
+        "source_urls": [
+          "https://docs.libretiny.eu/docs/status/supported/"
+        ]
+      },
+      "recovery": {
+        "status": "depends-on-stock-dump-and-chip-tool",
+        "zh": "平台本身不保证设备级回退；在写入前须用兼容工具读取原固件，并确认芯片的下载模式仍可进入。",
+        "en": "The platform does not guarantee device-level rollback; read the stock firmware with a compatible tool and confirm the chip's download mode remains reachable before writing.",
+        "source_urls": [
+          "https://docs.libretiny.eu/docs/status/supported/",
+          "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/"
+        ]
+      },
+      "tutorial_sources": [
+        "https://docs.libretiny.eu/docs/getting-started/",
+        "https://docs.libretiny.eu/docs/status/supported/"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "可识别芯片/模组、匹配板定义、PlatformIO 环境、串口刷写/读取工具和原固件备份。",
+          "en": "An identified chip/module, matching board definition, PlatformIO environment, serial read/flash tooling, and a stock firmware backup.",
+          "source_urls": [
+            "https://docs.libretiny.eu/docs/getting-started/",
+            "https://docs.libretiny.eu/docs/status/supported/",
+            "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/"
+          ]
+        },
+        "rough_steps": {
+          "zh": "识别芯片与板，核对功能矩阵，先读取原闪存，再构建并写入最小测试固件。",
+          "en": "Identify the chip and board, check the feature matrix, read original flash first, then build and write a minimal test firmware.",
+          "source_urls": [
+            "https://docs.libretiny.eu/docs/status/supported/",
+            "https://docs.libretiny.eu/docs/getting-started/"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "芯片/板未列出、关键功能标为未测试/损坏/未实现，或无法读取原固件时停止。",
+          "en": "Stop if the chip/board is not listed, a required feature is untested/broken/unimplemented, or original firmware cannot be read.",
+          "source_urls": [
+            "https://docs.libretiny.eu/docs/status/supported/"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:ltchiptool",
+      "project_id": "ltchiptool",
+      "name": "ltchiptool",
+      "category": "smarthome",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "上游把 ltchiptool 明确定义为 BK7231、LN882H、RTL8710B、RTL8720C 的读取与刷写工具，官方文档覆盖 GUI/CLI、下载模式和备份读取。它是高风险改造的前置工具，因此仅在芯片已确认且先完成原固件读取时升为 E1。",
+      "rationale_en": "Upstream defines ltchiptool as a read/flash utility for BK7231, LN882H, RTL8710B, and RTL8720C, with official GUI/CLI, download-mode, and backup-reading documentation. As a prerequisite tool for high-risk modifications, it is upgraded to E1 only when the chip is identified and stock flash is read first.",
+      "evidence_sources": [
+        {
+          "title": "ltchiptool repository",
+          "publisher": "LibreTiny",
+          "url": "https://github.com/libretiny-eu/ltchiptool",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "ltchiptool documentation",
+          "publisher": "LibreTiny Documentation",
+          "url": "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "LibreTiny supported chips and boards",
+          "publisher": "LibreTiny Documentation",
+          "url": "https://docs.libretiny.eu/docs/status/supported/",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-tool-install",
+        "zh": "按官方文档安装桌面版或 Python 包，连接正确电平的串口接口并让芯片进入对应下载模式。",
+        "en": "Install the desktop build or Python package from official docs, connect a correctly leveled serial interface, and enter the chip-specific download mode.",
+        "source_urls": [
+          "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/"
+        ]
+      },
+      "compatibility": {
+        "status": "chip-family-specific",
+        "zh": "仅按官方文档列出的 BK7231、LN882H、RTL8710B、RTL8720C 家族及具体协议操作；产品名不能代替芯片识别。",
+        "en": "Operate only on documented BK7231, LN882H, RTL8710B, and RTL8720C families using their specific protocols; a product name is not a substitute for chip identification.",
+        "source_urls": [
+          "https://github.com/libretiny-eu/ltchiptool",
+          "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/"
+        ]
+      },
+      "recovery": {
+        "status": "stock-flash-dump-supported",
+        "zh": "GUI/CLI 支持读取闪存；首次写入前保存完整原厂转储和芯片信息，写入后可用同一下载模式回写。",
+        "en": "The GUI/CLI supports flash reads; preserve a complete stock dump and chip information before the first write so the same download mode can be used to restore it.",
+        "source_urls": [
+          "https://github.com/libretiny-eu/ltchiptool",
+          "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/"
+        ]
+      },
+      "tutorial_sources": [
+        "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "已识别的受支持芯片、正确电平 USB-UART、可靠供电、探针/焊接工具和备份存储。",
+          "en": "An identified supported chip, correctly leveled USB-UART, stable power, probe/soldering tools, and backup storage.",
+          "source_urls": [
+            "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/",
+            "https://docs.libretiny.eu/docs/status/supported/"
+          ]
+        },
+        "rough_steps": {
+          "zh": "核对芯片与引脚，进入下载模式，先完整读取并校验原闪存，再写入匹配镜像。",
+          "en": "Verify chip and pins, enter download mode, read and verify the complete stock flash first, then write a matching image.",
+          "source_urls": [
+            "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "芯片/电压不确定、无法稳定进入下载模式、读取校验不一致或没有匹配恢复镜像时停止。",
+          "en": "Stop if chip or voltage is uncertain, download mode is unstable, read verification differs, or no matching recovery image exists.",
+          "source_urls": [
+            "https://docs.libretiny.eu/docs/flashing/tools/ltchiptool/"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:tuya-cloudcutter",
+      "project_id": "tuya-cloudcutter",
+      "name": "tuya-cloudcutter",
+      "category": "smarthome",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方 README、INSTRUCTIONS 与 FAQ 详细限定未修补的 Beken/Realtek 芯片、精确设备 profile、独立 AP 模式 Wi-Fi 与已修补固件排除项，并记录先转储原固件的工具。路线可核查但利用条件脆弱，升为 E1。",
+      "rationale_en": "The official README, INSTRUCTIONS, and FAQ strictly bound unpatched Beken/Realtek chips, exact device profiles, a separate AP-mode Wi-Fi adapter, patched-firmware exclusions, and stock-dump tools. The route is verifiable but exploit-condition-sensitive, supporting E1.",
+      "evidence_sources": [
+        {
+          "title": "Tuya Cloudcutter README and support boundaries",
+          "publisher": "tuya-cloudcutter",
+          "url": "https://github.com/tuya-cloudcutter/tuya-cloudcutter",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Tuya Cloudcutter instructions",
+          "publisher": "tuya-cloudcutter",
+          "url": "https://github.com/tuya-cloudcutter/tuya-cloudcutter/blob/main/INSTRUCTIONS.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Tuya Cloudcutter FAQ",
+          "publisher": "tuya-cloudcutter",
+          "url": "https://github.com/tuya-cloudcutter/tuya-cloudcutter/wiki/FAQ",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Known patched firmware",
+          "publisher": "tuya-cloudcutter",
+          "url": "https://github.com/tuya-cloudcutter/tuya-cloudcutter/wiki/Known-Patched-Firmware",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "profile-bound-wireless-exploit",
+        "zh": "在 Linux 主机准备 Docker、iw 和独立 AP 模式无线网卡，按精确芯片/固件选择 profile，再按 INSTRUCTIONS 执行脱云或 OTA 刷写。",
+        "en": "Prepare Docker, iw, and a separate AP-mode Wi-Fi adapter on Linux, select a profile for the exact chip/firmware, then follow INSTRUCTIONS for cloud detachment or OTA flashing.",
+        "source_urls": [
+          "https://github.com/tuya-cloudcutter/tuya-cloudcutter",
+          "https://github.com/tuya-cloudcutter/tuya-cloudcutter/blob/main/INSTRUCTIONS.md"
+        ]
+      },
+      "compatibility": {
+        "status": "chip-firmware-profile-intersection",
+        "zh": "只有未修补的 BK7231T/N、部分 RTL8710BN/RTL8720CF 且存在正确 profile 的设备可走无线路线；同型号也可能因固件变化而不兼容。",
+        "en": "The wireless route applies only to unpatched BK7231T/N and some RTL8710BN/RTL8720CF devices with the correct profile; firmware changes can make the same retail model incompatible.",
+        "source_urls": [
+          "https://github.com/tuya-cloudcutter/tuya-cloudcutter",
+          "https://github.com/tuya-cloudcutter/tuya-cloudcutter/wiki/Known-Patched-Firmware"
+        ]
+      },
+      "recovery": {
+        "status": "dump-before-flash-required",
+        "zh": "上游列出 ltchiptool、BK7231Flasher、bk7231tools 等转储工具；先清除家庭 Wi-Fi 凭据并保存完整原固件，不能假设无线利用失败后仍可无线恢复。",
+        "en": "Upstream lists ltchiptool, BK7231Flasher, and bk7231tools for dumping; wipe home Wi-Fi credentials and save a complete stock image first, because wireless recovery after a failed exploit cannot be assumed.",
+        "source_urls": [
+          "https://github.com/tuya-cloudcutter/tuya-cloudcutter"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/tuya-cloudcutter/tuya-cloudcutter/blob/main/INSTRUCTIONS.md",
+        "https://github.com/tuya-cloudcutter/tuya-cloudcutter/wiki/FAQ"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "精确芯片/固件/profile、Linux、Docker、iw、独立 AP 网卡及串口恢复能力。",
+          "en": "An exact chip/firmware/profile match, Linux, Docker, iw, a separate AP Wi-Fi adapter, and serial recovery capability.",
+          "source_urls": [
+            "https://github.com/tuya-cloudcutter/tuya-cloudcutter",
+            "https://github.com/tuya-cloudcutter/tuya-cloudcutter/blob/main/INSTRUCTIONS.md"
+          ]
+        },
+        "rough_steps": {
+          "zh": "先核对 patched 列表和 profile，清除敏感 Wi-Fi 数据并转储原固件，再按说明测试利用与刷写。",
+          "en": "Check patched-firmware lists and the profile, remove sensitive Wi-Fi data and dump stock firmware, then test exploitation and flashing exactly as documented.",
+          "source_urls": [
+            "https://github.com/tuya-cloudcutter/tuya-cloudcutter",
+            "https://github.com/tuya-cloudcutter/tuya-cloudcutter/wiki/Known-Patched-Firmware",
+            "https://github.com/tuya-cloudcutter/tuya-cloudcutter/blob/main/INSTRUCTIONS.md"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "设备固件在已修补表、缺少精确 profile、无法备份原固件或没有串口恢复手段时停止。",
+          "en": "Stop if firmware is listed as patched, no exact profile exists, stock firmware cannot be backed up, or serial recovery is unavailable.",
+          "source_urls": [
+            "https://github.com/tuya-cloudcutter/tuya-cloudcutter/wiki/Known-Patched-Firmware",
+            "https://github.com/tuya-cloudcutter/tuya-cloudcutter"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:wled",
+      "project_id": "wled",
+      "name": "WLED",
+      "category": "smarthome",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方仓库与知识库给出兼容 ESP32 控制器、灯带类型、网页安装器、供电/接线教程以及 JSON 配置备份和恢复。它支持将既有数字灯带改为本地控制的 E1 路线，但每块非标准板仍需逐项核对引脚和电气条件。",
+      "rationale_en": "The official repository and knowledge base document compatible ESP32 controllers, LED types, a web installer, power/wiring tutorials, and JSON configuration backup/restore. This supports an E1 route for local control of existing digital lighting, while nonstandard boards still require pin and electrical checks.",
+      "evidence_sources": [
+        {
+          "title": "WLED repository",
+          "publisher": "WLED",
+          "url": "https://github.com/wled/WLED",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "WLED compatible hardware",
+          "publisher": "WLED Knowledge Base",
+          "url": "https://kno.wled.ge/basics/compatible-hardware/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "WLED web installer",
+          "publisher": "WLED",
+          "url": "https://install.wled.me/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "WLED settings backup and restore",
+          "publisher": "WLED Knowledge Base",
+          "url": "https://kno.wled.ge/features/settings/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "WLED tutorials",
+          "publisher": "WLED Knowledge Base",
+          "url": "https://kno.wled.ge/basics/tutorials/",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-web-flash",
+        "zh": "选择兼容控制器并在官方 Web Installer 刷写，断电后按知识库接线和供电，再配置 LED 类型与数量。",
+        "en": "Choose a compatible controller and flash it with the official Web Installer, power down for wiring and power setup per the knowledge base, then configure LED type and count.",
+        "source_urls": [
+          "https://install.wled.me/",
+          "https://kno.wled.ge/basics/compatible-hardware/",
+          "https://github.com/wled/WLED"
+        ]
+      },
+      "compatibility": {
+        "status": "controller-and-led-list",
+        "zh": "只使用兼容硬件页和灯带页明确支持的 ESP32 板与数字 LED 类型；电压、GPIO 与功率预算必须匹配实际灯带。",
+        "en": "Use only ESP32 boards and digital LED types named in the compatible-hardware and strip documentation; voltage, GPIO, and power budget must match the actual strip.",
+        "source_urls": [
+          "https://kno.wled.ge/basics/compatible-hardware/",
+          "https://github.com/wled/WLED"
+        ]
+      },
+      "recovery": {
+        "status": "config-backup-and-reflash",
+        "zh": "设置页可导出配置与预设 JSON；恢复会覆盖设备现有设置。固件故障时使用官方安装器重新刷写匹配板。",
+        "en": "The settings page exports configuration and preset JSON; restore overwrites current settings. Firmware failures can be handled by reflashing the matching board with the official installer.",
+        "source_urls": [
+          "https://kno.wled.ge/features/settings/",
+          "https://install.wled.me/"
+        ]
+      },
+      "tutorial_sources": [
+        "https://kno.wled.ge/basics/tutorials/",
+        "https://install.wled.me/"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "兼容 ESP32 控制板、受支持灯带、按电流预算选择的电源、数据线和必要的电平转换/保险。",
+          "en": "A compatible ESP32 controller, supported strip, power supply sized to current draw, data cable, and any required level shifting/fusing.",
+          "source_urls": [
+            "https://kno.wled.ge/basics/compatible-hardware/",
+            "https://github.com/wled/WLED"
+          ]
+        },
+        "rough_steps": {
+          "zh": "先刷控制板并空载启动，断电接线，限制初始亮度，确认正常后备份配置。",
+          "en": "Flash and boot the controller unloaded first, power down for wiring, limit initial brightness, and back up configuration after validation.",
+          "source_urls": [
+            "https://install.wled.me/",
+            "https://kno.wled.ge/features/settings/"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "板卡/灯带不在支持范围、电压或电流预算不明确、共地无法确认，或线材发热时立即停止。",
+          "en": "Stop immediately if board/strip support is unclear, voltage or current budget is unknown, common ground cannot be confirmed, or wiring heats up.",
+          "source_urls": [
+            "https://kno.wled.ge/basics/compatible-hardware/",
+            "https://github.com/wled/WLED"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:zigbee2mqtt",
+      "project_id": "zigbee2mqtt",
+      "name": "Zigbee2MQTT",
+      "category": "smarthome",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方文档将主机、MQTT broker、协调器和终端设备前提拆开，提供协调器与设备支持表，并明确只有 zStack/EmberZNet 支持协调器备份。可执行性与恢复边界清楚，升为 E1。",
+      "rationale_en": "Official documentation separates host, MQTT broker, coordinator, and end-device prerequisites, provides coordinator/device support lists, and states that coordinator backups are supported only for zStack and EmberZNet. The route and recovery boundary are clear enough for E1.",
+      "evidence_sources": [
+        {
+          "title": "Zigbee2MQTT getting started",
+          "publisher": "Zigbee2MQTT",
+          "url": "https://www.zigbee2mqtt.io/guide/getting-started/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Supported adapters",
+          "publisher": "Zigbee2MQTT",
+          "url": "https://www.zigbee2mqtt.io/guide/adapters/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Supported Zigbee devices",
+          "publisher": "Zigbee2MQTT",
+          "url": "https://www.zigbee2mqtt.io/supported-devices/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Zigbee2MQTT backup and migration FAQ",
+          "publisher": "Zigbee2MQTT",
+          "url": "https://www.zigbee2mqtt.io/guide/faq/",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-platform-install",
+        "zh": "准备受支持协调器、常开主机和 MQTT broker，按主机平台安装 Zigbee2MQTT，再通过首次运行引导配置协调器。",
+        "en": "Prepare a supported coordinator, always-on host, and MQTT broker, install Zigbee2MQTT for the host platform, then configure the coordinator through first-run onboarding.",
+        "source_urls": [
+          "https://www.zigbee2mqtt.io/guide/getting-started/",
+          "https://www.zigbee2mqtt.io/guide/adapters/"
+        ]
+      },
+      "compatibility": {
+        "status": "adapter-and-device-databases",
+        "zh": "协调器必须在 adapter 文档中，终端设备必须在支持数据库中；Wi-Fi 串口协调器还存在官方提示的稳定性风险。",
+        "en": "The coordinator must be in adapter documentation and end devices in the support database; Wi-Fi serial coordinators also carry the documented stability caveat.",
+        "source_urls": [
+          "https://www.zigbee2mqtt.io/guide/adapters/",
+          "https://www.zigbee2mqtt.io/supported-devices/"
+        ]
+      },
+      "recovery": {
+        "status": "adapter-dependent-backup",
+        "zh": "保存 data 目录和 coordinator_backup.json；只有 zStack/EmberZNet 正式支持协调器备份，其他适配器迁移可能需要重新配对。",
+        "en": "Preserve the data directory and coordinator_backup.json; only zStack/EmberZNet officially support coordinator backup, and other adapter migrations may require repairing devices.",
+        "source_urls": [
+          "https://www.zigbee2mqtt.io/guide/adapters/",
+          "https://www.zigbee2mqtt.io/guide/faq/"
+        ]
+      },
+      "tutorial_sources": [
+        "https://www.zigbee2mqtt.io/guide/getting-started/",
+        "https://www.zigbee2mqtt.io/guide/adapters/"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "受支持协调器、Linux/Windows/macOS 主机、MQTT broker、USB 延长线和受支持终端设备。",
+          "en": "A supported coordinator, Linux/Windows/macOS host, MQTT broker, USB extension cable, and supported end devices.",
+          "source_urls": [
+            "https://www.zigbee2mqtt.io/guide/getting-started/",
+            "https://www.zigbee2mqtt.io/guide/adapters/"
+          ]
+        },
+        "rough_steps": {
+          "zh": "核对协调器和设备清单，安装 broker 与 Zigbee2MQTT，完成引导并逐个配对，随后备份 data。",
+          "en": "Check coordinator and device lists, install the broker and Zigbee2MQTT, complete onboarding and pair devices one by one, then back up data.",
+          "source_urls": [
+            "https://www.zigbee2mqtt.io/guide/getting-started/",
+            "https://www.zigbee2mqtt.io/supported-devices/"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "协调器不受支持、关键设备不在数据库、无法接受重新配对，或迁移适配器没有受支持备份时停止。",
+          "en": "Stop if the coordinator is unsupported, a critical device is absent from the database, repairing is unacceptable, or adapter migration lacks supported backup.",
+          "source_urls": [
+            "https://www.zigbee2mqtt.io/guide/adapters/",
+            "https://www.zigbee2mqtt.io/guide/faq/"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:openmqttgateway",
+      "project_id": "openmqttgateway",
+      "name": "OpenMQTTGateway",
+      "category": "smarthome",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "官方文档列出 ESP32/ESP8266 等板卡、所需射频/红外/BLE 部件、网页刷写器与兼容设备解码清单，足以确认把旧传感器和遥控器桥接到本地 MQTT 的 E1 路线。",
+      "rationale_en": "Official documentation lists ESP32/ESP8266 boards, required RF/IR/BLE parts, a web flasher, and compatible decoded devices, supporting an E1 route for bridging older sensors and remotes into local MQTT.",
+      "evidence_sources": [
+        {
+          "title": "OpenMQTTGateway repository",
+          "publisher": "OpenMQTTGateway",
+          "url": "https://github.com/1technophile/OpenMQTTGateway",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OpenMQTTGateway web installation",
+          "publisher": "OpenMQTTGateway Documentation",
+          "url": "https://docs.openmqttgateway.com/upload/web-install.html",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OpenMQTTGateway board guide",
+          "publisher": "OpenMQTTGateway Documentation",
+          "url": "https://docs.openmqttgateway.com/prerequisites/board.html",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Theengs decoded-device list",
+          "publisher": "Theengs Decoder",
+          "url": "https://decoder.theengs.io/devices/devices.html",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-web-installer",
+        "zh": "选择官方板卡配置，用 Chrome/Edge/Opera 和数据 USB 线通过网页刷写，再填写本地 Wi-Fi 与 MQTT 参数。",
+        "en": "Choose an official board configuration, flash through the web installer using Chrome/Edge/Opera and a data USB cable, then enter local Wi-Fi and MQTT settings.",
+        "source_urls": [
+          "https://docs.openmqttgateway.com/upload/web-install.html",
+          "https://docs.openmqttgateway.com/prerequisites/board.html"
+        ]
+      },
+      "compatibility": {
+        "status": "board-radio-device-lists",
+        "zh": "主控板、射频模块与被解码设备需分别在官方板卡/部件/设备清单内；同频率不等于协议兼容。",
+        "en": "The controller board, radio module, and decoded device must each be present in official board/parts/device lists; sharing a frequency does not imply protocol compatibility.",
+        "source_urls": [
+          "https://docs.openmqttgateway.com/prerequisites/board.html",
+          "https://decoder.theengs.io/devices/devices.html",
+          "https://github.com/1technophile/OpenMQTTGateway"
+        ]
+      },
+      "recovery": {
+        "status": "reflash-and-config-record",
+        "zh": "改造主要写入网关板而非原传感器；保留所选构建、引脚和 MQTT 参数，失败时可用网页安装器重刷网关板。",
+        "en": "The modification primarily writes the gateway board rather than source sensors; retain the selected build, pins, and MQTT settings so the gateway can be reflashed through the web installer.",
+        "source_urls": [
+          "https://docs.openmqttgateway.com/upload/web-install.html",
+          "https://docs.openmqttgateway.com/prerequisites/board.html"
+        ]
+      },
+      "tutorial_sources": [
+        "https://docs.openmqttgateway.com/upload/web-install.html",
+        "https://docs.openmqttgateway.com/prerequisites/board.html"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "受支持 ESP 板、与目标协议匹配的射频/红外/BLE 模块、数据 USB 线、MQTT broker。",
+          "en": "A supported ESP board, RF/IR/BLE module matching the target protocol, a data USB cable, and an MQTT broker.",
+          "source_urls": [
+            "https://docs.openmqttgateway.com/prerequisites/board.html",
+            "https://github.com/1technophile/OpenMQTTGateway"
+          ]
+        },
+        "rough_steps": {
+          "zh": "先在设备清单确认协议，选匹配板构建并网页刷写，配置 MQTT 后用单个传感器验证。",
+          "en": "Confirm the protocol in the device list, select and web-flash a matching board build, configure MQTT, and validate with one sensor.",
+          "source_urls": [
+            "https://decoder.theengs.io/devices/devices.html",
+            "https://docs.openmqttgateway.com/upload/web-install.html"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "目标设备不在解码清单、板卡/模块不匹配、USB 端口无法识别或无法隔离 MQTT 测试环境时停止。",
+          "en": "Stop if the target is absent from the decoder list, board/module does not match, USB cannot detect the board, or an isolated MQTT test cannot be arranged.",
+          "source_urls": [
+            "https://decoder.theengs.io/devices/devices.html",
+            "https://docs.openmqttgateway.com/upload/web-install.html"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:shelly-homekit",
+      "project_id": "shelly-homekit",
+      "name": "Shelly HomeKit",
+      "category": "smarthome",
+      "outcome": "upgraded-e2",
+      "resulting_evidence_level": "E2",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "作者 README 提供精确型号/功能矩阵、从原厂固件 OTA 刷写和恢复原厂固件的 Wiki，并链接作者两分钟实机刷写演示，满足 E2。",
+      "rationale_en": "The author README provides an exact model/feature matrix, Wiki procedures for OTA flashing from stock and returning to stock firmware, and an author two-minute hardware flashing demonstration, supporting E2.",
+      "evidence_sources": [
+        {
+          "title": "Shelly HomeKit README and support matrix",
+          "publisher": "mongoose-os-apps/shelly-homekit",
+          "url": "https://github.com/mongoose-os-apps/shelly-homekit/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Shelly HomeKit flashing and stock recovery",
+          "publisher": "Shelly HomeKit Wiki",
+          "url": "https://github.com/mongoose-os-apps/shelly-homekit/wiki/Flashing",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Installing HomeKit firmware on Shelly1",
+          "publisher": "Deomid Ryabkov",
+          "url": "https://www.youtube.com/watch?v=BZc-kp4dDRw",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "ota-demonstrated",
+        "zh": "先把设备升级到 README 要求的最新原厂固件，再从设备本地 Web 界面调用与精确型号匹配的 OTA 地址；作者视频演示了该流程。",
+        "en": "First update the device to the stock-firmware level required by the README, then invoke the exact-model OTA URL from the device's local web interface; the author video demonstrates the flow.",
+        "source_urls": [
+          "https://github.com/mongoose-os-apps/shelly-homekit/blob/master/README.md",
+          "https://github.com/mongoose-os-apps/shelly-homekit/wiki/Flashing",
+          "https://www.youtube.com/watch?v=BZc-kp4dDRw"
+        ]
+      },
+      "compatibility": {
+        "status": "exact-model-feature-matrix",
+        "zh": "只按 README 表格中标为支持的 Gen1/Plus/Gen3 型号与功能操作；Pro 型号当前明确不支持。",
+        "en": "Operate only on Gen1/Plus/Gen3 models and features marked supported in the README matrix; Pro devices are explicitly unsupported.",
+        "source_urls": [
+          "https://github.com/mongoose-os-apps/shelly-homekit/blob/master/README.md"
+        ]
+      },
+      "recovery": {
+        "status": "stock-revert-documented",
+        "zh": "Wiki 提供恢复原厂固件步骤；安装前记录精确型号、原厂版本和网络地址，且不要在带电市电接线状态下拆装。",
+        "en": "The Wiki documents reverting to stock; record the exact model, stock version, and network address before installation, and never disassemble a mains-wired unit while energized.",
+        "source_urls": [
+          "https://github.com/mongoose-os-apps/shelly-homekit/wiki/Flashing",
+          "https://github.com/mongoose-os-apps/shelly-homekit/blob/master/README.md"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/mongoose-os-apps/shelly-homekit/wiki/Flashing",
+        "https://www.youtube.com/watch?v=BZc-kp4dDRw"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "支持表内的精确 Shelly 型号、最新要求的原厂固件、同网段浏览器及原厂恢复链接。",
+          "en": "An exact Shelly model in the support table, the required current stock firmware, a same-LAN browser, and the stock-recovery link.",
+          "source_urls": [
+            "https://github.com/mongoose-os-apps/shelly-homekit/blob/master/README.md",
+            "https://github.com/mongoose-os-apps/shelly-homekit/wiki/Flashing"
+          ]
+        },
+        "rough_steps": {
+          "zh": "核对型号与功能表，升级原厂固件，从本地 Web 界面执行匹配 OTA，重启后再配对 HomeKit。",
+          "en": "Check the model/feature matrix, update stock firmware, run the matching OTA from the local web UI, then pair with HomeKit after reboot.",
+          "source_urls": [
+            "https://github.com/mongoose-os-apps/shelly-homekit/blob/master/README.md",
+            "https://www.youtube.com/watch?v=BZc-kp4dDRw"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "型号或硬件修订不在表中、原厂版本不满足前提、设备承担关键市电负载，或原厂恢复包无法确认时停止。",
+          "en": "Stop if model/hardware revision is absent, stock firmware prerequisites are unmet, the unit controls a critical mains load, or the stock recovery image cannot be confirmed.",
+          "source_urls": [
+            "https://github.com/mongoose-os-apps/shelly-homekit/blob/master/README.md",
+            "https://github.com/mongoose-os-apps/shelly-homekit/wiki/Flashing"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:linux-deploy",
+      "project_id": "linux-deploy",
+      "name": "Linux Deploy",
+      "category": "mobile",
+      "outcome": "upgraded-e2",
+      "resulting_evidence_level": "E2",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "作者 README 详细说明 chroot 镜像/目录/分区模式、架构和文件系统，声明更适合 root，并公布 Samsung Galaxy S II 上的安装时间、空间和存储性能实测表，因此满足 E2；维护时间较旧仍作为风险保留。",
+      "rationale_en": "The author README documents chroot image/directory/partition modes, architectures and filesystems, says root works better, and publishes measured install-time, space, and storage-performance tables from a Samsung Galaxy S II, supporting E2. The older maintenance state remains a risk.",
+      "evidence_sources": [
+        {
+          "title": "Linux Deploy README and Galaxy S II measurements",
+          "publisher": "meefik/linuxdeploy",
+          "url": "https://github.com/meefik/linuxdeploy/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Linux Deploy releases",
+          "publisher": "meefik/linuxdeploy",
+          "url": "https://github.com/meefik/linuxdeploy/releases",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-and-device-measured",
+        "zh": "在 Android 安装上游 APK，选择发行版、架构、镜像/目录与容量，安装后从应用启动 SSH/VNC 等服务；root 权限可改善功能。",
+        "en": "Install the upstream APK on Android, select distribution, architecture, image/directory mode and size, then start SSH/VNC services from the app; root access can improve functionality.",
+        "source_urls": [
+          "https://github.com/meefik/linuxdeploy/blob/master/README.md",
+          "https://github.com/meefik/linuxdeploy/releases"
+        ]
+      },
+      "compatibility": {
+        "status": "architecture-root-and-filesystem-dependent",
+        "zh": "上游列出 arm/arm64/x86/x86_64 与 ext2/3/4；FAT32 镜像不得超过 4095MB，部分 root 管理器与 BusyBox 组合需要额外设置。",
+        "en": "Upstream lists arm/arm64/x86/x86_64 and ext2/3/4; FAT32 images must not exceed 4095 MB, and some root-manager/BusyBox combinations require extra settings.",
+        "source_urls": [
+          "https://github.com/meefik/linuxdeploy/blob/master/README.md"
+        ]
+      },
+      "recovery": {
+        "status": "reversible-container-removal",
+        "zh": "上游称改动可逆，可停止服务并删除已创建的镜像/目录与应用组件；删除前先导出 Linux 环境中的用户数据。",
+        "en": "Upstream states that changes are reversible by stopping services and removing the created image/directory and app components; export user data from the Linux environment first.",
+        "source_urls": [
+          "https://github.com/meefik/linuxdeploy/blob/master/README.md"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/meefik/linuxdeploy/blob/master/README.md"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "旧 Android 设备、足够存储、稳定网络、上游 APK；完整功能通常还需 root 与兼容 BusyBox。",
+          "en": "An older Android device, sufficient storage, stable network, and upstream APK; full functionality commonly also needs root and a compatible BusyBox.",
+          "source_urls": [
+            "https://github.com/meefik/linuxdeploy/blob/master/README.md",
+            "https://github.com/meefik/linuxdeploy/releases"
+          ]
+        },
+        "rough_steps": {
+          "zh": "先备份 Android 数据，选择匹配架构和小型镜像，安装最小发行版，验证 SSH 后再增加桌面环境。",
+          "en": "Back up Android data, choose the matching architecture and a small image, install a minimal distribution, and verify SSH before adding a desktop environment.",
+          "source_urls": [
+            "https://github.com/meefik/linuxdeploy/blob/master/README.md"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "无法确认 root/BusyBox 兼容、可用空间不足、FAT32 镜像将超过限制，或设备是唯一数据副本时停止。",
+          "en": "Stop if root/BusyBox compatibility is unclear, storage is insufficient, a FAT32 image would exceed its limit, or the device holds the only data copy.",
+          "source_urls": [
+            "https://github.com/meefik/linuxdeploy/blob/master/README.md"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:scrcpy",
+      "project_id": "scrcpy",
+      "name": "scrcpy",
+      "category": "mobile",
+      "outcome": "upgraded-e2",
+      "resulting_evidence_level": "E2",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "唯一官方仓库明确 Android 5.0/API 21、USB 调试、平台安装方式以及不在设备留下应用；作者发布的介绍文章和仓库演示给出实际显示/控制行为，因此满足 E2。",
+      "rationale_en": "The sole official repository specifies Android 5.0/API 21, USB debugging, platform installation, and leaving no app installed on the device. The author's introduction and repository demonstration show actual display/control behavior, supporting E2.",
+      "evidence_sources": [
+        {
+          "title": "Official scrcpy README",
+          "publisher": "Genymobile/scrcpy",
+          "url": "https://github.com/Genymobile/scrcpy",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "scrcpy Windows installation",
+          "publisher": "Genymobile/scrcpy",
+          "url": "https://github.com/Genymobile/scrcpy/blob/master/doc/windows.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Introducing scrcpy",
+          "publisher": "Romain Vimont",
+          "url": "https://blog.rom1v.com/2018/03/introducing-scrcpy/",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Android USB debugging documentation",
+          "publisher": "Android Developers",
+          "url": "https://developer.android.com/studio/debug/dev-options#Enable-debugging",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-and-demonstrated",
+        "zh": "只从官方仓库获取电脑端程序，在 Android 开启 USB 调试，用数据线连接并在设备上确认调试授权后启动 scrcpy。",
+        "en": "Obtain the desktop program only from the official repository, enable USB debugging on Android, connect with a data cable, approve the debugging prompt on the device, and launch scrcpy.",
+        "source_urls": [
+          "https://github.com/Genymobile/scrcpy",
+          "https://github.com/Genymobile/scrcpy/blob/master/doc/windows.md",
+          "https://developer.android.com/studio/debug/dev-options#Enable-debugging"
+        ]
+      },
+      "compatibility": {
+        "status": "android-api-bound",
+        "zh": "基础镜像与控制要求 Android 5.0/API 21+；音频转发要求 Android 11+，相机镜像要求 Android 12+。",
+        "en": "Base mirroring/control requires Android 5.0/API 21+; audio forwarding requires Android 11+, and camera mirroring requires Android 12+.",
+        "source_urls": [
+          "https://github.com/Genymobile/scrcpy"
+        ]
+      },
+      "recovery": {
+        "status": "non-persistent-client",
+        "zh": "上游说明设备端不安装应用、运行结束不留组件；撤销电脑的 ADB 授权并关闭 USB 调试即可回到原状态。",
+        "en": "Upstream states that no app is installed and nothing remains on the device after use; revoke the computer's ADB authorization and disable USB debugging to return to the prior state.",
+        "source_urls": [
+          "https://github.com/Genymobile/scrcpy",
+          "https://developer.android.com/studio/debug/dev-options#Enable-debugging"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/Genymobile/scrcpy",
+        "https://github.com/Genymobile/scrcpy/blob/master/doc/windows.md"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "Android 5.0+ 设备、可操作屏幕以首次授权、USB 数据线和 Windows/macOS/Linux 电脑。",
+          "en": "An Android 5.0+ device, an operable screen for first authorization, a USB data cable, and a Windows/macOS/Linux computer.",
+          "source_urls": [
+            "https://github.com/Genymobile/scrcpy",
+            "https://developer.android.com/studio/debug/dev-options#Enable-debugging"
+          ]
+        },
+        "rough_steps": {
+          "zh": "开启开发者选项与 USB 调试，连接并确认授权，从官方包启动；稳定后再考虑无线连接。",
+          "en": "Enable developer options and USB debugging, connect and approve authorization, launch the official build, and consider wireless use only after stable USB operation.",
+          "source_urls": [
+            "https://github.com/Genymobile/scrcpy",
+            "https://developer.android.com/studio/debug/dev-options#Enable-debugging"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "Android 低于 API 21、屏幕损坏导致无法确认首次授权，或下载来源不是官方仓库时停止。",
+          "en": "Stop if Android is below API 21, a broken screen prevents first-time authorization, or the download is not from the official repository.",
+          "source_urls": [
+            "https://github.com/Genymobile/scrcpy"
+          ]
+        }
+      }
+    },
+    {
+      "entry_id": "project-lead:wz-mini-hacks",
+      "project_id": "wz-mini-hacks",
+      "name": "wz_mini_hacks",
+      "category": "camera",
+      "outcome": "rejected-delisted",
+      "resulting_evidence_level": "E0",
+      "display_decision": "delist-keep-data",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "项目 README 当前明确声明“不再积极开发”，并由项目自身推荐 Thingino 替代。虽然 Wiki 对 T20/T31 设备、SD 卡安装与拔卡恢复有充分历史资料，但它不满足当前维护路线的展示边界，因此数据保留、展示移除。",
+      "rationale_en": "The project README now explicitly says it is not in active development and recommends Thingino as the replacement. Although its Wiki retains substantial historical documentation for T20/T31 devices, SD-card installation, and removal-based rollback, it fails the current maintained-route display boundary, so data is preserved and display is removed.",
+      "evidence_sources": [
+        {
+          "title": "wz_mini_hacks maintenance notice",
+          "publisher": "gtxaspec/wz_mini_hacks",
+          "url": "https://github.com/gtxaspec/wz_mini_hacks",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "wz_mini_hacks setup and removal",
+          "publisher": "gtxaspec/wz_mini_hacks Wiki",
+          "url": "https://github.com/gtxaspec/wz_mini_hacks/wiki/Setup-&-Installation",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Wyze manual firmware recovery",
+          "publisher": "Wyze Support",
+          "url": "https://support.wyze.com/hc/en-us/articles/360031490871-How-to-flash-your-Wyze-Cam-firmware-manually",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "rejection_basis": {
+        "zh": "当前目录展示强调可维护、可执行路线；上游自身停止积极开发并指向替代项目，因此不再作为当前推荐卡展示。",
+        "en": "The current directory displays maintainable, actionable routes. Upstream itself has ended active development and points to a successor, so this is no longer shown as a current recommendation.",
+        "source_urls": [
+          "https://github.com/gtxaspec/wz_mini_hacks"
+        ]
+      },
+      "installation": {
+        "status": "historical-sd-card-route",
+        "zh": "历史 Wiki 要求 Ingenic T20/T31、FAT32/DOS 分区表 microSD，并给出 V2/Pan V1 的引导步骤。",
+        "en": "The historical Wiki requires an Ingenic T20/T31 device and a FAT32/DOS-partitioned microSD, with boot steps for V2/Pan V1.",
+        "source_urls": [
+          "https://github.com/gtxaspec/wz_mini_hacks/wiki/Setup-&-Installation",
+          "https://github.com/gtxaspec/wz_mini_hacks"
+        ]
+      },
+      "compatibility": {
+        "status": "historical-model-firmware-matrix",
+        "zh": "仅 T20/T31 且需匹配 Wiki 固件支持；README 明确不保证很旧固件兼容。",
+        "en": "Only T20/T31 devices are in scope and firmware must match the Wiki matrix; the README explicitly does not guarantee compatibility with very old firmware.",
+        "source_urls": [
+          "https://github.com/gtxaspec/wz_mini_hacks",
+          "https://github.com/gtxaspec/wz_mini_hacks/wiki/Setup-&-Installation"
+        ]
+      },
+      "recovery": {
+        "status": "removal-and-vendor-reflash-documented",
+        "zh": "历史路线可通过删除/拔出 SD 卡回到原厂启动；更深故障可参考 Wyze 精确型号的手动固件恢复。",
+        "en": "The historical route returns to stock boot by deleting/removing the SD-card files; deeper failures can use Wyze's exact-model manual firmware recovery.",
+        "source_urls": [
+          "https://github.com/gtxaspec/wz_mini_hacks/wiki/Setup-&-Installation",
+          "https://support.wyze.com/hc/en-us/articles/360031490871-How-to-flash-your-Wyze-Cam-firmware-manually"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/gtxaspec/wz_mini_hacks/wiki/Setup-&-Installation"
+      ],
+      "action_guide": null
+    },
+    {
+      "entry_id": "project-lead:openmiko",
+      "project_id": "openmiko",
+      "name": "OpenMiko",
+      "category": "camera",
+      "outcome": "upgraded-e1",
+      "resulting_evidence_level": "E1",
+      "display_decision": "keep-display",
+      "checked_at": "2026-10-24",
+      "rationale_zh": "上游 README 限定 Ingenic T20，列出 WyzeCam V2 与 Xiaomi Xiaofang 等实例，给出 microSD 刷写、LED 状态、Wi-Fi 配置、重置与原 bootloader 恢复资料，形成具体 E1 路线。",
+      "rationale_en": "The upstream README limits scope to Ingenic T20, names examples such as WyzeCam V2 and Xiaomi Xiaofang, and documents microSD flashing, LED states, Wi-Fi configuration, reset, and original-bootloader recovery, forming a specific E1 route.",
+      "evidence_sources": [
+        {
+          "title": "OpenMiko README and installation",
+          "publisher": "openmiko/openmiko",
+          "url": "https://github.com/openmiko/openmiko/blob/master/README.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OpenMiko FAQ",
+          "publisher": "openmiko/openmiko",
+          "url": "https://github.com/openmiko/openmiko/blob/master/doc/faq.md",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "OpenMiko releases",
+          "publisher": "openmiko/openmiko",
+          "url": "https://github.com/openmiko/openmiko/releases",
+          "accessed_at": "2026-10-24"
+        },
+        {
+          "title": "Wyze Cam manual firmware recovery",
+          "publisher": "Wyze Support",
+          "url": "https://support.wyze.com/hc/en-us/articles/360031490871-How-to-flash-your-Wyze-Cam-firmware-manually",
+          "accessed_at": "2026-10-24"
+        }
+      ],
+      "installation": {
+        "status": "documented-model-firmware-flash",
+        "zh": "下载精确设备发行镜像并改名 demo.bin 放到 microSD 根目录；断电插卡，按住 setup 上电，依据 LED 状态等待完成。",
+        "en": "Download the exact-device release image, rename it demo.bin at the microSD root, insert it while powered off, hold setup during power-on, and wait for the documented LED states.",
+        "source_urls": [
+          "https://github.com/openmiko/openmiko/blob/master/README.md",
+          "https://github.com/openmiko/openmiko/releases"
+        ]
+      },
+      "compatibility": {
+        "status": "ingenic-t20-and-device-image",
+        "zh": "只覆盖 Ingenic T20 设备；T10 和 ARM Xiaofang 被上游明确指向其他项目，Wi-Fi 模块驱动也需按型号选择。",
+        "en": "Only Ingenic T20 devices are covered; upstream directs T10 and ARM Xiaofang hardware to other projects, and the Wi-Fi module driver must match the model.",
+        "source_urls": [
+          "https://github.com/openmiko/openmiko/blob/master/README.md",
+          "https://github.com/openmiko/openmiko/blob/master/doc/faq.md"
+        ]
+      },
+      "recovery": {
+        "status": "config-reset-and-stock-path",
+        "zh": "长按 reset 可删除持久配置；上游保存 WyzeCam V2 原 bootloader，并说明不改 bootloader 的设计允许未来原厂刷写，Wyze 另有手动恢复说明。",
+        "en": "Holding reset removes persistent configuration; upstream retains the WyzeCam V2 stock bootloader and states that its no-bootloader-rewrite design preserves later stock flashing, with Wyze also documenting manual recovery.",
+        "source_urls": [
+          "https://github.com/openmiko/openmiko/blob/master/README.md",
+          "https://support.wyze.com/hc/en-us/articles/360031490871-How-to-flash-your-Wyze-Cam-firmware-manually"
+        ]
+      },
+      "tutorial_sources": [
+        "https://github.com/openmiko/openmiko/blob/master/README.md",
+        "https://github.com/openmiko/openmiko/blob/master/doc/faq.md"
+      ],
+      "action_guide": {
+        "what_you_need": {
+          "zh": "确认使用 Ingenic T20 的受支持摄像头、匹配发行镜像、可靠 microSD、原厂恢复镜像和本地串流网络。",
+          "en": "A confirmed supported Ingenic T20 camera, matching release image, reliable microSD, stock recovery image, and a local streaming network.",
+          "source_urls": [
+            "https://github.com/openmiko/openmiko/blob/master/README.md",
+            "https://github.com/openmiko/openmiko/releases",
+            "https://support.wyze.com/hc/en-us/articles/360031490871-How-to-flash-your-Wyze-Cam-firmware-manually"
+          ]
+        },
+        "rough_steps": {
+          "zh": "确认 SoC/型号并读 FAQ，保存原厂恢复文件，制作 demo.bin 卡，按键上电刷写，再通过本地地址验证 RTSP/MJPEG。",
+          "en": "Confirm SoC/model and read the FAQ, preserve stock recovery files, prepare the demo.bin card, flash with the button-held boot procedure, then validate RTSP/MJPEG locally.",
+          "source_urls": [
+            "https://github.com/openmiko/openmiko/blob/master/README.md",
+            "https://github.com/openmiko/openmiko/blob/master/doc/faq.md"
+          ]
+        },
+        "when_to_stop": {
+          "zh": "SoC 不是 T20、找不到精确型号镜像、无法准备原厂恢复文件，或设备将暴露到公网时停止。",
+          "en": "Stop if the SoC is not T20, no exact model image exists, stock recovery files cannot be prepared, or the camera would be exposed to the public internet.",
+          "source_urls": [
+            "https://github.com/openmiko/openmiko/blob/master/README.md",
+            "https://github.com/openmiko/openmiko/blob/master/doc/faq.md"
+          ]
+        }
+      }
+    }
+  ]
+}

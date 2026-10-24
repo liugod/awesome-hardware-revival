@@ -2,13 +2,13 @@
 
 ## Product
 
-KitAgain is a bilingual, evidence-graded directory for reusing existing hardware. Canonical editorial facts live in `data/`; Python builders emit a static site into `docs/`; GitHub Pages serves `main:/docs` at `https://kitagain.com/`. The public model keeps 200 unique project repositories (53 reviewed, 147 E0 discoveries) separate from 347 device/community routes.
+KitAgain is a bilingual, evidence-graded directory for reusing existing hardware. Canonical editorial facts live in `data/`; Python builders emit a static site into `docs/`; GitHub Pages serves `main:/docs` at `https://kitagain.com/`. The data model keeps 200 unique project repositories (53 reviewed plus 147 retained discovery records) separate from 347 device/community routes; four deeply audited discovery records are delisted from presentation without being deleted from exports.
 
 The public site has no backend, account system, analytics, database, runtime AI, or write API. JavaScript only filters and sorts HTML that is already present.
 
 ## Stack and data flow
 
-1. Editors update canonical JSON and reviewed translations. `project-leads.json` is the E0 repository-discovery ledger; `scoring-evidence.json` separately stores source-backed, per-dimension scoring overrides and does not promote E0–E3.
+1. Editors update canonical JSON and reviewed translations. `project-leads.json` is the repository-discovery ledger, including E0/E1/E2 audit outcomes and display status; `scoring-evidence.json` separately stores source-backed, per-dimension scoring overrides and does not itself promote E0–E3.
 2. `scripts/build.py` compiles reports, exports, legacy pages, and invokes `scripts/site_i18n.py`.
 3. `scripts/scoring.py` derives five-dimension revival-value stars, kept independent from E0–E3, and emits the unified JSON/CSV export.
 4. `scripts/validate.py` checks schema, evidence invariants, translations, generated pages, internal links, exports, and public-file safety.
@@ -24,7 +24,7 @@ The public site has no backend, account system, analytics, database, runtime AI,
 
 ## Known risks and assumptions
 
-- Revival stars compare feasibility/ease, expected cost, docs/community activity, practical value, and bricking/security risk. E0–E3 separately describes evidence depth and never enters or caps the stars (`scripts/scoring.py`). An unevidenced dimension is `null`; with at least three evidenced dimensions, only their original weights are proportionally renormalized. Otherwise the total is null and shown as “Not yet rated”. All 147 repository discoveries remain E0 and `needs_review: true` even when separate scoring research exists.
+- Revival stars compare feasibility/ease, expected cost, docs/community activity, practical value, and bricking/security risk. E0–E3 separately describes evidence depth and never enters or caps the stars (`scripts/scoring.py`). An unevidenced dimension is `null`; with at least three evidenced dimensions, only their original weights are proportionally renormalized. Otherwise the total is null and shown as “Not yet rated”. The discovery ledger retains 147 records: 122 E0, 18 E1 and 7 E2 after a 30-entry deep audit; 118 remain `needs_review: true`, and four rejected routes are delisted from presentation while staying in data.
 - Upstream compatibility, releases, licenses, and URLs can drift after the recorded check time (`data/catalog.json`, device and lead data).
 - Generated files must stay synchronized with canonical inputs; CI detects drift in `docs/` and generated research reports (`.github/workflows/validate.yml`).
 - GitHub Pages availability does not prove browser interactions, downloads, or hardware outcomes; those are separate acceptance gates (`research/VALIDATION.md`).

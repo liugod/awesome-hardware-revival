@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.20.0 - 2026-10-24
+
+- Research all 95 entries rated in v1.19 for used-device and required modding costs. Four have reliable evidence for both cost classes and receive recalculated cost scores; 91 remain `null` rather than being padded with an estimate.
+- Attempt a second 100-entry scoring batch across TV boxes, old phones/tablets, smart-home devices, e-readers, and routers. Ninety-six reach the three-evidenced-dimension threshold and four remain not yet rated, bringing the complete data to 191 rated and 356 unrated entries.
+- Publish a full-data half-star distribution of 1: 1, 1.5: 3, 2: 2, 2.5: 12, 3: 56, 3.5: 53, 4: 58, 4.5: 5, and 5: 1; keep rated-first star-desc ordering and the existing category/star/evidence controls without restoring type or sort dropdowns.
+- Add concise, source-linked bilingual “what you need / rough steps / when to stop” guidance to all 63 listed routes rated 4 stars or higher.
+- Deep-audit 30 of the 147 E0 repository discoveries: upgrade 18 to E1 and seven to E2, retain one at E0, and delist four rejected routes from display while preserving all four in JSON/CSV data. The site now has 118 review-needed records.
+- Preserve all 547 data records while listing 543, update the bilingual site, scoring/cost/audit/action-guide exports, sitemap, and reusable research workflow, and add stricter source, UTF-8, JSON/CSV, delisting, and browser-layout gates.
+
 ## 1.19.0 - 2026-10-24
 
 - Reduce both unified-directory pages to one title, one search field, and one compact filter row for device category, minimum stars, and evidence level.

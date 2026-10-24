@@ -12,19 +12,31 @@ from urllib.parse import unquote, urlsplit
 
 import jsonschema
 
-from scoring import COMPONENTS, HALF_STAR_BUCKETS, WEIGHTS, build_directory_export, directory_csv, export_json_text, project_leads_csv, score_all
+from scoring import COMPONENTS, HALF_STAR_BUCKETS, WEIGHTS, build_directory_export, directory_csv, export_json_text, project_leads_csv, score_all, tutorial_source_url_allowed
+from v120_cost_build import EXPECTED_IDS as V119_RATED_ENTRY_IDS
 from watchlist_merge import load_watchlist
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/"docs"
 def load(path): return json.loads(path.read_text(encoding="utf-8"))
 data=load(ROOT/"data/catalog.json")
+project_i18n=load(ROOT/"data/i18n/en.json")["projects"]
 config=load(ROOT/"site.config.json")
 project_lead_data=load(ROOT/"data/project-leads.json")
 project_leads=project_lead_data["projects"]
+listed_project_leads=[lead for lead in project_leads if lead.get("display_status","listed")=="listed"]
 scoring_evidence=load(ROOT/"data/scoring-evidence.json")
 scoring_evidence_items=scoring_evidence["entries"]
 if isinstance(scoring_evidence_items,dict):scoring_evidence_items=list(scoring_evidence_items.values())
+cost_evidence=load(ROOT/"data/cost-evidence-v120.json")
+cost_evidence_items=cost_evidence["entries"]
+if isinstance(cost_evidence_items,dict):cost_evidence_items=list(cost_evidence_items.values())
+batch2_evidence=load(ROOT/"data/scoring-evidence-batch2-v120.json")
+batch2_items=batch2_evidence["entries"]
+if isinstance(batch2_items,dict):batch2_items=list(batch2_items.values())
+e0_audit=load(ROOT/"data/e0-audit-v120.json")
+e0_audit_items=e0_audit["entries"]
+if isinstance(e0_audit_items,dict):e0_audit_items=list(e0_audit_items.values())
 BASE=config["base_url"].rstrip("/")+"/"
 app_javascript=(OUT/"assets/app.js").read_text(encoding="utf-8")
 assert 'document.querySelectorAll("#directory-grid .project")' in app_javascript,"Directory filters must target directory cards"
@@ -72,8 +84,8 @@ valid_scoring_entry_ids={f"project:{p['id']}" for p in projects}|{f"lead:{slug}"
 assert len(scoring_entry_ids)==len(set(scoring_entry_ids)) and set(scoring_entry_ids)<=valid_scoring_entry_ids,"Invalid or duplicate scoring-evidence entry_id"
 declared_actual=scoring_evidence.get("actual_entries",scoring_evidence.get("counts",{}).get("actual_entries"))
 assert declared_actual==len(scoring_entry_pairs),"Scoring-evidence actual_entries mismatch"
-allowed_scoring_topics={"kindle-ereader","router","old-mini-pc-nas","smart-speaker"}
-assert set(scoring_evidence["scope"])==allowed_scoring_topics,"Scoring-evidence scope mismatch"
+allowed_scoring_topics=set(scoring_evidence["scope"])
+assert {"kindle-ereader","router","old-mini-pc-nas","smart-speaker","tv-box","old-phone-tablet","smart-home","e-reader"}<=allowed_scoring_topics,"Scoring-evidence scope mismatch"
 batch_scoring_date=scoring_evidence["checked_at"][:10]
 assert re.fullmatch(r"\d{4}-\d{2}-\d{2}",batch_scoring_date),"Invalid scoring-evidence check date"
 for entry_id,entry in scoring_entry_pairs:
@@ -93,16 +105,90 @@ for entry_id,entry in scoring_entry_pairs:
             parsed=urlsplit(url)
             assert parsed.scheme=="https" and parsed.netloc,(entry_id,key,"Score source must be HTTPS")
             assert not ("search" in parsed.path.casefold() and parsed.query),(entry_id,key,"Search-result URL is not a scoring source")
-    assert scored_components>=3,(entry_id,"Enrichment entry requires at least three evidenced dimensions")
+    if "qualified" in entry:
+        assert entry["qualified"]==(scored_components>=3),(entry_id,"Batch qualification mismatch")
+    else:
+        assert scored_components>=3,(entry_id,"Published batch-1 entry requires at least three evidenced dimensions")
     serialized=json.dumps(entry,ensure_ascii=False).casefold()
     assert "unknown-neutral" not in serialized and "unreviewed-neutral" not in serialized,entry_id
+
+# v1.20 research ledgers are release inputs, not informal notes. Validate their
+# frozen scopes and source-bounded null policy before comparing generated output.
+assert cost_evidence["version"]==batch2_evidence["version"]==e0_audit["version"]==config["version"],"v1.20 ledger version mismatch"
+assert len(cost_evidence_items)==cost_evidence["actual_entries"]==95,"Cost ledger must cover the frozen 95-entry v1.19 rated set"
+assert {item["entry_id"] for item in cost_evidence_items}==set(V119_RATED_ENTRY_IDS),"Cost ledger scope drifted from the v1.19 rated set"
+assert len({item["entry_id"] for item in cost_evidence_items})==95,"Duplicate cost-ledger entry"
+for item in cost_evidence_items:
+    assert item["checked_at"]==cost_evidence["checked_at"] and re.fullmatch(r"\d{4}-\d{2}-\d{2}",item["checked_at"]),item["entry_id"]
+    assert item["assessment_sources"] and all(url.startswith("https://") for url in item["assessment_sources"]),item["entry_id"]
+    for range_key,sources_key in [("used_price_range","used_price_sources"),("modding_cost_range","modding_cost_sources")]:
+        value=item[range_key]
+        sources=item[sources_key]
+        assert bool(value)==bool(sources),(item["entry_id"],range_key,"range/source mismatch")
+        if value:
+            assert 0<=value["low"]<=value["high"] and value["currency"] and value["market"],(item["entry_id"],range_key)
+            assert value["scope_zh"] and value["scope_en"] and value["source_urls"]==sources,(item["entry_id"],range_key)
+            assert all(url.startswith("https://") for url in sources),(item["entry_id"],range_key)
+    complete=bool(item["used_price_range"] and item["modding_cost_range"])
+    assert complete==(item["cost_score"] is not None),(item["entry_id"],"Cost score requires both evidence classes")
+    if complete:
+        assert isinstance(item["cost_score"],int) and 1<=item["cost_score"]<=5 and item["null_reason_zh"] is None and item["null_reason_en"] is None,item["entry_id"]
+    else:
+        assert item["cost_score"] is None and item["null_reason_zh"] and item["null_reason_en"],item["entry_id"]
+    assert item["basis_zh"] and item["basis_en"],item["entry_id"]
+cost_filled=sum(item["cost_score"] is not None for item in cost_evidence_items)
+used_price_filled=sum(item["used_price_range"] is not None for item in cost_evidence_items)
+modding_cost_filled=sum(item["modding_cost_range"] is not None for item in cost_evidence_items)
+assert (cost_filled,used_price_filled,modding_cost_filled)==(cost_evidence["filled"],cost_evidence["used_price_filled"],cost_evidence["modding_cost_filled"])
+assert cost_evidence["lacking_source"]==95-cost_filled and cost_evidence["partial_only"]==sum((item["used_price_range"] is None)!=(item["modding_cost_range"] is None) for item in cost_evidence_items)
+cost_urls={url for item in cost_evidence_items for key in ["used_price_sources","modding_cost_sources","assessment_sources"] for url in item[key]}|set(cost_evidence["methodology"]["fx_reference"]["sources"])
+assert cost_evidence["source_validation"]["unique_urls"]==len(cost_urls) and set(cost_evidence["source_validation"]["browser_fallback_urls"])<=cost_urls,"Cost source-validation inventory mismatch"
+
+assert len(batch2_items)==batch2_evidence["actual_entries"]==100,"Batch-2 attempt count mismatch"
+assert len({item["entry_id"] for item in batch2_items})==100 and {item["entry_id"] for item in batch2_items}<=valid_scoring_entry_ids,"Invalid batch-2 entry IDs"
+qualified=sum(sum(component is not None for component in item["components"].values())>=3 for item in batch2_items)
+assert qualified==batch2_evidence["qualified_entries"]==96 and batch2_evidence["still_unrated"]==4,"Batch-2 qualification counts mismatch"
+assert batch2_evidence["counts"]["actual_entries"]==100 and batch2_evidence["counts"]["qualified_entries"]==96 and batch2_evidence["counts"]["still_unrated"]==4,"Batch-2 declared counts mismatch"
+canonical_scoring={entry_id:entry for entry_id,entry in scoring_entry_pairs}
+for item in batch2_items:
+    assert item["checked_at"]==batch2_evidence["checked_at"] and item["qualified"]==(sum(component is not None for component in item["components"].values())>=3),item["entry_id"]
+    assert canonical_scoring[item["entry_id"]]["components"]==item["components"],(item["entry_id"],"Canonical scoring differs from batch-2 evidence")
+    assert item["source_checks"] and all(check["url"].startswith("https://") and check["checked_at"]==batch2_evidence["checked_at"] for check in item["source_checks"]),item["entry_id"]
+
+assert len(e0_audit_items)==e0_audit["counts"]["audited"]==30,"E0 audit size mismatch"
+assert len({item["project_id"] for item in e0_audit_items})==30,"Duplicate E0 audit target"
+audit_outcome_to_level={"upgraded-e1":"E1","upgraded-e2":"E2","stays-e0":"E0","rejected-delisted":"E0"}
+audit_outcomes=collections.Counter(item["outcome"] for item in e0_audit_items)
+assert audit_outcomes==collections.Counter({"upgraded-e1":18,"upgraded-e2":7,"stays-e0":1,"rejected-delisted":4}),"E0 audit outcome mismatch"
+lead_by_id={lead["id"]:lead for lead in project_leads}
+audit_urls=set()
+for item in e0_audit_items:
+    assert item["entry_id"]==f"project-lead:{item['project_id']}" and item["project_id"] in lead_by_id,item["project_id"]
+    assert item["resulting_evidence_level"]==audit_outcome_to_level[item["outcome"]] and item["checked_at"]==e0_audit["checked_at"],item["project_id"]
+    assert item["rationale_zh"] and item["rationale_en"] and item["evidence_sources"],item["project_id"]
+    for source in item["evidence_sources"]:
+        assert source["title"] and source["publisher"] and source["url"].startswith("https://") and source["accessed_at"]==e0_audit["checked_at"],item["project_id"]
+        audit_urls.add(source["url"])
+    for key in ["installation","compatibility","recovery"]:
+        block=item[key]
+        assert block["status"] and block["zh"] and block["en"] and block["source_urls"],(item["project_id"],key)
+        assert all(url.startswith("https://") for url in block["source_urls"]),(item["project_id"],key)
+        audit_urls.update(block["source_urls"])
+    audit_urls.update(item["tutorial_sources"])
+    for block in (item.get("action_guide") or {}).values():
+        audit_urls.update(block["source_urls"])
+    lead=lead_by_id[item["project_id"]]
+    assert lead["audit_outcome"]==item["outcome"] and lead["evidence_level"]==item["resulting_evidence_level"],item["project_id"]
+    assert lead["display_status"]==("delisted" if item["outcome"]=="rejected-delisted" else "listed"),item["project_id"]
+assert e0_audit["source_validation"]["unique_urls"]==len(audit_urls) and e0_audit["source_validation"]["verified_total"]==len(audit_urls) and e0_audit["source_validation"]["unresolved"]==0,"E0 audit source-validation inventory mismatch"
+assert set(e0_audit["source_validation"]["browser_fallback_urls"])<=audit_urls,"E0 audit fallback URL is not cited"
 assert device_atlas["version"]==device_reviews["version"]==config["version"],"Device-data version mismatch"
 assert project_lead_data["version"]==config["version"],"Project-source version mismatch"
 assert len(device_atlas["items"])==300 and device_atlas["counts"]["total"]==300, "Device atlas must contain 300 new records"
 assert len(projects)+len(watchlist)==400, "Reviewed-project/device-route denominator must equal 400"
 assert len(projects)+len(project_leads)==200, "Independent project-source denominator must equal 200"
 assert len(projects)+len(project_leads)+len(watchlist)==547, "Unified public-entry denominator must equal 547"
-assert len(project_leads)==project_lead_data["counts"]["total"]==147,"Expected 147 E0 project-source leads"
+assert len(project_leads)==project_lead_data["counts"]["total"]==147,"Expected 147 retained project-source leads"
 assert len({lead["id"] for lead in project_leads})==len(project_leads),"Duplicate project-source ID"
 assert len({lead["content_id"] for lead in project_leads})==len(project_leads),"Duplicate project-source content ID"
 assert len({lead["repo_url"].casefold() for lead in project_leads})==len(project_leads),"Duplicate project-source repository"
@@ -113,13 +199,21 @@ for lead in project_leads:
     assert re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",lead["id"]),lead["id"]
     assert lead["content_id"]==f"PS-{lead['id']}" and lead["category"] in data["labels"]["category"],lead["id"]
     assert lead["repo_url"].startswith("https://github.com/") and lead["repo_url"].count("/")==4,lead["id"]
-    assert lead["evidence_level"]=="E0" and lead["needs_review"] is True and lead["source_access"]=="repository-metadata-reviewed" and lead["readme_access"]=="opening-section-read",lead["id"]
+    assert lead["evidence_level"] in {"E0","E1","E2"} and lead["source_access"]=="repository-metadata-reviewed" and lead["readme_access"]=="opening-section-read",lead["id"]
+    assert lead.get("display_status","listed") in {"listed","delisted"},lead["id"]
+    if lead.get("audit_outcome"):
+        assert lead["audit_outcome"] in {"upgraded-e1","upgraded-e2","stays-e0","rejected-delisted"},lead["id"]
+        assert lead["audit_reason_zh"] and lead["audit_reason_en"] and lead["audit_sources"],lead["id"]
+        assert all(url.startswith("https://") for url in lead["audit_sources"]),lead["id"]
+    else:
+        assert lead["evidence_level"]=="E0" and lead["needs_review"] is True and lead["display_status"]=="listed",lead["id"]
     assert lead["fork"] is False and isinstance(lead["archived"],bool),lead["id"]
     assert re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z",lead["checked_at"]),lead["id"]
     assert all(lead[key] for key in ["name","summary_zh","summary_en","device_scope_zh","device_scope_en","use_case_zh","use_case_en","pushed_at","default_branch","reason_zh","reason_en"]),lead["id"]
     assert lead["github_description"] is None or isinstance(lead["github_description"],str),lead["id"]
-assert project_lead_data["counts"]["evidence"]=={"E0":147,"E1":0,"E2":0,"E3":0}
-assert project_lead_data["counts"]["needs_review"]==147
+assert project_lead_data["counts"]["evidence"]=={level:sum(lead["evidence_level"]==level for lead in project_leads) for level in ["E0","E1","E2","E3"]}
+assert project_lead_data["counts"]["needs_review"]==sum(lead["needs_review"] for lead in project_leads)
+assert project_lead_data["counts"]["listed"]==len(listed_project_leads) and project_lead_data["counts"]["delisted"]==len(project_leads)-len(listed_project_leads)
 assert project_lead_data["counts"]["categories"]==dict(sorted(collections.Counter(lead["category"] for lead in project_leads).items()))
 assert set(project_hardware_tags)=={p["id"] for p in projects},"Reviewed-project hardware-tag coverage mismatch"
 assert set(lead_hardware_tags)<=set(watchlist),"Hardware tags point to missing leads"
@@ -185,7 +279,7 @@ for slug,lead in watchlist.items():
         for lang in ["zh","en"]:
             assert all(lead["deep_review"][lang][key] for key in ["hardware","route","result","boundary","recovery"]),slug
 assert sum(lead.get("evidence_level")=="E1" for lead in watchlist.values())==30,"Merged E1 device-review count"
-project_scores,lead_scores,project_lead_scores=score_all(projects,watchlist,watchlist_details,project_leads,scoring_evidence)
+project_scores,lead_scores,project_lead_scores=score_all(projects,watchlist,watchlist_details,project_leads,scoring_evidence,cost_evidence)
 all_scores=[*project_scores.values(),*lead_scores.values(),*project_lead_scores.values()]
 assert len(all_scores)==len(projects)+len(watchlist)+len(project_leads),"Score coverage mismatch"
 assert sum(WEIGHTS.values())==100 and set(WEIGHTS)==set(COMPONENTS),"Score weights must total 100"
@@ -213,7 +307,7 @@ for item in all_scores:
         assert abs(sum(item["effective_weights"][key] for key in evidenced)-100)<0.01,"Effective weights must renormalize to 100%"
     assert "unknown-neutral" not in json.dumps(item,ensure_ascii=False).casefold() and "unreviewed-neutral" not in json.dumps(item,ensure_ascii=False).casefold(),"Neutral placeholder basis is forbidden"
     assert "evidence_cap" not in item,"Evidence must not cap revival stars"
-assert all(project_lead_scores[lead["id"]]["provisional"] is True for lead in project_leads),"E0 project-source scores must remain provisional"
+assert all(project_lead_scores[lead["id"]]["provisional"] is lead["needs_review"] for lead in project_leads),"Project-source provisional flag mismatch"
 ids=[p["id"] for p in projects]
 assert len(ids)==len(set(i.lower() for i in ids)), "Duplicate ID"
 assert set(p["family"] for p in projects)<=set(ids), "Missing family anchor"
@@ -372,8 +466,9 @@ for file in OUT.rglob("*.html"):
         card_page_count+=1
     if file.is_relative_to(OUT/"en"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
-assert card_page_count==18 and generated_card_count==2240,("complete generated card audit",card_page_count,generated_card_count)
-assert len(pages)==2*(len(projects)+12+len(articles)+len(watchlist)+len(project_leads))+len(projects)+2
+delisted_count=len(project_leads)-len(listed_project_leads)
+assert card_page_count==18 and generated_card_count==2240-4*delisted_count,("complete generated card audit",card_page_count,generated_card_count)
+assert len(pages)==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 assert root_page.lang=="en" and root_page.canonical==[BASE]
@@ -388,7 +483,8 @@ for lang in ["zh","en"]:
     assert "directory-grid" in directory_page.ids and "directory-filters" in directory_page.ids
     directory_markup=(OUT/lang/"directory/index.html").read_text(encoding="utf-8")
     audit_project_cards(directory_markup,(lang,"directory"))
-    assert directory_markup.count('data-needs-review="true"')==147,(lang,"directory needs-review markers")
+    listed_needs_review=sum(lead["needs_review"] for lead in listed_project_leads)
+    assert directory_markup.count('data-needs-review="true"')==listed_needs_review,(lang,"directory needs-review markers")
     assert 'class="detail-head directory-head"><h1>' in directory_markup,(lang,"directory heading")
     assert all(token not in directory_markup for token in ['class="eyebrow"','class="intro"','class="actions"','class="boundary"','id="directory-share"','id="directory-share-status"']),(lang,"directory top must stay minimal")
     assert directory_markup.count("<select")==3,(lang,"directory visible filter count")
@@ -401,20 +497,26 @@ for lang in ["zh","en"]:
     assert "project-leads.json" in " ".join(project_source_index.refs) and "project-leads.csv" in " ".join(project_source_index.refs)
     project_source_markup=(OUT/lang/"project-sources/index.html").read_text(encoding="utf-8")
     audit_project_cards(project_source_markup,(lang,"project sources"))
-    assert project_source_markup.count('data-needs-review="true"')==147,(lang,"project-source needs-review markers")
+    assert project_source_markup.count('data-needs-review="true"')==listed_needs_review,(lang,"project-source needs-review markers")
     assert '<select id="project-source-sort"><option value="score-desc">' in project_source_markup,(lang,"project-source default star sort")
     for project in projects:
         assert f"../projects/{project['id']}/" in project_source_index.refs,(lang,project["id"],"missing reviewed project-source link")
     for lead in project_leads:
-        assert f"../project-leads/{lead['id']}/" in project_source_index.refs,(lang,lead["id"],"missing E0 project-source link")
+        expected_file=OUT/lang/"project-leads"/lead["id"]/"index.html"
+        if lead.get("display_status","listed")=="delisted":
+            assert f"../project-leads/{lead['id']}/" not in project_source_index.refs and not expected_file.exists(),(lang,lead["id"],"delisted source still displayed")
+            continue
+        assert f"../project-leads/{lead['id']}/" in project_source_index.refs,(lang,lead["id"],"missing project-source link")
         source_page=pages[(OUT/lang/"project-leads"/lead["id"]/"index.html").resolve()]
         assert source_page.canonical==[f"{BASE}{lang}/project-leads/{lead['id']}/"]
         assert lead["repo_url"] in source_page.refs,(lang,lead["id"],"missing upstream repository link")
         source_markup=(OUT/lang/"project-leads"/lead["id"]/"index.html").read_text(encoding="utf-8")
-        assert source_markup.count('class="needs-review"')==1,(lang,lead["id"],"missing compact review marker")
+        assert source_markup.count('class="needs-review"')==int(lead["needs_review"]),(lang,lead["id"],"compact review marker mismatch")
         assert 'class="detail-wrap record-detail"' in source_markup and source_markup.count('class="about-link"')==1,(lang,lead["id"],"simplified project-source detail")
         assert '<ul' in source_markup,(lang,lead["id"],"project-source detail bullets")
         assert 'class="detail-score"' in source_markup and 'class="detail-rating' in source_markup and 'class="rating-panel"' not in source_markup,(lang,lead["id"],"simplified project-source score")
+        expected_guide=project_lead_scores[lead["id"]]["score"] is not None and project_lead_scores[lead["id"]]["score"]>=4
+        assert ('class="action-guide"' in source_markup)==expected_guide,(lang,lead["id"],"action-guide threshold")
     home=pages[(OUT/lang/"index.html").resolve()]
     home_markup=(OUT/lang/"index.html").read_text(encoding="utf-8")
     expected_placeholder="输入你的设备" if lang=="zh" else "Enter your device"
@@ -437,7 +539,7 @@ for lang in ["zh","en"]:
     assert f"v{config['version']}" in about_markup and all(date in about_markup for date in [data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"]]),(lang,"About release status")
     assert ("未进行实机测试" if lang=="zh" else "No hands-on hardware tests") in about_markup,(lang,"About hands-on boundary")
     expected_catalog="catalog.en" if lang=="en" else "catalog"
-    expected_downloads=["directory.json","directory.csv",f"{expected_catalog}.json",f"{expected_catalog}.csv","project-leads.json","project-leads.csv","scoring-evidence.json"]
+    expected_downloads=["directory.json","directory.csv",f"{expected_catalog}.json",f"{expected_catalog}.csv","project-leads.json","project-leads.csv","scoring-evidence.json","scoring-evidence-batch2-v120.json","cost-evidence-v120.json","action-guides-v120.json","e0-audit-v120.json"]
     assert all(name in " ".join(about.refs) for name in expected_downloads),(lang,"About data downloads")
     assert any("project-sources" in ref for ref in about.refs) and "#scoring" in about.refs,(lang,"About directory links")
     assert config["repository_url"]+"/issues/new/choose" in about.refs,(lang,"About contribution link")
@@ -450,6 +552,8 @@ for lang in ["zh","en"]:
         assert 'class="detail-wrap record-detail"' in lead_markup and lead_markup.count('class="about-link"')==1,(lang,slug,"simplified lead detail")
         assert '<ul' in lead_markup,(lang,slug,"lead detail bullets")
         assert 'class="detail-score"' in lead_markup and 'class="detail-rating' in lead_markup and 'class="rating-panel"' not in lead_markup,(lang,slug,"simplified lead score")
+        expected_guide=lead_scores[slug]["score"] is not None and lead_scores[slug]["score"]>=4
+        assert ('class="action-guide"' in lead_markup)==expected_guide,(lang,slug,"action-guide threshold")
         expected=[item["url"] for item in watchlist_details[slug]["resources"]]
         assert all(url in page.refs for url in expected),(lang,slug,"missing lead source")
     for slug,article in articles.items():
@@ -471,7 +575,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json","scoring-evidence.json"]:
+for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json","scoring-evidence.json","scoring-evidence-batch2-v120.json","cost-evidence-v120.json","action-guides-v120.json","e0-audit-v120.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
@@ -490,6 +594,8 @@ for lang in ["zh","en"]:
         assert 'class="detail-wrap record-detail"' in markup and markup.count('class="about-link"')==1,(lang,pid,"simplified project detail")
         assert '<ul' in markup,(lang,pid,"project detail bullets")
         assert 'class="detail-score"' in markup and 'class="detail-rating' in markup and 'class="rating-panel"' not in markup,(lang,pid,"simplified project score")
+        expected_guide=project_scores[pid]["score"] is not None and project_scores[pid]["score"]>=4
+        assert ('class="action-guide"' in markup)==expected_guide,(lang,pid,"action-guide threshold")
         assert parser.canonical==[f"{BASE}{lang}/projects/{pid}/"]
         assert parser.alternates["en"]==f"{BASE}en/projects/{pid}/"
         assert parser.alternates["zh-CN"]==f"{BASE}zh/projects/{pid}/"
@@ -520,7 +626,7 @@ for p,row in zip(english["projects"],enrows):
     for key in ["requirements","cost","risk","evidence","limitations","translation"]:assert p[key]==json.loads(row[key])
 assert set(load(OUT/"data/deep-dives.en.json"))==set(deep)
 directory=load(ROOT/"data/directory.json")
-expected_directory=build_directory_export(projects=projects,project_leads=project_leads,watchlist=watchlist,details=watchlist_details,base_url=BASE,version=config["version"],generated_at=scoring_evidence.get("generated_at",data["compiled_at"]),scoring_evidence=scoring_evidence)
+expected_directory=build_directory_export(projects=projects,project_leads=project_leads,watchlist=watchlist,details=watchlist_details,base_url=BASE,version=config["version"],generated_at=scoring_evidence.get("generated_at",data["compiled_at"]),project_i18n=project_i18n,scoring_evidence=scoring_evidence,cost_evidence=cost_evidence)
 assert directory==expected_directory,"Unified directory JSON is stale"
 assert (ROOT/"data/directory.csv").read_text(encoding="utf-8-sig")==directory_csv(directory).removeprefix("\ufeff"),"Unified directory CSV is stale"
 assert directory["counts"]["entries"]==len(projects)+len(project_leads)+len(watchlist)
@@ -529,17 +635,67 @@ assert directory["counts"]["project_source_leads"]==147
 assert directory["schema_version"]==directory["scoring_version"]=="3.0.0"
 assert directory["counts"]["score_coverage"]==directory["counts"]["rated"]
 assert directory["counts"]["rated"]+directory["counts"]["not_yet_rated"]==directory["counts"]["entries"]
-assert directory["weights"]==WEIGHTS and directory["counts"]["needs_review"]==147
+assert directory["weights"]==WEIGHTS and directory["counts"]["needs_review"]==sum(lead["needs_review"] for lead in project_leads)
+assert directory["counts"]["listed_entries"]==len(projects)+len(watchlist)+len(listed_project_leads)
+assert directory["counts"]["delisted_entries"]==len(project_leads)-len(listed_project_leads)
 expected_buckets={str(int(value)) if value.is_integer() else f"{value:.1f}" for value in HALF_STAR_BUCKETS}
 assert set(directory["counts"]["score_distribution"])==expected_buckets
 assert sum(directory["counts"]["score_distribution"].values())==directory["counts"]["rated"]
-assert sum(entry["needs_review"] for entry in directory["entries"])==147
-assert all(entry["needs_review"]==(entry["kind"]=="project-source-lead") for entry in directory["entries"])
+assert sum(entry["needs_review"] for entry in directory["entries"])==sum(lead["needs_review"] for lead in project_leads)
+assert all(entry["display_status"] in {"listed","delisted"} for entry in directory["entries"])
 assert directory["counts"]["unique_primary_source_urls"]>=200,"Fewer than 200 distinct primary-source URLs"
+guide_entries=[]
+old_boilerplate={
+    "先确认准确型号、硬件修订与当前固件，并准备上游教程要求的访问、备份和恢复工具。",
+    "按链接教程核对兼容范围，先备份，再逐步安装或配置；每一步只验证教程明确写出的结果。",
+    "型号或固件不在文档范围、无法建立可用备份/恢复路径，或现场步骤与教程不符时停止。",
+    "Confirm the exact model, hardware revision and current firmware, then prepare the access, backup and recovery tools required by the upstream guide.",
+    "Check compatibility in the linked guide, back up first, then install or configure one step at a time and verify only the documented outcomes.",
+    "Stop when the model or firmware is outside the documented scope, no usable backup/recovery path exists, or the observed steps diverge from the guide.",
+}
+unsupported_guide_claims={
+    "Never mix stock-layout and OpenWrt-bootloader images.",
+    "Back up partitions and calibration data",
+    "不要混刷 U-Boot 布局与原厂布局镜像",
+    "备份分区和校准数据",
+}
 for entry in directory["entries"]:
     if entry["score"]["score"] is None:
         assert entry["score"]["label_zh"]=="待评分",(entry["entry_id"],"Chinese unrated label mismatch")
         assert entry["score"]["label_en"]=="Not yet rated",(entry["entry_id"],"English unrated label mismatch")
+    if entry["display_status"]=="delisted":
+        assert entry["detail_url_zh"] is None and entry["detail_url_en"] is None,entry["entry_id"]
+    expected_guide=entry["display_status"]=="listed" and entry["score"]["score"] is not None and entry["score"]["score"]>=4
+    assert (entry["action_guide"] is not None)==expected_guide,(entry["entry_id"],"Action-guide threshold mismatch")
+    if entry["action_guide"]:
+        assert set(entry["action_guide"])=={"what_you_need","rough_steps","when_to_stop"},entry["entry_id"]
+        assert all(item["zh"] and item["en"] and item["sources"] and all(tutorial_source_url_allowed(url) for url in item["sources"]) for item in entry["action_guide"].values()),entry["entry_id"]
+        assert all(item["zh"] not in old_boilerplate and item["en"] not in old_boilerplate for item in entry["action_guide"].values()),(entry["entry_id"],"Generic action-guide boilerplate")
+        assert not any(claim in item[lang] for item in entry["action_guide"].values() for lang in ("zh","en") for claim in unsupported_guide_claims),(entry["entry_id"],"Unsupported action-guide claim")
+        assert all(len(item["zh"])<=280 and len(item["en"])<=440 for item in entry["action_guide"].values()),(entry["entry_id"],"Action guide is not concise")
+        guide_entries.append(entry)
+assert len(guide_entries)==directory["counts"]["action_guides"]
+for key in ("what_you_need","rough_steps","when_to_stop"):
+    for lang in ("zh","en"):
+        values=[entry["action_guide"][key][lang] for entry in guide_entries]
+        assert len(values)==len(set(values)),(key,lang,"Identical action-guide blocks")
+def normalized_action_block(entry,key,lang):
+    text=entry["action_guide"][key][lang]
+    for title in (entry["title_zh"],entry["title_en"]):
+        text=re.sub(re.escape(title),"<title>",text,flags=re.IGNORECASE)
+    return re.sub(r"\s+"," ",text.casefold()).strip()
+for key in ("what_you_need","rough_steps","when_to_stop"):
+    for lang in ("zh","en"):
+        normalized=[normalized_action_block(entry,key,lang) for entry in guide_entries]
+        assert len(normalized)==len(set(normalized)),(key,lang,"Title-only action-guide blocks")
+def normalized_guide(entry,lang):
+    text=" ".join(entry["action_guide"][key][lang] for key in ("what_you_need","rough_steps","when_to_stop"))
+    for title in (entry["title_zh"],entry["title_en"]):
+        text=re.sub(re.escape(title),"<title>",text,flags=re.IGNORECASE)
+    return re.sub(r"\s+"," ",text.casefold()).strip()
+for lang in ("zh","en"):
+    normalized=[normalized_guide(entry,lang) for entry in guide_entries]
+    assert len(normalized)==len(set(normalized)),(lang,"Title-only action-guide boilerplate")
 with (ROOT/"data/directory.csv").open(encoding="utf-8-sig",newline="") as f:
     directory_rows=list(csv.DictReader(f))
 assert [row["entry_id"] for row in directory_rows]==[entry["entry_id"] for entry in directory["entries"]],"Unified JSON/CSV entry mismatch"
@@ -548,17 +704,21 @@ for row,entry in zip(directory_rows,directory["entries"]):
     expected_average=entry["score"]["weighted_average"]
     assert (row["score"]=="" if expected_score is None else float(row["score"])==expected_score),(entry["entry_id"],"CSV total score mismatch")
     assert (row["weighted_average"]=="" if expected_average is None else float(row["weighted_average"])==expected_average),(entry["entry_id"],"CSV weighted average mismatch")
-    assert row["needs_review"].lower()==str(entry["needs_review"]).lower() and row["source_url"]==entry["source_url"],(entry["entry_id"],"Unified JSON/CSV facts mismatch")
+    assert row["needs_review"].lower()==str(entry["needs_review"]).lower() and row["source_url"]==entry["source_url"] and row["display_status"]==entry["display_status"],(entry["entry_id"],"Unified JSON/CSV facts mismatch")
     assert all((row[key]=="" if entry["score"]["components"][key] is None else int(row[key])==entry["score"]["components"][key]) for key in COMPONENTS),(entry["entry_id"],"Raw score CSV mismatch")
     assert json.loads(row["component_basis"])==entry["score"]["component_basis"],(entry["entry_id"],"Score basis CSV mismatch")
     assert json.loads(row["component_sources"])==entry["score"]["component_sources"],(entry["entry_id"],"Score sources CSV mismatch")
     assert json.loads(row["score_sources"])==entry["score"]["score_sources"],(entry["entry_id"],"Score-source union CSV mismatch")
     assert json.loads(row["effective_weights"])==entry["score"]["effective_weights"],(entry["entry_id"],"Effective-weight CSV mismatch")
     assert int(row["evidenced_dimensions"])==entry["score"]["evidenced_dimensions"],(entry["entry_id"],"Evidenced-dimension CSV mismatch")
+    assert (row["cost_evidence"]=="")== (entry["score"].get("cost_evidence") is None),(entry["entry_id"],"Cost evidence CSV null mismatch")
+    assert (row["action_guide"]=="")== (entry["action_guide"] is None),(entry["entry_id"],"Action guide CSV null mismatch")
+    if row["cost_evidence"]: assert json.loads(row["cost_evidence"])==entry["score"]["cost_evidence"]
+    if row["action_guide"]: assert json.loads(row["action_guide"])==entry["action_guide"]
 with (ROOT/"data/project-leads.csv").open(encoding="utf-8-sig",newline="") as f:
     project_lead_rows=list(csv.DictReader(f))
 assert [row["id"] for row in project_lead_rows]==[lead["id"] for lead in project_leads],"Project-source JSON/CSV entry mismatch"
-assert all(row["needs_review"].lower()=="true" for row in project_lead_rows),"Project-source CSV needs_review mismatch"
+assert [row["needs_review"].lower() for row in project_lead_rows]==[str(lead["needs_review"]).lower() for lead in project_leads],"Project-source CSV needs_review mismatch"
 assert (ROOT/"data/project-leads.csv").read_text(encoding="utf-8-sig")==project_leads_csv(project_leads).removeprefix("\ufeff"),"Project-source CSV is stale"
 mapping=load(OUT/"data/url-mapping.json")["mappings"]
 assert len(mapping)==len(projects)
@@ -566,7 +726,7 @@ for source,target in mapping.items():
     assert pages[(OUT/source).resolve()].canonical==[BASE+target]
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+12+len(articles)+len(watchlist)+len(project_leads))
+assert len(urls)==len(set(urls))==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))
 lastmods=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}lastmod")]
 scoring_dates=[value[:10] for value in [scoring_evidence.get("checked_at"),*(entry.get("checked_at") for entry in scoring_evidence_items)] if value]
 expected_lastmod=max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"],*scoring_dates)

@@ -6,13 +6,13 @@
 
 从小爱音箱和 Nest Mini，到 Kindle、旧电脑、路由器、摄像头、停服机器人和缺驱动的打印机。这个目录把公开代码、作者案例与适配限制放在一起，帮助你判断下一步是否值得尝试。
 
-**v1.19.0 · 统一目录精简 2026-10-24**：本次只调整展示，不删除或缩减目录数据。中英文目录顶部现在只有标题、搜索框，以及设备、最低星级、证据等级三个筛选项；默认始终按星级降序，评分说明由 `ⓘ` 进入[关于页面的评分区](https://kitagain.com/zh/about/#scoring)。全量 JSON/CSV、200 个项目来源和评分方法入口集中在[关于页面](https://kitagain.com/zh/about/)。站点仍有 **200 个按仓库 URL 去重的独立项目来源**、347 条设备与社区路线，以及[全站统一目录](https://kitagain.com/zh/directory/)中的 **547 条公开记录**和 451 个不同主来源 URL。
+**v1.20.0 · 证据补全 2026-10-24**：数据继续保留 **200 个按仓库 URL 去重的独立项目来源**、347 条设备与社区路线，以及 **547 条记录**和 451 个不同主来源 URL。对原有 95 条已评分记录逐条补查二手设备与必要改造投入，只有 4 条同时取得两类可靠价格来源并重算成本分，91 条继续保持成本 `null`。第二批实际研究 100 条电视盒、旧手机/平板、智能家居、电子书和路由器路线，其中 96 条达到至少三项有证据维度的评分门槛，4 条继续待评分。
 
 首页只保留一个标题、一个设备搜索框、一行副标题和热门设备分类；统一目录也删去说明段、提示框、顶部下载链接、条目类型和排序控件。列表卡片只显示名称、可以变成什么、星级或待评分标签，以及独立证据等级。完整适配条件、风险、来源和其他字段仍保留在详情页及 JSON/CSV 下载中。
 
-五项“复活价值”维度仍为：可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%。没有可核验来源的维度保存为 `null`，不再用中性 3 分补位；至少 3 个维度有证据时，才把这些维度的原权重按比例重新归一并计算总分，再四舍五入到最近 0.5 星。当前 **95 / 547 条有星级，452 条显示“待评分 / Not yet rated”**；默认排序为已评分条目按星级降序、待评分条目随后。本版已评分分布为：1 星 1、1.5 星 3、2 星 2、2.5 星 6、3 星 35、3.5 星 8、4 星 35、4.5 星 5、5 星 0。
+五项“复活价值”维度仍为：可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%。没有可核验来源的维度保存为 `null`，不再用中性 3 分补位；至少 3 个维度有证据时，才把这些维度的原权重按比例重新归一并计算总分，再四舍五入到最近 0.5 星。完整数据中 **191 / 547 条有星级，356 条显示“待评分 / Not yet rated”**；4 条深审拒绝项只从页面展示下架、仍保留在 JSON/CSV，因此公开列表显示 188 条已评分和 355 条待评分。默认排序为已评分条目按星级降序、待评分条目随后。本版完整数据的已评分分布为：1 星 1、1.5 星 3、2 星 2、2.5 星 12、3 星 56、3.5 星 53、4 星 58、4.5 星 5、5 星 1。
 
-首批重新研究并评分 **49 条** Kindle/电子书、路由器、旧迷你电脑/NAS 和智能音箱路线，逐维依据与 156 个去重来源 URL 记录在 [`scoring-evidence.json`](data/scoring-evidence.json)。E0–E3 仍是独立证据标签，不参与评分或封顶。147 个仓库发现候选全部保持 E0 和 `needs_review: true` / “待验证”；本批评分取证不会自动升级兼容性证据等级。
+两批评分取证共记录 **149 条**路线：首批 49 条 Kindle/电子书、路由器、旧迷你电脑/NAS 和智能音箱路线，以及本次 100 条优先设备路线。逐维依据保存在 [`scoring-evidence.json`](data/scoring-evidence.json)，第二批原始尝试另存于 [`scoring-evidence-batch2-v120.json`](data/scoring-evidence-batch2-v120.json)。E0–E3 仍是独立证据标签，不参与评分或封顶。另从 147 个仓库发现候选中深审 30 条：18 条升为 E1、7 条升为 E2、1 条保持 E0、4 条判定为不构成当前可执行硬件复活路线并仅从展示下架；原始数据全部保留。当前 118 条仍标为 `needs_review: true` / “待验证”。
 
 设备详情页仍保留独立的硬件名称或型号标签，点击标签即可按同一设备搜索；标签明确区分准确型号、设备家族和硬件平台，未把推测型号当成事实。31 个正式项目已有各自不同的图片：27 张来自项目仓库、作者页面或项目官网的设备实拍、硬件图与界面截图，4 张是在缺少合格原图时制作并明确标注的项目专属示意插图。
 
@@ -27,7 +27,7 @@
 | AI 周边用途 | 1 | 例如显示 AI 工具用量，不代表设备运行模型 |
 | 传统复活基础设施 | 40 | 系统、固件、本地服务和显示工具，不随意贴 AI 标签 |
 
-正式目录证据分布：**E1 50 条、E2 3 条、E3 0 条**；项目发现层 **E0 147 条**；设备图谱另有 **E1 30 条、E0 317 条**。本目录没有实机测试；未取得成本证据时保持 `null`，不以 0 或 3 冒充事实。深审字段见 [JSON](data/catalog.json) / [CSV](data/catalog.csv)，项目发现层见 [JSON](data/project-leads.json) / [CSV](data/project-leads.csv)，547 条统一评分与 URL 见 [JSON](data/directory.json) / [CSV](data/directory.csv)，逐维评分来源见[评分证据台账](data/scoring-evidence.json)。
+正式目录证据分布仍为 **E1 50 条、E2 3 条、E3 0 条**；项目发现层经深审后为 **E0 122 条、E1 18 条、E2 7 条**；设备图谱另有 **E1 30 条、E0 317 条**。合并后的 547 条数据为 E0 439、E1 98、E2 10。本目录没有实机测试；未取得成本证据时保持 `null`，不以 0 或 3 冒充事实。深审字段见 [JSON](data/catalog.json) / [CSV](data/catalog.csv)，项目发现层见 [JSON](data/project-leads.json) / [CSV](data/project-leads.csv)，成本取证见 [`cost-evidence-v120.json`](data/cost-evidence-v120.json)，30 条审计见 [`e0-audit-v120.json`](data/e0-audit-v120.json)，547 条统一评分与 URL 见 [JSON](data/directory.json) / [CSV](data/directory.csv)。
 
 ## 从设备开始
 
@@ -60,7 +60,7 @@
 - **E1**：本轮已读源码仓库的部署、适配资料；不代表本目录运行成功。
 - **E2**：另有作者具体实机陈述或演示说明；仍是作者证据。
 - **E3**：另一个独立使用者的可追溯复现记录已核验；初版没有。
-- **E0**：包括 147 个仓库级项目发现候选和 317 条设备/社区线索。前者只核到 GitHub API 与 README 入口；后者中 300 条设备级入口放在[设备图谱](data/device-atlas.json)，其中另有 30 条已经通过[型号资料核查表](data/device-reviews.json)升级为 E1。早期线索放在[社区线索数据](data/watchlist.json)与[扩展研究数据](data/watchlist-expansion.json)，用户判断字段和带说明的链接统一生成到[线索判断表](data/watchlist-details.json)。二手报道或范围不符的内容仍留在[排除区](data/candidates.json)。
+- **E0**：包括深审后仍为 E0 的 122 个仓库级项目发现候选和 317 条设备/社区线索。仓库候选的 30 条审计结论另有公开台账；设备层中 300 条入口放在[设备图谱](data/device-atlas.json)，其中另有 30 条已经通过[型号资料核查表](data/device-reviews.json)升级为 E1。早期线索放在[社区线索数据](data/watchlist.json)与[扩展研究数据](data/watchlist-expansion.json)，用户判断字段和带说明的链接统一生成到[线索判断表](data/watchlist-details.json)。二手报道或范围不符的内容仍留在[排除区](data/candidates.json)。
 
 逐条记录型号、固件、地区、拆机/焊接/云 API、许可证、归档与迁移、成本未知项、数据损失与恢复。安装应用、替换固件、云服务替代、换板和维修故障分开描述。未归档不表示当前兼容；HTTP 能打开不表示实质验证通过；来源 hash 不表示硬件测试通过。
 
@@ -70,7 +70,7 @@
 
 硬件名称与型号标签单独维护在 `data/hardware-tags.json`，并在构建时检查 53 个正式项目和 347 条线索是否都有可搜索标签。
 
-主目录为 `data/catalog.json`，147 个 E0 仓库来源位于 `data/project-leads.json`，300 条设备级入口位于 `data/device-atlas.json`，其中 30 条型号级核查位于 `data/device-reviews.json`；`data/scoring-evidence.json` 保存首批 49 条逐维评分取证，`data/directory.json` / CSV 汇总全部 547 条记录的 nullable 总星级、加权平均、五项原始分、有效权重、分项依据与来源、独立证据等级及待验证状态。编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`，三篇实用指南位于 `data/articles.json`，公开设备线索由设备图谱、`data/watchlist.json` 和 `data/watchlist-expansion.json` 合并生成。已核实作者社交账号单独维护在 `data/author-socials.json`；构建同时生成覆盖 53 个正式条目的 [`author-identity-coverage.json`](docs/data/author-identity-coverage.json)，仓库所有者入口与个人作者账号分开标注，不把仓库归属写成唯一作者证明。站点有 1124 个规范公开 URL/语言页面、1 个英文根路径首页和 54 个保留的旧 URL，共 1179 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
+主目录为 `data/catalog.json`，147 个仓库发现记录位于 `data/project-leads.json`，300 条设备级入口位于 `data/device-atlas.json`，其中 30 条型号级核查位于 `data/device-reviews.json`；`data/scoring-evidence.json` 保存两批共 149 条逐维评分取证，`data/cost-evidence-v120.json` 保存冻结的 95 条成本调查，`data/e0-audit-v120.json` 保存 30 条项目来源深审，`data/action-guides-v120.json` 保存 63 条四星及以上可展示路线的双语行动指南。`data/directory.json` / CSV 汇总全部 547 条记录的 nullable 总星级、加权平均、五项原始分、有效权重、分项依据与来源、独立证据等级、展示判定及待验证状态。编辑输入为 `data/seeds.json`、`data/review.json`，重点分析为 `data/deep-dives.json`。英文翻译位于 `data/i18n/`，三个双语专题位于 `data/guides.json`，三篇实用指南位于 `data/articles.json`。站点有 1116 个规范公开 URL、1 个英文根路径首页和 54 个保留的旧 URL，共 1171 个静态 HTML 页面。无后端、无账号、无第三方分析脚本；禁用 JavaScript 仍可阅读完整目录。
 
 英文 [JSON](docs/data/catalog.en.json) / [CSV](docs/data/catalog.en.csv) 可下载。[独立社区论坛](https://community.kitagain.com/)已上线基础服务；其中文界面、版块与管理流程仍在完善，目录纠错继续使用 GitHub Issues。
 

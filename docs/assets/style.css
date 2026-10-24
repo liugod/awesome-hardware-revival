@@ -741,6 +741,24 @@ p{
   text-decoration:underline;
 }
 
+.action-guide{
+  margin-top:34px;
+  border-top:1px solid var(--line);
+}
+
+.action-sources{
+  display:block;
+  margin-top:7px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.55;
+  overflow-wrap:anywhere;
+}
+
+.action-sources a{
+  white-space:normal;
+}
+
 .resource-note{
   display:block;
   margin:8px 0;

@@ -5,16 +5,21 @@ import path from "node:path";
 const base = process.env.KITAGAIN_PREVIEW || "http://127.0.0.1:4185";
 const directory = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "directory.json"), "utf8"));
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "site.config.json"), "utf8"));
-const expected = directory.counts.entries;
-const expectedScore4 = directory.entries.filter(entry => entry.score.score !== null && entry.score.score >= 4).length;
-const expectedScore5 = directory.entries.filter(entry => entry.score.score !== null && entry.score.score >= 5).length;
-const expectedNetwork = directory.entries.filter(entry => entry.category === "network").length;
-const expectedRated = directory.counts.rated;
-const expectedUnrated = directory.counts.not_yet_rated;
-const expectedE2 = directory.counts.evidence_distribution.E2 || 0;
+const listedEntries = directory.entries.filter(entry => entry.display_status !== "delisted");
+const expected = listedEntries.length;
+const expectedScore4 = listedEntries.filter(entry => entry.score.score !== null && entry.score.score >= 4).length;
+const expectedScore5 = listedEntries.filter(entry => entry.score.score !== null && entry.score.score >= 5).length;
+const expectedNetwork = listedEntries.filter(entry => entry.category === "network").length;
+const expectedRated = listedEntries.filter(entry => entry.score.score !== null).length;
+const expectedUnrated = listedEntries.filter(entry => entry.score.score === null).length;
+const expectedE2 = listedEntries.filter(entry => entry.evidence_level === "E2").length;
 const expectedHalfStars = ["1.5", "2.5", "3.5", "4.5"];
 const combinedThreshold = 1.5;
-const expectedE0AtThreshold = directory.entries.filter(entry => entry.evidence_level === "E0" && entry.score.score !== null && entry.score.score >= combinedThreshold).length;
+const expectedE0AtThreshold = listedEntries.filter(entry => entry.evidence_level === "E0" && entry.score.score !== null && entry.score.score >= combinedThreshold).length;
+const listedProjectLeads = listedEntries.filter(entry => entry.kind === "project-source-lead");
+const listedNeedsReview = listedProjectLeads.filter(entry => entry.needs_review).length;
+const listedProjectSources = directory.counts.reviewed_projects + listedProjectLeads.length;
+const listedProjectSourcesE0 = listedProjectLeads.filter(entry => entry.evidence_level === "E0").length;
 const scoreTextPattern = /[1-5](?:\.5)?\s*\/\s*5/;
 const ratingDisplayMatches = (text, score, unratedText = "待评分") => score === null ? text === unratedText : scoreTextPattern.test(text);
 const browser = await chromium.launch({ headless: true });
@@ -227,8 +232,8 @@ try {
   await page.goto(`${base}/en/directory/`, { waitUntil: "networkidle" });
   checks.directoryShell.en = await auditDirectoryShell(page, "en");
   await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
-  checks.directoryNeedsReview = await page.locator('#directory-grid .project[data-kind="project-source-lead"] .evidence-tag').count();
-  checks.directoryNeedsReviewText = await page.locator('#directory-grid .project[data-kind="project-source-lead"] .evidence-tag').evaluateAll(tags => tags.every(tag => /(待验证|To verify)/.test(tag.textContent)));
+  checks.directoryNeedsReview = await page.locator('#directory-grid .project[data-kind="project-source-lead"][data-needs-review="true"] .evidence-tag').count();
+  checks.directoryNeedsReviewText = await page.locator('#directory-grid .project[data-kind="project-source-lead"][data-needs-review="true"] .evidence-tag').evaluateAll(tags => tags.every(tag => /(待验证|To verify)/.test(tag.textContent)));
 
   await page.locator("#directory-evidence").selectOption("E2");
   checks.e2Visible = await page.locator("#directory-grid .project:not([hidden])").count();
@@ -281,6 +286,9 @@ try {
         rating: document.querySelector(".detail-rating strong")?.textContent.trim() || "",
         unrated: document.querySelectorAll(".detail-rating.unrated").length,
         legacyPanels: document.querySelectorAll(".rating-panel,.detail-rating dl").length,
+        actionGuide: document.querySelectorAll(".action-guide").length,
+        actionGuideBlocks: document.querySelectorAll(".action-guide > ul > li").length,
+        actionGuideLinks: document.querySelectorAll(".action-guide a[href^='https://']").length,
         overlong
       };
     }, expectedTitle);
@@ -292,8 +300,8 @@ try {
   await page.goto(`${base}/zh/project-sources/`, { waitUntil: "networkidle" });
   checks.projectSources = await page.locator("#project-source-grid .project").count();
   checks.projectSourceCardContract = await auditCardGrid(page, "#project-source-grid");
-  checks.projectSourceNeedsReview = await page.locator('#project-source-grid .project[data-kind="project-source-lead"] .evidence-tag').count();
-  checks.projectSourceNeedsReviewText = await page.locator('#project-source-grid .project[data-kind="project-source-lead"] .evidence-tag').evaluateAll(tags => tags.every(tag => /(待验证|To verify)/.test(tag.textContent)));
+  checks.projectSourceNeedsReview = await page.locator('#project-source-grid .project[data-kind="project-source-lead"][data-needs-review="true"] .evidence-tag').count();
+  checks.projectSourceNeedsReviewText = await page.locator('#project-source-grid .project[data-kind="project-source-lead"][data-needs-review="true"] .evidence-tag').evaluateAll(tags => tags.every(tag => /(待验证|To verify)/.test(tag.textContent)));
   const firstLeadHref = await page.locator('#project-source-grid .project[data-kind="project-source-lead"] h3 a').first().getAttribute("href");
   if (!firstLeadHref) throw new Error("Project-source index produced no E0 detail link");
   await page.locator("#project-source-evidence").selectOption("E0");
@@ -328,7 +336,7 @@ try {
         contribution: document.querySelectorAll('main a[href*="issues/new/choose"]').length,
         release: release.includes(`v${version}`) && release.includes(expectedLang === "zh" ? "未进行实机测试" : "No hands-on hardware tests"),
         downloads,
-        downloadPairs: ["directory.json", "directory.csv", expectedLang === "zh" ? "catalog.json" : "catalog.en.json", expectedLang === "zh" ? "catalog.csv" : "catalog.en.csv", "project-leads.json", "project-leads.csv", "scoring-evidence.json"].every(name => downloads.some(href => href.endsWith(name))),
+        downloadPairs: ["directory.json", "directory.csv", expectedLang === "zh" ? "catalog.json" : "catalog.en.json", expectedLang === "zh" ? "catalog.csv" : "catalog.en.csv", "project-leads.json", "project-leads.csv", "scoring-evidence.json", "scoring-evidence-batch2-v120.json", "cost-evidence-v120.json", "action-guides-v120.json", "e0-audit-v120.json"].every(name => downloads.some(href => href.endsWith(name))),
         directoryLinks: Boolean(document.querySelector('#downloads a[href="../project-sources/"]')) && Boolean(document.querySelector('#downloads a[href="#scoring"]'))
       };
     }, { version: config.version, expectedLang: lang });
@@ -403,8 +411,8 @@ try {
   if (checks.score4Visible !== expectedScore4 || checks.scoreURL !== "4" || checks.score5Visible !== expectedScore5) throw new Error("Star filter or URL state failed");
   if (checks.networkVisible !== expectedNetwork || !checks.networkValid || checks.networkURL !== "network") throw new Error("Device-category filter or URL state failed");
   if (checks.retiredDirectoryParams.kind !== null || checks.retiredDirectoryParams.sort !== null || checks.retiredDirectoryParams.visible !== expected || !checks.retiredDirectoryParams.descending) throw new Error("Retired directory controls still affect the simplified index");
-  if (checks.directoryNeedsReview !== directory.counts.project_source_leads || !checks.directoryNeedsReviewText || checks.projectSourceNeedsReview !== directory.counts.project_source_leads || !checks.projectSourceNeedsReviewText || checks.projectLeadNeedsReview !== 1) throw new Error("Needs-review marker coverage failed");
-  if (checks.projectSources !== directory.counts.independent_project_sources || checks.projectSourcesE0 !== directory.counts.project_source_leads || checks.projectSourcesNas < 1) throw new Error("Project-source index/filter failed");
+  if (checks.directoryNeedsReview !== listedNeedsReview || !checks.directoryNeedsReviewText || checks.projectSourceNeedsReview !== listedNeedsReview || !checks.projectSourceNeedsReviewText) throw new Error("Needs-review marker coverage failed");
+  if (checks.projectSources !== listedProjectSources || checks.projectSourcesE0 !== listedProjectSourcesE0 || checks.projectSourcesNas < 1) throw new Error("Project-source index/filter failed");
   if (checks.kindleVisible < 1 || checks.mobile.directoryZh.visible !== checks.kindleVisible || checks.mobile.directoryEn.visible !== checks.kindleVisible) throw new Error("Bilingual/device search persistence failed");
   if (checks.mobile.projectSources.visible !== checks.projectSourcesNas) throw new Error("Project-source mobile search persistence failed");
   if (checks.mobile.leads.visible !== directory.counts.device_or_community_routes) throw new Error("Mobile lead list coverage failed");
@@ -425,6 +433,7 @@ try {
   const projectLeadId = firstLeadHref.split("/").filter(Boolean).at(-1);
   const projectLeadEntry = directory.entries.find(entry => entry.entry_id === `project-lead:${projectLeadId}`);
   if (!projectEntry || !leadEntry || !projectLeadEntry) throw new Error("Detail score fixtures missing from directory export");
+  if (checks.projectLeadNeedsReview !== Number(projectLeadEntry.needs_review)) throw new Error("Project-lead detail review marker failed");
   const detailResults = [checks.projectDetail, checks.leadDetail, checks.projectLeadDetail, checks.englishUnratedDetail, checks.englishProjectDetail];
   for (const result of detailResults) {
     if (!result.wrap || result.h1 !== 1 || !result.titleMatches || result.bullets < 1 || result.aboutLinks !== 1 || result.legacyPanels !== 0 || result.overlong.length) {
@@ -434,9 +443,13 @@ try {
   if (!ratingDisplayMatches(checks.projectDetail.rating, projectEntry.score.score) || checks.projectDetail.unrated !== Number(projectEntry.score.score === null)) throw new Error("Reviewed-project detail rating failed");
   if (!ratingDisplayMatches(checks.leadDetail.rating, leadEntry.score.score) || checks.leadDetail.unrated !== Number(leadEntry.score.score === null)) throw new Error("Device-route detail rating failed");
   if (!ratingDisplayMatches(checks.projectLeadDetail.rating, projectLeadEntry.score.score) || checks.projectLeadDetail.unrated !== Number(projectLeadEntry.score.score === null)) throw new Error("Project-lead detail rating failed");
+  for (const [result, entry] of [[checks.projectDetail, projectEntry], [checks.leadDetail, leadEntry], [checks.projectLeadDetail, projectLeadEntry]]) {
+    const expectedGuide = entry.score.score !== null && entry.score.score >= 4;
+    if (result.actionGuide !== Number(expectedGuide) || (expectedGuide && (result.actionGuideBlocks !== 3 || result.actionGuideLinks < 3))) throw new Error("Detail action-guide contract failed");
+  }
   if (!ratingDisplayMatches(checks.englishUnratedDetail.rating, unratedEntry.score.score, "Not yet rated")) throw new Error("English not-yet-rated marker failed");
   for (const [lang, result] of Object.entries(checks.about)) {
-    if (result.h1 !== 1 || result.anchors !== 5 || result.weightRows !== 5 || !result.evidenceRange || !result.halfStar || !result.nullable || result.contribution < 1 || !result.release || !result.downloadPairs || !result.directoryLinks || result.downloads.length !== 7 || !result.footer.valid) {
+    if (result.h1 !== 1 || result.anchors !== 5 || result.weightRows !== 5 || !result.evidenceRange || !result.halfStar || !result.nullable || result.contribution < 1 || !result.release || !result.downloadPairs || !result.directoryLinks || result.downloads.length !== 11 || !result.footer.valid) {
       throw new Error(`${lang} About content failed: ${JSON.stringify(result)}`);
     }
   }

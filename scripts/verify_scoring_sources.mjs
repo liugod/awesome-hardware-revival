@@ -3,12 +3,45 @@ import path from "node:path";
 
 const root = process.cwd();
 const config = JSON.parse(fs.readFileSync(path.join(root, "site.config.json"), "utf8"));
-const ledgerPath = path.join(root, "data", "scoring-evidence.json");
-const ledger = JSON.parse(fs.readFileSync(ledgerPath, "utf8"));
-const entries = Array.isArray(ledger.entries) ? ledger.entries : Object.values(ledger.entries || {});
-const urls = [...new Set(entries.flatMap((entry) =>
-  Object.values(entry.components || {}).flatMap((component) => component?.sources || [])
-))].sort();
+const readOptional = (name) => {
+  const file = path.join(root, "data", name);
+  return fs.existsSync(file) ? JSON.parse(fs.readFileSync(file, "utf8")) : null;
+};
+const asEntries = (ledger) => Array.isArray(ledger?.entries) ? ledger.entries : Object.values(ledger?.entries || {});
+const scoringLedger = readOptional("scoring-evidence.json");
+const batchLedger = readOptional("scoring-evidence-batch2-v120.json");
+const costLedger = readOptional("cost-evidence-v120.json");
+const auditLedger = readOptional("e0-audit-v120.json");
+const guideLedger = readOptional("action-guides-v120.json");
+const browserFallbackUrls = new Set([
+  ...(costLedger?.source_validation?.browser_fallback_urls || []),
+  ...(auditLedger?.source_validation?.browser_fallback_urls || []),
+]);
+const scoringEntries = asEntries(scoringLedger);
+const sources = [];
+for (const entry of [...scoringEntries, ...asEntries(batchLedger)]) {
+  for (const component of Object.values(entry.components || {})) sources.push(...(component?.sources || []));
+}
+for (const entry of asEntries(costLedger)) {
+  sources.push(...(entry.used_price_sources || entry.used_price?.sources || []));
+  sources.push(...(entry.modding_cost_sources || entry.modding_cost?.sources || []));
+  sources.push(...(entry.assessment_sources || []));
+}
+sources.push(...(costLedger?.methodology?.fx_reference?.sources || []));
+for (const entry of asEntries(auditLedger)) {
+  sources.push(...(entry.sources || entry.audit_sources || []));
+  for (const source of entry.evidence_sources || []) sources.push(typeof source === "string" ? source : source.url);
+  sources.push(...(entry.tutorial_sources || []));
+  for (const key of ["installation", "compatibility", "recovery"]) sources.push(...(entry[key]?.source_urls || []));
+  for (const item of Object.values(entry.action_guide || {})) sources.push(...(item?.sources || item?.source_urls || []));
+}
+for (const entry of asEntries(guideLedger)) {
+  for (const key of ["what_you_need", "rough_steps", "when_to_stop"]) sources.push(...(entry[key]?.sources || []));
+}
+const urls = [...new Set(sources.filter(Boolean))].sort();
+if (urls.some((url) => typeof url !== "string" || !url.startsWith("https://"))) {
+  throw new Error("Every research source must be an HTTPS URL");
+}
 
 const results = [];
 let cursor = 0;
@@ -45,13 +78,32 @@ async function worker() {
 
 await Promise.all(Array.from({ length: Math.min(6, urls.length || 1) }, worker));
 results.sort((a, b) => a.url.localeCompare(b.url));
-const failures = results.filter((item) => !item.ok);
+const automatedPassed = results.filter((item) => item.ok);
+const fallbackEligibleStatuses = new Set([null, 401, 403, 429, 451]);
+const browserFallbackVerified = results.filter(
+  (item) => !item.ok
+    && browserFallbackUrls.has(item.url)
+    && fallbackEligibleStatuses.has(item.status),
+);
+const failures = results.filter(
+  (item) => !item.ok && !browserFallbackVerified.includes(item),
+);
+const unusedFallbacks = [...browserFallbackUrls].filter(
+  (url) => !urls.includes(url),
+);
 console.log(JSON.stringify({
-  entries: entries.length,
+  scoring_entries: scoringEntries.length,
+  batch2_entries: asEntries(batchLedger).length,
+  cost_entries: asEntries(costLedger).length,
+  audit_entries: asEntries(auditLedger).length,
+  action_guides: asEntries(guideLedger).length,
   unique_sources: urls.length,
-  passed: results.length - failures.length,
-  failed: failures.length,
-  failures,
+  automated_passed: automatedPassed.length,
+  browser_fallback_verified: browserFallbackVerified.length,
+  verified_total: automatedPassed.length + browserFallbackVerified.length,
+  unresolved: failures.length,
+  unused_browser_fallbacks: unusedFallbacks,
+  unresolved_sources: failures,
 }, null, 2));
 
-if (failures.length) process.exitCode = 1;
+if (failures.length || unusedFallbacks.length) process.exitCode = 1;

@@ -21,7 +21,7 @@
 
 - Actor: anonymous visitor.
 - Sequence: visitor opens or downloads versioned static JSON/CSV generated from the same canonical records as the pages.
-- Integrity rule: unified JSON/CSV IDs, five nullable raw scores, evidenced-dimension count, proportional effective weights, nullable weighted/rounded totals, per-dimension sources, independent evidence grades, review-needed state, URLs, and entry counts must match in `scripts/validate.py`. Fewer than three evidenced dimensions must have no total. The separate project-source JSON/CSV preserves all 147 E0 rows with `needs_review: true` while the project-source index combines them with 53 reviewed repositories.
+- Integrity rule: unified JSON/CSV IDs, five nullable raw scores, evidenced-dimension count, proportional effective weights, nullable weighted/rounded totals, per-dimension sources, independent evidence grades, review-needed state, display status, URLs, and entry counts must match in `scripts/validate.py`. Fewer than three evidenced dimensions must have no total. The separate project-source JSON/CSV preserves all 147 discovery rows and their audit outcomes (122 E0, 18 E1, 7 E2; 118 still review-needed); the site lists 143 of those alongside 53 reviewed repositories, while four rejected routes remain download-only.
 - Side effects: client-side download only.
 
 ## Contribution and correction

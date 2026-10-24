@@ -15,10 +15,17 @@ config = json.loads((ROOT / "site.config.json").read_text(encoding="utf-8"))
 BASE = config["base_url"].rstrip("/") + "/"
 REPO = config["repository_url"]
 data = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
+project_i18n = json.loads((ROOT / "data/i18n/en.json").read_text(encoding="utf-8"))["projects"]
 project_lead_data = json.loads((ROOT / "data/project-leads.json").read_text(encoding="utf-8"))
 project_leads = project_lead_data["projects"]
 scoring_evidence = json.loads((ROOT / "data/scoring-evidence.json").read_text(encoding="utf-8"))
 scoring_evidence_entries = scoring_evidence["entries"]
+cost_evidence_path = ROOT / "data/cost-evidence-v120.json"
+cost_evidence = json.loads(cost_evidence_path.read_text(encoding="utf-8")) if cost_evidence_path.exists() else {}
+batch2_path = ROOT / "data/scoring-evidence-batch2-v120.json"
+batch2_evidence = json.loads(batch2_path.read_text(encoding="utf-8")) if batch2_path.exists() else {}
+audit_path = ROOT / "data/e0-audit-v120.json"
+audit_evidence = json.loads(audit_path.read_text(encoding="utf-8")) if audit_path.exists() else {}
 project_image_data = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
 project_images = {item["project_id"]: item for item in project_image_data["entries"]}
 deep = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
@@ -27,6 +34,13 @@ watchlist, watchlist_details = load_watchlist(ROOT / "data")
 reviewed_device_count = sum(lead.get("evidence_level") == "E1" for lead in watchlist.values())
 e0_lead_count = len(watchlist) - reviewed_device_count
 projects = data["projects"]
+project_lead_evidence_counts = collections.Counter(lead["evidence_level"] for lead in project_leads)
+project_lead_audit_counts = collections.Counter(lead.get("audit_outcome", "not-audited") for lead in project_leads)
+listed_project_lead_count = sum(lead.get("display_status", "listed") == "listed" for lead in project_leads)
+cost_entries = cost_evidence.get("entries", [])
+if isinstance(cost_entries, dict):
+    cost_entries = list(cost_entries.values())
+cost_filled_count = sum(entry.get("cost_score") is not None for entry in cost_entries)
 labels = data["labels"]
 DATE = data["compiled_at"][:10]
 PROJECT_LEAD_DATE = project_lead_data["published_at"]
@@ -40,7 +54,9 @@ directory_export = build_directory_export(
     base_url=BASE,
     version=config["version"],
     generated_at=scoring_evidence.get("generated_at", data["compiled_at"]),
+    project_i18n=project_i18n,
     scoring_evidence=scoring_evidence,
+    cost_evidence=cost_evidence,
 )
 score_distribution_zh = "、".join(
     f"{bucket} 星 {count} 条"
@@ -135,7 +151,7 @@ body = f"""<section class="hero"><div class="hero-copy"><p class="eyebrow">OPEN 
 <label>难度<select id="difficulty" name="difficulty"><option value="">全部难度</option>{options(labels['difficulty'])}</select></label>
 <label>证据<select id="evidence" name="evidence"><option value="">全部证据</option>{options({k:v for k,v in labels['evidence'].items() if k in evidence_counts})}</select></label></div>
 <div class="filter-bottom"><p id="result-count" role="status" aria-live="polite">显示 {len(projects)} / {len(projects)} 个条目</p><div><button type="button" id="share">复制筛选链接</button><button type="reset">清除筛选</button></div></div><span id="share-status" role="status"></span></form>
-<p class="evidence-note">E1 = 已读源码仓库与部署文档 · E2 = 作者实机陈述或演示 · 本轮没有 E3 独立复现。难度为编辑判断；成本未核价。</p>
+<p class="evidence-note">E1 = 已读源码仓库与部署文档 · E2 = 作者实机陈述或演示 · 本轮没有 E3 独立复现。难度为编辑判断；成本仅在二手价与完整改造投入均有来源时评分。</p>
 <noscript><p>JavaScript 未启用，以下完整目录仍可阅读；可使用浏览器查找。</p></noscript>
 <div id="project-grid" class="project-grid">{''.join(card(p) for p in projects)}</div>
 <div id="empty" class="empty" hidden><h3>暂时没有匹配条目</h3><p>试试减少一个筛选条件，或在 GitHub 提交你手里的设备线索。</p><a href="{REPO}/issues/new/choose">提交项目线索 ↗</a></div></section>
@@ -176,7 +192,7 @@ report = f"""# 老硬件复活项目研究 · v{data['version']}
 
 ## 结论与适用范围
 
-正式目录收录 {len(projects)} 条公开项目、平台和前置工具，覆盖 {len(category_counts)} 类设备，归并为 {len(set(p['family'] for p in projects))} 个项目家族。项目来源发现层另收录 {len(project_leads)} 个 GitHub 仓库级 E0 候选；它们与正式目录按仓库 URL 去重后，合计正好 **{len(projects)+len(project_leads)} 个独立项目来源**。设备与社区层另有 {reviewed_device_count} 条已读具体型号资料的 E1 路线、{e0_lead_count} 条 E0 线索与 {len(candidates)} 条排除记录。统一目录共 {directory_export['counts']['entries']} 条记录、{directory_export['counts']['unique_primary_source_urls']} 个不同主来源 URL。它们不是成功实机改造：正式目录 E1 文档与代码证据 {evidence_counts['E1']} 条、E2 作者实机陈述/演示 {evidence_counts['E2']} 条，设备层 E1 {reviewed_device_count} 条，E3 独立复现 0 条，本目录亲手测试 0 条。
+正式目录收录 {len(projects)} 条公开项目、平台和前置工具，覆盖 {len(category_counts)} 类设备，归并为 {len(set(p['family'] for p in projects))} 个项目家族。项目来源发现层保留 {len(project_leads)} 个 GitHub 仓库记录；它们与正式目录按仓库 URL 去重后，合计 **{len(projects)+len(project_leads)} 个独立项目来源**。其中 {len(audit_evidence.get('entries', []))} 条已深审，{len(project_leads)-listed_project_lead_count} 条因不符合展示标准而只保留在数据下载中。设备与社区层另有 {reviewed_device_count} 条已读具体型号资料的 E1 路线、{e0_lead_count} 条 E0 线索与 {len(candidates)} 条排除记录。统一数据共 {directory_export['counts']['entries']} 条记录、{directory_export['counts']['unique_primary_source_urls']} 个不同主来源 URL；公开列表展示 {directory_export['counts']['listed_entries']} 条。它们不是成功实机改造：正式目录 E1 文档与代码证据 {evidence_counts['E1']} 条、E2 作者实机陈述/演示 {evidence_counts['E2']} 条，项目发现层 E0/E1/E2 分别为 {project_lead_evidence_counts['E0']}/{project_lead_evidence_counts['E1']}/{project_lead_evidence_counts['E2']} 条，设备层 E1 {reviewed_device_count} 条，E3 独立复现 0 条，本目录亲手测试 0 条。
 
 AI 功能改造 {stats['native']} 条；有明确 AI 辅助开发/配置材料 {stats['assisted']} 条；AI 周边用途 {stats['adjacent']} 条；传统开源复活基础设施 {stats['infrastructure']} 条。不能因为项目可以与大模型结合就把它称为 AI 项目。AI 辅助配置与 AI 编写底层驱动也不是同一种证据。
 
@@ -192,9 +208,9 @@ AI 功能改造 {stats['native']} 条；有明确 AI 辅助开发/配置材料 {
 
 以设备和失效原因组合检索 GitHub、官方网站与 X。检索词包括 old hardware reuse、Nest Mini LLM PCB、Kindle dashboard jailbreak、Vector wire-pod、HP Laser macOS Claude driver、router firmware、IP camera local firmware，以及对应中文设备名。
 
-正式目录使用 GitHub 只读 API 取得仓库元数据、README、根许可证与最近 release 列表。新增项目来源发现层通过 GitHub API 与 README 入口确认仓库存在、非 fork，并排除 404、profile 仓库、明显镜像与只读迁移副本；尚未逐项阅读安装、准确型号兼容和恢复资料，因此全部保持 E0。社区线索继续读取项目论坛、作者网站、Codeberg、GitLab、Hackaday、Instructables 与社交平台原帖。逐项阅读适配、部署、失败与恢复片段，保留来源 URL 和核查时间，不重新发布上游教程全文。不存在的旧路径、镜像或跳转不自动视为项目失效，标为 E0 继续核实。
+正式目录使用 GitHub 只读 API 取得仓库元数据、README、根许可证与最近 release 列表。项目来源发现层先通过 GitHub API 与 README 入口确认仓库存在、非 fork，并排除 404、profile 仓库、明显镜像与只读迁移副本；本轮再从其中选择 30 条高价值候选，逐项读取安装、兼容与恢复材料，记录升级 E1/E2、保持 E0 或从展示中下架的结论。未深审条目不自动升级。社区线索继续读取项目论坛、作者网站、Codeberg、GitLab、Hackaday、Instructables 与社交平台原帖。逐项阅读适配、部署、失败与恢复片段，保留来源 URL 和核查时间，不重新发布上游教程全文。
 
-维护状态来自带时间的 API 快照和作者说明。许可证字段优先实际根文件；没有确认的标 UNKNOWN，混合许可不压成一个宽松标签。难度为编辑判断，成本未核价，恢复描述是文档路径而非救砖保证。地区、固件缺少明确材料时保留 null。
+维护状态来自带时间的 API 快照和作者说明。许可证字段优先实际根文件；没有确认的标 UNKNOWN，混合许可不压成一个宽松标签。难度为编辑判断。成本维度要求同时具备二手设备价格范围与完整改造零件/工具投入来源；任一半缺失就保持 null。恢复描述是文档路径而非救砖保证。地区、固件缺少明确材料时保留 null。
 
 正式目录的 X 核查通过浏览器读取 4 条原始帖子正文，涉及 Onju 与 HP 驱动 2 个案例家族；设备图谱另收录 1 条可读取并有项目仓库交叉验证的 GL-AR300M16-Ext 改造线索。部分搜索/抓取入口受限；不把转载、搜索摘要或无法读取的帖子当作原帖核验。视频组件出现不等于看过或验证视频。本轮未记录点赞、浏览量作为成功证据。详见 [X 来源记录](../data/x-research.json)与[设备图谱](../data/device-atlas.json)。
 
@@ -202,9 +218,9 @@ AI 功能改造 {stats['native']} 条；有明确 AI 辅助开发/配置材料 {
 
 | 等级 | 本目录含义 | 条数 |
 | --- | --- | ---: |
-| E0 | 公开线索、项目未完成或 KitAgain 尚未查完；生成独立线索页 | 项目来源 {len(project_leads)}；设备/社区 {e0_lead_count} |
-| E1 | 已读项目源码仓库说明与部署/适配文档；未验证实机 | 正式项目 {evidence_counts['E1']}；设备路线 {reviewed_device_count} |
-| E2 | 在 E1 基础上，有本轮读到的作者具体实机陈述或演示说明 | {evidence_counts['E2']} |
+| E0 | 公开线索、项目未完成或 KitAgain 尚未查完；生成独立线索页 | 项目来源 {project_lead_evidence_counts['E0']}；设备/社区 {e0_lead_count} |
+| E1 | 已读项目源码仓库说明与部署/适配文档；未验证实机 | 正式项目 {evidence_counts['E1']}；项目来源 {project_lead_evidence_counts['E1']}；设备路线 {reviewed_device_count} |
+| E2 | 在 E1 基础上，有本轮读到的作者具体实机陈述或演示说明 | 正式项目 {evidence_counts['E2']}；项目来源 {project_lead_evidence_counts['E2']} |
 | E3 | 有另一个独立使用者的可追溯复现记录且本轮已核验 | 0 |
 
 E1 不表示项目从未被别人成功使用，只表示本轮核查停留在此层级。E2 也不是本目录亲测。厂商或维护者在文档中说“支持”是来源声明，不自动等于本目录完成独立复现。
@@ -227,11 +243,11 @@ E1 不表示项目从未被别人成功使用，只表示本轮核查停留在�
 
 ## 200 个独立项目来源
 
-[项目来源发现层](../data/project-leads.json)包含 {len(project_leads)} 个仓库级 E0 候选，与正式目录 {len(projects)} 个仓库合计 {len(projects)+len(project_leads)} 个互不重复的项目来源。发现层覆盖 NAS/家庭服务器、Kindle/电子书、手机、摄像头、音频、IoT、机器人、游戏、穿戴与外设等方向，并保留仓库归档状态、最后 push、默认分支、API 许可证标识和核查时间。这里的 README 入口读取只用于确认项目方向；没有型号级安装、兼容、恢复或长期稳定性证据就不升级为 E1。
+[项目来源发现层](../data/project-leads.json)保留 {len(project_leads)} 个仓库记录，与正式目录 {len(projects)} 个仓库合计 {len(projects)+len(project_leads)} 个互不重复的项目来源。发现层覆盖 NAS/家庭服务器、Kindle/电子书、手机、摄像头、音频、IoT、机器人、游戏、穿戴与外设等方向，并保留仓库归档状态、最后 push、默认分支、API 许可证标识和核查时间。[E0 深审台账](../data/e0-audit-v120.json)记录 30 条高价值候选的逐项结论：E1 {project_lead_audit_counts['upgraded-e1']} 条、E2 {project_lead_audit_counts['upgraded-e2']} 条、保持 E0 {project_lead_audit_counts['stays-e0']} 条、从展示中下架但数据保留 {project_lead_audit_counts['rejected-delisted']} 条。
 
 ## 1–5 星复活价值评分
 
-统一目录 {directory_export['counts']['rated']} / {directory_export['counts']['entries']} 条记录有星级，另有 {directory_export['counts']['not_yet_rated']} 条显示“待评分 / Not yet rated”。权重为可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%；没有来源支撑的维度保存为 null。至少 3 个维度有证据时，只在这些维度之间按原始权重比例重新归一，再四舍五入到最近 0.5 星；不足 3 个维度不计算总星级。E0–E3 是独立证据等级，不参与加权或封顶。首批重新研究 {len(scoring_evidence_entries)} 条 Kindle/电子书、路由器、旧迷你电脑/NAS 与智能音箱路线，并在 [评分证据台账](../data/scoring-evidence.json)记录逐维来源。{len(project_leads)} 个 E0 仓库候选继续标为 `needs_review: true`。已评分条目的当前分布为 {score_distribution_zh}。
+统一目录 {directory_export['counts']['rated']} / {directory_export['counts']['entries']} 条记录有星级，另有 {directory_export['counts']['not_yet_rated']} 条显示“待评分 / Not yet rated”。权重为可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%；没有来源支撑的维度保存为 null。至少 3 个维度有证据时，只在这些维度之间按原始权重比例重新归一，再四舍五入到最近 0.5 星；不足 3 个维度不计算总星级。E0–E3 是独立证据等级，不参与加权或封顶。第二批实际研究 {batch2_evidence.get('actual_entries', 0)} 条电视盒、旧手机/平板、智能家居、电子书与路由器路线，其中 {batch2_evidence.get('qualified_entries', 0)} 条达到评分门槛，{batch2_evidence.get('still_unrated', 0)} 条因证据不足继续待评分。成本台账覆盖原 95 条已评分记录，只有 {cost_filled_count} 条同时取得二手价与完整改造投入来源。{directory_export['counts']['action_guides']} 条公开展示且达到 4 星或以上的路线都有双语“需要什么 / 大致步骤 / 何时停止”行动指南和上游教程链接；审计下架的数据不生成页面。逐维依据见 [评分证据台账](../data/scoring-evidence.json)，成本见 [成本证据台账](../data/cost-evidence-v120.json)。已评分条目的当前分布为 {score_distribution_zh}。
 
 ## 排除
 
@@ -243,7 +259,7 @@ E1 不表示项目从未被别人成功使用，只表示本轮核查停留在�
 - X 可稳定读取并交叉验证的样本仍少：正式目录集中于 2 个案例家族，设备图谱新增 1 条路由器改造线索；没有声称检索穷尽。
 - 旧手机的逐型号当前镜像、旧 NAS 的启动加载器恢复、停服穿戴服务和区域差异仍需补全。
 - 没有把智能锁、他人账号绑定解除或防盗激活锁绕过当作普通再利用指南。
-- 金额全为未知；没有本地采购价、云账单或长期总成本估计。
+- 成本只核到可引用的二手市场与零件/工具范围；没有可靠双边来源的条目仍为 null，也没有长期电费、云账单或地区税费估计。
 - 项目未归档和最新 release 不是部署通过证明；第三方服务可能改变。
 
 ## 作为流量入口的下一步
@@ -263,7 +279,22 @@ write(OUT/".nojekyll","")
 write(ROOT/"data/directory.json", export_json_text(directory_export))
 write(ROOT/"data/directory.csv", directory_csv(directory_export))
 write(ROOT/"data/project-leads.csv", project_leads_csv(project_leads))
-for name in ["catalog.json","catalog.csv","directory.json","directory.csv","scoring-evidence.json","project-leads.json","project-leads.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json"]:
+write(ROOT/"data/action-guides-v120.json", json.dumps({
+    "schema_version": "1.0.0",
+    "version": config["version"],
+    "generated_at": directory_export["generated_at"],
+    "minimum_score": 4,
+    "count": directory_export["counts"]["action_guides"],
+    "entries": [
+        {"entry_id": entry["entry_id"], **entry["action_guide"]}
+        for entry in directory_export["entries"]
+        if entry["display_status"] == "listed" and entry["action_guide"] is not None
+    ],
+}, ensure_ascii=False, indent=2) + "\n")
+public_data = ["catalog.json","catalog.csv","directory.json","directory.csv","scoring-evidence.json","project-leads.json","project-leads.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json","action-guides-v120.json","cost-evidence-v120.json","scoring-evidence-batch2-v120.json","e0-audit-v120.json"]
+for name in public_data:
+    if not (ROOT/"data"/name).exists():
+        continue
     (OUT/"data").mkdir(parents=True,exist_ok=True)
     shutil.copyfile(ROOT/"data"/name,OUT/"data"/name)
 paths = ["","research.html"]+[f"projects/{p['id']}.html" for p in projects]
