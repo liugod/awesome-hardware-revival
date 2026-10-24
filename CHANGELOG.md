@@ -3,7 +3,7 @@
 ## 1.16.0 — 2026-10-24
 
 - Remove neutral 3-point placeholders: every unevidenced scoring dimension is now `null`, and the weighted average uses only evidenced dimensions with their original weights proportionally renormalized.
-- Require at least three evidenced dimensions for a total; otherwise JSON/CSV totals stay null, cards show `??? / 尚未评分` or `??? / Not yet rated`, and unrated entries sort after all rated entries.
+- Require at least three evidenced dimensions for a total; otherwise JSON/CSV totals stay null, cards use the exact bilingual labels `待评分 / Not yet rated`, and unrated entries sort after all rated entries.
 - Re-research and rescore 49 Kindle/e-reader, router, old mini-PC/NAS, and smart-speaker routes using 156 unique source URLs recorded per dimension in a public scoring-evidence ledger.
 - Publish 95 rated and 452 not-yet-rated entries. The rated half-star distribution is 1: 1, 1.5: 3, 2: 2, 2.5: 6, 3: 35, 3.5: 8, 4: 35, 4.5: 5, and 5: 0.
 - Keep E0–E3 independent from stars and preserve all 147 E0 repository discoveries with `needs_review: true`; scoring research does not promote their compatibility evidence grade.

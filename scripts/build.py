@@ -232,7 +232,7 @@ E1 不表示项目从未被别人成功使用，只表示本轮核查停留在�
 
 ## 1–5 星复活价值评分
 
-统一目录 {directory_export['counts']['rated']} / {directory_export['counts']['entries']} 条记录有星级，另有 {directory_export['counts']['not_yet_rated']} 条显示“??? / 尚未评分”。权重为可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%；没有来源支撑的维度保存为 null。至少 3 个维度有证据时，只在这些维度之间按原始权重比例重新归一，再四舍五入到最近 0.5 星；不足 3 个维度不计算总星级。E0–E3 是独立证据等级，不参与加权或封顶。首批重新研究 {len(scoring_evidence_entries)} 条 Kindle/电子书、路由器、旧迷你电脑/NAS 与智能音箱路线，并在 [评分证据台账](../data/scoring-evidence.json)记录逐维来源。{len(project_leads)} 个 E0 仓库候选继续标为 `needs_review: true`。已评分条目的当前分布为 {score_distribution_zh}。
+统一目录 {directory_export['counts']['rated']} / {directory_export['counts']['entries']} 条记录有星级，另有 {directory_export['counts']['not_yet_rated']} 条显示“待评分 / Not yet rated”。权重为可行性/易上手 25%、低成本 15%、文档与社区 20%、实用价值 20%、低刷坏/安全风险 20%；没有来源支撑的维度保存为 null。至少 3 个维度有证据时，只在这些维度之间按原始权重比例重新归一，再四舍五入到最近 0.5 星；不足 3 个维度不计算总星级。E0–E3 是独立证据等级，不参与加权或封顶。首批重新研究 {len(scoring_evidence_entries)} 条 Kindle/电子书、路由器、旧迷你电脑/NAS 与智能音箱路线，并在 [评分证据台账](../data/scoring-evidence.json)记录逐维来源。{len(project_leads)} 个 E0 仓库候选继续标为 `needs_review: true`。已评分条目的当前分布为 {score_distribution_zh}。
 
 ## 排除
 

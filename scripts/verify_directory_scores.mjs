@@ -15,7 +15,7 @@ const expectedHalfStars = ["1.5", "2.5", "3.5", "4.5"];
 const combinedThreshold = 1.5;
 const expectedE0AtThreshold = directory.entries.filter(entry => entry.evidence_level === "E0" && entry.score.score !== null && entry.score.score >= combinedThreshold).length;
 const scoreTextPattern = /[1-5](?:\.5)?\s*\/\s*5/;
-const ratingDisplayMatches = (text, score) => score === null ? text === "??? / 尚未评分" : scoreTextPattern.test(text);
+const ratingDisplayMatches = (text, score) => score === null ? text === "待评分" : scoreTextPattern.test(text);
 const browser = await chromium.launch({ headless: true });
 const checks = {};
 
@@ -176,7 +176,7 @@ try {
   if (!ratingDisplayMatches(checks.projectRating, projectEntry.score.score) || checks.projectRatingUnrated !== Number(projectEntry.score.score === null)) throw new Error("Reviewed-project detail rating failed");
   if (!ratingDisplayMatches(checks.leadRating, leadEntry.score.score) || checks.leadRatingUnrated !== Number(leadEntry.score.score === null)) throw new Error("Device-route detail rating failed");
   if (!ratingDisplayMatches(checks.projectLeadRating, projectLeadEntry.score.score) || checks.projectLeadRatingUnrated !== Number(projectLeadEntry.score.score === null)) throw new Error("Project-lead detail rating failed");
-  if (checks.englishUnratedMarker !== "??? / Not yet rated") throw new Error("English not-yet-rated marker failed");
+  if (checks.englishUnratedMarker !== "Not yet rated") throw new Error("English not-yet-rated marker failed");
   if (![checks.projectRatingComponents, checks.leadRatingComponents, checks.projectLeadRatingComponents].every(value => value === 5)) throw new Error("Five-dimension detail panel failed");
   if (errors.length) throw new Error(`Browser errors: ${errors.join(" | ")}`);
   console.log(JSON.stringify(checks, null, 2));

@@ -314,7 +314,7 @@ for lang in ["zh","en"]:
     assert all(f">{weight}%<" in scoring_markup for weight in WEIGHTS.values()),(lang,"score weights missing")
     assert "E0–E3" in scoring_markup and "0.5" in scoring_markup,(lang,"evidence separation or half-star explanation missing")
     assert "null" in scoring_markup and "scoring-evidence.json" in scoring_markup,(lang,"nullable scoring or evidence-ledger link missing")
-    assert ("尚未评分" if lang=="zh" else "Not yet rated") in scoring_markup,(lang,"unrated explanation missing")
+    assert ("待评分" if lang=="zh" else "Not yet rated") in scoring_markup,(lang,"unrated explanation missing")
     for slug,lead in watchlist.items():
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")
         page=pages[(OUT/lang/"leads"/slug/"index.html").resolve()]
@@ -404,6 +404,10 @@ assert sum(directory["counts"]["score_distribution"].values())==directory["count
 assert sum(entry["needs_review"] for entry in directory["entries"])==147
 assert all(entry["needs_review"]==(entry["kind"]=="project-source-lead") for entry in directory["entries"])
 assert directory["counts"]["unique_primary_source_urls"]>=200,"Fewer than 200 distinct primary-source URLs"
+for entry in directory["entries"]:
+    if entry["score"]["score"] is None:
+        assert entry["score"]["label_zh"]=="待评分",(entry["entry_id"],"Chinese unrated label mismatch")
+        assert entry["score"]["label_en"]=="Not yet rated",(entry["entry_id"],"English unrated label mismatch")
 with (ROOT/"data/directory.csv").open(encoding="utf-8-sig",newline="") as f:
     directory_rows=list(csv.DictReader(f))
 assert [row["entry_id"] for row in directory_rows]==[entry["entry_id"] for entry in directory["entries"]],"Unified JSON/CSV entry mismatch"
@@ -443,11 +447,15 @@ for url in urls:
     assert target.resolve() in pages
 # Block credentials and private machine paths, not harmless public repository names.
 secret_patterns=[r"gh[pousr]_[A-Za-z0-9]{25,}",r"github_pat_[A-Za-z0-9_]{30,}",r"sk-(?:proj-)?[A-Za-z0-9_-]{30,}",r"-----BEGIN (?:RSA |OPENSSH )?PRIVATE KEY-----",r"C:\\\\Users\\\\",r"C:\\\\work\\\\\.secrets"]
+retired_unrated_label="".join(chr(value) for value in (0x5c1a,0x672a,0x8bc4,0x5206))
+placeholder_artifact="?"*3
 for file in ROOT.rglob("*"):
     if not file.is_file() or ".git" in file.parts or "__pycache__" in file.parts:continue
     if file.suffix not in {".json",".csv",".md",".html",".js",".css",".yml",".py",".txt"}:continue
     text=file.read_text(encoding="utf-8-sig")
     assert "\ufffd" not in text,("UTF8 replacement character",file)
+    assert retired_unrated_label not in text,("Retired unrated label",file)
+    assert placeholder_artifact not in text,("Placeholder artifact",file)
     for pattern in secret_patterns:
         assert not re.search(pattern,text),("Potential sensitive content",file)
 print(json.dumps({"schema":"PASS","unique_ids":len(ids),"families":len(set(p["family"] for p in projects)),"categories":len(set(p["category"] for p in projects)),"deep_dives":len(deep),"independent_project_sources":len(projects)+len(project_leads),"project_source_leads":len(project_leads),"device_source_reviews":len(device_reviews["items"]),"remaining_e0_leads":len(watchlist)-len(device_reviews["items"]),"scoring_batch_entries":len(scoring_entry_pairs),"directory_entries":directory["counts"]["entries"],"distinct_primary_source_urls":directory["counts"]["unique_primary_source_urls"],"rated":directory["counts"]["rated"],"not_yet_rated":directory["counts"]["not_yet_rated"],"score_weights":directory["weights"],"score_distribution":directory["counts"]["score_distribution"],"needs_review":directory["counts"]["needs_review"],"html_pages_and_internal_links":"PASS","csv_json_parity":"PASS","public_file_scan":"PASS","catalog_evidence":dict(collections.Counter(p["evidence"]["level"] for p in projects))},ensure_ascii=False,indent=2))

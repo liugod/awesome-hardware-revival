@@ -108,7 +108,7 @@ def _score_record(
     else:
         weighted = None
         score = None
-        zh_label, en_label = "尚未评分", "Not yet rated"
+        zh_label, en_label = "待评分", "Not yet rated"
     score_sources = list(dict.fromkeys(
         url for key in COMPONENTS for url in sources[key]
     ))
