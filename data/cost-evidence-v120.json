@@ -1,0 +1,1742 @@
+{
+  "schema_version": "1.0.0",
+  "version": "1.20.0",
+  "release": "v1.20.0",
+  "checked_at": "2026-10-24",
+  "scope_zh": "v1.19 中已有星级的 95 条目录记录；仅精确、可访问页面可作为成本证据。",
+  "scope_en": "The 95 directory entries rated in v1.19; only accessible exact pages qualify as cost evidence.",
+  "methodology": {
+    "rule_zh": "二手设备区间与必要改造零件/工具区间都可靠时才评分；按两者区间上限合计并折算美元：≤30=5，≤75=4，≤150=3，≤300=2，>300=1。缺一类即为 null。运费、税费与未明确的可选设备按各条 scope 说明处理。",
+    "rule_en": "A score is assigned only when both the used-device range and required modding-parts/tools range are reliable. Their combined upper bound is normalized to USD: <=30=5, <=75=4, <=150=3, <=300=2, >300=1. If either class is missing, the score is null. Shipping, taxes, and unspecified optional equipment follow each record's scope.",
+    "market_prices": "Active asks unless a record explicitly says creator-reported purchase; asking prices are observations, not guaranteed transaction prices.",
+    "fx_reference": {
+      "date": "2026-10-23",
+      "eur_usd": 1.1193,
+      "eur_gbp": 0.83728,
+      "gbp_usd_cross": 1.336829,
+      "sources": [
+        "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/eurofxref-graph-gbp.en.html",
+        "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/eurofxref-graph-usd.en.html"
+      ]
+    }
+  },
+  "source_validation": {
+    "checked_at": "2026-10-24",
+    "unique_urls": 107,
+    "automated_http_200": 98,
+    "browser_fallback_verified": 9,
+    "browser_fallback_urls": [
+      "https://www.ebay.co.uk/shop/google-nest-mini-charcoal?_nkw=google+nest+mini+charcoal",
+      "https://www.ebay.co.uk/itm/188937323480",
+      "https://www.ebay.com/sch/i.html?_nkw=vector+robot+used&_sop=12",
+      "https://www.ebay.co.uk/b/bn_7111075346",
+      "https://www.digikey.co.uk/en/products/detail/adafruit-industries-llc/5252/15841478",
+      "https://www.ebay.com/itm/234786942156",
+      "https://www.ebay.com/itm/203884004553",
+      "https://www.ebay.co.uk/itm/188545171108",
+      "https://www.ebay.co.uk/itm/116690857672"
+    ],
+    "unverified": 0,
+    "note_zh": "9 个市场/零件页拒绝自动化请求（HTTP 403），已在浏览器检索/打开回读中逐页确认标题、状态与价格；其余 98 个唯一 URL 自动请求返回 HTTP 200。",
+    "note_en": "Nine marketplace/parts pages rejected the automated client with HTTP 403; each title, condition, and price was read back through browser search/open. The other 98 unique URLs returned HTTP 200 to the automated request."
+  },
+  "actual_entries": 95,
+  "filled": 4,
+  "lacking_source": 91,
+  "used_price_filled": 7,
+  "modding_cost_filled": 4,
+  "partial_only": 3,
+  "entries": [
+    {
+      "entry_id": "project:xiaogpt",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/yihong0618/xiaogpt"
+      ]
+    },
+    {
+      "entry_id": "project:open-xiaoai",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/idootop/open-xiaoai"
+      ]
+    },
+    {
+      "entry_id": "project:mi-gpt",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/idootop/mi-gpt"
+      ]
+    },
+    {
+      "entry_id": "project:onju-voice",
+      "checked_at": "2026-10-24",
+      "used_price_range": {
+        "low": 21.25,
+        "high": 30.49,
+        "currency": "GBP",
+        "market": "eBay UK active pre-owned asks",
+        "scope_zh": "Google Nest Mini 第二代完整/带电源实例的商品价；不含运费、税费。",
+        "scope_en": "Item prices for complete/power-supplied Google Nest Mini 2nd-gen examples; shipping and taxes excluded.",
+        "source_urls": [
+          "https://www.ebay.co.uk/shop/google-nest-mini-charcoal?_nkw=google+nest+mini+charcoal"
+        ]
+      },
+      "modding_cost_range": {
+        "low": 25.0,
+        "high": 44.6,
+        "currency": "GBP",
+        "market": "Home Assistant community offer and eBay UK active ask",
+        "scope_zh": "一块已组装 Onju Voice 替换板：社区 2026 年未使用板报价为两块 50 英镑，eBay 新板在售价 44.60 英镑；不含运费与可复用宿主机。",
+        "scope_en": "One assembled Onju Voice replacement board: a 2026 community offer priced two unused boards at GBP 50, while a current eBay new-board ask is GBP 44.60; shipping and a reusable host are excluded.",
+        "source_urls": [
+          "https://community.home-assistant.io/t/onju-voice-pcb-group-buy-in-uk/692514?page=4",
+          "https://www.ebay.co.uk/itm/188937323480",
+          "https://www.pcbway.com/project/shareproject/Onju_Voice_d33625a1.html"
+        ],
+        "items": [
+          "1 assembled Onju Voice replacement PCB"
+        ]
+      },
+      "used_price_sources": [
+        "https://www.ebay.co.uk/shop/google-nest-mini-charcoal?_nkw=google+nest+mini+charcoal"
+      ],
+      "modding_cost_sources": [
+        "https://community.home-assistant.io/t/onju-voice-pcb-group-buy-in-uk/692514?page=4",
+        "https://www.ebay.co.uk/itm/188937323480",
+        "https://www.pcbway.com/project/shareproject/Onju_Voice_d33625a1.html"
+      ],
+      "cost_score": 3,
+      "basis_zh": "上游把同一块 Onju Voice 板定义为 Google Nest Mini 第二代的直插替换板。按区间上限合计 75.09 英镑，依 2026-10-23 ECB 交叉汇率折合约 100.38 美元，落入 3 分档。",
+      "basis_en": "Upstream identifies the same Onju Voice board as a drop-in replacement for a 2nd-gen Google Nest Mini. The GBP 75.09 combined upper bound is about USD 100.38 at the 2026-10-23 ECB cross-rate, placing it in band 3.",
+      "null_reason_zh": null,
+      "null_reason_en": null,
+      "assessment_sources": [
+        "https://github.com/justLV/onju-voice",
+        "https://www.ebay.co.uk/shop/google-nest-mini-charcoal?_nkw=google+nest+mini+charcoal",
+        "https://community.home-assistant.io/t/onju-voice-pcb-group-buy-in-uk/692514?page=4",
+        "https://www.ebay.co.uk/itm/188937323480",
+        "https://www.pcbway.com/project/shareproject/Onju_Voice_d33625a1.html"
+      ]
+    },
+    {
+      "entry_id": "project:onju-v2",
+      "checked_at": "2026-10-24",
+      "used_price_range": {
+        "low": 21.25,
+        "high": 30.49,
+        "currency": "GBP",
+        "market": "eBay UK active pre-owned asks",
+        "scope_zh": "Google Nest Mini 第二代完整/带电源实例的商品价；不含运费、税费。",
+        "scope_en": "Item prices for complete/power-supplied Google Nest Mini 2nd-gen examples; shipping and taxes excluded.",
+        "source_urls": [
+          "https://www.ebay.co.uk/shop/google-nest-mini-charcoal?_nkw=google+nest+mini+charcoal"
+        ]
+      },
+      "modding_cost_range": {
+        "low": 25.0,
+        "high": 44.6,
+        "currency": "GBP",
+        "market": "Home Assistant community offer and eBay UK active ask",
+        "scope_zh": "一块已组装 Onju Voice 替换板：社区 2026 年未使用板报价为两块 50 英镑，eBay 新板在售价 44.60 英镑；不含运费与可复用宿主机。",
+        "scope_en": "One assembled Onju Voice replacement board: a 2026 community offer priced two unused boards at GBP 50, while a current eBay new-board ask is GBP 44.60; shipping and a reusable host are excluded.",
+        "source_urls": [
+          "https://community.home-assistant.io/t/onju-voice-pcb-group-buy-in-uk/692514?page=4",
+          "https://www.ebay.co.uk/itm/188937323480",
+          "https://www.pcbway.com/project/shareproject/Onju_Voice_d33625a1.html"
+        ],
+        "items": [
+          "1 assembled Onju Voice replacement PCB"
+        ]
+      },
+      "used_price_sources": [
+        "https://www.ebay.co.uk/shop/google-nest-mini-charcoal?_nkw=google+nest+mini+charcoal"
+      ],
+      "modding_cost_sources": [
+        "https://community.home-assistant.io/t/onju-voice-pcb-group-buy-in-uk/692514?page=4",
+        "https://www.ebay.co.uk/itm/188937323480",
+        "https://www.pcbway.com/project/shareproject/Onju_Voice_d33625a1.html"
+      ],
+      "cost_score": 3,
+      "basis_zh": "上游把同一块 Onju Voice 板定义为 Google Nest Mini 第二代的直插替换板。按区间上限合计 75.09 英镑，依 2026-10-23 ECB 交叉汇率折合约 100.38 美元，落入 3 分档。",
+      "basis_en": "Upstream identifies the same Onju Voice board as a drop-in replacement for a 2nd-gen Google Nest Mini. The GBP 75.09 combined upper bound is about USD 100.38 at the 2026-10-23 ECB cross-rate, placing it in band 3.",
+      "null_reason_zh": null,
+      "null_reason_en": null,
+      "assessment_sources": [
+        "https://github.com/justLV/onju-v2",
+        "https://www.ebay.co.uk/shop/google-nest-mini-charcoal?_nkw=google+nest+mini+charcoal",
+        "https://community.home-assistant.io/t/onju-voice-pcb-group-buy-in-uk/692514?page=4",
+        "https://www.ebay.co.uk/itm/188937323480",
+        "https://www.pcbway.com/project/shareproject/Onju_Voice_d33625a1.html"
+      ]
+    },
+    {
+      "entry_id": "project:wyoming-satellite",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/rhasspy/wyoming-satellite"
+      ]
+    },
+    {
+      "entry_id": "project:linux-voice-assistant",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/OHF-Voice/linux-voice-assistant"
+      ]
+    },
+    {
+      "entry_id": "project:lineageos",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/LineageOS/lineage_wiki"
+      ]
+    },
+    {
+      "entry_id": "project:ubports",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/ubports/ubports-installer"
+      ]
+    },
+    {
+      "entry_id": "project:termux",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/termux/termux-app"
+      ]
+    },
+    {
+      "entry_id": "project:droidcam",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/dev47apps/droidcam-linux-client"
+      ]
+    },
+    {
+      "entry_id": "project:deskreen",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/pavlobu/deskreen"
+      ]
+    },
+    {
+      "entry_id": "project:oclp",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/dortania/OpenCore-Legacy-Patcher"
+      ]
+    },
+    {
+      "entry_id": "project:mrchromebox",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/MrChromebox/scripts"
+      ]
+    },
+    {
+      "entry_id": "project:haos",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/home-assistant/operating-system"
+      ]
+    },
+    {
+      "entry_id": "project:openmediavault",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/openmediavault/openmediavault"
+      ]
+    },
+    {
+      "entry_id": "project:dietpi",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/MichaIng/DietPi"
+      ]
+    },
+    {
+      "entry_id": "project:openwrt",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/openwrt/openwrt"
+      ]
+    },
+    {
+      "entry_id": "project:freshTomato",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/FreshTomato-Project/freshtomato-arm"
+      ]
+    },
+    {
+      "entry_id": "project:libreelec",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/LibreELEC/LibreELEC.tv"
+      ]
+    },
+    {
+      "entry_id": "project:coreelec",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/CoreELEC/CoreELEC"
+      ]
+    },
+    {
+      "entry_id": "project:armbian-tv",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/ophub/amlogic-s9xxx-armbian"
+      ]
+    },
+    {
+      "entry_id": "project:webos-homebrew",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/webosbrew/webos-homebrew-channel"
+      ]
+    },
+    {
+      "entry_id": "project:rootmytv",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/RootMyTV/RootMyTV.github.io"
+      ]
+    },
+    {
+      "entry_id": "project:koreader",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/koreader/koreader"
+      ]
+    },
+    {
+      "entry_id": "project:kindle-carousel",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/qadzek/kindle-carousel"
+      ]
+    },
+    {
+      "entry_id": "project:kindle-ha",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/sibbl/hass-lovelace-kindle-screensaver"
+      ]
+    },
+    {
+      "entry_id": "project:kindle-dashboard",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/alexishida/kindle-dashboard"
+      ]
+    },
+    {
+      "entry_id": "project:kindle-phonekit",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/Keylessboi/kindle-phonekit"
+      ]
+    },
+    {
+      "entry_id": "project:kindle-whoop",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/kaibuildsai/kindle-for-whoop"
+      ]
+    },
+    {
+      "entry_id": "project:winterbreak",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/KindleModding/WinterBreak"
+      ]
+    },
+    {
+      "entry_id": "project:fbink",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/NiLuJe/FBInk"
+      ]
+    },
+    {
+      "entry_id": "project:valetudo",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/Hypfer/Valetudo"
+      ]
+    },
+    {
+      "entry_id": "project:wirepod",
+      "checked_at": "2026-10-24",
+      "used_price_range": {
+        "low": 120.0,
+        "high": 140.0,
+        "currency": "USD",
+        "market": "eBay US active pre-owned asks",
+        "scope_zh": "带充电座并在实例中带方块/收纳配件的 Vector 二手商品价；不含运费。",
+        "scope_en": "Used Vector examples including a charging station and, in the cited examples, cube/case accessories; shipping excluded.",
+        "source_urls": [
+          "https://www.ebay.com/sch/i.html?_nkw=vector+robot+used&_sop=12"
+        ]
+      },
+      "modding_cost_range": null,
+      "used_price_sources": [
+        "https://www.ebay.com/sch/i.html?_nkw=vector+robot+used&_sop=12"
+      ],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "二手 Vector 区间可核验，但 wire-pod 仍需兼容常驻宿主机；上游只证明软件免费，没有完整宿主机成本篮子。",
+      "basis_en": "The used Vector range is verifiable, but wire-pod still needs a compatible always-on host; upstream establishes that the software is free, not a complete host-cost basket.",
+      "null_reason_zh": "缺少兼容宿主机的可靠完整成本来源，因此改造成本与 cost_score 保持 null。",
+      "null_reason_en": "A reliable complete cost source for the compatible host is missing, so modding cost and cost_score remain null.",
+      "assessment_sources": [
+        "https://github.com/kercre123/wire-pod",
+        "https://www.ebay.com/sch/i.html?_nkw=vector+robot+used&_sop=12"
+      ]
+    },
+    {
+      "entry_id": "project:openlumi",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/openlumi/openlumi.github.io"
+      ]
+    },
+    {
+      "entry_id": "project:tasmota",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/arendst/Tasmota"
+      ]
+    },
+    {
+      "entry_id": "project:openbeken",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/openshwprojects/OpenBK7231T_App"
+      ]
+    },
+    {
+      "entry_id": "project:esphome",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/esphome/esphome"
+      ]
+    },
+    {
+      "entry_id": "project:openipc",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/OpenIPC/firmware"
+      ]
+    },
+    {
+      "entry_id": "project:dafang",
+      "checked_at": "2026-10-24",
+      "used_price_range": {
+        "low": 8.54,
+        "high": 18.07,
+        "currency": "GBP",
+        "market": "eBay UK active pre-owned listings",
+        "scope_zh": "明确标为 Xiaomi Dafang 的二手在售/竞拍商品价；不含运费。",
+        "scope_en": "Item prices for pre-owned listings explicitly named Xiaomi Dafang; shipping excluded.",
+        "source_urls": [
+          "https://www.ebay.co.uk/b/bn_7111075346"
+        ]
+      },
+      "modding_cost_range": {
+        "low": 3.64,
+        "high": 4.368,
+        "currency": "GBP",
+        "market": "DigiKey UK current unit price",
+        "scope_zh": "上游安装指南建议 512 MB microSD；价格为一张 512 MB 卡的不含/含英国增值税单价，不含运费。",
+        "scope_en": "The upstream install guide recommends a 512 MB microSD; prices are the ex-/incl.-UK-VAT unit prices for one 512 MB card, excluding shipping.",
+        "source_urls": [
+          "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/blob/master/hacks/install_cfw.md",
+          "https://www.digikey.co.uk/en/products/detail/adafruit-industries-llc/5252/15841478"
+        ],
+        "items": [
+          "1 x 512 MB microSD card"
+        ]
+      },
+      "used_price_sources": [
+        "https://www.ebay.co.uk/b/bn_7111075346"
+      ],
+      "modding_cost_sources": [
+        "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/blob/master/hacks/install_cfw.md",
+        "https://www.digikey.co.uk/en/products/detail/adafruit-industries-llc/5252/15841478"
+      ],
+      "cost_score": 5,
+      "basis_zh": "二手相机与指南要求的存储卡上限合计 22.438 英镑，依 2026-10-23 ECB 交叉汇率折合约 30.00 美元，落入 5 分档。",
+      "basis_en": "The used camera plus the guide-required card has a GBP 22.438 combined upper bound, about USD 30.00 at the 2026-10-23 ECB cross-rate, placing it in band 5.",
+      "null_reason_zh": null,
+      "null_reason_en": null,
+      "assessment_sources": [
+        "https://www.ebay.co.uk/b/bn_7111075346",
+        "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/blob/master/hacks/install_cfw.md",
+        "https://www.digikey.co.uk/en/products/detail/adafruit-industries-llc/5252/15841478"
+      ]
+    },
+    {
+      "entry_id": "project:thingino",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/themactep/thingino-firmware"
+      ]
+    },
+    {
+      "entry_id": "project:frigate",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/blakeblackshear/frigate"
+      ]
+    },
+    {
+      "entry_id": "project:squeezelite",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/ralph-irving/squeezelite"
+      ]
+    },
+    {
+      "entry_id": "project:lyrion",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/LMS-Community/slimserver"
+      ]
+    },
+    {
+      "entry_id": "project:rockbox",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/Rockbox/rockbox"
+      ]
+    },
+    {
+      "entry_id": "project:spotify-ipod",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/dupontgu/retro-ipod-spotify-client"
+      ]
+    },
+    {
+      "entry_id": "project:gadgetbridge",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://codeberg.org/Freeyourgadget/Gadgetbridge"
+      ]
+    },
+    {
+      "entry_id": "project:infinitime",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/InfiniTimeOrg/InfiniTime"
+      ]
+    },
+    {
+      "entry_id": "project:asteroidos",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/AsteroidOS/asteroid"
+      ]
+    },
+    {
+      "entry_id": "project:batocera",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/batocera-linux/batocera.linux"
+      ]
+    },
+    {
+      "entry_id": "project:lakka",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/libretro/Lakka-LibreELEC"
+      ]
+    },
+    {
+      "entry_id": "project:bazzite",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/ublue-os/bazzite"
+      ]
+    },
+    {
+      "entry_id": "project:printer-spl3",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/Kuberwastaken/hp-laser-1008a-macos"
+      ]
+    },
+    {
+      "entry_id": "lead:kirkwood-nas-debian",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://forum.doozan.com/read.php?2,12096"
+      ]
+    },
+    {
+      "entry_id": "lead:eink-display-adapter",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://hackaday.io/project/7443-e-ink-display-adapter"
+      ]
+    },
+    {
+      "entry_id": "lead:six-inch-pi-eink",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://hackaday.io/project/10161-6-inch-pi-e-ink-display"
+      ]
+    },
+    {
+      "entry_id": "lead:reuse-sony-reader-with-pico",
+      "checked_at": "2026-10-24",
+      "used_price_range": {
+        "low": 20.0,
+        "high": 20.0,
+        "currency": "USD",
+        "market": "creator-reported Facebook Marketplace purchase",
+        "scope_zh": "项目作者报告购入一台 20 美元 Sony PRS-700；这是单个已购样本，不外推市场区间。",
+        "scope_en": "The creator reports buying one Sony PRS-700 for USD 20; this is one purchased sample and is not generalized into a broader market range.",
+        "source_urls": [
+          "https://hackaday.io/project/203430-reuse-e-reader-with-pico"
+        ]
+      },
+      "modding_cost_range": null,
+      "used_price_sources": [
+        "https://hackaday.io/project/203430-reuse-e-reader-with-pico"
+      ],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "作者的二手购入价可核验，但项目仍在确定额外元件与更大电池，未给出可复核的完整物料价格。",
+      "basis_en": "The creator's used purchase price is verifiable, but the project was still determining extra components and a larger battery and provides no checkable complete priced BOM.",
+      "null_reason_zh": "缺少完整、已定型且有价格来源的改造物料篮子，因此改造成本与 cost_score 保持 null。",
+      "null_reason_en": "No complete, settled, source-priced modding basket is available, so modding cost and cost_score remain null.",
+      "assessment_sources": [
+        "https://hackaday.io/project/203430-reuse-e-reader-with-pico"
+      ]
+    },
+    {
+      "entry_id": "lead:t95z-plus-nas",
+      "checked_at": "2026-10-24",
+      "used_price_range": {
+        "low": 59.64,
+        "high": 75.0,
+        "currency": "USD",
+        "market": "eBay US active used asks",
+        "scope_zh": "明确标为 T95Z Plus 的两条二手商品价；不含运费。",
+        "scope_en": "Two used asks explicitly titled T95Z Plus; shipping excluded.",
+        "source_urls": [
+          "https://www.ebay.com/itm/234786942156",
+          "https://www.ebay.com/itm/203884004553"
+        ]
+      },
+      "modding_cost_range": null,
+      "used_price_sources": [
+        "https://www.ebay.com/itm/234786942156",
+        "https://www.ebay.com/itm/203884004553"
+      ],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "T95Z Plus 二手价可核验，但 NAS 路径还需要 microSD 与 USB 存储；容量未定，无法形成完整可靠的改造成本区间。",
+      "basis_en": "The used T95Z Plus prices are verifiable, but the NAS route also needs microSD and USB storage; unspecified capacity prevents a complete, reliable modding-cost range.",
+      "null_reason_zh": "缺少已定义容量的 microSD 与 NAS 存储完整价格篮子，因此改造成本与 cost_score 保持 null。",
+      "null_reason_en": "A complete price basket for defined-capacity microSD and NAS storage is missing, so modding cost and cost_score remain null.",
+      "assessment_sources": [
+        "https://forum.armbian.com/topic/53474-t95z-plus-second-one-running-great/",
+        "https://www.ebay.com/itm/234786942156",
+        "https://www.ebay.com/itm/203884004553"
+      ]
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-ax3000t",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://www.right.com.cn/forum/thread-8461539-1-1.html"
+      ]
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-redmi-router-ax6s",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://www.right.com.cn/forum/thread-8461539-1-1.html"
+      ]
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-gigabit-edition",
+      "checked_at": "2026-10-24",
+      "used_price_range": {
+        "low": 9.99,
+        "high": 40.0,
+        "currency": "GBP",
+        "market": "eBay UK active used asks",
+        "scope_zh": "明确标为 Xiaomi Mi Router 4A Gigabit Edition 的两条二手商品价；不含运费/进口费，购买前必须核对硬件修订版。",
+        "scope_en": "Two used asks explicitly titled Xiaomi Mi Router 4A Gigabit Edition; shipping/import fees excluded, and the hardware revision must be checked before purchase.",
+        "source_urls": [
+          "https://www.ebay.co.uk/itm/188545171108",
+          "https://www.ebay.co.uk/itm/116690857672"
+        ]
+      },
+      "modding_cost_range": {
+        "low": 0.0,
+        "high": 0.0,
+        "currency": "GBP",
+        "market": "OpenWrt documented firmware-exploit route",
+        "scope_zh": "仅指 OpenWrt 文档明确写明“不需要额外硬件”的固件漏洞路径；假定已有电脑和网线，不计可选串口/编程器恢复工具。",
+        "scope_en": "This covers only the firmware-exploit route that OpenWrt explicitly says needs no extra hardware; an existing computer and Ethernet cable are assumed, while optional serial/programmer recovery gear is excluded.",
+        "source_urls": [
+          "https://openwrt.org/toh/xiaomi/xiaomi_mi_router_4a_gigabit_edition"
+        ],
+        "items": []
+      },
+      "used_price_sources": [
+        "https://www.ebay.co.uk/itm/188545171108",
+        "https://www.ebay.co.uk/itm/116690857672"
+      ],
+      "modding_cost_sources": [
+        "https://openwrt.org/toh/xiaomi/xiaomi_mi_router_4a_gigabit_edition"
+      ],
+      "cost_score": 4,
+      "basis_zh": "兼容修订版的无额外硬件路径成本上限为 40 英镑，依 2026-10-23 ECB 交叉汇率折合约 53.47 美元，落入 4 分档；RD05/v3 不兼容警告仍须单独遵守。",
+      "basis_en": "The no-extra-hardware route has a GBP 40 upper bound, about USD 53.47 at the 2026-10-23 ECB cross-rate, placing it in band 4; the separate RD05/v3 incompatibility warning still applies.",
+      "null_reason_zh": null,
+      "null_reason_en": null,
+      "assessment_sources": [
+        "https://www.ebay.co.uk/itm/188545171108",
+        "https://www.ebay.co.uk/itm/116690857672",
+        "https://openwrt.org/toh/xiaomi/xiaomi_mi_router_4a_gigabit_edition"
+      ]
+    },
+    {
+      "entry_id": "project-lead:cobalt-kobo-sdk",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/BandarLabs/Cobalt"
+      ]
+    },
+    {
+      "entry_id": "project-lead:freemarkable",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/wowitsjack/freeMarkable"
+      ]
+    },
+    {
+      "entry_id": "project-lead:kfmon",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/NiLuJe/kfmon"
+      ]
+    },
+    {
+      "entry_id": "project-lead:kindle-dash-k4nt",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/pascalw/kindle-dash"
+      ]
+    },
+    {
+      "entry_id": "project-lead:kobowriter",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/olup/kobowriter"
+      ]
+    },
+    {
+      "entry_id": "project-lead:kindle-kpm",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/KindleModding/KPM"
+      ]
+    },
+    {
+      "entry_id": "project-lead:nickelmenu",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/pgaskin/NickelMenu"
+      ]
+    },
+    {
+      "entry_id": "project-lead:okreader",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/lgeek/okreader"
+      ]
+    },
+    {
+      "entry_id": "project-lead:plato-kobo-reader",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/baskerville/plato"
+      ]
+    },
+    {
+      "entry_id": "project-lead:quill-kobo-reader",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/Quill-OS/quill"
+      ]
+    },
+    {
+      "entry_id": "project-lead:rekindle",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/ReKindleOS/ReKindle"
+      ]
+    },
+    {
+      "entry_id": "project-lead:remarkable-entware",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/Evidlo/remarkable_entware"
+      ]
+    },
+    {
+      "entry_id": "project-lead:remarkable-hacks",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/ddvk/remarkable-hacks"
+      ]
+    },
+    {
+      "entry_id": "project-lead:remoteink-pocketbook",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/borzunov/remoteink"
+      ]
+    },
+    {
+      "entry_id": "project-lead:rmkit",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/rmkit-dev/rmkit"
+      ]
+    },
+    {
+      "entry_id": "project-lead:toltec",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/toltec-dev/toltec"
+      ]
+    },
+    {
+      "entry_id": "project-lead:ultimate-manga-reader",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/Rain92/UltimateMangaReader"
+      ]
+    },
+    {
+      "entry_id": "project-lead:adguard-home",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/AdguardTeam/AdGuardHome"
+      ]
+    },
+    {
+      "entry_id": "project-lead:asuswrt-merlin-ng",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/RMerl/asuswrt-merlin.ng"
+      ]
+    },
+    {
+      "entry_id": "project-lead:casaos",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/IceWhaleTech/CasaOS"
+      ]
+    },
+    {
+      "entry_id": "project-lead:cockpit",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/cockpit-project/cockpit"
+      ]
+    },
+    {
+      "entry_id": "project-lead:cosmos-server",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/azukaar/Cosmos-Server"
+      ]
+    },
+    {
+      "entry_id": "project-lead:easynas",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/easysysio/EasyNAS"
+      ]
+    },
+    {
+      "entry_id": "project-lead:freifunk-gluon",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/freifunk-gluon/gluon"
+      ]
+    },
+    {
+      "entry_id": "project-lead:libremesh-lime-packages",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/libremesh/lime-packages"
+      ]
+    },
+    {
+      "entry_id": "project-lead:mergerfs",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/trapexit/mergerfs"
+      ]
+    },
+    {
+      "entry_id": "project-lead:nethserver-ns8-core",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/NethServer/ns8-core"
+      ]
+    },
+    {
+      "entry_id": "project-lead:openwisp-controller",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/openwisp/openwisp-controller"
+      ]
+    },
+    {
+      "entry_id": "project-lead:openzfs",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/openzfs/zfs"
+      ]
+    },
+    {
+      "entry_id": "project-lead:opnsense-core",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/opnsense/core"
+      ]
+    },
+    {
+      "entry_id": "project-lead:pfsense",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/pfsense/pfsense"
+      ]
+    },
+    {
+      "entry_id": "project-lead:restic",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/restic/restic"
+      ]
+    },
+    {
+      "entry_id": "project-lead:rockstor",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/rockstor/rockstor-core"
+      ]
+    },
+    {
+      "entry_id": "project-lead:runtipi",
+      "checked_at": "2026-10-24",
+      "used_price_range": null,
+      "modding_cost_range": null,
+      "used_price_sources": [],
+      "modding_cost_sources": [],
+      "cost_score": null,
+      "basis_zh": "仅保留能由可访问精确页面直接支持的成本数据；本条证据链不足。",
+      "basis_en": "Only costs directly supported by accessible exact pages are retained; this entry's evidence chain is incomplete.",
+      "null_reason_zh": "未同时找到可比的设备二手成交/在售价格区间，以及覆盖必要改造零件与工具的完整可靠价格篮子；不以搜索摘要、单个不完整报价或中性分补位。",
+      "null_reason_en": "No comparable used-device price range and complete, reliable basket for the required modding parts/tools were both available; search snippets, single incomplete quotes, and neutral placeholders were not used.",
+      "assessment_sources": [
+        "https://github.com/runtipi/runtipi"
+      ]
+    }
+  ]
+}
