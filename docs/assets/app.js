@@ -55,9 +55,7 @@
       q: document.querySelector("#directory-q"),
       category: document.querySelector("#directory-category"),
       evidence: document.querySelector("#directory-evidence"),
-      score: document.querySelector("#directory-score"),
-      kind: document.querySelector("#directory-kind"),
-      sort: document.querySelector("#directory-sort")
+      score: document.querySelector("#directory-score")
     };
     const cards = [...document.querySelectorAll("#directory-grid .project")];
     cards.forEach((card, index) => { card.dataset.order = index; });
@@ -67,7 +65,7 @@
     const keys = Object.keys(controls);
     const readURL = () => {
       const params = new URLSearchParams(location.search);
-      keys.forEach(key => { controls[key].value = params.get(key) || (key === "sort" ? "score-desc" : ""); });
+      keys.forEach(key => { controls[key].value = params.get(key) || ""; });
     };
     const apply = (updateURL = true) => {
       const terms = controls.q.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
@@ -76,21 +74,21 @@
         const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
           (!controls.category.value || card.dataset.category === controls.category.value) &&
           (!controls.evidence.value || card.dataset.evidence === controls.evidence.value) &&
-          (!controls.score.value || (cardScore(card) !== null && cardScore(card) >= Number(controls.score.value))) &&
-          (!controls.kind.value || card.dataset.kind === controls.kind.value);
+          (!controls.score.value || (cardScore(card) !== null && cardScore(card) >= Number(controls.score.value)));
         card.hidden = !match;
         if (match) visible++;
       });
-      sortCards(grid, cards, controls.sort.value);
+      sortCards(grid, cards, "score-desc");
       count.textContent = t(`显示 ${visible} / ${cards.length} 条`, `Showing ${visible} / ${cards.length}`);
       empty.hidden = visible !== 0;
       if (updateURL) {
         const url = new URL(location.href);
         keys.forEach(key => {
           const value = controls[key].value;
-          const isDefault = key === "sort" && value === "score-desc";
-          value && !isDefault ? url.searchParams.set(key, value) : url.searchParams.delete(key);
+          value ? url.searchParams.set(key, value) : url.searchParams.delete(key);
         });
+        url.searchParams.delete("kind");
+        url.searchParams.delete("sort");
         history.replaceState(null, "", url);
         syncLanguageLinks();
       }
@@ -101,21 +99,12 @@
     });
     directoryForm.addEventListener("submit", event => event.preventDefault());
     directoryForm.addEventListener("reset", () => {
-      Object.entries(controls).forEach(([key, control]) => { control.value = key === "sort" ? "score-desc" : ""; });
+      Object.values(controls).forEach(control => { control.value = ""; });
       apply();
     });
-    window.addEventListener("popstate", () => { readURL(); apply(false); });
-    document.querySelector("#directory-share").addEventListener("click", async () => {
-      const target = document.querySelector("#directory-share-status");
-      try {
-        await navigator.clipboard.writeText(location.href);
-        target.textContent = t("已复制当前筛选链接", "Filtered link copied");
-      } catch {
-        target.textContent = t("请复制地址栏链接；筛选条件已经写入网址。", "Copy the address-bar URL; it already contains the filters.");
-      }
-    });
+    window.addEventListener("popstate", () => { readURL(); apply(); });
     readURL();
-    apply(false);
+    apply();
     scrollToCurrentHash();
   }
   const sourceForm = document.querySelector("#project-source-filters");

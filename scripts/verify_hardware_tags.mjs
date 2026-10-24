@@ -16,8 +16,8 @@ try {
   await page.goto(`${base}/zh/about/`, { waitUntil: "networkidle" });
   checks.version = (await page.locator("#release").innerText()).includes(`v${config.version}`);
 
-  await page.goto(`${base}/zh/directory/?kind=reviewed-project`, { waitUntil: "networkidle" });
-  checks.reviewedCards = await page.locator("#directory-grid .project:not([hidden])").count();
+  await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
+  checks.reviewedCards = await page.locator('#directory-grid .project[data-kind="reviewed-project"]').count();
   checks.cardHardwareTags = await page.locator("#directory-grid .project .hardware-tag").count();
 
   await page.goto(`${base}/zh/projects/open-xiaoai/`, { waitUntil: "networkidle" });

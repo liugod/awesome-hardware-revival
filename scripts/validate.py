@@ -386,11 +386,16 @@ for lang in ["zh","en"]:
     assert config["community_url"] in pages[(OUT/lang/"community/index.html").resolve()].refs
     directory_page=pages[(OUT/lang/"directory/index.html").resolve()]
     assert "directory-grid" in directory_page.ids and "directory-filters" in directory_page.ids
-    assert "directory.json" in " ".join(directory_page.refs) and "directory.csv" in " ".join(directory_page.refs)
     directory_markup=(OUT/lang/"directory/index.html").read_text(encoding="utf-8")
     audit_project_cards(directory_markup,(lang,"directory"))
     assert directory_markup.count('data-needs-review="true"')==147,(lang,"directory needs-review markers")
-    assert '<select id="directory-sort"><option value="score-desc">' in directory_markup,(lang,"directory default star sort")
+    assert 'class="detail-head directory-head"><h1>' in directory_markup,(lang,"directory heading")
+    assert all(token not in directory_markup for token in ['class="eyebrow"','class="intro"','class="actions"','class="boundary"','id="directory-share"','id="directory-share-status"']),(lang,"directory top must stay minimal")
+    assert directory_markup.count("<select")==3,(lang,"directory visible filter count")
+    assert all(f'id="directory-{control}"' in directory_markup for control in ["q","category","score","evidence"]),(lang,"directory search/filter controls")
+    assert 'id="directory-kind"' not in directory_markup and 'id="directory-sort"' not in directory_markup,(lang,"directory removed secondary controls")
+    assert 'class="directory-info"' in directory_markup and '>ⓘ</a>' in directory_markup and '../about/#scoring' in directory_markup,(lang,"directory scoring info link")
+    assert "directory.json" not in " ".join(directory_page.refs) and "directory.csv" not in " ".join(directory_page.refs),(lang,"directory downloads must live on About")
     project_source_index=pages[(OUT/lang/"project-sources/index.html").resolve()]
     assert "project-source-grid" in project_source_index.ids and "project-source-filters" in project_source_index.ids
     assert "project-leads.json" in " ".join(project_source_index.refs) and "project-leads.csv" in " ".join(project_source_index.refs)
@@ -434,6 +439,7 @@ for lang in ["zh","en"]:
     expected_catalog="catalog.en" if lang=="en" else "catalog"
     expected_downloads=["directory.json","directory.csv",f"{expected_catalog}.json",f"{expected_catalog}.csv","project-leads.json","project-leads.csv","scoring-evidence.json"]
     assert all(name in " ".join(about.refs) for name in expected_downloads),(lang,"About data downloads")
+    assert any("project-sources" in ref for ref in about.refs) and "#scoring" in about.refs,(lang,"About directory links")
     assert config["repository_url"]+"/issues/new/choose" in about.refs,(lang,"About contribution link")
     for slug,lead in watchlist.items():
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")

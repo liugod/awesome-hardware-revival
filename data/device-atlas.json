@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "version": "1.18.0",
+  "version": "1.19.0",
   "reviewed_at": "2026-10-22",
   "evidence_level": "E0",
   "purpose": "Device-level discovery records that expand the 53 reviewed projects and 47 existing leads to 400 total entries. Inclusion is not compatibility certification or hands-on verification.",

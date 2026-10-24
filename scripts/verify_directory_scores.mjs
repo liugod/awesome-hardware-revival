@@ -8,6 +8,7 @@ const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "site.config.
 const expected = directory.counts.entries;
 const expectedScore4 = directory.entries.filter(entry => entry.score.score !== null && entry.score.score >= 4).length;
 const expectedScore5 = directory.entries.filter(entry => entry.score.score !== null && entry.score.score >= 5).length;
+const expectedNetwork = directory.entries.filter(entry => entry.category === "network").length;
 const expectedRated = directory.counts.rated;
 const expectedUnrated = directory.counts.not_yet_rated;
 const expectedE2 = directory.counts.evidence_distribution.E2 || 0;
@@ -86,6 +87,29 @@ const auditFooter = async (targetPage, lang) => targetPage.locator("footer .foot
   return { valid, normalized, linkLabels, aboutPath, download: `${downloadURL.pathname}${downloadURL.hash}`, structure, forbiddenMetadata, singleLine: new Set(tops).size === 1, width: { client: footer.clientWidth, scroll: footer.scrollWidth } };
 }, { expectedLang: lang, repositoryURL: config.repository_url });
 
+const auditDirectoryShell = async (targetPage, lang) => targetPage.locator(".directory-page").evaluate((page, expectedLang) => {
+  const isVisible = element => Boolean(element && (element.offsetWidth || element.offsetHeight || element.getClientRects().length));
+  const heading = page.querySelector(".directory-head");
+  const form = page.querySelector("#directory-filters");
+  const visibleSelects = [...form.querySelectorAll("select")].filter(isVisible);
+  const info = form.querySelector("a.directory-info");
+  const filterTops = [...visibleSelects, info].filter(isVisible).map(control => Math.round(control.getBoundingClientRect().top));
+  const infoURL = new URL(info?.href || location.href);
+  const expectedAboutPaths = [`/${expectedLang}/about/`, `/${expectedLang}/about/index.html`];
+  return {
+    headingOnly: heading?.children.length === 1 && heading.firstElementChild?.tagName === "H1",
+    searchCount: [...form.querySelectorAll('input[type="search"]')].filter(isVisible).length,
+    visibleSelectIds: visibleSelects.map(select => select.id),
+    filterRows: new Set(filterTops).size,
+    removedKind: !form.querySelector("#directory-kind"),
+    removedSort: !form.querySelector("#directory-sort"),
+    info: info?.textContent.trim() === "ⓘ" && expectedAboutPaths.includes(infoURL.pathname) && infoURL.hash === "#scoring" && Boolean(info.getAttribute("aria-label")),
+    forbidden: page.querySelectorAll(".directory-head .eyebrow,.directory-head .intro,.directory-head .actions,.boundary,#directory-share,#directory-share-status").length,
+    downloadLinks: page.querySelectorAll('.directory-head a[download],a[href*="data/directory."]').length,
+    width: { client: form.clientWidth, scroll: form.scrollWidth }
+  };
+}, lang);
+
 try {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const errors = [];
@@ -112,9 +136,34 @@ try {
     return result;
   };
 
+  const checkFixedDirectorySort = async ({ pathName, score, grid }) => {
+    await page.goto(`${base}${pathName}`, { waitUntil: "networkidle" });
+    const scores = await page.locator(`${grid} .project:not([hidden])`).evaluateAll(cards => cards.map(card => card.dataset.score === "" ? null : Number(card.dataset.score)));
+    const result = {
+      sort: "score-desc",
+      sortInURL: new URL(page.url()).searchParams.get("sort"),
+      descending: descendingRatedFirst(scores),
+      count: scores.length,
+      firstScores: scores.slice(0, 8),
+      halfStarOptions: await page.locator(`${score} option`).evaluateAll(options => options.map(option => option.value).filter(value => value.endsWith(".5")))
+    };
+    await page.locator(score).selectOption("4");
+    await page.reload({ waitUntil: "networkidle" });
+    const filteredScores = await page.locator(`${grid} .project:not([hidden])`).evaluateAll(cards => cards.map(card => card.dataset.score === "" ? null : Number(card.dataset.score)));
+    result.filteredURL = new URL(page.url()).searchParams.get("score");
+    result.filteredDescending = descendingRatedFirst(filteredScores);
+    await page.locator(score).selectOption("");
+    await page.reload({ waitUntil: "networkidle" });
+    const resetScores = await page.locator(`${grid} .project:not([hidden])`).evaluateAll(cards => cards.map(card => card.dataset.score === "" ? null : Number(card.dataset.score)));
+    result.resetSort = "score-desc";
+    result.resetSortInURL = new URL(page.url()).searchParams.get("sort");
+    result.resetDescending = descendingRatedFirst(resetScores);
+    return result;
+  };
+
   checks.defaultSort = {
-    directoryZh: await checkDefaultSort({ pathName: "/zh/directory/", form: "#directory-filters", sort: "#directory-sort", score: "#directory-score", grid: "#directory-grid" }),
-    directoryEn: await checkDefaultSort({ pathName: "/en/directory/", form: "#directory-filters", sort: "#directory-sort", score: "#directory-score", grid: "#directory-grid" }),
+    directoryZh: await checkFixedDirectorySort({ pathName: "/zh/directory/", score: "#directory-score", grid: "#directory-grid" }),
+    directoryEn: await checkFixedDirectorySort({ pathName: "/en/directory/", score: "#directory-score", grid: "#directory-grid" }),
     projectSources: await checkDefaultSort({ pathName: "/zh/project-sources/", form: "#project-source-filters", sort: "#project-source-sort", score: "#project-source-score", grid: "#project-source-grid" }),
     leads: await checkDefaultSort({ pathName: "/zh/leads/", form: "#lead-filters", sort: "#lead-sort", score: "#lead-score", grid: "#lead-grid" })
   };
@@ -122,6 +171,7 @@ try {
   for (const [name, result] of Object.entries(checks.defaultSort)) {
     if (result.sort !== "score-desc" || result.sortInURL !== null || !result.descending) throw new Error(`${name} default star sorting failed`);
     if (!expectedHalfStars.every(value => result.halfStarOptions.includes(value))) throw new Error(`${name} half-star filter options failed`);
+    if (name.startsWith("directory") && (result.filteredURL !== "4" || !result.filteredDescending)) throw new Error(`${name} fixed sorting after filter/reload failed`);
     if (result.resetSort !== "score-desc" || result.resetSortInURL !== null || !result.resetDescending) throw new Error(`${name} reset star sorting failed`);
   }
 
@@ -173,6 +223,10 @@ try {
   checks.ratedCards = await page.locator('#directory-grid .project[data-rated="true"]:has(.card-rating:not(.unrated))').count();
   checks.unratedCards = await page.locator('#directory-grid .project[data-rated="false"]:has(.card-rating.unrated)').count();
   checks.directoryFooter = await auditFooter(page, "zh");
+  checks.directoryShell = { zh: await auditDirectoryShell(page, "zh") };
+  await page.goto(`${base}/en/directory/`, { waitUntil: "networkidle" });
+  checks.directoryShell.en = await auditDirectoryShell(page, "en");
+  await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
   checks.directoryNeedsReview = await page.locator('#directory-grid .project[data-kind="project-source-lead"] .evidence-tag').count();
   checks.directoryNeedsReviewText = await page.locator('#directory-grid .project[data-kind="project-source-lead"] .evidence-tag').evaluateAll(tags => tags.every(tag => /(待验证|To verify)/.test(tag.textContent)));
 
@@ -189,13 +243,21 @@ try {
   checks.scoreURL = new URL(page.url()).searchParams.get("score");
   await page.locator("#directory-score").selectOption("5");
   checks.score5Visible = await page.locator("#directory-grid .project:not([hidden])").count();
-
   await page.locator("#directory-score").selectOption("");
-  await page.locator("#directory-kind").selectOption("reviewed-project");
-  checks.reviewedVisible = await page.locator("#directory-grid .project:not([hidden])").count();
-  await page.locator("#directory-kind").selectOption("project-source-lead");
-  checks.projectLeadVisible = await page.locator("#directory-grid .project:not([hidden])").count();
-  await page.locator("#directory-kind").selectOption("");
+  await page.locator("#directory-category").selectOption("network");
+  checks.networkVisible = await page.locator("#directory-grid .project:not([hidden])").count();
+  checks.networkValid = await page.locator("#directory-grid .project:not([hidden])").evaluateAll(cards => cards.every(card => card.dataset.category === "network"));
+  checks.networkURL = new URL(page.url()).searchParams.get("category");
+
+  await page.goto(`${base}/zh/directory/?kind=reviewed-project&sort=title-asc`, { waitUntil: "networkidle" });
+  const retiredScores = await page.locator("#directory-grid .project:not([hidden])").evaluateAll(cards => cards.map(card => card.dataset.score === "" ? null : Number(card.dataset.score)));
+  checks.retiredDirectoryParams = {
+    kind: new URL(page.url()).searchParams.get("kind"),
+    sort: new URL(page.url()).searchParams.get("sort"),
+    visible: retiredScores.length,
+    descending: descendingRatedFirst(retiredScores)
+  };
+  await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
   await page.locator("#directory-q").fill("Kindle");
   checks.kindleVisible = await page.locator("#directory-grid .project:not([hidden])").count();
 
@@ -266,7 +328,8 @@ try {
         contribution: document.querySelectorAll('main a[href*="issues/new/choose"]').length,
         release: release.includes(`v${version}`) && release.includes(expectedLang === "zh" ? "未进行实机测试" : "No hands-on hardware tests"),
         downloads,
-        downloadPairs: ["directory.json", "directory.csv", expectedLang === "zh" ? "catalog.json" : "catalog.en.json", expectedLang === "zh" ? "catalog.csv" : "catalog.en.csv", "project-leads.json", "project-leads.csv", "scoring-evidence.json"].every(name => downloads.some(href => href.endsWith(name)))
+        downloadPairs: ["directory.json", "directory.csv", expectedLang === "zh" ? "catalog.json" : "catalog.en.json", expectedLang === "zh" ? "catalog.csv" : "catalog.en.csv", "project-leads.json", "project-leads.csv", "scoring-evidence.json"].every(name => downloads.some(href => href.endsWith(name))),
+        directoryLinks: Boolean(document.querySelector('#downloads a[href="../project-sources/"]')) && Boolean(document.querySelector('#downloads a[href="#scoring"]'))
       };
     }, { version: config.version, expectedLang: lang });
     result.footer = await auditFooter(page, lang);
@@ -283,9 +346,16 @@ try {
   const mobileMeasure = async (pathName, grid = null) => {
     await mobile.goto(`${base}${pathName}`, { waitUntil: "networkidle" });
     const lang = pathName.startsWith("/zh/") ? "zh" : "en";
+    const hasDirectory = await mobile.locator(".directory-page").count();
+    const directoryShell = hasDirectory ? await auditDirectoryShell(mobile, lang) : null;
+    const firstCardTop = grid && await mobile.locator(`${grid} .project:not([hidden])`).count()
+      ? await mobile.locator(`${grid} .project:not([hidden])`).first().evaluate(card => card.getBoundingClientRect().top)
+      : null;
     return {
       width: await mobile.evaluate(() => ({ inner: innerWidth, scroll: document.documentElement.scrollWidth })),
       footer: await auditFooter(mobile, lang),
+      directoryShell,
+      firstCardTop,
       visible: grid ? await mobile.locator(`${grid} .project:not([hidden])`).count() : null,
       subtitleLines: await mobile.locator(".home-subtitle").count() ? await mobile.locator(".home-subtitle").evaluate(element => {
         const style = getComputedStyle(element);
@@ -302,7 +372,8 @@ try {
   checks.mobile = {
     homeEn: await mobileMeasure("/"),
     homeZh: await mobileMeasure("/zh/"),
-    directory: await mobileMeasure("/zh/directory/?q=Kindle", "#directory-grid"),
+    directoryZh: await mobileMeasure("/zh/directory/?q=Kindle", "#directory-grid"),
+    directoryEn: await mobileMeasure("/en/directory/?q=Kindle", "#directory-grid"),
     projectSources: await mobileMeasure("/zh/project-sources/?q=NAS", "#project-source-grid"),
     leads: await mobileMeasure("/zh/leads/", "#lead-grid"),
     detailZh: await mobileMeasure("/zh/projects/dietpi/"),
@@ -322,14 +393,19 @@ try {
     if (!result.valid || result.maxOutcomeLines > 1.25) throw new Error(`${name} four-field card contract failed: ${JSON.stringify(result.failures)}`);
   }
   if (!checks.directoryFooter.valid) throw new Error(`Directory footer failed: ${JSON.stringify(checks.directoryFooter)}`);
+  for (const [lang, shell] of Object.entries(checks.directoryShell)) {
+    if (!shell.headingOnly || shell.searchCount !== 1 || JSON.stringify(shell.visibleSelectIds) !== JSON.stringify(["directory-category", "directory-score", "directory-evidence"]) || shell.filterRows !== 1 || !shell.removedKind || !shell.removedSort || !shell.info || shell.forbidden !== 0 || shell.downloadLinks !== 0 || shell.width.scroll > shell.width.client) {
+      throw new Error(`${lang} directory shell simplification failed: ${JSON.stringify(shell)}`);
+    }
+  }
   if (checks.e2Visible !== expectedE2) throw new Error("E2 filter failed");
   if (checks.combinedE0ScoreVisible !== expectedE0AtThreshold || !checks.combinedE0ScoreValid) throw new Error("Independent evidence and star filters failed");
   if (checks.score4Visible !== expectedScore4 || checks.scoreURL !== "4" || checks.score5Visible !== expectedScore5) throw new Error("Star filter or URL state failed");
-  if (checks.reviewedVisible !== directory.counts.reviewed_projects) throw new Error("Entry-kind filter failed");
-  if (checks.projectLeadVisible !== directory.counts.project_source_leads) throw new Error("Project-source kind filter failed");
+  if (checks.networkVisible !== expectedNetwork || !checks.networkValid || checks.networkURL !== "network") throw new Error("Device-category filter or URL state failed");
+  if (checks.retiredDirectoryParams.kind !== null || checks.retiredDirectoryParams.sort !== null || checks.retiredDirectoryParams.visible !== expected || !checks.retiredDirectoryParams.descending) throw new Error("Retired directory controls still affect the simplified index");
   if (checks.directoryNeedsReview !== directory.counts.project_source_leads || !checks.directoryNeedsReviewText || checks.projectSourceNeedsReview !== directory.counts.project_source_leads || !checks.projectSourceNeedsReviewText || checks.projectLeadNeedsReview !== 1) throw new Error("Needs-review marker coverage failed");
   if (checks.projectSources !== directory.counts.independent_project_sources || checks.projectSourcesE0 !== directory.counts.project_source_leads || checks.projectSourcesNas < 1) throw new Error("Project-source index/filter failed");
-  if (checks.kindleVisible < 1 || checks.mobile.directory.visible !== checks.kindleVisible) throw new Error("Bilingual/device search persistence failed");
+  if (checks.kindleVisible < 1 || checks.mobile.directoryZh.visible !== checks.kindleVisible || checks.mobile.directoryEn.visible !== checks.kindleVisible) throw new Error("Bilingual/device search persistence failed");
   if (checks.mobile.projectSources.visible !== checks.projectSourcesNas) throw new Error("Project-source mobile search persistence failed");
   if (checks.mobile.leads.visible !== directory.counts.device_or_community_routes) throw new Error("Mobile lead list coverage failed");
   for (const [name, result] of Object.entries(checks.mobile)) {
@@ -337,6 +413,11 @@ try {
     if (!result.footer.valid) throw new Error(`Mobile ${name} footer failed: ${JSON.stringify(result.footer)}`);
     if (result.subtitleLines !== null && result.subtitleLines > 1.25) throw new Error(`Mobile ${name} subtitle exceeds one line`);
     if (result.overlongParagraphs.length) throw new Error(`Mobile ${name} detail paragraph exceeds three lines: ${result.overlongParagraphs[0]}`);
+  }
+  for (const [lang, result] of Object.entries({ zh: checks.mobile.directoryZh, en: checks.mobile.directoryEn })) {
+    if (!result.directoryShell || result.directoryShell.filterRows > 2 || result.directoryShell.width.scroll > result.directoryShell.width.client || result.firstCardTop === null || result.firstCardTop > 560) {
+      throw new Error(`Mobile ${lang} directory controls or first-card visibility failed: ${JSON.stringify(result)}`);
+    }
   }
 
   const projectEntry = directory.entries.find(entry => entry.entry_id === "project:dietpi");
@@ -355,7 +436,7 @@ try {
   if (!ratingDisplayMatches(checks.projectLeadDetail.rating, projectLeadEntry.score.score) || checks.projectLeadDetail.unrated !== Number(projectLeadEntry.score.score === null)) throw new Error("Project-lead detail rating failed");
   if (!ratingDisplayMatches(checks.englishUnratedDetail.rating, unratedEntry.score.score, "Not yet rated")) throw new Error("English not-yet-rated marker failed");
   for (const [lang, result] of Object.entries(checks.about)) {
-    if (result.h1 !== 1 || result.anchors !== 5 || result.weightRows !== 5 || !result.evidenceRange || !result.halfStar || !result.nullable || result.contribution < 1 || !result.release || !result.downloadPairs || result.downloads.length !== 7 || !result.footer.valid) {
+    if (result.h1 !== 1 || result.anchors !== 5 || result.weightRows !== 5 || !result.evidenceRange || !result.halfStar || !result.nullable || result.contribution < 1 || !result.release || !result.downloadPairs || !result.directoryLinks || result.downloads.length !== 7 || !result.footer.valid) {
       throw new Error(`${lang} About content failed: ${JSON.stringify(result)}`);
     }
   }

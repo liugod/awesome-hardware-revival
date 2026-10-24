@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.19.0 - 2026-10-24
+
+- Reduce both unified-directory pages to one title, one search field, and one compact filter row for device category, minimum stars, and evidence level.
+- Remove the directory eyebrow, long introduction, explanatory tip, visible entry-type and sort controls, share/reset row, and four top action links while preserving fixed star-desc sorting and URL-backed primary filters.
+- Replace the removed scoring tip with an accessible `ⓘ` link to the bilingual About scoring section; consolidate full JSON/CSV, the 200-source index, and scoring-method links on About.
+- Keep all 547 records and complete exports unchanged, enforce first-card visibility with no overflow at 390 px, and rebuild the validated 1,124-URL sitemap for v1.19.0.
+
 ## 1.18.0 - 2026-10-24
 
 - Compress every Chinese and English page footer to one line with only About, Data download, GitHub, and CC BY 4.0 links.

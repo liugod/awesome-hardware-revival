@@ -1192,3 +1192,121 @@ footer{
     font-size:clamp(10.5px,3vw,13px);
   }
 }
+
+/* v1.19: compact unified-directory controls */
+.sr-only{
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}
+
+.directory-page{
+  margin-top:28px;
+}
+
+.directory-head{
+  padding:32px 0 22px;
+}
+
+.directory-head h1{
+  margin:0;
+  font-size:clamp(42px,5vw,58px);
+}
+
+.directory-filters{
+  margin:0 0 22px;
+  padding:0;
+  background:transparent;
+  border-radius:0;
+}
+
+.directory-filters .search-field input{
+  height:52px;
+  margin-top:0;
+}
+
+.directory-filter-row{
+  grid-template-columns:repeat(3,minmax(0,1fr)) 48px;
+  align-items:end;
+  gap:12px;
+  margin-top:12px;
+}
+
+.directory-filter-row label,
+.directory-filter-row select{
+  min-width:0;
+}
+
+.directory-info{
+  display:grid;
+  width:48px;
+  height:48px;
+  place-items:center;
+  border:1px solid #b8b8bd;
+  border-radius:10px;
+  background:var(--white);
+  color:var(--green);
+  font-size:20px;
+  line-height:1;
+  text-decoration:none;
+}
+
+.directory-info:hover{
+  border-color:var(--green);
+  background:var(--soft);
+}
+
+@media(max-width:640px){
+  .directory-page{
+    margin-top:18px;
+    margin-bottom:64px;
+  }
+
+  .directory-head{
+    padding:20px 0 16px;
+  }
+
+  .directory-head h1{
+    font-size:34px;
+    line-height:1.15;
+  }
+
+  .directory-filters{
+    margin-bottom:16px;
+    padding:0;
+  }
+
+  .directory-filters .search-field input{
+    height:48px;
+    font-size:16px;
+  }
+
+  .directory-filter-row{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    margin-top:10px;
+  }
+
+  .directory-filter-row label{
+    font-size:11px;
+  }
+
+  .directory-filter-row select{
+    height:44px;
+    margin-top:4px;
+    padding-inline:9px;
+    font-size:13px;
+  }
+
+  .directory-info{
+    width:44px;
+    height:44px;
+    align-self:end;
+  }
+}
