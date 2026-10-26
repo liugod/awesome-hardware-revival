@@ -45,6 +45,8 @@ COST_EVIDENCE = json.loads(COST_EVIDENCE_PATH.read_text(encoding="utf-8")) if CO
 DEVICE_ATLAS = json.loads((ROOT / "data/device-atlas.json").read_text(encoding="utf-8"))
 PROJECT_IMAGE_DATA = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
 PROJECT_IMAGES = {item["project_id"]: item for item in PROJECT_IMAGE_DATA["entries"]}
+PROJECT_PAGE_VISUAL = json.loads((ROOT / "data/project-page-visual.json").read_text(encoding="utf-8"))
+PROJECT_PAGE_VISUAL_IDS = frozenset(PROJECT_PAGE_VISUAL["pilot_project_ids"])
 HARDWARE_TAG_DATA = json.loads((ROOT / "data/hardware-tags.json").read_text(encoding="utf-8"))
 PROJECT_HARDWARE_TAGS = HARDWARE_TAG_DATA["projects"]
 LEAD_HARDWARE_TAGS = HARDWARE_TAG_DATA["leads"]
@@ -206,7 +208,7 @@ class Site:
     def rel(self, target, current):
         return posixpath.relpath(target, posixpath.dirname(current) or ".")
 
-    def page(self, title, description, body, tail="index.html", legacy=None):
+    def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None):
         current = legacy or f"{self.lang}/{tail}"
         canonical = BASE if self.lang == "en" and tail == "index.html" else BASE + f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
         other = "en" if self.lang == "zh" else "zh"
@@ -215,6 +217,12 @@ class Site:
         footer_about = rel(self.lang + "/about/index.html")
         display_brand = self.t("垃圾佬复活站", "KitAgain")
         title_brand = self.t("垃圾佬复活站 · KitAgain", "KitAgain")
+        seo = seo or {}
+        meta_title = seo.get("title", f"{title} · {title_brand}")
+        meta_description = seo.get("description", description)
+        og_title = seo.get("og_title", meta_title)
+        og_description = seo.get("og_description", meta_description)
+        asset_version = asset_version or CONFIG["version"]
         alternate_urls = {
             code: BASE if lang == "en" and tail == "index.html" else BASE + lang + "/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
             for lang, code in [("zh", "zh-CN"), ("en", "en")]
@@ -223,10 +231,10 @@ class Site:
         alternates += f'<link rel="alternate" hreflang="x-default" href="{alternate_urls["en"]}">'
         markup = f"""<!doctype html>
 <html lang="{self.t('zh-CN','en')}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{h(title)} · {title_brand}</title><meta name="description" content="{h(description)}">
+<title>{h(meta_title)}</title><meta name="description" content="{h(meta_description)}">
 <link rel="canonical" href="{h(canonical)}">{alternates}<meta name="theme-color" content="#f7f7f5">
-<meta property="og:title" content="{h(title)} · {title_brand}"><meta property="og:description" content="{h(description)}"><meta property="og:url" content="{h(canonical)}"><meta property="og:type" content="website">
-<link rel="icon" href="{rel('assets/mark.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{rel('assets/style.css')}?v={h(CONFIG['version'])}"><script src="{rel('assets/app.js')}?v={h(CONFIG['version'])}" defer></script>
+<meta property="og:title" content="{h(og_title)}"><meta property="og:description" content="{h(og_description)}"><meta property="og:url" content="{h(canonical)}"><meta property="og:type" content="website">
+<link rel="icon" href="{rel('assets/mark.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{rel('assets/style.css')}?v={h(asset_version)}"><script src="{rel('assets/app.js')}?v={h(CONFIG['version'])}" defer></script>
 </head><body><a class="skip" href="#main">{self.t('跳到正文','Skip to content')}</a>
 <header class="site-header"><a class="brand" href="{rel(self.lang+'/index.html')}"><span class="brand-mark">↻</span><span>{display_brand}</span></a>
 <nav aria-label="{self.t('主导航','Main navigation')}"><a href="{rel(self.lang+'/directory/index.html')}">{self.t('全部路线','All routes')}</a><a href="{rel(self.lang+'/about/index.html')}">{self.t('关于','About')}</a><a href="{h(CONFIG['community_url'])}">{self.t('社区','Community')}</a><a class="language-switch" href="{rel(target)}" lang="{other}" hreflang="{other}">{self.t('English','简体中文')}</a></nav></header>
@@ -406,11 +414,13 @@ class Site:
         t = self.t
         v = localized(p, self.lang)
         d = (DEEP_EN if self.lang == "en" else DEEP).get(p["id"])
+        is_pilot = not legacy and p["id"] in PROJECT_PAGE_VISUAL_IDS
         current = f"projects/{p['id']}.html" if legacy else f"{self.lang}/projects/{p['id']}/index.html"
         rel = lambda x: self.rel(x, current)
         project_media = self.detail_image(p, current)
         use_labels = [t(zh, en) for uid, zh, en in USES if zh in p["use_cases"]]
         outcome_list = ul(use_labels, "detail-list")
+        outcome_text = " / ".join(use_labels)
         extra = ""
         if d:
             extra = f'''<section id="analysis"><h2>{t("实际选择依据","Practical decision notes")}</h2><ul class="detail-list"><li><b>{t("原来卡在哪里","What was holding it back")}</b> {h(d["before"])}</li><li><b>{t("改完能做什么","What it can do afterwards")}</b> {h(d["after"])}</li><li><b>{t("判断依据","Assessment")}</b> {h(d["analysis"])}</li><li><b>{t("适合你，如果","A good fit if")}</b> {h(d["fit"])}</li><li><b>{t("先别选，如果","Skip this route if")}</b> {h(d["not_fit"])}</li></ul><h3>{t("完成后检查","Checks after the build")}</h3>{ul(d["acceptance"], "detail-list")}</section>'''
@@ -441,12 +451,63 @@ class Site:
         requirement_items = "".join(f'<li><b>{h(label)}</b> {h(value)}</li>' for label, value in requirements)
         limitation_items = "".join(f'<li><b>{t("停止条件", "Stop condition")}</b> {h(value)}</li>' for value in v["limitations"])
         cost_items = "".join(f'<li><b>{t("可能成本", "Possible cost")}</b> {h(value)}</li>' for value in v["cost_items"])
-        body = f"""<div class="detail-wrap record-detail"><a class="back" href="{rel(self.lang+'/directory/index.html')}">← {t('返回全部路线','Back to all routes')}</a><section class="detail-head"><h1>{h(p['name'])}</h1><ul class="detail-list detail-intro"><li>{h(v['summary'])}</li></ul><div class="detail-meta-row">{self.evidence_tag(p['evidence']['level'])}<a class="about-link" href="{rel(self.lang+'/about/index.html')}">{t('了解证据与评分','About evidence and scoring')} ↗</a></div>{self.rating_detail(PROJECT_SCORES[p['id']])}{project_media}</section>
+        if not is_pilot:
+            body = f"""<div class="detail-wrap record-detail"><a class="back" href="{rel(self.lang+'/directory/index.html')}">← {t('返回全部路线','Back to all routes')}</a><section class="detail-head"><h1>{h(p['name'])}</h1><ul class="detail-list detail-intro"><li>{h(v['summary'])}</li></ul><div class="detail-meta-row">{self.evidence_tag(p['evidence']['level'])}<a class="about-link" href="{rel(self.lang+'/about/index.html')}">{t('了解证据与评分','About evidence and scoring')} ↗</a></div>{self.rating_detail(PROJECT_SCORES[p['id']])}{project_media}</section>
 <section><h2>{t('它能变成什么','What it can become')}</h2>{outcome_list}<ul class="detail-list"><li><b>{t('设备范围','Hardware scope')}</b> {h(v['device_scope'])}</li><li><b>{t('设备类别','Category')}</b> {h(self.labels['category'][p['category']])}</li><li><b>{t('AI 关系','AI relationship')}</b> {h(self.labels['ai'][p['ai_relation']])}</li><li><b>{t('路线类型','Route type')}</b> {h(types[p['entry_type']])}</li><li><b>{t('资料最近核对','Sources last checked')}</b> {p['checked_at'][:10]}</li></ul>{self.project_hardware_tags(p,rel(self.lang+'/directory/index.html'),'directory-grid')}</section>
 <section><h2>{t('动手前','Before you start')}</h2><ul class="detail-list">{requirement_items}{limitation_items}<li><b>{t('固件','Firmware')}</b> {h(v['firmware_requirement'] or t('待核实','Unknown'))}</li><li><b>{t('地区版本','Region')}</b> {h(v['region_requirement'] or t('待核实','Unknown'))}</li>{self.cost_detail(PROJECT_SCORES[p['id']])}{cost_items}</ul><ul class="detail-links"><li>{self.link(p['repo_url'],t('项目主页','Project page')+' ↗')}</li><li>{self.link(p['tutorial_url'],t('原始教程','Original guide')+' ↗')}</li><li>{self.link(p['compatibility_url'],t('型号兼容资料','Compatibility source')+' ↗')}</li></ul></section>{self.action_guide_detail(PROJECT_SCORES[p['id']], context=project_action_context(p, EN['projects'][p['id']]))}
 <section><h2>{t('风险与恢复','Risk and recovery')}</h2><ul class="detail-list"><li><b>{t('数据丢失风险','Data-loss risk')}</b> {h(t(*RISKS[p['risk']['data_loss']]))}</li><li><b>{t('刷坏 / 无法启动风险','Bricking / boot-failure risk')}</b> {h(t(*RISKS[p['risk']['bricking']]))}</li><li><b>{t('恢复路线','Recovery route')}</b> {h(v['recovery'])}</li><li>{self.link(p['risk']['recovery_url'],t('恢复资料','Recovery guide')+' ↗')}</li></ul></section>{extra}
 <section><h2>{t('证据、维护与来源','Evidence, maintenance, and sources')}</h2><ul class="detail-list"><li><b>{p['evidence']['level']} · {h(self.labels['evidence'][p['evidence']['level']])}</b> {h(v['evidence_reason'])}</li><li><b>{t('实机状态','Hands-on status')}</b> {t('KitAgain 未对此设备进行实机测试。','KitAgain has not tested this device hands-on.')}</li><li><b>{t('维护状态','Maintenance')}</b> {h(self.labels['maintenance'][p['maintenance']['status']])}</li><li><b>{t('GitHub 最后 push','Last GitHub push')}</b> {h(p['maintenance']['last_push_at'] or t('待核实','Unknown'))}</li><li><b>{t('仓库许可证','Repository license')}</b> {self.link(p['license']['url'],license_label)}</li><li>{t('近期 push 不证明型号可用；根许可证也不自动覆盖固件、模型、品牌或第三方组件。','A recent push does not prove model compatibility, and a root license does not automatically cover firmware, models, brands, or third-party components.')}</li></ul><ul class="resource-list">{sources}</ul></section>{social_section}</div>"""
-        self.page(p["name"]+t("：适配设备与复现条件",": compatibility and reproduction"),v["summary"]+" "+v["device_scope"],body,f"projects/{p['id']}/index.html",current if legacy else None)
+            self.page(p["name"]+t("：适配设备与复现条件",": compatibility and reproduction"),v["summary"]+" "+v["device_scope"],body,f"projects/{p['id']}/index.html",current if legacy else None)
+            return
+        score = PROJECT_SCORES[p["id"]]
+        score_label = t("待评分", "Not yet rated") if score["score"] is None else f"★ {score_text(score['score'])}/5"
+        chips = [
+            (t("难度", "Difficulty"), self.labels["difficulty"][p["difficulty"]]),
+            (t("证据", "Evidence"), p["evidence"]["level"]),
+            (t("复活星级", "Revival stars"), score_label),
+            (t("类别", "Category"), self.labels["category"][p["category"]]),
+            (t("维护", "Maintenance"), self.labels["maintenance"][p["maintenance"]["status"]]),
+        ]
+        chips_html = "".join(f'<span><b>{h(label)}</b>{h(value)}</span>' for label, value in chips)
+        hero_links = "".join(
+            f'<li>{self.link(url, label + " ↗")}</li>'
+            for url, label in [
+                (p["repo_url"], t("项目主页", "Project page")),
+                (p["tutorial_url"], t("原始教程", "Original guide")),
+                (p["compatibility_url"], t("型号兼容资料", "Compatibility source")),
+            ]
+            if url
+        )
+        hero_visual = project_media or f'''<div class="project-media-placeholder" role="img" aria-label="{t('当前没有来源与授权均已确认的项目图片','No project image with both source and rights confirmed')}" data-category="{h(self.labels['category'][p['category']])}"><span>{h(self.labels['category'][p['category']])}</span><strong>{h(p['name'])}</strong><small>{t('先核对准确型号与证据','Check the exact model and evidence first')}</small></div>'''
+        project_visual = PROJECT_PAGE_VISUAL.get("projects", {}).get(p["id"], {})
+        glance = project_visual.get("glance_html", {}).get(self.lang, "")
+        seo = project_visual.get("seo", {}).get(self.lang)
+        snapshot_stop = ul(v["limitations"], "")
+        snapshot = f'''<div class="reader-snapshot"><div><b>{t('你会得到什么','What you get')}</b><p>{h(outcome_text)}</p></div><div><b>{t('必须匹配','Must match')}</b><p>{h(v['device_scope'])}</p></div><div><b>{t('何时停止','Stop when')}</b>{snapshot_stop}</div></div>'''
+        preflight_facts = [
+            *requirements,
+            (t("固件", "Firmware"), v["firmware_requirement"] or t("待核实", "Unknown")),
+            (t("地区版本", "Region"), v["region_requirement"] or t("待核实", "Unknown")),
+        ]
+        preflight_dl = "".join(f'<div><dt>{h(label)}</dt><dd>{h(value)}</dd></div>' for label, value in preflight_facts)
+        action_section = self.action_guide_detail(score, context=project_action_context(p, EN["projects"][p["id"]]))
+        if action_section:
+            action_section = action_section.replace('class="action-guide"', 'class="action-guide project-section"', 1)
+        pilot_identity = f'<section class="project-identity project-section"><h2>{t("项目账号与已核实作者主页","Project identity and verified author profiles")}</h2><ul class="sources detail-list">{identity_links}</ul></section>' if identity_links else ""
+        body = f"""<div class="detail-wrap record-detail"><article class="project-detail project-pilot"><a class="back" href="{rel(self.lang+'/directory/index.html')}">← {t('返回全部路线','Back to all routes')}</a><section class="detail-head project-hero"><div class="project-hero-copy"><p class="eyebrow">{h(types[p['entry_type']])}</p><h1>{h(p['name'])}</h1><div class="project-purpose"><span>{t('旧硬件的新用途','A new job for old hardware')}</span><p>{h(v['summary'])}</p></div><div class="status-chips" aria-label="{t('项目状态','Project status')}">{chips_html}</div><a class="about-link" href="{rel(self.lang+'/about/index.html')}">{t('了解证据与评分','About evidence and scoring')} ↗</a>{glance}<ul class="detail-links">{hero_links}</ul></div><div class="project-hero-visual">{hero_visual}</div></section>
+{snapshot}{self.rating_detail(score)}
+<section class="project-overview project-section"><h2>{t('路线概览','Route overview')}</h2><dl class="spec-grid"><div><dt>{t('可实现用途','Outcome')}</dt><dd>{h(outcome_text)}</dd></div><div><dt>{t('适配设备','Hardware scope')}</dt><dd>{h(v['device_scope'])}</dd></div><div><dt>{t('AI 关系','AI relationship')}</dt><dd>{h(self.labels['ai'][p['ai_relation']])}</dd></div><div><dt>{t('路线类型','Route type')}</dt><dd>{h(types[p['entry_type']])}</dd></div></dl>{self.project_hardware_tags(p,rel(self.lang+'/directory/index.html'),'directory-grid')}<p class="project-reviewed">{t('资料最近核对','Sources last checked')} <time datetime="{p['checked_at'][:10]}">{p['checked_at'][:10]}</time></p></section>
+<section class="project-preflight project-section"><h2>{t('动手前','Before you start')}</h2><dl class="spec-grid">{preflight_dl}</dl><div class="lead-verdict project-stop"><p class="eyebrow">{t('停止条件','Stop conditions')}</p>{ul(v['limitations'], 'detail-list')}</div><h3>{t('成本线索','Cost signals')}</h3><ul class="detail-list">{self.cost_detail(score)}{cost_items}</ul></section>{action_section}
+<section class="project-risk project-section"><h2>{t('风险与恢复','Risk and recovery')}</h2><div class="lead-verdict"><ul class="detail-list"><li><b>{t('数据丢失风险','Data-loss risk')}</b> {h(t(*RISKS[p['risk']['data_loss']]))}</li><li><b>{t('刷坏 / 无法启动风险','Bricking / boot-failure risk')}</b> {h(t(*RISKS[p['risk']['bricking']]))}</li><li><b>{t('恢复路线','Recovery route')}</b> {h(v['recovery'])}</li><li>{self.link(p['risk']['recovery_url'],t('恢复资料','Recovery guide')+' ↗')}</li></ul></div></section>{extra}
+<section class="project-evidence project-section"><h2>{t('证据、维护与来源','Evidence, maintenance, and sources')}</h2><ul class="detail-list"><li><b>{p['evidence']['level']} · {h(self.labels['evidence'][p['evidence']['level']])}</b> {h(v['evidence_reason'])}</li><li><b>{t('实机状态','Hands-on status')}</b> {t('KitAgain 未对此设备进行实机测试。','KitAgain has not tested this device hands-on.')}</li><li><b>{t('维护状态','Maintenance')}</b> {h(self.labels['maintenance'][p['maintenance']['status']])}</li><li><b>{t('GitHub 最后 push','Last GitHub push')}</b> {h(p['maintenance']['last_push_at'] or t('待核实','Unknown'))}</li><li><b>{t('仓库许可证','Repository license')}</b> {self.link(p['license']['url'],license_label)}</li><li>{t('近期 push 不证明型号可用；根许可证也不自动覆盖固件、模型、品牌或第三方组件。','A recent push does not prove model compatibility, and a root license does not automatically cover firmware, models, brands, or third-party components.')}</li></ul><h3>{t('逐项来源','Source ledger')}</h3><ul class="resource-list">{sources}</ul></section>{pilot_identity}</article></div>"""
+        self.page(
+            p["name"]+t("：适配设备与复现条件",": compatibility and reproduction"),
+            v["summary"]+" "+v["device_scope"],
+            body,
+            f"projects/{p['id']}/index.html",
+            seo=seo,
+            asset_version=PROJECT_PAGE_VISUAL["asset_version"],
+        )
 
     def article(self, title, intro, sections, tail, record=False):
         classes = "detail-wrap record-detail" if record else "detail-wrap"

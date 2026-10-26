@@ -1,0 +1,23 @@
+{
+  "asset_version": "1.20.1",
+  "pilot_project_ids": [
+    "openbeken",
+    "onju-v2",
+    "openwrt"
+  ],
+  "projects": {
+    "openbeken": {
+      "seo": {
+        "en": {
+          "title": "OpenBeken Guide: Flash BK7231 Tuya Devices for Local MQTT | KitAgain",
+          "description": "Check BK7231 Tuya devices for local MQTT and Home Assistant with OpenBeken: chip compatibility, flash pre-checks, backups and recovery.",
+          "og_title": "OpenBeken Guide: Flash BK7231 Tuya Devices for Local MQTT | KitAgain",
+          "og_description": "Check BK7231 Tuya devices for local MQTT and Home Assistant with OpenBeken: chip compatibility, flash pre-checks, backups and recovery."
+        }
+      },
+      "glance_html": {
+        "en": "<section><h2>OpenBeken flashing at a glance</h2><p>This page helps you assess BK7231 Tuya devices for local MQTT and Home Assistant and check what is needed before flashing. Chip support, including BK7231T and BK7231N, follows the <a href=\"https://github.com/openshwprojects/OpenBK7231T_App\">official OpenBeken repository</a>; verify your exact chip and board. <a href=\"https://github.com/openshwprojects/OpenBK7231T_App/blob/main/FLASHING.md#ota\">OTA updates</a> are available after installation, but initial flashing needs a suitable method; bricking is possible, so keep original flash and calibration backups and confirm a recovery procedure first.</p></section>"
+      }
+    }
+  }
+}
