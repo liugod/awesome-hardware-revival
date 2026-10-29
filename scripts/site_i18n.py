@@ -407,8 +407,39 @@ class Site:
             f'<a class="category-entry" href="directory/?category={key}"><span class="category-icon" aria-hidden="true">{icon}</span><span>{h(label)}</span></a>'
             for key, icon, label in categories
         )
-        body = f'''<section class="home-hero"><h1>{t("让旧设备重新上岗", "Give old hardware another job")}</h1><p class="home-subtitle">{t("输入设备，找到它的下一份工作。", "Find its next practical job.")}</p><form id="home-search" class="home-search" action="directory/" method="get" role="search"><label class="visually-hidden" for="home-q">{t("搜索设备", "Search devices")}</label><input id="home-q" name="q" type="search" placeholder="{t("输入你的设备", "Enter your device")}" autocomplete="off"><button type="submit">{t("搜索", "Search")}</button></form><nav class="popular-categories" aria-label="{t('热门分类','Popular categories')}">{category_links}</nav></section>'''
-        self.page(t("旧设备别急着扔，让它重新上岗","Give old hardware another job"),t("按设备和型号寻找旧硬件改造路线，快速了解能做什么、适配条件和停止条件。","Find a practical reuse route for old hardware, with clear outcomes, compatibility checks and stop conditions."),body)
+        projects = {p["id"]: p for p in PROJECTS}
+        featured_ids = ("xiaogpt", "onju-v2", "wirepod")
+        featured_cards = []
+        for project_id in featured_ids:
+            project = projects[project_id]
+            view = localized(project, self.lang)
+            featured_cards.append(f'''<article class="ai-route-card"><div class="ai-route-meta"><span>{h(self.labels['category'][project['category']])}</span>{self.evidence_tag(project['evidence']['level'])}</div><h3><a href="projects/{h(project_id)}/">{h(project['name'])}</a></h3><p>{h(view['summary'])}</p><dl><div><dt>{t('适配范围','Hardware scope')}</dt><dd>{h(view['device_scope'])}</dd></div><div><dt>{t('改造方式','Method')}</dt><dd>{h(view['method'])}</dd></div></dl><a class="ai-route-link" href="projects/{h(project_id)}/">{t('核对这条路线','Check this route')}<span aria-hidden="true"> ↗</span></a></article>''')
+        ai_count = sum(p["ai_relation"] == "native" for p in PROJECTS)
+        body = f'''<div class="ai-landing">
+<section class="home-hero ai-hero">
+  <div class="ai-hero-copy">
+    <p class="ai-kicker">{t('KitAgain · 旧硬件 AI 改造指南','KitAgain · AI retrofit field guide')}</p>
+    <h1>{t('别再买一台。让手里的旧设备接入 AI。','Do not buy another device. Retrofit the one you own.')}</h1>
+    <p class="home-subtitle">{t('按型号找可核对的 AI 改造路线。','Find an AI route for your exact model.')}</p>
+    <form id="home-search" class="home-search" action="directory/" method="get" role="search"><label class="visually-hidden" for="home-q">{t('搜索设备或型号','Search a device or model')}</label><input id="home-q" name="q" type="search" placeholder="{t('输入你的设备','Enter your device')}" autocomplete="off"><button type="submit">{t('找路线','Find a route')}</button></form>
+    <p class="ai-search-note">{t('不知道准确型号？先看机身标签，不要只按外观判断。','Do not know the exact model? Check the device label before judging by appearance.')}</p>
+  </div>
+  <figure class="retrofit-bench" aria-labelledby="retrofit-caption">
+    <div class="bench-grid" aria-hidden="true">
+      <div class="bench-device"><span class="device-speaker"></span><b>{t('旧设备','Old device')}</b><small>{t('麦克风 · 屏幕 · 传感器','Mic · display · sensors')}</small></div>
+      <div class="bench-bridge"><span></span><b>{t('开放改造层','Open retrofit layer')}</b><small>{t('桥接服务 / 换板 / 本地服务','Bridge / board / local service')}</small></div>
+      <div class="bench-output"><i>{t('语音','Voice')}</i><i>{t('视觉','Vision')}</i><i>{t('显示','Display')}</i></div>
+      <svg viewBox="0 0 520 260" role="presentation" focusable="false"><path d="M138 146 C190 146 181 78 250 78 S323 109 365 109"/><path d="M278 94 C278 172 326 190 382 190"/><circle cx="138" cy="146" r="5"/><circle cx="365" cy="109" r="5"/><circle cx="382" cy="190" r="5"/></svg>
+    </div>
+    <figcaption id="retrofit-caption">{t('改造是一条链路，不是一次“魔法升级”。每一段都要能核对，也要能退出。','A retrofit is a chain, not a magic upgrade. Every link should be checkable—and stoppable.')}</figcaption>
+  </figure>
+</section>
+<section class="ai-proof-strip" aria-label="{t('目录原则','Directory principles')}"><p><strong>{ai_count}</strong><span>{t('条已审阅的 AI 功能改造路线','reviewed AI-function routes')}</span></p><p><strong>{t('先型号','Model first')}</strong><span>{t('不按外观猜兼容','No compatibility by appearance')}</span></p><p><strong>{t('未知即未知','Unknown stays unknown')}</strong><span>{t('成本、风险和复现不补猜','No invented cost, risk, or outcome')}</span></p></section>
+<section class="ai-routes" aria-labelledby="routes-heading"><div class="ai-section-heading"><p>{t('从真实路线开始','Start with a real route')}</p><h2 id="routes-heading">{t('不是 AI 概念图，是可追溯的改造入口。','Traceable retrofit entry points, not AI concept art.')}</h2></div><div class="ai-route-grid">{''.join(featured_cards)}</div><a class="ai-all-routes" href="directory/?q=AI">{t('查看全部 AI 相关路线','Browse every AI-related route')}<span aria-hidden="true"> ↗</span></a></section>
+<section class="ai-checks" aria-labelledby="checks-heading"><div><p>{t('动手之前','Before opening the case')}</p><h2 id="checks-heading">{t('先做三个判断。','Make three decisions first.')}</h2></div><ol><li><b>{t('型号对得上吗？','Does the model match?')}</b><span>{t('核对代际、区域、固件和板型；同名设备也可能不同。','Check generation, region, firmware, and board revision. A shared product name is not enough.')}</span></li><li><b>{t('来源说了什么？','What does the source prove?')}</b><span>{t('区分安装文档、作者实机和独立复现，不把演示当普遍兼容。','Separate install docs, author hardware evidence, and independent reproduction. A demo is not universal compatibility.')}</span></li><li><b>{t('什么时候停？','When should you stop?')}</b><span>{t('先确认回退方式；遇到未知板型、不可恢复步骤或不明供电就暂停。','Confirm a rollback path. Stop at an unknown board, irreversible step, or unclear power requirement.')}</span></li></ol></section>
+<section class="ai-device-index"><div class="ai-section-heading"><p>{t('也可以从设备开始','Or start with the hardware')}</p><h2>{t('你手里是哪一类旧设备？','What kind of old device is on your bench?')}</h2></div><nav class="popular-categories" aria-label="{t('热门分类','Popular categories')}">{category_links}</nav></section>
+</div>'''
+        self.page(t("旧设备 AI 改造：从准确型号到开源路线","AI retrofit for old hardware"),t("按准确型号寻找旧音箱、机器人、电子书和摄像头的 AI 改造路线，并核对兼容条件、证据与停止条件。","Find evidence-graded AI retrofit routes for old speakers, robots, e-readers, and cameras, with compatibility and stop conditions."),body)
 
     def detail(self, p, legacy=False):
         t = self.t
