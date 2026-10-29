@@ -57,18 +57,52 @@
       evidence: document.querySelector("#directory-evidence"),
       score: document.querySelector("#directory-score")
     };
-    const cards = [...document.querySelectorAll("#directory-grid .project")];
+    const localCards = [...document.querySelectorAll("#directory-grid .project")];
+    let cards = localCards;
     cards.forEach((card, index) => { card.dataset.order = index; });
     const grid = document.querySelector("#directory-grid");
     const count = document.querySelector("#directory-result-count");
     const empty = document.querySelector("#directory-empty");
+    const pagination = document.querySelector(".directory-pagination");
+    const pageCount = Number(directoryForm.dataset.pageCount || "1");
+    const pageIndex = Number(directoryForm.dataset.pageIndex || "1");
+    let allCardsPromise;
+    const loadAllCards = () => {
+      if (allCardsPromise) return allCardsPromise;
+      const directoryRoot = new URL(pageIndex === 1 ? "./" : "../../", location.href);
+      const requests = [];
+      for (let index = 1; index <= pageCount; index++) {
+        if (index === pageIndex) continue;
+        const url = index === 1 ? directoryRoot : new URL(`page/${index}/`, directoryRoot);
+        requests.push(fetch(url).then(response => {
+          if (!response.ok) throw new Error(`Directory page ${index}: HTTP ${response.status}`);
+          return response.text();
+        }).then(markup => [...new DOMParser().parseFromString(markup, "text/html").querySelectorAll("#directory-grid .project")].map(card => {
+          const imported = document.importNode(card, true);
+          imported.querySelectorAll("a[href]").forEach(link => { link.href = new URL(link.getAttribute("href"), url).href; });
+          return imported;
+        })));
+      }
+      allCardsPromise = Promise.all(requests).then(groups => {
+        const combined = [...localCards, ...groups.flat()];
+        combined.forEach((card, index) => { card.dataset.order = index; });
+        return combined;
+      });
+      return allCardsPromise;
+    };
     const keys = Object.keys(controls);
     const readURL = () => {
       const params = new URLSearchParams(location.search);
       keys.forEach(key => { controls[key].value = params.get(key) || ""; });
     };
-    const apply = (updateURL = true) => {
+    let applySequence = 0;
+    const apply = async (updateURL = true) => {
+      const sequence = ++applySequence;
       const terms = controls.q.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
+      const filtering = terms.length > 0 || controls.category.value || controls.evidence.value || controls.score.value;
+      cards = filtering ? await loadAllCards() : localCards;
+      if (sequence !== applySequence) return;
+      grid.replaceChildren(...cards);
       let visible = 0;
       cards.forEach(card => {
         const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
@@ -81,6 +115,7 @@
       sortCards(grid, cards, "score-desc");
       count.textContent = t(`显示 ${visible} / ${cards.length} 条`, `Showing ${visible} / ${cards.length}`);
       empty.hidden = visible !== 0;
+      if (pagination) pagination.hidden = Boolean(filtering);
       if (updateURL) {
         const url = new URL(location.href);
         keys.forEach(key => {

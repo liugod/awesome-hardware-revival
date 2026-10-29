@@ -7,7 +7,7 @@ Every indexable route is static HTML with a unique title, description, canonical
 | Route | Indexable | Data boundary |
 | --- | --- | --- |
 | `/` and `/zh/` | Yes | Public editorial summaries and navigation |
-| `/{lang}/directory/` | Yes | Full public route index; no private or account data |
+| `/{lang}/directory/` and `/page/{n}/` | Yes | Paginated public route index; filters load the complete public set on demand; no private or account data |
 | `/{lang}/project-sources/` | Yes | 200 repository-unique project sources with explicit reviewed/E0 split |
 | `/{lang}/project-leads/{id}/` | Yes | GitHub metadata/README discovery boundary; `needs_review: true`; nullable independent scoring; no compatibility claim |
 | `/{lang}/projects/{id}/` | Yes | Reviewed project facts and public source links |

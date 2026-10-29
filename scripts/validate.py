@@ -467,8 +467,9 @@ for file in OUT.rglob("*.html"):
     if file.is_relative_to(OUT/"en"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
 delisted_count=len(project_leads)-len(listed_project_leads)
-assert card_page_count==18 and generated_card_count==2240-4*delisted_count,("complete generated card audit",card_page_count,generated_card_count)
-assert len(pages)==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2
+directory_page_count=(len(projects)+len(watchlist)+len(listed_project_leads)+59)//60
+assert card_page_count==18+2*(directory_page_count-1) and generated_card_count==2240-4*delisted_count,("complete generated card audit",card_page_count,generated_card_count)
+assert len(pages)==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 assert root_page.lang=="en" and root_page.canonical==[BASE]
@@ -483,8 +484,17 @@ for lang in ["zh","en"]:
     assert "directory-grid" in directory_page.ids and "directory-filters" in directory_page.ids
     directory_markup=(OUT/lang/"directory/index.html").read_text(encoding="utf-8")
     audit_project_cards(directory_markup,(lang,"directory"))
+    directory_markups=[directory_markup]
+    for page_number in range(2,directory_page_count+1):
+        paged_file=OUT/lang/"directory"/"page"/str(page_number)/"index.html"
+        paged=pages[paged_file.resolve()]
+        assert "directory-grid" in paged.ids and "directory-filters" in paged.ids,(lang,page_number,"paged directory shell")
+        assert paged.canonical==[f"{BASE}{lang}/directory/page/{page_number}/"],(lang,page_number,"paged directory canonical")
+        directory_markups.append(paged_file.read_text(encoding="utf-8"))
+    combined_directory_markup="".join(directory_markups)
+    assert sum(audit_project_cards(markup,(lang,"directory page",index)) for index,markup in enumerate(directory_markups,1))==len(projects)+len(watchlist)+len(listed_project_leads),(lang,"paged directory coverage")
     listed_needs_review=sum(lead["needs_review"] for lead in listed_project_leads)
-    assert directory_markup.count('data-needs-review="true"')==listed_needs_review,(lang,"directory needs-review markers")
+    assert combined_directory_markup.count('data-needs-review="true"')==listed_needs_review,(lang,"directory needs-review markers")
     assert 'class="detail-head directory-head"><h1>' in directory_markup,(lang,"directory heading")
     assert all(token not in directory_markup for token in ['class="eyebrow"','class="intro"','class="actions"','class="boundary"','id="directory-share"','id="directory-share-status"']),(lang,"directory top must stay minimal")
     assert directory_markup.count("<select")==3,(lang,"directory visible filter count")
@@ -492,6 +502,11 @@ for lang in ["zh","en"]:
     assert 'id="directory-kind"' not in directory_markup and 'id="directory-sort"' not in directory_markup,(lang,"directory removed secondary controls")
     assert 'class="directory-info"' in directory_markup and '>ⓘ</a>' in directory_markup and '../about/#scoring' in directory_markup,(lang,"directory scoring info link")
     assert "directory.json" not in " ".join(directory_page.refs) and "directory.csv" not in " ".join(directory_page.refs),(lang,"directory downloads must live on About")
+    for slug in ["ai-retrofit","nest-mini-local-ai"]:
+        guide=pages[(OUT/lang/"guides"/slug/"index.html").resolve()]
+        assert guide.canonical==[f"{BASE}{lang}/guides/{slug}/"],(lang,slug,"guide canonical")
+    nest_markup=(OUT/lang/"guides/nest-mini-local-ai/index.html").read_text(encoding="utf-8")
+    assert all(term in nest_markup for term in ["Onju v2","ESPHome","Home Assistant","Ollama","I2S"]),(lang,"Nest Mini decision coverage")
     project_source_index=pages[(OUT/lang/"project-sources/index.html").resolve()]
     assert "project-source-grid" in project_source_index.ids and "project-source-filters" in project_source_index.ids
     assert "project-leads.json" in " ".join(project_source_index.refs) and "project-leads.csv" in " ".join(project_source_index.refs)
@@ -726,7 +741,7 @@ for source,target in mapping.items():
     assert pages[(OUT/source).resolve()].canonical==[BASE+target]
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))
+assert len(urls)==len(set(urls))==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))+4+2*(directory_page_count-1)
 lastmods=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}lastmod")]
 scoring_dates=[value[:10] for value in [scoring_evidence.get("checked_at"),*(entry.get("checked_at") for entry in scoring_evidence_items)] if value]
 expected_lastmod=max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"],*scoring_dates)
