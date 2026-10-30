@@ -38,6 +38,19 @@
     ],
     "search_intent": "Is turning a Nest Mini into a ChatGPT speaker only a software change?"
   },
+  "onju-v2": {
+    "before": "A second-generation Nest Mini still has a useful enclosure, microphones, speaker and touch controls, but its stock motherboard does not directly provide a custom conversation pipeline.",
+    "after": "With an Onju ESP32-S3 board installed, the device can become a network voice endpoint while ASR, the LLM and TTS run on a LAN host or optional cloud services.",
+    "analysis": "This is a board replacement, not a stock-firmware jailbreak. Before starting, confirm a second-generation Nest Mini, the Onju v2 board documentation, first-flash access and an always-on host. Google Assistant, Cast and stock multi-room behavior do not remain after the swap. The shared-I2S route also cannot listen while playing audio. KitAgain has not reproduced the build hands-on.",
+    "fit": "People who have confirmed a second-generation Nest Mini, can disassemble and perform the first flash safely, will maintain an always-on voice stack, and accept losing stock functions.",
+    "not_fit": "People who cannot confirm the generation, must retain Cast or stock multi-room behavior, require simultaneous listening and playback, or expect a software-only download with no board swap or server maintenance.",
+    "acceptance": [
+      "Record the device generation before power-off; photograph disassembly and keep the original board, cable routing and fasteners intact.",
+      "Before reassembly, verify first flash, microphones, speaker, touch controls, mute switch, Wi-Fi and server separately.",
+      "Test behavior during server or network loss; if the route does not fit and original parts are undamaged, power off and reinstall the original board."
+    ],
+    "search_intent": "How to decide whether Onju v2 fits a second-generation Nest Mini and preserve rollback"
+  },
   "kindle-whoop": {
     "before": "An old Kindle's e-ink display still works, but the original system limits live information display beyond reading.",
     "after": "WHOOP data is rendered as an image and displayed on a jailbroken device, with scheduled wake and sleep attempted.",
