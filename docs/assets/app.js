@@ -54,6 +54,7 @@
     const controls = {
       q: document.querySelector("#directory-q"),
       category: document.querySelector("#directory-category"),
+      ai: document.querySelector("#directory-ai"),
       evidence: document.querySelector("#directory-evidence"),
       score: document.querySelector("#directory-score")
     };
@@ -99,7 +100,7 @@
     const apply = async (updateURL = true) => {
       const sequence = ++applySequence;
       const terms = controls.q.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
-      const filtering = terms.length > 0 || controls.category.value || controls.evidence.value || controls.score.value;
+      const filtering = terms.length > 0 || controls.category.value || controls.ai.value || controls.evidence.value || controls.score.value;
       cards = filtering ? await loadAllCards() : localCards;
       if (sequence !== applySequence) return;
       grid.replaceChildren(...cards);
@@ -107,6 +108,7 @@
       cards.forEach(card => {
         const match = terms.every(term => card.dataset.search.toLocaleLowerCase().includes(term)) &&
           (!controls.category.value || card.dataset.category === controls.category.value) &&
+          (!controls.ai.value || card.dataset.ai === controls.ai.value) &&
           (!controls.evidence.value || card.dataset.evidence === controls.evidence.value) &&
           (!controls.score.value || (cardScore(card) !== null && cardScore(card) >= Number(controls.score.value)));
         card.hidden = !match;

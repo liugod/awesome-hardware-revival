@@ -416,7 +416,7 @@ try {
   }
   if (!checks.directoryFooter.valid) throw new Error(`Directory footer failed: ${JSON.stringify(checks.directoryFooter)}`);
   for (const [lang, shell] of Object.entries(checks.directoryShell)) {
-    if (!shell.headingOnly || shell.searchCount !== 1 || JSON.stringify(shell.visibleSelectIds) !== JSON.stringify(["directory-category", "directory-score", "directory-evidence"]) || shell.filterRows !== 1 || !shell.removedKind || !shell.removedSort || !shell.info || shell.forbidden !== 0 || shell.downloadLinks !== 0 || shell.width.scroll > shell.width.client) {
+    if (!shell.headingOnly || shell.searchCount !== 1 || JSON.stringify(shell.visibleSelectIds) !== JSON.stringify(["directory-category", "directory-ai", "directory-score", "directory-evidence"]) || shell.filterRows !== 1 || !shell.removedKind || !shell.removedSort || !shell.info || shell.forbidden !== 0 || shell.downloadLinks !== 0 || shell.width.scroll > shell.width.client) {
       throw new Error(`${lang} directory shell simplification failed: ${JSON.stringify(shell)}`);
     }
   }
@@ -437,7 +437,7 @@ try {
     if (result.overlongParagraphs.length) throw new Error(`Mobile ${name} detail paragraph exceeds three lines: ${result.overlongParagraphs[0]}`);
   }
   for (const [lang, result] of Object.entries({ zh: checks.mobile.directoryZh, en: checks.mobile.directoryEn })) {
-    if (!result.directoryShell || result.directoryShell.filterRows > 2 || result.directoryShell.width.scroll > result.directoryShell.width.client || result.firstCardTop === null || result.firstCardTop > 560) {
+    if (!result.directoryShell || result.directoryShell.filterRows > 3 || result.directoryShell.width.scroll > result.directoryShell.width.client || result.firstCardTop === null || result.firstCardTop > 560) {
       throw new Error(`Mobile ${lang} directory controls or first-card visibility failed: ${JSON.stringify(result)}`);
     }
   }

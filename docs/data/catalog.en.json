@@ -474,7 +474,9 @@
       "difficulty": "high",
       "difficulty_basis": "Editorial assessment of installation, firmware, assembly and troubleshooting; not an author-provided score.",
       "limitations": [
-        "A successor in the same project family, not an independent hardware reproduction."
+        "Stop if you cannot confirm a second-generation Nest Mini or match the Onju v2 board and assembly documentation.",
+        "Stop if you must retain Google Assistant, Cast, or stock multi-room behavior; those stock functions do not remain after the board swap.",
+        "Stop without a safe powered-off disassembly plan, access for the first flash before reassembly, or willingness to maintain an always-on ASR/LLM/TTS host."
       ],
       "repo_url": "https://github.com/justLV/onju-v2",
       "github_snapshot_url": "https://github.com/justLV/onju-v2",
@@ -539,7 +541,7 @@
       "risk": {
         "data_loss": "possible",
         "bricking": "possible",
-        "recovery": "Keep the original motherboard. Assess hardware damage and repair feasibility separately.",
+        "recovery": "Before starting, photograph cable and fastener positions and keep the original motherboard and hardware intact. If the replacement-board route is unsuitable and the original parts are undamaged, power off and reinstall the original board. There is no verified software recovery for physical damage.",
         "recovery_url": null
       },
       "keywords": [
@@ -554,7 +556,7 @@
       "latest_release": null,
       "summary": "Connect a modified Nest Mini to local or cloud conversation agents and support multiple voice endpoints.",
       "translation": {
-        "source_sha256": "9c7e5fa18539aaa96adeceedb371ed24312107ec85899c7fc8f09792885bc8d1",
+        "source_sha256": "bba8a4d703ed018760b33cd8b5101582668e290c09829f656584bc6845ddbb12",
         "status": "reviewed",
         "reviewed_at": "2026-10-20",
         "review_scope": "Editorial translation of existing research; no new upstream or hardware verification."

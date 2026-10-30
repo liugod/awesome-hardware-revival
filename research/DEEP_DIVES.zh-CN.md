@@ -89,6 +89,35 @@ Google Nest Mini 的原厂主板与服务限制了自定义语音链路。
 
 [教程](https://github.com/justLV/onju-voice/blob/master/README.md) · [适配范围](https://github.com/justLV/onju-voice/blob/master/README.md) · [完整条目](https://kitagain.com/projects/onju-voice.html)
 
+## Onju Voice v2
+
+**第二代 Nest Mini 换 Onju v2 前怎样判断是否适合并保留回退**
+
+第二代 Nest Mini 的外壳、麦克风、喇叭和触控仍可利用，但原厂主板不能直接承担自定义对话管道。
+
+换入 Onju ESP32-S3 板后，设备可作为网络语音端点，把 ASR、LLM 和 TTS 交给局域网主机或可选云服务。
+
+这是换板而不是原厂固件越狱。动手前必须确认第二代 Nest Mini、Onju v2 板卡资料、首次刷写入口和常开主机；换板后不保留 Google Assistant、Cast 或原厂多房间功能。共享 I2S 路线还不能边播放边监听。KitAgain 未做实机复现。
+
+- 型号：Google Nest Mini 第二代 + Onju 替换板
+- 固件：待按具体型号核实
+- 方法与难度：替换主板 / 高难度
+- 拆机 / 焊接 / 云服务：需要 / 依组装方案 / 可选
+- 额外成本：待核价；Onju PCBA、拆装工具、音频/模型服务器、可选 API
+- 证据：E1 — README 有第二代 Nest Mini 替换板、服务器配置和固件烧录步骤；其 X 链接指向早期 Onju 演示，不作为 v2 新功能实测证据。
+- 数据风险：possible；设备失效风险：possible（编辑按路径提示，未实测）
+- 恢复：动手前拍照记录排线和螺丝位置，完整保留原主板与紧固件；若替换板路线不合适且原部件未损伤，可断电后装回原主板。硬件损伤没有已核验的软件恢复办法。
+- 适合：适合已经确认第二代 Nest Mini、能安全断电拆机和首次刷写、愿意维护常开语音服务，并接受失去原厂功能的人。
+- 不适合：不适合无法确认代际、必须保留 Cast/原厂多房间、需要边听边播，或只想下载软件而不换板和维护服务器的人。
+
+建议验收（未执行）：
+
+- 断电前记录设备代际；拆机时拍照并完整保留原主板、排线走向和螺丝
+- 装回前分别验证首次刷写、麦克风、喇叭、触控、静音开关、Wi-Fi 与服务端
+- 测试服务端或网络中断后的行为；若不符合需求且原部件完好，断电装回原主板
+
+[教程](https://github.com/justLV/onju-v2/blob/master/README.md) · [适配范围](https://github.com/justLV/onju-v2/blob/master/README.md) · [完整条目](https://kitagain.com/projects/onju-v2.html)
+
 ## OpenCore Legacy Patcher
 
 **旧 Intel Mac 升级 macOS 前要核对什么**

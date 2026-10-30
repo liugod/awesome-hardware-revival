@@ -451,7 +451,9 @@
       "difficulty": "high",
       "difficulty_basis": "编辑按安装、固件、拆装与排障步骤评估，不是作者给出的难度评分。",
       "limitations": [
-        "同一家族的后继版本，不能算作独立硬件复现。"
+        "无法确认设备是第二代 Nest Mini，或无法核对 Onju v2 板卡与装配资料时停止。",
+        "必须保留 Google Assistant、Cast 或原厂多房间功能时停止；换板后这些原厂功能不再保留。",
+        "没有安全断电拆机方案、无法在装回前完成首次刷写，或不愿维护常开 ASR/LLM/TTS 主机时停止。"
       ],
       "repo_url": "https://github.com/justLV/onju-v2",
       "github_snapshot_url": "https://github.com/justLV/onju-v2",
@@ -516,7 +518,7 @@
       "risk": {
         "data_loss": "possible",
         "bricking": "possible",
-        "recovery": "保留原主板；硬件损伤和返修可行性需自行评估。",
+        "recovery": "动手前拍照记录排线和螺丝位置，完整保留原主板与紧固件；若替换板路线不合适且原部件未损伤，可断电后装回原主板。硬件损伤没有已核验的软件恢复办法。",
         "recovery_url": null
       },
       "keywords": [

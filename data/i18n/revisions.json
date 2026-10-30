@@ -1,6 +1,6 @@
 {
-  "deep_source_sha256": "b474cde7f9f995121c023c36c7dd460131e770bb51c8134070b01ecac6c1e6f8",
-  "deep_translation_sha256": "f2c7448528cdb8907798d3b5f0c37aa0db1e35616b271e23beb521e168fe8396",
+  "deep_source_sha256": "9b7b0de40133c8b928e1b8351815c7e236845dca4fae26cfdfbc176c4016a4dd",
+  "deep_translation_sha256": "f74690d4cb2b7fc83f8f70eb53a82826dfde6707f59aaad9d3d5afd46f9967e5",
   "status": "reviewed",
   "reviewed_at": "2026-10-20",
   "review_scope": "Full editorial translation; model, firmware, numerical and negation boundaries checked against existing Chinese research. No new upstream or hardware verification."
