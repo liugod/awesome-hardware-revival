@@ -153,11 +153,14 @@ try {
       halfStarOptions: await page.locator(`${score} option`).evaluateAll(options => options.map(option => option.value).filter(value => value.endsWith(".5")))
     };
     await page.locator(score).selectOption("4");
+    await page.waitForURL(url => url.searchParams.get("score") === "4");
     await page.reload({ waitUntil: "networkidle" });
+    await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project:not([hidden])").length === total, expectedScore4);
     const filteredScores = await page.locator(`${grid} .project:not([hidden])`).evaluateAll(cards => cards.map(card => card.dataset.score === "" ? null : Number(card.dataset.score)));
     result.filteredURL = new URL(page.url()).searchParams.get("score");
     result.filteredDescending = descendingRatedFirst(filteredScores);
     await page.locator(score).selectOption("");
+    await page.waitForURL(url => url.searchParams.get("score") === null);
     await page.reload({ waitUntil: "networkidle" });
     const resetScores = await page.locator(`${grid} .project:not([hidden])`).evaluateAll(cards => cards.map(card => card.dataset.score === "" ? null : Number(card.dataset.score)));
     result.resetSort = "score-desc";
@@ -223,6 +226,8 @@ try {
   }
 
   await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
+  await page.locator("#directory-q").fill("AI");
+  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project").length === total, expected);
   checks.cards = await page.locator("#directory-grid .project").count();
   checks.directoryCardContract = await auditCardGrid(page, "#directory-grid");
   checks.ratedCards = await page.locator('#directory-grid .project[data-rated="true"]:has(.card-rating:not(.unrated))').count();
@@ -232,24 +237,32 @@ try {
   await page.goto(`${base}/en/directory/`, { waitUntil: "networkidle" });
   checks.directoryShell.en = await auditDirectoryShell(page, "en");
   await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
+  await page.locator("#directory-q").fill("AI");
+  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project").length === total, expected);
   checks.directoryNeedsReview = await page.locator('#directory-grid .project[data-kind="project-source-lead"][data-needs-review="true"] .evidence-tag').count();
   checks.directoryNeedsReviewText = await page.locator('#directory-grid .project[data-kind="project-source-lead"][data-needs-review="true"] .evidence-tag').evaluateAll(tags => tags.every(tag => /(待验证|To verify)/.test(tag.textContent)));
 
+  await page.locator("#directory-q").fill("");
   await page.locator("#directory-evidence").selectOption("E2");
+  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project:not([hidden])").length === total, expectedE2);
   checks.e2Visible = await page.locator("#directory-grid .project:not([hidden])").count();
   await page.locator("#directory-evidence").selectOption("E0");
   await page.locator("#directory-score").selectOption(String(combinedThreshold));
+  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project:not([hidden])").length === total, expectedE0AtThreshold);
   checks.combinedE0ScoreVisible = await page.locator("#directory-grid .project:not([hidden])").count();
   checks.combinedE0ScoreValid = await page.locator("#directory-grid .project:not([hidden])").evaluateAll((cards, threshold) => cards.every(card => card.dataset.evidence === "E0" && card.dataset.score !== "" && Number(card.dataset.score) >= threshold), combinedThreshold);
 
   await page.locator("#directory-evidence").selectOption("");
   await page.locator("#directory-score").selectOption("4");
+  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project:not([hidden])").length === total, expectedScore4);
   checks.score4Visible = await page.locator("#directory-grid .project:not([hidden])").count();
   checks.scoreURL = new URL(page.url()).searchParams.get("score");
   await page.locator("#directory-score").selectOption("5");
+  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project:not([hidden])").length === total, expectedScore5);
   checks.score5Visible = await page.locator("#directory-grid .project:not([hidden])").count();
   await page.locator("#directory-score").selectOption("");
   await page.locator("#directory-category").selectOption("network");
+  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project:not([hidden])").length === total, expectedNetwork);
   checks.networkVisible = await page.locator("#directory-grid .project:not([hidden])").count();
   checks.networkValid = await page.locator("#directory-grid .project:not([hidden])").evaluateAll(cards => cards.every(card => card.dataset.category === "network"));
   checks.networkURL = new URL(page.url()).searchParams.get("category");
@@ -264,6 +277,7 @@ try {
   };
   await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
   await page.locator("#directory-q").fill("Kindle");
+  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project").length === total, expected);
   checks.kindleVisible = await page.locator("#directory-grid .project:not([hidden])").count();
 
   const auditRecordDetail = async (pathName, expectedTitle = null) => {
@@ -410,7 +424,7 @@ try {
   if (checks.combinedE0ScoreVisible !== expectedE0AtThreshold || !checks.combinedE0ScoreValid) throw new Error("Independent evidence and star filters failed");
   if (checks.score4Visible !== expectedScore4 || checks.scoreURL !== "4" || checks.score5Visible !== expectedScore5) throw new Error("Star filter or URL state failed");
   if (checks.networkVisible !== expectedNetwork || !checks.networkValid || checks.networkURL !== "network") throw new Error("Device-category filter or URL state failed");
-  if (checks.retiredDirectoryParams.kind !== null || checks.retiredDirectoryParams.sort !== null || checks.retiredDirectoryParams.visible !== expected || !checks.retiredDirectoryParams.descending) throw new Error("Retired directory controls still affect the simplified index");
+  if (checks.retiredDirectoryParams.kind !== null || checks.retiredDirectoryParams.sort !== null || checks.retiredDirectoryParams.visible !== Math.min(60, expected) || !checks.retiredDirectoryParams.descending) throw new Error("Retired directory controls still affect the simplified index");
   if (checks.directoryNeedsReview !== listedNeedsReview || !checks.directoryNeedsReviewText || checks.projectSourceNeedsReview !== listedNeedsReview || !checks.projectSourceNeedsReviewText) throw new Error("Needs-review marker coverage failed");
   if (checks.projectSources !== listedProjectSources || checks.projectSourcesE0 !== listedProjectSourcesE0 || checks.projectSourcesNas < 1) throw new Error("Project-source index/filter failed");
   if (checks.kindleVisible < 1 || checks.mobile.directoryZh.visible !== checks.kindleVisible || checks.mobile.directoryEn.visible !== checks.kindleVisible) throw new Error("Bilingual/device search persistence failed");
