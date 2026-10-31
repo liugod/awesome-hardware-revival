@@ -2156,3 +2156,127 @@ body:has(.project-pilot) .record-detail{
     align-self:end;
   }
 }
+
+/* TRA-18: source-reviewed thumbnails and explicit pending-image placeholders. */
+.directory-page .project.has-media{
+  display:grid;
+  grid-template-columns:176px minmax(0,1fr);
+  grid-template-rows:auto auto auto;
+  align-content:start;
+  column-gap:22px;
+}
+
+.directory-page .project-thumb{
+  grid-row:1 / 4;
+  width:176px;
+  aspect-ratio:4 / 3;
+  margin:0;
+  align-self:start;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--soft);
+}
+
+.directory-page .project-thumb.contain img{
+  padding:10px;
+}
+
+.directory-page .project-thumb-placeholder{
+  display:grid;
+  place-content:center;
+  gap:7px;
+  padding:14px;
+  color:#697064;
+  text-align:center;
+  background:linear-gradient(135deg,#f1f2ed,#e3e6dc);
+}
+
+.directory-page .project-thumb-placeholder span{
+  font-family:Georgia,serif;
+  font-size:28px;
+  line-height:1;
+  letter-spacing:.08em;
+  color:#76836d;
+}
+
+.directory-page .project-thumb-placeholder small{
+  font-size:9px;
+  line-height:1.35;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.directory-page .project.has-media h3,
+.directory-page .project.has-media .card-outcome,
+.directory-page .project.has-media .card-meta{
+  grid-column:2;
+}
+
+.ai-route-thumb{
+  display:block;
+  aspect-ratio:16 / 9;
+  margin:20px -30px 0;
+  overflow:hidden;
+  border-block:1px solid #d1d5d1;
+  background:#eef0eb;
+}
+
+.ai-route-thumb img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .25s ease;
+}
+
+.ai-route-thumb.contain img{
+  padding:16px;
+  object-fit:contain;
+}
+
+.ai-route-thumb:hover img{
+  transform:scale(1.025);
+}
+
+.ai-route-card:has(.ai-route-thumb) h3{
+  margin-top:26px;
+}
+
+@media(max-width:640px){
+  .directory-page .project.has-media{
+    grid-template-columns:112px minmax(0,1fr);
+    column-gap:16px;
+  }
+
+  .directory-page .project-thumb{
+    width:112px;
+  }
+
+  .directory-page .project-thumb.contain img{
+    padding:7px;
+  }
+
+  .directory-page .project-thumb-placeholder{
+    gap:5px;
+    padding:9px;
+  }
+
+  .directory-page .project-thumb-placeholder span{
+    font-size:22px;
+  }
+
+  .directory-page .project-thumb-placeholder small{
+    font-size:8px;
+  }
+
+  .ai-route-thumb{
+    margin-inline:-24px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .ai-route-thumb img,
+  .project-thumb img{
+    transition:none;
+  }
+}

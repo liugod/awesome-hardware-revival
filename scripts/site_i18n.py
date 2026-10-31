@@ -338,13 +338,17 @@ class Site:
                 values.append(value)
         return values
 
-    def card_image(self, p, prefix=""):
+    def card_image(self, p, prefix="", css_class="project-thumb"):
         image = PROJECT_IMAGES.get(p["id"])
         if not image:
             return ""
         alt = image["alt_zh" if self.lang == "zh" else "alt_en"]
         src = f'{prefix}../{image["local_file"]}'
-        return f'<a class="project-thumb {h(image["fit"])}" href="{prefix}projects/{p["id"]}/"><img src="{h(src)}" alt="{h(alt)}" loading="lazy" decoding="async"></a>'
+        return f'<a class="{h(css_class)} {h(image["fit"])}" href="{prefix}projects/{p["id"]}/"><img src="{h(src)}" alt="{h(alt)}" loading="lazy" decoding="async"></a>'
+
+    def card_placeholder(self):
+        label = self.t("图片待核", "Image pending review")
+        return f'<div class="project-thumb project-thumb-placeholder" role="img" aria-label="{h(label)}"><span aria-hidden="true">KA</span><small aria-hidden="true">{h(label)}</small></div>'
 
     def detail_image(self, p, current):
         image = PROJECT_IMAGES.get(p["id"])
@@ -355,7 +359,7 @@ class Site:
         source_label = self.t("查看图片来源", "View image source")
         return f'''<figure class="project-media {h(image["fit"])}"><img src="{h(self.rel(image["local_file"], current))}" alt="{h(alt)}" decoding="async"><figcaption>{h(caption)} <a href="{h(image["source_page"])}">{source_label} ↗</a></figcaption></figure>'''
 
-    def card(self, p, prefix=""):
+    def card(self, p, prefix="", show_thumbnail=False):
         e = localized(p, "en")
         v = localized(p, self.lang)
         score = PROJECT_SCORES[p["id"]]
@@ -364,9 +368,12 @@ class Site:
         search = " ".join([p["name"], p["summary_zh"], p["device_scope"], e["summary"], e["device_scope"], *p["keywords"], *p["model_examples"], *hardware_values, *p["use_cases"], *(en for uid,zh,en in USES if zh in p["use_cases"])])
         attrs["search"] = search
         attr = " ".join(f'data-{k}="{h(v)}"' for k,v in attrs.items())
-        return f"""<article class="project" {attr}><h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(p['evidence']['level'])}</div></article>"""
+        image = self.card_image(p, prefix) if show_thumbnail else ""
+        media = image or (self.card_placeholder() if show_thumbnail else "")
+        media_class = " has-media has-image" if image else (" has-media has-placeholder" if media else "")
+        return f"""<article class="project{media_class}" {attr}>{media}<h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(p['evidence']['level'])}</div></article>"""
 
-    def lead_card(self, slug, lead, prefix="leads/"):
+    def lead_card(self, slug, lead, prefix="leads/", show_placeholder=False):
         v = lead[self.lang]
         decision = WATCHLIST_DETAILS[slug][self.lang]
         evidence = lead.get("evidence_level", "E0")
@@ -376,9 +383,11 @@ class Site:
             platform = {"恩山无线论坛":"Enshan Wireless Forum", "ophub 中文项目文档":"ophub Chinese documentation"}.get(platform, platform)
         search = " ".join([v["title"], v["summary"], lead.get("device_name", ""), lead.get("device_model", ""), *self.lead_hardware_values(slug,lead), platform, lead.get("discovery_channel", "")])
         attrs = f'data-search="{h(search)}" data-title="{h(v["title"])}" data-category="{h(lead["category"])}" data-source="{h(platform)}" data-evidence="{h(evidence)}" data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="device-or-community-route" data-channel="{h(lead.get("discovery_channel", "legacy"))}"'
-        return f"""<article class="project" {attrs}><h3><a href="{prefix}{slug}/">{h(v['title'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(evidence)}</div></article>"""
+        media = self.card_placeholder() if show_placeholder else ""
+        media_class = " has-media has-placeholder" if media else ""
+        return f"""<article class="project{media_class}" {attrs}>{media}<h3><a href="{prefix}{slug}/">{h(v['title'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(evidence)}</div></article>"""
 
-    def project_lead_card(self, lead, prefix="project-leads/"):
+    def project_lead_card(self, lead, prefix="project-leads/", show_placeholder=False):
         score = PROJECT_LEAD_SCORES[lead["id"]]
         summary = lead["summary_zh" if self.lang == "zh" else "summary_en"]
         device_scope = lead["device_scope_zh" if self.lang == "zh" else "device_scope_en"]
@@ -392,7 +401,9 @@ class Site:
             f'data-category="{h(lead["category"])}" data-evidence="{h(lead["evidence_level"])}" '
             f'data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="project-source-lead" data-needs-review="{str(lead["needs_review"]).lower()}"'
         )
-        return f'''<article class="project" {attrs}><h3><a href="{h(prefix+lead['id']+'/')}">{h(lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}</div></article>'''
+        media = self.card_placeholder() if show_placeholder else ""
+        media_class = " has-media has-placeholder" if media else ""
+        return f'''<article class="project{media_class}" {attrs}>{media}<h3><a href="{h(prefix+lead['id']+'/')}">{h(lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}</div></article>'''
 
     def home(self):
         t = self.t
@@ -414,7 +425,8 @@ class Site:
         for project_id in featured_ids:
             project = projects[project_id]
             view = localized(project, self.lang)
-            featured_cards.append(f'''<article class="ai-route-card"><div class="ai-route-meta"><span>{h(self.labels['category'][project['category']])}</span>{self.evidence_tag(project['evidence']['level'])}</div><h3><a href="projects/{h(project_id)}/">{h(project['name'])}</a></h3><p>{h(view['summary'])}</p><dl><div><dt>{t('适配范围','Hardware scope')}</dt><dd>{h(view['device_scope'])}</dd></div><div><dt>{t('改造方式','Method')}</dt><dd>{h(view['method'])}</dd></div></dl><a class="ai-route-link" href="projects/{h(project_id)}/">{t('核对这条路线','Check this route')}<span aria-hidden="true"> ↗</span></a></article>''')
+            image = self.card_image(project, css_class="ai-route-thumb")
+            featured_cards.append(f'''<article class="ai-route-card"><div class="ai-route-meta"><span>{h(self.labels['category'][project['category']])}</span>{self.evidence_tag(project['evidence']['level'])}</div>{image}<h3><a href="projects/{h(project_id)}/">{h(project['name'])}</a></h3><p>{h(view['summary'])}</p><dl><div><dt>{t('适配范围','Hardware scope')}</dt><dd>{h(view['device_scope'])}</dd></div><div><dt>{t('改造方式','Method')}</dt><dd>{h(view['method'])}</dd></div></dl><a class="ai-route-link" href="projects/{h(project_id)}/">{t('核对这条路线','Check this route')}<span aria-hidden="true"> ↗</span></a></article>''')
         ai_count = sum(p["ai_relation"] == "native" for p in PROJECTS)
         body = f'''<div class="ai-landing">
 <section class="home-hero ai-hero">
@@ -689,13 +701,13 @@ class Site:
         all_cards = []
         for project in PROJECTS:
             record = PROJECT_SCORES[project["id"]]
-            all_cards.append((*score_sort_key(record, project["name"]), self.card(project, "../")))
+            all_cards.append((*score_sort_key(record, project["name"]), self.card(project, "../", show_thumbnail=True)))
         for slug, lead in WATCHLIST.items():
             record = LEAD_SCORES[slug]
-            all_cards.append((*score_sort_key(record, lead[self.lang]["title"]), self.lead_card(slug, lead, "../leads/")))
+            all_cards.append((*score_sort_key(record, lead[self.lang]["title"]), self.lead_card(slug, lead, "../leads/", show_placeholder=True)))
         for lead in LISTED_PROJECT_LEADS:
             record = PROJECT_LEAD_SCORES[lead["id"]]
-            all_cards.append((*score_sort_key(record, lead["name"]), self.project_lead_card(lead, "../project-leads/")))
+            all_cards.append((*score_sort_key(record, lead["name"]), self.project_lead_card(lead, "../project-leads/", show_placeholder=True)))
         all_cards.sort(key=lambda item: item[:3])
         category_options = "".join(f'<option value="{h(key)}">{h(value)}</option>' for key,value in self.labels["category"].items())
         evidence_options = "".join(f'<option value="{level}">{level} · {h(self.labels["evidence"][level])}</option>' for level in ["E0","E1","E2","E3"])
@@ -722,6 +734,7 @@ class Site:
             cards_html = ''.join(item[-1] for item in page_cards)
             if page_index > 1:
                 cards_html = cards_html.replace('href="../', 'href="../../../')
+                cards_html = cards_html.replace('src="../../assets/projects/', 'src="../../../../assets/projects/')
             title = t(f"全部 {visible_count} 条硬件复活记录", f"All {visible_count} hardware-revival records")
             if page_index > 1:
                 title += t(f" · 第 {page_index} 页", f" · Page {page_index}")
