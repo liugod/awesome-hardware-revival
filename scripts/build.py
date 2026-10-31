@@ -27,7 +27,7 @@ batch2_evidence = json.loads(batch2_path.read_text(encoding="utf-8")) if batch2_
 audit_path = ROOT / "data/e0-audit-v120.json"
 audit_evidence = json.loads(audit_path.read_text(encoding="utf-8")) if audit_path.exists() else {}
 project_image_data = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
-project_images = {item["project_id"]: item for item in project_image_data["entries"]}
+project_images = {item["project_id"]: item for item in project_image_data["entries"] if item.get("project_id")}
 deep = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
 candidates = json.loads((ROOT / "data/candidates.json").read_text(encoding="utf-8"))
 watchlist, watchlist_details = load_watchlist(ROOT / "data")
