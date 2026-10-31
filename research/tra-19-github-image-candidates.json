@@ -1,0 +1,2956 @@
+[
+  {
+    "id": "xiaogpt",
+    "repository": "yihong0618/xiaogpt",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/yihong0618/xiaogpt/blob/main/README.md",
+    "candidates": [
+      "https://user-images.githubusercontent.com/15976103/220028375-c193a859-48a1-4270-95b6-ef540e54a621.png",
+      "https://user-images.githubusercontent.com/15976103/226802344-9c71f543-b73c-4a47-8703-4c200c434dec.png"
+    ]
+  },
+  {
+    "id": "open-xiaoai",
+    "repository": "idootop/open-xiaoai",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/idootop/open-xiaoai/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/idootop/open-xiaoai/main/docs/images/cover.jpg",
+      "https://raw.githubusercontent.com/idootop/open-xiaoai/main/docs/images/xiaozhi.jpg",
+      "https://raw.githubusercontent.com/idootop/open-xiaoai/main/docs/images/kws.jpg",
+      "https://raw.githubusercontent.com/idootop/open-xiaoai/main/docs/images/migpt.jpg"
+    ]
+  },
+  {
+    "id": "mi-gpt",
+    "repository": "idootop/mi-gpt",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/idootop/mi-gpt/blob/main/README.md",
+    "candidates": [
+      "https://abroad.hellogithub.com/v1/widgets/recommend.svg?rid=e02e62fbb9c746cdb61c6559c186ac44&claim_uid=LdwexZ8z7Ggu3lJ&theme=small",
+      "https://raw.githubusercontent.com/idootop/mi-gpt/main/assets/sponsors/302banner2.jpg"
+    ]
+  },
+  {
+    "id": "onju-voice",
+    "repository": "justLV/onju-voice",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/justLV/onju-voice/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/justLV/onju-voice/master/images/header_white.jpg",
+      "https://raw.githubusercontent.com/justLV/onju-voice/master/images/rich.png",
+      "https://raw.githubusercontent.com/justLV/onju-voice/master/images/copper.png",
+      "https://raw.githubusercontent.com/justLV/onju-voice/master/images/render.png"
+    ]
+  },
+  {
+    "id": "onju-v2",
+    "repository": "justLV/onju-v2",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/justLV/onju-v2/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/justLV/onju-v2/master/images/header_white.jpg",
+      "https://raw.githubusercontent.com/justLV/onju-v2/master/images/copper.png",
+      "https://raw.githubusercontent.com/justLV/onju-v2/master/images/render.png"
+    ]
+  },
+  {
+    "id": "wyoming-satellite",
+    "repository": "rhasspy/wyoming-satellite",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/rhasspy/wyoming-satellite/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "linux-voice-assistant",
+    "error": "Get \"https://api.github.com/repos/OHF-Voice/linux-voice-assistant/readme\": EOF"
+  },
+  {
+    "id": "lineageos",
+    "error": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "id": "ubports",
+    "repository": "ubports/ubports-installer",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/ubports/ubports-installer/blob/master/README.md",
+    "candidates": [
+      "https://i.ibb.co/CPq1pL9/linux.png",
+      "https://i.ibb.co/Qn2NXq9/apple.png",
+      "https://i.ibb.co/RNk81kH/windows10.png"
+    ]
+  },
+  {
+    "id": "termux",
+    "repository": "termux/termux-app",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/termux/termux-app/blob/master/README.md",
+    "candidates": [
+      "https://jitpack.io/v/termux/termux-app.svg",
+      "https://raw.githubusercontent.com/termux/termux-app/master/site/assets/sponsors/github.png",
+      "https://raw.githubusercontent.com/termux/termux-app/master/site/assets/sponsors/nlnet-ngi-mobifree.png",
+      "https://raw.githubusercontent.com/termux/termux-app/master/site/assets/sponsors/cloudflare.png"
+    ]
+  },
+  {
+    "id": "droidcam",
+    "repository": "dev47apps/droidcam-linux-client",
+    "default_branch": "master",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/dev47apps/droidcam-linux-client/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/dev47apps/droidcam-linux-client/master/icon2.png"
+    ]
+  },
+  {
+    "id": "deskreen",
+    "repository": "pavlobu/deskreen",
+    "default_branch": "master",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/pavlobu/deskreen/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/pavlobu/deskreen/master/resources/icon.png",
+      "https://raw.githubusercontent.com/pavlobu/deskreen/master/build/deskren-ce-icon.png",
+      "https://raw.githubusercontent.com/pavlobu/deskreen/master/src/server/resources/icon.png",
+      "https://raw.githubusercontent.com/pavlobu/deskreen/master/build/icon.png"
+    ]
+  },
+  {
+    "id": "oclp",
+    "repository": "dortania/OpenCore-Legacy-Patcher",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/dortania/OpenCore-Legacy-Patcher/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/OC-Patcher.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/OCLP-200-Initial-Support.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/OCLP-100-Initial-Support.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/HD3000-Display-Colors.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/HD3000-Default-Colors.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/sonoma.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/background-moved.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/ventura.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/OCLP-060-Initial-Support.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/rsync-progess.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/OCLP-051-Initial-Support.png",
+      "https://raw.githubusercontent.com/dortania/OpenCore-Legacy-Patcher/main/docs/images/usb11-chart.png"
+    ]
+  },
+  {
+    "id": "mrchromebox",
+    "repository": "MrChromebox/scripts",
+    "default_branch": "main",
+    "license": "Unlicense",
+    "readme_url": "https://github.com/MrChromebox/scripts/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "haos",
+    "repository": "home-assistant/operating-system",
+    "default_branch": "dev",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/home-assistant/operating-system/blob/dev/README.md",
+    "candidates": []
+  },
+  {
+    "id": "openmediavault",
+    "repository": "openmediavault/openmediavault",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/openmediavault/openmediavault/blob/master/README.md",
+    "candidates": [
+      "https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg",
+      "https://raw.githubusercontent.com/openmediavault/openmediavault/master/deb/openmediavault/workbench/src/assets/images/login.jpg",
+      "https://raw.githubusercontent.com/openmediavault/openmediavault/master/deb/openmediavault/workbench/src/assets/images/standby.jpg",
+      "https://raw.githubusercontent.com/openmediavault/openmediavault/master/deb/openmediavault/workbench/src/assets/images/authentication.jpg",
+      "https://raw.githubusercontent.com/openmediavault/openmediavault/master/deb/openmediavault/workbench/src/assets/images/shutdown.jpg",
+      "https://raw.githubusercontent.com/openmediavault/openmediavault/master/deb/openmediavault/workbench/src/assets/images/wb-tb-position.png",
+      "https://raw.githubusercontent.com/openmediavault/openmediavault/master/deb/openmediavault/workbench/src/assets/images/wb-tb-close.png"
+    ]
+  },
+  {
+    "id": "dietpi",
+    "repository": "MichaIng/DietPi",
+    "default_branch": "dev",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/MichaIng/DietPi/blob/dev/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/MichaIng/DietPi-Website/master/images/dietpi-logo_180x180.png",
+      "https://raw.githubusercontent.com/MichaIng/DietPi-Website/master/images/login-systemhaus-logo.jpg"
+    ]
+  },
+  {
+    "id": "openwrt",
+    "repository": "openwrt/openwrt",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/openwrt/openwrt/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/openwrt/openwrt/main/include/logo.png"
+    ]
+  },
+  {
+    "id": "freshTomato",
+    "repository": "FreshTomato-Project/freshtomato-arm",
+    "default_branch": "arm-master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/FreshTomato-Project/freshtomato-arm/blob/arm-master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/router/dnscrypt/dnscrypt.png",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/router/dnscrypt/dnscrypt-small.png",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/router/glib2/docs/reference/gio/gvfs-overview.png",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/router/glib2/docs/reference/glib/file-name-encodings.png",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/router/glib2/docs/reference/gio/menu-example.png",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/linux/linux-2.6.36/Documentation/DocBook/v4l/fieldseq_bt.gif",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/linux/linux-2.6.36/Documentation/DocBook/v4l/fieldseq_tb.gif",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/linux/linux-2.6.36/Documentation/DocBook/dvb/dvbstb.png",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/router/glib2/docs/reference/gio/menu-model.png",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/router/dropbear/libtomcrypt/doc/libtomsm.png",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/router/apcupsd/doc/manual/thanks.png",
+      "https://raw.githubusercontent.com/FreshTomato-Project/freshtomato-arm/arm-master/release/src-rt-6.x.4708/router/apcupsd/doc/images/thanks.png"
+    ]
+  },
+  {
+    "id": "libreelec",
+    "repository": "LibreELEC/LibreELEC.tv",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/LibreELEC/LibreELEC.tv/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/hyperhdr/source/resources/screenshot-01.png",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/filebrowser/source/resources/screenshot-02.png",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/hyperion/source/resources/screenshot-03.jpg",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/tvheadend43/source/resources/screenshot-03.png",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/hyperion/source/resources/screenshot-01.jpg",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/tvheadend43/source/resources/screenshot-02.png",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/tvheadend43/source/resources/screenshot-01.png",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/hyperion/source/resources/screenshot-02.jpg",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/filebrowser/source/resources/screenshot-04.png",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/filebrowser/source/resources/screenshot-01.png",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/tvheadend43/source/resources/screenshot-04.png",
+      "https://raw.githubusercontent.com/LibreELEC/LibreELEC.tv/master/packages/addons/service/filebrowser/source/resources/screenshot-03.png"
+    ]
+  },
+  {
+    "id": "coreelec",
+    "repository": "CoreELEC/CoreELEC",
+    "default_branch": "coreelec-22",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/CoreELEC/CoreELEC/blob/coreelec-22/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/packages/addons/service/hyperhdr/source/resources/screenshot-01.png",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/projects/Amlogic-ce/packages/addons/service/hyperion.ng/source/resources/screenshot-03.jpg",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/projects/Amlogic-ce/packages/addons/service/hyperion.ng/source/resources/screenshot-04.jpg",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/projects/Amlogic-ce/packages/addons/service/hyperion.ng/source/resources/screenshot-05.jpg",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/packages/addons/service/filebrowser/source/resources/screenshot-02.png",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/packages/addons/service/tvheadend43/source/resources/screenshot-03.png",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/packages/addons/service/tvheadend43/source/resources/screenshot-02.png",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/packages/addons/service/tvheadend43/source/resources/screenshot-01.png",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/projects/Amlogic-ce/packages/addons/service/hyperion.ng/source/resources/screenshot-02.jpg",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/packages/addons/service/filebrowser/source/resources/screenshot-04.png",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/packages/addons/service/filebrowser/source/resources/screenshot-01.png",
+      "https://raw.githubusercontent.com/CoreELEC/CoreELEC/coreelec-22/packages/addons/service/tvheadend43/source/resources/screenshot-04.png"
+    ]
+  },
+  {
+    "id": "armbian-tv",
+    "repository": "ophub/amlogic-s9xxx-armbian",
+    "default_branch": "main",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/README.md",
+    "candidates": [
+      "https://github.com/user-attachments/assets/74e55052-031b-48f8-9aca-e5f1dd9e256a"
+    ]
+  },
+  {
+    "id": "webos-homebrew",
+    "repository": "webosbrew/webos-homebrew-channel",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/webosbrew/webos-homebrew-channel/blob/main/README.md",
+    "candidates": [
+      "https://user-images.githubusercontent.com/13520633/149569503-c9e13f40-ec44-43f0-b330-94a8a26081e5.png",
+      "https://raw.githubusercontent.com/webosbrew/webos-homebrew-channel/main/assets/splash.png",
+      "https://raw.githubusercontent.com/webosbrew/webos-homebrew-channel/main/assets/icon160.png",
+      "https://raw.githubusercontent.com/webosbrew/webos-homebrew-channel/main/assets/icon130.png"
+    ]
+  },
+  {
+    "id": "rootmytv",
+    "repository": "RootMyTV/RootMyTV.github.io",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/RootMyTV/RootMyTV.github.io/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/RootMyTV/RootMyTV.github.io/main/img/header_logo.png",
+      "https://raw.githubusercontent.com/RootMyTV/RootMyTV.github.io/main/img/thumb.jpg"
+    ]
+  },
+  {
+    "id": "koreader",
+    "repository": "koreader/koreader",
+    "default_branch": "master",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/koreader/koreader/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/koreader/koreader.github.io/master/koreader-logo.png",
+      "https://github.com/koreader/koreader-artwork/raw/master/koreader-menu-thumbnail.png",
+      "https://github.com/koreader/koreader-artwork/raw/master/koreader-footnotes-thumbnail.png",
+      "https://github.com/koreader/koreader-artwork/raw/master/koreader-dictionary-thumbnail.png"
+    ]
+  },
+  {
+    "id": "kindle-carousel",
+    "repository": "qadzek/kindle-carousel",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/qadzek/kindle-carousel/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "kindle-ha",
+    "repository": "sibbl/hass-lovelace-kindle-screensaver",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/sibbl/hass-lovelace-kindle-screensaver/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/sibbl/hass-lovelace-kindle-screensaver/main/assets/sample.png"
+    ]
+  },
+  {
+    "id": "kindle-dashboard",
+    "repository": "alexishida/kindle-dashboard",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/alexishida/kindle-dashboard/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/painel.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/kindle-config.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/kindle-install.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/logins.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/pip.jpg",
+      "https://raw.githubusercontent.com/alexishida/kindle-dashboard/main/screenshot/exemplo.jpg"
+    ]
+  },
+  {
+    "id": "kindle-phonekit",
+    "repository": "Keylessboi/kindle-phonekit",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/Keylessboi/kindle-phonekit/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Keylessboi/kindle-phonekit/master/marketing/pocket-assistant/assets/readme-banner.png",
+      "https://raw.githubusercontent.com/Keylessboi/kindle-phonekit/master/pages/assets/hero-landscape.png",
+      "https://raw.githubusercontent.com/Keylessboi/kindle-phonekit/master/marketing/pocket-assistant/assets/hero-landscape.png",
+      "https://raw.githubusercontent.com/Keylessboi/kindle-phonekit/master/pages/assets/feed-portrait.png",
+      "https://raw.githubusercontent.com/Keylessboi/kindle-phonekit/master/marketing/pocket-assistant/assets/feed-portrait.png",
+      "https://raw.githubusercontent.com/Keylessboi/kindle-phonekit/master/marketing/pocket-assistant/assets/story-cover.png",
+      "https://raw.githubusercontent.com/Keylessboi/kindle-phonekit/master/pages/assets/readme-banner.png"
+    ]
+  },
+  {
+    "id": "kindle-whoop",
+    "repository": "kaibuildsai/kindle-for-whoop",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/kaibuildsai/kindle-for-whoop/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/kaibuildsai/kindle-for-whoop/main/docs/assets/real-device-next-day.jpg",
+      "https://raw.githubusercontent.com/kaibuildsai/kindle-for-whoop/main/docs/assets/real-device-morning.jpg",
+      "https://raw.githubusercontent.com/kaibuildsai/kindle-for-whoop/main/docs/assets/browser-kindle-parity.jpg"
+    ]
+  },
+  {
+    "id": "winterbreak",
+    "repository": "KindleModding/WinterBreak",
+    "default_branch": "winterbreak",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/KindleModding/WinterBreak/blob/winterbreak/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/KindleModding/WinterBreak/winterbreak/winterbreak/apps/tech.hackerdude.winterbreak/icon.png"
+    ]
+  },
+  {
+    "id": "fbink",
+    "repository": "NiLuJe/FBInk",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/NiLuJe/FBInk/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_readme.png",
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_image.png",
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_alpha.png",
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_bars.png",
+      "https://raw.githubusercontent.com/NiLuJe/FBInk/master/resources/fbink_ot.png"
+    ]
+  },
+  {
+    "id": "valetudo",
+    "repository": "Hypfer/Valetudo",
+    "default_branch": "master",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/Hypfer/Valetudo/blob/master/README.md",
+    "candidates": [
+      "https://github.com/Hypfer/Valetudo/blob/master/assets/logo/valetudo_logo_with_name.svg",
+      "https://github.com/Hypfer/valetudo/raw/master/docs/pages/general/img/operation_principle.png",
+      "https://github.com/user-attachments/assets/21b6cb92-43e8-4c49-b7f4-e15bedaab094",
+      "https://github.com/user-attachments/assets/e4b32931-1116-4d19-bece-e48746a89664",
+      "https://github.com/user-attachments/assets/4fdad83d-3df1-4d24-929b-004ce6b3bff0",
+      "https://github.com/user-attachments/assets/422d54c8-6546-4616-9cd6-c1239be78c32",
+      "https://github.com/user-attachments/assets/28e7dea0-db0a-482b-92ba-8e9774b2416f",
+      "https://github.com/user-attachments/assets/f9217069-ee10-42f4-8897-0c90703201b7",
+      "https://github.com/user-attachments/assets/d7281e75-32c7-4a1e-a10b-95aef3b06a78",
+      "https://raw.githubusercontent.com/Hypfer/Valetudo/master/assets/misc/star-history.svg"
+    ]
+  },
+  {
+    "id": "wirepod",
+    "repository": "kercre123/wire-pod",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/kercre123/wire-pod/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/facesnowglobe.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/faceholidaylights3.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/faceholidaylights2.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/faceholidaylights1.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/faceholidaylights.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/facehnyfirework.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/face.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/facegaze.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/homeface.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/wififace.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/expandface.gif",
+      "https://raw.githubusercontent.com/kercre123/wire-pod/main/chipper/webroot/assets/webface.gif"
+    ]
+  },
+  {
+    "id": "openlumi",
+    "repository": "openlumi/openlumi.github.io",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/openlumi/openlumi.github.io/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_menu.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_scan.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_connect1.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_connect2.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/owrt_disable_ap.png",
+      "https://raw.githubusercontent.com/openlumi/openlumi.github.io/master/images/gateway_pinout_gpio.png"
+    ]
+  },
+  {
+    "id": "tasmota",
+    "repository": "arendst/Tasmota",
+    "default_branch": "development",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/arendst/Tasmota/blob/development/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/arendst/Tasmota/development/tools/logo/TASMOTA_FullLogo_Vector.svg#gh-light-mode-only",
+      "https://raw.githubusercontent.com/arendst/Tasmota/development/tools/logo/TASMOTA_FullLogo_Vector_White.svg#gh-dark-mode-only",
+      "https://user-images.githubusercontent.com/5904370/68332933-e6e5a600-00d7-11ea-885d-50395f7239a1.png"
+    ]
+  },
+  {
+    "id": "openbeken",
+    "repository": "openshwprojects/OpenBK7231T_App",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/openshwprojects/OpenBK7231T_App/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "esphome",
+    "repository": "esphome/esphome",
+    "default_branch": "dev",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/esphome/esphome/blob/dev/README.md",
+    "candidates": [
+      "https://media.esphome.io/logo/logo-text-on-light.svg",
+      "https://media.esphome.io/logo/logo-text-on-dark.svg"
+    ]
+  },
+  {
+    "id": "openipc",
+    "repository": "OpenIPC/firmware",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/OpenIPC/firmware/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/OpenIPC/.github/refs/heads/main/assets/telegram-button.svg"
+    ]
+  },
+  {
+    "id": "dafang",
+    "repository": "EliasKotlyar/Xiaomi-Dafang-Hacks",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/EliasKotlyar/Xiaomi-Dafang-Hacks/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/dafang.png",
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/xiaofang.png",
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/sannce.jpg",
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/t20.png",
+      "https://raw.githubusercontent.com/EliasKotlyar/Xiaomi-Dafang-Hacks/master/ebaina.png"
+    ]
+  },
+  {
+    "id": "thingino",
+    "repository": "themactep/thingino-firmware",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/themactep/thingino-firmware/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "frigate",
+    "repository": "blakeblackshear/frigate",
+    "default_branch": "dev",
+    "license": "MIT",
+    "readme_url": "https://github.com/blakeblackshear/frigate/blob/dev/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/blakeblackshear/frigate/dev/docs/static/img/branding/frigate.png",
+      "https://github.com/blakeblackshear/frigate/assets/569905/5e713cb9-9db5-41dc-947a-6937c3bc376e",
+      "https://github.com/blakeblackshear/frigate/assets/569905/6fed96e8-3b18-40e5-9ddc-31e6f3c9f2ff",
+      "https://github.com/blakeblackshear/frigate/assets/569905/d6788a15-0eeb-4427-a8d4-80b93cae3d74",
+      "https://github.com/blakeblackshear/frigate/assets/569905/d7885fc3-bfe6-452f-b7d0-d957cb3e31f5",
+      "https://hosted.weblate.org/widget/frigate-nvr/multi-auto.svg"
+    ]
+  },
+  {
+    "id": "squeezelite",
+    "repository": "ralph-irving/squeezelite",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/ralph-irving/squeezelite/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "lyrion",
+    "repository": "LMS-Community/slimserver",
+    "default_branch": "public/9.2",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/LMS-Community/slimserver/blob/public/9.2/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/LMS-Community/slimserver-platforms/public/9.0/win32/res/SqueezeCenter.ico",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/HTML/EN/html/images/Players/boom.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/Slim/Plugin/RockRadio/HTML/EN/plugins/RockRadio/html/icon.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/Slim/Plugin/JazzRadio/HTML/EN/plugins/JazzRadio/html/icon.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/HTML/EN/html/images/Players/openframe2.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/HTML/EN/html/images/Players/controller.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/HTML/EN/html/images/Players/baby.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/HTML/EN/html/images/Players/openframe1.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/HTML/EN/html/images/Players/squeezebox.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/HTML/EN/html/images/remote.gif",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/HTML/EN/html/images/Players/fab4.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/Slim/Plugin/ZenRadio/HTML/EN/plugins/ZenRadio/html/icon.png",
+      "https://raw.githubusercontent.com/LMS-Community/slimserver/public/9.2/HTML/EN/html/images/Players/squeezeesp32.png"
+    ]
+  },
+  {
+    "id": "rockbox",
+    "repository": "Rockbox/rockbox",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/Rockbox/rockbox/blob/master/docs/README",
+    "candidates": [
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-fm-radio-screen-240x400x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-while-recording-screen-240x320x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-fm-radio-screen-240x320x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-while-recording-screen-320x240x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-while-recording-screen-220x176x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-fm-radio-screen-220x176x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-while-recording-screen-176x220x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/rockbox_interface/images/ss-quick-screen2-240x240x1.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-fm-radio-screen-176x220x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-fm-radio-screen-320x240x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-while-recording-screen-176x132x16.png",
+      "https://raw.githubusercontent.com/Rockbox/rockbox/master/manual/main_menu/images/ss-while-recording-screen-160x128x16.png"
+    ]
+  },
+  {
+    "id": "spotify-ipod",
+    "repository": "dupontgu/retro-ipod-spotify-client",
+    "default_branch": "master",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/dupontgu/retro-ipod-spotify-client/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/dupontgu/retro-ipod-spotify-client/master/docs/sPot_schematic.png",
+      "https://raw.githubusercontent.com/dupontgu/retro-ipod-spotify-client/master/frontend/rand_circle.png",
+      "https://raw.githubusercontent.com/dupontgu/retro-ipod-spotify-client/master/frontend/prog_frame.png",
+      "https://raw.githubusercontent.com/dupontgu/retro-ipod-spotify-client/master/.docs/sPot_schematic.png",
+      "https://raw.githubusercontent.com/dupontgu/retro-ipod-spotify-client/master/frontend/pod_arrow_grn_2.png",
+      "https://raw.githubusercontent.com/dupontgu/retro-ipod-spotify-client/master/frontend/pod_arrow_grn.png",
+      "https://raw.githubusercontent.com/dupontgu/retro-ipod-spotify-client/master/frontend/pod_arrow_empty.png",
+      "https://raw.githubusercontent.com/dupontgu/retro-ipod-spotify-client/master/frontend/pod_arrow_blk.png"
+    ]
+  },
+  {
+    "id": "infinitime",
+    "repository": "InfiniTimeOrg/InfiniTime",
+    "default_branch": "main",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/InfiniTimeOrg/InfiniTime/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/logo/watchface_collage.png",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/gettingStarted/AppsScreenshots/Metronome.png",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/gettingStarted/AppsScreenshots/steps.png",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/gettingStarted/AppsScreenshots/Music.png",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/gettingStarted/AppsScreenshots/alarm.png",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/openOCD/pogopins.jpg",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/openOCD/swd_pinout.jpg",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/gettingStarted/gadgetbridge5.jpg",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/memoryAnalysis/puncover.png",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/bootloader/firmwareValidated.jpg",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/bootloader/firmwareNoValidated.jpg",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/gettingStarted/ui/notifications.jpg",
+      "https://raw.githubusercontent.com/InfiniTimeOrg/InfiniTime/main/doc/bootloader/firmwareValidationApp.jpg"
+    ]
+  },
+  {
+    "id": "asteroidos",
+    "repository": "AsteroidOS/asteroid",
+    "default_branch": "2.0",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/AsteroidOS/asteroid/blob/2.0/README.md",
+    "candidates": []
+  },
+  {
+    "id": "batocera",
+    "repository": "batocera-linux/batocera.linux",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/batocera-linux/batocera.linux/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulationstation/batocera-es-system/roms/prboom/images/doom1_shareware-thumb.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulationstation/batocera-es-system/roms/pcengine/images/Reflectron%20%28aetherbyte%29-thumb.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulationstation/batocera-es-system/roms/megadrive/images/Old-Towers-thumb.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulationstation/batocera-es-system/roms/prboom/images/doom1_shareware-marquee.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulationstation/batocera-es-system/roms/pcengine/images/Santatlantean%20%28aetherbyte%29-thumb.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulationstation/batocera-es-system/roms/prboom/images/prboom-image.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulationstation/batocera-es-system/roms/snes/images/DonkeyKongClassic%20%28Shiru%29-thumb.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulationstation/batocera-es-system/roms/snes/images/DonkeyKongClassic%20%28Shiru%29-image.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulationstation/batocera-es-system/roms/megadrive/images/Old-Towers-image.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulators/fsuae/fsemu-classic/top_right_overlay.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/emulators/fsuae/fsemu-classic/top_left_overlay.png",
+      "https://raw.githubusercontent.com/batocera-linux/batocera.linux/master/package/batocera/core/batocera-controlcenter/images/bato-record.gif"
+    ]
+  },
+  {
+    "id": "lakka",
+    "repository": "libretro/Lakka-LibreELEC",
+    "default_branch": "Lakka-v6.1",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/libretro/Lakka-LibreELEC/blob/Lakka-v6.1/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/hyperhdr/source/resources/screenshot-01.png",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/filebrowser/source/resources/screenshot-02.png",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/hyperion/source/resources/screenshot-03.jpg",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/tvheadend43/source/resources/screenshot-03.png",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/hyperion/source/resources/screenshot-01.jpg",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/tvheadend43/source/resources/screenshot-02.png",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/tvheadend43/source/resources/screenshot-01.png",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/hyperion/source/resources/screenshot-02.jpg",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/filebrowser/source/resources/screenshot-04.png",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/filebrowser/source/resources/screenshot-01.png",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/tvheadend43/source/resources/screenshot-04.png",
+      "https://raw.githubusercontent.com/libretro/Lakka-LibreELEC/Lakka-v6.1/packages/addons/service/filebrowser/source/resources/screenshot-03.png"
+    ]
+  },
+  {
+    "id": "bazzite",
+    "repository": "ublue-os/bazzite",
+    "default_branch": "main",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/ublue-os/bazzite/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/desktop1.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/desktop2.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/gamemode.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/waydroid.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/distrobox.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/gnome1.png?raw=true",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/gnome2.png?raw=true",
+      "https://repobeats.axiom.co/api/embed/86b500d79c613015ad16f56df76c8e13f3fd98ae.svg",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/Bazzite.svg",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/download.png?raw=true",
+      "https://api.star-history.com/svg?repos=ublue-os/bazzite&type=Date",
+      "https://raw.githubusercontent.com/ublue-os/bazzite/main/repo_content/Bazzite_Light.svg",
+      "https://api.star-history.com/svg?repos=ublue-os/bazzite&type=Date&theme=dark"
+    ]
+  },
+  {
+    "id": "printer-spl3",
+    "repository": "Kuberwastaken/hp-laser-1008a-macos",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/Kuberwastaken/hp-laser-1008a-macos/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Kuberwastaken/hp-laser-1008a-macos/main/docs/prints/success-native-600dpi.jpg",
+      "https://raw.githubusercontent.com/Kuberwastaken/hp-laser-1008a-macos/main/docs/prints/failed-prefix-garbled.jpg"
+    ]
+  },
+  {
+    "id": "airconnect",
+    "entry_kind": "project-source-lead",
+    "repository": "philippe44/AirConnect",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/philippe44/AirConnect/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "iotsound",
+    "entry_kind": "project-source-lead",
+    "repository": "iotsound/iotsound",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/iotsound/iotsound/blob/master/README.md",
+    "candidates": [
+      "https://balena.io/deploy.svg",
+      "https://raw.githubusercontent.com/iotsound/iotsound/master/docs/images/sound.png"
+    ]
+  },
+  {
+    "id": "librespot",
+    "entry_kind": "project-source-lead",
+    "repository": "librespot-org/librespot",
+    "default_branch": "dev",
+    "license": "MIT",
+    "readme_url": "https://github.com/librespot-org/librespot/blob/dev/README.md",
+    "candidates": []
+  },
+  {
+    "id": "moode",
+    "entry_kind": "project-source-lead",
+    "repository": "moode-player/moode",
+    "default_branch": "develop",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/moode-player/moode/blob/develop/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/images/default-rx-cover.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/images/default-radio-cover.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/images/default-notfound-cover.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/images/default-album-cover.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/images/gpio-pinout.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/v5-android-chrome-512x512.png",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/images/Selective%20resampling%20chart%201.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/images/Selective%20resampling%20chart%202.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/var/local/www/imagesw/playlist-covers/Default%20Playlist.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/var/local/www/imagesw/playlist-covers/Favorites.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/images/default-playlist-cover.jpg",
+      "https://raw.githubusercontent.com/moode-player/moode/develop/www/v5-android-chrome-192x192.png"
+    ]
+  },
+  {
+    "id": "mopidy",
+    "entry_kind": "project-source-lead",
+    "repository": "mopidy/mopidy",
+    "default_branch": "main",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/mopidy/mopidy/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "music-player-daemon",
+    "entry_kind": "project-source-lead",
+    "repository": "MusicPlayerDaemon/MPD",
+    "default_branch": "master",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/MusicPlayerDaemon/MPD/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/MusicPlayerDaemon/MPD/master/android/app/src/main/ic_launcher-playstore.png",
+      "https://raw.githubusercontent.com/MusicPlayerDaemon/MPD/master/android/app/src/main/res/mipmap-xxxhdpi/ic_banner.png",
+      "https://raw.githubusercontent.com/MusicPlayerDaemon/MPD/master/android/app/src/main/res/mipmap-xxhdpi/ic_banner.png",
+      "https://raw.githubusercontent.com/MusicPlayerDaemon/MPD/master/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp",
+      "https://raw.githubusercontent.com/MusicPlayerDaemon/MPD/master/android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp",
+      "https://raw.githubusercontent.com/MusicPlayerDaemon/MPD/master/android/app/src/main/res/mipmap-xhdpi/ic_banner.png",
+      "https://raw.githubusercontent.com/MusicPlayerDaemon/MPD/master/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp"
+    ]
+  },
+  {
+    "id": "owntone-server",
+    "entry_kind": "project-source-lead",
+    "repository": "owntone/owntone-server",
+    "default_branch": "master",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/owntone/owntone-server/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-now-playing.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-music-artist.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-music-albums.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-music-album.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-audiobooks-books.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-music-spotify.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-music-browse.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-podcast.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-files.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-podcasts.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-music-albums-options.png",
+      "https://raw.githubusercontent.com/owntone/owntone-server/master/docs/assets/images/screenshot-search.png"
+    ]
+  },
+  {
+    "id": "rpi-audio-receiver",
+    "entry_kind": "project-source-lead",
+    "repository": "nicokaiser/rpi-audio-receiver",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/nicokaiser/rpi-audio-receiver/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "raspotify",
+    "entry_kind": "project-source-lead",
+    "repository": "dtcooper/raspotify",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/dtcooper/raspotify/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/dtcooper/raspotify/master/raspotify.svg?sanitize=true"
+    ]
+  },
+  {
+    "id": "raudio",
+    "entry_kind": "project-source-lead",
+    "repository": "rern/rAudio",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/rern/rAudio/blob/main/README.md",
+    "candidates": [
+      "https://github.com/rern/_assets/raw/master/guide/guide.gif",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/addons/thumbfran.gif",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/vuled.jpg",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/powerbutton.jpg",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/relays.jpg",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/i2cbackpack.jpg",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/lcd.jpg",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/addons/thumbrank.png",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/lcdchar.jpg",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/addons/thumbgpio.gif",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/addons/thumbwebr.png",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/rotaryencoder.jpg",
+      "https://raw.githubusercontent.com/rern/rAudio/main/srv/http/assets/img/mpdoled.jpg"
+    ]
+  },
+  {
+    "id": "snapcast",
+    "entry_kind": "project-source-lead",
+    "repository": "snapcast/snapcast",
+    "default_branch": "develop",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/snapcast/snapcast/blob/develop/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/snapcast/snapcast/develop/doc/Overview.png",
+      "https://raw.githubusercontent.com/snapcast/snapcast/develop/doc/snapcast_android_scaled.png",
+      "https://raw.githubusercontent.com/snapcast/snapcast/develop/doc/Snapcast_800.png",
+      "https://raw.githubusercontent.com/snapcast/snapweb/master/snapweb_light.png",
+      "https://raw.githubusercontent.com/snapcast/snapcast/develop/doc/Snapcast_800_dark.png",
+      "https://raw.githubusercontent.com/snapcast/snapweb/master/snapweb_dark.png"
+    ]
+  },
+  {
+    "id": "spotifyd",
+    "entry_kind": "project-source-lead",
+    "repository": "Spotifyd/spotifyd",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/Spotifyd/spotifyd/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "squeezelite-esp32-upstream",
+    "entry_kind": "project-source-lead",
+    "repository": "philippe44/squeezelite-esp32",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/philippe44/squeezelite-esp32/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "volumio2",
+    "entry_kind": "project-source-lead",
+    "repository": "volumio/Volumio2",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/volumio/Volumio2/blob/master/README.md",
+    "candidates": [
+      "https://david-dm.org/volumio/Volumio2.svg",
+      "https://volumio.org/wp-content/uploads/2016/02/Volumio_logo_HD2000.jpg"
+    ]
+  },
+  {
+    "id": "camera-link",
+    "entry_kind": "project-source-lead",
+    "repository": "onepersonhere/camera-link",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/onepersonhere/camera-link/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "go2rtc",
+    "entry_kind": "project-source-lead",
+    "repository": "AlexxIT/go2rtc",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/AlexxIT/go2rtc/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/AlexxIT/go2rtc/master/website/images/webui-config.png",
+      "https://raw.githubusercontent.com/AlexxIT/go2rtc/master/website/images/webui-net.png",
+      "https://raw.githubusercontent.com/AlexxIT/go2rtc/master/website/images/logo.gif"
+    ]
+  },
+  {
+    "id": "kerberos-agent",
+    "entry_kind": "project-source-lead",
+    "repository": "kerberos-io/agent",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/kerberos-io/agent/blob/master/README.md",
+    "candidates": [
+      "https://brianmacdonald.github.io/Ethonate/svg/eth-donate-blue.svg",
+      "https://raw.githubusercontent.com/kerberos-io/agent/master/assets/img/kerberos-agent-overview.gif",
+      "https://balena.io/deploy.svg",
+      "https://raw.githubusercontent.com/kerberos-io/agent/master/assets/img/edge-deployment-agent.svg",
+      "https://raw.githubusercontent.com/kerberos-io/agent/master/assets/img/codespace.png",
+      "https://raw.githubusercontent.com/kerberos-io/agent/master/assets/img/codespace-vscode.png",
+      "https://raw.githubusercontent.com/kerberos-io/agent/master/assets/img/codespace-make-public.png",
+      "https://raw.githubusercontent.com/kerberos-io/agent/master/assets/img/agent-login.gif",
+      "https://raw.githubusercontent.com/kerberos-io/agent/master/assets/img/agent-dashboard.png",
+      "https://raw.githubusercontent.com/kerberos-io/agent/master/assets/img/vscode-desktop.png",
+      "https://user-images.githubusercontent.com/1546779/172066873-7752c979-de63-4417-8d26-34192fdbd1e6.svg",
+      "https://contrib.rocks/image?repo=kerberos-io/agent"
+    ]
+  },
+  {
+    "id": "libgphoto2",
+    "entry_kind": "project-source-lead",
+    "repository": "gphoto/libgphoto2",
+    "default_branch": "master",
+    "license": "LGPL-2.1",
+    "readme_url": "https://github.com/gphoto/libgphoto2/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "mediamtx",
+    "entry_kind": "project-source-lead",
+    "repository": "bluenviron/mediamtx",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/bluenviron/mediamtx/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/bluenviron/mediamtx/main/logo.png"
+    ]
+  },
+  {
+    "id": "motion-daemon",
+    "entry_kind": "project-source-lead",
+    "repository": "Motion-Project/motion",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/Motion-Project/motion/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "motioneye",
+    "entry_kind": "project-source-lead",
+    "repository": "motioneye-project/motioneye",
+    "default_branch": "dev",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/motioneye-project/motioneye/blob/dev/README.md",
+    "candidates": [
+      "https://hosted.weblate.org/widgets/motioneye-project/-/287x66-black.png",
+      "https://hosted.weblate.org/widgets/motioneye-project/-/multi-auto.svg"
+    ]
+  },
+  {
+    "id": "motioneyeos",
+    "entry_kind": "project-source-lead",
+    "repository": "motioneye-project/motioneyeos",
+    "default_branch": "dev",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/motioneye-project/motioneyeos/blob/dev/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/xconfig.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/menuconfig.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/nconfig.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/buildroot-slides.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/resources/cover.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/tux-flat.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/github_hash_mongrel2.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/hammer.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/browser.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/gift.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/resources/motioneye-256x256.png",
+      "https://raw.githubusercontent.com/motioneye-project/motioneyeos/dev/docs/website/images/pdf-icon.png"
+    ]
+  },
+  {
+    "id": "neolink",
+    "entry_kind": "project-source-lead",
+    "repository": "thirtythreeforty/neolink",
+    "default_branch": "master",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/thirtythreeforty/neolink/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/thirtythreeforty/neolink/master/docs/screenshots/new_camera_config.JPG",
+      "https://raw.githubusercontent.com/thirtythreeforty/neolink/master/docs/screenshots/tasksettingstab.JPG",
+      "https://raw.githubusercontent.com/thirtythreeforty/neolink/master/docs/screenshots/new_camera.JPG",
+      "https://raw.githubusercontent.com/thirtythreeforty/neolink/master/docs/screenshots/login_messages.JPG",
+      "https://raw.githubusercontent.com/thirtythreeforty/neolink/master/docs/screenshots/taskfinishwindow.JPG"
+    ]
+  },
+  {
+    "id": "openmiko",
+    "entry_kind": "project-source-lead",
+    "repository": "openmiko/openmiko",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/openmiko/openmiko/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/openmiko/openmiko/master/doc/wyzecam_v2/img/wyzecam_v2.jpg",
+      "https://raw.githubusercontent.com/openmiko/openmiko/master/doc/xiaomi_dafang/img/xiaomi_dafang.jpg",
+      "https://raw.githubusercontent.com/openmiko/openmiko/master/doc/WYZECP1/img/wyzecam_pan.jpg",
+      "https://raw.githubusercontent.com/openmiko/openmiko/master/doc/img/releases.png",
+      "https://raw.githubusercontent.com/openmiko/openmiko/master/doc/img/assets.png",
+      "https://raw.githubusercontent.com/openmiko/openmiko/master/doc/img/overlay_filesystem.png"
+    ]
+  },
+  {
+    "id": "remote-cam-android",
+    "entry_kind": "project-source-lead",
+    "repository": "Ruddle/RemoteCam",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/Ruddle/RemoteCam/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Ruddle/RemoteCam/main/assets/screen.jpg",
+      "https://raw.githubusercontent.com/Ruddle/RemoteCam/main/assets/obs_mediasource.png"
+    ]
+  },
+  {
+    "id": "scrypted",
+    "entry_kind": "project-source-lead",
+    "repository": "koush/scrypted",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/koush/scrypted/blob/main/README.md",
+    "candidates": [
+      "https://github.com/koush/scrypted/assets/73924/57e1d556-cd3d-4448-81f9-a6c51b6513de",
+      "https://raw.githubusercontent.com/koush/scrypted/main/plugins/prebuffer-mixin/camera-slash.jpg",
+      "https://raw.githubusercontent.com/koush/scrypted/main/install/icon.png",
+      "https://raw.githubusercontent.com/koush/scrypted/main/install/proxmox/lxc.png"
+    ]
+  },
+  {
+    "id": "shinobi",
+    "entry_kind": "project-source-lead",
+    "repository": "ShinobiCCTV/Shinobi",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/ShinobiCCTV/Shinobi/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/ShinobiCCTV/Shinobi/master/web/libs/img/demo.jpg",
+      "https://raw.githubusercontent.com/ShinobiCCTV/Shinobi/master/web/libs/img/icon/mstile-310x310.png",
+      "https://raw.githubusercontent.com/ShinobiCCTV/Shinobi/master/web/libs/img/icon/circle-text.png",
+      "https://raw.githubusercontent.com/ShinobiCCTV/Shinobi/master/web/libs/img/icon/mstile-310x310-circle.png",
+      "https://raw.githubusercontent.com/ShinobiCCTV/Shinobi/master/web/libs/img/icon/mstile-310x150.png",
+      "https://raw.githubusercontent.com/ShinobiCCTV/Shinobi/master/web/libs/img/icon/mstile-150x150.png",
+      "https://raw.githubusercontent.com/ShinobiCCTV/Shinobi/master/web/libs/img/icon/mstile-144x144.png",
+      "https://raw.githubusercontent.com/ShinobiCCTV/Shinobi/master/web/libs/img/icon/mstile-70x70.png"
+    ]
+  },
+  {
+    "id": "vcamdroid",
+    "entry_kind": "project-source-lead",
+    "repository": "darusc/VCamdroid",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/darusc/VCamdroid/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/darusc/VCamdroid/main/imgs/icon2.png",
+      "https://raw.githubusercontent.com/darusc/VCamdroid/main/imgs/demo.gif",
+      "https://raw.githubusercontent.com/darusc/VCamdroid/main/imgs/network.png",
+      "https://raw.githubusercontent.com/darusc/VCamdroid/main/imgs/pipeline.png"
+    ]
+  },
+  {
+    "id": "wyze-hacks",
+    "entry_kind": "project-source-lead",
+    "repository": "HclX/WyzeHacks",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/HclX/WyzeHacks/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "yi-hack-allwinner-v2",
+    "entry_kind": "project-source-lead",
+    "repository": "roleoroleo/yi-hack-Allwinner-v2",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/roleoroleo/yi-hack-Allwinner-v2/blob/master/README.md",
+    "candidates": [
+      "https://user-images.githubusercontent.com/39277388/96489837-43d26180-1240-11eb-9d0e-5cfa84040fe1.png",
+      "https://github.com/roleoroleo/yi-hack-Allwinner-v2/assets/39277388/37ff6496-0903-4633-b203-9569b28e0f1c"
+    ]
+  },
+  {
+    "id": "yi-hack-mstar",
+    "entry_kind": "project-source-lead",
+    "repository": "roleoroleo/yi-hack-MStar",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/roleoroleo/yi-hack-MStar/blob/master/README.md",
+    "candidates": [
+      "https://user-images.githubusercontent.com/39277388/85948999-59034780-b954-11ea-8fb3-c4c88727cf5b.png",
+      "https://github.com/roleoroleo/yi-hack-MStar/assets/39277388/35b9db58-4013-4bf9-845c-2028a769662d"
+    ]
+  },
+  {
+    "id": "armbian-build",
+    "entry_kind": "project-source-lead",
+    "repository": "armbian/build",
+    "default_branch": "main",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/armbian/build/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/armbian/.github/master/profile/logosmall.png",
+      "https://raw.githubusercontent.com/armbian/build/main/github/README.gif",
+      "https://contrib.rocks/image?repo=armbian/build"
+    ]
+  },
+  {
+    "id": "brunch",
+    "entry_kind": "project-source-lead",
+    "repository": "sebanc/brunch",
+    "default_branch": "main",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/sebanc/brunch/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/decon_icon-512.png",
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/brunch-config-menu/framework-options-2.png",
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/brunch-config-menu/framework-options-1.png",
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/brunch-config-menu/select-bootsplash.png",
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/brunch-config-menu/edit-brunch-config.png",
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/brunch-config-menu/summary.png",
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/brunch-config-menu/cmd-line-params.png",
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/brunch-config-menu/select-kernel.png",
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/brunch-config-menu/verbose-mode.png",
+      "https://raw.githubusercontent.com/sebanc/brunch/main/Images/brunch-config-menu/custom-params.png"
+    ]
+  },
+  {
+    "id": "chromebrew",
+    "entry_kind": "project-source-lead",
+    "repository": "chromebrew/chromebrew",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/chromebrew/chromebrew/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/chromebrew/chromebrew/master/images/brew.png",
+      "https://raw.githubusercontent.com/chromebrew/chromebrew/master/images/slack.svg",
+      "https://raw.githubusercontent.com/chromebrew/chromebrew/master/images/discord.svg",
+      "https://www.gnu.org/graphics/gplv3-127x51.png",
+      "about:blank",
+      "https://upload.wikimedia.org/wikipedia/commons/0/0c/MIT_logo.svg"
+    ]
+  },
+  {
+    "id": "pikvm",
+    "entry_kind": "project-source-lead",
+    "repository": "pikvm/pikvm",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/pikvm/pikvm/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/pikvm/pikvm/master/img/screen1.png",
+      "https://raw.githubusercontent.com/pikvm/pikvm/master/img/v4.jpg",
+      "https://raw.githubusercontent.com/pikvm/pikvm/master/img/v3_preasm.jpg",
+      "https://raw.githubusercontent.com/pikvm/pikvm/master/img/v2_example.jpg",
+      "https://docs.pikvm.org/switch/switch.png"
+    ]
+  },
+  {
+    "id": "tinypilot",
+    "entry_kind": "project-source-lead",
+    "repository": "tiny-pilot/tinypilot",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/tiny-pilot/tinypilot/blob/master/README.md",
+    "candidates": [
+      "https://circleci.com/gh/tiny-pilot/tinypilot.svg?style=svg",
+      "https://raw.githubusercontent.com/tiny-pilot/tinypilot/master/readme-assets/demo-800w.gif",
+      "https://github.com/user-attachments/assets/4c90ca50-743c-4b29-b99c-2b777451f482"
+    ]
+  },
+  {
+    "id": "cobalt-kobo-sdk",
+    "entry_kind": "project-source-lead",
+    "repository": "BandarLabs/Cobalt",
+    "default_branch": "main",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/BandarLabs/Cobalt/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/logo.svg",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/tour.gif",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/chat.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/audiobook.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/backgammon.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/birds.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/components.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/crossword.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/brief.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/deck.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/rss-miniflux.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/fanshelf.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/feeds.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/fieldbook.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/flashcards.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/frame.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/grimoire.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/gutenbird.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/habits.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/hackernews.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/homepanel.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/inkling.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/kitchencard.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/calibre-web.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/lichess.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/logicpack.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/magnet.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/morse.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/musicstand.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/needles.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/nonograms.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/panels.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/paperterm.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/parlor.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/parser.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/post.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/arxiv.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/pubquiz.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/readlater.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/readeck/inbox.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/sidekick.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/zotero-reader.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/sudoku.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/syncthing.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/tictactoe.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/todo.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/vault.png",
+      "https://raw.githubusercontent.com/BandarLabs/Cobalt/main/docs/media/site/apps/verses.png"
+    ]
+  },
+  {
+    "id": "freemarkable",
+    "entry_kind": "project-source-lead",
+    "repository": "wowitsjack/freeMarkable",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/wowitsjack/freeMarkable/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/wowitsjack/freeMarkable/master/image.png"
+    ]
+  },
+  {
+    "id": "kfmon",
+    "entry_kind": "project-source-lead",
+    "repository": "NiLuJe/kfmon",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/NiLuJe/kfmon/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/NiLuJe/kfmon/master/resources/koreader.png",
+      "https://raw.githubusercontent.com/NiLuJe/kfmon/master/resources/kfmon.png",
+      "https://raw.githubusercontent.com/NiLuJe/kfmon/master/resources/plato.png",
+      "https://raw.githubusercontent.com/NiLuJe/kfmon/master/resources/usbnet.png"
+    ]
+  },
+  {
+    "id": "kindle-dash-k4nt",
+    "entry_kind": "project-source-lead",
+    "repository": "pascalw/kindle-dash",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/pascalw/kindle-dash/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/pascalw/kindle-dash/main/example/photo.jpg",
+      "https://raw.githubusercontent.com/pascalw/kindle-dash/main/example/example.png",
+      "https://raw.githubusercontent.com/pascalw/kindle-dash/main/src/sleeping.png"
+    ]
+  },
+  {
+    "id": "kobowriter",
+    "entry_kind": "project-source-lead",
+    "repository": "olup/kobowriter",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/olup/kobowriter/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/olup/kobowriter/main/assets/face.jpg",
+      "https://raw.githubusercontent.com/olup/kobowriter/main/assets/side.jpg",
+      "https://raw.githubusercontent.com/olup/kobowriter/main/assets/kobowriter.png"
+    ]
+  },
+  {
+    "id": "kindle-kpm",
+    "entry_kind": "project-source-lead",
+    "repository": "KindleModding/KPM",
+    "default_branch": "main",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/KindleModding/KPM/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "nickelmenu",
+    "entry_kind": "project-source-lead",
+    "repository": "pgaskin/NickelMenu",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/pgaskin/NickelMenu/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "okreader",
+    "entry_kind": "project-source-lead",
+    "repository": "lgeek/okreader",
+    "default_branch": "master",
+    "license": "BSD-2-Clause",
+    "readme_url": "https://github.com/lgeek/okreader/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "openepaperlink",
+    "entry_kind": "project-source-lead",
+    "repository": "OpenEPaperLink/OpenEPaperLink",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/OpenEPaperLink/OpenEPaperLink/blob/master/README.md",
+    "candidates": [
+      "https://github.com/jjwbruijn/OpenEPaperLink/assets/2544995/0f3c945f-377e-49a4-a431-cd9e111f997f"
+    ]
+  },
+  {
+    "id": "plato-kobo-reader",
+    "entry_kind": "project-source-lead",
+    "repository": "baskerville/plato",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/baskerville/plato/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/baskerville/plato/master/artworks/plato-logo.svg",
+      "https://raw.githubusercontent.com/baskerville/plato/master/artworks/thumbnail01.png",
+      "https://raw.githubusercontent.com/baskerville/plato/master/artworks/thumbnail02.png",
+      "https://raw.githubusercontent.com/baskerville/plato/master/artworks/thumbnail03.png",
+      "https://raw.githubusercontent.com/baskerville/plato/master/artworks/thumbnail04.png"
+    ]
+  },
+  {
+    "id": "quill-kobo-reader",
+    "entry_kind": "project-source-lead",
+    "repository": "Quill-OS/quill",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/Quill-OS/quill/blob/master/README.md",
+    "candidates": [
+      "https://github.com/Quill-OS/quill/blob/master/screenshots/homepage.png?raw=true",
+      "https://github.com/Quill-OS/quill/blob/master/screenshots/reading.png?raw=true",
+      "https://github.com/Quill-OS/quill/blob/master/screenshots/library.png?raw=true"
+    ]
+  },
+  {
+    "id": "rekindle",
+    "entry_kind": "project-source-lead",
+    "repository": "ReKindleOS/ReKindle",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/ReKindleOS/ReKindle/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-1.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-2.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-3.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-4.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-5.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-6.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-7.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-8.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-9.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-10.png",
+      "https://raw.githubusercontent.com/ReKindleOS/ReKindle/main/screenshots/ReKindle-11.png"
+    ]
+  },
+  {
+    "id": "remarkable-entware",
+    "entry_kind": "project-source-lead",
+    "repository": "Evidlo/remarkable_entware",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/Evidlo/remarkable_entware/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "remarkable-hacks",
+    "entry_kind": "project-source-lead",
+    "repository": "ddvk/remarkable-hacks",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/ddvk/remarkable-hacks/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/ddvk/remarkable-hacks/master/docs/images/screenshot_25027_bookmarks.png",
+      "https://raw.githubusercontent.com/ddvk/remarkable-hacks/master/docs/images/screenshot_25027_numpad.png",
+      "https://raw.githubusercontent.com/ddvk/remarkable-hacks/master/docs/images/screenshot_25027_share.png",
+      "https://raw.githubusercontent.com/ddvk/remarkable-hacks/master/docs/images/screenshot_recent_files.png",
+      "https://raw.githubusercontent.com/ddvk/remarkable-hacks/master/docs/images/ddvk_hacks_cheat_sheet.png"
+    ]
+  },
+  {
+    "id": "remoteink-pocketbook",
+    "entry_kind": "project-source-lead",
+    "repository": "borzunov/remoteink",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/borzunov/remoteink/blob/master/README.md",
+    "candidates": [
+      "http://habrastorage.org/files/ed8/5de/963/ed85de963ac44b7e930719ab3b54c3a5.jpg",
+      "http://habrastorage.org/files/f82/319/cf1/f82319cf16e34813b15e2f461d7e47f0.jpg",
+      "http://habrastorage.org/files/12e/3c2/1ee/12e3c21ee6fd45c5a25f00fb847db858.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Numpad.svg/333px-Numpad.svg.png"
+    ]
+  },
+  {
+    "id": "rmkit",
+    "entry_kind": "project-source-lead",
+    "repository": "rmkit-dev/rmkit",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/rmkit-dev/rmkit/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/dithering_demo/colorspace.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/dithering_demo/palette.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/harmony/harmony.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/minesweeper/mines1.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/nao/nao.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/rpncalc/rpncalc.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/dumbskull/assets/fa/d-and-d-brands.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/dumbskull/assets/fa/shield-alt-solid.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/dumbskull/assets/fa/skull-solid.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/dumbskull/assets/fa/flask-solid.png",
+      "https://raw.githubusercontent.com/rmkit-dev/rmkit/master/src/minesweeper/assets/question-solid.png"
+    ]
+  },
+  {
+    "id": "ultimate-manga-reader",
+    "entry_kind": "project-source-lead",
+    "repository": "Rain92/UltimateMangaReader",
+    "default_branch": "master",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/Rain92/UltimateMangaReader/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "amberelec",
+    "entry_kind": "project-source-lead",
+    "repository": "AmberELEC/AmberELEC",
+    "default_branch": "dev",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/AmberELEC/AmberELEC/blob/dev/.github/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/AmberELEC/website/gh-pages/docs/images/transparent_amber_elec_horiz.svg#gh-dark-mode-only",
+      "https://raw.githubusercontent.com/AmberELEC/website/gh-pages/docs/images/transparent_black_amber_elec_horiz.svg#gh-light-mode-only"
+    ]
+  },
+  {
+    "id": "ark-4",
+    "entry_kind": "project-source-lead",
+    "repository": "PSP-Archive/ARK-4",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/PSP-Archive/ARK-4/blob/main/README.md",
+    "candidates": [
+      "https://github.com/user-attachments/assets/e0cd5cab-ff79-4c17-a903-544a4d2dd570",
+      "https://raw.githubusercontent.com/PSP-Archive/ARK-4/main/github/screenshots/cfw_settings.bmp",
+      "https://github.com/PSP-Archive/ARK-4/wiki/.res/system_settings.bmp"
+    ]
+  },
+  {
+    "id": "chimeraos",
+    "entry_kind": "project-source-lead",
+    "repository": "ChimeraOS/chimeraos",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/ChimeraOS/chimeraos/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/ChimeraOS/chimeraos/master/assets/logo.svg",
+      "https://raw.githubusercontent.com/ChimeraOS/chimeraos/master/rootfs/usr/share/backgrounds/chimeraos/chimeraos_background.png"
+    ]
+  },
+  {
+    "id": "freedvdboot",
+    "entry_kind": "project-source-lead",
+    "repository": "CTurt/FreeDVDBoot",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/CTurt/FreeDVDBoot/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "gp2040-ce",
+    "entry_kind": "project-source-lead",
+    "repository": "OpenStickCommunity/GP2040-CE",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/OpenStickCommunity/GP2040-CE/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/OpenStickCommunity/Site/main/docs/assets/images/gp2040-ce-logo.png",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/SGFDevices/assets/SGF_Controller.png",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/SGFDevices/assets/SGF_Layout.png",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/ZeroRhythm/Assets/ZeroThythm%202.jpg",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/ZeroRhythm/Assets/ZeroRhythm%201.jpg",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/WaveshareRP2350BPlusW/assets/WaveshareRP2350BPlusW.png",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/ReflexEncodeV2.0/assets/ReflexBoard_V2.png",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/RP2040MiniBreakoutBoardUSBPassthrough/assets/RP2040MiniBreakoutBoardUSBPassthrough.jpeg",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/RP2040MiniBreakoutBoard/assets/RP2040MiniBreakoutBoard.jpg",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/RP2040AdvancedBreakoutBoardUSBPassthrough/assets/RP2040%20Advanced%20Breakout%20Board%20-%20Passthrough.jpg",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/RP2040AdvancedBreakoutBoard/assets/RP2040AdvancedBreakoutBoard.jpg",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/PimoroniPicoPlus2/assets/PimoroniPicoPlus2.png",
+      "https://raw.githubusercontent.com/OpenStickCommunity/GP2040-CE/main/configs/OpenCore0WASD/assets/Open_Core0_WASD.jpg"
+    ]
+  },
+  {
+    "id": "luma3ds",
+    "entry_kind": "project-source-lead",
+    "repository": "LumaTeam/Luma3DS",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/LumaTeam/Luma3DS/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/LumaTeam/Luma3DS/master/img/boot_menu_v1321.png",
+      "https://raw.githubusercontent.com/LumaTeam/Luma3DS/master/img/rosalina_menu_v1321.png"
+    ]
+  },
+  {
+    "id": "main-mister",
+    "entry_kind": "project-source-lead",
+    "repository": "MiSTer-devel/Main_MiSTer",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/MiSTer-devel/Main_MiSTer/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/MiSTer-devel/Main_MiSTer/master/MiSTer.jpg"
+    ]
+  },
+  {
+    "id": "moonlight-qt",
+    "entry_kind": "project-source-lead",
+    "repository": "moonlight-stream/moonlight-qt",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/moonlight-stream/moonlight-qt/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/moonlight-stream/moonlight-qt/master/app/deploy/steamlink/moonlight.png"
+    ]
+  },
+  {
+    "id": "nintendont",
+    "entry_kind": "project-source-lead",
+    "repository": "FIX94/Nintendont",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/FIX94/Nintendont/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/FIX94/Nintendont/master/loader/data/background.png"
+    ]
+  },
+  {
+    "id": "nxdk",
+    "entry_kind": "project-source-lead",
+    "repository": "XboxDev/nxdk",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/XboxDev/nxdk/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/XboxDev/nxdk/master/samples/mesh/screenshot.png",
+      "https://raw.githubusercontent.com/XboxDev/nxdk/master/samples/sdl_image/testimg.jpg"
+    ]
+  },
+  {
+    "id": "onion-ui",
+    "entry_kind": "project-source-lead",
+    "repository": "OnionUI/Onion",
+    "default_branch": "main",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/OnionUI/Onion/blob/main/README.md",
+    "candidates": [
+      "https://user-images.githubusercontent.com/44569252/179510333-40793fbc-f2a3-4269-8ab9-569b191d423f.png",
+      "https://user-images.githubusercontent.com/44569252/190487908-0fb16c8e-5ff5-4ee2-921a-0a9427f26587.png",
+      "https://user-images.githubusercontent.com/44569252/190487893-7a4a2287-462a-4d91-a4fc-ace80580653a.png",
+      "https://user-images.githubusercontent.com/44569252/190487922-3d6b8df9-da26-47e8-b397-e4104156ede6.png",
+      "https://user-images.githubusercontent.com/44569252/226488035-e321e466-87c3-431f-bc81-52eb6a33c225.png",
+      "https://user-images.githubusercontent.com/44569252/228782816-cd9c479f-4c46-46ba-abd5-42158d19de7b.png",
+      "https://user-images.githubusercontent.com/44569252/226488511-297034e2-bb69-4f87-bd18-2ae6ff1e7300.gif"
+    ]
+  },
+  {
+    "id": "open-ps2-loader",
+    "entry_kind": "project-source-lead",
+    "repository": "ps2homebrew/Open-PS2-Loader",
+    "default_branch": "master",
+    "license": "AFL-3.0",
+    "readme_url": "https://github.com/ps2homebrew/Open-PS2-Loader/blob/master/README.md",
+    "candidates": [
+      "https://github.com/ps2homebrew/Open-PS2-Loader/blob/master/gfx/logo.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/screen.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/info.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/background.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/case.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/apps_case.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/disc.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/eth.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/usb_bd.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/ilk_bd.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/hdd.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/hdd_bd.png",
+      "https://raw.githubusercontent.com/ps2homebrew/Open-PS2-Loader/master/gfx/usb.png"
+    ]
+  },
+  {
+    "id": "retropie-setup",
+    "entry_kind": "project-source-lead",
+    "repository": "RetroPie/RetroPie-Setup",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/RetroPie/RetroPie-Setup/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "rocknix",
+    "entry_kind": "project-source-lead",
+    "repository": "ROCKNIX/distribution",
+    "default_branch": "next",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/ROCKNIX/distribution/blob/next/README.md",
+    "candidates": [
+      "https://github.com/ROCKNIX/distribution/blob/next/distributions/ROCKNIX/logos/rocknix-logo.png?raw=yes",
+      "https://rocknix.org/_inc/images/screenshots/system-view.png",
+      "https://rocknix.org/_inc/images/screenshots/menu.png",
+      "https://rocknix.org/_inc/images/screenshots/gamelist-view-metadata-immersive.png",
+      "https://rocknix.org/_inc/images/screenshots/gamelist-view-no-metadata-immersive.png"
+    ]
+  },
+  {
+    "id": "sunshine",
+    "entry_kind": "project-source-lead",
+    "repository": "LizardByte/Sunshine",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/LizardByte/Sunshine/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/LizardByte/Sunshine/master/sunshine.svg",
+      "https://cdn.jsdelivr.net/gh/LizardByte/contributors@dist/sponsors.svg",
+      "https://cdn.jsdelivr.net/gh/LizardByte/contributors@dist/github.Sunshine.svg",
+      "https://cdn.jsdelivr.net/gh/LizardByte/contributors@dist/crowdin.606145.svg"
+    ]
+  },
+  {
+    "id": "twilight-menu",
+    "entry_kind": "project-source-lead",
+    "repository": "DS-Homebrew/TWiLightMenu",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/DS-Homebrew/TWiLightMenu/blob/master/README.md",
+    "candidates": [
+      "https://github.com/DS-Homebrew/TWiLightMenu/blob/master/logo.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Top%20screen%20Twilight%20alt2.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Top%20screen%20Twilight%20alt2%20centered.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Top%20screen%20Twilight%20alt2%20colored%20centered.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Top%20screen%20Twilight%20alt1.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/romsel_dsimenutheme/nitrofiles/languages/hu/photo_default.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Boot%20screen%20mockup_preview.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/romsel_dsimenutheme/nitrofiles/languages/da/photo_default.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Top%20screen%20Twilight.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Bot%20screen%20TWiLight%20with%20icon2.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Bot%20screen%20TWiLight%20with%20icon.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Bot%20screen%20TWiLight.png",
+      "https://raw.githubusercontent.com/DS-Homebrew/TWiLightMenu/master/title/resources/Top%20screen.png"
+    ]
+  },
+  {
+    "id": "usb-loader-gx",
+    "entry_kind": "project-source-lead",
+    "repository": "wiidev/usbloadergx",
+    "default_branch": "enhanced",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/wiidev/usbloadergx/blob/enhanced/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/web/logo.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/nocoverFlat.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/nocover.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/credits_bg.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/wiimote.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/nodisc.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/wdialogue_box_startgame.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/wbackground.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/dialogue_box_startgame.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/background.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/gameinfo2a.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/little_star.png",
+      "https://raw.githubusercontent.com/wiidev/usbloadergx/enhanced/data/images/gameinfo1a.png"
+    ]
+  },
+  {
+    "id": "xbox-softmodding-tool",
+    "entry_kind": "project-source-lead",
+    "repository": "Rocky5/Xbox-Softmodding-Tool",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/Rocky5/Xbox-Softmodding-Tool/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/Other/Graphics/banner.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/Extras%20Disc/Softmod/applications/NKPatcher%20Settings/_resources/screenshots/Screenshot-1.jpg",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/App%20Sources/ConfigMagic-FINAL-1.6.1/Media/credits.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/App%20Sources/ConfigMagic-FINAL-1.6.1/Media/warning.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/Save%20Folder/nkpatcher%20settings/modules/Xbox%20softmod%20tool%20kit/Media/background.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/Extras%20Disc/Media/background.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/App%20Sources/Xbox%20Softmodding%20Tool%20Extras%20Disc%20XBE%20Loader/Media/background.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/App%20Sources/Xbox%20Softmod%20Tool%20Kit/Media/background.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/App%20Sources/ConfigMagic-FINAL-1.6.1/Media/status.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/App%20Sources/ConfigMagic-FINAL-1.6.1/Media/background.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/App%20Sources/ConfigMagic-FINAL-1.6.1/Media/keyboard1.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/App%20Sources/ConfigMagic-FINAL-1.6.1/Media/menu.png",
+      "https://raw.githubusercontent.com/Rocky5/Xbox-Softmodding-Tool/master/App%20Sources/ConfigMagic-FINAL-1.6.1/Media/textbox.png"
+    ]
+  },
+  {
+    "id": "ava-pro",
+    "entry_kind": "project-source-lead",
+    "repository": "knoop7/Ava-Pro",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/knoop7/Ava-Pro/blob/master/README.md",
+    "candidates": [
+      "https://github.com/user-attachments/assets/3a0adaa7-5803-4ede-b32e-c5bc082820a8",
+      "https://raw.githubusercontent.com/knoop7/Ava-Pro/master/android/app/src/main/assets/bmc_qr.webp",
+      "https://raw.githubusercontent.com/knoop7/Ava-Pro/master/android/app/src/main/assets/waiting.webp"
+    ]
+  },
+  {
+    "id": "freekiosk",
+    "entry_kind": "project-source-lead",
+    "repository": "RushB-fr/freekiosk",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/RushB-fr/freekiosk/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/RushB-fr/freekiosk/main/docs/screenshots/any-web-page-full-screen.png",
+      "https://raw.githubusercontent.com/RushB-fr/freekiosk/main/docs/screenshots/lock-it-down.png"
+    ]
+  },
+  {
+    "id": "kiosk-satellite",
+    "entry_kind": "project-source-lead",
+    "repository": "jxlarrea/kiosk-satellite",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/jxlarrea/kiosk-satellite/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/banners/ks_banner_default.svg",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/ks-demo-lossy.gif",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/vs-demo.gif",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/now-playing.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/ml_discover_light.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/ml_playlist_dark.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/screensaver-np.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/clock-digital.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/weathermood-dawn.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/remote.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/calendar-day.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/calendar_schedule.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/screenshots/camera-1.png",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/banners/ks_banner_dark.svg",
+      "https://raw.githubusercontent.com/jxlarrea/kiosk-satellite/main/assets/banners/ks_banner_light.svg"
+    ]
+  },
+  {
+    "id": "kite-aos",
+    "entry_kind": "project-source-lead",
+    "repository": "andrew-malitchuk/kite-aos",
+    "default_branch": "development",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/andrew-malitchuk/kite-aos/blob/development/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/andrew-malitchuk/kite-aos/development/docs%2Fimg%2Fimg_logo_big_filled.png",
+      "https://raw.githubusercontent.com/andrew-malitchuk/kite-aos/development/docs/img/img_demo_0.png",
+      "https://raw.githubusercontent.com/andrew-malitchuk/kite-aos/development/docs/img/img_demo_1.png",
+      "https://raw.githubusercontent.com/andrew-malitchuk/kite-aos/development/docs/img/img_demo_2.jpg",
+      "https://raw.githubusercontent.com/andrew-malitchuk/kite-aos/development/docs/img/img_demo_3.jpg",
+      "https://raw.githubusercontent.com/andrew-malitchuk/kite-aos/development/docs/img/img_demo_4.jpg",
+      "https://raw.githubusercontent.com/andrew-malitchuk/kite-aos/development/docs/img/img_demo_5.jpg"
+    ]
+  },
+  {
+    "id": "linux-deploy",
+    "entry_kind": "project-source-lead",
+    "repository": "meefik/linuxdeploy",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/meefik/linuxdeploy/blob/master/README.md",
+    "candidates": [
+      "https://gist.githubusercontent.com/meefik/54a54afa7cc1dc600bdb855cb7895a4a/raw/ad617c006a1ac28d067c9a87cec60199ca8fef7c/get-it-on-google-play.png",
+      "https://gist.githubusercontent.com/meefik/54a54afa7cc1dc600bdb855cb7895a4a/raw/ad617c006a1ac28d067c9a87cec60199ca8fef7c/get-apk-from-github.png"
+    ]
+  },
+  {
+    "id": "marathon-shell",
+    "entry_kind": "project-source-lead",
+    "repository": "patrickjquinn/Marathon-Shell",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/patrickjquinn/Marathon-Shell/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/github-media/marathon.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen0.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen1.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen2.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen3.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen4.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen5.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen6.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen7.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen8.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen9.png",
+      "https://raw.githubusercontent.com/patrickjquinn/Marathon-Shell/main/screenshots/screen10.png"
+    ]
+  },
+  {
+    "id": "maru-os",
+    "entry_kind": "project-source-lead",
+    "repository": "maruos/maruos",
+    "default_branch": "master",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/maruos/maruos/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "scrcpy",
+    "entry_kind": "project-source-lead",
+    "repository": "Genymobile/scrcpy",
+    "default_branch": "master",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/Genymobile/scrcpy/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Genymobile/scrcpy/master/assets/screenshot-debian-600.jpg",
+      "https://raw.githubusercontent.com/Genymobile/scrcpy/master/app/data/scrcpy.svg"
+    ]
+  },
+  {
+    "id": "webview-kiosk",
+    "entry_kind": "project-source-lead",
+    "repository": "nktnet1/webview-kiosk",
+    "default_branch": "main",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/nktnet1/webview-kiosk/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/nktnet1/webview-kiosk/main/metadata/en-US/images/phoneScreenshots/001.phone-default.png",
+      "https://raw.githubusercontent.com/nktnet1/webview-kiosk/main/metadata/en-US/images/phoneScreenshots/002.phone-locked.png",
+      "https://raw.githubusercontent.com/nktnet1/webview-kiosk/main/metadata/en-US/images/phoneScreenshots/003.phone-kiosk-control-panel.png",
+      "https://raw.githubusercontent.com/nktnet1/webview-kiosk/main/metadata/en-US/images/phoneScreenshots/004.phone-page-blocked.png",
+      "https://raw.githubusercontent.com/nktnet1/webview-kiosk/main/metadata/en-US/images/phoneScreenshots/005.phone-settings.png",
+      "https://raw.githubusercontent.com/nktnet1/webview-kiosk/main/metadata/en-US/images/phoneScreenshots/006.phone-settings-mqtt.png"
+    ]
+  },
+  {
+    "id": "adguard-home",
+    "entry_kind": "project-source-lead",
+    "repository": "AdguardTeam/AdGuardHome",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/AdguardTeam/AdGuardHome/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/doc/adguard_home_lightmode.svg",
+      "https://cdn.adtidy.org/public/Adguard/Common/adguard_home.gif",
+      "https://raw.githubusercontent.com/AdguardTeam/AdGuardHome/master/doc/adguard_home_darkmode.svg"
+    ]
+  },
+  {
+    "id": "asuswrt-merlin-ng",
+    "entry_kind": "project-source-lead",
+    "repository": "RMerl/asuswrt-merlin.ng",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/RMerl/asuswrt-merlin.ng/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/main/components/apps/visualization/www/tabheading.jpg",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/main/components/apps/visualization/www/ap-image.jpg",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/main/components/opensource/libxml2/doc/tutorial/images/draft.png",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/main/components/apps/visualization/www/download.jpg",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/sys/components/apps/hspot/router/hspot_ap/icon_blue_eng.png",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/sys/components/apps/hspot/router/hspot_ap/icon_green_eng.png",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/sys/components/apps/hspot/router/hspot_ap/icon_red_eng.png",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/sys/components/apps/hspot/router/hspot_ap/icon_orange_eng.png",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/main/components/opensource/libxml2/doc/libxml.gif",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/main/components/opensource/libxml2/doc/catalog.gif",
+      "https://raw.githubusercontent.com/RMerl/asuswrt-merlin.ng/main/release/src-rt-5.02L.07p2axhnd/bcmdrivers/broadcom/net/wl/impl69/main/components/opensource/libxml2/doc/structure.gif"
+    ]
+  },
+  {
+    "id": "casaos",
+    "entry_kind": "project-source-lead",
+    "repository": "IceWhaleTech/CasaOS",
+    "default_branch": "main",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/IceWhaleTech/CasaOS/blob/main/README.md",
+    "candidates": [
+      "https://discordapp.com/api/guilds/884667213326463016/widget.png?style=banner2",
+      "https://raw.githubusercontent.com/IceWhaleTech/logo/main/casaos/casaos_banner_twilight_blue_800x300.png",
+      "https://raw.githubusercontent.com/IceWhaleTech/CasaOS/main/snapshot-light.jpg",
+      "https://avatars.githubusercontent.com/u/9485680?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/13556972?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/7172560?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/8243355?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/3358477?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/17506770?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/60230221?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/4959043?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/93325157?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/58747968?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/12090673?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/334908?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/1023813?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/1195496?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/59589857?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/29306285?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/24197448?v=4?s=100",
+      "https://us-central1-trackgit-analytics.cloudfunctions.net/token/ping/l5q8egi92tfhlxd70l2l",
+      "https://raw.githubusercontent.com/IceWhaleTech/logo/main/casaos/casaos_banner_dark_night_800x300.png",
+      "https://raw.githubusercontent.com/IceWhaleTech/CasaOS/main/snapshot-dark.jpg"
+    ]
+  },
+  {
+    "id": "cockpit",
+    "entry_kind": "project-source-lead",
+    "repository": "cockpit-project/cockpit",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/cockpit-project/cockpit/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/cockpit-project/cockpit/main/doc/overview-light.png",
+      "https://raw.githubusercontent.com/cockpit-project/cockpit/main/doc/overview-dark.png",
+      "https://raw.githubusercontent.com/cockpit-project/cockpit/main/doc/accounts-light.png",
+      "https://raw.githubusercontent.com/cockpit-project/cockpit/main/doc/accounts-dark.png",
+      "https://raw.githubusercontent.com/cockpit-project/cockpit/main/doc/networking-light.png",
+      "https://raw.githubusercontent.com/cockpit-project/cockpit/main/doc/networking-dark.png",
+      "https://cockpit-project.org/images/site/cockpit-logo-blue.svg"
+    ]
+  },
+  {
+    "id": "cosmos-server",
+    "entry_kind": "project-source-lead",
+    "repository": "azukaar/Cosmos-Server",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/azukaar/Cosmos-Server/blob/master/readme.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/azukaar/Cosmos-Server/master/banner.jpg",
+      "https://raw.githubusercontent.com/azukaar/Cosmos-Server/master/screenshot1.png",
+      "https://raw.githubusercontent.com/azukaar/Cosmos-Server/master/diag_SN2.png",
+      "https://raw.githubusercontent.com/azukaar/Cosmos-Server/master/diag_SN.png",
+      "https://avatars.githubusercontent.com/soldier1",
+      "https://avatars.githubusercontent.com/Fortcraft",
+      "https://avatars.githubusercontent.com/phobes",
+      "https://avatars.githubusercontent.com/AstroMando",
+      "https://avatars.githubusercontent.com/AKAHackoon",
+      "https://raw.githubusercontent.com/azukaar/Cosmos-Server/master/icons/ws.png",
+      "https://raw.githubusercontent.com/azukaar/Cosmos-Server/master/icons/doc.png",
+      "https://raw.githubusercontent.com/azukaar/Cosmos-Server/master/icons/demo.png",
+      "https://raw.githubusercontent.com/azukaar/Cosmos-Server/master/schema.png"
+    ]
+  },
+  {
+    "id": "easynas",
+    "entry_kind": "project-source-lead",
+    "repository": "easysysio/EasyNAS",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/easysysio/EasyNAS/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/raid5.png",
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/raid10.png",
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/jbod.png",
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/raid6.png",
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/raid0.png",
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/raid1.png",
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/pic_owncloud.png",
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/pic_pureftpd.png",
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/toggle_off.png",
+      "https://raw.githubusercontent.com/easysysio/EasyNAS/main/public/images/toggle_on.png"
+    ]
+  },
+  {
+    "id": "freifunk-gluon",
+    "entry_kind": "project-source-lead",
+    "repository": "freifunk-gluon/gluon",
+    "default_branch": "main",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/freifunk-gluon/gluon/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/package/gluon-config-mode-geo-location-osm.png",
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/package/gluon-hoodselector-domainmap.jpeg",
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/features/status-page.png",
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/features/configmode.png",
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/package/gluon-web-cellular.png",
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/user/mtu-diagram_v5.png",
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/features/multidomain_configmode.gif",
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/package/gluon-web-network.png",
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/features/node_configmode.gif",
+      "https://raw.githubusercontent.com/freifunk-gluon/gluon/main/docs/features/fastd_mode.gif"
+    ]
+  },
+  {
+    "id": "libremesh-lime-packages",
+    "entry_kind": "project-source-lead",
+    "repository": "libremesh/lime-packages",
+    "default_branch": "master",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/libremesh/lime-packages/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/libremesh/lime-web/master/logo/logo.png"
+    ]
+  },
+  {
+    "id": "meshtastic-firmware",
+    "entry_kind": "project-source-lead",
+    "repository": "meshtastic/firmware",
+    "default_branch": "develop",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/meshtastic/firmware/blob/develop/README.md",
+    "candidates": [
+      "https://repobeats.axiom.co/api/embed/8025e56c482ec63541593cc5bd322c19d5c0bdcf.svg",
+      "https://raw.githubusercontent.com/meshtastic/firmware/develop/github/meshtastic_logo.png"
+    ]
+  },
+  {
+    "id": "nethserver-ns8-core",
+    "entry_kind": "project-source-lead",
+    "repository": "NethServer/ns8-core",
+    "default_branch": "main",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/NethServer/ns8-core/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/NethServer/ns8-core/main/core/ui/src/assets/backblaze.png",
+      "https://raw.githubusercontent.com/NethServer/ns8-core/main/core/ui/src/assets/rclone.png",
+      "https://raw.githubusercontent.com/NethServer/ns8-core/main/core/ui/src/assets/aws.png"
+    ]
+  },
+  {
+    "id": "openzfs",
+    "entry_kind": "project-source-lead",
+    "repository": "openzfs/zfs",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/openzfs/zfs/blob/master/README.md",
+    "candidates": [
+      "https://openzfs.github.io/openzfs-docs/_static/img/logo/480px-Open-ZFS-Secondary-Logo-Colour-halfsize.png"
+    ]
+  },
+  {
+    "id": "opnsense-core",
+    "entry_kind": "project-source-lead",
+    "repository": "opnsense/core",
+    "default_branch": "master",
+    "license": "BSD-2-Clause",
+    "readme_url": "https://github.com/opnsense/core/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "pfsense",
+    "entry_kind": "project-source-lead",
+    "repository": "pfsense/pfsense",
+    "default_branch": "master",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/pfsense/pfsense/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/pfsense/pfsense/master/src/usr/local/www/android-chrome-512x512.png",
+      "https://raw.githubusercontent.com/pfsense/pfsense/master/src/usr/local/www/android-chrome-192x192.png"
+    ]
+  },
+  {
+    "id": "restic",
+    "entry_kind": "project-source-lead",
+    "repository": "restic/restic",
+    "default_branch": "master",
+    "license": "BSD-2-Clause",
+    "readme_url": "https://github.com/restic/restic/blob/master/README.md",
+    "candidates": [
+      "https://cdn.appscode.com/images/logo/appscode/ac-logo-color.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/02_aws_menu.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/01_aws_start.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/07_iam_start.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/10_user_pre_policy.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/11_policy_start.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/14_user_attach_policy.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/09_user_name.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/05_bucket_create_review.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/16_user_created.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/04_bucket_create_start.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/13_policy_review.png",
+      "https://raw.githubusercontent.com/restic/restic/master/doc/images/aws_s3/15_user_review.png"
+    ]
+  },
+  {
+    "id": "rockstor",
+    "entry_kind": "project-source-lead",
+    "repository": "rockstor/rockstor-core",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/rockstor/rockstor-core/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/rockstor/rockstor-core/master/src/rockstor/storageadmin/static/storageadmin/img/rockstor-sticker.png",
+      "https://raw.githubusercontent.com/rockstor/rockstor-core/master/src/rockstor/storageadmin/static/storageadmin/img/glyphicons-halflings.png",
+      "https://raw.githubusercontent.com/rockstor/rockstor-core/master/src/rockstor/storageadmin/static/storageadmin/img/glyphicons-halflings-white.png",
+      "https://raw.githubusercontent.com/rockstor/rockstor-core/master/src/rockstor/storageadmin/static/storageadmin/img/ajax-loader-big.gif",
+      "https://raw.githubusercontent.com/rockstor/rockstor-core/master/src/rockstor/storageadmin/static/storageadmin/img/gear.png"
+    ]
+  },
+  {
+    "id": "runtipi",
+    "entry_kind": "project-source-lead",
+    "repository": "runtipi/runtipi",
+    "default_branch": "develop",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/runtipi/runtipi/blob/develop/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/runtipi/runtipi/develop/screenshots/appstore.png",
+      "https://raw.githubusercontent.com/runtipi/runtipi/develop/screenshots/sponsors/coderabbit.png",
+      "https://assets.testmu.ai/resources/images/logos/logo.svg",
+      "https://avatars.githubusercontent.com/u/47644445?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/16622722?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/58747968?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/36574329?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/6656643?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/33891782?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/3621606?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/6279035?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/4052340?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/40500387?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/44605072?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/14875982?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/11060652?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/17722782?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/682893?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/3678789?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/5344432?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/24246993?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/21301288?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/48092304?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/121183951?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/35339452?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/915292?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/13773536?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/73795785?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/67489519?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/116570617?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/32395839?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/94195393?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/129353223?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/69653100?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/54779580?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/106091011?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/86959495?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/5781907?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/1665676?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/32102735?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/143047010?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/28163855?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/9976198?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/10607?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/124463277?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/79774155?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/126406464?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/56157795?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/1827520?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/1452164?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/23203061?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/152246049?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/77530549?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/21142663?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/56985156?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/18631550?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/64442855?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/71471476?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/7796167?v=4?s=100",
+      "https://avatars.githubusercontent.com/u/32480876?v=4?s=100"
+    ]
+  },
+  {
+    "id": "airsane",
+    "entry_kind": "project-source-lead",
+    "repository": "SimulPiscator/AirSane",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/SimulPiscator/AirSane/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/SimulPiscator/AirSane/master/etc/Gnome-scanner.png"
+    ]
+  },
+  {
+    "id": "brlaser",
+    "entry_kind": "project-source-lead",
+    "repository": "pdewacht/brlaser",
+    "default_branch": "master",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/pdewacht/brlaser/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "cups",
+    "entry_kind": "project-source-lead",
+    "repository": "OpenPrinting/cups",
+    "default_branch": "master",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/OpenPrinting/cups/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/examples/testfile.jpg",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/cups/cupspm.png",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/examples/gray.jpg",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/examples/color.jpg",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/doc/images/cups-block-diagram.png",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/tools/printer-lg.png",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/doc/images/raster.png",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/desktop/cups-512.png",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/doc/images/smiley.jpg",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/cups/cupspm-icon.png",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/doc/images/cups-postscript-chain.png",
+      "https://raw.githubusercontent.com/OpenPrinting/cups/master/doc/images/cups-raster-chain.png"
+    ]
+  },
+  {
+    "id": "cups-filters",
+    "entry_kind": "project-source-lead",
+    "repository": "OpenPrinting/cups-filters",
+    "default_branch": "master",
+    "license": "Apache-2.0",
+    "readme_url": "https://github.com/OpenPrinting/cups-filters/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "hid-remapper",
+    "entry_kind": "project-source-lead",
+    "repository": "jfedor2/hid-remapper",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/jfedor2/hid-remapper/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper1.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper3.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper2.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper-dual1.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper-board-v7-1.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/bluetooth.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper-dual2.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper-serial.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper-board-v7-2.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/custom-boards.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper-board-v8.jpg",
+      "https://raw.githubusercontent.com/jfedor2/hid-remapper/master/images/remapper-dual-diagram.png"
+    ]
+  },
+  {
+    "id": "ipp-usb",
+    "entry_kind": "project-source-lead",
+    "repository": "OpenPrinting/ipp-usb",
+    "default_branch": "master",
+    "license": "BSD-2-Clause",
+    "readme_url": "https://github.com/OpenPrinting/ipp-usb/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "klipper",
+    "entry_kind": "project-source-lead",
+    "repository": "Klipper3d/klipper",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/Klipper3d/klipper/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/klipper-logo-small.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/flash_rp2040_FLASH_DEVICE.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/adxl345-pico.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/adxl345-fritzing.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/calibrate-x.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/calibrate-z.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/calibrate-x-max-smoothing.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/calibrate-y.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/adxl345-mount.jpg",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/mpu9250-PI-fritzing.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/ringing-test.jpg",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/mpu9250-PICO-fritzing.png",
+      "https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/pulseview-canbus.png"
+    ]
+  },
+  {
+    "id": "libfreenect",
+    "entry_kind": "project-source-lead",
+    "repository": "OpenKinect/libfreenect",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/OpenKinect/libfreenect/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "libratbag",
+    "entry_kind": "project-source-lead",
+    "repository": "libratbag/libratbag",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/libratbag/libratbag/blob/master/README.md",
+    "candidates": [
+      "https://libratbag.github.io/_images/logo.svg"
+    ]
+  },
+  {
+    "id": "liquidctl",
+    "entry_kind": "project-source-lead",
+    "repository": "liquidctl/liquidctl",
+    "default_branch": "main",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/liquidctl/liquidctl/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/icue.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/wireshark_3.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/vendor_product_id.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/wireshark_4.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/create_vm_8.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/create_vm_10.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/create_vm_9.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/wireshark_1.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/wireshark_2.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/create_vm_7.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/create_vm_1.png",
+      "https://raw.githubusercontent.com/liquidctl/liquidctl/main/docs/developer/images/create_vm_4.png"
+    ]
+  },
+  {
+    "id": "marlin",
+    "entry_kind": "project-source-lead",
+    "repository": "MarlinFirmware/Marlin",
+    "default_branch": "bugfix-2.1.x",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/MarlinFirmware/Marlin/blob/bugfix-2.1.x/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/MarlinFirmware/Marlin/bugfix-2.1.x/buildroot/share/pixmaps/logo/marlin-outrun-nf-500.png",
+      "https://api.star-history.com/svg?repos=MarlinFirmware/Marlin&type=Date",
+      "https://api.star-history.com/svg?repos=MarlinFirmware/Marlin&type=Date&theme=dark"
+    ]
+  },
+  {
+    "id": "octoprint",
+    "entry_kind": "project-source-lead",
+    "repository": "OctoPrint/OctoPrint",
+    "default_branch": "dev",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/OctoPrint/OctoPrint/blob/dev/README.md",
+    "candidates": [
+      "https://octoprint.org/assets/img/screenshot-readme.png",
+      "https://octoprint.org/assets/img/logo.png"
+    ]
+  },
+  {
+    "id": "opentabletdriver",
+    "entry_kind": "project-source-lead",
+    "repository": "OpenTabletDriver/OpenTabletDriver",
+    "default_branch": "0.6.x",
+    "license": "LGPL-3.0",
+    "readme_url": "https://github.com/OpenTabletDriver/OpenTabletDriver/blob/0.6.x/README.md",
+    "candidates": [
+      "https://i.imgur.com/XDYf62e.png",
+      "https://i.imgur.com/jBW8NpU.png",
+      "https://i.imgur.com/ZLCy6wz.png"
+    ]
+  },
+  {
+    "id": "printer-driver-ptouch",
+    "entry_kind": "project-source-lead",
+    "repository": "philpem/printer-driver-ptouch",
+    "default_branch": "master",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/philpem/printer-driver-ptouch/blob/master/README",
+    "candidates": [
+      "https://raw.githubusercontent.com/philpem/printer-driver-ptouch/master/Examples/QL-820NWB/Tape-29x90mm-Resolution-1.png",
+      "https://raw.githubusercontent.com/philpem/printer-driver-ptouch/master/Examples/QL-820NWB/Label-29x90mm-Resolution-1.png"
+    ]
+  },
+  {
+    "id": "qmk-firmware",
+    "entry_kind": "project-source-lead",
+    "repository": "qmk/qmk_firmware",
+    "default_branch": "master",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/qmk/qmk_firmware/blob/master/readme.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/oITudbX.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/CnASmPo.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/b4b7KDb.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/z2QlKfB.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/nLaiYDE.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/nCgeolTh.png",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/RFyNMlL.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/QiA3ta6.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/eHJjmnU.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/1TPAhrs.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/0GNIYY0.jpg",
+      "https://raw.githubusercontent.com/qmk/qmk_firmware/master/docs/public/AvXZShD.jpg"
+    ]
+  },
+  {
+    "id": "reprapfirmware",
+    "entry_kind": "project-source-lead",
+    "repository": "Duet3D/RepRapFirmware",
+    "default_branch": "3.7-dev",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/Duet3D/RepRapFirmware/blob/3.7-dev/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Duet3D/RepRapFirmware/3.7-dev/src/Networking/MQTT/MQTT_C/docs/graph_legend.png",
+      "https://raw.githubusercontent.com/Duet3D/RepRapFirmware/3.7-dev/src/Networking/MQTT/MQTT_C/docs/mqtt__pal_8h__dep__incl.png"
+    ]
+  },
+  {
+    "id": "sane-airscan",
+    "entry_kind": "project-source-lead",
+    "repository": "alexpevzner/sane-airscan",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/alexpevzner/sane-airscan/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "cleanflight",
+    "entry_kind": "project-source-lead",
+    "repository": "cleanflight/cleanflight",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/cleanflight/cleanflight/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/cleanflight/cleanflight/master/docs/assets/cleanflight/cleanflight-logo-light-wide-1-240px.jpg",
+      "https://dev.azure.com/cleanflight-flight-control/cleanflight-firmware/_apis/build/status/cleanflight.cleanflight?branchName=master"
+    ]
+  },
+  {
+    "id": "cozmo-python-sdk",
+    "entry_kind": "project-source-lead",
+    "repository": "anki/cozmo-python-sdk",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/anki/cozmo-python-sdk/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/docs/source/images/cozmo-sdk-img.jpg",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/docs/source/images/annotate.jpg",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/src/cozmo/assets/cube3.jpg",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/src/cozmo/assets/cube2.jpg",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/src/cozmo/assets/cube1.jpg",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/docs/source/images/custom_markers/SDK_5Diamonds.png",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/docs/source/images/custom_markers/SDK_4Diamonds.png",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/docs/source/images/custom_markers/SDK_5Circles.png",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/docs/source/images/custom_markers/SDK_3Diamonds.png",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/docs/source/images/custom_markers/SDK_5Hexagons.png",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/docs/source/images/custom_markers/SDK_5Triangles.png",
+      "https://raw.githubusercontent.com/anki/cozmo-python-sdk/master/docs/source/images/custom_markers/SDK_3Circles.png"
+    ]
+  },
+  {
+    "id": "create-robot",
+    "entry_kind": "project-source-lead",
+    "repository": "AutonomyLab/create_robot",
+    "default_branch": "iron",
+    "license": "BSD-3-Clause",
+    "readme_url": "https://github.com/AutonomyLab/create_robot/blob/iron/README.md",
+    "candidates": []
+  },
+  {
+    "id": "dorita980",
+    "entry_kind": "project-source-lead",
+    "repository": "koalazak/dorita980",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/koalazak/dorita980/blob/master/README.md",
+    "candidates": [
+      "https://img.youtube.com/vi/XILvHFEX7TM/0.jpg"
+    ]
+  },
+  {
+    "id": "inav",
+    "entry_kind": "project-source-lead",
+    "repository": "iNavFlight/inav",
+    "default_branch": "maintenance-10.x",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/iNavFlight/inav/blob/maintenance-10.x/readme.md",
+    "candidates": [
+      "http://static.rcgroups.net/forums/attachments/6/1/0/3/7/6/a9088858-102-inav.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/mixerprofile_mc_mixer.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/mixerprofile_fw_mixer.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/blackbox-screenshot-1.jpg",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/ADSB_TTSC01_settings.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/adjustments-pid-via-two-3pos.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/adjustments-incorrect-config-2-corrected.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/adjustments-incorrect-config-2.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/cleanflight-gui.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/blackbox-dataflash.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/adjustments-rates-via-a-2pos-and-3pos.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/adjustments-incorrect-config-1.png",
+      "https://raw.githubusercontent.com/iNavFlight/inav/maintenance-10.x/docs/Screenshots/adjustments-pid-via-6pos-and-3pos.png"
+    ]
+  },
+  {
+    "id": "irobot-edu-python-sdk",
+    "entry_kind": "project-source-lead",
+    "repository": "iRobotEducation/irobot-edu-python-sdk",
+    "default_branch": "main",
+    "license": "BSD-3-Clause",
+    "readme_url": "https://github.com/iRobotEducation/irobot-edu-python-sdk/blob/main/README.md",
+    "candidates": []
+  },
+  {
+    "id": "openbot",
+    "entry_kind": "project-source-lead",
+    "repository": "ob-f/OpenBot",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/ob-f/OpenBot/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/ob-f/OpenBot/master/docs/images/banner.jpg",
+      "https://img.youtube.com/vi/RbzPXywJifA/hqdefault.jpg",
+      "https://img.youtube.com/vi/qc8hFLyWDOM/hqdefault.jpg",
+      "https://raw.githubusercontent.com/ob-f/OpenBot/master/docs/images/openbot_tank.jpg",
+      "https://raw.githubusercontent.com/ob-f/OpenBot/master/docs/images/openbot_2wd.jpg",
+      "https://raw.githubusercontent.com/ob-f/OpenBot/master/docs/images/chassis_cardboard_1.jpg",
+      "https://raw.githubusercontent.com/ob-f/OpenBot/master/docs/images/openbot_yoda.jpg",
+      "https://raw.githubusercontent.com/ob-f/OpenBot/master/docs/images/footer.gif"
+    ]
+  },
+  {
+    "id": "vector-python-sdk",
+    "entry_kind": "project-source-lead",
+    "repository": "anki/vector-python-sdk",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/anki/vector-python-sdk/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/vector-sdk-alpha.jpg",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/annotate.png",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/examples/experimental/sign_language_recognition_system/example.png",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/anki_vector/opengl/assets/cube.jpg",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/custom_markers/SDK_5Diamonds.png",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/custom_markers/SDK_4Diamonds.png",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/custom_markers/SDK_5Circles.png",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/custom_markers/SDK_3Diamonds.png",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/custom_markers/SDK_5Hexagons.png",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/custom_markers/SDK_5Triangles.png",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/custom_markers/SDK_3Circles.png",
+      "https://raw.githubusercontent.com/anki/vector-python-sdk/master/docs/source/images/custom_markers/SDK_2Diamonds.png"
+    ]
+  },
+  {
+    "id": "atc-mi-thermometer",
+    "entry_kind": "project-source-lead",
+    "repository": "atc1441/ATC_MiThermometer",
+    "default_branch": "master",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/atc1441/ATC_MiThermometer/blob/master/README.md",
+    "candidates": [
+      "https://img.youtube.com/vi/NXKzFG61lNs/0.jpg",
+      "https://img.youtube.com/vi/NfZHh6wmTp8/0.jpg"
+    ]
+  },
+  {
+    "id": "espurna",
+    "entry_kind": "project-source-lead",
+    "repository": "xoseperez/espurna",
+    "default_branch": "dev",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/xoseperez/espurna/blob/dev/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/blitzwolf-bw-shp6.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/blitzwolf-bw-shp2.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/blitzwolf-bw-shp5.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/generic-v9261f.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-pow.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-pow-r2.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-s31.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/smartlife-mini-smart-socket.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/teckin-sp20.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/digoo-nx-sp202.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/vanzavanzu-smart-wifi-plug-mini.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/hykker-smart-home-power-plug.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-basic.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-dual.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-th.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/electrodragon-wifi-iot.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/openenergymonitor-mqtt-relay.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-4ch.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-4ch-pro.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/allterco-shelly1.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/allterco-shelly2.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/jangoe-wifi-relay.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/exs-wifi-relay-v31.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/exs-wifi-relay-v50.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/jorgegarcia-wifi-relays.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/allnet-esp8266-up-relay.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/bh-onofre.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/luani-hvio.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-s20.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-s26.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/neo-coolcam-wifi.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/maxcio-w-us002s.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/heygo-hy02.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/yidian-xs-ssa05.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/wion-50055.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/lingan-swa1.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/homecube-16a.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/workchoice-ecoplug.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/bestek-mrj1011.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/tonbux-xs-ssa01.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/schuko-wifi-plug.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/schuko-wifi-plug-v2.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/kmc-70011.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/xenon-sm-pw702u.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/orvibo-b25.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/oukitel-p1.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/tonbux-xs-ssa06.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/litesun-la-wf3.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/maxcio-w-de004.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/hama-wifi-steckdose.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/gblife-rgbw-socket.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-touch.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-t1.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/yjzk-2gang-switch.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/gosund-ws1.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/tonbux-powerstrip02.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/fornorm-power-strip.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/zhilde-zld-eu55-w.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-slampher.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/arilux-e27.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-b1.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/aithinker-ai-light.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/authometion-lyt8266.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/ag-l4.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/lohas-9w.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/xiaomi-smart-desk-lamp.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/iwoole-led-table-lamp.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-led.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-bn-sz01.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/lombex-lux-nova2.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/arilux-al-lc01.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/arilux-al-lc02.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/arilux-al-lc06.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/arilux-al-lc11.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/magichome-led-controller.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/huacanxing-h801.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/muvit-io-miobulb001.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/lampi-rgbww-smart-lamp.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/tinkerman-rfm69gw.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-rfbridge.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-rf.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/tonbux-mosquito-killer.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-ifan02.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/tinkerman-espurna-h.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/nodemcu-lolin-v3.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-sonoff-sv.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-1ch-inching.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/itead-motor.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/mancavemade-esp-live.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/wemos-d1-relayshield.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/witty-cloud.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/ike-espike.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/pilotak-esp-din.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/arniex-swifitch.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/heltec-touch-relay.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/generic-relay-40.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/generic-rgbled-10.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/generic-dht11-10.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/generic-ds18b20-10.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/intermittech-quinled-2.6.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/phyx-esp12-rgbw.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/generic-geiger-diy.png",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/green-esp-relay.jpg",
+      "https://raw.githubusercontent.com/xoseperez/espurna/dev/images/devices/foxel-lightfox-dual.jpg"
+    ]
+  },
+  {
+    "id": "esp-homekit-devices",
+    "entry_kind": "project-source-lead",
+    "repository": "RavenSystem/esp-homekit-devices",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/RavenSystem/esp-homekit-devices/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/RavenSystem/ravensystem-media/master/works-with-apple-home.svg",
+      "https://raw.githubusercontent.com/RavenSystem/ravensystem-media/master/haamanager_app.png",
+      "https://raw.githubusercontent.com/RavenSystem/ravensystem-media/master/homebench_app.png",
+      "https://raw.githubusercontent.com/RavenSystem/ravensystem-media/master/YouTube_logo.png"
+    ]
+  },
+  {
+    "id": "libretiny",
+    "entry_kind": "project-source-lead",
+    "repository": "libretiny-eu/libretiny",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/libretiny-eu/libretiny/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "ltchiptool",
+    "entry_kind": "project-source-lead",
+    "repository": "libretiny-eu/ltchiptool",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/libretiny-eu/ltchiptool/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/libretiny-eu/ltchiptool/master/github/screenshot.png",
+      "https://raw.githubusercontent.com/libretiny-eu/ltchiptool/master/.github/screenshot.png",
+      "https://raw.githubusercontent.com/libretiny-eu/ltchiptool/master/ltchiptool/gui/ltchiptool-192x192.png"
+    ]
+  },
+  {
+    "id": "nspanel-ha-blueprint",
+    "entry_kind": "project-source-lead",
+    "repository": "Blackymas/NSPanel_HA_Blueprint",
+    "default_branch": "main",
+    "license": "UNKNOWN",
+    "readme_url": "https://github.com/Blackymas/NSPanel_HA_Blueprint/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/eu_home.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/us_home.png",
+      "https://user-images.githubusercontent.com/41958506/203654022-c6d81263-ce56-4a84-917a-9d4911f19f55.png",
+      "https://user-images.githubusercontent.com/41958506/206879659-3aea30c1-b126-4d52-a869-abf6adfc8fa1.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/eu_entities.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/us_entities.png",
+      "https://user-images.githubusercontent.com/41958506/203654055-943d1910-7673-4d9f-ad81-7ef00d155e5a.png",
+      "https://user-images.githubusercontent.com/41958506/203654076-93e110df-f314-4cf1-8500-ed667f2202fd.png",
+      "https://user-images.githubusercontent.com/41958506/203654179-f7303b02-c886-4890-b976-cb498940a627.png",
+      "https://user-images.githubusercontent.com/41958506/203654290-c6ec2f2f-7924-492c-914c-0d96dc3907e0.png",
+      "https://user-images.githubusercontent.com/41958506/203654307-24000d00-b7e1-47eb-bd64-9e97b508db52.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/eu_settings.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/us_settings.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/eu_boot.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/us_boot.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/ha_device_controls.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/ha_device_sensors.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/ha_device_configuration.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/ha_device_diagnostic.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/ha_blueprint_01.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/ha_blueprint_02.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/ha_blueprint_03.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/ha_blueprint_04.png",
+      "https://raw.githubusercontent.com/Blackymas/NSPanel_HA_Blueprint/main/docs/pics/ha_blueprint_05.png",
+      "https://user-images.githubusercontent.com/41958506/212499642-b2fd097a-0938-4bfc-b37b-74df64592c58.png"
+    ]
+  },
+  {
+    "id": "openmqttgateway",
+    "entry_kind": "project-source-lead",
+    "repository": "1technophile/OpenMQTTGateway",
+    "default_branch": "development",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/1technophile/OpenMQTTGateway/blob/development/README.md",
+    "candidates": [
+      "https://github.com/1technophile/OpenMQTTGateway/blob/development/docs/img/OpenMQTTGateway.png",
+      "https://raw.githubusercontent.com/1technophile/OpenMQTTGateway/development/docs/img/Theengs-Bridge-ble-gateway.png",
+      "https://img.youtube.com/vi/nUwMt9p2U7o/0.jpg",
+      "https://img.youtube.com/vi/_gdXR1uklaY/0.jpg",
+      "https://img.youtube.com/vi/noUROhtf0E0/0.jpg",
+      "https://img.youtube.com/vi/H-JXWbWjJYE/0.jpg",
+      "https://img.youtube.com/vi/6DftaHxDawM/0.jpg",
+      "https://github.com/1technophile/OpenMQTTGateway/blob/development/docs/img/EMQ.png"
+    ]
+  },
+  {
+    "id": "rtl-433",
+    "entry_kind": "project-source-lead",
+    "repository": "merbanan/rtl_433",
+    "default_branch": "master",
+    "license": "GPL-2.0",
+    "readme_url": "https://github.com/merbanan/rtl_433/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/merbanan/rtl_433/master/docs/screenshot.png"
+    ]
+  },
+  {
+    "id": "shelly-homekit",
+    "entry_kind": "project-source-lead",
+    "repository": "mongoose-os-apps/shelly-homekit",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/mongoose-os-apps/shelly-homekit/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/mongoose-os-apps/shelly-homekit/master/docs/SDNT1608-0.1-10.png"
+    ]
+  },
+  {
+    "id": "tuya-cloudcutter",
+    "entry_kind": "project-source-lead",
+    "repository": "tuya-cloudcutter/tuya-cloudcutter",
+    "default_branch": "main",
+    "license": "MIT",
+    "readme_url": "https://github.com/tuya-cloudcutter/tuya-cloudcutter/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/tuya-cloudcutter/tuya-cloudcutter/main/src/tinytuya/docs/TinyTuya-diagram.png",
+      "https://raw.githubusercontent.com/tuya-cloudcutter/tuya-cloudcutter/main/src/tinytuya/docs/TinyTuya-diagram.jpg"
+    ]
+  },
+  {
+    "id": "tuya-convert",
+    "entry_kind": "project-source-lead",
+    "repository": "ct-Open-Source/tuya-convert",
+    "default_branch": "master",
+    "license": "MIT",
+    "readme_url": "https://github.com/ct-Open-Source/tuya-convert/blob/master/README.md",
+    "candidates": [
+      "https://asciinema.org/a/2aDZweVGfliwc9TjB1ncwmKvm.png"
+    ]
+  },
+  {
+    "id": "wled",
+    "entry_kind": "project-source-lead",
+    "repository": "wled/WLED",
+    "default_branch": "main",
+    "license": "EUPL-1.2",
+    "readme_url": "https://github.com/wled/WLED/blob/main/readme.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/wled/WLED/main/images/wled_logo_akemi.png",
+      "https://raw.githubusercontent.com/wled/WLED/main/images/macbook-pro-space-gray-on-the-wooden-table.jpg",
+      "https://raw.githubusercontent.com/wled/WLED/main/images/walking-with-iphone-x.jpg",
+      "https://discordapp.com/api/guilds/473448917040758787/widget.png?style=banner2"
+    ]
+  },
+  {
+    "id": "zigbee2mqtt",
+    "entry_kind": "project-source-lead",
+    "repository": "Koenkk/zigbee2mqtt",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/Koenkk/zigbee2mqtt/blob/master/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/Koenkk/zigbee2mqtt/master/images/architecture-new.png",
+      "https://raw.githubusercontent.com/Koenkk/zigbee2mqtt/master/images/logo.png",
+      "https://avatars.githubusercontent.com/u/13844975?s=75",
+      "https://avatars.githubusercontent.com/u/8502422?s=75",
+      "https://avatars.githubusercontent.com/u/6067010?s=75",
+      "https://avatars.githubusercontent.com/u/7365162?s=75",
+      "https://avatars.githubusercontent.com/u/7231148?s=75"
+    ]
+  },
+  {
+    "id": "zigpy",
+    "entry_kind": "project-source-lead",
+    "repository": "zigpy/zigpy",
+    "default_branch": "dev",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/zigpy/zigpy/blob/dev/README.md",
+    "candidates": []
+  },
+  {
+    "id": "amazmod",
+    "entry_kind": "project-source-lead",
+    "repository": "AmazMod/AmazMod",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/AmazMod/AmazMod/blob/master/README.md",
+    "candidates": [
+      "https://circleci.com/gh/AmazMod/AmazMod/tree/dev.svg?style=svg",
+      "https://d322cqt584bo4o.cloudfront.net/amazmod/localized.svg",
+      "https://github.com/edotassi/AmazMod/raw/dev/images/screen_1.png",
+      "https://github.com/edotassi/AmazMod/raw/dev/images/screen_2.png",
+      "https://github.com/edotassi/AmazMod/raw/dev/images/screen_3.png",
+      "https://github.com/edotassi/AmazMod/raw/dev/images/screen_4.png",
+      "https://github.com/edotassi/AmazMod/raw/dev/images/screen_5.png",
+      "https://github.com/edotassi/AmazMod/raw/dev/images/screen_6.png",
+      "https://github.com/edotassi/AmazMod/raw/dev/images/screen_7.png",
+      "https://github.com/edotassi/AmazMod/raw/dev/images/screen_8.jpg",
+      "https://i.creativecommons.org/l/by-sa/4.0/88x31.png"
+    ]
+  },
+  {
+    "id": "galileo-fitbit",
+    "entry_kind": "project-source-lead",
+    "repository": "benallard/galileo",
+    "default_branch": "main",
+    "license": "LGPL-3.0",
+    "readme_url": "https://github.com/benallard/galileo/blob/main/README.rst",
+    "candidates": []
+  },
+  {
+    "id": "openhaystack",
+    "entry_kind": "project-source-lead",
+    "repository": "seemoo-lab/openhaystack",
+    "default_branch": "main",
+    "license": "AGPL-3.0",
+    "readme_url": "https://github.com/seemoo-lab/openhaystack/blob/main/README.md",
+    "candidates": [
+      "https://raw.githubusercontent.com/seemoo-lab/openhaystack/main/Resources/FindMyOverview.png",
+      "https://raw.githubusercontent.com/seemoo-lab/openhaystack/main/Resources/Setup.jpg",
+      "https://raw.githubusercontent.com/seemoo-lab/openhaystack/main/Resources/Icon/OpenHaystackIcon.png",
+      "https://raw.githubusercontent.com/seemoo-lab/openhaystack/main/Resources/OpenHaystack-Screenshot.png",
+      "https://raw.githubusercontent.com/seemoo-lab/openhaystack/main/Resources/mobile-map-view.png",
+      "https://raw.githubusercontent.com/seemoo-lab/openhaystack/main/Resources/mobile-accessory-history.png"
+    ]
+  },
+  {
+    "id": "openwatch-launcher",
+    "entry_kind": "project-source-lead",
+    "error": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "id": "openwatch-wiite-c7s",
+    "entry_kind": "project-source-lead",
+    "error": "gh: Not Found (HTTP 404)"
+  },
+  {
+    "id": "pebble-legacy-firmware-patcher",
+    "entry_kind": "project-source-lead",
+    "repository": "pebble-dev/legacy-firmware-patcher",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/pebble-dev/legacy-firmware-patcher/blob/master/README.txt",
+    "candidates": []
+  },
+  {
+    "id": "rebbleos",
+    "entry_kind": "project-source-lead",
+    "repository": "pebble-dev/RebbleOS",
+    "default_branch": "master",
+    "license": "NOASSERTION",
+    "readme_url": "https://github.com/pebble-dev/RebbleOS/blob/master/README.md",
+    "candidates": []
+  },
+  {
+    "id": "wasp-os",
+    "entry_kind": "project-source-lead",
+    "repository": "wasp-os/wasp-os",
+    "default_branch": "master",
+    "license": "GPL-3.0",
+    "readme_url": "https://github.com/wasp-os/wasp-os/blob/master/README.rst",
+    "candidates": [
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/DemoApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/GalleryApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/SnakeApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/WeatherApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/StopwatchApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/SoftwareApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/BeaconApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/PomodoroApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/LauncherApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/GameOfLifeApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/WordClockApp.png",
+      "https://raw.githubusercontent.com/wasp-os/wasp-os/master/res/screenshots/HaikuApp.png"
+    ]
+  }
+]

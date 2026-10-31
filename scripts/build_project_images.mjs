@@ -33,11 +33,15 @@ for (const entry of manifest.entries) {
   const output = path.join(root, "docs", entry.local_file);
   if (!fs.existsSync(input)) throw new Error(`Missing source image: ${entry.source_file}`);
   fs.mkdirSync(path.dirname(output), { recursive: true });
-  await sharp(input)
-    .rotate()
-    .resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true })
-    .webp({ quality: 82, effort: 5 })
-    .toFile(output);
+  if (entry.normalized_source && path.extname(input).toLowerCase() === ".webp") {
+    fs.copyFileSync(input, output);
+  } else {
+    await sharp(input)
+      .rotate()
+      .resize({ width: 1600, height: 1600, fit: "inside", withoutEnlargement: true })
+      .webp({ quality: 82, effort: 5 })
+      .toFile(output);
+  }
   built += 1;
 }
 

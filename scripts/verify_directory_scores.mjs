@@ -23,6 +23,7 @@ const listedProjectSources = directory.counts.reviewed_projects + listedProjectL
 const listedProjectSourcesE0 = listedProjectLeads.filter(entry => entry.evidence_level === "E0").length;
 const expectedImageThumbnails = projectImages.length;
 const expectedPlaceholders = expected - expectedImageThumbnails;
+const xiaogptImage = projectImages.find(entry => (entry.entry_id || `project:${entry.project_id}`) === "project:xiaogpt");
 const scoreTextPattern = /[1-5](?:\.5)?\s*\/\s*5/;
 const ratingDisplayMatches = (text, score, unratedText = "待评分") => score === null ? text === unratedText : scoreTextPattern.test(text);
 const browser = await chromium.launch({ headless: true });
@@ -480,7 +481,7 @@ try {
   if (checks.directoryNeedsReview !== listedNeedsReview || !checks.directoryNeedsReviewText || checks.projectSourceNeedsReview !== listedNeedsReview || !checks.projectSourceNeedsReviewText) throw new Error("Needs-review marker coverage failed");
   if (checks.projectSources !== listedProjectSources || checks.projectSourcesE0 !== listedProjectSourcesE0 || checks.projectSourcesNas < 1) throw new Error("Project-source index/filter failed");
   if (checks.kindleVisible < 1 || checks.mobile.directoryZh.visible !== checks.kindleVisible || checks.mobile.directoryEn.visible !== checks.kindleVisible) throw new Error("Bilingual/device search persistence failed");
-  if (checks.deepPageThumbnail.id !== "xiaogpt" || checks.deepPageThumbnail.imagePath !== "/assets/projects/xiaogpt.webp" || !checks.deepPageThumbnail.imageLoaded || checks.deepPageThumbnail.linkPath !== "/en/projects/xiaogpt/") throw new Error("Deep-page imported thumbnail normalization failed");
+  if (checks.deepPageThumbnail.id !== "xiaogpt" || checks.deepPageThumbnail.imagePath !== `/${xiaogptImage.local_file}` || !checks.deepPageThumbnail.imageLoaded || checks.deepPageThumbnail.linkPath !== "/en/projects/xiaogpt/") throw new Error("Deep-page imported thumbnail normalization failed");
   if (checks.mobile.projectSources.visible !== checks.projectSourcesNas) throw new Error("Project-source mobile search persistence failed");
   if (checks.mobile.leads.visible !== directory.counts.device_or_community_routes) throw new Error("Mobile lead list coverage failed");
   for (const [name, result] of Object.entries(checks.mobile)) {
