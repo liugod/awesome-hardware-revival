@@ -415,7 +415,7 @@ class ProjectCardAudit(HTMLParser):
         classes=set(a.get("class","").split())
         if tag=="article" and "project" in classes:
             assert self.current is None,"Nested project card"
-            self.current={"direct":[],"depth":0,"classes":collections.Counter(),"tags":collections.Counter()}
+            self.current={"direct":[],"depth":0,"classes":collections.Counter(),"tags":collections.Counter(),"article_classes":classes}
             return
         if self.current is None:return
         self.current["depth"]+=1
@@ -439,15 +439,28 @@ class ProjectCardAudit(HTMLParser):
 def audit_project_cards(markup,label):
     parser=ProjectCardAudit();parser.feed(markup)
     assert parser.cards,(label,"no project cards")
-    forbidden={"tags","hardware-tags","device","limit","card-end","project-thumb","rating-panel"}
+    forbidden={"tags","hardware-tags","device","limit","card-end","rating-panel"}
     for index,card in enumerate(parser.cards):
         direct=card["direct"]
-        assert len(direct)==3,(label,index,"card must have exactly three direct visible groups",direct)
-        assert direct[0][0]=="h3" and direct[1][0]=="p" and "card-outcome" in direct[1][1],(label,index,"card title/outcome structure")
-        assert direct[2][0]=="div" and "card-meta" in direct[2][1],(label,index,"card metadata structure")
+        has_media="has-media" in card["article_classes"]
+        has_image="has-image" in card["article_classes"]
+        has_placeholder="has-placeholder" in card["article_classes"]
+        content_offset=1 if has_media else 0
+        assert not (has_image and has_placeholder),(label,index,"card media state")
+        assert has_media==(has_image or has_placeholder),(label,index,"card media class contract")
+        assert len(direct)==3+content_offset,(label,index,"card visible group count",direct)
+        if has_image:
+            assert direct[0][0]=="a" and "project-thumb" in direct[0][1],(label,index,"card thumbnail structure")
+            assert card["classes"]["project-thumb"]==1 and card["tags"]["img"]==1,(label,index,"card thumbnail coverage")
+        elif has_placeholder:
+            assert direct[0][0]=="div" and "project-thumb" in direct[0][1] and "project-thumb-placeholder" in direct[0][1],(label,index,"card placeholder structure")
+            assert card["classes"]["project-thumb"]==1 and card["classes"]["project-thumb-placeholder"]==1 and card["tags"]["img"]==0,(label,index,"card placeholder coverage")
+        else:
+            assert card["classes"]["project-thumb"]==0 and card["tags"]["img"]==0,(label,index,"unexpected card thumbnail")
+        assert direct[content_offset][0]=="h3" and direct[content_offset+1][0]=="p" and "card-outcome" in direct[content_offset+1][1],(label,index,"card title/outcome structure")
+        assert direct[content_offset+2][0]=="div" and "card-meta" in direct[content_offset+2][1],(label,index,"card metadata structure")
         assert card["classes"]["card-rating"]==1 and card["classes"]["evidence-tag"]==1,(label,index,"rating/evidence coverage")
         assert not (forbidden&set(card["classes"])),(label,index,"legacy card field remains",forbidden&set(card["classes"]))
-        assert card["tags"]["img"]==0,(label,index,"list cards must not show images")
     return len(parser.cards)
 
 pages={}
@@ -461,7 +474,7 @@ for file in OUT.rglob("*.html"):
     assert set(parser.alternates)=={"zh-CN","en","x-default"},file
     assert parser.alternates["x-default"]==parser.alternates["en"],file
     audit_footer(markup,parser.lang,file)
-    if '<article class="project"' in markup:
+    if re.search(r'<article class="project(?:\s|")',markup):
         generated_card_count+=audit_project_cards(markup,("all generated cards",file))
         card_page_count+=1
     if file.is_relative_to(OUT/"en"):
@@ -493,6 +506,9 @@ for lang in ["zh","en"]:
         directory_markups.append(paged_file.read_text(encoding="utf-8"))
     combined_directory_markup="".join(directory_markups)
     assert sum(audit_project_cards(markup,(lang,"directory page",index)) for index,markup in enumerate(directory_markups,1))==len(projects)+len(watchlist)+len(listed_project_leads),(lang,"paged directory coverage")
+    assert combined_directory_markup.count('<a class="project-thumb ')==len(project_images),(lang,"reviewed project thumbnail coverage")
+    assert combined_directory_markup.count('class="project-thumb project-thumb-placeholder"')==len(projects)+len(watchlist)+len(listed_project_leads)-len(project_images),(lang,"pending-image placeholder coverage")
+    assert combined_directory_markup.count(' has-media ')==len(projects)+len(watchlist)+len(listed_project_leads),(lang,"directory media coverage")
     assert combined_directory_markup.count('data-ai="native"')==10,(lang,"reviewed AI-function route count")
     listed_needs_review=sum(lead["needs_review"] for lead in listed_project_leads)
     assert combined_directory_markup.count('data-needs-review="true"')==listed_needs_review,(lang,"directory needs-review markers")
@@ -543,6 +559,7 @@ for lang in ["zh","en"]:
     assert f'placeholder="{expected_placeholder}"' in home_markup,(lang,"homepage search placeholder")
     assert 'directory/?ai=native' in home_markup and 'directory/?q=AI' not in home_markup,(lang,"homepage structured AI filter link")
     assert home_markup.count('class="home-subtitle"')==1,(lang,"homepage subtitle")
+    assert home_markup.count('class="ai-route-thumb ')==3,(lang,"homepage reviewed-route thumbnail coverage")
     assert home_markup.count('class="category-entry"')>=4,(lang,"homepage popular categories")
     assert all(token not in home_markup for token in ['id="filters"','id="project-grid"','class="field-note"','class="facts-strip"','class="featured"','class="closing"']),(lang,"legacy homepage section remains")
     onju_markup=(OUT/lang/"projects/onju-v2/index.html").read_text(encoding="utf-8")

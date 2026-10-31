@@ -81,6 +81,7 @@
         }).then(markup => [...new DOMParser().parseFromString(markup, "text/html").querySelectorAll("#directory-grid .project")].map(card => {
           const imported = document.importNode(card, true);
           imported.querySelectorAll("a[href]").forEach(link => { link.href = new URL(link.getAttribute("href"), url).href; });
+          imported.querySelectorAll("img[src]").forEach(image => { image.src = new URL(image.getAttribute("src"), url).href; });
           return imported;
         })));
       }

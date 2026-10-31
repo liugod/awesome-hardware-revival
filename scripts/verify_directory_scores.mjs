@@ -4,6 +4,7 @@ import path from "node:path";
 
 const base = process.env.KITAGAIN_PREVIEW || "http://127.0.0.1:4185";
 const directory = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "directory.json"), "utf8"));
+const projectImages = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "project-images.json"), "utf8")).entries;
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "site.config.json"), "utf8"));
 const listedEntries = directory.entries.filter(entry => entry.display_status !== "delisted");
 const expected = listedEntries.length;
@@ -20,6 +21,8 @@ const listedProjectLeads = listedEntries.filter(entry => entry.kind === "project
 const listedNeedsReview = listedProjectLeads.filter(entry => entry.needs_review).length;
 const listedProjectSources = directory.counts.reviewed_projects + listedProjectLeads.length;
 const listedProjectSourcesE0 = listedProjectLeads.filter(entry => entry.evidence_level === "E0").length;
+const expectedImageThumbnails = projectImages.length;
+const expectedPlaceholders = expected - expectedImageThumbnails;
 const scoreTextPattern = /[1-5](?:\.5)?\s*\/\s*5/;
 const ratingDisplayMatches = (text, score, unratedText = "待评分") => score === null ? text === unratedText : scoreTextPattern.test(text);
 const browser = await chromium.launch({ headless: true });
@@ -47,13 +50,26 @@ const auditCardGrid = async (targetPage, grid) => targetPage.locator(`${grid} .p
   };
   const reports = cards.map((card, index) => {
     const children = [...card.children];
+    const hasMedia = card.classList.contains("has-media");
+    const hasImage = card.classList.contains("has-image");
+    const hasPlaceholder = card.classList.contains("has-placeholder");
+    const contentOffset = hasMedia ? 1 : 0;
+    const thumbnail = card.querySelector(":scope > a.project-thumb");
+    const thumbnailImage = thumbnail?.querySelector(":scope > img");
+    const placeholder = card.querySelector(":scope > .project-thumb-placeholder");
     const outcome = card.querySelector(":scope > p.card-outcome");
     const outcomeStyle = outcome ? getComputedStyle(outcome) : null;
-    const forbidden = card.querySelectorAll("img,.tags,.hardware-tags,.device,.limit,.card-end,.project-thumb,.rating-panel").length;
-    const valid = children.length === 3 &&
-      children[0].tagName === "H3" && children[0].querySelectorAll("a").length === 1 &&
-      children[1].matches("p.card-outcome") && children[2].matches("div.card-meta") &&
-      children[2].children.length === 2 &&
+    const forbidden = card.querySelectorAll(".tags,.hardware-tags,.device,.limit,.card-end,.rating-panel").length;
+    const thumbnailValid = hasImage && !hasPlaceholder ?
+      children[0] === thumbnail && card.querySelectorAll(":scope > a.project-thumb").length === 1 && card.querySelectorAll("img").length === 1 && Boolean(thumbnailImage?.alt) :
+      hasPlaceholder && !hasImage ?
+        children[0] === placeholder && placeholder?.getAttribute("role") === "img" && Boolean(placeholder?.getAttribute("aria-label")) && card.querySelectorAll("img").length === 0 :
+        !hasMedia && card.querySelectorAll(".project-thumb,img").length === 0;
+    const valid = children.length === 3 + contentOffset && thumbnailValid &&
+      hasMedia === (hasImage || hasPlaceholder) &&
+      children[contentOffset].tagName === "H3" && children[contentOffset].querySelectorAll("a").length === 1 &&
+      children[contentOffset + 1].matches("p.card-outcome") && children[contentOffset + 2].matches("div.card-meta") &&
+      children[contentOffset + 2].children.length === 2 &&
       card.querySelectorAll(".card-rating").length === 1 && card.querySelectorAll(".evidence-tag").length === 1 &&
       outcomeStyle?.whiteSpace === "nowrap" && outcomeStyle?.overflowX === "hidden" && outcomeStyle?.textOverflow === "ellipsis" &&
       forbidden === 0;
@@ -91,6 +107,16 @@ const auditFooter = async (targetPage, lang) => targetPage.locator("footer .foot
     structure && !forbiddenMetadata && new Set(tops).size === 1 && footer.scrollWidth <= footer.clientWidth;
   return { valid, normalized, linkLabels, aboutPath, download: `${downloadURL.pathname}${downloadURL.hash}`, structure, forbiddenMetadata, singleLine: new Set(tops).size === 1, width: { client: footer.clientWidth, scroll: footer.scrollWidth } };
 }, { expectedLang: lang, repositoryURL: config.repository_url });
+
+const decodeVisibleImages = async (targetPage, selector) => {
+  const images = targetPage.locator(selector);
+  const count = await images.count();
+  for (let index = 0; index < count; index += 1) {
+    const image = images.nth(index);
+    await image.scrollIntoViewIfNeeded();
+    await image.evaluate(element => element.decode());
+  }
+};
 
 const auditDirectoryShell = async (targetPage, lang) => targetPage.locator(".directory-page").evaluate((page, expectedLang) => {
   const isVisible = element => Boolean(element && (element.offsetWidth || element.offsetHeight || element.getClientRects().length));
@@ -185,11 +211,15 @@ try {
 
   const checkHomepage = async ({ pathName, placeholder, directoryPath, lang }) => {
     await page.goto(`${base}${pathName}`, { waitUntil: "networkidle" });
+    await page.locator(".ai-routes").scrollIntoViewIfNeeded();
+    await page.waitForFunction(() => [...document.querySelectorAll(".ai-route-thumb img")].every(image => image.complete && image.naturalWidth > 0));
+    await page.locator(".ai-route-thumb img").evaluateAll(images => Promise.all(images.map(image => image.decode())));
     const result = await page.evaluate(expectedPlaceholder => {
       const subtitle = document.querySelector("main .home-subtitle");
       const style = subtitle ? getComputedStyle(subtitle) : null;
       const lineHeight = style ? (Number.parseFloat(style.lineHeight) || Number.parseFloat(style.fontSize) * 1.2) : 1;
       const categories = [...document.querySelectorAll("main .popular-categories > .category-entry")];
+      const routeThumbnails = [...document.querySelectorAll(".ai-route-thumb img")];
       return {
         h1: document.querySelectorAll("main h1").length,
         searches: document.querySelectorAll('main input[type="search"]').length,
@@ -201,6 +231,8 @@ try {
           const url = new URL(entry.href);
           return Boolean(entry.querySelector('[aria-hidden="true"]')) && Boolean(url.searchParams.get("category"));
         }),
+        routeThumbnails: routeThumbnails.length,
+        routeThumbnailsValid: routeThumbnails.every(image => Boolean(image.alt) && image.complete && image.naturalWidth > 0),
         forbidden: document.querySelectorAll("main .field-note,main .facts-strip,main .featured,main .closing,main #filters,main #project-grid,main .primary,main .secondary").length
       };
     }, placeholder);
@@ -220,7 +252,7 @@ try {
     en: await checkHomepage({ pathName: "/", placeholder: "Enter your device", directoryPath: "/en/directory/", lang: "en" })
   };
   for (const [lang, result] of Object.entries(checks.home)) {
-    if (result.h1 !== 1 || result.searches !== 1 || !result.placeholderMatches || result.subtitleLines > 1.25 || result.categories < 4 || !result.categoriesValid || result.forbidden !== 0 || !result.footer.valid || result.submittedQuery !== "Kindle") {
+    if (result.h1 !== 1 || result.searches !== 1 || !result.placeholderMatches || result.subtitleLines > 1.25 || result.categories < 4 || !result.categoriesValid || result.routeThumbnails !== 3 || !result.routeThumbnailsValid || result.forbidden !== 0 || !result.footer.valid || result.submittedQuery !== "Kindle") {
       throw new Error(`${lang} simplified homepage failed: ${JSON.stringify(result)}`);
     }
   }
@@ -230,6 +262,11 @@ try {
   await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project").length === total, expected);
   checks.cards = await page.locator("#directory-grid .project").count();
   checks.directoryCardContract = await auditCardGrid(page, "#directory-grid");
+  checks.directoryMedia = {
+    thumbnails: await page.locator("#directory-grid .project-thumb").count(),
+    images: await page.locator("#directory-grid .project.has-image .project-thumb img").count(),
+    placeholders: await page.locator("#directory-grid .project.has-placeholder .project-thumb-placeholder").count()
+  };
   checks.ratedCards = await page.locator('#directory-grid .project[data-rated="true"]:has(.card-rating:not(.unrated))').count();
   checks.unratedCards = await page.locator('#directory-grid .project[data-rated="false"]:has(.card-rating.unrated)').count();
   checks.directoryFooter = await auditFooter(page, "zh");
@@ -279,6 +316,19 @@ try {
   await page.locator("#directory-q").fill("Kindle");
   await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project").length === total, expected);
   checks.kindleVisible = await page.locator("#directory-grid .project:not([hidden])").count();
+
+  await page.goto(`${base}/en/directory/page/2/?q=xiaogpt`, { waitUntil: "networkidle" });
+  await page.waitForFunction(() => document.querySelectorAll("#directory-grid .project:not([hidden])").length === 1);
+  checks.deepPageThumbnail = await page.locator("#directory-grid .project:not([hidden])").evaluate(card => {
+    const image = card.querySelector(":scope > .project-thumb img");
+    const link = card.querySelector(":scope > h3 a");
+    return {
+      id: card.dataset.id,
+      imagePath: image ? new URL(image.src).pathname : null,
+      imageLoaded: Boolean(image?.complete && image.naturalWidth > 0),
+      linkPath: link ? new URL(link.href).pathname : null
+    };
+  });
 
   const auditRecordDetail = async (pathName, expectedTitle = null) => {
     await page.goto(`${base}${pathName}`, { waitUntil: "networkidle" });
@@ -405,12 +455,14 @@ try {
   };
   await mobile.goto(`${base}/zh/directory/?q=Kindle`, { waitUntil: "networkidle" });
   checks.mobileDirectoryCardContract = await auditCardGrid(mobile, "#directory-grid");
+  await decodeVisibleImages(mobile, "#directory-grid .project:not([hidden]) .project-thumb img");
   await mobile.screenshot({ path: path.join(process.cwd(), "research", `validation-v${config.version}-directory-mobile.png`), fullPage: true });
   await mobile.goto(`${base}/zh/project-sources/?q=NAS`, { waitUntil: "networkidle" });
   await mobile.screenshot({ path: path.join(process.cwd(), "research", `validation-v${config.version}-project-sources-mobile.png`), fullPage: true });
   await mobile.close();
 
   if (checks.cards !== expected || checks.ratedCards !== expectedRated || checks.unratedCards !== expectedUnrated) throw new Error("Directory rated/unrated coverage failed");
+  if (checks.directoryMedia.thumbnails !== expected || checks.directoryMedia.images !== expectedImageThumbnails || checks.directoryMedia.placeholders !== expectedPlaceholders) throw new Error(`Directory thumbnail/placeholder coverage failed: ${JSON.stringify(checks.directoryMedia)}`);
   for (const [name, result] of Object.entries({ directory: checks.directoryCardContract, projectSources: checks.projectSourceCardContract, leads: checks.leadCardContract, mobileDirectory: checks.mobileDirectoryCardContract })) {
     if (!result.valid || result.maxOutcomeLines > 1.25) throw new Error(`${name} four-field card contract failed: ${JSON.stringify(result.failures)}`);
   }
@@ -428,6 +480,7 @@ try {
   if (checks.directoryNeedsReview !== listedNeedsReview || !checks.directoryNeedsReviewText || checks.projectSourceNeedsReview !== listedNeedsReview || !checks.projectSourceNeedsReviewText) throw new Error("Needs-review marker coverage failed");
   if (checks.projectSources !== listedProjectSources || checks.projectSourcesE0 !== listedProjectSourcesE0 || checks.projectSourcesNas < 1) throw new Error("Project-source index/filter failed");
   if (checks.kindleVisible < 1 || checks.mobile.directoryZh.visible !== checks.kindleVisible || checks.mobile.directoryEn.visible !== checks.kindleVisible) throw new Error("Bilingual/device search persistence failed");
+  if (checks.deepPageThumbnail.id !== "xiaogpt" || checks.deepPageThumbnail.imagePath !== "/assets/projects/xiaogpt.webp" || !checks.deepPageThumbnail.imageLoaded || checks.deepPageThumbnail.linkPath !== "/en/projects/xiaogpt/") throw new Error("Deep-page imported thumbnail normalization failed");
   if (checks.mobile.projectSources.visible !== checks.projectSourcesNas) throw new Error("Project-source mobile search persistence failed");
   if (checks.mobile.leads.visible !== directory.counts.device_or_community_routes) throw new Error("Mobile lead list coverage failed");
   for (const [name, result] of Object.entries(checks.mobile)) {
