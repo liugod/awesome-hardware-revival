@@ -38,6 +38,8 @@ e0_audit=load(ROOT/"data/e0-audit-v120.json")
 e0_audit_items=e0_audit["entries"]
 if isinstance(e0_audit_items,dict):e0_audit_items=list(e0_audit_items.values())
 BASE=config["base_url"].rstrip("/")+"/"
+APPROVED_ZH_SLOGAN="二手硬件再就业指南"
+assert (ROOT/"README.md").read_text(encoding="utf-8").startswith(f"# KitAgain · {APPROVED_ZH_SLOGAN}\n"),"Chinese README brand is locked by TRA-21"
 app_javascript=(OUT/"assets/app.js").read_text(encoding="utf-8")
 assert 'document.querySelectorAll("#directory-grid .project")' in app_javascript,"Directory filters must target directory cards"
 schema=load(ROOT/"data/catalog.schema.json")
@@ -502,6 +504,12 @@ assert card_page_count==18+2*(directory_page_count-1) and generated_card_count==
 assert len(pages)==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
+zh_home_markup=(OUT/"zh/index.html").read_text(encoding="utf-8")
+assert zh_home_markup.count(f"<h1>{APPROVED_ZH_SLOGAN}</h1>")==1,"Chinese homepage slogan is locked by TRA-21"
+assert zh_home_markup.count(f'<p class="ai-kicker">KitAgain · {APPROVED_ZH_SLOGAN}</p>')==1,"Chinese homepage kicker is locked by TRA-21"
+assert re.search(fr"<title>[^<]+ · {APPROVED_ZH_SLOGAN} · KitAgain</title>",zh_home_markup),"Chinese title brand is locked by TRA-21"
+assert re.search(fr'<meta property="og:title" content="[^"]+ · {APPROVED_ZH_SLOGAN} · KitAgain">',zh_home_markup),"Chinese og:title brand is locked by TRA-21"
+assert re.search(fr'<a class="brand"[^>]*><span class="brand-mark">↻</span><span>{APPROVED_ZH_SLOGAN}</span></a>',zh_home_markup),"Chinese header brand is locked by TRA-21"
 assert root_page.lang=="en" and root_page.canonical==[BASE]
 assert english_home.canonical==[BASE]
 assert root_page.alternates["en"]==BASE and root_page.alternates["zh-CN"]==BASE+"zh/"
@@ -800,6 +808,8 @@ for url in urls:
 # Block credentials and private machine paths, not harmless public repository names.
 secret_patterns=[r"gh[pousr]_[A-Za-z0-9]{25,}",r"github_pat_[A-Za-z0-9_]{30,}",r"sk-(?:proj-)?[A-Za-z0-9_-]{30,}",r"-----BEGIN (?:RSA |OPENSSH )?PRIVATE KEY-----",r"C:\\\\Users\\\\",r"C:\\\\work\\\\\.secrets"]
 retired_unrated_label="".join(chr(value) for value in (0x5c1a,0x672a,0x8bc4,0x5206))
+retired_zh_brand="".join(chr(value) for value in (0x5783,0x573e,0x4f6c,0x590d,0x6d3b,0x7ad9))
+retired_zh_tagline="".join(chr(value) for value in (0x786c,0x4ef6,0x590d,0x6d3b,0x91ce,0x5916,0x6307,0x5357))
 placeholder_artifact="?"*3
 for file in ROOT.rglob("*"):
     if not file.is_file() or ".git" in file.parts or "__pycache__" in file.parts:continue
@@ -807,6 +817,9 @@ for file in ROOT.rglob("*"):
     text=file.read_text(encoding="utf-8-sig")
     assert "\ufffd" not in text,("UTF8 replacement character",file)
     assert retired_unrated_label not in text,("Retired unrated label",file)
+    if file.is_relative_to(OUT) or file.is_relative_to(ROOT/"scripts"):
+        assert retired_zh_brand not in text,("Retired Chinese brand",file)
+        assert retired_zh_tagline not in text,("Retired Chinese tagline",file)
     assert placeholder_artifact not in text,("Placeholder artifact",file)
     for pattern in secret_patterns:
         assert not re.search(pattern,text),("Potential sensitive content",file)

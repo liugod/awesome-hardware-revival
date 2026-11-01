@@ -30,6 +30,7 @@ OUT = ROOT / "docs"
 CONFIG = json.loads((ROOT / "site.config.json").read_text(encoding="utf-8"))
 BASE = CONFIG["base_url"].rstrip("/") + "/"
 REPO = CONFIG["repository_url"]
+ZH_SLOGAN = "二手硬件再就业指南"
 assert urlsplit(BASE).scheme == "https" and not urlsplit(BASE).query and not urlsplit(BASE).fragment
 DATA = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 PROJECT_LEAD_DATA = json.loads((ROOT / "data/project-leads.json").read_text(encoding="utf-8"))
@@ -217,8 +218,8 @@ class Site:
         target = f"{other}/{tail}"
         rel = lambda x: self.rel(x, current)
         footer_about = rel(self.lang + "/about/index.html")
-        display_brand = self.t("垃圾佬复活站", "KitAgain")
-        title_brand = self.t("垃圾佬复活站 · KitAgain", "KitAgain")
+        display_brand = self.t(ZH_SLOGAN, "KitAgain")
+        title_brand = self.t(f"{ZH_SLOGAN} · KitAgain", "KitAgain")
         seo = seo or {}
         meta_title = seo.get("title", f"{title} · {title_brand}")
         meta_description = seo.get("description", description)
@@ -441,8 +442,8 @@ class Site:
         body = f'''<div class="ai-landing">
 <section class="home-hero ai-hero">
   <div class="ai-hero-copy">
-    <p class="ai-kicker">{t('KitAgain · 旧硬件 AI 改造指南','KitAgain · AI retrofit field guide')}</p>
-    <h1>{t('别再买一台。让手里的旧设备接入 AI。','Do not buy another device. Retrofit the one you own.')}</h1>
+    <p class="ai-kicker">{t('KitAgain · 二手硬件再就业指南','KitAgain · AI retrofit field guide')}</p>
+    <h1>{t(ZH_SLOGAN,'Do not buy another device. Retrofit the one you own.')}</h1>
     <p class="home-subtitle">{t('按型号找可核对的 AI 改造路线。','Find an AI route for your exact model.')}</p>
     <form id="home-search" class="home-search" action="directory/" method="get" role="search"><label class="visually-hidden" for="home-q">{t('搜索设备或型号','Search a device or model')}</label><input id="home-q" name="q" type="search" placeholder="{t('输入你的设备','Enter your device')}" autocomplete="off"><button type="submit">{t('找路线','Find a route')}</button></form>
     <p class="ai-search-note">{t('不知道准确型号？先看机身标签，不要只按外观判断。','Do not know the exact model? Check the device label before judging by appearance.')}</p>
