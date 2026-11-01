@@ -27,3 +27,17 @@ Scope: Restore the owner-approved Chinese KitAgain brand and homepage slogan, lo
 5. Render-check long replacement copy at desktop and narrow widths. Exact text correctness is insufficient if the new brand causes header or hero overflow.
 6. Keep review, merge, deployment, and public acceptance separate. TRA-21 ends at PR #6 until an authorized reviewer chooses the next gate.
 7. Preserve this rule in the repository-local `hardware-revival-research` skill; do not modify user-scoped skill installations for a repository task.
+
+## Follow-up — hero kicker alignment
+
+### Level 1 — Deliverable quality
+
+- Aligned the Chinese homepage hero kicker with the locked slogan, rebuilt the generated site, and added an exact generated-output assertion while leaving the English kicker unchanged.
+
+### Level 2 — Process failures and corrections
+
+- The prior restoration locked the homepage h1 and brand surfaces but missed the smaller hero kicker, allowing retired campaign copy to remain visible. The follow-up audits all homepage text layers, not only headings and metadata.
+
+### Level 3 — Reusable mechanism
+
+- A localized brand lock must cover every rendered surface that repeats the slogan, including kicker, h1, title, Open Graph title, and header brand. Use the shared approved constant in validation so future wording changes cannot drift between those surfaces.

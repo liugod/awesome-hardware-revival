@@ -38,7 +38,7 @@ Every public row must expose five nullable raw scores, per-dimension bilingual b
 
 Metadata refresh is not content review. Read changed documents before refreshing editorial review dates or upgrading evidence. Keep version, sitemap, JSON/CSV exports, report counts, browser tests and build artifacts consistent. Use the issue forms for exact model-level success and failure reports.
 
-Treat approved brand copy as a release invariant, not editable campaign copy. For KitAgain, the Chinese homepage slogan is exactly `二手硬件再就业指南`; keep it in the canonical generator, add an exact generated-output assertion, and do not paraphrase it during later homepage, AI-topic, SEO, or visual redesign work unless the owner explicitly authorizes a new wording.
+Treat approved brand copy as a release invariant, not editable campaign copy. For KitAgain, the Chinese homepage slogan is exactly `二手硬件再就业指南`; keep it in the canonical generator, require both the homepage h1 and the `KitAgain · 二手硬件再就业指南` hero kicker to match it with exact generated-output assertions, and do not paraphrase it during later homepage, AI-topic, SEO, or visual redesign work unless the owner explicitly authorizes a new wording.
 
 For a display-only simplification, preserve every source row and every JSON/CSV field. Move secondary facts from compact cards to stable detail pages instead of deleting them; keep core search, score/evidence filters, default sorting, canonical URLs, and narrow-screen access. Before release, compare entry counts and export parity with the baseline, bump all coordinated version fields, rebuild the sitemap, and verify both rendered languages and the deployed artifact independently.
 

@@ -442,7 +442,7 @@ class Site:
         body = f'''<div class="ai-landing">
 <section class="home-hero ai-hero">
   <div class="ai-hero-copy">
-    <p class="ai-kicker">{t('KitAgain · 旧硬件 AI 改造指南','KitAgain · AI retrofit field guide')}</p>
+    <p class="ai-kicker">{t('KitAgain · 二手硬件再就业指南','KitAgain · AI retrofit field guide')}</p>
     <h1>{t(ZH_SLOGAN,'Do not buy another device. Retrofit the one you own.')}</h1>
     <p class="home-subtitle">{t('按型号找可核对的 AI 改造路线。','Find an AI route for your exact model.')}</p>
     <form id="home-search" class="home-search" action="directory/" method="get" role="search"><label class="visually-hidden" for="home-q">{t('搜索设备或型号','Search a device or model')}</label><input id="home-q" name="q" type="search" placeholder="{t('输入你的设备','Enter your device')}" autocomplete="off"><button type="submit">{t('找路线','Find a route')}</button></form>

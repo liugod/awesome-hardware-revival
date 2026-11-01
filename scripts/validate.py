@@ -506,6 +506,7 @@ root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 zh_home_markup=(OUT/"zh/index.html").read_text(encoding="utf-8")
 assert zh_home_markup.count(f"<h1>{APPROVED_ZH_SLOGAN}</h1>")==1,"Chinese homepage slogan is locked by TRA-21"
+assert zh_home_markup.count(f'<p class="ai-kicker">KitAgain · {APPROVED_ZH_SLOGAN}</p>')==1,"Chinese homepage kicker is locked by TRA-21"
 assert re.search(fr"<title>[^<]+ · {APPROVED_ZH_SLOGAN} · KitAgain</title>",zh_home_markup),"Chinese title brand is locked by TRA-21"
 assert re.search(fr'<meta property="og:title" content="[^"]+ · {APPROVED_ZH_SLOGAN} · KitAgain">',zh_home_markup),"Chinese og:title brand is locked by TRA-21"
 assert re.search(fr'<a class="brand"[^>]*><span class="brand-mark">↻</span><span>{APPROVED_ZH_SLOGAN}</span></a>',zh_home_markup),"Chinese header brand is locked by TRA-21"
