@@ -526,8 +526,57 @@ p{
 }
 
 .project-thumb{
+  position:relative;
   border-color:var(--line);
   background:var(--soft);
+}
+
+.fallback-image{
+  background:#f7f8f3;
+}
+
+.fallback-badge{
+  position:absolute;
+  right:8px;
+  bottom:8px;
+  z-index:2;
+  display:inline-flex;
+  padding:4px 7px;
+  border:1px solid rgba(35,75,60,.24);
+  border-radius:999px;
+  background:rgba(255,255,255,.92);
+  color:#496155;
+  font-size:9px;
+  font-weight:700;
+  line-height:1;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  pointer-events:none;
+}
+
+.project-media-frame{
+  position:relative;
+}
+
+.project-media.fallback-image .project-media-frame{
+  display:grid;
+  min-height:260px;
+  place-items:center;
+  background:#f7f8f3;
+}
+
+.project-media.fallback-image img{
+  width:100%;
+  max-height:520px;
+  padding:clamp(20px,5vw,48px);
+  object-fit:contain;
+}
+
+.project-media.fallback-image .fallback-badge{
+  right:14px;
+  bottom:14px;
+  padding:6px 9px;
+  font-size:10px;
 }
 
 .limit{

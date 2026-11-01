@@ -1,0 +1,2385 @@
+{
+  "schema_version": "1.0",
+  "issue": "TRA-22",
+  "baseline": {
+    "listed_entries": 543,
+    "existing_real_images": 352,
+    "empty_or_placeholder": 191,
+    "by_source_kind": {
+      "upstream-project-asset": 27,
+      "upstream-source-page-image": 325
+    }
+  },
+  "after": {
+    "listed_entries": 543,
+    "existing_real_images": 352,
+    "fallbacks": 191,
+    "empty_or_placeholder": 0,
+    "by_source_kind": {
+      "upstream-project-asset": 27,
+      "upstream-source-page-image": 325,
+      "hardware-photo": 0,
+      "brand-logo": 40,
+      "category-illustration": 151
+    },
+    "fallback_by_source_kind": {
+      "hardware-photo": 0,
+      "brand-logo": 40,
+      "category-illustration": 151
+    },
+    "by_brand": {
+      "Raspberry Pi": 7,
+      "Shelly": 3,
+      "Xiaomi": 30
+    },
+    "by_category": {
+      "audio": 6,
+      "camera": 5,
+      "computer": 14,
+      "ereader": 7,
+      "gaming": 6,
+      "mobile": 14,
+      "network": 5,
+      "peripheral": 6,
+      "robot": 3,
+      "smarthome": 27,
+      "tv": 52,
+      "wearable": 6
+    }
+  },
+  "entries": [
+    {
+      "entry_id": "lead:amlogic-tv-box-linux",
+      "title_en": "Run Armbian on an older Amlogic TV box as a light server",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "manual-override",
+        "category": "tv",
+        "reason": "Amlogic identifies a chipset family rather than one device brand; use the neutral TV-box category illustration."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-ax1800",
+      "title_en": "Xiaomi AX1800: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-ax3600",
+      "title_en": "Xiaomi AX3600: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-ax6000",
+      "title_en": "Xiaomi AX6000: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-ax9000",
+      "title_en": "Xiaomi AX9000: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-3-pro",
+      "title_en": "Xiaomi Mi Router 3 Pro: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-3g",
+      "title_en": "Xiaomi Mi Router 3G: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-3g-v2",
+      "title_en": "Xiaomi Mi Router 3G v2: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4",
+      "title_en": "Xiaomi Mi Router 4: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-100m-edition",
+      "title_en": "Xiaomi Mi Router 4A 100M Edition: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-100m-international-edition",
+      "title_en": "Xiaomi Mi Router 4A 100M International Edition: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-100m-international-edition-v2",
+      "title_en": "Xiaomi Mi Router 4A 100M International Edition V2: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-gigabit-edition",
+      "title_en": "Xiaomi Mi Router 4A Gigabit Edition: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4a-gigabit-edition-v2",
+      "title_en": "Xiaomi Mi Router 4A Gigabit Edition v2: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-4c",
+      "title_en": "Xiaomi Mi Router 4C: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-ac2100",
+      "title_en": "Xiaomi Mi Router AC2100: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-ax3000t",
+      "title_en": "Xiaomi Mi Router AX3000T: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-cr660x",
+      "title_en": "Xiaomi Mi Router CR660X: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-r3",
+      "title_en": "Xiaomi Mi Router R3: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-tr60x",
+      "title_en": "Xiaomi Mi Router TR60X: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-mi-router-wr30u",
+      "title_en": "Xiaomi Mi Router WR30U: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-miwifi-3a",
+      "title_en": "Xiaomi MiWiFi 3A: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-miwifi-3c",
+      "title_en": "Xiaomi MiWiFi 3C: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-miwifi-mini",
+      "title_en": "Xiaomi MiWiFi Mini: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-miwifi-nano",
+      "title_en": "Xiaomi MiWiFi Nano: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-miwifi-range-extender-ac1200-ra75",
+      "title_en": "Xiaomi MiWiFi Range Extender AC1200 RA75: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-r3d",
+      "title_en": "Xiaomi R3D: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-redmi-router-ac2100",
+      "title_en": "Xiaomi Redmi Router AC2100: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-redmi-router-ax6000",
+      "title_en": "Xiaomi Redmi Router AX6000: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-redmi-router-ax6s",
+      "title_en": "Xiaomi Redmi Router AX6S: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-enshi-xiaomi-router-ax3200",
+      "title_en": "Xiaomi Router AX3200: extend its life with OpenWrt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/xiaomi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "xiaomi",
+        "brand": "Xiaomi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-aoycocr-x10s-plug",
+      "title_en": "Aoycocr X10S Plug: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-arlec-pb89ha-plug",
+      "title_en": "Arlec PB89HA Plug: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-deta-grid-connect-smart-double-touch-power-point-with-dual-usb-6920ha",
+      "title_en": "DETA Grid Connect Smart Double Touch Power Point with dual USB 6920HA: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-duux-bora-dxdh02",
+      "title_en": "Duux Bora DXDH02: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-feit-om100-rgbw-ca-ag",
+      "title_en": "FEIT OM100 RGBW CA AG: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-gosund-sp112",
+      "title_en": "Gosund SP112: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-inkbird-pth-9cw",
+      "title_en": "Inkbird PTH 9CW: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-king-wall-switch-3gang",
+      "title_en": "King Wall Switch 3Gang: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-kogan-smarterhome-smart-plug-with-energy-meter",
+      "title_en": "Kogan Smarterhome Smart Plug With Energy Meter: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-ledvance-smart-plus-table-frame-multicolor",
+      "title_en": "LEDVANCE SMART+ TABLE FRAME MULTICOLOR: convert it to a local ESPHome device",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-levoit-core-400s",
+      "title_en": "Levoit Core 400s: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-lonsonho-9w-e27-rgbww-bulb",
+      "title_en": "Lonsonho 9W E27 RGBWW Bulb: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-martin-jerry-mj-s01",
+      "title_en": "Martin Jerry MJ S01: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-martin-jerry-us-ss02",
+      "title_en": "Martin Jerry US SS02: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-mirabella-genio-white-bulb",
+      "title_en": "Mirabella Genio White Bulb: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-mj-sj01",
+      "title_en": "MJ SJ01: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-orno-single-phase-energy-meter-or-we-514",
+      "title_en": "Orno Single Phase Energy meter OR WE 514: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-shelly-1pm",
+      "title_en": "Shelly 1PM: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/shelly.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "shelly",
+        "brand": "Shelly"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-shelly-duo-gu10",
+      "title_en": "Shelly Duo GU10: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/shelly.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "shelly",
+        "brand": "Shelly"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-shelly-plug-s",
+      "title_en": "Shelly Plug S: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/brands/shelly.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "shelly",
+        "brand": "Shelly"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-sonoff-basic-r2-v1-4",
+      "title_en": "Sonoff BASIC R2 v1.4: convert it to a local ESPHome device",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-sonoff-s31",
+      "title_en": "Sonoff S31: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-teckin-ss30",
+      "title_en": "Teckin SS30: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-th3d-ezplug-plus",
+      "title_en": "TH3D EZPlug Plus: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-treatlife-sl10-e27-9w-800l-rgbcct",
+      "title_en": "Treatlife SL10 E27 9W 800L RGBCCT: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-esphome-yeron-us101-power-monitoring-plug",
+      "title_en": "YERON US101 Power Monitoring Plug: convert it to a local ESPHome device",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-a95x-f2",
+      "title_en": "A95X F2: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-a95x-f3-air",
+      "title_en": "A95X F3 Air: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-ali-ct2000",
+      "title_en": "Ali CT2000: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-b863av3-1-m2",
+      "title_en": "B863AV3.1-M2: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-beelink-gt-king",
+      "title_en": "Beelink GT-King: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-beelink-gt-king-pro",
+      "title_en": "Beelink GT-King Pro: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-cm201-1",
+      "title_en": "CM201-1: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-cm211-1",
+      "title_en": "CM211-1: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-cm311-1a-ch",
+      "title_en": "CM311-1a-CH: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-cm311-1a-yst",
+      "title_en": "CM311-1a-YST: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-e900v22c-d",
+      "title_en": "E900V22C/D: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-h96-max-x3",
+      "title_en": "H96 Max X3: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-hg680-fj",
+      "title_en": "HG680 FJ: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-hk1-box",
+      "title_en": "HK1 Box: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-infinity-b32",
+      "title_en": "Infinity B32: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-ip112h",
+      "title_en": "IP112H: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-khadas-vim3",
+      "title_en": "Khadas VIM3: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-khadas-vim3l",
+      "title_en": "Khadas VIM3L: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-m401a",
+      "title_en": "M401A: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-m411a",
+      "title_en": "M411A: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-mecool-km3-4g",
+      "title_en": "MECOOL KM3 4G: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-odroid-n2",
+      "title_en": "ODROID N2: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-tanix-tx5-max",
+      "title_en": "Tanix TX5 Max: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-tencent-aurora-3pro",
+      "title_en": "Tencent Aurora 3Pro: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-tox1",
+      "title_en": "TOX1: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-transpeed-x3-plus",
+      "title_en": "Transpeed X3 Plus: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-tx3-bz",
+      "title_en": "TX3 BZ: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-tx3-qz",
+      "title_en": "TX3 QZ: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-ugoos-am6-plus",
+      "title_en": "Ugoos AM6 Plus: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-ugoos-x3",
+      "title_en": "Ugoos X3: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-unt403a",
+      "title_en": "UNT403A: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-unt413a",
+      "title_en": "UNT413A: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-vontar-x3",
+      "title_en": "Vontar X3: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-whale-tv-box",
+      "title_en": "Whale TV Box: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-wxy-oes",
+      "title_en": "WXY OES: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-wxy-oes-plus",
+      "title_en": "WXY OES Plus: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x88-king",
+      "title_en": "X88 King: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x88-pro-x3",
+      "title_en": "X88 Pro X3: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x96-air",
+      "title_en": "X96 Air: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x96-max-plus",
+      "title_en": "X96 Max+: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x96-max-plus-100w",
+      "title_en": "X96 Max+ 100W: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x96-max-plus-2101",
+      "title_en": "X96 Max+ 2101: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x96-max-plus-a100",
+      "title_en": "X96 Max+ A100: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x96-max-plus-q1",
+      "title_en": "X96 Max+ Q1: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x96max-2g",
+      "title_en": "X96Max 2G: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x96max-4g",
+      "title_en": "X96Max 4G: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-x99-max-plus",
+      "title_en": "X99 Max Plus: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-zte-b860h-v5",
+      "title_en": "ZTE B860H V5: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-zte-b863av3-2-m",
+      "title_en": "ZTE B863AV3.2-M: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-ophub-zte-w103d",
+      "title_en": "ZTE W103D: turn the TV box into an Armbian server",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-acer-aspire-1-a114-61",
+      "title_en": "Acer Aspire 1 A114-61: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-acer-chromebook-13-cb5-311",
+      "title_en": "Acer Chromebook 13 CB5-311: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-acer-chromebook-311-c722-c722t",
+      "title_en": "Acer Chromebook 311 C722/C722T: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-acer-chromebook-311-cb311-11h-cb311-11ht",
+      "title_en": "Acer Chromebook 311 CB311-11H/CB311-11HT: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-casio-g-zone-ca201l",
+      "title_en": "Casio G'zOne CA201L: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-casper-via-f1",
+      "title_en": "Casper Via F1: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-cat-s22-flip",
+      "title_en": "Cat S22 Flip: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-cdi-edugear-chromebook-k",
+      "title_en": "CDI eduGear Chromebook K: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-cdi-edugear-chromebook-m",
+      "title_en": "CDI EduGear Chromebook M: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-chuwi-hi10-plus",
+      "title_en": "CHUWI Hi10 Plus: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-clockworkpi-gameshell",
+      "title_en": "ClockworkPi GameShell: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/gaming.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "gaming",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-clockworkpi-uconsole-cm5",
+      "title_en": "ClockworkPi uConsole CM5: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-clockworkpi-uconsole-raspberry-pi",
+      "title_en": "ClockworkPi uConsole Raspberry Pi: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/brands/raspberrypi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "raspberry pi",
+        "brand": "Raspberry Pi"
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-cmf-by-nothing-phone-1",
+      "title_en": "CMF by Nothing Phone 1: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-comma-3x",
+      "title_en": "Comma 3X: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-coolpad-modena-2",
+      "title_en": "Coolpad Modena 2: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-coolpad-y80d",
+      "title_en": "Coolpad Y80D: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-ctl-chromebook-j2-j4",
+      "title_en": "CTL Chromebook J2/J4: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-pmos-ctl-chromebook-tablet-tx1",
+      "title_en": "CTL Chromebook Tablet Tx1: explore postmarketOS Linux support",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:atlas-tasmota-ks-602f",
+      "title_en": "3 Way Smart Light (KS-602F): flash Tasmota for local control",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:eink-display-adapter",
+      "title_en": "Adapter board for salvaged Kindle displays",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/categories/ereader.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "ereader",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:kirkwood-nas-debian",
+      "title_en": "Debian and U-Boot for older Kirkwood NAS devices",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/network.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "network",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:old-laptop-projector",
+      "title_en": "Turn an older laptop into a water-cooled LED projector and media center",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:phoneblox-modular-phone",
+      "title_en": "PhoneBlox: add modular USB and battery backplanes to an older Android phone",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:postmarketos-nura",
+      "title_en": "postmarketOS / Nura: Linux routes for older phones",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:rebble-services",
+      "title_en": "Rebble: community services after Pebble shutdown",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/wearable.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "wearable",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:reuse-sony-reader-with-pico",
+      "title_en": "Sony PRS-700 with Pico: update reader content through SD storage",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/brands/raspberrypi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "hardware_tags_zh",
+        "matched_token": "raspberry pi",
+        "brand": "Raspberry Pi"
+      }
+    },
+    {
+      "entry_id": "lead:salvaged-vu-meter-pi",
+      "title_en": "Drive salvaged Hi-Fi VU meters from a Raspberry Pi",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/brands/raspberrypi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "raspberry pi",
+        "brand": "Raspberry Pi"
+      }
+    },
+    {
+      "entry_id": "lead:scraptop-phone-dock",
+      "title_en": "Scraptop: turn a scrap laptop into a phone dock",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:six-laptop-video-wall",
+      "title_en": "Window on the World: combine six older laptops into a video window",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "lead:t95z-plus-nas",
+      "title_en": "Reuse a Sunvell T95Z Plus TV box as a simple NAS",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/network.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "manual-override",
+        "category": "network",
+        "reason": "The route reuses a TV box as a NAS; the network-hardware category is the clearer fallback context."
+      }
+    },
+    {
+      "entry_id": "lead:xbox-duke-portable",
+      "title_en": "The Duke Portable: turn a broken Xbox controller into a game box",
+      "original_reason": "source-page-unavailable-and-no-candidate",
+      "fallback_used": "assets/fallback/brands/raspberrypi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "hardware_tags_zh",
+        "matched_token": "raspberry pi",
+        "brand": "Raspberry Pi"
+      }
+    },
+    {
+      "entry_id": "project-lead:airconnect",
+      "title_en": "AirConnect",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/audio.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "audio",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:amberelec",
+      "title_en": "AmberELEC",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/gaming.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "gaming",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:ark-4",
+      "title_en": "ARK-4",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/gaming.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "gaming",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:brlaser",
+      "title_en": "brlaser",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/peripheral.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "peripheral",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:camera-link",
+      "title_en": "Camera Link",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/camera.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "manual-override",
+        "category": "camera",
+        "reason": "Camera Link is an interface project rather than a single hardware brand."
+      }
+    },
+    {
+      "entry_id": "project-lead:chromebrew",
+      "title_en": "Chromebrew",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:cleanflight",
+      "title_en": "Cleanflight",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/robot.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "robot",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:create-robot",
+      "title_en": "create_robot",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/robot.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "robot",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:cups-filters",
+      "title_en": "cups-filters",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/peripheral.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "peripheral",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:freedvdboot",
+      "title_en": "FreeDVDBoot",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/gaming.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "gaming",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:galileo-fitbit",
+      "title_en": "Galileo",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/wearable.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "wearable",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:ipp-usb",
+      "title_en": "ipp-usb",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/peripheral.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "peripheral",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:irobot-edu-python-sdk",
+      "title_en": "iRobot Education Python SDK",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/robot.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "robot",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:kindle-kpm",
+      "title_en": "KPM",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/ereader.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "ereader",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:libfreenect",
+      "title_en": "libfreenect",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/peripheral.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "peripheral",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:libgphoto2",
+      "title_en": "libgphoto2",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/camera.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "camera",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:libratbag",
+      "title_en": "libratbag",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/peripheral.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "peripheral",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:libremesh-lime-packages",
+      "title_en": "LibreMesh LiMe packages",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/network.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "network",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:librespot",
+      "title_en": "librespot",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/audio.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "audio",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:libretiny",
+      "title_en": "LibreTiny",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:linux-deploy",
+      "title_en": "Linux Deploy",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:maru-os",
+      "title_en": "Maru OS",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:moonlight-qt",
+      "title_en": "Moonlight Qt",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/gaming.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "gaming",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:mopidy",
+      "title_en": "Mopidy",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/audio.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "audio",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:motion-daemon",
+      "title_en": "Motion",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/camera.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "camera",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:nethserver-ns8-core",
+      "title_en": "NethServer 8 Core",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/network.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "network",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:nickelmenu",
+      "title_en": "NickelMenu",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/ereader.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "ereader",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:okreader",
+      "title_en": "okreader",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/ereader.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "ereader",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:openwatch-launcher",
+      "title_en": "OpenWatch Launcher",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/wearable.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "wearable",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:openwatch-wiite-c7s",
+      "title_en": "OpenWatch Wiite C7S Device Tree",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/wearable.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "wearable",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:opnsense-core",
+      "title_en": "OPNsense Core",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/network.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "network",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:pebble-legacy-firmware-patcher",
+      "title_en": "Pebble Legacy Firmware Patcher",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/wearable.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "wearable",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:rebbleos",
+      "title_en": "RebbleOS",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/wearable.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "wearable",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:remarkable-entware",
+      "title_en": "reMarkable Entware",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/ereader.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "ereader",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:retropie-setup",
+      "title_en": "RetroPie Setup",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/brands/raspberrypi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "device_scope_zh",
+        "matched_token": "raspberry pi",
+        "brand": "Raspberry Pi"
+      }
+    },
+    {
+      "entry_id": "project-lead:rpi-audio-receiver",
+      "title_en": "Raspberry Pi Audio Receiver",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/brands/raspberrypi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "title_zh",
+        "matched_token": "raspberry pi",
+        "brand": "Raspberry Pi"
+      }
+    },
+    {
+      "entry_id": "project-lead:sane-airscan",
+      "title_en": "sane-airscan",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/peripheral.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "peripheral",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:spotifyd",
+      "title_en": "spotifyd",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/audio.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "audio",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:squeezelite-esp32-upstream",
+      "title_en": "Squeezelite-ESP32",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/audio.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "audio",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:ultimate-manga-reader",
+      "title_en": "Ultimate Manga Reader",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/ereader.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "ereader",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:wyze-hacks",
+      "title_en": "WyzeHacks",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/camera.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "camera",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project-lead:zigpy",
+      "title_en": "zigpy",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:coreelec",
+      "title_en": "CoreELEC",
+      "original_reason": "candidate-duplicates-another-accepted-image",
+      "fallback_used": "assets/fallback/categories/tv.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "tv",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:droidcam",
+      "title_en": "DroidCam Linux client",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:kindle-carousel",
+      "title_en": "Kindle Carousel",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/ereader.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "ereader",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:lakka",
+      "title_en": "Lakka",
+      "original_reason": "candidate-duplicates-another-accepted-image",
+      "fallback_used": "assets/fallback/categories/gaming.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "gaming",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:lineageos",
+      "title_en": "LineageOS",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/mobile.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "mobile",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:mrchromebox",
+      "title_en": "MrChromebox firmware utility",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/computer.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "computer",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:openbeken",
+      "title_en": "OpenBeken",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/smarthome.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "smarthome",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:openipc",
+      "title_en": "OpenIPC",
+      "original_reason": "all-candidates-failed-download-or-image-validation",
+      "fallback_used": "assets/fallback/categories/camera.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "camera",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:squeezelite",
+      "title_en": "Squeezelite",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/categories/audio.svg",
+      "source_kind": "category-illustration",
+      "inference": {
+        "method": "directory-category",
+        "category": "audio",
+        "reason": "No approved device photo or supported brand mark; use the directory category."
+      }
+    },
+    {
+      "entry_id": "project:wyoming-satellite",
+      "title_en": "Wyoming Satellite",
+      "original_reason": "no-representative-candidate",
+      "fallback_used": "assets/fallback/brands/raspberrypi.svg",
+      "source_kind": "brand-logo",
+      "inference": {
+        "method": "brand-token",
+        "matched_field": "hardware_tags_zh",
+        "matched_token": "raspberry pi",
+        "brand": "Raspberry Pi"
+      }
+    }
+  ],
+  "unresolved": []
+}

@@ -45,7 +45,10 @@ COST_EVIDENCE_PATH = ROOT / "data/cost-evidence-v120.json"
 COST_EVIDENCE = json.loads(COST_EVIDENCE_PATH.read_text(encoding="utf-8")) if COST_EVIDENCE_PATH.exists() else {}
 DEVICE_ATLAS = json.loads((ROOT / "data/device-atlas.json").read_text(encoding="utf-8"))
 PROJECT_IMAGE_DATA = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
-DIRECTORY_IMAGES = {(item["entry_id"] if "entry_id" in item else f'project:{item["project_id"]}'): item for item in PROJECT_IMAGE_DATA["entries"]}
+FALLBACK_IMAGE_DATA = json.loads((ROOT / "data/thumbnail-fallbacks.json").read_text(encoding="utf-8"))
+SOURCE_BACKED_IMAGES = {(item["entry_id"] if "entry_id" in item else f'project:{item["project_id"]}'): item for item in PROJECT_IMAGE_DATA["entries"]}
+FALLBACK_IMAGES = {item["entry_id"]: item for item in FALLBACK_IMAGE_DATA["entries"]}
+DIRECTORY_IMAGES = {**FALLBACK_IMAGES, **SOURCE_BACKED_IMAGES}
 PROJECT_IMAGES = {item["project_id"]: item for item in PROJECT_IMAGE_DATA["entries"] if item.get("project_id")}
 PROJECT_PAGE_VISUAL = json.loads((ROOT / "data/project-page-visual.json").read_text(encoding="utf-8"))
 PROJECT_PAGE_VISUAL_IDS = frozenset(PROJECT_PAGE_VISUAL["pilot_project_ids"])
@@ -341,34 +344,42 @@ class Site:
         return values
 
     def card_image(self, p, prefix="", css_class="project-thumb"):
-        image = PROJECT_IMAGES.get(p["id"])
-        if not image:
-            return ""
-        alt = image["alt_zh" if self.lang == "zh" else "alt_en"]
-        src = f'{prefix}../{image["local_file"]}'
-        return f'<a class="{h(css_class)} {h(image["fit"])}" href="{prefix}projects/{p["id"]}/"><img src="{h(src)}" alt="{h(alt)}" loading="lazy" decoding="async"></a>'
-
-    def directory_card_image(self, entry_id, href):
+        entry_id = f'project:{p["id"]}'
         image = DIRECTORY_IMAGES.get(entry_id)
         if not image:
             return ""
         alt = image["alt_zh" if self.lang == "zh" else "alt_en"]
-        return f'<a class="project-thumb {h(image["fit"])}" href="{h(href)}"><img src="../../{h(image["local_file"])}" alt="{h(alt)}" loading="lazy" decoding="async"></a>'
+        src = f'{prefix}../{image["local_file"]}'
+        fallback_class = " fallback-image" if entry_id in FALLBACK_IMAGES else ""
+        badge = f'<span class="fallback-badge">{self.t("备用图", "Fallback")}</span>' if fallback_class else ""
+        return f'<a class="{h(css_class)} {h(image["fit"])}{fallback_class}" href="{prefix}projects/{p["id"]}/" data-image-kind="{h(image["source_kind"])}"><img src="{h(src)}" alt="{h(alt)}" loading="lazy" decoding="async">{badge}</a>'
 
-    def card_placeholder(self):
-        label = self.t("图片待核", "Image pending review")
-        return f'<div class="project-thumb project-thumb-placeholder" role="img" aria-label="{h(label)}"><span aria-hidden="true">KA</span><small aria-hidden="true">{h(label)}</small></div>'
+    def directory_card_image(self, entry_id, href, asset_prefix="../../"):
+        image = DIRECTORY_IMAGES.get(entry_id)
+        if not image:
+            return ""
+        alt = image["alt_zh" if self.lang == "zh" else "alt_en"]
+        fallback_class = " fallback-image" if entry_id in FALLBACK_IMAGES else ""
+        badge = f'<span class="fallback-badge">{self.t("备用图", "Fallback")}</span>' if fallback_class else ""
+        return f'<a class="project-thumb {h(image["fit"])}{fallback_class}" href="{h(href)}" data-image-kind="{h(image["source_kind"])}"><img src="{h(asset_prefix+image["local_file"])}" alt="{h(alt)}" loading="lazy" decoding="async">{badge}</a>'
 
-    def detail_image(self, p, current):
-        image = PROJECT_IMAGES.get(p["id"])
+    def detail_entry_image(self, entry_id, current):
+        image = DIRECTORY_IMAGES.get(entry_id)
         if not image:
             return ""
         alt = image["alt_zh" if self.lang == "zh" else "alt_en"]
         caption = image["caption_zh" if self.lang == "zh" else "caption_en"]
         source_label = self.t("查看图片来源", "View image source")
-        return f'''<figure class="project-media {h(image["fit"])}"><img src="{h(self.rel(image["local_file"], current))}" alt="{h(alt)}" decoding="async"><figcaption>{h(caption)} <a href="{h(image["source_page"])}">{source_label} ↗</a></figcaption></figure>'''
+        is_fallback = entry_id in FALLBACK_IMAGES
+        source_url = image["source_url"] if is_fallback else image["source_page"]
+        fallback_class = " fallback-image" if is_fallback else ""
+        badge = f'<span class="fallback-badge">{self.t("备用图 · 非项目成果图", "Fallback · not project imagery")}</span>' if is_fallback else ""
+        return f'''<figure class="project-media {h(image["fit"])}{fallback_class}" data-image-kind="{h(image["source_kind"])}"><div class="project-media-frame"><img src="{h(self.rel(image["local_file"], current))}" alt="{h(alt)}" decoding="async">{badge}</div><figcaption>{h(caption)} <a href="{h(source_url)}">{source_label} ↗</a></figcaption></figure>'''
 
-    def card(self, p, prefix="", show_thumbnail=False):
+    def detail_image(self, p, current):
+        return self.detail_entry_image(f'project:{p["id"]}', current)
+
+    def card(self, p, prefix="", show_thumbnail=False, asset_prefix="../../"):
         e = localized(p, "en")
         v = localized(p, self.lang)
         score = PROJECT_SCORES[p["id"]]
@@ -377,12 +388,15 @@ class Site:
         search = " ".join([p["name"], p["summary_zh"], p["device_scope"], e["summary"], e["device_scope"], *p["keywords"], *p["model_examples"], *hardware_values, *p["use_cases"], *(en for uid,zh,en in USES if zh in p["use_cases"])])
         attrs["search"] = search
         attr = " ".join(f'data-{k}="{h(v)}"' for k,v in attrs.items())
-        image = self.directory_card_image(f'project:{p["id"]}', f'{prefix}projects/{p["id"]}/') if show_thumbnail else ""
-        media = image or (self.card_placeholder() if show_thumbnail else "")
-        media_class = " has-media has-image" if image else (" has-media has-placeholder" if media else "")
+        entry_id = f'project:{p["id"]}'
+        image = self.directory_card_image(entry_id, f'{prefix}projects/{p["id"]}/', asset_prefix) if show_thumbnail else ""
+        if show_thumbnail and not image:
+            raise ValueError(f"Missing card image: {entry_id}")
+        media = image
+        media_class = (" has-media has-image" + (" has-fallback" if entry_id in FALLBACK_IMAGES else "")) if image else ""
         return f"""<article class="project{media_class}" {attr}>{media}<h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(p['evidence']['level'])}</div></article>"""
 
-    def lead_card(self, slug, lead, prefix="leads/", show_placeholder=False):
+    def lead_card(self, slug, lead, prefix="leads/", show_placeholder=False, asset_prefix="../../"):
         v = lead[self.lang]
         decision = WATCHLIST_DETAILS[slug][self.lang]
         evidence = lead.get("evidence_level", "E0")
@@ -392,12 +406,15 @@ class Site:
             platform = {"恩山无线论坛":"Enshan Wireless Forum", "ophub 中文项目文档":"ophub Chinese documentation"}.get(platform, platform)
         search = " ".join([v["title"], v["summary"], lead.get("device_name", ""), lead.get("device_model", ""), *self.lead_hardware_values(slug,lead), platform, lead.get("discovery_channel", "")])
         attrs = f'data-search="{h(search)}" data-title="{h(v["title"])}" data-category="{h(lead["category"])}" data-source="{h(platform)}" data-evidence="{h(evidence)}" data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="device-or-community-route" data-channel="{h(lead.get("discovery_channel", "legacy"))}"'
-        image = self.directory_card_image(f"lead:{slug}", f"{prefix}{slug}/") if show_placeholder else ""
-        media = image or (self.card_placeholder() if show_placeholder else "")
-        media_class = " has-media has-image" if image else (" has-media has-placeholder" if media else "")
+        entry_id = f"lead:{slug}"
+        image = self.directory_card_image(entry_id, f"{prefix}{slug}/", asset_prefix) if show_placeholder else ""
+        if show_placeholder and not image:
+            raise ValueError(f"Missing card image: {entry_id}")
+        media = image
+        media_class = (" has-media has-image" + (" has-fallback" if entry_id in FALLBACK_IMAGES else "")) if image else ""
         return f"""<article class="project{media_class}" {attrs}>{media}<h3><a href="{prefix}{slug}/">{h(v['title'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(evidence)}</div></article>"""
 
-    def project_lead_card(self, lead, prefix="project-leads/", show_placeholder=False):
+    def project_lead_card(self, lead, prefix="project-leads/", show_placeholder=False, asset_prefix="../../"):
         score = PROJECT_LEAD_SCORES[lead["id"]]
         summary = lead["summary_zh" if self.lang == "zh" else "summary_en"]
         device_scope = lead["device_scope_zh" if self.lang == "zh" else "device_scope_en"]
@@ -411,9 +428,12 @@ class Site:
             f'data-category="{h(lead["category"])}" data-evidence="{h(lead["evidence_level"])}" '
             f'data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="project-source-lead" data-needs-review="{str(lead["needs_review"]).lower()}"'
         )
-        image = self.directory_card_image(f'project-lead:{lead["id"]}', f'{prefix}{lead["id"]}/') if show_placeholder else ""
-        media = image or (self.card_placeholder() if show_placeholder else "")
-        media_class = " has-media has-image" if image else (" has-media has-placeholder" if media else "")
+        entry_id = f'project-lead:{lead["id"]}'
+        image = self.directory_card_image(entry_id, f'{prefix}{lead["id"]}/', asset_prefix) if show_placeholder else ""
+        if show_placeholder and not image:
+            raise ValueError(f"Missing card image: {entry_id}")
+        media = image
+        media_class = (" has-media has-image" + (" has-fallback" if entry_id in FALLBACK_IMAGES else "")) if image else ""
         return f'''<article class="project{media_class}" {attrs}>{media}<h3><a href="{h(prefix+lead['id']+'/')}">{h(lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}</div></article>'''
 
     def home(self):
@@ -535,7 +555,9 @@ class Site:
             ]
             if url
         )
-        hero_visual = project_media or f'''<div class="project-media-placeholder" role="img" aria-label="{t('当前没有来源与授权均已确认的项目图片','No project image with both source and rights confirmed')}" data-category="{h(self.labels['category'][p['category']])}"><span>{h(self.labels['category'][p['category']])}</span><strong>{h(p['name'])}</strong><small>{t('先核对准确型号与证据','Check the exact model and evidence first')}</small></div>'''
+        if not project_media:
+            raise ValueError(f"Missing project detail image: {p['id']}")
+        hero_visual = project_media
         project_visual = PROJECT_PAGE_VISUAL.get("projects", {}).get(p["id"], {})
         glance = project_visual.get("glance_html", {}).get(self.lang, "")
         seo = project_visual.get("seo", {}).get(self.lang)
@@ -566,10 +588,14 @@ class Site:
             asset_version=PROJECT_PAGE_VISUAL["asset_version"],
         )
 
-    def article(self, title, intro, sections, tail, record=False):
+    def article(self, title, intro, sections, tail, record=False, image_entry_id=None):
         classes = "detail-wrap record-detail" if record else "detail-wrap"
         intro_markup = f'<ul class="detail-list detail-intro"><li>{h(intro)}</li></ul>' if record else f'<p class="intro">{h(intro)}</p>'
-        body = f'<div class="{classes}"><section class="detail-head"><h1>{h(title)}</h1>{intro_markup}</section><section class="prose">{sections}</section></div>'
+        current = f"{self.lang}/{tail}"
+        media = self.detail_entry_image(image_entry_id, current) if image_entry_id else ""
+        if record and not media:
+            raise ValueError(f"Missing record detail image: {image_entry_id or tail}")
+        body = f'<div class="{classes}"><section class="detail-head"><h1>{h(title)}</h1>{intro_markup}{media}</section><section class="prose">{sections}</section></div>'
         self.page(title,intro,body,tail)
 
     def supporting(self):
@@ -629,7 +655,7 @@ class Site:
             sections = "".join(f"<h2>{h(title)}</h2>{ul(lines)}" for title,lines in g["sections"])
             if gid == "speaker-voice":
                 sections += f'<aside class="lead-verdict"><p class="eyebrow">{self.t("Nest Mini 决策页","NEST MINI DECISION GUIDE")}</p><h2>{self.t("换板、接入 Home Assistant，还是停手？","Board swap, Home Assistant satellite, or stop?")}</h2><p>{self.t("先看三路对照，再决定是否拆开第二代 Nest Mini。","Compare the three routes before opening a second-generation Nest Mini.")}</p><a href="../nest-mini-local-ai/">{self.t("打开 Nest Mini 本地 AI 决策页","Open the Nest Mini local AI decision guide")} →</a></aside>'
-            sections += f'<h2>{self.t("对应项目与来源","Projects and sources")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"]==pid),"../../") for pid in guide["projects"])+"</div>"
+            sections += f'<h2>{self.t("对应项目与来源","Projects and sources")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"]==pid),"../../",show_thumbnail=True,asset_prefix="../../../") for pid in guide["projects"])+"</div>"
             self.article(g["title"],g["intro"],sections,f"guides/{gid}/index.html")
 
     def ai_retrofit_guides(self):
@@ -704,7 +730,7 @@ class Site:
                 sections += f'<h2>{self.t("先用这张表选方向","Choose a route at a glance")}</h2><div class="table-scroll"><table class="decision-table"><thead><tr><th>{self.t("手里的硬件","Hardware")}</th><th>{self.t("可以变成","New job")}</th><th>{self.t("实现路线","Route")}</th><th>{self.t("成熟度","Readiness")}</th><th>{self.t("先停手的情况","Stop when")}</th></tr></thead><tbody>{rows}</tbody></table></div>'
             sections += "".join(f"<h2>{h(title)}</h2>" + "".join(f"<p>{h(paragraph)}</p>" for paragraph in paragraphs) for title,paragraphs in a["sections"])
             sections += f'<h2>{self.t("原始来源","Primary sources")}</h2><ul class="sources">' + "".join(f'<li>{self.link(source["url"],source["label"])}</li>' for source in article["sources"]) + "</ul>"
-            sections += f'<h2>{self.t("相关项目","Related projects")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"] == pid),"../../") for pid in article["projects"]) + "</div>"
+            sections += f'<h2>{self.t("相关项目","Related projects")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"] == pid),"../../",show_thumbnail=True,asset_prefix="../../../") for pid in article["projects"]) + "</div>"
             self.article(a["title"],a["intro"],sections,f"articles/{slug}/index.html")
 
     def directory(self):
@@ -747,6 +773,7 @@ class Site:
                 cards_html = cards_html.replace('href="../', 'href="../../../')
                 cards_html = cards_html.replace('src="../../assets/projects/', 'src="../../../../assets/projects/')
                 cards_html = cards_html.replace('src="../../assets/directory/', 'src="../../../../assets/directory/')
+                cards_html = cards_html.replace('src="../../assets/fallback/', 'src="../../../../assets/fallback/')
             title = t(f"全部 {visible_count} 条硬件复活记录", f"All {visible_count} hardware-revival records")
             if page_index > 1:
                 title += t(f" · 第 {page_index} 页", f" · Page {page_index}")
@@ -761,10 +788,10 @@ class Site:
         cards = []
         for project in PROJECTS:
             record = PROJECT_SCORES[project["id"]]
-            cards.append((*score_sort_key(record, project["name"]), self.card(project, "../")))
+            cards.append((*score_sort_key(record, project["name"]), self.card(project, "../", show_thumbnail=True)))
         for lead in LISTED_PROJECT_LEADS:
             record = PROJECT_LEAD_SCORES[lead["id"]]
-            cards.append((*score_sort_key(record, lead["name"]), self.project_lead_card(lead, "../project-leads/")))
+            cards.append((*score_sort_key(record, lead["name"]), self.project_lead_card(lead, "../project-leads/", show_placeholder=True)))
         cards.sort(key=lambda item: item[:3])
         category_options = "".join(f'<option value="{h(key)}">{h(value)}</option>' for key,value in self.labels["category"].items())
         body = f'''<div class="detail-wrap wide"><section class="detail-head"><p class="eyebrow">PROJECT REPOSITORIES</p><h1>{t("项目来源","Project sources")}</h1><p class="intro">{t(f"数据仍保留 {len(PROJECTS)} 个深审项目与 {len(PROJECT_LEADS)} 个仓库发现候选；本页展示 {len(PROJECTS)+len(LISTED_PROJECT_LEADS)} 条，深审判定下架的候选只保留在下载数据中。",f"The data retains {len(PROJECTS)} reviewed projects and {len(PROJECT_LEADS)} repository discoveries; this page lists {len(PROJECTS)+len(LISTED_PROJECT_LEADS)}, while deeply audited rejections remain only in the downloads.")}</p><div class="actions"><a href="../../data/project-leads.json" download>{t("下载 147 条候选 JSON","Download 147 candidates JSON")}</a><a href="../../data/project-leads.csv" download>{t("下载 147 条候选 CSV","Download 147 candidates CSV")}</a><a href="../directory/">{t("打开全站目录","Open the full directory")} ↗</a></div></section>
@@ -785,11 +812,11 @@ class Site:
             audit_item = f'<li><b>{t("深审结论","Deep-audit outcome")}</b> {h(audit_reason)}</li>' if audit_reason else ""
             audit_links = "".join(f'<li>{self.link(url,t("深审来源","Audit source")+" ↗")}</li>' for url in lead.get("audit_sources", []))
             sections = f'''<div class="detail-meta-row">{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}<a class="about-link" href="../../about/">{t("了解证据与评分", "About evidence and scoring")} ↗</a></div>{self.rating_detail(PROJECT_LEAD_SCORES[lead["id"]])}<h2>{t("候选路线","Candidate route")}</h2><ul class="detail-list"><li><b>{t("可能用途","Candidate use")}</b> {h(use_case)}</li><li><b>{t("设备范围","Hardware scope")}</b> {h(device_scope)}</li><li><b>{t("目前已知","What is known")}</b> {h(summary)}</li><li><b>GitHub</b> {h(github_description)}</li><li><b>{t("证据说明","Evidence note")}</b> {h(reason)}</li>{audit_item}<li><b>{t("核查记录","Review record")}</b> {h(lead["content_id"])} · {h(lead.get("audit_checked_at") or lead["checked_at"])}</li></ul>{self.cost_detail(PROJECT_LEAD_SCORES[lead["id"]]) and '<h2>'+t("成本取证","Cost evidence")+'</h2><ul class="detail-list">'+self.cost_detail(PROJECT_LEAD_SCORES[lead["id"]])+'</ul>'}{self.action_guide_detail(PROJECT_LEAD_SCORES[lead["id"]], lead.get("action_guide"), context=project_lead_action_context(lead))}<h2>{t("动手前","Before you start")}</h2><ul class="detail-list"><li>{t("如果找不到与准确型号、硬件修订和固件相符的安装与恢复资料，不要刷写、拆机或购买配件。","Do not flash, disassemble, or buy parts without installation and recovery material for the exact model, hardware revision, and firmware.")}</li></ul><h2>{t("仓库快照","Repository snapshot")}</h2><ul class="detail-list"><li><b>{t("归档","Archived")}</b> {h(archive_state)}</li><li><b>{t("最后 push","Last push")}</b> {h(lead["pushed_at"])}</li><li><b>{t("默认分支","Default branch")}</b> {h(lead["default_branch"])}</li><li><b>{t("API 许可证标识","API license identifier")}</b> {h(license_value)}</li><li>{t("许可证快照不自动覆盖固件、模型、图片、商标或第三方组件；最后 push 也不证明设备兼容。","The license snapshot does not automatically cover firmware, models, images, trademarks, or third-party components; a recent push does not prove compatibility.")}</li></ul><ul class="detail-links">{audit_links}<li>{self.link(lead["repo_url"],t("打开上游仓库","Open upstream repository")+" ↗")}</li><li><a href="../../project-sources/">{t("返回项目来源","Back to project sources")} ↗</a></li></ul>'''
-            self.article(lead["name"], summary, sections, f"project-leads/{lead['id']}/index.html", record=True)
+            self.article(lead["name"], summary, sections, f"project-leads/{lead['id']}/index.html", record=True, image_entry_id=f"project-lead:{lead['id']}")
 
     def leads(self):
         ordered_leads = sorted(WATCHLIST.items(), key=lambda item: score_sort_key(LEAD_SCORES[item[0]], item[1][self.lang]["title"]))
-        cards = "".join(self.lead_card(slug,lead,"") for slug,lead in ordered_leads)
+        cards = "".join(self.lead_card(slug,lead,"",show_placeholder=True) for slug,lead in ordered_leads)
         reviewed_count = sum(lead.get("evidence_level") == "E1" for lead in WATCHLIST.values())
         e0_count = len(WATCHLIST) - reviewed_count
         source_names = lambda lead: ({"恩山无线论坛":"Enshan Wireless Forum", "ophub 中文项目文档":"ophub Chinese documentation"}.get(lead["source_platform"], lead["source_platform"]) if self.lang == "en" else lead["source_platform"])
@@ -822,7 +849,7 @@ class Site:
             sections += f'<h2>{self.t("缺口、下一步与风险", "Gaps, next step, and risk")}</h2><ul class="detail-list"><li><b>{gap_heading}</b> {h(v["gap"])}</li><li><b>{self.t("下一步核验", "Next review step")}</b> {h(v["next_check"])}</li><li><b>{self.t("风险与停止条件", "Risk and stop condition")}</b> {h(v["safety"])}</li></ul>'
             resources = "".join(f'<li><div class="resource-head">{self.link(item["url"], item[self.lang+"_label"]+" ↗")}<span>{h(item["kind"])}</span></div><span class="resource-note">{h(item[self.lang+"_note"])}</span><small>{h(item["url"])}</small></li>' for item in details["resources"])
             sections += f'<h2>{self.t("链接里分别有什么","What each link contains")}</h2><ul class="resource-list">{resources}</ul><a class="back" href="../">← {self.t("返回全部社区线索","Back to all field leads")}</a>'
-            self.article(v["title"],v["summary"],sections,f"leads/{slug}/index.html", record=True)
+            self.article(v["title"],v["summary"],sections,f"leads/{slug}/index.html", record=True, image_entry_id=f"lead:{slug}")
 
 GUIDES = json.loads((ROOT / "data/guides.json").read_text(encoding="utf-8"))
 ARTICLES = json.loads((ROOT / "data/articles.json").read_text(encoding="utf-8"))

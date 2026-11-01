@@ -2,6 +2,7 @@
 import collections
 import csv
 import hashlib
+import html
 from html.parser import HTMLParser
 import json
 import math
@@ -48,6 +49,9 @@ projects=data["projects"]
 project_image_data=load(ROOT/"data/project-images.json")
 directory_images={item["entry_id"]:item for item in project_image_data["entries"]}
 project_images={item["project_id"]:item for item in project_image_data["entries"] if item.get("project_id")}
+fallback_image_data=load(ROOT/"data/thumbnail-fallbacks.json")
+fallback_images={item["entry_id"]:item for item in fallback_image_data["entries"]}
+all_directory_images={**fallback_images,**directory_images}
 hardware_tag_data=load(ROOT/"data/hardware-tags.json")
 project_hardware_tags=hardware_tag_data["projects"]
 lead_hardware_tags=hardware_tag_data["leads"]
@@ -55,6 +59,7 @@ assert project_image_data["version"]==config["version"]==data["version"],"Projec
 assert hardware_tag_data["version"]==config["version"],"Hardware-tag version mismatch"
 assert len(directory_images)==len(project_image_data["entries"]),"Duplicate directory-image entry ID"
 assert set(project_images)<=set(p["id"] for p in projects),"Project image points to missing project"
+assert not (set(directory_images)&set(fallback_images)),"Fallback duplicates an existing project image"
 for entry_id,image in directory_images.items():
     assert image["source_kind"] in {"upstream-project-asset","upstream-source-page-image","kitagain-project-illustration"},entry_id
     assert image["entry_kind"] in {"reviewed-project","project-source-lead","device-or-community-route"},entry_id
@@ -87,6 +92,26 @@ assert project_image_data["coverage"]=={
     "kitagain_illustrations":sum(image["source_kind"]=="kitagain-project-illustration" for image in directory_images.values()),
     "pending_review_placeholders":len(listed_image_ids)-len(directory_images),
 },"Directory-image coverage summary mismatch"
+missing_image_data=load(ROOT/"research/tra-19-directory-image-missing.json")
+missing_image_ids={item["entry_id"] for item in missing_image_data["entries"]}
+assert len(missing_image_ids)==len(missing_image_data["entries"])==191,"TRA-19 missing-image baseline drift"
+assert set(fallback_images)==missing_image_ids==listed_image_ids-set(directory_images),"Fallback coverage must exactly match the TRA-19 gap"
+assert set(all_directory_images)==listed_image_ids and len(all_directory_images)==543,"Every listed entry needs one image"
+assert fallback_image_data["version"]==config["version"] and fallback_image_data["counts"]=={
+    "originally_missing":191,
+    "resolved":191,
+    "unresolved":0,
+    "by_source_kind":{kind:collections.Counter(image["source_kind"] for image in fallback_images.values()).get(kind,0) for kind in ["hardware-photo","brand-logo","category-illustration"]},
+},"Fallback ledger coverage summary mismatch"
+for entry_id,image in fallback_images.items():
+    assert image["source_kind"] in {"hardware-photo","brand-logo","category-illustration"},entry_id
+    assert image["fit"] in {"cover","contain"} and image["fallback_image"]==image["local_file"],entry_id
+    assert image["source_url"].startswith("https://") and image["license"]["name"] and image["license"]["url"].startswith("https://"),entry_id
+    assert all(image[key] for key in ["content_id","entry_kind","alt_zh","alt_en","caption_zh","caption_en","asset_sha256","inference","original_missing_reason"]),entry_id
+    assert "备用" in image["alt_zh"] and "Fallback" in image["alt_en"],entry_id
+    asset=OUT/image["local_file"]
+    assert asset.is_file() and asset.suffix==".svg" and 200<asset.stat().st_size<128000,entry_id
+    assert hashlib.sha256(asset.read_bytes()).hexdigest()==image["asset_sha256"],entry_id
 device_atlas=load(ROOT/"data/device-atlas.json")
 device_reviews=load(ROOT/"data/device-reviews.json")
 assert scoring_evidence["version"]==config["version"] and scoring_evidence["scoring_model"]=="3.0.0","Scoring-evidence version mismatch"
@@ -465,17 +490,11 @@ def audit_project_cards(markup,label):
         has_image="has-image" in card["article_classes"]
         has_placeholder="has-placeholder" in card["article_classes"]
         content_offset=1 if has_media else 0
-        assert not (has_image and has_placeholder),(label,index,"card media state")
-        assert has_media==(has_image or has_placeholder),(label,index,"card media class contract")
+        assert has_media and has_image and not has_placeholder,(label,index,"every list card must have an image")
         assert len(direct)==3+content_offset,(label,index,"card visible group count",direct)
         if has_image:
             assert direct[0][0]=="a" and "project-thumb" in direct[0][1],(label,index,"card thumbnail structure")
             assert card["classes"]["project-thumb"]==1 and card["tags"]["img"]==1,(label,index,"card thumbnail coverage")
-        elif has_placeholder:
-            assert direct[0][0]=="div" and "project-thumb" in direct[0][1] and "project-thumb-placeholder" in direct[0][1],(label,index,"card placeholder structure")
-            assert card["classes"]["project-thumb"]==1 and card["classes"]["project-thumb-placeholder"]==1 and card["tags"]["img"]==0,(label,index,"card placeholder coverage")
-        else:
-            assert card["classes"]["project-thumb"]==0 and card["tags"]["img"]==0,(label,index,"unexpected card thumbnail")
         assert direct[content_offset][0]=="h3" and direct[content_offset+1][0]=="p" and "card-outcome" in direct[content_offset+1][1],(label,index,"card title/outcome structure")
         assert direct[content_offset+2][0]=="div" and "card-meta" in direct[content_offset+2][1],(label,index,"card metadata structure")
         assert card["classes"]["card-rating"]==1 and card["classes"]["evidence-tag"]==1,(label,index,"rating/evidence coverage")
@@ -531,8 +550,10 @@ for lang in ["zh","en"]:
         directory_markups.append(paged_file.read_text(encoding="utf-8"))
     combined_directory_markup="".join(directory_markups)
     assert sum(audit_project_cards(markup,(lang,"directory page",index)) for index,markup in enumerate(directory_markups,1))==len(projects)+len(watchlist)+len(listed_project_leads),(lang,"paged directory coverage")
-    assert combined_directory_markup.count('<a class="project-thumb ')==len(directory_images),(lang,"source-backed directory thumbnail coverage")
-    assert combined_directory_markup.count('class="project-thumb project-thumb-placeholder"')==len(projects)+len(watchlist)+len(listed_project_leads)-len(directory_images),(lang,"pending-image placeholder coverage")
+    assert combined_directory_markup.count('<a class="project-thumb ')==len(all_directory_images),(lang,"complete directory thumbnail coverage")
+    assert 'project-thumb-placeholder' not in combined_directory_markup and 'Image pending review' not in combined_directory_markup and '图片待核' not in combined_directory_markup,(lang,"placeholder must be absent")
+    for source_kind,count in fallback_image_data["counts"]["by_source_kind"].items():
+        assert combined_directory_markup.count(f'data-image-kind="{source_kind}"')==count,(lang,source_kind,"fallback source-kind count")
     assert combined_directory_markup.count(' has-media ')==len(projects)+len(watchlist)+len(listed_project_leads),(lang,"directory media coverage")
     assert combined_directory_markup.count('data-ai="native"')==10,(lang,"reviewed AI-function route count")
     listed_needs_review=sum(lead["needs_review"] for lead in listed_project_leads)
@@ -573,6 +594,8 @@ for lang in ["zh","en"]:
         source_markup=(OUT/lang/"project-leads"/lead["id"]/"index.html").read_text(encoding="utf-8")
         assert source_markup.count('class="needs-review"')==int(lead["needs_review"]),(lang,lead["id"],"compact review marker mismatch")
         assert 'class="detail-wrap record-detail"' in source_markup and source_markup.count('class="about-link"')==1,(lang,lead["id"],"simplified project-source detail")
+        entry_image=all_directory_images[f'project-lead:{lead["id"]}']
+        assert "../../../"+entry_image["local_file"] in source_page.refs and 'class="project-media ' in source_markup,(lang,lead["id"],"project-source hero image")
         assert '<ul' in source_markup,(lang,lead["id"],"project-source detail bullets")
         assert 'class="detail-score"' in source_markup and 'class="detail-rating' in source_markup and 'class="rating-panel"' not in source_markup,(lang,lead["id"],"simplified project-source score")
         expected_guide=project_lead_scores[lead["id"]]["score"] is not None and project_lead_scores[lead["id"]]["score"]>=4
@@ -617,6 +640,8 @@ for lang in ["zh","en"]:
         assert 'class="hardware-tag"' in (OUT/lang/"leads"/slug/"index.html").read_text(encoding="utf-8"),(lang,slug,"missing hardware tag")
         lead_markup=(OUT/lang/"leads"/slug/"index.html").read_text(encoding="utf-8")
         assert 'class="detail-wrap record-detail"' in lead_markup and lead_markup.count('class="about-link"')==1,(lang,slug,"simplified lead detail")
+        entry_image=all_directory_images[f"lead:{slug}"]
+        assert "../../../"+entry_image["local_file"] in page.refs and 'class="project-media ' in lead_markup,(lang,slug,"lead hero image")
         assert '<ul' in lead_markup,(lang,slug,"lead detail bullets")
         assert 'class="detail-score"' in lead_markup and 'class="detail-rating' in lead_markup and 'class="rating-panel"' not in lead_markup,(lang,slug,"simplified lead score")
         expected_guide=lead_scores[slug]["score"] is not None and lead_scores[slug]["score"]>=4
@@ -642,7 +667,7 @@ for file,parser in pages.items():
         assert target.exists(),(file,ref,"missing")
         if url.fragment and target in pages:
             assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
-for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json","scoring-evidence.json","scoring-evidence-batch2-v120.json","cost-evidence-v120.json","action-guides-v120.json","e0-audit-v120.json"]:
+for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","thumbnail-fallbacks.json","hardware-tags.json","scoring-evidence.json","scoring-evidence-batch2-v120.json","cost-evidence-v120.json","action-guides-v120.json","e0-audit-v120.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
@@ -670,12 +695,13 @@ for lang in ["zh","en"]:
         owner_parts=[part for part in repo.path.split("/") if part]
         if repo.netloc in {"github.com","codeberg.org"} and len(owner_parts)>=2:
             assert f"{repo.scheme}://{repo.netloc}/{owner_parts[0]}" in parser.refs,(lang,pid,"missing repository owner identity")
-        if pid in project_images:
-            image=project_images[pid]
-            expected="../../../"+image["local_file"]
-            assert expected in parser.refs,(lang,pid,"missing project detail image")
-            assert image["source_page"] in parser.refs,(lang,pid,"missing image attribution link")
-            assert "project-media" in markup and image["caption_zh" if lang=="zh" else "caption_en"] in markup,(lang,pid,"missing image caption")
+        entry_id=f"project:{pid}"
+        image=all_directory_images[entry_id]
+        expected="../../../"+image["local_file"]
+        assert expected in parser.refs,(lang,pid,"missing project detail image")
+        image_source=image["source_url"] if entry_id in fallback_images else image["source_page"]
+        assert image_source in parser.refs,(lang,pid,"missing image attribution link")
+        assert "project-media" in markup and html.escape(image["caption_zh" if lang=="zh" else "caption_en"]) in markup,(lang,pid,"missing image caption")
 english=load(OUT/"data/catalog.en.json")
 assert [p["id"] for p in english["projects"]]==ids
 for p,e in zip(projects,english["projects"]):
@@ -823,4 +849,4 @@ for file in ROOT.rglob("*"):
     assert placeholder_artifact not in text,("Placeholder artifact",file)
     for pattern in secret_patterns:
         assert not re.search(pattern,text),("Potential sensitive content",file)
-print(json.dumps({"schema":"PASS","unique_ids":len(ids),"families":len(set(p["family"] for p in projects)),"categories":len(set(p["category"] for p in projects)),"deep_dives":len(deep),"independent_project_sources":len(projects)+len(project_leads),"project_source_leads":len(project_leads),"device_source_reviews":len(device_reviews["items"]),"remaining_e0_leads":len(watchlist)-len(device_reviews["items"]),"scoring_batch_entries":len(scoring_entry_pairs),"directory_entries":directory["counts"]["entries"],"distinct_primary_source_urls":directory["counts"]["unique_primary_source_urls"],"rated":directory["counts"]["rated"],"not_yet_rated":directory["counts"]["not_yet_rated"],"score_weights":directory["weights"],"score_distribution":directory["counts"]["score_distribution"],"needs_review":directory["counts"]["needs_review"],"html_pages_and_internal_links":"PASS","csv_json_parity":"PASS","public_file_scan":"PASS","catalog_evidence":dict(collections.Counter(p["evidence"]["level"] for p in projects))},ensure_ascii=False,indent=2))
+print(json.dumps({"schema":"PASS","unique_ids":len(ids),"families":len(set(p["family"] for p in projects)),"categories":len(set(p["category"] for p in projects)),"deep_dives":len(deep),"independent_project_sources":len(projects)+len(project_leads),"project_source_leads":len(project_leads),"device_source_reviews":len(device_reviews["items"]),"remaining_e0_leads":len(watchlist)-len(device_reviews["items"]),"scoring_batch_entries":len(scoring_entry_pairs),"directory_entries":directory["counts"]["entries"],"listed_directory_images":len(all_directory_images),"fallback_source_kinds":fallback_image_data["counts"]["by_source_kind"],"empty_or_placeholder_images":0,"distinct_primary_source_urls":directory["counts"]["unique_primary_source_urls"],"rated":directory["counts"]["rated"],"not_yet_rated":directory["counts"]["not_yet_rated"],"score_weights":directory["weights"],"score_distribution":directory["counts"]["score_distribution"],"needs_review":directory["counts"]["needs_review"],"html_pages_and_internal_links":"PASS","csv_json_parity":"PASS","public_file_scan":"PASS","catalog_evidence":dict(collections.Counter(p["evidence"]["level"] for p in projects))},ensure_ascii=False,indent=2))

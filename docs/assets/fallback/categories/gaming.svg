@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+<title id="title">Generic Gaming hardware fallback illustration</title><desc id="desc">A neutral category illustration, not a picture of a specific project or device.</desc>
+<rect width="800" height="600" rx="36" fill="#eef1e8"/><circle cx="680" cy="84" r="118" fill="#dce6ac"/><circle cx="126" cy="530" r="160" fill="#dbe7df"/>
+<g fill="none" stroke="#234b3c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M128 352c18-132 84-204 196-188l76 32 76-32c112-16 178 56 196 188l-34 142c-10 42-60 54-88 20l-84-102H334l-84 102c-28 34-78 22-88-20z"/><path d="M244 302h94M291 255v94"/><circle cx="510" cy="284" r="22"/><circle cx="570" cy="338" r="22"/></g>
+<path d="M64 72h112" stroke="#91a04f" stroke-width="12" stroke-linecap="round"/><path d="M64 98h72" stroke="#91a04f" stroke-width="12" stroke-linecap="round"/>
+</svg>

@@ -5,6 +5,7 @@ import path from "node:path";
 const base = process.env.KITAGAIN_PREVIEW || "http://127.0.0.1:4185";
 const directory = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "directory.json"), "utf8"));
 const projectImages = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "project-images.json"), "utf8")).entries;
+const fallbackImages = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "thumbnail-fallbacks.json"), "utf8")).entries;
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "site.config.json"), "utf8"));
 const listedEntries = directory.entries.filter(entry => entry.display_status !== "delisted");
 const expected = listedEntries.length;
@@ -21,8 +22,9 @@ const listedProjectLeads = listedEntries.filter(entry => entry.kind === "project
 const listedNeedsReview = listedProjectLeads.filter(entry => entry.needs_review).length;
 const listedProjectSources = directory.counts.reviewed_projects + listedProjectLeads.length;
 const listedProjectSourcesE0 = listedProjectLeads.filter(entry => entry.evidence_level === "E0").length;
-const expectedImageThumbnails = projectImages.length;
-const expectedPlaceholders = expected - expectedImageThumbnails;
+const expectedImageThumbnails = projectImages.length + fallbackImages.length;
+const expectedPlaceholders = 0;
+const expectedFallbackKinds = fallbackImages.reduce((counts, entry) => ({ ...counts, [entry.source_kind]: counts[entry.source_kind] + 1 }), { "hardware-photo": 0, "brand-logo": 0, "category-illustration": 0 });
 const xiaogptImage = projectImages.find(entry => (entry.entry_id || `project:${entry.project_id}`) === "project:xiaogpt");
 const scoreTextPattern = /[1-5](?:\.5)?\s*\/\s*5/;
 const ratingDisplayMatches = (text, score, unratedText = "待评分") => score === null ? text === unratedText : scoreTextPattern.test(text);
@@ -61,11 +63,8 @@ const auditCardGrid = async (targetPage, grid) => targetPage.locator(`${grid} .p
     const outcome = card.querySelector(":scope > p.card-outcome");
     const outcomeStyle = outcome ? getComputedStyle(outcome) : null;
     const forbidden = card.querySelectorAll(".tags,.hardware-tags,.device,.limit,.card-end,.rating-panel").length;
-    const thumbnailValid = hasImage && !hasPlaceholder ?
-      children[0] === thumbnail && card.querySelectorAll(":scope > a.project-thumb").length === 1 && card.querySelectorAll("img").length === 1 && Boolean(thumbnailImage?.alt) :
-      hasPlaceholder && !hasImage ?
-        children[0] === placeholder && placeholder?.getAttribute("role") === "img" && Boolean(placeholder?.getAttribute("aria-label")) && card.querySelectorAll("img").length === 0 :
-        !hasMedia && card.querySelectorAll(".project-thumb,img").length === 0;
+    const thumbnailValid = hasMedia && hasImage && !hasPlaceholder &&
+      children[0] === thumbnail && card.querySelectorAll(":scope > a.project-thumb").length === 1 && card.querySelectorAll("img").length === 1 && Boolean(thumbnailImage?.alt) && !placeholder;
     const valid = children.length === 3 + contentOffset && thumbnailValid &&
       hasMedia === (hasImage || hasPlaceholder) &&
       children[contentOffset].tagName === "H3" && children[contentOffset].querySelectorAll("a").length === 1 &&
@@ -266,7 +265,8 @@ try {
   checks.directoryMedia = {
     thumbnails: await page.locator("#directory-grid .project-thumb").count(),
     images: await page.locator("#directory-grid .project.has-image .project-thumb img").count(),
-    placeholders: await page.locator("#directory-grid .project.has-placeholder .project-thumb-placeholder").count()
+    placeholders: await page.locator("#directory-grid .project.has-placeholder .project-thumb-placeholder").count(),
+    fallbackKinds: await page.locator("#directory-grid .project-thumb.fallback-image").evaluateAll(items => items.reduce((counts, item) => ({ ...counts, [item.dataset.imageKind]: counts[item.dataset.imageKind] + 1 }), { "hardware-photo": 0, "brand-logo": 0, "category-illustration": 0 }))
   };
   checks.ratedCards = await page.locator('#directory-grid .project[data-rated="true"]:has(.card-rating:not(.unrated))').count();
   checks.unratedCards = await page.locator('#directory-grid .project[data-rated="false"]:has(.card-rating.unrated)').count();
@@ -354,7 +354,10 @@ try {
         actionGuide: document.querySelectorAll(".action-guide").length,
         actionGuideBlocks: document.querySelectorAll(".action-guide > ul > li").length,
         actionGuideLinks: document.querySelectorAll(".action-guide a[href^='https://']").length,
-        overlong
+        overlong,
+        heroImages: document.querySelectorAll("main .project-media img").length,
+        heroLoaded: [...document.querySelectorAll("main .project-media img")].every(image => image.complete && image.naturalWidth > 0),
+        placeholderMedia: document.querySelectorAll("main .project-media-placeholder,.project-thumb-placeholder").length
       };
     }, expectedTitle);
   };
@@ -463,7 +466,8 @@ try {
   await mobile.close();
 
   if (checks.cards !== expected || checks.ratedCards !== expectedRated || checks.unratedCards !== expectedUnrated) throw new Error("Directory rated/unrated coverage failed");
-  if (checks.directoryMedia.thumbnails !== expected || checks.directoryMedia.images !== expectedImageThumbnails || checks.directoryMedia.placeholders !== expectedPlaceholders) throw new Error(`Directory thumbnail/placeholder coverage failed: ${JSON.stringify(checks.directoryMedia)}`);
+  const fallbackKindsMatch = Object.entries(expectedFallbackKinds).every(([kind, count]) => checks.directoryMedia.fallbackKinds[kind] === count) && Object.keys(checks.directoryMedia.fallbackKinds).length === Object.keys(expectedFallbackKinds).length;
+  if (checks.directoryMedia.thumbnails !== expected || checks.directoryMedia.images !== expectedImageThumbnails || checks.directoryMedia.placeholders !== expectedPlaceholders || !fallbackKindsMatch) throw new Error(`Directory thumbnail/fallback coverage failed: ${JSON.stringify(checks.directoryMedia)}`);
   for (const [name, result] of Object.entries({ directory: checks.directoryCardContract, projectSources: checks.projectSourceCardContract, leads: checks.leadCardContract, mobileDirectory: checks.mobileDirectoryCardContract })) {
     if (!result.valid || result.maxOutcomeLines > 1.25) throw new Error(`${name} four-field card contract failed: ${JSON.stringify(result.failures)}`);
   }
@@ -504,7 +508,7 @@ try {
   if (checks.projectLeadNeedsReview !== Number(projectLeadEntry.needs_review)) throw new Error("Project-lead detail review marker failed");
   const detailResults = [checks.projectDetail, checks.leadDetail, checks.projectLeadDetail, checks.englishUnratedDetail, checks.englishProjectDetail];
   for (const result of detailResults) {
-    if (!result.wrap || result.h1 !== 1 || !result.titleMatches || result.bullets < 1 || result.aboutLinks !== 1 || result.legacyPanels !== 0 || result.overlong.length) {
+    if (!result.wrap || result.h1 !== 1 || !result.titleMatches || result.bullets < 1 || result.aboutLinks !== 1 || result.legacyPanels !== 0 || result.overlong.length || result.heroImages !== 1 || !result.heroLoaded || result.placeholderMedia !== 0) {
       throw new Error(`Simplified detail contract failed: ${JSON.stringify(result)}`);
     }
   }
