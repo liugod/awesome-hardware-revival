@@ -5,7 +5,7 @@
 <meta property="og:title" content="Nest Mini 改本地 AI：Onju 换板、HA 卫星还是停手"><meta property="og:description" content="第二代 Nest Mini 可通过 Onju ESP32 换板成为本地 AI 端点。对比 Onju v2、ESPHome→HA Assist 与停手条件；不是原厂 jailbreak，本站未实机测试。"><meta property="og:url" content="https://kitagain.com/zh/guides/nest-mini-local-ai/"><meta property="og:type" content="website">
 <link rel="icon" href="../../../assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="../../../assets/style.css?v=1.20.0"><script src="../../../assets/app.js?v=1.20.0" defer></script>
 </head><body><a class="skip" href="#main">跳到正文</a>
-<header class="site-header"><a class="brand" href="../../index.html"><span class="brand-mark">↻</span><span>垃圾佬复活站</span></a>
+<header class="site-header"><a class="brand" href="../../index.html"><span class="brand-mark">↻</span><span>二手硬件再就业指南</span></a>
 <nav aria-label="主导航"><a href="../../directory/index.html">全部路线</a><a href="../../about/index.html">关于</a><a href="https://community.kitagain.com/">社区</a><a class="language-switch" href="../../../en/guides/nest-mini-local-ai/index.html" lang="en" hreflang="en">English</a></nav></header>
 <main id="main"><div class="detail-wrap retrofit-guide"><a class="back" href="../ai-retrofit/">← 返回 AI 改造专题</a><section class="detail-head"><p class="eyebrow">NEST MINI · LOCAL AI</p><h1>Nest Mini 改本地 AI：Onju 换板、HA 卫星还是停手</h1><p class="intro">第二代 Nest Mini 可以通过 Onju ESP32-S3 替换板变成本地 AI 语音端点；这不是刷写 Google 原厂固件，也不是在音箱芯片上运行大模型。</p></section><section class="prose">
 <aside class="lead-verdict"><p class="eyebrow">先说结论</p><h2>能，但现实路线是换板</h2><p>第二代 Google Nest Mini 可以复用外壳、麦克风、喇叭、触控和静音开关，变成本地或可选云端的语音端点。Onju 路线装入 ESP32-S3 替换板，音频经网络送到外部 ASR → LLM → TTS 管道，或接入 Home Assistant Assist。它既不是原厂固件越狱，也不是在音箱芯片上跑大模型。</p></aside>

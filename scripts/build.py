@@ -81,13 +81,13 @@ def page(title, description, body, path="", level=0, script=False):
     canonical = BASE + path
     return f"""<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{h(title)} · 垃圾佬复活站 · KitAgain</title><meta name="description" content="{h(description)}">
+<title>{h(title)} · 二手硬件再就业指南 · KitAgain</title><meta name="description" content="{h(description)}">
 <link rel="canonical" href="{canonical}"><meta name="theme-color" content="#f5f3eb">
-<meta property="og:title" content="{h(title)} · 垃圾佬复活站 · KitAgain"><meta property="og:description" content="{h(description)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website">
+<meta property="og:title" content="{h(title)} · 二手硬件再就业指南 · KitAgain"><meta property="og:description" content="{h(description)}"><meta property="og:url" content="{canonical}"><meta property="og:type" content="website">
 <link rel="icon" href="{prefix}assets/mark.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}assets/style.css?v={h(config['version'])}">
 {f'<script src="{prefix}assets/app.js?v={h(config["version"])}" defer></script>' if script else ''}
 </head><body><a class="skip" href="#main">跳到正文</a>
-<header class="site-header"><a class="brand" href="{prefix}index.html"><span class="brand-mark">↻</span><span>垃圾佬复活站<small>KITAGAIN · 硬件复活野外指南</small></span></a>
+<header class="site-header"><a class="brand" href="{prefix}index.html"><span class="brand-mark">↻</span><span>二手硬件再就业指南<small>KITAGAIN · 二手硬件再就业指南</small></span></a>
 <nav aria-label="主导航"><a href="{prefix}index.html#catalog">项目目录</a><a href="{prefix}research.html">研究方法</a><a href="{REPO}">GitHub ↗</a></nav></header>
 <main id="main">{body}</main>
 <footer><nav class="footer-links" aria-label="页脚链接"><a href="{prefix}zh/about/">关于</a><span aria-hidden="true"> · </span><a href="{prefix}zh/about/#downloads">数据下载</a><span aria-hidden="true"> · </span><a href="{REPO}">GitHub</a><span aria-hidden="true"> · </span><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></nav></footer>
