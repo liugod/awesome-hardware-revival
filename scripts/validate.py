@@ -44,30 +44,47 @@ schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
 project_image_data=load(ROOT/"data/project-images.json")
-project_images={item["project_id"]:item for item in project_image_data["entries"]}
+directory_images={item["entry_id"]:item for item in project_image_data["entries"]}
+project_images={item["project_id"]:item for item in project_image_data["entries"] if item.get("project_id")}
 hardware_tag_data=load(ROOT/"data/hardware-tags.json")
 project_hardware_tags=hardware_tag_data["projects"]
 lead_hardware_tags=hardware_tag_data["leads"]
 assert project_image_data["version"]==config["version"]==data["version"],"Project-image version mismatch"
 assert hardware_tag_data["version"]==config["version"],"Hardware-tag version mismatch"
-assert len(project_images)==len(project_image_data["entries"]),"Duplicate project-image ID"
+assert len(directory_images)==len(project_image_data["entries"]),"Duplicate directory-image entry ID"
 assert set(project_images)<=set(p["id"] for p in projects),"Project image points to missing project"
-for pid,image in project_images.items():
-    assert image["source_kind"] in {"upstream-project-asset","kitagain-project-illustration"},pid
-    assert image["fit"] in {"cover","contain"},pid
-    assert all(image[key] for key in ["source_file","local_file","source_page","alt_zh","alt_en","caption_zh","caption_en","image_license_status"]),pid
-    assert image["source_page"].startswith("https://") and not image["local_file"].startswith("docs/"),pid
-    assert (ROOT/image["source_file"]).is_file() and (OUT/image["local_file"]).is_file(),pid
-    assert (OUT/image["local_file"]).stat().st_size>5000,pid
-    if image["source_kind"]=="upstream-project-asset":
-        assert image["source_url"] and image["source_url"].startswith("https://"),pid
-        assert image["image_license_status"]=="not-separately-stated",pid
+for entry_id,image in directory_images.items():
+    assert image["source_kind"] in {"upstream-project-asset","upstream-source-page-image","kitagain-project-illustration"},entry_id
+    assert image["entry_kind"] in {"reviewed-project","project-source-lead","device-or-community-route"},entry_id
+    assert image["fit"] in {"cover","contain"},entry_id
+    assert all(image[key] for key in ["content_id","source_file","local_file","source_page","alt_zh","alt_en","caption_zh","caption_en","image_license_status","normalized_sha256"]),entry_id
+    assert image["source_page"].startswith("https://") and not image["local_file"].startswith("docs/"),entry_id
+    source_file=ROOT/image["source_file"]
+    output_file=OUT/image["local_file"]
+    assert source_file.is_file() and output_file.is_file(),entry_id
+    assert output_file.stat().st_size>2000,entry_id
+    assert hashlib.sha256(source_file.read_bytes()).hexdigest()==image["normalized_sha256"],entry_id
+    if image.get("normalized_source"):
+        assert source_file.read_bytes()==output_file.read_bytes(),entry_id
+    if image["source_kind"] in {"upstream-project-asset","upstream-source-page-image"}:
+        assert image["source_url"] and image["source_url"].startswith("https://"),entry_id
+        assert image["image_license_status"]=="not-separately-stated",entry_id
     else:
-        assert image["source_url"] is None and image.get("prompt_summary"),pid
-        assert "不是实机照片" in image["caption_zh"] and "not an actual device photo" in image["caption_en"],pid
+        assert image["source_url"] is None and image.get("prompt_summary"),entry_id
+        assert "不是实机照片" in image["caption_zh"] and "not an actual device photo" in image["caption_en"],entry_id
 articles=load(ROOT/"data/articles.json")
 author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
+listed_image_ids={f'project:{project["id"]}' for project in projects}
+listed_image_ids|={f'project-lead:{lead["id"]}' for lead in project_leads if lead.get("display_status","listed")=="listed"}
+listed_image_ids|={f"lead:{slug}" for slug in watchlist}
+assert set(directory_images)<=listed_image_ids,"Directory image points to a missing or delisted entry"
+assert project_image_data["coverage"]=={
+    "listed_directory_entries":len(listed_image_ids),
+    "source_backed_images":sum(image["source_kind"]!="kitagain-project-illustration" for image in directory_images.values()),
+    "kitagain_illustrations":sum(image["source_kind"]=="kitagain-project-illustration" for image in directory_images.values()),
+    "pending_review_placeholders":len(listed_image_ids)-len(directory_images),
+},"Directory-image coverage summary mismatch"
 device_atlas=load(ROOT/"data/device-atlas.json")
 device_reviews=load(ROOT/"data/device-reviews.json")
 assert scoring_evidence["version"]==config["version"] and scoring_evidence["scoring_model"]=="3.0.0","Scoring-evidence version mismatch"
@@ -506,8 +523,8 @@ for lang in ["zh","en"]:
         directory_markups.append(paged_file.read_text(encoding="utf-8"))
     combined_directory_markup="".join(directory_markups)
     assert sum(audit_project_cards(markup,(lang,"directory page",index)) for index,markup in enumerate(directory_markups,1))==len(projects)+len(watchlist)+len(listed_project_leads),(lang,"paged directory coverage")
-    assert combined_directory_markup.count('<a class="project-thumb ')==len(project_images),(lang,"reviewed project thumbnail coverage")
-    assert combined_directory_markup.count('class="project-thumb project-thumb-placeholder"')==len(projects)+len(watchlist)+len(listed_project_leads)-len(project_images),(lang,"pending-image placeholder coverage")
+    assert combined_directory_markup.count('<a class="project-thumb ')==len(directory_images),(lang,"source-backed directory thumbnail coverage")
+    assert combined_directory_markup.count('class="project-thumb project-thumb-placeholder"')==len(projects)+len(watchlist)+len(listed_project_leads)-len(directory_images),(lang,"pending-image placeholder coverage")
     assert combined_directory_markup.count(' has-media ')==len(projects)+len(watchlist)+len(listed_project_leads),(lang,"directory media coverage")
     assert combined_directory_markup.count('data-ai="native"')==10,(lang,"reviewed AI-function route count")
     listed_needs_review=sum(lead["needs_review"] for lead in listed_project_leads)

@@ -44,7 +44,8 @@ COST_EVIDENCE_PATH = ROOT / "data/cost-evidence-v120.json"
 COST_EVIDENCE = json.loads(COST_EVIDENCE_PATH.read_text(encoding="utf-8")) if COST_EVIDENCE_PATH.exists() else {}
 DEVICE_ATLAS = json.loads((ROOT / "data/device-atlas.json").read_text(encoding="utf-8"))
 PROJECT_IMAGE_DATA = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
-PROJECT_IMAGES = {item["project_id"]: item for item in PROJECT_IMAGE_DATA["entries"]}
+DIRECTORY_IMAGES = {(item["entry_id"] if "entry_id" in item else f'project:{item["project_id"]}'): item for item in PROJECT_IMAGE_DATA["entries"]}
+PROJECT_IMAGES = {item["project_id"]: item for item in PROJECT_IMAGE_DATA["entries"] if item.get("project_id")}
 PROJECT_PAGE_VISUAL = json.loads((ROOT / "data/project-page-visual.json").read_text(encoding="utf-8"))
 PROJECT_PAGE_VISUAL_IDS = frozenset(PROJECT_PAGE_VISUAL["pilot_project_ids"])
 HARDWARE_TAG_DATA = json.loads((ROOT / "data/hardware-tags.json").read_text(encoding="utf-8"))
@@ -346,6 +347,13 @@ class Site:
         src = f'{prefix}../{image["local_file"]}'
         return f'<a class="{h(css_class)} {h(image["fit"])}" href="{prefix}projects/{p["id"]}/"><img src="{h(src)}" alt="{h(alt)}" loading="lazy" decoding="async"></a>'
 
+    def directory_card_image(self, entry_id, href):
+        image = DIRECTORY_IMAGES.get(entry_id)
+        if not image:
+            return ""
+        alt = image["alt_zh" if self.lang == "zh" else "alt_en"]
+        return f'<a class="project-thumb {h(image["fit"])}" href="{h(href)}"><img src="../../{h(image["local_file"])}" alt="{h(alt)}" loading="lazy" decoding="async"></a>'
+
     def card_placeholder(self):
         label = self.t("图片待核", "Image pending review")
         return f'<div class="project-thumb project-thumb-placeholder" role="img" aria-label="{h(label)}"><span aria-hidden="true">KA</span><small aria-hidden="true">{h(label)}</small></div>'
@@ -368,7 +376,7 @@ class Site:
         search = " ".join([p["name"], p["summary_zh"], p["device_scope"], e["summary"], e["device_scope"], *p["keywords"], *p["model_examples"], *hardware_values, *p["use_cases"], *(en for uid,zh,en in USES if zh in p["use_cases"])])
         attrs["search"] = search
         attr = " ".join(f'data-{k}="{h(v)}"' for k,v in attrs.items())
-        image = self.card_image(p, prefix) if show_thumbnail else ""
+        image = self.directory_card_image(f'project:{p["id"]}', f'{prefix}projects/{p["id"]}/') if show_thumbnail else ""
         media = image or (self.card_placeholder() if show_thumbnail else "")
         media_class = " has-media has-image" if image else (" has-media has-placeholder" if media else "")
         return f"""<article class="project{media_class}" {attr}>{media}<h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(p['evidence']['level'])}</div></article>"""
@@ -383,8 +391,9 @@ class Site:
             platform = {"恩山无线论坛":"Enshan Wireless Forum", "ophub 中文项目文档":"ophub Chinese documentation"}.get(platform, platform)
         search = " ".join([v["title"], v["summary"], lead.get("device_name", ""), lead.get("device_model", ""), *self.lead_hardware_values(slug,lead), platform, lead.get("discovery_channel", "")])
         attrs = f'data-search="{h(search)}" data-title="{h(v["title"])}" data-category="{h(lead["category"])}" data-source="{h(platform)}" data-evidence="{h(evidence)}" data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="device-or-community-route" data-channel="{h(lead.get("discovery_channel", "legacy"))}"'
-        media = self.card_placeholder() if show_placeholder else ""
-        media_class = " has-media has-placeholder" if media else ""
+        image = self.directory_card_image(f"lead:{slug}", f"{prefix}{slug}/") if show_placeholder else ""
+        media = image or (self.card_placeholder() if show_placeholder else "")
+        media_class = " has-media has-image" if image else (" has-media has-placeholder" if media else "")
         return f"""<article class="project{media_class}" {attrs}>{media}<h3><a href="{prefix}{slug}/">{h(v['title'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(evidence)}</div></article>"""
 
     def project_lead_card(self, lead, prefix="project-leads/", show_placeholder=False):
@@ -401,8 +410,9 @@ class Site:
             f'data-category="{h(lead["category"])}" data-evidence="{h(lead["evidence_level"])}" '
             f'data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="project-source-lead" data-needs-review="{str(lead["needs_review"]).lower()}"'
         )
-        media = self.card_placeholder() if show_placeholder else ""
-        media_class = " has-media has-placeholder" if media else ""
+        image = self.directory_card_image(f'project-lead:{lead["id"]}', f'{prefix}{lead["id"]}/') if show_placeholder else ""
+        media = image or (self.card_placeholder() if show_placeholder else "")
+        media_class = " has-media has-image" if image else (" has-media has-placeholder" if media else "")
         return f'''<article class="project{media_class}" {attrs}>{media}<h3><a href="{h(prefix+lead['id']+'/')}">{h(lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}</div></article>'''
 
     def home(self):
@@ -735,6 +745,7 @@ class Site:
             if page_index > 1:
                 cards_html = cards_html.replace('href="../', 'href="../../../')
                 cards_html = cards_html.replace('src="../../assets/projects/', 'src="../../../../assets/projects/')
+                cards_html = cards_html.replace('src="../../assets/directory/', 'src="../../../../assets/directory/')
             title = t(f"全部 {visible_count} 条硬件复活记录", f"All {visible_count} hardware-revival records")
             if page_index > 1:
                 title += t(f" · 第 {page_index} 页", f" · Page {page_index}")
