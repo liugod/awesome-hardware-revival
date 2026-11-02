@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+<title id="title">Generic Peripheral fallback illustration</title><desc id="desc">A neutral category illustration, not a picture of a specific project or device.</desc>
+<rect width="800" height="600" rx="36" fill="#eef1e8"/><circle cx="680" cy="84" r="118" fill="#dce6ac"/><circle cx="126" cy="530" r="160" fill="#dbe7df"/>
+<g fill="none" stroke="#234b3c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><rect x="176" y="228" width="448" height="260" rx="24"/><rect x="250" y="82" width="300" height="210" rx="12"/><rect x="232" y="380" width="336" height="108"/><path d="M282 424h236M282 458h180"/><circle cx="560" cy="330" r="14"/></g>
+<path d="M64 72h112" stroke="#91a04f" stroke-width="12" stroke-linecap="round"/><path d="M64 98h72" stroke="#91a04f" stroke-width="12" stroke-linecap="round"/>
+</svg>

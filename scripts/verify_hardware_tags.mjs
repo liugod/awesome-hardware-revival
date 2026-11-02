@@ -4,6 +4,7 @@ import path from "node:path";
 
 const base = process.env.KITAGAIN_PREVIEW || "http://127.0.0.1:4185";
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "site.config.json"), "utf8"));
+const directory = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "directory.json"), "utf8"));
 const browser = await chromium.launch({ headless: true });
 const checks = {};
 
@@ -17,6 +18,8 @@ try {
   checks.version = (await page.locator("#release").innerText()).includes(`v${config.version}`);
 
   await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
+  await page.locator("#directory-q").fill("AI");
+  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project").length === total, directory.counts.listed_entries);
   checks.reviewedCards = await page.locator('#directory-grid .project[data-kind="reviewed-project"]').count();
   checks.cardHardwareTags = await page.locator("#directory-grid .project .hardware-tag").count();
 
@@ -47,7 +50,7 @@ try {
   checks.mobileAboutLink = await mobile.locator("main a.about-link").count();
   await mobile.close();
 
-  if (checks.reviewedCards !== 53 || checks.cardHardwareTags !== 0 || !checks.version) throw new Error("Simplified reviewed-project card coverage or version failed");
+  if (checks.reviewedCards !== 53 || checks.cardHardwareTags !== 0 || !checks.version) throw new Error(`Simplified reviewed-project card coverage or version failed: ${JSON.stringify(checks)}`);
   if (!checks.projectDetailTags.includes("LX06") || checks.projectAboutLink !== 1) throw new Error("Project detail hardware tags or About link failed");
   if (checks.projectQuery !== "LX06" || checks.openXiaoVisible !== 1 || checks.projectVisible < 1) throw new Error("Project tag directory search failed");
   if (!checks.leadDetailTags.includes("GL-AR300M16-Ext") || checks.leadQuery !== "GL-AR300M16-Ext" || checks.leadVisible !== 1) throw new Error("Lead tag search failed");

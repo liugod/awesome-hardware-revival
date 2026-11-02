@@ -11,6 +11,8 @@ from watchlist_merge import load_watchlist
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 OUT = ROOT / "docs"
+from build_thumbnail_fallbacks import build as build_thumbnail_fallbacks
+build_thumbnail_fallbacks()
 config = json.loads((ROOT / "site.config.json").read_text(encoding="utf-8"))
 BASE = config["base_url"].rstrip("/") + "/"
 REPO = config["repository_url"]
@@ -27,7 +29,9 @@ batch2_evidence = json.loads(batch2_path.read_text(encoding="utf-8")) if batch2_
 audit_path = ROOT / "data/e0-audit-v120.json"
 audit_evidence = json.loads(audit_path.read_text(encoding="utf-8")) if audit_path.exists() else {}
 project_image_data = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
-project_images = {item["project_id"]: item for item in project_image_data["entries"] if item.get("project_id")}
+fallback_image_data = json.loads((ROOT / "data/thumbnail-fallbacks.json").read_text(encoding="utf-8"))
+fallback_project_images = {item["entry_id"].removeprefix("project:"): item for item in fallback_image_data["entries"] if item["entry_id"].startswith("project:")}
+project_images = {**fallback_project_images, **{item["project_id"]: item for item in project_image_data["entries"] if item.get("project_id")}}
 deep = json.loads((ROOT / "data/deep-dives.json").read_text(encoding="utf-8"))
 candidates = json.loads((ROOT / "data/candidates.json").read_text(encoding="utf-8"))
 watchlist, watchlist_details = load_watchlist(ROOT / "data")
@@ -102,13 +106,18 @@ def card_image(p):
     image = project_images.get(p["id"])
     if not image:
         return ""
-    return f'<a class="project-thumb {h(image["fit"])}" href="projects/{p["id"]}.html"><img src="{h(image["local_file"])}" alt="{h(image["alt_zh"])}" loading="lazy" decoding="async"></a>'
+    fallback = p["id"] in fallback_project_images
+    badge = '<span class="fallback-badge">备用图</span>' if fallback else ""
+    return f'<a class="project-thumb {h(image["fit"])}{" fallback-image" if fallback else ""}" href="projects/{p["id"]}.html" data-image-kind="{h(image["source_kind"])}"><img src="{h(image["local_file"])}" alt="{h(image["alt_zh"])}" loading="lazy" decoding="async">{badge}</a>'
 
 def detail_image(p):
     image = project_images.get(p["id"])
     if not image:
         return ""
-    return f'<figure class="project-media {h(image["fit"])}"><img src="../{h(image["local_file"])}" alt="{h(image["alt_zh"])}" decoding="async"><figcaption>{h(image["caption_zh"])} <a href="{h(image["source_page"])}">查看图片来源 ↗</a></figcaption></figure>'
+    fallback = p["id"] in fallback_project_images
+    badge = '<span class="fallback-badge">备用图 · 非项目成果图</span>' if fallback else ""
+    source_url = image["source_url"] if fallback else image["source_page"]
+    return f'<figure class="project-media {h(image["fit"])}{" fallback-image" if fallback else ""}" data-image-kind="{h(image["source_kind"])}"><div class="project-media-frame"><img src="../{h(image["local_file"])}" alt="{h(image["alt_zh"])}" decoding="async">{badge}</div><figcaption>{h(image["caption_zh"])} <a href="{h(source_url)}">查看图片来源 ↗</a></figcaption></figure>'
 
 def card(p):
     attrs = {"id":p["id"],"category":p["category"],"ai":p["ai_relation"],"difficulty":p["difficulty"],"evidence":p["evidence"]["level"],"use":"|".join(p["use_cases"])}
@@ -116,7 +125,7 @@ def card(p):
     attrtext = " ".join(f'data-{k}="{h(v)}"' for k,v in attrs.items())
     status = labels["maintenance"][p["maintenance"]["status"]]
     special = p["maintenance"]["status"] != "not-archived"
-    return f"""<article class="project {'has-image' if p['id'] in project_images else ''}" {attrtext} data-search="{h(search)}">
+    return f"""<article class="project {'has-image' if p['id'] in project_images else ''}{' has-fallback' if p['id'] in fallback_project_images else ''}" {attrtext} data-search="{h(search)}">
 {card_image(p)}{tags(p)}<h3><a href="projects/{p['id']}.html">{h(p['name'])}<span aria-hidden="true"> ↗</span></a></h3>
 <p class="summary">{h(p['summary_zh'])}</p><p class="device"><b>适配范围</b> {h(p['device_scope'])}</p>
 <p class="limit">{h(p['limitations'][0])}</p>
@@ -291,7 +300,7 @@ write(ROOT/"data/action-guides-v120.json", json.dumps({
         if entry["display_status"] == "listed" and entry["action_guide"] is not None
     ],
 }, ensure_ascii=False, indent=2) + "\n")
-public_data = ["catalog.json","catalog.csv","directory.json","directory.csv","scoring-evidence.json","project-leads.json","project-leads.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","hardware-tags.json","action-guides-v120.json","cost-evidence-v120.json","scoring-evidence-batch2-v120.json","e0-audit-v120.json"]
+public_data = ["catalog.json","catalog.csv","directory.json","directory.csv","scoring-evidence.json","project-leads.json","project-leads.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","thumbnail-fallbacks.json","hardware-tags.json","action-guides-v120.json","cost-evidence-v120.json","scoring-evidence-batch2-v120.json","e0-audit-v120.json"]
 for name in public_data:
     if not (ROOT/"data"/name).exists():
         continue

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600" role="img" aria-labelledby="title desc">
+<title id="title">Generic Computer fallback illustration</title><desc id="desc">A neutral category illustration, not a picture of a specific project or device.</desc>
+<rect width="800" height="600" rx="36" fill="#eef1e8"/><circle cx="680" cy="84" r="118" fill="#dce6ac"/><circle cx="126" cy="530" r="160" fill="#dbe7df"/>
+<g fill="none" stroke="#234b3c" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><rect x="176" y="104" width="448" height="300" rx="20"/><path d="M105 454h590l-52 62H157z"/><rect x="360" y="422" width="80" height="16" rx="8"/></g>
+<path d="M64 72h112" stroke="#91a04f" stroke-width="12" stroke-linecap="round"/><path d="M64 98h72" stroke="#91a04f" stroke-width="12" stroke-linecap="round"/>
+</svg>
