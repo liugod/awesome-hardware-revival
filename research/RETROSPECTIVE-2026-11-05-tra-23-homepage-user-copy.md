@@ -28,6 +28,6 @@ Scope: Rewrite the generated Chinese and English homepage copy around visitor ou
 4. Marketing energy must stop at the evidence boundary. Never convert unknown fit, cost, risk, or reproduction into confidence language.
 5. Protect approved brand copy and data-derived counts with exact assertions, then rebuild from the canonical generator.
 6. Validate copy in a real browser at desktop and narrow widths. Check overflow, button wrapping, reading order, console errors, language switching, and the actual CTA destination.
-7. Keep local implementation, commit, PR, merge, deployment, and public acceptance as separate gates. TRA-23 currently ends at locally validated branch changes.
+7. Keep local implementation, commit, PR, merge, deployment, and public acceptance as separate gates. TRA-23 is committed, pushed, and submitted as open PR #8; merge, Pages deployment, and public acceptance remain unperformed.
 
 The reusable homepage-copy procedure was added to `skills/hardware-revival-research/SKILL.md`.
