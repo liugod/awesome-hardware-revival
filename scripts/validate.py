@@ -26,6 +26,7 @@ config=load(ROOT/"site.config.json")
 project_lead_data=load(ROOT/"data/project-leads.json")
 project_leads=project_lead_data["projects"]
 listed_project_leads=[lead for lead in project_leads if lead.get("display_status","listed")=="listed"]
+page_overrides=load(ROOT/"data/project-page-visual.json")
 scoring_evidence=load(ROOT/"data/scoring-evidence.json")
 scoring_evidence_items=scoring_evidence["entries"]
 if isinstance(scoring_evidence_items,dict):scoring_evidence_items=list(scoring_evidence_items.values())
@@ -46,6 +47,18 @@ assert 'document.querySelectorAll("#directory-grid .project")' in app_javascript
 schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
+seo_project_ids={"coreelec","fbink","openbeken"}
+seo_project_lead_ids={"airsane","dorita980","kiosk-satellite"}
+assert seo_project_ids<=set(page_overrides["projects"]),"Missing TRA-26 project SEO override"
+assert seo_project_lead_ids<=set(page_overrides["project_leads"]),"Missing TRA-26 project-lead SEO override"
+for kind,target_ids in [("projects",seo_project_ids),("project_leads",seo_project_lead_ids)]:
+    for target_id in target_ids:
+        override=page_overrides[kind][target_id]
+        seo=override["seo"]["en"]
+        lead=override["content"]["en"]["lead"]
+        assert 45<=len(seo["title"])<=60 and seo["title"].endswith(" | KitAgain"),(target_id,"SEO title length/brand")
+        assert 120<=len(seo["description"])<=160,(target_id,"meta description length")
+        assert len(lead)>=120 and target_id.casefold().replace("-", " ").split()[0] in lead.casefold(),(target_id,"opening lead")
 project_image_data=load(ROOT/"data/project-images.json")
 directory_images={item["entry_id"]:item for item in project_image_data["entries"]}
 project_images={item["project_id"]:item for item in project_image_data["entries"] if item.get("project_id")}
@@ -523,6 +536,22 @@ assert card_page_count==18+2*(directory_page_count-1) and generated_card_count==
 assert len(pages)==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
+for kind,target_ids,route in [
+    ("projects",seo_project_ids,"projects"),
+    ("project_leads",seo_project_lead_ids,"project-leads"),
+]:
+    for target_id in target_ids:
+        override=page_overrides[kind][target_id]
+        seo=override["seo"]["en"]
+        lead=override["content"]["en"]["lead"]
+        markup=(OUT/"en"/route/target_id/"index.html").read_text(encoding="utf-8")
+        escaped_title=html.escape(seo["title"],quote=True)
+        escaped_description=html.escape(seo["description"],quote=True)
+        assert f"<title>{escaped_title}</title>" in markup,(target_id,"rendered title")
+        assert f'<meta name="description" content="{escaped_description}">' in markup,(target_id,"rendered description")
+        assert f'<meta property="og:title" content="{escaped_title}">' in markup,(target_id,"rendered OG title")
+        assert f'<meta property="og:description" content="{escaped_description}">' in markup,(target_id,"rendered OG description")
+        assert html.escape(lead,quote=True) in markup,(target_id,"rendered opening lead")
 zh_home_markup=(OUT/"zh/index.html").read_text(encoding="utf-8")
 assert zh_home_markup.count(f"<h1>{APPROVED_ZH_SLOGAN}</h1>")==1,"Chinese homepage slogan is locked by TRA-21"
 assert zh_home_markup.count(f'<p class="ai-kicker">KitAgain · {APPROVED_ZH_SLOGAN}</p>')==1,"Chinese homepage kicker is locked by TRA-21"
@@ -591,8 +620,15 @@ for lang in ["zh","en"]:
         assert guide.canonical==[f"{BASE}{lang}/guides/{slug}/"],(lang,slug,"guide canonical")
     ai_guide_markup=(OUT/lang/"guides/ai-retrofit/index.html").read_text(encoding="utf-8")
     assert '../../directory/?ai=native' in ai_guide_markup and '../../directory/?q=AI' not in ai_guide_markup,(lang,"guide structured AI filter link")
+    assert '../nest-mini-local-ai/' in ai_guide_markup,(lang,"AI retrofit hub links to Nest Mini guide")
+    speaker_guide_markup=(OUT/lang/"guides/speaker-voice/index.html").read_text(encoding="utf-8")
+    assert '../nest-mini-local-ai/' in speaker_guide_markup,(lang,"speaker hub links to Nest Mini guide")
     nest_markup=(OUT/lang/"guides/nest-mini-local-ai/index.html").read_text(encoding="utf-8")
     assert all(term in nest_markup for term in ["Onju v2","ESPHome","Home Assistant","Ollama","I2S"]),(lang,"Nest Mini decision coverage")
+    assert '../ai-retrofit/' in nest_markup and '../speaker-voice/' in nest_markup,(lang,"Nest Mini guide links to related hubs")
+    for project_id in ["onju-voice","onju-v2"]:
+        project_markup=(OUT/lang/"projects"/project_id/"index.html").read_text(encoding="utf-8")
+        assert '../../guides/nest-mini-local-ai/index.html' in project_markup,(lang,project_id,"Onju project links to Nest Mini guide")
     project_source_index=pages[(OUT/lang/"project-sources/index.html").resolve()]
     assert "project-source-grid" in project_source_index.ids and "project-source-filters" in project_source_index.ids
     assert "project-leads.json" in " ".join(project_source_index.refs) and "project-leads.csv" in " ".join(project_source_index.refs)
