@@ -6,17 +6,87 @@
     "openwrt"
   ],
   "projects": {
-    "openbeken": {
+    "coreelec": {
+      "content": {
+        "en": {
+          "lead": "Use CoreELEC to turn a supported Amlogic TV box into a Kodi media center. Match the exact SoC and board against the official support table before choosing external boot or writing internal storage."
+        }
+      },
       "seo": {
         "en": {
-          "title": "OpenBeken Guide: Flash BK7231 Tuya Devices for Local MQTT | KitAgain",
-          "description": "Check BK7231 Tuya devices for local MQTT and Home Assistant with OpenBeken: chip compatibility, flash pre-checks, backups and recovery.",
-          "og_title": "OpenBeken Guide: Flash BK7231 Tuya Devices for Local MQTT | KitAgain",
-          "og_description": "Check BK7231 Tuya devices for local MQTT and Home Assistant with OpenBeken: chip compatibility, flash pre-checks, backups and recovery."
+          "title": "CoreELEC Guide: Amlogic TV Box Compatibility | KitAgain",
+          "description": "Check whether your Amlogic TV box supports CoreELEC, how SD or USB boot works, and what to verify before replacing the original operating system."
+        }
+      }
+    },
+    "fbink": {
+      "content": {
+        "en": {
+          "lead": "FBInk is a low-level library and CLI for drawing on supported Kindle, Kobo, and Linux framebuffer e-readers. It can power an e-ink dashboard, but you still need device access and an application or script above it."
+        }
+      },
+      "seo": {
+        "en": {
+          "title": "FBInk Guide for Kindle & Kobo E-Ink Screens | KitAgain",
+          "description": "See what FBInk does on supported Kindle, Kobo, and Linux framebuffer devices, what access it needs, and how it fits into an e-ink dashboard."
+        }
+      }
+    },
+    "openbeken": {
+      "content": {
+        "en": {
+          "lead": "Use this OpenBeken guide to assess whether a BK7231T or BK7231N Tuya device can move to local MQTT and Home Assistant. Verify the exact chip and board, back up original flash and calibration data, and confirm a recovery method before initial flashing."
+        }
+      },
+      "seo": {
+        "en": {
+          "title": "OpenBeken Guide: BK7231 Tuya to Local MQTT | KitAgain",
+          "description": "Assess a BK7231 Tuya device for local MQTT and Home Assistant with OpenBeken. Check the exact chip and board, backups, initial flash, and recovery first."
         }
       },
       "glance_html": {
         "en": "<section><h2>OpenBeken flashing at a glance</h2><p>This page helps you assess BK7231 Tuya devices for local MQTT and Home Assistant and check what is needed before flashing. Chip support, including BK7231T and BK7231N, follows the <a href=\"https://github.com/openshwprojects/OpenBK7231T_App\">official OpenBeken repository</a>; verify your exact chip and board. <a href=\"https://github.com/openshwprojects/OpenBK7231T_App/blob/main/FLASHING.md#ota\">OTA updates</a> are available after installation, but initial flashing needs a suitable method; bricking is possible, so keep original flash and calibration backups and confirm a recovery procedure first.</p></section>"
+      }
+    }
+  },
+  "project_leads": {
+    "airsane": {
+      "content": {
+        "en": {
+          "lead": "AirSane can expose a scanner already available through SANE as an AirScan network scanner for macOS, Android, and Windows. Exact scanner models and long-running reliability have not been independently verified by KitAgain."
+        }
+      },
+      "seo": {
+        "en": {
+          "title": "AirSane Guide: Share a SANE Scanner via AirScan | KitAgain",
+          "description": "Use AirSane to publish a SANE-accessible scanner over Apple AirScan for macOS, Android, and Windows. Check the scanner, host, and setup first."
+        }
+      }
+    },
+    "dorita980": {
+      "content": {
+        "en": {
+          "lead": "dorita980 is an unofficial Node.js library for reading and controlling Roomba and Braava models listed by its repository. KitAgain has not verified installation, compatibility, or rollback on an exact robot."
+        }
+      },
+      "seo": {
+        "en": {
+          "title": "dorita980 Guide: Local Roomba & Braava Control | KitAgain",
+          "description": "Review dorita980, an unofficial Node.js library for local scripts that read and control listed Roomba and Braava models. Verify your exact model first."
+        }
+      }
+    },
+    "kiosk-satellite": {
+      "content": {
+        "en": {
+          "lead": "Kiosk Satellite is designed to turn an Android phone or tablet into a dedicated Home Assistant kiosk. KitAgain has not independently verified exact OS versions, sensor support, recovery, or long-term use."
+        }
+      },
+      "seo": {
+        "en": {
+          "title": "Kiosk Satellite: Home Assistant Kiosk for Android | KitAgain",
+          "description": "Evaluate Kiosk Satellite for turning an Android phone or tablet into a dedicated Home Assistant dashboard. Check OS support, sensors, and recovery first."
+        }
       }
     }
   }
