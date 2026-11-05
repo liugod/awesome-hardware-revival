@@ -826,7 +826,7 @@ class Site:
             if gid == "speaker-voice":
                 sections += f'''<aside class="lead-verdict"><p class="eyebrow">{self.t("相关决策入口","RELATED DECISION ROUTES")}</p><h2>{self.t("从设备和改造动作继续比较","Keep comparing by device and modification")}</h2><p><a href="../nest-mini-local-ai/">{self.t("Nest Mini 2：比较 Onju v2、HA Assist 与停手路线","Nest Mini 2: compare Onju v2, HA Assist, and when to stop")}</a> →</p><p><a href="../ai-retrofit/">{self.t("旧硬件接 AI：按设备选择改造方式","Old hardware with AI: choose a retrofit route by device")}</a> →</p><p><a href="../../projects/onju-v2/">{self.t("Nest Mini 2：查看当前 Onju v2 换板路线","Nest Mini 2: review the current Onju v2 board-swap route")}</a> · <a href="../../projects/onju-voice/">{self.t("Nest Mini 2：查看旧版 Onju Voice 换板路线","Nest Mini 2: review the legacy Onju Voice board-swap route")}</a></p></aside>'''
             sections += f'<h2>{self.t("对应项目与来源","Projects and sources")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"]==pid),"../../",show_thumbnail=True,asset_prefix="../../../") for pid in guide["projects"])+"</div>"
-            self.article(g["title"],g["intro"],sections,f"guides/{gid}/index.html")
+            self.article(g["title"],g["intro"],sections,f"guides/{gid}/index.html",seo=g.get("seo"))
 
     def ai_retrofit_guides(self):
         t = self.t
@@ -901,7 +901,7 @@ class Site:
             sections += "".join(f"<h2>{h(title)}</h2>" + "".join(f"<p>{h(paragraph)}</p>" for paragraph in paragraphs) for title,paragraphs in a["sections"])
             sections += f'<h2>{self.t("原始来源","Primary sources")}</h2><ul class="sources">' + "".join(f'<li>{self.link(source["url"],source["label"])}</li>' for source in article["sources"]) + "</ul>"
             sections += f'<h2>{self.t("相关项目","Related projects")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"] == pid),"../../",show_thumbnail=True,asset_prefix="../../../") for pid in article["projects"]) + "</div>"
-            self.article(a["title"],a["intro"],sections,f"articles/{slug}/index.html")
+            self.article(a["title"],a["intro"],sections,f"articles/{slug}/index.html",seo=a.get("seo"))
 
     def directory(self):
         t = self.t

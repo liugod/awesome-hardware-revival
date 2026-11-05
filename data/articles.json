@@ -13,6 +13,10 @@
     "zh": {
       "title": "Kindle 型号与固件怎么查：改造前的核对表",
       "intro": "先确认你手里的确切设备和固件，再决定是否值得尝试 KOReader 或其他改造；“Paperwhite”这个系列名不足以选刷机方法。",
+      "seo": {
+        "title": "识别 Kindle 型号与固件：越狱和 KOReader 前先核对 | 二手硬件再就业指南 · KitAgain",
+        "description": "先识别准确 Kindle 型号与当前固件，再选择越狱或 KOReader 路线；不要公开完整序列号，兼容性、前置条件或恢复路径不清楚时先停手。"
+      },
       "sections": [
         ["第一步：识别设备，不公开完整序列号", [
           "在 Kindle 的“设置 → 设备选项 → 设备信息”记录界面显示的设备名称、代数（如有）和软件版本。不同版本菜单名称可能略有差异；拿 Amazon 的型号识别页核对外观与代数。只写“Kindle”或“Paperwhite”不足以判断兼容性。",
@@ -35,6 +39,10 @@
     "en": {
       "title": "Identify your Kindle model and firmware before modifying it",
       "intro": "Confirm the exact device and installed firmware before considering KOReader or another modification. A family name such as “Paperwhite” is not enough to select a jailbreak route.",
+      "seo": {
+        "title": "Identify Kindle Model & Firmware Before Jailbreak | KitAgain",
+        "description": "Identify your Kindle model and installed firmware before choosing a jailbreak or KOReader route. Keep serial details private; stop if recovery is unclear."
+      },
       "sections": [
         ["1. Identify the device without publishing its full serial number", [
           "On the Kindle, record the device name, generation when shown, and software version under Settings → Device Options → Device Info. Menu labels can vary. Compare its features and generation with Amazon's identification page; “Kindle” or “Paperwhite” alone does not establish compatibility.",

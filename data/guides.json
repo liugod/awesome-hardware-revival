@@ -4,6 +4,10 @@
     "zh": {
       "title": "旧 Kindle 做信息屏：先选内容，再核对固件",
       "intro": "Home Assistant、WHOOP 和桌面用量看板需要不同的外部服务。墨水屏是显示端，不能据此判断设备在本地运行 AI。",
+      "seo": {
+        "title": "旧 Kindle 再利用：做墨水屏信息看板 | 二手硬件再就业指南 · KitAgain",
+        "description": "把旧 Kindle 再利用为 Home Assistant 或信息看板；开始前核对准确型号、固件、越狱路径、刷新方式和恢复条件，并验证断网与数据过期状态。"
+      },
       "sections": [
         ["先检查手里的设备", ["记下准确型号和固件，先查相应 jailbreak 指南；WinterBreak 是前置工具，不是成品看板。", "Kindle 4 的 HA 示例不能证明任意 Paperwhite 可用；WHOOP 作者验证范围是 PW2 / 5.10.3。", "先保存设备文件与配置备份，明确移除脚本与撤销 jailbreak 是不同步骤。"]],
         ["按内容选择路线", ["已有 Home Assistant：查看服务端截图＋Kindle 显示的路线，分别排查页面权限、截图和拉取。", "已有 WHOOP 数据：查看账户/API、KUAL/linkss 与唤醒链路；一次周期成功不代表数周续航。", "桌面 AI 工具用量：Kindle Dashboard 需要 Windows 10/11 主机及 SSH/FBInk；显示用量不等于运行模型。", "想切换多类内容：Kindle Carousel 的文档以 Kindle 3 / 4 NT 为范围，持续按键监听会影响续航。"]],
@@ -13,6 +17,10 @@
     "en": {
       "title": "Old Kindle displays: choose the content, then check firmware",
       "intro": "Home Assistant, WHOOP and desktop usage dashboards need different external services. An e-ink display endpoint is not evidence of AI running locally.",
+      "seo": {
+        "title": "Reuse an Old Kindle as an E-Ink Dashboard | KitAgain",
+        "description": "Reuse an old Kindle as a Home Assistant or information dashboard. Check the exact model, firmware, jailbreak path, refresh method, and recovery before setup."
+      },
       "sections": [
         ["Check the device you own", ["Record the exact model and firmware, then check its jailbreak guide. WinterBreak is a prerequisite tool, not a finished dashboard.", "A Kindle 4 Home Assistant example does not establish support for every Paperwhite. The WHOOP author's verified scope is PW2 / 5.10.3.", "Back up device files and configuration. Removing scripts and undoing a jailbreak are separate steps."]],
         ["Choose by content", ["Already use Home Assistant: compare server-side screenshots with Kindle display, checking page permissions, rendering and retrieval separately.", "Already have WHOOP data: check account/API, KUAL/linkss and wake behavior. One completed cycle does not prove weeks of battery life.", "Desktop AI usage: Kindle Dashboard needs a Windows 10/11 host and SSH/FBInk. Displaying usage is not running a model.", "Switchable content: Kindle Carousel documents Kindle 3 / 4 NT. Continuous button listening affects battery life."]],
