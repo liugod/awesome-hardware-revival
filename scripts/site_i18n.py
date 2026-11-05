@@ -214,7 +214,7 @@ class Site:
     def rel(self, target, current):
         return posixpath.relpath(target, posixpath.dirname(current) or ".")
 
-    def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None):
+    def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None, query_parameter_canonical=None):
         current = legacy or f"{self.lang}/{tail}"
         canonical = BASE if self.lang == "en" and tail == "index.html" else BASE + f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
         other = "en" if self.lang == "zh" else "zh"
@@ -235,10 +235,14 @@ class Site:
         }
         alternates = "".join(f'<link rel="alternate" hreflang="{code}" href="{url}">' for code, url in alternate_urls.items())
         alternates += f'<link rel="alternate" hreflang="x-default" href="{alternate_urls["en"]}">'
+        query_parameter_seo = ""
+        if query_parameter_canonical:
+            clean_canonical = json.dumps(query_parameter_canonical)
+            query_parameter_seo = f'''<script data-query-param-seo>(function(){{var p=new URLSearchParams(window.location.search);if(p.has("q")||p.has("category")){{var r=document.createElement("meta");r.name="robots";r.content="noindex,follow";r.setAttribute("data-query-param-seo","");document.head.appendChild(r);var c=document.querySelector('link[rel="canonical"]');if(c)c.href={clean_canonical};}}}})();</script>'''
         markup = f"""<!doctype html>
 <html lang="{self.t('zh-CN','en')}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{h(meta_title)}</title><meta name="description" content="{h(meta_description)}">
-<link rel="canonical" href="{h(canonical)}">{alternates}<meta name="theme-color" content="#f7f7f5">
+<link rel="canonical" href="{h(canonical)}">{alternates}<meta name="theme-color" content="#f7f7f5">{query_parameter_seo}
 <meta property="og:title" content="{h(og_title)}"><meta property="og:description" content="{h(og_description)}"><meta property="og:url" content="{h(canonical)}"><meta property="og:type" content="website">
 <link rel="icon" href="{rel('assets/mark.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{rel('assets/style.css')}?v={h(asset_version)}"><script src="{rel('assets/app.js')}?v={h(CONFIG['version'])}" defer></script>
 </head><body><a class="skip" href="#main">{self.t('跳到正文','Skip to content')}</a>
@@ -785,7 +789,13 @@ class Site:
 <form id="directory-filters" class="filters directory-filters" role="search" data-page-count="{page_count}" data-page-index="{page_index}" data-page-size="{DIRECTORY_PAGE_SIZE}"><div class="search-field"><label class="sr-only" for="directory-q">{t("搜索设备、型号、项目或来源","Search device, model, project, or source")}</label><input id="directory-q" type="search" placeholder="{t('搜索设备、型号、项目或来源','Search device, model, project, or source')}" autocomplete="off"></div><div class="filter-grid directory-filter-row"><label>{t("设备","Device")}<select id="directory-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("AI 功能","AI functionality")}<select id="directory-ai"><option value="">{t("全部路线","All routes")}</option><option value="native">{t("已审 AI 功能","Reviewed AI functionality")}</option></select></label><label>{t("最低星级","Minimum stars")}<select id="directory-score"><option value="">{t("不限","Any score")}</option>{score_options}</select></label><label>{t("证据","Evidence")}<select id="directory-evidence"><option value="">{t("全部证据","All evidence")}</option>{evidence_options}</select></label><a class="directory-info" href="{prefix}../about/#scoring" aria-label="{t('了解评分与证据','About scoring and evidence')}" title="{t('了解评分与证据','About scoring and evidence')}">ⓘ</a></div><p id="directory-result-count" class="sr-only" role="status" aria-live="polite">{t("显示","Showing")} {len(page_cards)} / {visible_count}</p></form>
 <p class="directory-page-range">{t(f'当前显示第 {start}–{end} 条；使用筛选时会加载全部分页。',f'Showing records {start}–{end}; filtering loads all directory pages.')}</p>
 <div id="directory-grid" class="project-grid">{cards_html}</div><div id="directory-empty" class="empty" hidden><h3>{t("暂时没有匹配路线","No matching route")}</h3><p>{t("减少一个筛选条件，或换一个设备/型号词。","Remove a filter or try another device/model term.")}</p></div><nav class="directory-pagination" aria-label="{t('目录分页','Directory pagination')}">{''.join(page_links)}</nav></div>'''
-            self.page(title,t("统一搜索设备、型号、项目、来源、复活星级和独立证据等级。","Search every device, model, project, source, revival-star score, and independent evidence grade."),body,tail)
+            self.page(
+                title,
+                t("统一搜索设备、型号、项目、来源、复活星级和独立证据等级。","Search every device, model, project, source, revival-star score, and independent evidence grade."),
+                body,
+                tail,
+                query_parameter_canonical=f"{BASE}{self.lang}/directory/",
+            )
 
     def project_sources(self):
         t = self.t

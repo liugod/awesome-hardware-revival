@@ -589,6 +589,11 @@ for lang in ["zh","en"]:
     directory_page=pages[(OUT/lang/"directory/index.html").resolve()]
     assert "directory-grid" in directory_page.ids and "directory-filters" in directory_page.ids
     directory_markup=(OUT/lang/"directory/index.html").read_text(encoding="utf-8")
+    parameter_seo_marker='<script data-query-param-seo>'
+    assert directory_markup.count(parameter_seo_marker)==1,(lang,"directory query-parameter SEO guard")
+    assert 'p.has("q")||p.has("category")' in directory_markup,(lang,"directory filter parameters covered")
+    assert 'r.content="noindex,follow"' in directory_markup,(lang,"directory filtered views noindex")
+    assert f'c.href="{BASE}{lang}/directory/"' in directory_markup,(lang,"directory filtered-view clean canonical")
     audit_project_cards(directory_markup,(lang,"directory"))
     directory_markups=[directory_markup]
     for page_number in range(2,directory_page_count+1):
@@ -596,7 +601,10 @@ for lang in ["zh","en"]:
         paged=pages[paged_file.resolve()]
         assert "directory-grid" in paged.ids and "directory-filters" in paged.ids,(lang,page_number,"paged directory shell")
         assert paged.canonical==[f"{BASE}{lang}/directory/page/{page_number}/"],(lang,page_number,"paged directory canonical")
-        directory_markups.append(paged_file.read_text(encoding="utf-8"))
+        paged_markup=paged_file.read_text(encoding="utf-8")
+        assert paged_markup.count(parameter_seo_marker)==1,(lang,page_number,"paged query-parameter SEO guard")
+        assert f'c.href="{BASE}{lang}/directory/"' in paged_markup,(lang,page_number,"paged filtered-view clean canonical")
+        directory_markups.append(paged_markup)
     combined_directory_markup="".join(directory_markups)
     assert sum(audit_project_cards(markup,(lang,"directory page",index)) for index,markup in enumerate(directory_markups,1))==len(projects)+len(watchlist)+len(listed_project_leads),(lang,"paged directory coverage")
     assert combined_directory_markup.count('<a class="project-thumb ')==len(all_directory_images),(lang,"complete directory thumbnail coverage")
