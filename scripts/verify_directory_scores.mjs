@@ -218,7 +218,9 @@ try {
       const subtitle = document.querySelector("main .home-subtitle");
       const style = subtitle ? getComputedStyle(subtitle) : null;
       const lineHeight = style ? (Number.parseFloat(style.lineHeight) || Number.parseFloat(style.fontSize) * 1.2) : 1;
-      const categories = [...document.querySelectorAll("main .popular-categories > .category-entry")];
+      const categories = [...document.querySelectorAll("main .ai-device-index > .popular-categories:not(.home-guide-links) > .category-entry")];
+      const guideEntries = [...document.querySelectorAll("main .home-guide-links > .category-entry")];
+      const expectedGuideSlugs = new Set(["speaker-voice", "kindle-displays", "home-computers", "ai-retrofit", "nest-mini-local-ai"]);
       const routeThumbnails = [...document.querySelectorAll(".ai-route-thumb img")];
       return {
         h1: document.querySelectorAll("main h1").length,
@@ -230,6 +232,12 @@ try {
         categoriesValid: categories.every(entry => {
           const url = new URL(entry.href);
           return Boolean(entry.querySelector('[aria-hidden="true"]')) && Boolean(url.searchParams.get("category"));
+        }),
+        guideEntries: guideEntries.length,
+        guideEntriesValid: guideEntries.every(entry => {
+          const url = new URL(entry.href);
+          const slug = url.pathname.split("/").filter(Boolean).at(-1);
+          return Boolean(entry.querySelector('[aria-hidden="true"]')) && expectedGuideSlugs.has(slug) && !url.search;
         }),
         routeThumbnails: routeThumbnails.length,
         routeThumbnailsValid: routeThumbnails.every(image => Boolean(image.alt) && image.complete && image.naturalWidth > 0),
@@ -252,7 +260,7 @@ try {
     en: await checkHomepage({ pathName: "/", placeholder: "Enter a device or model", directoryPath: "/en/directory/", lang: "en" })
   };
   for (const [lang, result] of Object.entries(checks.home)) {
-    if (result.h1 !== 1 || result.searches !== 1 || !result.placeholderMatches || result.subtitleLines > 1.25 || result.categories < 4 || !result.categoriesValid || result.routeThumbnails !== 3 || !result.routeThumbnailsValid || result.forbidden !== 0 || !result.footer.valid || result.submittedQuery !== "Kindle") {
+    if (result.h1 !== 1 || result.searches !== 1 || !result.placeholderMatches || result.subtitleLines > 1.25 || result.categories !== 6 || !result.categoriesValid || result.guideEntries !== 5 || !result.guideEntriesValid || result.routeThumbnails !== 3 || !result.routeThumbnailsValid || result.forbidden !== 0 || !result.footer.valid || result.submittedQuery !== "Kindle") {
       throw new Error(`${lang} simplified homepage failed: ${JSON.stringify(result)}`);
     }
   }
