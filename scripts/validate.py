@@ -608,7 +608,8 @@ homepage_user_copy={
         "See what it can do",
         "See the outcome first",
         "No proof, no promise",
-        "Start with the device you already own.",
+        "Find by device",
+        "Open the matching guide, then verify your exact model.",
     ],
     "zh": [
         APPROVED_ZH_SLOGAN,
@@ -616,7 +617,8 @@ homepage_user_copy={
         "看看能做什么",
         "先看能做什么",
         "没证据，就不下结论",
-        "从你手里的设备开始。",
+        "按设备找",
+        "先打开对应指南，再核对你的准确型号。",
     ],
 }
 root_home_markup=(OUT/"index.html").read_text(encoding="utf-8")
@@ -668,14 +670,18 @@ for lang in ["zh","en"]:
     ai_guide_markup=(OUT/lang/"guides/ai-retrofit/index.html").read_text(encoding="utf-8")
     assert '../../directory/?ai=native' in ai_guide_markup and '../../directory/?q=AI' not in ai_guide_markup,(lang,"guide structured AI filter link")
     assert '../nest-mini-local-ai/' in ai_guide_markup,(lang,"AI retrofit hub links to Nest Mini guide")
+    assert all(link in ai_guide_markup for link in ['../speaker-voice/','../../projects/onju-v2/','../../projects/onju-voice/','../../projects/openbeken/']),(lang,"AI retrofit topical links")
     speaker_guide_markup=(OUT/lang/"guides/speaker-voice/index.html").read_text(encoding="utf-8")
-    assert '../nest-mini-local-ai/' in speaker_guide_markup,(lang,"speaker hub links to Nest Mini guide")
+    assert all(link in speaker_guide_markup for link in ['../nest-mini-local-ai/','../ai-retrofit/','../../projects/onju-v2/','../../projects/onju-voice/']),(lang,"speaker hub topical links")
     nest_markup=(OUT/lang/"guides/nest-mini-local-ai/index.html").read_text(encoding="utf-8")
     assert all(term in nest_markup for term in ["Onju v2","ESPHome","Home Assistant","Ollama","I2S"]),(lang,"Nest Mini decision coverage")
-    assert '../ai-retrofit/' in nest_markup and '../speaker-voice/' in nest_markup,(lang,"Nest Mini guide links to related hubs")
+    assert all(link in nest_markup for link in ['../ai-retrofit/','../speaker-voice/','../../projects/onju-v2/','../../projects/onju-voice/']),(lang,"Nest Mini guide topical links")
     for project_id in ["onju-voice","onju-v2"]:
         project_markup=(OUT/lang/"projects"/project_id/"index.html").read_text(encoding="utf-8")
-        assert '../../guides/nest-mini-local-ai/index.html' in project_markup,(lang,project_id,"Onju project links to Nest Mini guide")
+        other_project="onju-v2" if project_id=="onju-voice" else "onju-voice"
+        assert all(link in project_markup for link in ['../../guides/nest-mini-local-ai/index.html','../../guides/speaker-voice/index.html','../../guides/ai-retrofit/index.html',f'../{other_project}/index.html']),(lang,project_id,"Onju project topical links")
+    openbeken_markup=(OUT/lang/"projects/openbeken/index.html").read_text(encoding="utf-8")
+    assert '../../guides/ai-retrofit/index.html' in openbeken_markup,(lang,"OpenBeken AI retrofit link")
     project_source_index=pages[(OUT/lang/"project-sources/index.html").resolve()]
     assert "project-source-grid" in project_source_index.ids and "project-source-filters" in project_source_index.ids
     assert "project-leads.json" in " ".join(project_source_index.refs) and "project-leads.csv" in " ".join(project_source_index.refs)
@@ -715,6 +721,9 @@ for lang in ["zh","en"]:
     assert home_markup.count('class="home-subtitle"')==1,(lang,"homepage subtitle")
     assert home_markup.count('class="ai-route-thumb ')==3,(lang,"homepage reviewed-route thumbnail coverage")
     assert home_markup.count('class="category-entry"')>=4,(lang,"homepage popular categories")
+    expected_home_guides=["speaker-voice","kindle-displays","home-computers","ai-retrofit","nest-mini-local-ai"]
+    assert all(f'href="guides/{slug}/"' in home_markup for slug in expected_home_guides),(lang,"homepage device guide links")
+    assert home_markup.count('class="popular-categories home-guide-links"')==1,(lang,"single homepage device-guide hub")
     assert all(token not in home_markup for token in ['id="filters"','id="project-grid"','class="field-note"','class="facts-strip"','class="featured"','class="closing"']),(lang,"legacy homepage section remains")
     assert all(text in home_markup for text in homepage_user_copy[lang]),(lang,"homepage user-copy contract")
     onju_markup=(OUT/lang/"projects/onju-v2/index.html").read_text(encoding="utf-8")
