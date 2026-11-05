@@ -40,6 +40,8 @@ e0_audit=load(ROOT/"data/e0-audit-v120.json")
 e0_audit_items=e0_audit["entries"]
 if isinstance(e0_audit_items,dict):e0_audit_items=list(e0_audit_items.values())
 BASE=config["base_url"].rstrip("/")+"/"
+CATEGORY_GUIDE_HUBS={"speaker":"speaker-voice","computer":"home-computers","ereader":"kindle-displays"}
+EN_CATEGORY_LABELS=dict(zip(data["labels"]["category"],["Speakers & voice","Phones & tablets","Computers & thin clients","Routers & NAS","TVs & TV boxes","E-readers & e-ink","Robots","Smart home","Cameras","Music & audio","Watches & wearables","Gaming","Printers & peripherals"]))
 APPROVED_ZH_SLOGAN="二手硬件再就业指南"
 assert (ROOT/"README.md").read_text(encoding="utf-8").startswith(f"# KitAgain · {APPROVED_ZH_SLOGAN}\n"),"Chinese README brand is locked by TRA-21"
 app_javascript=(OUT/"assets/app.js").read_text(encoding="utf-8")
@@ -514,6 +516,42 @@ def audit_project_cards(markup,label):
         assert not (forbidden&set(card["classes"])),(label,index,"legacy card field remains",forbidden&set(card["classes"]))
     return len(parser.cards)
 
+def audit_detail_navigation(file,markup,lang,category,title,current_url,label):
+    breadcrumb_match=re.findall(r'<nav class="breadcrumbs"[^>]*>(.*?)</nav>',markup,re.S)
+    schema_match=re.findall(r'<script type="application/ld\+json" class="breadcrumb-schema">(.*?)</script>',markup,re.S)
+    assert len(breadcrumb_match)==len(schema_match)==1,(label,"breadcrumb/schema count")
+    breadcrumb=breadcrumb_match[0]
+    schema=json.loads(schema_match[0])
+    assert schema["@context"]=="https://schema.org" and schema["@type"]=="BreadcrumbList",(label,"BreadcrumbList type")
+    items=schema["itemListElement"]
+    assert len(items)==3 and [item["position"] for item in items]==[1,2,3],(label,"breadcrumb positions")
+    home_url=BASE if lang=="en" else BASE+"zh/"
+    hub=CATEGORY_GUIDE_HUBS.get(category)
+    category_url=(
+        f"{BASE}{lang}/guides/{hub}/"
+        if hub
+        else f"{BASE}{lang}/directory/?category={category}"
+    )
+    expected_names=["Home" if lang=="en" else "首页",(EN_CATEGORY_LABELS if lang=="en" else data["labels"]["category"])[category],title]
+    assert [item["name"] for item in items]==expected_names,(label,"breadcrumb names")
+    assert [item["item"] for item in items]==[home_url,category_url,current_url],(label,"breadcrumb URLs")
+    assert f'href="{home_url}"' in breadcrumb and 'aria-current="page"' in breadcrumb,(label,"visible home/current breadcrumb")
+    assert html.escape(expected_names[1],quote=True) in breadcrumb and html.escape(title,quote=True) in breadcrumb,(label,"visible breadcrumb labels")
+    related_match=re.findall(r'<section class="related-projects"[^>]*>(.*?)</section>',markup,re.S)
+    assert len(related_match)==1,(label,"related-project block count")
+    related_links=re.findall(r'<a class="related-project-link" href="([^"]+)">([^<]+)</a>',related_match[0])
+    assert 3<=len(related_links)<=6 and len(related_links)==4,(label,"related-project count")
+    assert len({href for href,_ in related_links})==len(related_links),(label,"duplicate related target")
+    assert all(" — " in html.unescape(anchor) for _,anchor in related_links),(label,"action-style related anchor")
+    normalized=[]
+    for href,_ in related_links:
+        target=(file.parent/unquote(urlsplit(href).path)).resolve()
+        assert target.is_relative_to(OUT.resolve()) and target.exists(),(label,href,"related target missing")
+        parts=target.relative_to(OUT.resolve()).parts
+        assert parts[0]==lang and parts[-1]=="index.html",(label,href,"related target language")
+        normalized.append("/".join(parts[1:]))
+    return tuple(normalized)
+
 pages={}
 card_page_count=0
 generated_card_count=0
@@ -583,6 +621,7 @@ homepage_user_copy={
 }
 root_home_markup=(OUT/"index.html").read_text(encoding="utf-8")
 assert all(text in root_home_markup for text in homepage_user_copy["en"]),"Root homepage user-copy contract"
+related_target_sets={}
 for lang in ["zh","en"]:
     assert config["community_url"] in pages[(OUT/lang/"index.html").resolve()].refs
     assert config["community_url"] in pages[(OUT/lang/"community/index.html").resolve()].refs
@@ -664,6 +703,9 @@ for lang in ["zh","en"]:
         assert 'class="detail-score"' in source_markup and 'class="detail-rating' in source_markup and 'class="rating-panel"' not in source_markup,(lang,lead["id"],"simplified project-source score")
         expected_guide=project_lead_scores[lead["id"]]["score"] is not None and project_lead_scores[lead["id"]]["score"]>=4
         assert ('class="action-guide"' in source_markup)==expected_guide,(lang,lead["id"],"action-guide threshold")
+        related_target_sets[("project-lead",lead["id"],lang)]=audit_detail_navigation(
+            expected_file,source_markup,lang,lead["category"],lead["name"],f"{BASE}{lang}/project-leads/{lead['id']}/",(lang,"project-lead",lead["id"])
+        )
     home=pages[(OUT/lang/"index.html").resolve()]
     home_markup=(OUT/lang/"index.html").read_text(encoding="utf-8")
     expected_placeholder="输入设备或型号" if lang=="zh" else "Enter a device or model"
@@ -713,6 +755,9 @@ for lang in ["zh","en"]:
         assert ('class="action-guide"' in lead_markup)==expected_guide,(lang,slug,"action-guide threshold")
         expected=[item["url"] for item in watchlist_details[slug]["resources"]]
         assert all(url in page.refs for url in expected),(lang,slug,"missing lead source")
+        related_target_sets[("lead",slug,lang)]=audit_detail_navigation(
+            OUT/lang/"leads"/slug/"index.html",lead_markup,lang,lead["category"],lead[lang]["title"],f"{BASE}{lang}/leads/{slug}/",(lang,"lead",slug)
+        )
     for slug,article in articles.items():
         page=pages[(OUT/lang/"articles"/slug/"index.html").resolve()]
         assert page.canonical==[f"{BASE}{lang}/articles/{slug}/"]
@@ -767,6 +812,13 @@ for lang in ["zh","en"]:
         image_source=image["source_url"] if entry_id in fallback_images else image["source_page"]
         assert image_source in parser.refs,(lang,pid,"missing image attribution link")
         assert "project-media" in markup and html.escape(image["caption_zh" if lang=="zh" else "caption_en"]) in markup,(lang,pid,"missing image caption")
+        project=next(item for item in projects if item["id"]==pid)
+        related_target_sets[("project",pid,lang)]=audit_detail_navigation(
+            OUT/lang/"projects"/pid/"index.html",markup,lang,project["category"],project["name"],f"{BASE}{lang}/projects/{pid}/",(lang,"project",pid)
+        )
+for kind,entries in [("project",projects),("project-lead",listed_project_leads),("lead",[{"id":slug} for slug in watchlist])]:
+    for entry in entries:
+        assert related_target_sets[(kind,entry["id"],"zh")]==related_target_sets[(kind,entry["id"],"en")],(kind,entry["id"],"bilingual related-project symmetry")
 english=load(OUT/"data/catalog.en.json")
 assert [p["id"] for p in english["projects"]]==ids
 for p,e in zip(projects,english["projects"]):
