@@ -534,6 +534,26 @@ assert english_home.canonical==[BASE]
 assert root_page.alternates["en"]==BASE and root_page.alternates["zh-CN"]==BASE+"zh/"
 assert "home-search" in root_page.ids and "home-q" in root_page.ids
 assert config["community_url"] in root_page.refs
+homepage_user_copy={
+    "en": [
+        "Give your old hardware a useful second life.",
+        "See what your device can do next.",
+        "See what it can do",
+        "See the outcome first",
+        "No proof, no promise",
+        "Start with the device you already own.",
+    ],
+    "zh": [
+        APPROVED_ZH_SLOGAN,
+        "输入设备或型号，看看它还能做什么。",
+        "看看能做什么",
+        "先看能做什么",
+        "没证据，就不下结论",
+        "从你手里的设备开始。",
+    ],
+}
+root_home_markup=(OUT/"index.html").read_text(encoding="utf-8")
+assert all(text in root_home_markup for text in homepage_user_copy["en"]),"Root homepage user-copy contract"
 for lang in ["zh","en"]:
     assert config["community_url"] in pages[(OUT/lang/"index.html").resolve()].refs
     assert config["community_url"] in pages[(OUT/lang/"community/index.html").resolve()].refs
@@ -602,7 +622,7 @@ for lang in ["zh","en"]:
         assert ('class="action-guide"' in source_markup)==expected_guide,(lang,lead["id"],"action-guide threshold")
     home=pages[(OUT/lang/"index.html").resolve()]
     home_markup=(OUT/lang/"index.html").read_text(encoding="utf-8")
-    expected_placeholder="输入你的设备" if lang=="zh" else "Enter your device"
+    expected_placeholder="输入设备或型号" if lang=="zh" else "Enter a device or model"
     assert "home-search" in home.ids and "home-q" in home.ids,(lang,"homepage search")
     assert f'placeholder="{expected_placeholder}"' in home_markup,(lang,"homepage search placeholder")
     assert 'directory/?ai=native' in home_markup and 'directory/?q=AI' not in home_markup,(lang,"homepage structured AI filter link")
@@ -610,6 +630,7 @@ for lang in ["zh","en"]:
     assert home_markup.count('class="ai-route-thumb ')==3,(lang,"homepage reviewed-route thumbnail coverage")
     assert home_markup.count('class="category-entry"')>=4,(lang,"homepage popular categories")
     assert all(token not in home_markup for token in ['id="filters"','id="project-grid"','class="field-note"','class="facts-strip"','class="featured"','class="closing"']),(lang,"legacy homepage section remains")
+    assert all(text in home_markup for text in homepage_user_copy[lang]),(lang,"homepage user-copy contract")
     onju_markup=(OUT/lang/"projects/onju-v2/index.html").read_text(encoding="utf-8")
     assert ("适合你，如果" if lang=="zh" else "A good fit if") in onju_markup,(lang,"Onju fit guidance")
     assert ("无法确认设备是第二代 Nest Mini" if lang=="zh" else "cannot confirm a second-generation Nest Mini") in onju_markup,(lang,"Onju executable stop condition")

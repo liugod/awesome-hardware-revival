@@ -248,8 +248,8 @@ try {
   };
 
   checks.home = {
-    zh: await checkHomepage({ pathName: "/zh/", placeholder: "输入你的设备", directoryPath: "/zh/directory/", lang: "zh" }),
-    en: await checkHomepage({ pathName: "/", placeholder: "Enter your device", directoryPath: "/en/directory/", lang: "en" })
+    zh: await checkHomepage({ pathName: "/zh/", placeholder: "输入设备或型号", directoryPath: "/zh/directory/", lang: "zh" }),
+    en: await checkHomepage({ pathName: "/", placeholder: "Enter a device or model", directoryPath: "/en/directory/", lang: "en" })
   };
   for (const [lang, result] of Object.entries(checks.home)) {
     if (result.h1 !== 1 || result.searches !== 1 || !result.placeholderMatches || result.subtitleLines > 1.25 || result.categories < 4 || !result.categoriesValid || result.routeThumbnails !== 3 || !result.routeThumbnailsValid || result.forbidden !== 0 || !result.footer.valid || result.submittedQuery !== "Kindle") {
