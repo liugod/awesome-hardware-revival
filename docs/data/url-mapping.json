@@ -1,5 +1,5 @@
 {
-  "note": "Historical URLs remain readable HTML with canonical links; these are not HTTP 301 redirects.",
+  "note": "Historical project pages remain readable with canonical links. Bare utility and guide routes use 200 HTML redirect pages because GitHub Pages cannot emit arbitrary 301 redirects.",
   "mappings": {
     "projects/xiaogpt.html": "zh/projects/xiaogpt/",
     "projects/open-xiaoai.html": "zh/projects/open-xiaoai/",
@@ -53,6 +53,14 @@
     "projects/batocera.html": "zh/projects/batocera/",
     "projects/lakka.html": "zh/projects/lakka/",
     "projects/bazzite.html": "zh/projects/bazzite/",
-    "projects/printer-spl3.html": "zh/projects/printer-spl3/"
+    "projects/printer-spl3.html": "zh/projects/printer-spl3/",
+    "guides/ai-retrofit/index.html": "en/guides/ai-retrofit/",
+    "guides/home-computers/index.html": "en/guides/home-computers/",
+    "guides/kindle-displays/index.html": "en/guides/kindle-displays/",
+    "guides/nest-mini-local-ai/index.html": "en/guides/nest-mini-local-ai/",
+    "guides/speaker-voice/index.html": "en/guides/speaker-voice/",
+    "privacy/index.html": "en/privacy/",
+    "terms/index.html": "en/terms/",
+    "contact/index.html": "en/contact/"
   }
 }
