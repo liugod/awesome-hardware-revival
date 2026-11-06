@@ -32,13 +32,80 @@
         }
       }
     },
+    "dafang": {
+      "content": {
+        "zh": {
+          "lead": "Xiaomi Dafang Hacks 可为支持列表中的小方、大方及部分 Ingenic 摄像头增加本地 RTSP 视频流和扩展控制。先按支持表核对准确型号与固件，再找到原始固件备份和恢复路径后才考虑刷写。"
+        },
+        "en": {
+          "lead": "Xiaomi Dafang Hacks can add local RTSP video and extended controls to supported Xiaofang, Dafang, and selected Ingenic cameras. Match the exact model and firmware in the support table, then find the backup and recovery path before flashing."
+        }
+      },
+      "seo": {
+        "zh": {
+          "title": "Dafang Hacks：小方/大方摄像头本地 RTSP | 二手硬件再就业指南 · KitAgain",
+          "description": "用 Xiaomi Dafang Hacks 为支持的小方、大方及部分 Ingenic 摄像头增加本地 RTSP 视频流和控制；先核对准确型号、固件、备份与恢复路径。"
+        },
+        "en": {
+          "title": "Dafang Hacks: Local RTSP for Xiaomi Cameras | KitAgain",
+          "description": "Use Xiaomi Dafang Hacks for local RTSP video and controls on supported Xiaofang, Dafang, and selected Ingenic cameras. Check the exact model and firmware first."
+        }
+      }
+    },
+    "armbian-tv": {
+      "content": {
+        "zh": {
+          "lead": "用这个社区 Armbian 构建评估 Allwinner 电视盒或开发板能否成为轻量 Linux 主机。先在支持表中核对准确 SoC、板型与 DTB，再从外置介质测试网络、存储和稳定性，不要直接写入 eMMC。"
+        },
+        "en": {
+          "lead": "Use this community Armbian build to assess an Allwinner TV box or SBC as a lightweight Linux host. Match the exact SoC, board, and DTB in the support table, then test networking, storage, and stability from external media before any eMMC install."
+        }
+      },
+      "seo": {
+        "zh": {
+          "title": "Armbian Allwinner 电视盒与开发板指南 | 二手硬件再就业指南 · KitAgain",
+          "description": "核对社区 Armbian 构建对 Allwinner 电视盒与开发板的 SoC、板型和 DTB 支持；先从外置介质测试网络、存储与稳定性，再考虑 eMMC。"
+        },
+        "en": {
+          "title": "Armbian Allwinner TV Box & SBC Guide | KitAgain",
+          "description": "Check Allwinner TV box and SBC support in this community Armbian build, including the SoC and DTB. Test external media before any eMMC installation."
+        }
+      }
+    },
+    "webos-homebrew": {
+      "content": {
+        "zh": {
+          "lead": "Homebrew Channel 用于在已满足 root 或开发模式前提的 LG webOS 电视上安装和管理社区应用。安装前先核对准确电视型号与固件是否兼容，并阅读上游 failsafe 的适用范围。"
+        },
+        "en": {
+          "lead": "Homebrew Channel installs and manages community apps on LG webOS TVs that already meet the required root or development prerequisites. Confirm compatibility for the exact TV and firmware, and read the failsafe limits before installation."
+        }
+      },
+      "seo": {
+        "zh": {
+          "title": "在已 Root 的 LG webOS 电视安装 Homebrew Channel | 二手硬件再就业指南 · KitAgain",
+          "description": "在满足 root 前提的 LG webOS 电视上安装 Homebrew Channel 并管理社区应用；先核对准确固件兼容性和上游 failsafe 的恢复边界。"
+        },
+        "en": {
+          "title": "Install webOS Homebrew Channel on Rooted LG TVs | KitAgain",
+          "description": "Install and manage community apps with Homebrew Channel on a rooted LG webOS TV. Check exact firmware compatibility and the documented failsafe limits first."
+        }
+      }
+    },
     "openbeken": {
       "content": {
+        "zh": {
+          "lead": "这份 OpenBeken 指南用于评估 BK7231T 或 BK7231N Tuya 设备能否改用本地 MQTT 并接入 Home Assistant。首次刷写前，必须核对准确芯片与板型，备份原始固件和校准数据，并确认恢复方法。"
+        },
         "en": {
           "lead": "Use this OpenBeken guide to assess whether a BK7231T or BK7231N Tuya device can move to local MQTT and Home Assistant. Verify the exact chip and board, back up original flash and calibration data, and confirm a recovery method before initial flashing."
         }
       },
       "seo": {
+        "zh": {
+          "title": "OpenBeken：BK7231 Tuya 设备转本地 MQTT | 二手硬件再就业指南 · KitAgain",
+          "description": "用 OpenBeken 评估 BK7231T/BK7231N Tuya 设备是否可改为本地 MQTT 与 Home Assistant；首次刷写前核对芯片、板型、备份和恢复方式。"
+        },
         "en": {
           "title": "OpenBeken Guide: BK7231 Tuya to Local MQTT | KitAgain",
           "description": "Assess a BK7231 Tuya device for local MQTT and Home Assistant with OpenBeken. Check the exact chip and board, backups, initial flash, and recovery first."
@@ -50,6 +117,26 @@
     }
   },
   "project_leads": {
+    "espurna": {
+      "content": {
+        "zh": {
+          "lead": "ESPurna 是面向上游支持列表中 ESP8266 智能插座、开关、灯具和开发板的家庭自动化固件。先核对准确设备、刷写方法、备份与恢复路径；KitAgain 尚未在具体型号上验证安装或兼容性。"
+        },
+        "en": {
+          "lead": "ESPurna is home-automation firmware for ESP8266 plugs, switches, lights, and boards listed by the upstream project. Verify the exact device, flashing method, backup, and recovery path; KitAgain has not tested installation or compatibility on a specific model."
+        }
+      },
+      "seo": {
+        "zh": {
+          "title": "ESPurna：ESP8266 本地智能家居固件 | 二手硬件再就业指南 · KitAgain",
+          "description": "评估用 ESPurna 为上游支持的 ESP8266 插座、开关和灯具刷写本地智能家居固件；具体型号的安装、兼容性与恢复仍需逐项核对。"
+        },
+        "en": {
+          "title": "ESPurna Firmware: Flash ESP8266 for Local Control | KitAgain",
+          "description": "Evaluate ESPurna for flashing supported ESP8266 plugs, switches, and lights with local home-automation firmware. Verify device compatibility and recovery first."
+        }
+      }
+    },
     "airsane": {
       "content": {
         "en": {

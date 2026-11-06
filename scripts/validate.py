@@ -27,6 +27,8 @@ project_lead_data=load(ROOT/"data/project-leads.json")
 project_leads=project_lead_data["projects"]
 listed_project_leads=[lead for lead in project_leads if lead.get("display_status","listed")=="listed"]
 page_overrides=load(ROOT/"data/project-page-visual.json")
+articles=load(ROOT/"data/articles.json")
+guides=load(ROOT/"data/guides.json")
 scoring_evidence=load(ROOT/"data/scoring-evidence.json")
 scoring_evidence_items=scoring_evidence["entries"]
 if isinstance(scoring_evidence_items,dict):scoring_evidence_items=list(scoring_evidence_items.values())
@@ -49,8 +51,8 @@ assert 'document.querySelectorAll("#directory-grid .project")' in app_javascript
 schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
-seo_project_ids={"coreelec","fbink","openbeken"}
-seo_project_lead_ids={"airsane","dorita980","kiosk-satellite"}
+seo_project_ids={"coreelec","fbink","openbeken","dafang","armbian-tv","webos-homebrew"}
+seo_project_lead_ids={"airsane","dorita980","kiosk-satellite","espurna"}
 assert seo_project_ids<=set(page_overrides["projects"]),"Missing TRA-26 project SEO override"
 assert seo_project_lead_ids<=set(page_overrides["project_leads"]),"Missing TRA-26 project-lead SEO override"
 for kind,target_ids in [("projects",seo_project_ids),("project_leads",seo_project_lead_ids)]:
@@ -61,6 +63,24 @@ for kind,target_ids in [("projects",seo_project_ids),("project_leads",seo_projec
         assert 45<=len(seo["title"])<=60 and seo["title"].endswith(" | KitAgain"),(target_id,"SEO title length/brand")
         assert 120<=len(seo["description"])<=160,(target_id,"meta description length")
         assert len(lead)>=120 and target_id.casefold().replace("-", " ").split()[0] in lead.casefold(),(target_id,"opening lead")
+tra31_project_ids={"openbeken","dafang","armbian-tv","webos-homebrew"}
+tra31_project_lead_ids={"espurna"}
+for kind,target_ids in [("projects",tra31_project_ids),("project_leads",tra31_project_lead_ids)]:
+    for target_id in target_ids:
+        override=page_overrides[kind][target_id]
+        assert set(override["seo"])>={"en","zh"} and set(override["content"])>={"en","zh"},(target_id,"TRA-31 bilingual override")
+        assert APPROVED_ZH_SLOGAN in override["seo"]["zh"]["title"],(target_id,"locked Chinese title brand")
+        assert len(override["content"]["zh"]["lead"])>=60,(target_id,"Chinese opening lead")
+for kind,target_id,record in [
+    ("articles","kindle-model-firmware",articles["kindle-model-firmware"]),
+    ("guides","kindle-displays",guides["kindle-displays"]),
+]:
+    for lang in ["en","zh"]:
+        seo=record[lang]["seo"]
+        assert seo["title"] and seo["description"],(kind,target_id,lang,"TRA-31 SEO override")
+    assert 45<=len(record["en"]["seo"]["title"])<=60 and record["en"]["seo"]["title"].endswith(" | KitAgain"),(kind,target_id,"English SEO title")
+    assert 120<=len(record["en"]["seo"]["description"])<=160,(kind,target_id,"English meta description")
+    assert APPROVED_ZH_SLOGAN in record["zh"]["seo"]["title"],(kind,target_id,"locked Chinese title brand")
 project_image_data=load(ROOT/"data/project-images.json")
 directory_images={item["entry_id"]:item for item in project_image_data["entries"]}
 project_images={item["project_id"]:item for item in project_image_data["entries"] if item.get("project_id")}
@@ -94,7 +114,6 @@ for entry_id,image in directory_images.items():
     else:
         assert image["source_url"] is None and image.get("prompt_summary"),entry_id
         assert "不是实机照片" in image["caption_zh"] and "not an actual device photo" in image["caption_en"],entry_id
-articles=load(ROOT/"data/articles.json")
 author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
 listed_image_ids={f'project:{project["id"]}' for project in projects}
@@ -590,6 +609,26 @@ for kind,target_ids,route in [
         assert f'<meta property="og:title" content="{escaped_title}">' in markup,(target_id,"rendered OG title")
         assert f'<meta property="og:description" content="{escaped_description}">' in markup,(target_id,"rendered OG description")
         assert html.escape(lead,quote=True) in markup,(target_id,"rendered opening lead")
+for lang in ["en","zh"]:
+    tra31_rendered=[]
+    for target_id in tra31_project_ids:
+        tra31_rendered.append(("projects",target_id,page_overrides["projects"][target_id]["seo"][lang],page_overrides["projects"][target_id]["content"][lang]["lead"]))
+    for target_id in tra31_project_lead_ids:
+        tra31_rendered.append(("project-leads",target_id,page_overrides["project_leads"][target_id]["seo"][lang],page_overrides["project_leads"][target_id]["content"][lang]["lead"]))
+    tra31_rendered.extend([
+        ("articles","kindle-model-firmware",articles["kindle-model-firmware"][lang]["seo"],None),
+        ("guides","kindle-displays",guides["kindle-displays"][lang]["seo"],None),
+    ])
+    for route,target_id,seo,lead in tra31_rendered:
+        markup=(OUT/lang/route/target_id/"index.html").read_text(encoding="utf-8")
+        escaped_title=html.escape(seo["title"],quote=True)
+        escaped_description=html.escape(seo["description"],quote=True)
+        assert f"<title>{escaped_title}</title>" in markup,(lang,target_id,"TRA-31 rendered title")
+        assert f'<meta name="description" content="{escaped_description}">' in markup,(lang,target_id,"TRA-31 rendered description")
+        assert f'<meta property="og:title" content="{escaped_title}">' in markup,(lang,target_id,"TRA-31 rendered OG title")
+        assert f'<meta property="og:description" content="{escaped_description}">' in markup,(lang,target_id,"TRA-31 rendered OG description")
+        if lead:
+            assert html.escape(lead,quote=True) in markup,(lang,target_id,"TRA-31 rendered opening lead")
 zh_home_markup=(OUT/"zh/index.html").read_text(encoding="utf-8")
 assert zh_home_markup.count(f"<h1>{APPROVED_ZH_SLOGAN}</h1>")==1,"Chinese homepage slogan is locked by TRA-21"
 assert zh_home_markup.count(f'<p class="ai-kicker">KitAgain · {APPROVED_ZH_SLOGAN}</p>')==1,"Chinese homepage kicker is locked by TRA-21"
