@@ -29,6 +29,7 @@ listed_project_leads=[lead for lead in project_leads if lead.get("display_status
 page_overrides=load(ROOT/"data/project-page-visual.json")
 articles=load(ROOT/"data/articles.json")
 guides=load(ROOT/"data/guides.json")
+tra35_guide_slugs=("tv-box","router","smart-plug")
 guide_redirect_slugs=sorted({*guides,"ai-retrofit","nest-mini-local-ai"})
 bare_redirect_targets={
     **{f"guides/{slug}/index.html":f"en/guides/{slug}/" for slug in guide_redirect_slugs},
@@ -124,6 +125,25 @@ for entry_id,image in directory_images.items():
         assert "不是实机照片" in image["caption_zh"] and "not an actual device photo" in image["caption_en"],entry_id
 author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
+project_ids={project["id"] for project in projects}
+project_lead_ids={lead["id"] for lead in listed_project_leads}
+for slug in tra35_guide_slugs:
+    guide=guides[slug]
+    assert len(guide["entries"])>=6,(slug,"TRA-35 guide entry count")
+    entry_keys=[(entry["kind"],entry["id"]) for entry in guide["entries"]]
+    assert len(entry_keys)==len(set(entry_keys)),(slug,"duplicate guide entry")
+    for entry in guide["entries"]:
+        kind,item_id=entry["kind"],entry["id"]
+        assert ((kind=="project" and item_id in project_ids) or
+                (kind=="lead" and item_id in watchlist) or
+                (kind=="project-lead" and item_id in project_lead_ids)),(slug,kind,item_id,"unknown guide entry")
+        assert entry["zh_anchor"] and entry["en_anchor"],(slug,kind,item_id,"device-action anchor")
+    for lang in ("en","zh"):
+        seo=guide[lang]["seo"]
+        assert seo["title"] and seo["description"] and guide[lang]["title"] and guide[lang]["intro"],(slug,lang,"guide copy")
+    assert 45<=len(guide["en"]["seo"]["title"])<=60 and guide["en"]["seo"]["title"].endswith(" | KitAgain"),(slug,"English SEO title")
+    assert 120<=len(guide["en"]["seo"]["description"])<=160,(slug,"English meta description")
+    assert APPROVED_ZH_SLOGAN in guide["zh"]["seo"]["title"],(slug,"locked Chinese title brand")
 listed_image_ids={f'project:{project["id"]}' for project in projects}
 listed_image_ids|={f'project-lead:{lead["id"]}' for lead in project_leads if lead.get("display_status","listed")=="listed"}
 listed_image_ids|={f"lead:{slug}" for slug in watchlist}
@@ -611,6 +631,20 @@ def audit_detail_navigation(file,markup,lang,category,title,current_url,label):
         normalized.append("/".join(parts[1:]))
     return tuple(normalized)
 
+def audit_guide_navigation(markup,lang,title,current_url,label):
+    breadcrumb_match=re.findall(r'<nav class="breadcrumbs"[^>]*>(.*?)</nav>',markup,re.S)
+    schema_match=re.findall(r'<script type="application/ld\+json" class="breadcrumb-schema">(.*?)</script>',markup,re.S)
+    assert len(breadcrumb_match)==len(schema_match)==1,(label,"breadcrumb/schema count")
+    schema=json.loads(schema_match[0])
+    assert schema["@context"]=="https://schema.org" and schema["@type"]=="BreadcrumbList",(label,"BreadcrumbList type")
+    items=schema["itemListElement"]
+    home_url=BASE if lang=="en" else BASE+"zh/"
+    expected_names=["Home" if lang=="en" else "首页","Device guides" if lang=="en" else "设备指南",title]
+    assert len(items)==3 and [item["position"] for item in items]==[1,2,3],(label,"breadcrumb positions")
+    assert [item["name"] for item in items]==expected_names,(label,"breadcrumb names")
+    assert [item["item"] for item in items]==[home_url,home_url+"#device-guides",current_url],(label,"breadcrumb URLs")
+    assert 'aria-current="page"' in breadcrumb_match[0] and html.escape(title,quote=True) in breadcrumb_match[0],(label,"visible breadcrumb")
+
 pages={}
 card_page_count=0
 generated_card_count=0
@@ -629,8 +663,9 @@ for file in OUT.rglob("*.html"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
 delisted_count=len(project_leads)-len(listed_project_leads)
 directory_page_count=(len(projects)+len(watchlist)+len(listed_project_leads)+59)//60
-assert card_page_count==18+2*(directory_page_count-1) and generated_card_count==2240-4*delisted_count,("complete generated card audit",card_page_count,generated_card_count)
-assert len(pages)==2*(len(projects)+15+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)+len(bare_redirect_targets)
+tra35_guide_card_count=sum(len(guides[slug]["entries"]) for slug in tra35_guide_slugs)
+assert card_page_count==18+2*len(tra35_guide_slugs)+2*(directory_page_count-1) and generated_card_count==2240+2*tra35_guide_card_count-4*delisted_count,("complete generated card audit",card_page_count,generated_card_count)
+assert len(pages)==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)+len(bare_redirect_targets)
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 for kind,target_ids,route in [
@@ -746,6 +781,23 @@ for lang in ["zh","en"]:
     for slug in ["ai-retrofit","nest-mini-local-ai"]:
         guide=pages[(OUT/lang/"guides"/slug/"index.html").resolve()]
         assert guide.canonical==[f"{BASE}{lang}/guides/{slug}/"],(lang,slug,"guide canonical")
+    for slug in tra35_guide_slugs:
+        guide_file=OUT/lang/"guides"/slug/"index.html"
+        guide_page=pages[guide_file.resolve()]
+        guide_markup=guide_file.read_text(encoding="utf-8")
+        localized=guides[slug][lang]
+        assert guide_page.canonical==[f"{BASE}{lang}/guides/{slug}/"],(lang,slug,"TRA-35 guide canonical")
+        assert guide_markup.count("<h1>")==1 and f'<h1>{html.escape(localized["title"])}</h1>' in guide_markup,(lang,slug,"TRA-35 guide H1")
+        assert '<meta name="robots" content="noindex' not in guide_markup,(lang,slug,"TRA-35 guide indexability")
+        assert audit_project_cards(guide_markup,(lang,slug,"TRA-35 guide cards"))>=6
+        audit_guide_navigation(guide_markup,lang,localized["title"],f"{BASE}{lang}/guides/{slug}/",(lang,slug,"TRA-35 guide breadcrumb"))
+        seo=localized["seo"]
+        assert f'<title>{html.escape(seo["title"])}</title>' in guide_markup,(lang,slug,"TRA-35 guide title")
+        assert f'<meta name="description" content="{html.escape(seo["description"],quote=True)}">' in guide_markup,(lang,slug,"TRA-35 guide description")
+        for entry in guides[slug]["entries"]:
+            route={"project":"projects","lead":"leads","project-lead":"project-leads"}[entry["kind"]]
+            assert f'href="../../{route}/{entry["id"]}/"' in guide_markup,(lang,slug,entry["kind"],entry["id"],"guide route")
+            assert html.escape(entry[f"{lang}_anchor"]) in guide_markup,(lang,slug,entry["id"],"localized device-action anchor")
     ai_guide_markup=(OUT/lang/"guides/ai-retrofit/index.html").read_text(encoding="utf-8")
     assert '../../directory/?ai=native' in ai_guide_markup and '../../directory/?q=AI' not in ai_guide_markup,(lang,"guide structured AI filter link")
     assert '../nest-mini-local-ai/' in ai_guide_markup,(lang,"AI retrofit hub links to Nest Mini guide")
@@ -761,6 +813,17 @@ for lang in ["zh","en"]:
         assert all(link in project_markup for link in ['../../guides/nest-mini-local-ai/index.html','../../guides/speaker-voice/index.html','../../guides/ai-retrofit/index.html',f'../{other_project}/index.html']),(lang,project_id,"Onju project topical links")
     openbeken_markup=(OUT/lang/"projects/openbeken/index.html").read_text(encoding="utf-8")
     assert '../../guides/ai-retrofit/index.html' in openbeken_markup,(lang,"OpenBeken AI retrofit link")
+    reciprocal_routes={
+        "tv-box":[("projects/rootmytv","../../guides/tv-box/index.html"),("leads/atlas-ophub-hk1-box","../../guides/tv-box/index.html")],
+        "router":[("leads/atlas-enshi-xiaomi-ax9000","../../guides/router/index.html")],
+        "smart-plug":[("projects/openbeken","../../guides/smart-plug/index.html"),("leads/atlas-esphome-sonoff-s31","../../guides/smart-plug/index.html")],
+    }
+    for slug,targets in reciprocal_routes.items():
+        hub_markup=(OUT/lang/"guides"/slug/"index.html").read_text(encoding="utf-8")
+        for route,back_link in targets:
+            target_markup=(OUT/lang/route/"index.html").read_text(encoding="utf-8")
+            assert "../../"+route+"/" in hub_markup,(lang,slug,route,"hub forward link")
+            assert back_link in target_markup,(lang,slug,route,"detail back link")
     project_source_index=pages[(OUT/lang/"project-sources/index.html").resolve()]
     assert "project-source-grid" in project_source_index.ids and "project-source-filters" in project_source_index.ids
     assert "project-leads.json" in " ".join(project_source_index.refs) and "project-leads.csv" in " ".join(project_source_index.refs)
@@ -800,8 +863,10 @@ for lang in ["zh","en"]:
     assert home_markup.count('class="home-subtitle"')==1,(lang,"homepage subtitle")
     assert home_markup.count('class="ai-route-thumb ')==3,(lang,"homepage reviewed-route thumbnail coverage")
     assert home_markup.count('class="category-entry"')>=4,(lang,"homepage popular categories")
-    expected_home_guides=["speaker-voice","kindle-displays","home-computers","ai-retrofit","nest-mini-local-ai"]
+    expected_home_guides=["speaker-voice","kindle-displays","home-computers","tv-box","router","smart-plug","ai-retrofit","nest-mini-local-ai"]
     assert all(f'href="guides/{slug}/"' in home_markup for slug in expected_home_guides),(lang,"homepage device guide links")
+    expected_action_anchors=["旧电视与电视盒：比较","旧路由器：核对","智能插座：核对"] if lang=="zh" else ["Old TVs and TV boxes: compare","Old routers: check","Smart plugs: check"]
+    assert 'id="device-guides"' in home_markup and all(text in home_markup for text in expected_action_anchors),(lang,"TRA-35 homepage action anchors")
     assert home_markup.count('class="popular-categories home-guide-links"')==1,(lang,"single homepage device-guide hub")
     assert all(token not in home_markup for token in ['id="filters"','id="project-grid"','class="field-note"','class="facts-strip"','class="featured"','class="closing"']),(lang,"legacy homepage section remains")
     assert all(text in home_markup for text in homepage_user_copy[lang]),(lang,"homepage user-copy contract")
@@ -1069,13 +1134,16 @@ for source,target in bare_redirect_targets.items():
     assert f'href="{target_path}"' in markup,(source,"redirect fallback link")
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+15+len(articles)+len(watchlist)+len(listed_project_leads))+4+2*(directory_page_count-1)
+assert len(urls)==len(set(urls))==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+4+2*(directory_page_count-1)
 lastmods=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}lastmod")]
 scoring_dates=[value[:10] for value in [scoring_evidence.get("checked_at"),*(entry.get("checked_at") for entry in scoring_evidence_items)] if value]
 expected_lastmod=max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"],*scoring_dates)
 assert len(lastmods)==len(urls) and set(lastmods)=={expected_lastmod},"Sitemap lastmod mismatch"
 assert BASE in urls and BASE+"en/" not in urls
 assert BASE+"zh/about/" in urls and BASE+"en/about/" in urls
+for lang in ("en","zh"):
+    for slug in ("tv-box","router","smart-plug"):
+        assert BASE+f"{lang}/guides/{slug}/" in urls,(lang,slug,"device hub missing from sitemap")
 for source,target in bare_redirect_targets.items():
     assert BASE+source.removesuffix("index.html") not in urls,(source,"thin redirect must stay out of sitemap")
     assert BASE+target in urls,(target,"canonical redirect target missing from sitemap")

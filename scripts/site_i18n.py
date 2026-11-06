@@ -99,6 +99,23 @@ CATEGORY_GUIDE_HUBS = {
     "computer": "home-computers",
     "ereader": "kindle-displays",
 }
+DEVICE_GUIDE_RELATIONS = {
+    ("project", "rootmytv"): [
+        ("tv-box", "旧电视与电视盒：比较网页应用、媒体系统与 Linux 路线", "Old TVs and TV boxes: compare web apps, media systems, and Linux routes"),
+    ],
+    ("project", "openbeken"): [
+        ("smart-plug", "智能插座：核对芯片、刷写与本地控制路线", "Smart plugs: check chips, flashing, and local-control routes"),
+    ],
+    ("lead", "atlas-ophub-hk1-box"): [
+        ("tv-box", "HK1 Box：比较外置启动、媒体与小服务器路线", "HK1 Box: compare external boot, media, and small-server routes"),
+    ],
+    ("lead", "atlas-enshi-xiaomi-ax9000"): [
+        ("router", "Xiaomi 路由器：核对 OpenWrt、首次安装与恢复路线", "Xiaomi routers: check OpenWrt, first-install, and recovery routes"),
+    ],
+    ("lead", "atlas-esphome-sonoff-s31"): [
+        ("smart-plug", "Sonoff S31：比较 ESPHome 与智能插座本地控制路线", "Sonoff S31: compare ESPHome and local smart-plug control routes"),
+    ],
+}
 RELATED_TECH_TERMS = (
     "armbian",
     "chromeos",
@@ -327,6 +344,33 @@ class Site:
         ).replace("</", "<\\/")
         return f'''<nav class="breadcrumbs" aria-label="{self.t('面包屑','Breadcrumb')}"><ol><li><a href="{h(home_url)}">{self.t('首页','Home')}</a></li><li><a href="{h(category_href)}">{h(self.labels['category'][category])}</a></li><li aria-current="page">{h(title)}</li></ol></nav><script type="application/ld+json" class="breadcrumb-schema">{schema}</script>'''
 
+    def guide_breadcrumb(self, title, current, canonical_tail):
+        home_url = BASE if self.lang == "en" else f"{BASE}zh/"
+        guide_index_url = home_url + "#device-guides"
+        current_url = f"{BASE}{self.lang}/{canonical_tail}"
+        guide_index_href = guide_index_url
+        items = [
+            {"@type": "ListItem", "position": 1, "name": self.t("首页", "Home"), "item": home_url},
+            {"@type": "ListItem", "position": 2, "name": self.t("设备指南", "Device guides"), "item": guide_index_url},
+            {"@type": "ListItem", "position": 3, "name": title, "item": current_url},
+        ]
+        schema = json.dumps(
+            {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items},
+            ensure_ascii=False,
+            separators=(",", ":"),
+        ).replace("</", "<\\/")
+        return f'''<nav class="breadcrumbs" aria-label="{self.t('面包屑','Breadcrumb')}"><ol><li><a href="{h(home_url)}">{self.t('首页','Home')}</a></li><li><a href="{h(guide_index_href)}">{self.t('设备指南','Device guides')}</a></li><li aria-current="page">{h(title)}</li></ol></nav><script type="application/ld+json" class="breadcrumb-schema">{schema}</script>'''
+
+    def guide_relation_section(self, kind, entry_id, current):
+        relations = DEVICE_GUIDE_RELATIONS.get((kind, entry_id), [])
+        if not relations:
+            return ""
+        links = "".join(
+            f'<li><a href="{h(self.rel(f"{self.lang}/guides/{slug}/index.html", current))}">{h(self.t(zh, en))}</a> →</li>'
+            for slug, zh, en in relations
+        )
+        return f'''<section><h2>{self.t("继续比较设备路线", "Compare device routes")}</h2><ul class="detail-list">{links}</ul></section>'''
+
     def related_features(self, kind, item):
         if kind == "project":
             view_en = localized(item, "en")
@@ -528,7 +572,7 @@ class Site:
     def detail_image(self, p, current):
         return self.detail_entry_image(f'project:{p["id"]}', current)
 
-    def card(self, p, prefix="", show_thumbnail=False, asset_prefix="../../"):
+    def card(self, p, prefix="", show_thumbnail=False, asset_prefix="../../", anchor_label=None):
         e = localized(p, "en")
         v = localized(p, self.lang)
         score = PROJECT_SCORES[p["id"]]
@@ -543,9 +587,9 @@ class Site:
             raise ValueError(f"Missing card image: {entry_id}")
         media = image
         media_class = (" has-media has-image" + (" has-fallback" if entry_id in FALLBACK_IMAGES else "")) if image else ""
-        return f"""<article class="project{media_class}" {attr}>{media}<h3><a href="{prefix}projects/{p['id']}/">{h(p['name'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(p['evidence']['level'])}</div></article>"""
+        return f"""<article class="project{media_class}" {attr}>{media}<h3><a href="{prefix}projects/{p['id']}/">{h(anchor_label or p['name'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(p['evidence']['level'])}</div></article>"""
 
-    def lead_card(self, slug, lead, prefix="leads/", show_placeholder=False, asset_prefix="../../"):
+    def lead_card(self, slug, lead, prefix="leads/", show_placeholder=False, asset_prefix="../../", anchor_label=None):
         v = lead[self.lang]
         decision = WATCHLIST_DETAILS[slug][self.lang]
         evidence = lead.get("evidence_level", "E0")
@@ -561,9 +605,9 @@ class Site:
             raise ValueError(f"Missing card image: {entry_id}")
         media = image
         media_class = (" has-media has-image" + (" has-fallback" if entry_id in FALLBACK_IMAGES else "")) if image else ""
-        return f"""<article class="project{media_class}" {attrs}>{media}<h3><a href="{prefix}{slug}/">{h(v['title'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(evidence)}</div></article>"""
+        return f"""<article class="project{media_class}" {attrs}>{media}<h3><a href="{prefix}{slug}/">{h(anchor_label or v['title'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(evidence)}</div></article>"""
 
-    def project_lead_card(self, lead, prefix="project-leads/", show_placeholder=False, asset_prefix="../../"):
+    def project_lead_card(self, lead, prefix="project-leads/", show_placeholder=False, asset_prefix="../../", anchor_label=None):
         score = PROJECT_LEAD_SCORES[lead["id"]]
         summary = lead["summary_zh" if self.lang == "zh" else "summary_en"]
         device_scope = lead["device_scope_zh" if self.lang == "zh" else "device_scope_en"]
@@ -583,7 +627,7 @@ class Site:
             raise ValueError(f"Missing card image: {entry_id}")
         media = image
         media_class = (" has-media has-image" + (" has-fallback" if entry_id in FALLBACK_IMAGES else "")) if image else ""
-        return f'''<article class="project{media_class}" {attrs}>{media}<h3><a href="{h(prefix+lead['id']+'/')}">{h(lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}</div></article>'''
+        return f'''<article class="project{media_class}" {attrs}>{media}<h3><a href="{h(prefix+lead['id']+'/')}">{h(anchor_label or lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}</div></article>'''
 
     def home(self):
         t = self.t
@@ -602,6 +646,9 @@ class Site:
         guide_hubs = [
             ("nest-mini-local-ai", "◉", t("Nest Mini：比较换板、HA 语音与停手路线", "Nest Mini: compare board swaps, HA voice, and when to stop")),
             ("speaker-voice", "◌", t("旧音箱：比较桥接、刷机与换板", "Old speakers: compare bridging, firmware, and board swaps")),
+            ("tv-box", "▰", t("旧电视与电视盒：比较网页应用、媒体系统与 Linux 路线", "Old TVs and TV boxes: compare web apps, media systems, and Linux routes")),
+            ("router", "⌁", t("旧路由器：核对刷机、恢复与再利用路线", "Old routers: check firmware, recovery, and reuse routes")),
+            ("smart-plug", "⌁", t("智能插座：核对芯片、刷写与本地控制路线", "Smart plugs: check chips, flashing, and local-control routes")),
             ("kindle-displays", "▤", t("旧 Kindle：选择信息屏路线", "Old Kindles: choose a display route")),
             ("home-computers", "▣", t("旧电脑：选择自动化、存储或媒体用途", "Old computers: choose automation, storage, or media")),
             ("ai-retrofit", "✦", t("旧硬件接 AI：按设备选择改造方式", "Old hardware with AI: choose a retrofit route by device")),
@@ -642,7 +689,7 @@ class Site:
 <a class="ai-topic-entry" href="guides/ai-retrofit/"><span>{t('想接入 AI？','WANT TO ADD AI?')}</span><strong>{t('按你的设备选改造方式','Choose an AI route for your device')}</strong><em>{t('先看已审阅路线，再看待核对线索','Start with reviewed routes, then explore leads to verify')} →</em></a>
 <section class="ai-routes" aria-labelledby="routes-heading"><div class="ai-section-heading"><p>{t('先看看别人怎么做','See what is already possible')}</p><h2 id="routes-heading">{t('三条已审阅路线，帮你快速判断方向。','Three reviewed routes to help you choose a direction.')}</h2></div><div class="ai-route-grid">{''.join(featured_cards)}</div><a class="ai-all-routes" href="directory/?ai=native">{t('看看所有 AI 路线','See all AI routes')}<span aria-hidden="true"> ↗</span></a></section>
 <section class="ai-checks" aria-labelledby="checks-heading"><div><p>{t('准备动手？','Ready to try it?')}</p><h2 id="checks-heading">{t('先花一分钟，避开不匹配和不可逆的坑。','Take one minute to avoid a bad match or irreversible step.')}</h2></div><ol><li><b>{t('这是你的准确型号吗？','Is this your exact model?')}</b><span>{t('核对代际、区域、固件和板型；同名设备也可能不同。','Check generation, region, firmware, and board revision. A shared product name is not enough.')}</span></li><li><b>{t('它需要你改到哪一步？','How much will you need to change?')}</b><span>{t('装应用、换固件和换主板，投入与风险完全不同。','Installing an app, replacing firmware, and swapping a board require very different effort and risk.')}</span></li><li><b>{t('出了问题能退回去吗？','Can you roll it back?')}</b><span>{t('先找备份和回退方法；遇到未知板型、不可恢复步骤或不明供电就暂停。','Find the backup and rollback steps first. Stop at an unknown board, irreversible step, or unclear power requirement.')}</span></li></ol></section>
-<section class="ai-device-index"><div class="ai-section-heading"><p>{t('按设备找','Find by device')}</p><h2>{t('先打开对应指南，再核对你的准确型号。','Open the matching guide, then verify your exact model.')}</h2></div><nav class="popular-categories home-guide-links" aria-label="{t('设备指南','Device guides')}">{guide_links}</nav><p class="ai-device-directory-label">{t('还没找到？按设备分类浏览全部路线。','Still looking? Browse every route by device category.')}</p><nav class="popular-categories" aria-label="{t('全部设备分类','All device categories')}">{category_links}</nav></section>
+<section id="device-guides" class="ai-device-index"><div class="ai-section-heading"><p>{t('按设备找','Find by device')}</p><h2>{t('先打开对应指南，再核对你的准确型号。','Open the matching guide, then verify your exact model.')}</h2></div><nav class="popular-categories home-guide-links" aria-label="{t('设备指南','Device guides')}">{guide_links}</nav><p class="ai-device-directory-label">{t('还没找到？按设备分类浏览全部路线。','Still looking? Browse every route by device category.')}</p><nav class="popular-categories" aria-label="{t('全部设备分类','All device categories')}">{category_links}</nav></section>
 </div>'''
         self.page(t("旧设备还能做什么？按型号找改造路线","Find a new use for your old hardware"),t("输入设备或型号，查看它还能做什么，比较已审阅的开源路线，并在动手前核对适配、投入和退路。","Enter a device or model to find useful new jobs, compare reviewed open-source routes, and check fit, effort, and rollback before you start."),body)
 
@@ -687,6 +734,7 @@ class Site:
             if p["id"] in related_routes:
                 route_links = "".join(f'<li><a href="{rel(target)}">{h(label)}</a> →</li>' for target, label in related_routes[p["id"]])
                 extra += f'''<section><h2>{t("继续比较相关路线", "Compare related routes")}</h2><ul class="detail-list">{route_links}</ul></section>'''
+            extra += self.guide_relation_section("project", p["id"], current)
         source_notes = {
             "upstream-document": t("先用它了解项目能做什么、怎样开始，以及作者写明的限制。", "Use this to understand the outcome, how to start and the limits stated by the project."),
             "official-compatibility-or-install": t("动手前用它核对准确型号、固件版本和安装步骤。", "Use this before starting to check the exact model, firmware and installation steps."),
@@ -773,7 +821,7 @@ class Site:
             asset_version=DETAIL_NAV_ASSET_VERSION,
         )
 
-    def article(self, title, intro, sections, tail, record=False, image_entry_id=None, seo=None, category=None, related_source=None):
+    def article(self, title, intro, sections, tail, record=False, image_entry_id=None, seo=None, category=None, related_source=None, guide=False):
         classes = "detail-wrap record-detail" if record else "detail-wrap"
         intro_markup = f'<ul class="detail-list detail-intro"><li>{h(intro)}</li></ul>' if record else f'<p class="intro">{h(intro)}</p>'
         current = f"{self.lang}/{tail}"
@@ -781,6 +829,8 @@ class Site:
         if record and not media:
             raise ValueError(f"Missing record detail image: {image_entry_id or tail}")
         breadcrumb = self.breadcrumb(category, title, current, tail.removesuffix("index.html")) if category else ""
+        if guide:
+            breadcrumb = self.guide_breadcrumb(title, current, tail.removesuffix("index.html"))
         related = self.related_projects(*related_source, current) if related_source else ""
         body = f'<div class="{classes}">{breadcrumb}<section class="detail-head"><h1>{h(title)}</h1>{intro_markup}{media}</section><section class="prose">{sections}{related}</section></div>'
         self.page(title,intro,body,tail,seo=seo,asset_version=DETAIL_NAV_ASSET_VERSION if category else None)
@@ -848,8 +898,23 @@ class Site:
             sections = "".join(f"<h2>{h(title)}</h2>{ul(lines)}" for title,lines in g["sections"])
             if gid == "speaker-voice":
                 sections += f'''<aside class="lead-verdict"><p class="eyebrow">{self.t("相关决策入口","RELATED DECISION ROUTES")}</p><h2>{self.t("从设备和改造动作继续比较","Keep comparing by device and modification")}</h2><p><a href="../nest-mini-local-ai/">{self.t("Nest Mini 2：比较 Onju v2、HA Assist 与停手路线","Nest Mini 2: compare Onju v2, HA Assist, and when to stop")}</a> →</p><p><a href="../ai-retrofit/">{self.t("旧硬件接 AI：按设备选择改造方式","Old hardware with AI: choose a retrofit route by device")}</a> →</p><p><a href="../../projects/onju-v2/">{self.t("Nest Mini 2：查看当前 Onju v2 换板路线","Nest Mini 2: review the current Onju v2 board-swap route")}</a> · <a href="../../projects/onju-voice/">{self.t("Nest Mini 2：查看旧版 Onju Voice 换板路线","Nest Mini 2: review the legacy Onju Voice board-swap route")}</a></p></aside>'''
-            sections += f'<h2>{self.t("对应项目与来源","Projects and sources")}</h2><div class="project-grid">' + "".join(self.card(next(p for p in PROJECTS if p["id"]==pid),"../../",show_thumbnail=True,asset_prefix="../../../") for pid in guide["projects"])+"</div>"
-            self.article(g["title"],g["intro"],sections,f"guides/{gid}/index.html",seo=g.get("seo"))
+            entries = guide.get("entries") or [{"kind": "project", "id": pid} for pid in guide["projects"]]
+            cards = []
+            for entry in entries:
+                kind = entry["kind"]
+                item_id = entry["id"]
+                anchor_label = entry.get(f"{self.lang}_anchor")
+                if kind == "project":
+                    cards.append(self.card(next(p for p in PROJECTS if p["id"] == item_id), "../../", show_thumbnail=True, asset_prefix="../../../", anchor_label=anchor_label))
+                elif kind == "lead":
+                    cards.append(self.lead_card(item_id, WATCHLIST[item_id], "../../leads/", show_placeholder=True, asset_prefix="../../../", anchor_label=anchor_label))
+                elif kind == "project-lead":
+                    record = next(lead for lead in LISTED_PROJECT_LEADS if lead["id"] == item_id)
+                    cards.append(self.project_lead_card(record, "../../project-leads/", show_placeholder=True, asset_prefix="../../../", anchor_label=anchor_label))
+                else:
+                    raise ValueError(f"Unsupported guide entry: {kind}:{item_id}")
+            sections += f'<h2>{self.t("对应项目与来源","Projects and sources")}</h2><div class="project-grid">' + "".join(cards) + "</div>"
+            self.article(g["title"], g["intro"], sections, f"guides/{gid}/index.html", seo=g.get("seo"), guide=gid in {"tv-box", "router", "smart-plug"})
 
     def ai_retrofit_guides(self):
         t = self.t
@@ -1051,6 +1116,7 @@ class Site:
             if self.cost_detail(LEAD_SCORES[slug]):
                 sections += f'<h2>{self.t("成本取证", "Cost evidence")}</h2><ul class="detail-list">{self.cost_detail(LEAD_SCORES[slug])}</ul>'
             sections += self.action_guide_detail(LEAD_SCORES[slug], context=lead_action_context(lead))
+            sections += self.guide_relation_section("lead", slug, f"{self.lang}/leads/{slug}/index.html")
             if lead.get("deep_review"):
                 review = lead["deep_review"][self.lang]
                 sections += f'<h2>{self.t("具体型号核查", "Exact-model review")}</h2><ul class="detail-list"><li><b>{self.t("硬件确认", "Hardware")}</b> {h(review["hardware"])}</li><li><b>{self.t("改造路线", "Installation route")}</b> {h(review["route"])}</li><li><b>{self.t("可以做到什么", "Expected result")}</b> {h(review["result"])}</li><li><b>{self.t("不能扩大解释的边界", "Boundary")}</b> {h(review["boundary"])}</li><li><b>{self.t("恢复与停止条件", "Recovery and stop condition")}</b> {h(review["recovery"])}</li><li><b>{self.t("上游版本", "Upstream revision")}</b> {h(lead["upstream_revision"])}</li></ul>'

@@ -7,6 +7,8 @@ const directory = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "d
 const projectImages = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "project-images.json"), "utf8")).entries;
 const fallbackImages = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "thumbnail-fallbacks.json"), "utf8")).entries;
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "site.config.json"), "utf8"));
+const guides = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "guides.json"), "utf8"));
+const tra35GuideSlugs = ["tv-box", "router", "smart-plug"];
 const listedEntries = directory.entries.filter(entry => entry.display_status !== "delisted");
 const expected = listedEntries.length;
 const expectedScore4 = listedEntries.filter(entry => entry.score.score !== null && entry.score.score >= 4).length;
@@ -220,7 +222,7 @@ try {
       const lineHeight = style ? (Number.parseFloat(style.lineHeight) || Number.parseFloat(style.fontSize) * 1.2) : 1;
       const categories = [...document.querySelectorAll("main .ai-device-index > .popular-categories:not(.home-guide-links) > .category-entry")];
       const guideEntries = [...document.querySelectorAll("main .home-guide-links > .category-entry")];
-      const expectedGuideSlugs = new Set(["speaker-voice", "kindle-displays", "home-computers", "ai-retrofit", "nest-mini-local-ai"]);
+      const expectedGuideSlugs = new Set(["speaker-voice", "tv-box", "router", "smart-plug", "kindle-displays", "home-computers", "ai-retrofit", "nest-mini-local-ai"]);
       const routeThumbnails = [...document.querySelectorAll(".ai-route-thumb img")];
       return {
         h1: document.querySelectorAll("main h1").length,
@@ -260,8 +262,35 @@ try {
     en: await checkHomepage({ pathName: "/", placeholder: "Enter a device or model", directoryPath: "/en/directory/", lang: "en" })
   };
   for (const [lang, result] of Object.entries(checks.home)) {
-    if (result.h1 !== 1 || result.searches !== 1 || !result.placeholderMatches || result.subtitleLines > 1.25 || result.categories !== 6 || !result.categoriesValid || result.guideEntries !== 5 || !result.guideEntriesValid || result.routeThumbnails !== 3 || !result.routeThumbnailsValid || result.forbidden !== 0 || !result.footer.valid || result.submittedQuery !== "Kindle") {
+    if (result.h1 !== 1 || result.searches !== 1 || !result.placeholderMatches || result.subtitleLines > 1.25 || result.categories !== 6 || !result.categoriesValid || result.guideEntries !== 8 || !result.guideEntriesValid || result.routeThumbnails !== 3 || !result.routeThumbnailsValid || result.forbidden !== 0 || !result.footer.valid || result.submittedQuery !== "Kindle") {
       throw new Error(`${lang} simplified homepage failed: ${JSON.stringify(result)}`);
+    }
+  }
+
+  checks.tra35Guides = {};
+  for (const lang of ["en", "zh"]) {
+    for (const slug of tra35GuideSlugs) {
+      await page.goto(`${base}/${lang}/guides/${slug}/`, { waitUntil: "networkidle" });
+      await decodeVisibleImages(page, ".project-grid .project-thumb img");
+      const expectedGuide = guides[slug][lang];
+      const key = `${lang}-${slug}`;
+      checks.tra35Guides[key] = {
+        ...(await page.evaluate(({ title, canonical }) => ({
+          h1: document.querySelectorAll("main h1").length,
+          title: document.querySelector("main h1")?.textContent.trim(),
+          breadcrumb: document.querySelectorAll("main .breadcrumbs").length,
+          breadcrumbSchema: document.querySelectorAll("main .breadcrumb-schema").length,
+          cards: document.querySelectorAll("main .project-grid .project").length,
+          noindex: Boolean(document.querySelector('meta[name="robots"][content*="noindex"]')),
+          canonical: document.querySelector('link[rel="canonical"]')?.href,
+          footer: Boolean(document.querySelector("footer .footer-links"))
+        }), { title: expectedGuide.title, canonical: `https://kitagain.com/${lang}/guides/${slug}/` })),
+        cardContract: await auditCardGrid(page, ".prose .project-grid")
+      };
+      const result = checks.tra35Guides[key];
+      if (result.h1 !== 1 || result.title !== expectedGuide.title || result.breadcrumb !== 1 || result.breadcrumbSchema !== 1 || result.cards < 6 || result.noindex || result.canonical !== `https://kitagain.com/${lang}/guides/${slug}/` || !result.footer || !result.cardContract.valid) {
+        throw new Error(`${key} TRA-35 guide contract failed: ${JSON.stringify(result)}`);
+      }
     }
   }
 
@@ -463,7 +492,13 @@ try {
     detailZh: await mobileMeasure("/zh/projects/dietpi/"),
     detailEn: await mobileMeasure("/en/projects/dietpi/"),
     aboutZh: await mobileMeasure("/zh/about/"),
-    aboutEn: await mobileMeasure("/en/about/")
+    aboutEn: await mobileMeasure("/en/about/"),
+    tvBoxEn: await mobileMeasure("/en/guides/tv-box/"),
+    tvBoxZh: await mobileMeasure("/zh/guides/tv-box/"),
+    routerEn: await mobileMeasure("/en/guides/router/"),
+    routerZh: await mobileMeasure("/zh/guides/router/"),
+    smartPlugEn: await mobileMeasure("/en/guides/smart-plug/"),
+    smartPlugZh: await mobileMeasure("/zh/guides/smart-plug/")
   };
   await mobile.goto(`${base}/zh/directory/?q=Kindle`, { waitUntil: "networkidle" });
   checks.mobileDirectoryCardContract = await auditCardGrid(mobile, "#directory-grid");
