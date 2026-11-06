@@ -47,6 +47,9 @@ e0_audit=load(ROOT/"data/e0-audit-v120.json")
 e0_audit_items=e0_audit["entries"]
 if isinstance(e0_audit_items,dict):e0_audit_items=list(e0_audit_items.values())
 BASE=config["base_url"].rstrip("/")+"/"
+SITE_URL=urlsplit(BASE)
+LOW_INBOUND_THRESHOLD=3
+INBOUND_CONTENT_ROOTS={"articles","directory","guides","leads","project-leads","project-sources","projects","research","scoring"}
 CATEGORY_GUIDE_HUBS={"speaker":"speaker-voice","computer":"home-computers","ereader":"kindle-displays"}
 EN_CATEGORY_LABELS=dict(zip(data["labels"]["category"],["Speakers & voice","Phones & tablets","Computers & thin clients","Routers & NAS","TVs & TV boxes","E-readers & e-ink","Robots","Smart home","Cameras","Music & audio","Watches & wearables","Gaming","Printers & peripherals"]))
 APPROVED_ZH_SLOGAN="二手硬件再就业指南"
@@ -421,7 +424,7 @@ for p,r in zip(projects,rows):
 class Page(HTMLParser):
     def __init__(self):
         super().__init__()
-        self.refs=[]; self.ids=set(); self.h1=0; self.canonical=[]; self.has_title=False; self.lang=None
+        self.refs=[]; self.anchor_hrefs=[]; self.ids=set(); self.h1=0; self.canonical=[]; self.has_title=False; self.lang=None
         self.alternates={};self.text=[];self.skip_text=0;self.switch_depth=0
     def handle_starttag(self,tag,attrs):
         a=dict(attrs)
@@ -433,6 +436,7 @@ class Page(HTMLParser):
         if tag=="link" and a.get("rel")=="alternate":self.alternates[a.get("hreflang")]=a.get("href")
         if tag in ("script","style"):self.skip_text+=1
         if tag=="a" and a.get("class")=="language-switch":self.switch_depth+=1
+        if tag=="a" and a.get("href"):self.anchor_hrefs.append(a["href"])
         if tag in ("a","link","script","img","form"):
             ref=a.get("href") or a.get("src") or a.get("action")
             if ref:self.refs.append(ref)
@@ -441,6 +445,37 @@ class Page(HTMLParser):
         if tag=="a" and self.switch_depth:self.switch_depth-=1
     def handle_data(self,text):
         if not self.skip_text and not self.switch_depth:self.text.append(text)
+
+def resolve_internal_ref(source_file,ref):
+    """Resolve one generated-site reference, or return None for an external URL."""
+    url=urlsplit(ref)
+    if url.scheme or url.netloc:
+        if (url.scheme and url.scheme not in {"http","https"}) or url.netloc.casefold()!=SITE_URL.netloc.casefold():
+            return None
+        site_path=unquote(SITE_URL.path)
+        ref_path=unquote(url.path)
+        if site_path!="/" and not ref_path.startswith(site_path):
+            return None
+        target=(OUT/ref_path[len(site_path):].lstrip("/")).resolve()
+    elif url.path.startswith("/"):
+        target=(OUT/unquote(url.path).lstrip("/")).resolve()
+    else:
+        target=(source_file.parent/unquote(url.path)).resolve() if url.path else source_file
+    if target.is_dir():target=target/"index.html"
+    return target,url
+
+def public_route(file):
+    relative=file.relative_to(OUT.resolve()).as_posix()
+    if relative=="index.html":return "/"
+    if relative.endswith("/index.html"):return "/"+relative.removesuffix("index.html")
+    return "/"+relative
+
+def is_inbound_content_page(file):
+    relative=file.relative_to(OUT.resolve())
+    if relative.as_posix()=="index.html":return True
+    return len(relative.parts)>=2 and relative.parts[0] in {"en","zh"} and (
+        relative.parts[1]=="index.html" or relative.parts[1] in INBOUND_CONTENT_ROOTS
+    )
 
 class FooterAudit(HTMLParser):
     """Require the same compact four-link footer on every generated page."""
@@ -823,6 +858,8 @@ for lang in ["zh","en"]:
         page=pages[(OUT/lang/"articles"/slug/"index.html").resolve()]
         assert page.canonical==[f"{BASE}{lang}/articles/{slug}/"]
         assert all(source["url"] in page.refs for source in article["sources"]),(lang,slug,"missing source")
+broken_internal_refs=[]
+internal_ref_count=0
 for file,parser in pages.items():
     for url in [*parser.alternates.values(),*parser.canonical]:
         assert url.startswith(BASE),(file,url)
@@ -830,17 +867,41 @@ for file,parser in pages.items():
         if target.is_dir():target=target/"index.html"
         assert target.resolve() in pages,(file,url,"language/canonical target missing")
     for ref in parser.refs:
-        url=urlsplit(ref)
-        if url.scheme or url.netloc:continue
-        if url.path.startswith("/"):
-            target=(OUT/unquote(url.path).lstrip("/")).resolve()
-        else:
-            target=(file.parent/unquote(url.path)).resolve() if url.path else file
-        if target.is_dir():target=target/"index.html"
-        assert target.is_relative_to(OUT.resolve()),(file,ref,"escapes site")
-        assert target.exists(),(file,ref,"missing")
-        if url.fragment and target in pages:
-            assert unquote(url.fragment) in pages[target].ids,(file,ref,"missing anchor")
+        resolved=resolve_internal_ref(file,ref)
+        if resolved is None:continue
+        internal_ref_count+=1
+        target,url=resolved
+        if not target.is_relative_to(OUT.resolve()):
+            broken_internal_refs.append((public_route(file),ref,"escapes generated site"))
+        elif not target.exists():
+            broken_internal_refs.append((public_route(file),ref,"target missing"))
+        elif url.fragment and target in pages and unquote(url.fragment) not in pages[target].ids:
+            broken_internal_refs.append((public_route(file),ref,"fragment missing"))
+if broken_internal_refs:
+    print(f"Broken internal references ({len(broken_internal_refs)}):",file=sys.stderr)
+    for source,ref,reason in broken_internal_refs:
+        print(f"  {source} -> {ref} [{reason}]",file=sys.stderr)
+    raise AssertionError(f"{len(broken_internal_refs)} broken internal reference(s)")
+
+redirect_stub_files={(OUT/source).resolve() for source in bare_redirect_targets}
+inbound_sources={file:set() for file in pages if is_inbound_content_page(file)}
+for source,parser in pages.items():
+    if source in redirect_stub_files:continue
+    for href in parser.anchor_hrefs:
+        resolved=resolve_internal_ref(source,href)
+        if resolved is None:continue
+        target,_=resolved
+        if target in inbound_sources and target!=source:
+            inbound_sources[target].add(source)
+low_inbound=sorted(
+    (len(sources),public_route(file))
+    for file,sources in inbound_sources.items()
+    if len(sources)<LOW_INBOUND_THRESHOLD
+)
+print(f"Internal link health: PASS ({internal_ref_count} generated internal references checked)")
+print(f"Low-inbound content pages (<{LOW_INBOUND_THRESHOLD} distinct source pages; report only): {len(low_inbound)}")
+for count,route in low_inbound:
+    print(f"  {count}\t{route}")
 for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","thumbnail-fallbacks.json","hardware-tags.json","scoring-evidence.json","scoring-evidence-batch2-v120.json","cost-evidence-v120.json","action-guides-v120.json","e0-audit-v120.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
