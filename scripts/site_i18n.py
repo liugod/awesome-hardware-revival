@@ -243,7 +243,7 @@ class Site:
     def rel(self, target, current):
         return posixpath.relpath(target, posixpath.dirname(current) or ".")
 
-    def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None, query_parameter_canonical=None):
+    def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None, query_parameter_canonical=None, redirect_to=None):
         current = legacy or f"{self.lang}/{tail}"
         canonical = BASE if self.lang == "en" and tail == "index.html" else BASE + f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
         other = "en" if self.lang == "zh" else "zh"
@@ -268,10 +268,15 @@ class Site:
         if query_parameter_canonical:
             clean_canonical = json.dumps(query_parameter_canonical)
             query_parameter_seo = f'''<script data-query-param-seo>(function(){{var p=new URLSearchParams(window.location.search);if(p.has("q")||p.has("category")){{var r=document.createElement("meta");r.name="robots";r.content="noindex,follow";r.setAttribute("data-query-param-seo","");document.head.appendChild(r);var c=document.querySelector('link[rel="canonical"]');if(c)c.href={clean_canonical};}}}})();</script>'''
+        redirect_markup = ""
+        if redirect_to:
+            assert BASE.rstrip("/") + redirect_to == canonical, (current, redirect_to, canonical)
+            redirect_target = json.dumps(redirect_to)
+            redirect_markup = f'''<meta name="robots" content="noindex,follow"><meta http-equiv="refresh" content="0;url={h(redirect_to)}"><script data-client-redirect>window.location.replace({redirect_target}+window.location.search+window.location.hash);</script>'''
         markup = f"""<!doctype html>
 <html lang="{self.t('zh-CN','en')}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{h(meta_title)}</title><meta name="description" content="{h(meta_description)}">
-<link rel="canonical" href="{h(canonical)}">{alternates}<meta name="theme-color" content="#f7f7f5">{query_parameter_seo}
+<link rel="canonical" href="{h(canonical)}">{alternates}<meta name="theme-color" content="#f7f7f5">{query_parameter_seo}{redirect_markup}
 <meta property="og:title" content="{h(og_title)}"><meta property="og:description" content="{h(og_description)}"><meta property="og:url" content="{h(canonical)}"><meta property="og:type" content="website">
 <link rel="icon" href="{rel('assets/mark.svg')}" type="image/svg+xml"><link rel="stylesheet" href="{rel('assets/style.css')}?v={h(asset_version)}"><script src="{rel('assets/app.js')}?v={h(CONFIG['version'])}" defer></script>
 </head><body><a class="skip" href="#main">{self.t('跳到正文','Skip to content')}</a>
@@ -281,6 +286,18 @@ class Site:
         write(OUT / current, markup)
         if not legacy:
             PATHS.append(f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html")))
+
+    def redirect(self, source, target_tail, label):
+        target_path = f"/{self.lang}/" + target_tail.removesuffix("index.html")
+        body = f'''<div class="detail-wrap"><section class="detail-head"><h1>{h(label)}</h1><p class="intro">This address has moved to the English version of the page.</p><p><a href="{h(target_path)}">Continue to {h(target_path)}</a></p></section></div>'''
+        self.page(
+            label,
+            "Continue to the canonical English page.",
+            body,
+            target_tail,
+            legacy=source,
+            redirect_to=target_path,
+        )
 
     def link(self, url, text):
         return f'<a href="{h(url)}">{h(text)}</a>' if url else h(text) + self.t("（无已核验链接）"," (no verified link)")
@@ -783,6 +800,12 @@ class Site:
 <section id="contribute"><h2>{t("贡献指南", "Contribution guide")}</h2>{ul([t("写明项目 ID、准确型号、硬件修订、固件和地区。", "Include project ID, exact model, hardware revision, firmware, and region."),t("附上源版本、操作日期和原始步骤链接。", "Include upstream revision, operation date, and original instruction links."),t("保留成功、失败、恢复结果和可核验材料。", "Keep successes, failures, recovery outcomes, and verifiable evidence."),t("不要公开唯一序列号、账号、令牌或密钥。", "Do not publish unique serial numbers, accounts, tokens, or secrets.")], "detail-list")}<p><a href="{REPO}/issues/new/choose">{t("提交项目、纠错或复现记录", "Submit a project, correction, or reproduction report")} ↗</a></p></section>
 <section id="downloads"><h2>{t("数据下载", "Data download")}</h2><ul class="detail-list"><li><b>{t("全站统一目录", "Full directory")}</b> <a href="../../data/directory.json" download>JSON</a> · <a href="../../data/directory.csv" download>CSV</a></li><li><b>{t("深审项目目录", "Reviewed catalog")}</b> <a href="../../data/{reviewed_catalog_json}" download>JSON</a> · <a href="../../data/{reviewed_catalog_csv}" download>CSV</a></li><li><b>{t("项目来源与展示判定", "Project sources and display decisions")}</b> <a href="../../data/project-leads.json" download>JSON</a> · <a href="../../data/project-leads.csv" download>CSV</a></li><li><b>{t("评分取证台账", "Scoring evidence ledger")}</b> <a href="../../data/scoring-evidence.json" download>JSON</a> · <a href="../../data/scoring-evidence-batch2-v120.json" download>{t("第二批", "Batch 2")}</a></li><li><b>{t("成本取证与行动指南", "Cost evidence and action guides")}</b> <a href="../../data/cost-evidence-v120.json" download>{t("成本", "Cost")}</a> · <a href="../../data/action-guides-v120.json" download>{t("指南", "Guides")}</a></li><li><b>{t("E0 深审台账", "E0 deep-audit ledger")}</b> <a href="../../data/e0-audit-v120.json" download>JSON</a></li><li><b>{t("目录入口", "Directory links")}</b> <a href="../project-sources/">{t("项目来源", "Project sources")}</a> · <a href="#scoring">{t("评分方法", "Scoring method")}</a></li></ul></section>'''
         self.article(t("关于 KitAgain", "About KitAgain"),t("版本、证据、评分、贡献与数据下载放在一处。", "Release status, evidence, scoring, contribution, and downloads in one place."),about,"about/index.html")
+        privacy = f'''<h2>{t("本页说明", "What this page covers")}</h2><p>{t("KitAgain 是一个公开的静态信息站点；站内页面不会要求你注册账号或提交个人资料。", "KitAgain is a public static information site. Its pages do not ask you to create an account or submit personal details.")}</p><h2>{t("外部服务", "External services")}</h2><p>{t("本站会链接到 GitHub、社区论坛和上游项目。打开或使用这些外部服务时，应查看它们各自的隐私规则。本页不对托管商或网络服务商可能保存的技术日志作额外声明。", "The site links to GitHub, the community forum, and upstream projects. Review each service's own privacy information when you open or use it. This page makes no additional claim about technical logs that hosting or network providers may keep.")}</p><h2>{t("公开提交", "Public submissions")}</h2><p>{t("通过 GitHub Issues 提交的内容通常是公开的。不要提交密码、令牌、设备序列号或其他敏感信息。", "Material submitted through GitHub Issues is normally public. Do not submit passwords, tokens, device serial numbers, or other sensitive information.")}</p>'''
+        self.article(t("隐私说明", "Privacy notice"), t("一份简短、诚实的站点数据说明。", "A short, plain-language note about site data."), privacy, "privacy/index.html")
+        terms = f'''<h2>{t("信息用途", "Using the information")}</h2><p>{t("KitAgain 汇总公开来源，帮助你比较旧硬件的再利用路线。内容用于信息参考，不是兼容、安全、成功或持续维护的保证。", "KitAgain summarizes public sources to help you compare reuse routes for older hardware. The material is informational and is not a guarantee of compatibility, safety, success, or continued maintenance.")}</p><h2>{t("动手之前", "Before you make changes")}</h2><p>{t("请核对准确型号、硬件修订、固件、地区、安装步骤和恢复路径。无法确认这些条件时，不要刷写、拆机或购买配件。", "Verify the exact model, hardware revision, firmware, region, installation steps, and recovery path. Do not flash, disassemble, or buy parts when those conditions cannot be confirmed.")}</p><h2>{t("第三方项目", "Third-party projects")}</h2><p>{t("链接项目、代码、固件、图片、商标和第三方组件遵循各自来源的条款与许可；本站的收录或证据等级不会改变这些权利。", "Linked projects, code, firmware, images, trademarks, and third-party components remain subject to their own source terms and licenses. Inclusion or an evidence level on this site does not change those rights.")}</p>'''
+        self.article(t("使用说明", "Terms of use"), t("使用站点资料前，请先理解证据边界与设备风险。", "Understand the evidence boundaries and device risks before using the material."), terms, "terms/index.html")
+        contact = f'''<h2>{t("联系与纠错", "Contact and corrections")}</h2><p>{t("目前已核验的公开联系渠道是 GitHub Issues。你可以在那里报告死链、事实错误、翻译问题，或提交可核验的项目资料。", "The verified public contact route is GitHub Issues. Use it to report broken links, factual errors, translation issues, or verifiable project material.")}</p><p><a href="{h(REPO)}/issues/new/choose">{t("打开 GitHub Issues", "Open GitHub Issues")} ↗</a></p><h2>{t("请勿公开秘密", "Do not post secrets")}</h2><p>{t("Issue 内容通常公开。不要发布账号、密码、令牌、私钥、恢复码、设备唯一序列号或其他个人敏感信息。", "Issue content is normally public. Do not post accounts, passwords, tokens, private keys, recovery codes, unique device serial numbers, or other sensitive personal information.")}</p>'''
+        self.article(t("联系 KitAgain", "Contact KitAgain"), t("通过公开、可追踪的渠道报告问题或提交资料。", "Report a problem or contribute material through a public, traceable channel."), contact, "contact/index.html")
         method = f"""<h2>{t('收录意味着什么','What inclusion means')}</h2><p>{t(f'E0：公开发现条目 {evidence_counts.get("E0", 0)} 条。E1：已读源码、部署文档或设备兼容资料，{evidence_counts.get("E1", 0)} 条。E2：作者实机陈述或演示，{evidence_counts.get("E2", 0)} 条。E3：独立复现，{evidence_counts.get("E3", 0)} 条。本目录实机测试 0 条。',f'E0: {evidence_counts.get("E0", 0)} public discovery entries. E1: source, deployment, or device-compatibility documentation reviewed, {evidence_counts.get("E1", 0)} entries. E2: author hardware claims or demonstrations, {evidence_counts.get("E2", 0)}. E3: verified independent reproduction, {evidence_counts.get("E3", 0)}. Catalog hands-on hardware tests: 0.')}</p>
 <h2>{t('我们如何核查','How we review')}</h2><p>{t('以设备和失效原因寻找原始仓库、项目论坛、作者网站、Codeberg、GitLab、Hackaday、Instructables、安装文档、型号表及社交平台原帖。保存来源和核查时间；搜索摘要与转载只作线索。型号、固件、地区未知时保留未知，不把未归档等同持续可用。','We search original repositories, project forums, author sites, Codeberg, GitLab, Hackaday, Instructables, install documentation, model tables and original social posts by device and failure mode. Source URLs and review dates are retained; search snippets and reposts are leads only. Unknown model, firmware or region requirements stay unknown. An unarchived project is not proof of continued usability.')}</p>
 <h2>{t('AI 关系与项目家族','AI relationships and project families')}</h2><p>{t('AI 功能改造、AI 辅助开发/配置、AI 周边用途和传统基础设施分开标注。同家族后继版本不是独立复现，平台与前置工具也不是完成的改造案例。','AI functionality, documented AI-assisted development/setup, AI-adjacent uses and traditional infrastructure are separate categories. Successor versions in one family are not independent reproductions; platforms and prerequisite tools are not completed modification cases.')}</p>
@@ -1085,6 +1108,14 @@ def build():
         for p in PROJECTS:
             s.detail(p)
             if lang=="zh":s.detail(p,legacy=True)
+    guide_redirect_slugs = sorted({*GUIDES, "ai-retrofit", "nest-mini-local-ai"})
+    bare_redirects = {
+        **{f"guides/{slug}/index.html": f"guides/{slug}/index.html" for slug in guide_redirect_slugs},
+        **{f"{slug}/index.html": f"{slug}/index.html" for slug in ("privacy", "terms", "contact")},
+    }
+    redirect_site = Site("en")
+    for source, target_tail in bare_redirects.items():
+        redirect_site.redirect(source, target_tail, f"Redirecting to /en/{target_tail.removesuffix('index.html')}")
     (OUT / "data").mkdir(parents=True, exist_ok=True)
     (OUT / "data/watchlist.json").write_text(json.dumps(WATCHLIST, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     (OUT / "data/watchlist-details.json").write_text(json.dumps(WATCHLIST_DETAILS, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
@@ -1144,8 +1175,13 @@ def build():
     write(OUT/"index.html",entry)
     urls = [""]+[p for p in PATHS if p != "en/"]
     write(OUT/"sitemap.xml",'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"\n".join(f"<url><loc>{h(BASE+p)}</loc><lastmod>{CONTENT_DATE}</lastmod></url>" for p in urls)+"\n</urlset>\n")
-    migrations = {"note":"Historical URLs remain readable HTML with canonical links; these are not HTTP 301 redirects.",
-                  "mappings":{f"projects/{p['id']}.html":f"zh/projects/{p['id']}/" for p in PROJECTS}}
+    migrations = {
+        "note":"Historical project pages remain readable with canonical links. Bare utility and guide routes use 200 HTML redirect pages because GitHub Pages cannot emit arbitrary 301 redirects.",
+        "mappings":{
+            **{f"projects/{p['id']}.html":f"zh/projects/{p['id']}/" for p in PROJECTS},
+            **{source:f"en/{target.removesuffix('index.html')}" for source,target in bare_redirects.items()},
+        },
+    }
     write(OUT/"data/url-mapping.json",json.dumps(migrations,ensure_ascii=False,indent=2)+"\n")
     # Public English export keeps shared machine-readable facts while localizing editorial fields.
     english = json.loads(json.dumps(DATA))

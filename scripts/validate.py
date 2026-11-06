@@ -29,6 +29,11 @@ listed_project_leads=[lead for lead in project_leads if lead.get("display_status
 page_overrides=load(ROOT/"data/project-page-visual.json")
 articles=load(ROOT/"data/articles.json")
 guides=load(ROOT/"data/guides.json")
+guide_redirect_slugs=sorted({*guides,"ai-retrofit","nest-mini-local-ai"})
+bare_redirect_targets={
+    **{f"guides/{slug}/index.html":f"en/guides/{slug}/" for slug in guide_redirect_slugs},
+    **{f"{slug}/index.html":f"en/{slug}/" for slug in ("privacy","terms","contact")},
+}
 scoring_evidence=load(ROOT/"data/scoring-evidence.json")
 scoring_evidence_items=scoring_evidence["entries"]
 if isinstance(scoring_evidence_items,dict):scoring_evidence_items=list(scoring_evidence_items.values())
@@ -590,7 +595,7 @@ for file in OUT.rglob("*.html"):
 delisted_count=len(project_leads)-len(listed_project_leads)
 directory_page_count=(len(projects)+len(watchlist)+len(listed_project_leads)+59)//60
 assert card_page_count==18+2*(directory_page_count-1) and generated_card_count==2240-4*delisted_count,("complete generated card audit",card_page_count,generated_card_count)
-assert len(pages)==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)
+assert len(pages)==2*(len(projects)+15+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)+len(bare_redirect_targets)
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 for kind,target_ids,route in [
@@ -787,6 +792,14 @@ for lang in ["zh","en"]:
     expected_downloads=["directory.json","directory.csv",f"{expected_catalog}.json",f"{expected_catalog}.csv","project-leads.json","project-leads.csv","scoring-evidence.json","scoring-evidence-batch2-v120.json","cost-evidence-v120.json","action-guides-v120.json","e0-audit-v120.json"]
     assert all(name in " ".join(about.refs) for name in expected_downloads),(lang,"About data downloads")
     assert any("project-sources" in ref for ref in about.refs) and "#scoring" in about.refs,(lang,"About directory links")
+    for slug in ("privacy","terms","contact"):
+        utility=pages[(OUT/lang/slug/"index.html").resolve()]
+        utility_markup=(OUT/lang/slug/"index.html").read_text(encoding="utf-8")
+        assert utility.canonical==[f"{BASE}{lang}/{slug}/"],(lang,slug,"utility canonical")
+        assert utility.alternates["en"]==f"{BASE}en/{slug}/" and utility.alternates["zh-CN"]==f"{BASE}zh/{slug}/",(lang,slug,"utility alternates")
+        assert 'data-client-redirect' not in utility_markup and 'http-equiv="refresh"' not in utility_markup,(lang,slug,"localized utility must be real content")
+    contact_markup=(OUT/lang/"contact/index.html").read_text(encoding="utf-8")
+    assert config["repository_url"]+"/issues/new/choose" in contact_markup,(lang,"contact route")
     assert config["repository_url"]+"/issues/new/choose" in about.refs,(lang,"About contribution link")
     for slug,lead in watchlist.items():
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")
@@ -819,7 +832,10 @@ for file,parser in pages.items():
     for ref in parser.refs:
         url=urlsplit(ref)
         if url.scheme or url.netloc:continue
-        target=(file.parent/unquote(url.path)).resolve() if url.path else file
+        if url.path.startswith("/"):
+            target=(OUT/unquote(url.path).lstrip("/")).resolve()
+        else:
+            target=(file.parent/unquote(url.path)).resolve() if url.path else file
         if target.is_dir():target=target/"index.html"
         assert target.is_relative_to(OUT.resolve()),(file,ref,"escapes site")
         assert target.exists(),(file,ref,"missing")
@@ -979,18 +995,29 @@ assert [row["id"] for row in project_lead_rows]==[lead["id"] for lead in project
 assert [row["needs_review"].lower() for row in project_lead_rows]==[str(lead["needs_review"]).lower() for lead in project_leads],"Project-source CSV needs_review mismatch"
 assert (ROOT/"data/project-leads.csv").read_text(encoding="utf-8-sig")==project_leads_csv(project_leads).removeprefix("\ufeff"),"Project-source CSV is stale"
 mapping=load(OUT/"data/url-mapping.json")["mappings"]
-assert len(mapping)==len(projects)
+assert len(mapping)==len(projects)+len(bare_redirect_targets)
+assert {source:mapping[source] for source in bare_redirect_targets}==bare_redirect_targets
 for source,target in mapping.items():
     assert pages[(OUT/source).resolve()].canonical==[BASE+target]
+for source,target in bare_redirect_targets.items():
+    markup=(OUT/source).read_text(encoding="utf-8")
+    target_path="/"+target
+    assert '<meta name="robots" content="noindex,follow">' in markup,(source,"redirect robots")
+    assert f'<meta http-equiv="refresh" content="0;url={target_path}">' in markup,(source,"meta redirect")
+    assert f'window.location.replace({json.dumps(target_path)}+window.location.search+window.location.hash);' in markup,(source,"JavaScript redirect")
+    assert f'href="{target_path}"' in markup,(source,"redirect fallback link")
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+12+len(articles)+len(watchlist)+len(listed_project_leads))+4+2*(directory_page_count-1)
+assert len(urls)==len(set(urls))==2*(len(projects)+15+len(articles)+len(watchlist)+len(listed_project_leads))+4+2*(directory_page_count-1)
 lastmods=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}lastmod")]
 scoring_dates=[value[:10] for value in [scoring_evidence.get("checked_at"),*(entry.get("checked_at") for entry in scoring_evidence_items)] if value]
 expected_lastmod=max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"],*scoring_dates)
 assert len(lastmods)==len(urls) and set(lastmods)=={expected_lastmod},"Sitemap lastmod mismatch"
 assert BASE in urls and BASE+"en/" not in urls
 assert BASE+"zh/about/" in urls and BASE+"en/about/" in urls
+for source,target in bare_redirect_targets.items():
+    assert BASE+source.removesuffix("index.html") not in urls,(source,"thin redirect must stay out of sitemap")
+    assert BASE+target in urls,(target,"canonical redirect target missing from sitemap")
 for url in urls:
     assert url.startswith(BASE)
     target=OUT/url[len(BASE):]
