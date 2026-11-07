@@ -87,7 +87,7 @@ for item in lead_project_upgrades:
         required={"title","summary","outcome","applicable_devices","prerequisites","stop_conditions","risks","recovery","good_fit","not_fit","hub_label"}
         assert required<=set(localized), (item["id"],lang,"missing localized field")
         assert all(len(localized[key])>=2 for key in ("applicable_devices","prerequisites","stop_conditions","risks","recovery","good_fit","not_fit")),(item["id"],lang,"thin module")
-seo_project_ids={"coreelec","fbink","openbeken","dafang","armbian-tv","webos-homebrew"}
+seo_project_ids={"coreelec","fbink","openbeken","dafang","armbian-tv","webos-homebrew","rootmytv"}
 seo_project_lead_ids={"airsane","dorita980","kiosk-satellite","espurna"}
 assert seo_project_ids<=set(page_overrides["projects"]),"Missing TRA-26 project SEO override"
 assert seo_project_lead_ids<=set(page_overrides["project_leads"]),"Missing TRA-26 project-lead SEO override"
@@ -107,6 +107,12 @@ for kind,target_ids in [("projects",tra31_project_ids),("project_leads",tra31_pr
         assert set(override["seo"])>={"en","zh"} and set(override["content"])>={"en","zh"},(target_id,"TRA-31 bilingual override")
         assert APPROVED_ZH_SLOGAN in override["seo"]["zh"]["title"],(target_id,"locked Chinese title brand")
         assert len(override["content"]["zh"]["lead"])>=60,(target_id,"Chinese opening lead")
+tra38_override=page_overrides["projects"]["rootmytv"]
+assert set(tra38_override["seo"])=={"en","zh"} and set(tra38_override["content"])=={"en","zh"},"TRA-38 bilingual RootMyTV override"
+assert set(tra38_override["intent_html"])=={"en","zh"},"TRA-38 bilingual rootability answer"
+assert "Root My LG TV" in tra38_override["seo"]["en"]["title"] and "Root" in tra38_override["seo"]["zh"]["title"],"TRA-38 title intent"
+assert all(term in tra38_override["intent_html"]["en"] for term in ["2016 / 3.4.2","2021 / 6.3.0","Older versions may still fail","Firmware downgrade"]),"TRA-38 English fit and risk boundaries"
+assert all(term in tra38_override["intent_html"]["zh"] for term in ["2016 / 3.4.2","2021 / 6.3.0","更旧版本也可能无法使用","无法降级"]),"TRA-38 Chinese fit and risk boundaries"
 for kind,target_id,record in [
     ("articles","kindle-model-firmware",articles["kindle-model-firmware"]),
     ("guides","kindle-displays",guides["kindle-displays"]),
@@ -742,6 +748,16 @@ for lang in ["en","zh"]:
         assert f'<meta property="og:description" content="{escaped_description}">' in markup,(lang,target_id,"TRA-31 rendered OG description")
         if lead:
             assert html.escape(lead,quote=True) in markup,(lang,target_id,"TRA-31 rendered opening lead")
+    rootmytv_markup=(OUT/lang/"projects/rootmytv/index.html").read_text(encoding="utf-8")
+    rootmytv_seo=tra38_override["seo"][lang]
+    rootmytv_lead=tra38_override["content"][lang]["lead"]
+    assert f'<title>{html.escape(rootmytv_seo["title"],quote=True)}</title>' in rootmytv_markup,(lang,"TRA-38 rendered title")
+    assert f'<meta name="description" content="{html.escape(rootmytv_seo["description"],quote=True)}">' in rootmytv_markup,(lang,"TRA-38 rendered description")
+    assert html.escape(rootmytv_lead,quote=True) in rootmytv_markup,(lang,"TRA-38 rendered opening answer")
+    assert tra38_override["intent_html"][lang] in rootmytv_markup,(lang,"TRA-38 rendered fit and risk section")
+    assert all(link in rootmytv_markup for link in ["../../guides/tv-box/index.html","../webos-homebrew/index.html"]),(lang,"TRA-38 visible intent links")
+    webos_homebrew_markup=(OUT/lang/"projects/webos-homebrew/index.html").read_text(encoding="utf-8")
+    assert '../rootmytv/index.html' in webos_homebrew_markup,(lang,"TRA-38 Homebrew reciprocal link")
 zh_home_markup=(OUT/"zh/index.html").read_text(encoding="utf-8")
 assert zh_home_markup.count(f"<h1>{APPROVED_ZH_SLOGAN}</h1>")==1,"Chinese homepage slogan is locked by TRA-21"
 assert zh_home_markup.count(f'<p class="ai-kicker">KitAgain · {APPROVED_ZH_SLOGAN}</p>')==1,"Chinese homepage kicker is locked by TRA-21"

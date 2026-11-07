@@ -72,6 +72,30 @@
         }
       }
     },
+    "rootmytv": {
+      "content": {
+        "zh": {
+          "lead": "你的 LG webOS 电视能用 RootMyTV 获取 root 吗？新固件通常不能。只有 webOS TV Version 低于上游按机型年份列出的已修补阈值时才值得继续核对；旧版本也不保证可用。"
+        },
+        "en": {
+          "lead": "Can you root your LG TV with RootMyTV? Usually no on current firmware. It is only worth checking on an LG webOS TV whose webOS TV Version is below the upstream patched threshold for its model year; even an older version may not work."
+        }
+      },
+      "seo": {
+        "zh": {
+          "title": "LG webOS 电视能 Root 吗？RootMyTV 适用版本 | 二手硬件再就业指南 · KitAgain",
+          "description": "判断 LG webOS 电视能否用 RootMyTV 获取 root：按机型年份核对 webOS TV Version 与已修补阈值，并先了解无法降级、失去 root 与刷坏风险。"
+        },
+        "en": {
+          "title": "Can I Root My LG TV? RootMyTV Compatibility | KitAgain",
+          "description": "Can RootMyTV root your LG TV? Check the model year and webOS TV Version against patched firmware thresholds, then review downgrade and damage risks."
+        }
+      },
+      "intent_html": {
+        "zh": "<section class=\"rootmytv-intent\"><h2>我的电视能用 RootMyTV 吗？</h2><p>RootMyTV 没有按销售型号给出通用兼容承诺。请按机型年份核对设置中的 <b>webOS TV Version</b>，不要把它与每个型号自己的 Software Version 混淆。上游明确这些版本及以后已修补：2016 / 3.4.2、2017 / 3.9.2、2018 / 4.4.2、2019 / 4.9.7、2020 / 5.4.0、2021 / 6.3.0。更旧版本也可能无法使用；低于 3.4.0，以及出厂搭载 webOS 1、2、7（22）或 8（23）的电视从未受支持。</p><h3>尝试前先看风险</h3><ul class=\"detail-list\"><li>没有既有 root 时通常无法降级到可利用固件；达到或高于已修补阈值就应停止。</li><li>Root 并非 LG 支持的操作；上游不保证不会造成损坏，并提示可能影响保修。</li><li>官方更新可能移除 root 且阻止再次获取；长期停留在旧固件也可能影响 LG Content Store 的安装、更新或启动。</li></ul></section>",
+        "en": "<section class=\"rootmytv-intent\"><h2>Is my TV rootable with RootMyTV?</h2><p>RootMyTV does not publish a blanket sales-model compatibility promise. Check the TV model year and the <b>webOS TV Version</b> shown in settings, not the model-specific Software Version. Upstream identifies these versions and later as patched: 2016 / 3.4.2, 2017 / 3.9.2, 2018 / 4.4.2, 2019 / 4.9.7, 2020 / 5.4.0, and 2021 / 6.3.0. Older versions may still fail; versions below 3.4.0 and TVs shipped with webOS 1, 2, 7 (22), or 8 (23) were never supported.</p><h3>Risks before you try</h3><ul class=\"detail-list\"><li>Firmware downgrade is generally unavailable without existing root; stop if the version meets or exceeds the patched threshold.</li><li>Rooting is unsupported by LG; upstream gives no guarantee against damage and warns that it may affect the warranty.</li><li>An official update can remove root and prevent re-rooting, while staying on old firmware may limit LG Content Store installs, updates, or launches.</li></ul></section>"
+      }
+    },
     "webos-homebrew": {
       "content": {
         "zh": {
