@@ -20,6 +20,8 @@ data = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 project_i18n = json.loads((ROOT / "data/i18n/en.json").read_text(encoding="utf-8"))["projects"]
 project_lead_data = json.loads((ROOT / "data/project-leads.json").read_text(encoding="utf-8"))
 project_leads = project_lead_data["projects"]
+lead_project_upgrades = json.loads((ROOT / "data/lead-project-upgrades.json").read_text(encoding="utf-8"))
+lead_project_route_overrides = {item["source_entry_id"]: item["id"] for item in lead_project_upgrades["projects"]}
 scoring_evidence = json.loads((ROOT / "data/scoring-evidence.json").read_text(encoding="utf-8"))
 scoring_evidence_entries = scoring_evidence["entries"]
 cost_evidence_path = ROOT / "data/cost-evidence-v120.json"
@@ -61,6 +63,7 @@ directory_export = build_directory_export(
     project_i18n=project_i18n,
     scoring_evidence=scoring_evidence,
     cost_evidence=cost_evidence,
+    project_route_overrides=lead_project_route_overrides,
 )
 score_distribution_zh = "、".join(
     f"{bucket} 星 {count} 条"
@@ -300,7 +303,7 @@ write(ROOT/"data/action-guides-v120.json", json.dumps({
         if entry["display_status"] == "listed" and entry["action_guide"] is not None
     ],
 }, ensure_ascii=False, indent=2) + "\n")
-public_data = ["catalog.json","catalog.csv","directory.json","directory.csv","scoring-evidence.json","project-leads.json","project-leads.csv","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","thumbnail-fallbacks.json","hardware-tags.json","action-guides-v120.json","cost-evidence-v120.json","scoring-evidence-batch2-v120.json","e0-audit-v120.json"]
+public_data = ["catalog.json","catalog.csv","directory.json","directory.csv","scoring-evidence.json","project-leads.json","project-leads.csv","lead-project-upgrades.json","candidates.json","deep-dives.json","x-research.json","watchlist.json","watchlist-details.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","thumbnail-fallbacks.json","hardware-tags.json","action-guides-v120.json","cost-evidence-v120.json","scoring-evidence-batch2-v120.json","e0-audit-v120.json"]
 for name in public_data:
     if not (ROOT/"data"/name).exists():
         continue

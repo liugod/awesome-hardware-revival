@@ -26,6 +26,9 @@ config=load(ROOT/"site.config.json")
 project_lead_data=load(ROOT/"data/project-leads.json")
 project_leads=project_lead_data["projects"]
 listed_project_leads=[lead for lead in project_leads if lead.get("display_status","listed")=="listed"]
+lead_project_upgrade_data=load(ROOT/"data/lead-project-upgrades.json")
+lead_project_upgrades=lead_project_upgrade_data["projects"]
+lead_project_route_overrides={item["source_entry_id"]:item["id"] for item in lead_project_upgrades}
 page_overrides=load(ROOT/"data/project-page-visual.json")
 articles=load(ROOT/"data/articles.json")
 guides=load(ROOT/"data/guides.json")
@@ -35,6 +38,12 @@ bare_redirect_targets={
     **{f"guides/{slug}/index.html":f"en/guides/{slug}/" for slug in guide_redirect_slugs},
     **{f"{slug}/index.html":f"en/{slug}/" for slug in ("privacy","terms","contact")},
 }
+lead_upgrade_redirect_targets={
+    f"{lang}/{item['legacy_tail']}index.html":f"{lang}/projects/{item['id']}/"
+    for lang in ("zh","en")
+    for item in lead_project_upgrades
+}
+redirect_targets={**bare_redirect_targets,**lead_upgrade_redirect_targets}
 scoring_evidence=load(ROOT/"data/scoring-evidence.json")
 scoring_evidence_items=scoring_evidence["entries"]
 if isinstance(scoring_evidence_items,dict):scoring_evidence_items=list(scoring_evidence_items.values())
@@ -62,6 +71,22 @@ assert "directoryForm.dataset.directoryRoot" in app_javascript and "location.ass
 schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
+expected_lead_upgrade_ids={"vcamdroid","freemarkable","atlas-ophub-hk1-box"}
+assert lead_project_upgrade_data["schema_version"]=="1.0.0" and lead_project_upgrade_data["reviewed_at"]=="2026-11-07"
+assert {item["id"] for item in lead_project_upgrades}==expected_lead_upgrade_ids and len(lead_project_route_overrides)==3
+assert {item["hub_tail"] for item in lead_project_upgrades}=={"directory/camera/","guides/kindle-displays/","guides/tv-box/"}
+for item in lead_project_upgrades:
+    assert item["legacy_tail"] in {"project-leads/vcamdroid/","project-leads/freemarkable/","leads/atlas-ophub-hk1-box/"},item["id"]
+    assert item["source_entry_id"]==f'{item["source_kind"]}:{item["source_id"]}',item["id"]
+    assert item["category"] in DIRECTORY_CATEGORIES and len(item["sources"])>=2,item["id"]
+    for source in item["sources"]:
+        assert source["url"].startswith("https://github.com/") and source["zh_label"] and source["en_label"],item["id"]
+        assert source["revision"] is None or re.fullmatch(r"[0-9a-f]{40}",source["revision"]),item["id"]
+    for lang in ("zh","en"):
+        localized=item[lang]
+        required={"title","summary","outcome","applicable_devices","prerequisites","stop_conditions","risks","recovery","good_fit","not_fit","hub_label"}
+        assert required<=set(localized), (item["id"],lang,"missing localized field")
+        assert all(len(localized[key])>=2 for key in ("applicable_devices","prerequisites","stop_conditions","risks","recovery","good_fit","not_fit")),(item["id"],lang,"thin module")
 seo_project_ids={"coreelec","fbink","openbeken","dafang","armbian-tv","webos-homebrew"}
 seo_project_lead_ids={"airsane","dorita980","kiosk-satellite","espurna"}
 assert seo_project_ids<=set(page_overrides["projects"]),"Missing TRA-26 project SEO override"
@@ -127,6 +152,12 @@ for entry_id,image in directory_images.items():
         assert "不是实机照片" in image["caption_zh"] and "not an actual device photo" in image["caption_en"],entry_id
 author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
+project_leads_by_id={lead["id"]:lead for lead in project_leads}
+for item in lead_project_upgrades:
+    if item["source_kind"]=="project-lead":
+        assert item["source_id"] in project_leads_by_id and project_leads_by_id[item["source_id"]].get("display_status","listed")=="listed",item["id"]
+    else:
+        assert item["source_kind"]=="lead" and item["source_id"] in watchlist,item["id"]
 directory_category_counts=collections.Counter(project["category"] for project in projects)
 directory_category_counts.update(lead["category"] for lead in watchlist.values())
 directory_category_counts.update(lead["category"] for lead in listed_project_leads)
@@ -672,7 +703,7 @@ delisted_count=len(project_leads)-len(listed_project_leads)
 directory_page_count=math.ceil((len(projects)+len(watchlist)+len(listed_project_leads))/DIRECTORY_PAGE_SIZE)
 tra35_guide_card_count=sum(len(guides[slug]["entries"]) for slug in tra35_guide_slugs)
 assert card_page_count==18+2*len(tra35_guide_slugs)+2*(directory_page_count-1)+2*static_category_page_count and generated_card_count==2240+2*tra35_guide_card_count-4*delisted_count+2*static_category_entry_count,("complete generated card audit",card_page_count,generated_card_count)
-assert len(pages)==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)+2*static_category_page_count+len(bare_redirect_targets)
+assert len(pages)==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)+2*static_category_page_count+len(redirect_targets)
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 for kind,target_ids,route in [
@@ -828,8 +859,9 @@ for lang in ["zh","en"]:
         assert f'<title>{html.escape(seo["title"])}</title>' in guide_markup,(lang,slug,"TRA-35 guide title")
         assert f'<meta name="description" content="{html.escape(seo["description"],quote=True)}">' in guide_markup,(lang,slug,"TRA-35 guide description")
         for entry in guides[slug]["entries"]:
-            route={"project":"projects","lead":"leads","project-lead":"project-leads"}[entry["kind"]]
-            assert f'href="../../{route}/{entry["id"]}/"' in guide_markup,(lang,slug,entry["kind"],entry["id"],"guide route")
+            upgrade_id=lead_project_route_overrides.get(f'{entry["kind"]}:{entry["id"]}')
+            route=f"projects/{upgrade_id}" if upgrade_id else f'{ {"project":"projects","lead":"leads","project-lead":"project-leads"}[entry["kind"]]}/{entry["id"]}'
+            assert f'href="../../{route}/"' in guide_markup,(lang,slug,entry["kind"],entry["id"],"guide route")
             assert html.escape(entry[f"{lang}_anchor"]) in guide_markup,(lang,slug,entry["id"],"localized device-action anchor")
     ai_guide_markup=(OUT/lang/"guides/ai-retrofit/index.html").read_text(encoding="utf-8")
     assert '../../directory/?ai=native' in ai_guide_markup and '../../directory/?q=AI' not in ai_guide_markup,(lang,"guide structured AI filter link")
@@ -847,7 +879,7 @@ for lang in ["zh","en"]:
     openbeken_markup=(OUT/lang/"projects/openbeken/index.html").read_text(encoding="utf-8")
     assert '../../guides/ai-retrofit/index.html' in openbeken_markup,(lang,"OpenBeken AI retrofit link")
     reciprocal_routes={
-        "tv-box":[("projects/rootmytv","../../guides/tv-box/index.html"),("leads/atlas-ophub-hk1-box","../../guides/tv-box/index.html")],
+        "tv-box":[("projects/rootmytv","../../guides/tv-box/index.html"),("projects/atlas-ophub-hk1-box","../../guides/tv-box/index.html")],
         "router":[("leads/atlas-enshi-xiaomi-ax9000","../../guides/router/index.html")],
         "smart-plug":[("projects/openbeken","../../guides/smart-plug/index.html"),("leads/atlas-esphome-sonoff-s31","../../guides/smart-plug/index.html")],
     }
@@ -871,6 +903,10 @@ for lang in ["zh","en"]:
         if lead.get("display_status","listed")=="delisted":
             assert f"../project-leads/{lead['id']}/" not in project_source_index.refs and not expected_file.exists(),(lang,lead["id"],"delisted source still displayed")
             continue
+        upgrade=next((item for item in lead_project_upgrades if item["source_entry_id"]==f'project-lead:{lead["id"]}'),None)
+        if upgrade:
+            assert f"../projects/{upgrade['id']}/" in project_source_index.refs,(lang,lead["id"],"missing upgraded project-source link")
+            continue
         assert f"../project-leads/{lead['id']}/" in project_source_index.refs,(lang,lead["id"],"missing project-source link")
         source_page=pages[(OUT/lang/"project-leads"/lead["id"]/"index.html").resolve()]
         assert source_page.canonical==[f"{BASE}{lang}/project-leads/{lead['id']}/"]
@@ -886,6 +922,29 @@ for lang in ["zh","en"]:
         assert ('class="action-guide"' in source_markup)==expected_guide,(lang,lead["id"],"action-guide threshold")
         related_target_sets[("project-lead",lead["id"],lang)]=audit_detail_navigation(
             expected_file,source_markup,lang,lead["category"],lead["name"],f"{BASE}{lang}/project-leads/{lead['id']}/",(lang,"project-lead",lead["id"])
+        )
+    for upgrade in lead_project_upgrades:
+        upgraded_file=OUT/lang/"projects"/upgrade["id"]/"index.html"
+        upgraded_page=pages[upgraded_file.resolve()]
+        upgraded_markup=upgraded_file.read_text(encoding="utf-8")
+        localized=upgrade[lang]
+        assert upgraded_page.canonical==[f"{BASE}{lang}/projects/{upgrade['id']}/"],(lang,upgrade["id"],"upgraded canonical")
+        required_headings=(
+            ("项目概述","Project overview"),("适用设备","Applicable devices"),("动手前","Before you start"),
+            ("风险与恢复","Risk and recovery"),("停止条件","STOP CONDITIONS"),("相关项目","Related projects"),
+        )
+        assert all((zh if lang=="zh" else en) in upgraded_markup for zh,en in required_headings),(lang,upgrade["id"],"complete project modules")
+        assert f'../../{upgrade["hub_tail"]}index.html' in upgraded_markup,(lang,upgrade["id"],"topic backlink")
+        assert all(source["url"] in upgraded_page.refs for source in upgrade["sources"]),(lang,upgrade["id"],"source ledger")
+        assert "KitAgain 已测试" not in upgraded_markup and "KitAgain tested" not in upgraded_markup,(lang,upgrade["id"],"unsupported hands-on claim")
+        entry_image=all_directory_images[upgrade["source_entry_id"]]
+        assert "../../../"+entry_image["local_file"] in upgraded_page.refs and 'class="project-media ' in upgraded_markup,(lang,upgrade["id"],"upgraded hero image")
+        if upgrade["source_kind"]=="project-lead":
+            related_source=project_leads_by_id[upgrade["source_id"]]
+        else:
+            related_source=watchlist[upgrade["source_id"]]
+        related_target_sets[("upgrade",upgrade["id"],lang)]=audit_detail_navigation(
+            upgraded_file,upgraded_markup,lang,upgrade["category"],localized["title"],f"{BASE}{lang}/projects/{upgrade['id']}/",(lang,"upgrade",upgrade["id"])
         )
     home=pages[(OUT/lang/"index.html").resolve()]
     home_markup=(OUT/lang/"index.html").read_text(encoding="utf-8")
@@ -937,6 +996,10 @@ for lang in ["zh","en"]:
     assert config["repository_url"]+"/issues/new/choose" in contact_markup,(lang,"contact route")
     assert config["repository_url"]+"/issues/new/choose" in about.refs,(lang,"About contribution link")
     for slug,lead in watchlist.items():
+        upgrade=next((item for item in lead_project_upgrades if item["source_entry_id"]==f"lead:{slug}"),None)
+        if upgrade:
+            assert f"../projects/{upgrade['id']}/" in leads_index.refs,(lang,slug,"missing upgraded lead index link")
+            continue
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")
         page=pages[(OUT/lang/"leads"/slug/"index.html").resolve()]
         assert page.canonical==[f"{BASE}{lang}/leads/{slug}/"]
@@ -983,7 +1046,7 @@ if broken_internal_refs:
         print(f"  {source} -> {ref} [{reason}]",file=sys.stderr)
     raise AssertionError(f"{len(broken_internal_refs)} broken internal reference(s)")
 
-redirect_stub_files={(OUT/source).resolve() for source in bare_redirect_targets}
+redirect_stub_files={(OUT/source).resolve() for source in redirect_targets}
 inbound_sources={file:set() for file in pages if is_inbound_content_page(file)}
 for source,parser in pages.items():
     if source in redirect_stub_files:continue
@@ -1002,7 +1065,7 @@ print(f"Internal link health: PASS ({internal_ref_count} generated internal refe
 print(f"Low-inbound content pages (<{LOW_INBOUND_THRESHOLD} distinct source pages; report only): {len(low_inbound)}")
 for count,route in low_inbound:
     print(f"  {count}\t{route}")
-for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","thumbnail-fallbacks.json","hardware-tags.json","scoring-evidence.json","scoring-evidence-batch2-v120.json","cost-evidence-v120.json","action-guides-v120.json","e0-audit-v120.json"]:
+for name in ["catalog.json","catalog.csv","directory.json","directory.csv","project-leads.json","project-leads.csv","lead-project-upgrades.json","deep-dives.json","candidates.json","x-research.json","watchlist-expansion.json","device-atlas.json","device-reviews.json","project-images.json","thumbnail-fallbacks.json","hardware-tags.json","scoring-evidence.json","scoring-evidence-batch2-v120.json","cost-evidence-v120.json","action-guides-v120.json","e0-audit-v120.json"]:
     assert (OUT/"data"/name).read_bytes()==(ROOT/"data"/name).read_bytes(),name
 assert load(OUT/"data/watchlist.json")==watchlist,"merged watchlist export"
 assert load(OUT/"data/watchlist-details.json")==watchlist_details,"merged watchlist details export"
@@ -1013,7 +1076,7 @@ assert identity_coverage["projects_with_verified_author_profiles"]==len(author_s
 assert [row["project_id"] for row in identity_coverage["entries"]]==ids
 assert set(ids)=={p.stem for p in (OUT/"projects").glob("*.html")}
 for lang in ["zh","en"]:
-    assert set(ids)=={p.name for p in (OUT/lang/"projects").iterdir() if p.is_dir()}
+    assert set(ids)|expected_lead_upgrade_ids=={p.name for p in (OUT/lang/"projects").iterdir() if p.is_dir()}
     for pid in ids:
         parser=pages[(OUT/lang/"projects"/pid/"index.html").resolve()]
         markup=(OUT/lang/"projects"/pid/"index.html").read_text(encoding="utf-8")
@@ -1043,7 +1106,11 @@ for lang in ["zh","en"]:
         )
 for kind,entries in [("project",projects),("project-lead",listed_project_leads),("lead",[{"id":slug} for slug in watchlist])]:
     for entry in entries:
+        if f"{kind}:{entry['id']}" in lead_project_route_overrides:
+            continue
         assert related_target_sets[(kind,entry["id"],"zh")]==related_target_sets[(kind,entry["id"],"en")],(kind,entry["id"],"bilingual related-project symmetry")
+for upgrade in lead_project_upgrades:
+    assert related_target_sets[("upgrade",upgrade["id"],"zh")]==related_target_sets[("upgrade",upgrade["id"],"en")],("upgrade",upgrade["id"],"bilingual related-project symmetry")
 english=load(OUT/"data/catalog.en.json")
 assert [p["id"] for p in english["projects"]]==ids
 for p,e in zip(projects,english["projects"]):
@@ -1061,8 +1128,12 @@ for p,row in zip(english["projects"],enrows):
     for key in ["requirements","cost","risk","evidence","limitations","translation"]:assert p[key]==json.loads(row[key])
 assert set(load(OUT/"data/deep-dives.en.json"))==set(deep)
 directory=load(ROOT/"data/directory.json")
-expected_directory=build_directory_export(projects=projects,project_leads=project_leads,watchlist=watchlist,details=watchlist_details,base_url=BASE,version=config["version"],generated_at=scoring_evidence.get("generated_at",data["compiled_at"]),project_i18n=project_i18n,scoring_evidence=scoring_evidence,cost_evidence=cost_evidence)
+expected_directory=build_directory_export(projects=projects,project_leads=project_leads,watchlist=watchlist,details=watchlist_details,base_url=BASE,version=config["version"],generated_at=scoring_evidence.get("generated_at",data["compiled_at"]),project_i18n=project_i18n,scoring_evidence=scoring_evidence,cost_evidence=cost_evidence,project_route_overrides=lead_project_route_overrides)
 assert directory==expected_directory,"Unified directory JSON is stale"
+directory_by_entry={entry["entry_id"]:entry for entry in directory["entries"]}
+for item in lead_project_upgrades:
+    entry=directory_by_entry[item["source_entry_id"]]
+    assert entry["detail_url_en"]==f"{BASE}en/projects/{item['id']}/" and entry["detail_url_zh"]==f"{BASE}zh/projects/{item['id']}/",(item["id"],"directory canonical route")
 assert (ROOT/"data/directory.csv").read_text(encoding="utf-8-sig")==directory_csv(directory).removeprefix("\ufeff"),"Unified directory CSV is stale"
 assert directory["counts"]["entries"]==len(projects)+len(project_leads)+len(watchlist)
 assert directory["counts"]["independent_project_sources"]==200
@@ -1156,11 +1227,12 @@ assert [row["id"] for row in project_lead_rows]==[lead["id"] for lead in project
 assert [row["needs_review"].lower() for row in project_lead_rows]==[str(lead["needs_review"]).lower() for lead in project_leads],"Project-source CSV needs_review mismatch"
 assert (ROOT/"data/project-leads.csv").read_text(encoding="utf-8-sig")==project_leads_csv(project_leads).removeprefix("\ufeff"),"Project-source CSV is stale"
 mapping=load(OUT/"data/url-mapping.json")["mappings"]
-assert len(mapping)==len(projects)+len(bare_redirect_targets)
+assert len(mapping)==len(projects)+len(redirect_targets)
 assert {source:mapping[source] for source in bare_redirect_targets}==bare_redirect_targets
+assert {source:mapping[source] for source in lead_upgrade_redirect_targets}==lead_upgrade_redirect_targets
 for source,target in mapping.items():
     assert pages[(OUT/source).resolve()].canonical==[BASE+target]
-for source,target in bare_redirect_targets.items():
+for source,target in redirect_targets.items():
     markup=(OUT/source).read_text(encoding="utf-8")
     target_path="/"+target
     assert '<meta name="robots" content="noindex,follow">' in markup,(source,"redirect robots")
@@ -1173,7 +1245,11 @@ assert len(urls)==len(set(urls))==2*(len(projects)+12+len(guides)+len(articles)+
 lastmods=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}lastmod")]
 scoring_dates=[value[:10] for value in [scoring_evidence.get("checked_at"),*(entry.get("checked_at") for entry in scoring_evidence_items)] if value]
 expected_lastmod=max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"],*scoring_dates)
-assert len(lastmods)==len(urls) and set(lastmods)=={expected_lastmod},"Sitemap lastmod mismatch"
+assert len(lastmods)==len(urls),"Sitemap lastmod count mismatch"
+sitemap_lastmods=dict(zip(urls,lastmods))
+upgraded_project_urls={BASE+f"{lang}/projects/{upgrade['id']}/" for lang in ("zh","en") for upgrade in lead_project_upgrades}
+assert all(sitemap_lastmods[url]==lead_project_upgrade_data["reviewed_at"] for url in upgraded_project_urls),"Upgraded project sitemap lastmod mismatch"
+assert all(lastmod==expected_lastmod for url,lastmod in sitemap_lastmods.items() if url not in upgraded_project_urls),"Existing sitemap lastmod mismatch"
 assert BASE in urls and BASE+"en/" not in urls
 assert BASE+"zh/about/" in urls and BASE+"en/about/" in urls
 for lang in ("en","zh"):
@@ -1184,7 +1260,7 @@ for lang in ("en","zh"):
             assert BASE+f"{lang}/directory/{category}/page/{page_number}/" in urls,(lang,category,page_number,"static category pagination missing from sitemap")
     for slug in ("tv-box","router","smart-plug"):
         assert BASE+f"{lang}/guides/{slug}/" in urls,(lang,slug,"device hub missing from sitemap")
-for source,target in bare_redirect_targets.items():
+for source,target in redirect_targets.items():
     assert BASE+source.removesuffix("index.html") not in urls,(source,"thin redirect must stay out of sitemap")
     assert BASE+target in urls,(target,"canonical redirect target missing from sitemap")
 for url in urls:

@@ -1,0 +1,330 @@
+{
+  "schema_version": "1.0.0",
+  "reviewed_at": "2026-11-07",
+  "projects": [
+    {
+      "id": "vcamdroid",
+      "source_kind": "project-lead",
+      "source_id": "vcamdroid",
+      "source_entry_id": "project-lead:vcamdroid",
+      "legacy_tail": "project-leads/vcamdroid/",
+      "category": "camera",
+      "hub_tail": "directory/camera/",
+      "sources": [
+        {
+          "url": "https://github.com/darusc/VCamdroid/blob/main/README.md",
+          "kind": "upstream-readme",
+          "revision": "46bb17267d31c01fd4b8806386831481953d3267",
+          "zh_label": "VCamdroid 上游 README",
+          "en_label": "VCamdroid upstream README",
+          "zh_note": "用于核对 Windows/Android 前提、USB 与 Wi-Fi 路线、驱动安装和排障边界。",
+          "en_note": "Used to check Windows/Android prerequisites, USB and Wi-Fi routes, driver installation, and troubleshooting boundaries."
+        },
+        {
+          "url": "https://github.com/darusc/VCamdroid/releases",
+          "kind": "upstream-releases",
+          "revision": null,
+          "zh_label": "VCamdroid 发布页",
+          "en_label": "VCamdroid releases",
+          "zh_note": "上游 README 指向的二进制下载入口；版本存在不代表任意手机已经兼容。",
+          "en_note": "The binary-download entry linked by the README; a release does not establish compatibility with every phone."
+        }
+      ],
+      "zh": {
+        "title": "VCamdroid：把旧 Android 手机变成 Windows 摄像头",
+        "summary": "在 Android 手机上采集并编码视频，再通过 USB/ADB 或同一局域网传给 Windows 客户端，注册为可被视频应用识别的虚拟摄像头。",
+        "outcome": "复用闲置 Android 手机的摄像头，作为 Windows 10/11 的视频输入。",
+        "applicable_devices": [
+          "上游前提列出 Android 7.0 或更高版本的手机，以及 Windows 10 或 11 电脑。",
+          "USB 路线需要可用数据线、ADB 与手机端 USB 调试授权；Wi-Fi 路线要求手机和电脑位于可互通的同一网络。",
+          "具体手机的 Camera2、硬件编码、分辨率和稳定性仍需逐机验证。"
+        ],
+        "prerequisites": [
+          "Windows 端需要管理员权限运行 install.bat，以注册 Softcam DirectShow 过滤器。",
+          "手机端需要安装 APK；USB 路线还要启用开发者选项和 USB 调试。",
+          "Wi-Fi 路线可能需要放行 Windows 防火墙；应先确认网络隔离与隐私边界。"
+        ],
+        "stop_conditions": [
+          "不能确认电脑是受支持的 Windows 版本，或无法接受安装并注册第三方虚拟摄像头驱动时停止。",
+          "ADB 设备始终不可见、手机不支持所需编码路径，或 Wi-Fi 被 AP isolation / 防火墙阻断时先排障，不把失败解释为已兼容。",
+          "上游 README 没有给出完整卸载/回滚流程；在无法确认驱动移除办法的电脑上不要继续安装。"
+        ],
+        "risks": [
+          "USB 调试会授予已确认电脑 ADB 权限；只在自己控制的电脑上授权，并在结束后撤销不再需要的授权。",
+          "Wi-Fi 视频流和防火墙放行会扩大本机网络暴露面；不要在不可信网络上默认开放。",
+          "性能、延迟、音频、耗电和长期稳定性没有经过 KitAgain 实机测试。"
+        ],
+        "recovery": [
+          "优先在非主力电脑和备用手机上试用，并先记录 Windows 端注册的组件与手机端权限。",
+          "出现问题时先停止客户端、断开 ADB/网络连接并撤销手机授权；驱动移除必须以当前上游说明或 Windows 组件记录为准。"
+        ],
+        "good_fit": [
+          "手里已有 Android 7+ 备用机和可管理的 Windows 10/11 电脑。",
+          "愿意先用 USB 路线验证，再决定是否开放 Wi-Fi 路线。"
+        ],
+        "not_fit": [
+          "需要 macOS/Linux 摄像头方案、不能取得 Windows 管理员权限，或不能接受 USB 调试。",
+          "需要已证明的跨设备低延迟、音频或长期稳定性保证。"
+        ],
+        "hub_label": "返回摄像头路线目录"
+      },
+      "en": {
+        "title": "VCamdroid: turn an old Android phone into a Windows webcam",
+        "summary": "Capture and encode video on an Android phone, send it to a Windows client over USB/ADB or the same local network, and expose it as a virtual webcam to video applications.",
+        "outcome": "Reuse a spare Android phone camera as a video input for Windows 10 or 11.",
+        "applicable_devices": [
+          "The upstream prerequisites name phones on Android 7.0 or later and PCs on Windows 10 or 11.",
+          "USB needs a data cable, ADB, and phone-side USB-debugging authorization; Wi-Fi needs a mutually reachable local network.",
+          "Camera2 behavior, hardware encoding, resolution, and stability still require per-phone verification."
+        ],
+        "prerequisites": [
+          "The Windows install.bat needs administrator rights to register the Softcam DirectShow filter.",
+          "The APK must be installed on the phone; the USB route also requires Developer Options and USB debugging.",
+          "The Wi-Fi route may need a Windows Firewall rule; check network isolation and privacy boundaries first."
+        ],
+        "stop_conditions": [
+          "Stop if the PC is not on a stated Windows version or if installing and registering a third-party virtual-camera filter is unacceptable.",
+          "If ADB never sees the device, the phone lacks the required encoding path, or AP isolation/firewall blocks Wi-Fi, troubleshoot first; do not convert failure into a compatibility claim.",
+          "The reviewed README does not document a complete uninstall/rollback procedure. Do not install on a PC where the filter-removal path cannot be established."
+        ],
+        "risks": [
+          "USB debugging grants ADB access to an approved computer. Authorize only a computer you control and revoke access when it is no longer needed.",
+          "A Wi-Fi video stream and firewall allowance increase local-network exposure; do not leave them open by default on an untrusted network.",
+          "KitAgain has not tested performance, latency, audio, battery use, or long-term stability."
+        ],
+        "recovery": [
+          "Prefer a non-primary PC and spare phone, recording the registered Windows component and phone permissions before the trial.",
+          "On failure, stop the clients, disconnect ADB/network access, and revoke phone authorization. Remove the filter only using current upstream instructions or verified Windows component records."
+        ],
+        "good_fit": [
+          "You already own a spare Android 7+ phone and administer a Windows 10/11 PC.",
+          "You can validate USB first before deciding whether to enable Wi-Fi."
+        ],
+        "not_fit": [
+          "You need a macOS/Linux route, lack Windows administrator rights, or cannot accept USB debugging.",
+          "You need proven cross-device latency, audio, or long-term reliability guarantees."
+        ],
+        "hub_label": "Back to camera routes"
+      }
+    },
+    {
+      "id": "freemarkable",
+      "source_kind": "project-lead",
+      "source_id": "freemarkable",
+      "source_entry_id": "project-lead:freemarkable",
+      "legacy_tail": "project-leads/freemarkable/",
+      "category": "ereader",
+      "hub_tail": "guides/kindle-displays/",
+      "sources": [
+        {
+          "url": "https://github.com/wowitsjack/freeMarkable/blob/master/README.md",
+          "kind": "upstream-readme",
+          "revision": "364d993feaea04ae79244824135e939d8149da32",
+          "zh_label": "freeMarkable 上游 README",
+          "en_label": "freeMarkable upstream README",
+          "zh_note": "用于核对支持设备、Python/SSH/连接前提、XOVI/AppLoad 路线和上游备份声明。",
+          "en_note": "Used to check supported devices, Python/SSH/connectivity prerequisites, the XOVI/AppLoad route, and upstream backup claims."
+        },
+        {
+          "url": "https://github.com/wowitsjack/freeMarkable/releases",
+          "kind": "upstream-releases",
+          "revision": null,
+          "zh_label": "freeMarkable 发布页",
+          "en_label": "freeMarkable releases",
+          "zh_note": "上游发布包入口；发布说明和作者支持声明不等于 KitAgain 独立复现。",
+          "en_note": "The upstream package entry; release notes and author support statements are not an independent KitAgain reproduction."
+        }
+      ],
+      "zh": {
+        "title": "freeMarkable：为 reMarkable 安装 XOVI 与第三方应用入口",
+        "summary": "通过电脑端 Python GUI 和 reMarkable 的 SSH/USB 网络连接安装 XOVI、AppLoad，并可选集成 KOReader；这是修改设备软件栈的工具，不是普通文档同步应用。",
+        "outcome": "在上游列出的 reMarkable 设备上获得第三方应用框架与启动入口。",
+        "applicable_devices": [
+          "上游 README 列出 reMarkable 1（armv6l）、reMarkable 2（armv7l/armhf）和 reMarkable Paper Pro（aarch64/arm64）。",
+          "支持范围是上游作者声明；KitAgain 没有在这些设备上独立安装或验证。",
+          "reMarkable 与 Kindle 不是同一平台；下方墨水屏专题仅作相邻决策入口，不能互换安装步骤。"
+        ],
+        "prerequisites": [
+          "电脑需要 Python 3.10 或更高版本、互联网连接，以及可运行项目启动脚本的 Windows/Linux 环境；README 也声称跨平台支持。",
+          "设备需要启用 SSH，并通过 USB 或 Wi-Fi 连接；上游明确建议只用 USB，Wi-Fi 不推荐。",
+          "安装前确认设备电量充足、架构检测结果正确，并能读回自动生成的备份。"
+        ],
+        "stop_conditions": [
+          "设备型号或 CPU 架构与上游表不一致，SSH 不可用，或电脑无法建立稳定 USB 网络连接时停止。",
+          "安装器没有成功创建可读备份、无法说明恢复位置，或用户不能接受修改系统组件时停止。",
+          "不要把上游“全设备支持”“可靠安装”等作者陈述当作 KitAgain 的兼容或成功保证。"
+        ],
+        "risks": [
+          "该路线安装 XOVI、AppLoad、可选 KOReader 和系统服务，会修改设备软件环境。",
+          "上游声明自动备份、恢复和卸载能力，但本页没有独立验证这些恢复步骤。",
+          "固件升级、架构变化、Xochitl/USB 连接异常和第三方组件更新都可能改变当前行为。"
+        ],
+        "recovery": [
+          "开始前保存安装器创建的备份、记录设备软件版本和连接方式，并确认备份可访问。",
+          "安装后若主应用或 USB 连接异常，先按上游已记录的连接排障；若无法确认恢复路径，不继续叠加安装。"
+        ],
+        "good_fit": [
+          "拥有上游列出的 reMarkable 型号，并愿意维护 SSH、Python 与第三方应用框架。",
+          "需要 XOVI/AppLoad 或 KOReader 入口，且能承担系统修改与恢复核对。"
+        ],
+        "not_fit": [
+          "只想同步文档、不能启用 SSH，或不能保留并验证备份。",
+          "需要厂商支持不变、零维护或已由 KitAgain 证明的兼容性。"
+        ],
+        "hub_label": "比较墨水屏信息显示与改造路线"
+      },
+      "en": {
+        "title": "freeMarkable: install XOVI and a third-party app entry on reMarkable",
+        "summary": "Use a desktop Python GUI plus the reMarkable SSH/USB-network connection to install XOVI and AppLoad, with optional KOReader integration. This changes the device software stack; it is not a normal document-sync app.",
+        "outcome": "Add a third-party application framework and launcher entry to reMarkable devices listed upstream.",
+        "applicable_devices": [
+          "The upstream README lists reMarkable 1 (armv6l), reMarkable 2 (armv7l/armhf), and reMarkable Paper Pro (aarch64/arm64).",
+          "That scope is an upstream author claim; KitAgain has not independently installed or verified the toolkit on those devices.",
+          "reMarkable and Kindle are different platforms. The linked e-ink guide is adjacent decision context, not interchangeable installation guidance."
+        ],
+        "prerequisites": [
+          "The computer needs Python 3.10 or later, internet access, and a Windows/Linux environment that can run the project launchers; the README also claims cross-platform support.",
+          "The device needs SSH plus USB or Wi-Fi connectivity. Upstream explicitly recommends USB and does not recommend Wi-Fi for installation.",
+          "Confirm adequate charge, the detected architecture, and a readable installer-created backup before modification."
+        ],
+        "stop_conditions": [
+          "Stop when the model or CPU architecture differs from the upstream table, SSH is unavailable, or a stable USB-network connection cannot be established.",
+          "Stop when the installer did not create a readable backup, the restore location is unclear, or system modification is unacceptable.",
+          "Do not turn upstream phrases such as all-device support or reliable installation into a KitAgain compatibility or success guarantee."
+        ],
+        "risks": [
+          "The route installs XOVI, AppLoad, optional KOReader, and system services, changing the device software environment.",
+          "Upstream claims automatic backup, restore, and uninstall features; this page has not independently verified those recovery steps.",
+          "Firmware updates, architecture changes, Xochitl/USB connection faults, and third-party component updates can change behavior."
+        ],
+        "recovery": [
+          "Before starting, retain the installer backup, record the device software version and connection method, and confirm the backup is accessible.",
+          "If the main application or USB connection fails after installation, use the documented upstream connection troubleshooting first. Do not stack more changes while recovery is unclear."
+        ],
+        "good_fit": [
+          "You own an upstream-listed reMarkable and are prepared to maintain SSH, Python, and a third-party app framework.",
+          "You need XOVI/AppLoad or KOReader access and can manage system changes and recovery checks."
+        ],
+        "not_fit": [
+          "You only need document sync, cannot enable SSH, or cannot retain and verify a backup.",
+          "You require unchanged vendor support, zero maintenance, or compatibility independently proven by KitAgain."
+        ],
+        "hub_label": "Compare e-ink display and retrofit routes"
+      }
+    },
+    {
+      "id": "atlas-ophub-hk1-box",
+      "source_kind": "lead",
+      "source_id": "atlas-ophub-hk1-box",
+      "source_entry_id": "lead:atlas-ophub-hk1-box",
+      "legacy_tail": "leads/atlas-ophub-hk1-box/",
+      "category": "tv",
+      "hub_tail": "guides/tv-box/",
+      "sources": [
+        {
+          "url": "https://github.com/ophub/amlogic-s9xxx-armbian/blob/main/README.cn.md",
+          "kind": "maintainer-supported-device-table",
+          "revision": "4a96bb2b63c4b3ce36051e439f48f309af4fef79",
+          "zh_label": "ophub Armbian 中文支持设备表",
+          "en_label": "ophub Armbian supported-device table",
+          "zh_note": "用于核对 HK1 Box、S905X3、镜像/内核路线以及外置启动、安装和备份说明。",
+          "en_note": "Used to check HK1 Box, S905X3, image/kernel routing, external boot, installation, and backup guidance."
+        },
+        {
+          "url": "https://github.com/ophub/amlogic-s9xxx-armbian/issues/414",
+          "kind": "model-specific-maintainer-thread",
+          "revision": null,
+          "zh_label": "HK1 Box 风扇与显示维护记录",
+          "en_label": "HK1 Box fan and display maintainer thread",
+          "zh_note": "特定亚克力风扇版的型号线索；不能扩大为所有同名 HK1 Box。",
+          "en_note": "A model-specific lead for an acrylic fan variant; it cannot be generalized to every box sold as HK1 Box."
+        },
+        {
+          "url": "https://github.com/ophub/amlogic-s9xxx-armbian/tree/main/documents",
+          "kind": "upstream-documentation",
+          "revision": null,
+          "zh_label": "ophub Armbian 使用文档",
+          "en_label": "ophub Armbian documentation",
+          "zh_note": "安装、更新、备份、恢复与设备树排障入口；具体命令仍以当前文档为准。",
+          "en_note": "Entry point for install, update, backup, restore, and device-tree troubleshooting; use the current docs for exact commands."
+        }
+      ],
+      "zh": {
+        "title": "HK1 Box：先外置启动，再决定是否写入 Armbian",
+        "summary": "把上游支持表中的 HK1 Box 作为 S905X3 电视盒路线核对，先从 USB/TF 启动并验证设备树、网络、存储和散热，再决定是否写入 eMMC。",
+        "outcome": "在准确板型匹配时，把闲置电视盒作为 Debian/Ubuntu 兼容的小服务器。",
+        "applicable_devices": [
+          "ophub 支持表列出的 HK1 Box / Amlogic S905X3 路线。",
+          "需要逐机核对主板、内存、网卡、存储和 meson-sm1-hk1box-vontar-x3 设备树；同名外壳不能证明一致。",
+          "特定 issue 涉及亚克力风扇版的 LED 与风扇 GPIO，不能外推到所有 HK1 Box。"
+        ],
+        "prerequisites": [
+          "保存原厂 Android 镜像和启动分区，并准备与准确硬件相符的恢复资料。",
+          "先用 USB 或 TF 卡启动，分别验证启动、网络、存储、显示、重启和温度。",
+          "明确要运行的服务、供电和散热条件；不要仅因能启动就直接写 eMMC。"
+        ],
+        "stop_conditions": [
+          "SoC、主板丝印、网卡/存储芯片或设备树无法匹配时停止。",
+          "外置启动不稳定、网络或存储缺失、风扇不转或温度异常时停止。",
+          "没有原厂备份、恢复镜像或可执行救砖路径时，不写入 eMMC。"
+        ],
+        "risks": [
+          "错误设备树可能导致无显示、无网、存储不可见或无法启动。",
+          "写入 eMMC 会替换原系统，失败可能需要恢复分区或刷回原厂镜像。",
+          "KitAgain 未实测功耗、性能、DRM、散热或长期稳定性。"
+        ],
+        "recovery": [
+          "把外置介质启动作为第一道回退；在外置启动未稳定前保持 eMMC 不变。",
+          "若已写入 eMMC，只使用与准确板型匹配的上游备份/恢复资料；无法确认时停止继续写入。"
+        ],
+        "good_fit": [
+          "手里已有可识别为 S905X3 路线的 HK1 Box，并愿意先做非破坏性外置启动。",
+          "需要 Docker、文件服务、Home Assistant 或轻量网络服务，并能维护 Linux 主机。"
+        ],
+        "not_fit": [
+          "同名盒子但板型/网卡/存储未知，或没有原厂备份。",
+          "需要即插即用媒体认证、已证明性能或零维护设备。"
+        ],
+        "hub_label": "返回电视盒专题比较路线"
+      },
+      "en": {
+        "title": "HK1 Box: boot externally before deciding on Armbian eMMC installation",
+        "summary": "Treat the HK1 Box in the upstream matrix as an S905X3 TV-box route: boot from USB or microSD, verify the device tree, network, storage, and thermals, then decide whether eMMC installation is justified.",
+        "outcome": "When the exact board matches, reuse an idle TV box as a small Debian/Ubuntu-compatible server.",
+        "applicable_devices": [
+          "The HK1 Box / Amlogic S905X3 route listed in the ophub support table.",
+          "Match the board, memory, network, storage, and meson-sm1-hk1box-vontar-x3 device tree on the actual unit; a shared enclosure name is not enough.",
+          "The linked issue discusses LED and fan GPIO on a particular acrylic fan variant and cannot be generalized to every HK1 Box."
+        ],
+        "prerequisites": [
+          "Preserve the stock Android image and boot partitions, plus recovery material for the exact hardware.",
+          "Boot from USB or microSD first and test boot, networking, storage, display, reboot, and temperature separately.",
+          "Define the intended service, power, and cooling conditions. A successful boot alone is not a reason to write eMMC."
+        ],
+        "stop_conditions": [
+          "Stop when the SoC, board marking, network/storage chip, or device tree cannot be matched.",
+          "Stop on unstable external boot, missing network/storage, a stopped fan, or unsafe temperature.",
+          "Do not write eMMC without a stock backup, recovery image, and executable rescue path."
+        ],
+        "risks": [
+          "A wrong device tree can remove display, networking, storage visibility, or boot.",
+          "Writing eMMC replaces the stock system; failure may require partition restoration or reflashing the factory image.",
+          "KitAgain has not tested power use, performance, DRM, thermals, or long-term stability."
+        ],
+        "recovery": [
+          "Use removable-media boot as the first rollback boundary and leave eMMC unchanged until external boot is stable.",
+          "After eMMC installation, use only backup/restore material matched to the exact board; stop writing when that match is unclear."
+        ],
+        "good_fit": [
+          "You already own an HK1 Box that can be identified on the S905X3 route and will validate it non-destructively first.",
+          "You need Docker, file services, Home Assistant, or light network services and can maintain a Linux host."
+        ],
+        "not_fit": [
+          "The same-name box has unknown board/network/storage hardware or no stock backup.",
+          "You need plug-and-play media certification, proven performance, or a zero-maintenance appliance."
+        ],
+        "hub_label": "Back to the TV-box comparison guide"
+      }
+    }
+  ]
+}

@@ -708,8 +708,10 @@ def build_directory_export(
     project_i18n: dict[str, dict] | None = None,
     scoring_evidence: dict | None = None,
     cost_evidence: dict | None = None,
+    project_route_overrides: dict[str, str] | None = None,
 ) -> dict:
     base = base_url.rstrip("/") + "/"
+    project_route_overrides = project_route_overrides or {}
     project_scores, lead_scores, project_lead_scores = score_all(
         projects, watchlist, details, project_leads, scoring_evidence, cost_evidence
     )
@@ -741,6 +743,7 @@ def build_directory_export(
             ),
         })
     for slug, lead in watchlist.items():
+        route = f"projects/{project_route_overrides[f'lead:{slug}']}/" if f"lead:{slug}" in project_route_overrides else f"leads/{slug}/"
         entries.append({
             "entry_id": f"lead:{slug}",
             "content_id": lead["content_id"],
@@ -752,8 +755,8 @@ def build_directory_export(
             "needs_review": False,
             "score": lead_scores[slug],
             "source_url": lead["source_url"],
-            "detail_url_zh": urljoin(base, f"zh/leads/{slug}/"),
-            "detail_url_en": urljoin(base, f"en/leads/{slug}/"),
+            "detail_url_zh": urljoin(base, f"zh/{route}"),
+            "detail_url_en": urljoin(base, f"en/{route}"),
             "reviewed_at": lead["reviewed_at"],
             "display_status": "listed",
             "action_guide": action_guide(lead_scores[slug], context=lead_action_context(lead)),
@@ -761,6 +764,7 @@ def build_directory_export(
     for lead in project_leads:
         lead_id = lead["id"]
         display_status = lead.get("display_status", "listed")
+        route = f"projects/{project_route_overrides[f'project-lead:{lead_id}']}/" if f"project-lead:{lead_id}" in project_route_overrides else f"project-leads/{lead_id}/"
         entries.append({
             "entry_id": f"project-lead:{lead_id}",
             "content_id": lead["content_id"],
@@ -772,8 +776,8 @@ def build_directory_export(
             "needs_review": lead["needs_review"],
             "score": project_lead_scores[lead_id],
             "source_url": lead["repo_url"],
-            "detail_url_zh": urljoin(base, f"zh/project-leads/{lead_id}/") if display_status == "listed" else None,
-            "detail_url_en": urljoin(base, f"en/project-leads/{lead_id}/") if display_status == "listed" else None,
+            "detail_url_zh": urljoin(base, f"zh/{route}") if display_status == "listed" else None,
+            "detail_url_en": urljoin(base, f"en/{route}") if display_status == "listed" else None,
             "reviewed_at": lead["checked_at"],
             "display_status": display_status,
             "audit_outcome": lead.get("audit_outcome"),
