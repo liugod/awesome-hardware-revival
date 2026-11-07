@@ -9,6 +9,7 @@ const fallbackImages = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data
 const config = JSON.parse(fs.readFileSync(path.join(process.cwd(), "site.config.json"), "utf8"));
 const guides = JSON.parse(fs.readFileSync(path.join(process.cwd(), "data", "guides.json"), "utf8"));
 const tra35GuideSlugs = ["tv-box", "router", "smart-plug"];
+const requiredStaticCategories = ["network", "tv", "ereader", "smarthome", "speaker"];
 const listedEntries = directory.entries.filter(entry => entry.display_status !== "delisted");
 const expected = listedEntries.length;
 const expectedScore4 = listedEntries.filter(entry => entry.score.score !== null && entry.score.score >= 4).length;
@@ -223,6 +224,7 @@ try {
       const categories = [...document.querySelectorAll("main .ai-device-index > .popular-categories:not(.home-guide-links) > .category-entry")];
       const guideEntries = [...document.querySelectorAll("main .home-guide-links > .category-entry")];
       const expectedGuideSlugs = new Set(["speaker-voice", "tv-box", "router", "smart-plug", "kindle-displays", "home-computers", "ai-retrofit", "nest-mini-local-ai"]);
+      const expectedCategorySlugs = new Set(["ereader", "network", "computer", "speaker", "tv", "smarthome"]);
       const routeThumbnails = [...document.querySelectorAll(".ai-route-thumb img")];
       return {
         h1: document.querySelectorAll("main h1").length,
@@ -231,9 +233,12 @@ try {
         placeholderMatches: document.querySelector("#home-q")?.getAttribute("placeholder") === expectedPlaceholder,
         subtitleLines: subtitle ? subtitle.getBoundingClientRect().height / lineHeight : Infinity,
         categories: categories.length,
+        categoryStates: categories.map(entry => ({ href: entry.getAttribute("href"), icon: Boolean(entry.querySelector('[aria-hidden="true"]')) })),
         categoriesValid: categories.every(entry => {
           const url = new URL(entry.href);
-          return Boolean(entry.querySelector('[aria-hidden="true"]')) && Boolean(url.searchParams.get("category"));
+          const parts = url.pathname.split("/").filter(Boolean);
+          const slug = parts.at(-1);
+          return Boolean(entry.querySelector('[aria-hidden="true"]')) && parts.at(-2) === "directory" && expectedCategorySlugs.has(slug) && !url.search;
         }),
         guideEntries: guideEntries.length,
         guideEntriesValid: guideEntries.every(entry => {
@@ -294,6 +299,41 @@ try {
     }
   }
 
+  checks.staticCategories = {};
+  for (const lang of ["en", "zh"]) {
+    for (const category of requiredStaticCategories) {
+      const response = await page.goto(`${base}/${lang}/directory/${category}/`, { waitUntil: "networkidle" });
+      await page.waitForFunction(expected => document.querySelector("#directory-category")?.value === expected, category);
+      const key = `${lang}-${category}`;
+      checks.staticCategories[key] = await page.evaluate(({ expectedCategory, responseStatus }) => {
+        const cards = [...document.querySelectorAll("#directory-grid .project")];
+        return {
+          status: responseStatus,
+          cards: cards.length,
+          categoryOnly: cards.every(card => card.dataset.category === expectedCategory),
+          canonical: document.querySelector('link[rel="canonical"]')?.href,
+          noindex: Boolean(document.querySelector('meta[name="robots"][content*="noindex"]')),
+          selectedCategory: document.querySelector("#directory-category")?.value,
+          h1: document.querySelectorAll("main h1").length
+        };
+      }, { expectedCategory: category, responseStatus: response?.status() || 0 });
+      const result = checks.staticCategories[key];
+      if (result.status !== 200 || result.cards < 1 || !result.categoryOnly || result.canonical !== `https://kitagain.com/${lang}/directory/${category}/` || result.noindex || result.selectedCategory !== category || result.h1 !== 1) {
+        throw new Error(`${key} static directory contract failed: ${JSON.stringify(result)}`);
+      }
+    }
+  }
+
+  await page.goto(`${base}/en/directory/?category=ereader`, { waitUntil: "networkidle" });
+  checks.categoryParameterSEO = await page.evaluate(() => ({
+    canonical: document.querySelector('link[rel="canonical"]')?.href,
+    robots: document.querySelector('meta[name="robots"][data-query-param-seo]')?.content || "",
+    url: location.href
+  }));
+  if (checks.categoryParameterSEO.canonical !== "https://kitagain.com/en/directory/ereader/" || checks.categoryParameterSEO.robots !== "noindex,follow") {
+    throw new Error(`Directory category parameter SEO failed: ${JSON.stringify(checks.categoryParameterSEO)}`);
+  }
+
   await page.goto(`${base}/zh/directory/`, { waitUntil: "networkidle" });
   await page.locator("#directory-q").fill("AI");
   await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project").length === total, expected);
@@ -336,11 +376,14 @@ try {
   await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project:not([hidden])").length === total, expectedScore5);
   checks.score5Visible = await page.locator("#directory-grid .project:not([hidden])").count();
   await page.locator("#directory-score").selectOption("");
-  await page.locator("#directory-category").selectOption("network");
-  await page.waitForFunction(total => document.querySelectorAll("#directory-grid .project:not([hidden])").length === total, expectedNetwork);
+  await Promise.all([
+    page.waitForURL(url => url.pathname === "/zh/directory/network/" && !url.searchParams.has("category")),
+    page.locator("#directory-category").selectOption("network")
+  ]);
+  await page.waitForFunction(() => document.querySelector("#directory-category")?.value === "network");
   checks.networkVisible = await page.locator("#directory-grid .project:not([hidden])").count();
   checks.networkValid = await page.locator("#directory-grid .project:not([hidden])").evaluateAll(cards => cards.every(card => card.dataset.category === "network"));
-  checks.networkURL = new URL(page.url()).searchParams.get("category");
+  checks.networkPath = new URL(page.url()).pathname;
 
   await page.goto(`${base}/zh/directory/?kind=reviewed-project&sort=title-asc`, { waitUntil: "networkidle" });
   const retiredScores = await page.locator("#directory-grid .project:not([hidden])").evaluateAll(cards => cards.map(card => card.dataset.score === "" ? null : Number(card.dataset.score)));
@@ -394,7 +437,11 @@ try {
         overlong,
         heroImages: document.querySelectorAll("main .project-media img").length,
         heroLoaded: [...document.querySelectorAll("main .project-media img")].every(image => image.complete && image.naturalWidth > 0),
-        placeholderMedia: document.querySelectorAll("main .project-media-placeholder,.project-thumb-placeholder").length
+        placeholderMedia: document.querySelectorAll("main .project-media-placeholder,.project-thumb-placeholder").length,
+        categoryBreadcrumbPath: (() => {
+          const link = document.querySelector("main .breadcrumbs li:nth-child(2) a");
+          return link ? new URL(link.href).pathname : null;
+        })()
       };
     }, expectedTitle);
   };
@@ -523,7 +570,7 @@ try {
   if (checks.e2Visible !== expectedE2) throw new Error("E2 filter failed");
   if (checks.combinedE0ScoreVisible !== expectedE0AtThreshold || !checks.combinedE0ScoreValid) throw new Error("Independent evidence and star filters failed");
   if (checks.score4Visible !== expectedScore4 || checks.scoreURL !== "4" || checks.score5Visible !== expectedScore5) throw new Error("Star filter or URL state failed");
-  if (checks.networkVisible !== expectedNetwork || !checks.networkValid || checks.networkURL !== "network") throw new Error("Device-category filter or URL state failed");
+  if (checks.networkVisible !== Math.min(60, expectedNetwork) || !checks.networkValid || checks.networkPath !== "/zh/directory/network/") throw new Error("Static device-category navigation failed");
   if (checks.retiredDirectoryParams.kind !== null || checks.retiredDirectoryParams.sort !== null || checks.retiredDirectoryParams.visible !== Math.min(60, expected) || !checks.retiredDirectoryParams.descending) throw new Error("Retired directory controls still affect the simplified index");
   if (checks.directoryNeedsReview !== listedNeedsReview || !checks.directoryNeedsReviewText || checks.projectSourceNeedsReview !== listedNeedsReview || !checks.projectSourceNeedsReviewText) throw new Error("Needs-review marker coverage failed");
   if (checks.projectSources !== listedProjectSources || checks.projectSourcesE0 !== listedProjectSourcesE0 || checks.projectSourcesNas < 1) throw new Error("Project-source index/filter failed");
@@ -555,6 +602,7 @@ try {
       throw new Error(`Simplified detail contract failed: ${JSON.stringify(result)}`);
     }
   }
+  if (checks.projectDetail.categoryBreadcrumbPath !== "/zh/directory/computer/" || checks.leadDetail.categoryBreadcrumbPath !== "/zh/directory/network/") throw new Error("Detail category breadcrumb did not return to a static directory page");
   if (!ratingDisplayMatches(checks.projectDetail.rating, projectEntry.score.score) || checks.projectDetail.unrated !== Number(projectEntry.score.score === null)) throw new Error("Reviewed-project detail rating failed");
   if (!ratingDisplayMatches(checks.leadDetail.rating, leadEntry.score.score) || checks.leadDetail.unrated !== Number(leadEntry.score.score === null)) throw new Error("Device-route detail rating failed");
   if (!ratingDisplayMatches(checks.projectLeadDetail.rating, projectLeadEntry.score.score) || checks.projectLeadDetail.unrated !== Number(projectLeadEntry.score.score === null)) throw new Error("Project-lead detail rating failed");

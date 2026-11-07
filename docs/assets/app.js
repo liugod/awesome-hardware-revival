@@ -61,6 +61,8 @@
     const localCards = [...document.querySelectorAll("#directory-grid .project")];
     let cards = localCards;
     cards.forEach((card, index) => { card.dataset.order = index; });
+    const fixedCategory = directoryForm.dataset.category || "";
+    const directoryRoot = new URL(directoryForm.dataset.directoryRoot || "./", location.href);
     const grid = document.querySelector("#directory-grid");
     const count = document.querySelector("#directory-result-count");
     const empty = document.querySelector("#directory-empty");
@@ -70,11 +72,11 @@
     let allCardsPromise;
     const loadAllCards = () => {
       if (allCardsPromise) return allCardsPromise;
-      const directoryRoot = new URL(pageIndex === 1 ? "./" : "../../", location.href);
+      const pageSetRoot = new URL(pageIndex === 1 ? "./" : "../../", location.href);
       const requests = [];
       for (let index = 1; index <= pageCount; index++) {
         if (index === pageIndex) continue;
-        const url = index === 1 ? directoryRoot : new URL(`page/${index}/`, directoryRoot);
+        const url = index === 1 ? pageSetRoot : new URL(`page/${index}/`, pageSetRoot);
         requests.push(fetch(url).then(response => {
           if (!response.ok) throw new Error(`Directory page ${index}: HTTP ${response.status}`);
           return response.text();
@@ -95,13 +97,15 @@
     const keys = Object.keys(controls);
     const readURL = () => {
       const params = new URLSearchParams(location.search);
-      keys.forEach(key => { controls[key].value = params.get(key) || ""; });
+      keys.forEach(key => {
+        controls[key].value = key === "category" && fixedCategory ? fixedCategory : (params.get(key) || "");
+      });
     };
     let applySequence = 0;
     const apply = async (updateURL = true) => {
       const sequence = ++applySequence;
       const terms = controls.q.value.trim().toLocaleLowerCase().split(/\s+/).filter(Boolean);
-      const filtering = terms.length > 0 || controls.category.value || controls.ai.value || controls.evidence.value || controls.score.value;
+      const filtering = terms.length > 0 || (controls.category.value && controls.category.value !== fixedCategory) || controls.ai.value || controls.evidence.value || controls.score.value;
       cards = filtering ? await loadAllCards() : localCards;
       if (sequence !== applySequence) return;
       grid.replaceChildren(...cards);
@@ -122,6 +126,10 @@
       if (updateURL) {
         const url = new URL(location.href);
         keys.forEach(key => {
+          if (key === "category" && fixedCategory) {
+            url.searchParams.delete(key);
+            return;
+          }
           const value = controls[key].value;
           value ? url.searchParams.set(key, value) : url.searchParams.delete(key);
         });
@@ -131,13 +139,22 @@
         syncLanguageLinks();
       }
     };
-    Object.values(controls).forEach(control => {
+    Object.entries(controls).filter(([key]) => key !== "category").forEach(([, control]) => {
       control.addEventListener("input", apply);
       control.addEventListener("change", apply);
     });
+    controls.category.addEventListener("change", () => {
+      const value = controls.category.value;
+      const target = value ? new URL(`${encodeURIComponent(value)}/`, directoryRoot) : new URL("./", directoryRoot);
+      for (const key of ["q", "ai", "evidence", "score"]) {
+        const selected = controls[key].value;
+        if (selected) target.searchParams.set(key, selected);
+      }
+      location.assign(target);
+    });
     directoryForm.addEventListener("submit", event => event.preventDefault());
     directoryForm.addEventListener("reset", () => {
-      Object.values(controls).forEach(control => { control.value = ""; });
+      Object.entries(controls).forEach(([key, control]) => { control.value = key === "category" ? fixedCategory : ""; });
       apply();
     });
     window.addEventListener("popstate", () => { readURL(); apply(); });

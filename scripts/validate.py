@@ -51,12 +51,14 @@ BASE=config["base_url"].rstrip("/")+"/"
 SITE_URL=urlsplit(BASE)
 LOW_INBOUND_THRESHOLD=3
 INBOUND_CONTENT_ROOTS={"articles","directory","guides","leads","project-leads","project-sources","projects","research","scoring"}
-CATEGORY_GUIDE_HUBS={"speaker":"speaker-voice","computer":"home-computers","ereader":"kindle-displays"}
+DIRECTORY_PAGE_SIZE=60
+DIRECTORY_CATEGORIES=("audio","camera","computer","ereader","gaming","mobile","network","peripheral","smarthome","speaker","tv")
 EN_CATEGORY_LABELS=dict(zip(data["labels"]["category"],["Speakers & voice","Phones & tablets","Computers & thin clients","Routers & NAS","TVs & TV boxes","E-readers & e-ink","Robots","Smart home","Cameras","Music & audio","Watches & wearables","Gaming","Printers & peripherals"]))
 APPROVED_ZH_SLOGAN="二手硬件再就业指南"
 assert (ROOT/"README.md").read_text(encoding="utf-8").startswith(f"# KitAgain · {APPROVED_ZH_SLOGAN}\n"),"Chinese README brand is locked by TRA-21"
 app_javascript=(OUT/"assets/app.js").read_text(encoding="utf-8")
 assert 'document.querySelectorAll("#directory-grid .project")' in app_javascript,"Directory filters must target directory cards"
+assert "directoryForm.dataset.directoryRoot" in app_javascript and "location.assign(target)" in app_javascript,"Directory categories must navigate to static routes"
 schema=load(ROOT/"data/catalog.schema.json")
 jsonschema.Draft202012Validator(schema,format_checker=jsonschema.FormatChecker()).validate(data)
 projects=data["projects"]
@@ -125,6 +127,12 @@ for entry_id,image in directory_images.items():
         assert "不是实机照片" in image["caption_zh"] and "not an actual device photo" in image["caption_en"],entry_id
 author_socials=load(ROOT/"data/author-socials.json")
 watchlist,watchlist_details=load_watchlist(ROOT/"data")
+directory_category_counts=collections.Counter(project["category"] for project in projects)
+directory_category_counts.update(lead["category"] for lead in watchlist.values())
+directory_category_counts.update(lead["category"] for lead in listed_project_leads)
+assert all(directory_category_counts[category]>0 for category in DIRECTORY_CATEGORIES),"Every static directory category must be non-empty"
+static_category_entry_count=sum(directory_category_counts[category] for category in DIRECTORY_CATEGORIES)
+static_category_page_count=sum(math.ceil(directory_category_counts[category]/DIRECTORY_PAGE_SIZE) for category in DIRECTORY_CATEGORIES)
 project_ids={project["id"] for project in projects}
 project_lead_ids={lead["id"] for lead in listed_project_leads}
 for slug in tra35_guide_slugs:
@@ -605,11 +613,10 @@ def audit_detail_navigation(file,markup,lang,category,title,current_url,label):
     items=schema["itemListElement"]
     assert len(items)==3 and [item["position"] for item in items]==[1,2,3],(label,"breadcrumb positions")
     home_url=BASE if lang=="en" else BASE+"zh/"
-    hub=CATEGORY_GUIDE_HUBS.get(category)
     category_url=(
-        f"{BASE}{lang}/guides/{hub}/"
-        if hub
-        else f"{BASE}{lang}/directory/?category={category}"
+        f"{BASE}{lang}/directory/{category}/"
+        if category in DIRECTORY_CATEGORIES
+        else f"{BASE}{lang}/directory/"
     )
     expected_names=["Home" if lang=="en" else "首页",(EN_CATEGORY_LABELS if lang=="en" else data["labels"]["category"])[category],title]
     assert [item["name"] for item in items]==expected_names,(label,"breadcrumb names")
@@ -662,10 +669,10 @@ for file in OUT.rglob("*.html"):
     if file.is_relative_to(OUT/"en"):
         assert parser.lang=="en" and not re.search(r"[\u4e00-\u9fff]","".join(parser.text)),("Chinese visible text on English page",file)
 delisted_count=len(project_leads)-len(listed_project_leads)
-directory_page_count=(len(projects)+len(watchlist)+len(listed_project_leads)+59)//60
+directory_page_count=math.ceil((len(projects)+len(watchlist)+len(listed_project_leads))/DIRECTORY_PAGE_SIZE)
 tra35_guide_card_count=sum(len(guides[slug]["entries"]) for slug in tra35_guide_slugs)
-assert card_page_count==18+2*len(tra35_guide_slugs)+2*(directory_page_count-1) and generated_card_count==2240+2*tra35_guide_card_count-4*delisted_count,("complete generated card audit",card_page_count,generated_card_count)
-assert len(pages)==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)+len(bare_redirect_targets)
+assert card_page_count==18+2*len(tra35_guide_slugs)+2*(directory_page_count-1)+2*static_category_page_count and generated_card_count==2240+2*tra35_guide_card_count-4*delisted_count+2*static_category_entry_count,("complete generated card audit",card_page_count,generated_card_count)
+assert len(pages)==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)+2*static_category_page_count+len(bare_redirect_targets)
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 for kind,target_ids,route in [
@@ -748,7 +755,9 @@ for lang in ["zh","en"]:
     assert directory_markup.count(parameter_seo_marker)==1,(lang,"directory query-parameter SEO guard")
     assert 'p.has("q")||p.has("category")' in directory_markup,(lang,"directory filter parameters covered")
     assert 'r.content="noindex,follow"' in directory_markup,(lang,"directory filtered views noindex")
-    assert f'c.href="{BASE}{lang}/directory/"' in directory_markup,(lang,"directory filtered-view clean canonical")
+    assert f'||"{BASE}{lang}/directory/"' in directory_markup,(lang,"directory filtered-view clean canonical")
+    for category in DIRECTORY_CATEGORIES:
+        assert f'"{category}":"{BASE}{lang}/directory/{category}/"' in directory_markup,(lang,category,"parameter category canonical")
     audit_project_cards(directory_markup,(lang,"directory"))
     directory_markups=[directory_markup]
     for page_number in range(2,directory_page_count+1):
@@ -758,7 +767,7 @@ for lang in ["zh","en"]:
         assert paged.canonical==[f"{BASE}{lang}/directory/page/{page_number}/"],(lang,page_number,"paged directory canonical")
         paged_markup=paged_file.read_text(encoding="utf-8")
         assert paged_markup.count(parameter_seo_marker)==1,(lang,page_number,"paged query-parameter SEO guard")
-        assert f'c.href="{BASE}{lang}/directory/"' in paged_markup,(lang,page_number,"paged filtered-view clean canonical")
+        assert f'||"{BASE}{lang}/directory/"' in paged_markup,(lang,page_number,"paged filtered-view clean canonical")
         directory_markups.append(paged_markup)
     combined_directory_markup="".join(directory_markups)
     assert sum(audit_project_cards(markup,(lang,"directory page",index)) for index,markup in enumerate(directory_markups,1))==len(projects)+len(watchlist)+len(listed_project_leads),(lang,"paged directory coverage")
@@ -778,6 +787,30 @@ for lang in ["zh","en"]:
     assert 'id="directory-kind"' not in directory_markup and 'id="directory-sort"' not in directory_markup,(lang,"directory removed secondary controls")
     assert 'class="directory-info"' in directory_markup and '>ⓘ</a>' in directory_markup and '../about/#scoring' in directory_markup,(lang,"directory scoring info link")
     assert "directory.json" not in " ".join(directory_page.refs) and "directory.csv" not in " ".join(directory_page.refs),(lang,"directory downloads must live on About")
+    generated_category_dirs={path.name for path in (OUT/lang/"directory").iterdir() if path.is_dir() and path.name!="page"}
+    assert generated_category_dirs==set(DIRECTORY_CATEGORIES),(lang,"static directory category set",generated_category_dirs)
+    for category in DIRECTORY_CATEGORIES:
+        category_count=directory_category_counts[category]
+        category_page_count=math.ceil(category_count/DIRECTORY_PAGE_SIZE)
+        category_markups=[]
+        for page_number in range(1,category_page_count+1):
+            category_file=(
+                OUT/lang/"directory"/category/"index.html"
+                if page_number==1
+                else OUT/lang/"directory"/category/"page"/str(page_number)/"index.html"
+            )
+            category_page=pages[category_file.resolve()]
+            expected_canonical=f"{BASE}{lang}/directory/{category}/" + ("" if page_number==1 else f"page/{page_number}/")
+            assert category_page.canonical==[expected_canonical],(lang,category,page_number,"static category canonical")
+            category_markup=category_file.read_text(encoding="utf-8")
+            assert '<meta name="robots" content="noindex' not in category_markup,(lang,category,page_number,"clean static category indexability")
+            assert category_markup.count(parameter_seo_marker)==1,(lang,category,page_number,"category query guard")
+            assert f'||"{BASE}{lang}/directory/{category}/"' in category_markup,(lang,category,page_number,"category filtered canonical")
+            assert f'data-category="{category}"' in category_markup,(lang,category,page_number,"category route state")
+            category_markups.append(category_markup)
+        combined_category_markup="".join(category_markups)
+        assert sum(audit_project_cards(markup,(lang,category,index)) for index,markup in enumerate(category_markups,1))==category_count,(lang,category,"static category coverage")
+        assert set(re.findall(r'<article class="project[^>]*data-category="([^"]+)"',combined_category_markup))=={category},(lang,category,"static category purity")
     for slug in ["ai-retrofit","nest-mini-local-ai"]:
         guide=pages[(OUT/lang/"guides"/slug/"index.html").resolve()]
         assert guide.canonical==[f"{BASE}{lang}/guides/{slug}/"],(lang,slug,"guide canonical")
@@ -862,7 +895,9 @@ for lang in ["zh","en"]:
     assert 'directory/?ai=native' in home_markup and 'directory/?q=AI' not in home_markup,(lang,"homepage structured AI filter link")
     assert home_markup.count('class="home-subtitle"')==1,(lang,"homepage subtitle")
     assert home_markup.count('class="ai-route-thumb ')==3,(lang,"homepage reviewed-route thumbnail coverage")
-    assert home_markup.count('class="category-entry"')>=4,(lang,"homepage popular categories")
+    homepage_categories=("ereader","network","computer","speaker","tv","smarthome")
+    assert all(f'href="directory/{category}/"' in home_markup for category in homepage_categories),(lang,"homepage static category links")
+    assert 'href="directory/?category=' not in home_markup,(lang,"homepage parameter category link remains")
     expected_home_guides=["speaker-voice","kindle-displays","home-computers","tv-box","router","smart-plug","ai-retrofit","nest-mini-local-ai"]
     assert all(f'href="guides/{slug}/"' in home_markup for slug in expected_home_guides),(lang,"homepage device guide links")
     expected_action_anchors=["旧电视与电视盒：比较","旧路由器：核对","智能插座：核对"] if lang=="zh" else ["Old TVs and TV boxes: compare","Old routers: check","Smart plugs: check"]
@@ -1134,7 +1169,7 @@ for source,target in bare_redirect_targets.items():
     assert f'href="{target_path}"' in markup,(source,"redirect fallback link")
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+4+2*(directory_page_count-1)
+assert len(urls)==len(set(urls))==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+4+2*(directory_page_count-1)+2*static_category_page_count
 lastmods=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}lastmod")]
 scoring_dates=[value[:10] for value in [scoring_evidence.get("checked_at"),*(entry.get("checked_at") for entry in scoring_evidence_items)] if value]
 expected_lastmod=max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"],*scoring_dates)
@@ -1142,6 +1177,11 @@ assert len(lastmods)==len(urls) and set(lastmods)=={expected_lastmod},"Sitemap l
 assert BASE in urls and BASE+"en/" not in urls
 assert BASE+"zh/about/" in urls and BASE+"en/about/" in urls
 for lang in ("en","zh"):
+    for category in DIRECTORY_CATEGORIES:
+        category_page_count=math.ceil(directory_category_counts[category]/DIRECTORY_PAGE_SIZE)
+        assert BASE+f"{lang}/directory/{category}/" in urls,(lang,category,"static category missing from sitemap")
+        for page_number in range(2,category_page_count+1):
+            assert BASE+f"{lang}/directory/{category}/page/{page_number}/" in urls,(lang,category,page_number,"static category pagination missing from sitemap")
     for slug in ("tv-box","router","smart-plug"):
         assert BASE+f"{lang}/guides/{slug}/" in urls,(lang,slug,"device hub missing from sitemap")
 for source,target in bare_redirect_targets.items():

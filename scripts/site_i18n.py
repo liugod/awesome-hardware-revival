@@ -94,11 +94,6 @@ USES = [
     ("music","音乐播放","Music playback"),("driver-repair","驱动修复","Driver repair"),
 ]
 USE_IDS = {zh: uid for uid, zh, en in USES}
-CATEGORY_GUIDE_HUBS = {
-    "speaker": "speaker-voice",
-    "computer": "home-computers",
-    "ereader": "kindle-displays",
-}
 DEVICE_GUIDE_RELATIONS = {
     ("project", "rootmytv"): [
         ("tv-box", "旧电视与电视盒：比较网页应用、媒体系统与 Linux 路线", "Old TVs and TV boxes: compare web apps, media systems, and Linux routes"),
@@ -208,6 +203,19 @@ SOURCE_KINDS = {
 PATHS = []
 SCORE_FILTER_VALUES = [step / 2 for step in range(2, 11)]
 DIRECTORY_PAGE_SIZE = 60
+DIRECTORY_CATEGORIES = (
+    "audio",
+    "camera",
+    "computer",
+    "ereader",
+    "gaming",
+    "mobile",
+    "network",
+    "peripheral",
+    "smarthome",
+    "speaker",
+    "tv",
+)
 
 
 def score_text(value):
@@ -260,7 +268,7 @@ class Site:
     def rel(self, target, current):
         return posixpath.relpath(target, posixpath.dirname(current) or ".")
 
-    def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None, query_parameter_canonical=None, redirect_to=None):
+    def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None, query_parameter_canonical=None, query_parameter_categories=None, redirect_to=None):
         current = legacy or f"{self.lang}/{tail}"
         canonical = BASE if self.lang == "en" and tail == "index.html" else BASE + f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
         other = "en" if self.lang == "zh" else "zh"
@@ -284,7 +292,8 @@ class Site:
         query_parameter_seo = ""
         if query_parameter_canonical:
             clean_canonical = json.dumps(query_parameter_canonical)
-            query_parameter_seo = f'''<script data-query-param-seo>(function(){{var p=new URLSearchParams(window.location.search);if(p.has("q")||p.has("category")){{var r=document.createElement("meta");r.name="robots";r.content="noindex,follow";r.setAttribute("data-query-param-seo","");document.head.appendChild(r);var c=document.querySelector('link[rel="canonical"]');if(c)c.href={clean_canonical};}}}})();</script>'''
+            category_canonicals = json.dumps(query_parameter_categories or {}, separators=(",", ":"))
+            query_parameter_seo = f'''<script data-query-param-seo>(function(){{var p=new URLSearchParams(window.location.search);if(p.has("q")||p.has("category")){{var r=document.createElement("meta");r.name="robots";r.content="noindex,follow";r.setAttribute("data-query-param-seo","");document.head.appendChild(r);var c=document.querySelector('link[rel="canonical"]'),m={category_canonicals},v=p.get("category");if(c)c.href=m[v]||{clean_canonical};}}}})();</script>'''
         redirect_markup = ""
         if redirect_to:
             assert BASE.rstrip("/") + redirect_to == canonical, (current, redirect_to, canonical)
@@ -321,16 +330,13 @@ class Site:
 
     def breadcrumb(self, category, title, current, canonical_tail):
         home_url = BASE if self.lang == "en" else f"{BASE}zh/"
-        hub = CATEGORY_GUIDE_HUBS.get(category)
-        if hub:
-            category_target = f"{self.lang}/guides/{hub}/index.html"
-            category_url = f"{BASE}{self.lang}/guides/{hub}/"
+        if category in DIRECTORY_CATEGORIES:
+            category_target = f"{self.lang}/directory/{category}/index.html"
+            category_url = f"{BASE}{self.lang}/directory/{category}/"
         else:
             category_target = f"{self.lang}/directory/index.html"
-            category_url = f"{BASE}{self.lang}/directory/?category={quote(category, safe='')}"
-        category_href = self.rel(category_target, current)
-        if not hub:
-            category_href += f"?category={quote(category, safe='')}"
+            category_url = f"{BASE}{self.lang}/directory/"
+        category_href = self.rel(category_target, current).removesuffix("index.html") or "./"
         current_url = f"{BASE}{self.lang}/{canonical_tail}"
         items = [
             {"@type": "ListItem", "position": 1, "name": self.t("首页", "Home"), "item": home_url},
@@ -640,7 +646,7 @@ class Site:
             ("smarthome", "⌂", t("智能家居", "Smart home")),
         ]
         category_links = "".join(
-            f'<a class="category-entry" href="directory/?category={key}"><span class="category-icon" aria-hidden="true">{icon}</span><span>{h(label)}</span></a>'
+            f'<a class="category-entry" href="directory/{key}/"><span class="category-icon" aria-hidden="true">{icon}</span><span>{h(label)}</span></a>'
             for key, icon, label in categories
         )
         guide_hubs = [
@@ -993,59 +999,112 @@ class Site:
 
     def directory(self):
         t = self.t
-        all_cards = []
-        for project in PROJECTS:
-            record = PROJECT_SCORES[project["id"]]
-            all_cards.append((*score_sort_key(record, project["name"]), self.card(project, "../", show_thumbnail=True)))
-        for slug, lead in WATCHLIST.items():
-            record = LEAD_SCORES[slug]
-            all_cards.append((*score_sort_key(record, lead[self.lang]["title"]), self.lead_card(slug, lead, "../leads/", show_placeholder=True)))
-        for lead in LISTED_PROJECT_LEADS:
-            record = PROJECT_LEAD_SCORES[lead["id"]]
-            all_cards.append((*score_sort_key(record, lead["name"]), self.project_lead_card(lead, "../project-leads/", show_placeholder=True)))
-        all_cards.sort(key=lambda item: item[:3])
-        category_options = "".join(f'<option value="{h(key)}">{h(value)}</option>' for key,value in self.labels["category"].items())
+        directory_root = OUT / self.lang / "directory"
+        if directory_root.exists():
+            for generated_subdirectory in directory_root.iterdir():
+                if generated_subdirectory.is_dir():
+                    shutil.rmtree(generated_subdirectory)
+        category_options = "".join(
+            f'<option value="{h(key)}">{h(self.labels["category"][key])}</option>'
+            for key in DIRECTORY_CATEGORIES
+        )
         evidence_options = "".join(f'<option value="{level}">{level} · {h(self.labels["evidence"][level])}</option>' for level in ["E0","E1","E2","E3"])
         score_options = score_filter_options()
-        counts = DIRECTORY_EXPORT["counts"]
-        visible_count = counts["listed_entries"]
-        pages = [all_cards[index:index + DIRECTORY_PAGE_SIZE] for index in range(0, len(all_cards), DIRECTORY_PAGE_SIZE)]
-        page_count = len(pages)
-        for page_index, page_cards in enumerate(pages, 1):
-            tail = "directory/index.html" if page_index == 1 else f"directory/page/{page_index}/index.html"
-            prefix = "" if page_index == 1 else "../../"
-            page_links = []
-            for target_index in range(1, page_count + 1):
-                if target_index == 1:
-                    href = "./" if page_index == 1 else "../../"
-                elif page_index == 1:
-                    href = f"page/{target_index}/"
+        def records_for(category=None):
+            records = []
+            for project in PROJECTS:
+                if category and project["category"] != category:
+                    continue
+                score = PROJECT_SCORES[project["id"]]
+                records.append((*score_sort_key(score, project["name"]), "project", project))
+            for slug, lead in WATCHLIST.items():
+                if category and lead["category"] != category:
+                    continue
+                score = LEAD_SCORES[slug]
+                records.append((*score_sort_key(score, lead[self.lang]["title"]), "lead", (slug, lead)))
+            for lead in LISTED_PROJECT_LEADS:
+                if category and lead["category"] != category:
+                    continue
+                score = PROJECT_LEAD_SCORES[lead["id"]]
+                records.append((*score_sort_key(score, lead["name"]), "project-lead", lead))
+            records.sort(key=lambda item: item[:3])
+            return records
+
+        def render_card(record, current):
+            content_prefix = posixpath.relpath(self.lang, posixpath.dirname(current)) + "/"
+            asset_prefix = posixpath.relpath(".", posixpath.dirname(current)) + "/"
+            kind, item = record[-2:]
+            if kind == "project":
+                return self.card(item, content_prefix, show_thumbnail=True, asset_prefix=asset_prefix)
+            if kind == "lead":
+                slug, lead = item
+                return self.lead_card(slug, lead, content_prefix + "leads/", show_placeholder=True, asset_prefix=asset_prefix)
+            return self.project_lead_card(item, content_prefix + "project-leads/", show_placeholder=True, asset_prefix=asset_prefix)
+
+        category_canonicals = {
+            category: f"{BASE}{self.lang}/directory/{category}/"
+            for category in DIRECTORY_CATEGORIES
+        }
+
+        def render_pages(category=None):
+            records = records_for(category)
+            if not records:
+                return
+            record_pages = [records[index:index + DIRECTORY_PAGE_SIZE] for index in range(0, len(records), DIRECTORY_PAGE_SIZE)]
+            page_count = len(record_pages)
+            visible_count = len(records)
+            category_label = self.labels["category"].get(category) if category else None
+            clean_canonical = f"{BASE}{self.lang}/directory/" + (f"{category}/" if category else "")
+            for page_index, page_records in enumerate(record_pages, 1):
+                if category:
+                    tail = f"directory/{category}/index.html" if page_index == 1 else f"directory/{category}/page/{page_index}/index.html"
                 else:
-                    href = f"../{target_index}/"
-                current = ' aria-current="page"' if target_index == page_index else ""
-                page_links.append(f'<a href="{href}"{current}>{target_index}</a>')
-            start = (page_index - 1) * DIRECTORY_PAGE_SIZE + 1
-            end = min(page_index * DIRECTORY_PAGE_SIZE, visible_count)
-            cards_html = ''.join(item[-1] for item in page_cards)
-            if page_index > 1:
-                cards_html = cards_html.replace('href="../', 'href="../../../')
-                cards_html = cards_html.replace('src="../../assets/projects/', 'src="../../../../assets/projects/')
-                cards_html = cards_html.replace('src="../../assets/directory/', 'src="../../../../assets/directory/')
-                cards_html = cards_html.replace('src="../../assets/fallback/', 'src="../../../../assets/fallback/')
-            title = t(f"全部 {visible_count} 条硬件复活记录", f"All {visible_count} hardware-revival records")
-            if page_index > 1:
-                title += t(f" · 第 {page_index} 页", f" · Page {page_index}")
-            body = f'''<div class="detail-wrap wide directory-page"><section class="detail-head directory-head"><h1>{t("全部设备与改造记录","All hardware-revival records")}</h1></section>
-<form id="directory-filters" class="filters directory-filters" role="search" data-page-count="{page_count}" data-page-index="{page_index}" data-page-size="{DIRECTORY_PAGE_SIZE}"><div class="search-field"><label class="sr-only" for="directory-q">{t("搜索设备、型号、项目或来源","Search device, model, project, or source")}</label><input id="directory-q" type="search" placeholder="{t('搜索设备、型号、项目或来源','Search device, model, project, or source')}" autocomplete="off"></div><div class="filter-grid directory-filter-row"><label>{t("设备","Device")}<select id="directory-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("AI 功能","AI functionality")}<select id="directory-ai"><option value="">{t("全部路线","All routes")}</option><option value="native">{t("已审 AI 功能","Reviewed AI functionality")}</option></select></label><label>{t("最低星级","Minimum stars")}<select id="directory-score"><option value="">{t("不限","Any score")}</option>{score_options}</select></label><label>{t("证据","Evidence")}<select id="directory-evidence"><option value="">{t("全部证据","All evidence")}</option>{evidence_options}</select></label><a class="directory-info" href="{prefix}../about/#scoring" aria-label="{t('了解评分与证据','About scoring and evidence')}" title="{t('了解评分与证据','About scoring and evidence')}">ⓘ</a></div><p id="directory-result-count" class="sr-only" role="status" aria-live="polite">{t("显示","Showing")} {len(page_cards)} / {visible_count}</p></form>
-<p class="directory-page-range">{t(f'当前显示第 {start}–{end} 条；使用筛选时会加载全部分页。',f'Showing records {start}–{end}; filtering loads all directory pages.')}</p>
+                    tail = "directory/index.html" if page_index == 1 else f"directory/page/{page_index}/index.html"
+                current = f"{self.lang}/{tail}"
+                page_set_root = "./" if page_index == 1 else "../../"
+                global_directory_root = self.rel(f"{self.lang}/directory/index.html", current).removesuffix("index.html") or "./"
+                about_href = self.rel(f"{self.lang}/about/index.html", current).removesuffix("index.html") + "#scoring"
+                page_links = []
+                for target_index in range(1, page_count + 1):
+                    href = page_set_root if target_index == 1 else (f"page/{target_index}/" if page_index == 1 else f"../{target_index}/")
+                    selected = ' aria-current="page"' if target_index == page_index else ""
+                    page_links.append(f'<a href="{href}"{selected}>{target_index}</a>')
+                start = (page_index - 1) * DIRECTORY_PAGE_SIZE + 1
+                end = min(page_index * DIRECTORY_PAGE_SIZE, visible_count)
+                cards_html = "".join(render_card(record, current) for record in page_records)
+                heading = (
+                    t(f"{category_label}路线", f"{category_label} routes")
+                    if category
+                    else t("全部设备与改造记录", "All hardware-revival records")
+                )
+                title = (
+                    t(f"{category_label}：{visible_count} 条硬件复活记录", f"{category_label}: {visible_count} hardware-revival records")
+                    if category
+                    else t(f"全部 {visible_count} 条硬件复活记录", f"All {visible_count} hardware-revival records")
+                )
+                if page_index > 1:
+                    title += t(f" · 第 {page_index} 页", f" · Page {page_index}")
+                description = (
+                    t(f"浏览 {category_label} 分类中的 {visible_count} 条项目、设备路线与来源，并按星级和证据筛选。", f"Browse {visible_count} projects, device routes, and sources in {category_label}, with star and evidence filters.")
+                    if category
+                    else t("统一搜索设备、型号、项目、来源、复活星级和独立证据等级。", "Search every device, model, project, source, revival-star score, and independent evidence grade.")
+                )
+                body = f'''<div class="detail-wrap wide directory-page"><section class="detail-head directory-head"><h1>{h(heading)}</h1></section>
+<form id="directory-filters" class="filters directory-filters" role="search" data-page-count="{page_count}" data-page-index="{page_index}" data-page-size="{DIRECTORY_PAGE_SIZE}" data-category="{h(category or '')}" data-directory-root="{h(global_directory_root)}"><div class="search-field"><label class="sr-only" for="directory-q">{t("搜索设备、型号、项目或来源","Search device, model, project, or source")}</label><input id="directory-q" type="search" placeholder="{t('搜索设备、型号、项目或来源','Search device, model, project, or source')}" autocomplete="off"></div><div class="filter-grid directory-filter-row"><label>{t("设备","Device")}<select id="directory-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("AI 功能","AI functionality")}<select id="directory-ai"><option value="">{t("全部路线","All routes")}</option><option value="native">{t("已审 AI 功能","Reviewed AI functionality")}</option></select></label><label>{t("最低星级","Minimum stars")}<select id="directory-score"><option value="">{t("不限","Any score")}</option>{score_options}</select></label><label>{t("证据","Evidence")}<select id="directory-evidence"><option value="">{t("全部证据","All evidence")}</option>{evidence_options}</select></label><a class="directory-info" href="{h(about_href)}" aria-label="{t('了解评分与证据','About scoring and evidence')}" title="{t('了解评分与证据','About scoring and evidence')}">ⓘ</a></div><p id="directory-result-count" class="sr-only" role="status" aria-live="polite">{t("显示","Showing")} {len(page_records)} / {visible_count}</p></form>
+<p class="directory-page-range">{t(f'当前显示第 {start}–{end} 条；使用筛选时会加载该分类的全部分页。' if category else f'当前显示第 {start}–{end} 条；使用筛选时会加载全部分页。',f'Showing records {start}–{end}; filtering loads all pages in this category.' if category else f'Showing records {start}–{end}; filtering loads all directory pages.')}</p>
 <div id="directory-grid" class="project-grid">{cards_html}</div><div id="directory-empty" class="empty" hidden><h3>{t("暂时没有匹配路线","No matching route")}</h3><p>{t("减少一个筛选条件，或换一个设备/型号词。","Remove a filter or try another device/model term.")}</p></div><nav class="directory-pagination" aria-label="{t('目录分页','Directory pagination')}">{''.join(page_links)}</nav></div>'''
-            self.page(
-                title,
-                t("统一搜索设备、型号、项目、来源、复活星级和独立证据等级。","Search every device, model, project, source, revival-star score, and independent evidence grade."),
-                body,
-                tail,
-                query_parameter_canonical=f"{BASE}{self.lang}/directory/",
-            )
+                self.page(
+                    title,
+                    description,
+                    body,
+                    tail,
+                    query_parameter_canonical=clean_canonical,
+                    query_parameter_categories=category_canonicals if not category else None,
+                )
+
+        render_pages()
+        for category in DIRECTORY_CATEGORIES:
+            render_pages(category)
 
     def project_sources(self):
         t = self.t
