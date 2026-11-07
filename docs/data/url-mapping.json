@@ -1,5 +1,5 @@
 {
-  "note": "Historical project pages remain readable with canonical links. Bare utility and guide routes use 200 HTML redirect pages because GitHub Pages cannot emit arbitrary 301 redirects.",
+  "note": "Historical project pages retain canonical mappings. Legacy lead, utility, and guide routes use noindex 200 HTML redirect pages because GitHub Pages cannot emit arbitrary 301 redirects.",
   "mappings": {
     "projects/xiaogpt.html": "zh/projects/xiaogpt/",
     "projects/open-xiaoai.html": "zh/projects/open-xiaoai/",
@@ -64,6 +64,12 @@
     "guides/tv-box/index.html": "en/guides/tv-box/",
     "privacy/index.html": "en/privacy/",
     "terms/index.html": "en/terms/",
-    "contact/index.html": "en/contact/"
+    "contact/index.html": "en/contact/",
+    "zh/project-leads/vcamdroid/index.html": "zh/projects/vcamdroid/",
+    "zh/project-leads/freemarkable/index.html": "zh/projects/freemarkable/",
+    "zh/leads/atlas-ophub-hk1-box/index.html": "zh/projects/atlas-ophub-hk1-box/",
+    "en/project-leads/vcamdroid/index.html": "en/projects/vcamdroid/",
+    "en/project-leads/freemarkable/index.html": "en/projects/freemarkable/",
+    "en/leads/atlas-ophub-hk1-box/index.html": "en/projects/atlas-ophub-hk1-box/"
   }
 }

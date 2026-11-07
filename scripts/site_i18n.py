@@ -36,6 +36,10 @@ DATA = json.loads((ROOT / "data/catalog.json").read_text(encoding="utf-8"))
 PROJECT_LEAD_DATA = json.loads((ROOT / "data/project-leads.json").read_text(encoding="utf-8"))
 PROJECT_LEADS = PROJECT_LEAD_DATA["projects"]
 LISTED_PROJECT_LEADS = [lead for lead in PROJECT_LEADS if lead.get("display_status", "listed") == "listed"]
+LEAD_PROJECT_UPGRADE_DATA = json.loads((ROOT / "data/lead-project-upgrades.json").read_text(encoding="utf-8"))
+LEAD_PROJECT_UPGRADES = LEAD_PROJECT_UPGRADE_DATA["projects"]
+LEAD_PROJECT_UPGRADES_BY_ENTRY = {item["source_entry_id"]: item for item in LEAD_PROJECT_UPGRADES}
+LEAD_PROJECT_ROUTE_OVERRIDES = {entry_id: item["id"] for entry_id, item in LEAD_PROJECT_UPGRADES_BY_ENTRY.items()}
 SCORING_EVIDENCE_PATH = ROOT / "data/scoring-evidence.json"
 SCORING_EVIDENCE = json.loads(SCORING_EVIDENCE_PATH.read_text(encoding="utf-8")) if SCORING_EVIDENCE_PATH.exists() else {}
 SCORING_EVIDENCE_ITEMS = SCORING_EVIDENCE.get("entries", {})
@@ -268,6 +272,17 @@ class Site:
     def rel(self, target, current):
         return posixpath.relpath(target, posixpath.dirname(current) or ".")
 
+    def source_detail_href(self, source_entry_id, prefix, source_id):
+        upgrade = LEAD_PROJECT_UPGRADES_BY_ENTRY.get(source_entry_id)
+        if not upgrade:
+            return f"{prefix}{source_id}/"
+        source_segment = "project-leads/" if source_entry_id.startswith("project-lead:") else "leads/"
+        if not prefix:
+            assert source_segment == "leads/", (source_entry_id, prefix)
+            return f"../projects/{upgrade['id']}/"
+        assert prefix.endswith(source_segment), (source_entry_id, prefix)
+        return f"{prefix[:-len(source_segment)]}projects/{upgrade['id']}/"
+
     def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None, query_parameter_canonical=None, query_parameter_categories=None, redirect_to=None):
         current = legacy or f"{self.lang}/{tail}"
         canonical = BASE if self.lang == "en" and tail == "index.html" else BASE + f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
@@ -313,12 +328,20 @@ class Site:
         if not legacy:
             PATHS.append(f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html")))
 
-    def redirect(self, source, target_tail, label):
+    def redirect(self, source, target_tail, label, project=False):
         target_path = f"/{self.lang}/" + target_tail.removesuffix("index.html")
-        body = f'''<div class="detail-wrap"><section class="detail-head"><h1>{h(label)}</h1><p class="intro">This address has moved to the English version of the page.</p><p><a href="{h(target_path)}">Continue to {h(target_path)}</a></p></section></div>'''
+        if project:
+            description = self.t("继续前往 canonical 项目页。", "Continue to the canonical project page.")
+            intro = self.t("此地址已迁移到新的完整项目页。", "This address has moved to the complete project page.")
+            continue_label = self.t("继续前往", "Continue to")
+        else:
+            description = "Continue to the canonical English page."
+            intro = "This address has moved to the English version of the page."
+            continue_label = "Continue to"
+        body = f'''<div class="detail-wrap"><section class="detail-head"><h1>{h(label)}</h1><p class="intro">{intro}</p><p><a href="{h(target_path)}">{continue_label} {h(target_path)}</a></p></section></div>'''
         self.page(
             label,
-            "Continue to the canonical English page.",
+            description,
             body,
             target_tail,
             legacy=source,
@@ -444,7 +467,11 @@ class Site:
         assert 3 <= len(selected) <= 6
         items = []
         for _, _, kind, _, item in selected:
-            target = f"{self.lang}/{'projects' if kind == 'project' else 'project-leads'}/{item['id']}/index.html"
+            if kind == "project":
+                target = f"{self.lang}/projects/{item['id']}/index.html"
+            else:
+                upgrade = LEAD_PROJECT_UPGRADES_BY_ENTRY.get(f"project-lead:{item['id']}")
+                target = f"{self.lang}/{'projects/' + upgrade['id'] if upgrade else 'project-leads/' + item['id']}/index.html"
             href = self.rel(target, current)
             evidence = item["evidence"]["level"] if kind == "project" else item["evidence_level"]
             meta = f"{self.labels['category'][item['category']]} · {evidence}"
@@ -606,12 +633,13 @@ class Site:
         search = " ".join([v["title"], v["summary"], lead.get("device_name", ""), lead.get("device_model", ""), *self.lead_hardware_values(slug,lead), platform, lead.get("discovery_channel", "")])
         attrs = f'data-search="{h(search)}" data-title="{h(v["title"])}" data-category="{h(lead["category"])}" data-source="{h(platform)}" data-evidence="{h(evidence)}" data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="device-or-community-route" data-channel="{h(lead.get("discovery_channel", "legacy"))}"'
         entry_id = f"lead:{slug}"
-        image = self.directory_card_image(entry_id, f"{prefix}{slug}/", asset_prefix) if show_placeholder else ""
+        href = self.source_detail_href(entry_id, prefix, slug)
+        image = self.directory_card_image(entry_id, href, asset_prefix) if show_placeholder else ""
         if show_placeholder and not image:
             raise ValueError(f"Missing card image: {entry_id}")
         media = image
         media_class = (" has-media has-image" + (" has-fallback" if entry_id in FALLBACK_IMAGES else "")) if image else ""
-        return f"""<article class="project{media_class}" {attrs}>{media}<h3><a href="{prefix}{slug}/">{h(anchor_label or v['title'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(evidence)}</div></article>"""
+        return f"""<article class="project{media_class}" {attrs}>{media}<h3><a href="{h(href)}">{h(anchor_label or v['title'])}</a></h3><p class="card-outcome" title="{h(v['summary'])}">{h(v['summary'])}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(evidence)}</div></article>"""
 
     def project_lead_card(self, lead, prefix="project-leads/", show_placeholder=False, asset_prefix="../../", anchor_label=None):
         score = PROJECT_LEAD_SCORES[lead["id"]]
@@ -628,12 +656,13 @@ class Site:
             f'data-score="{score_data_value(score)}" data-rated="{str(score["score"] is not None).lower()}" data-kind="project-source-lead" data-needs-review="{str(lead["needs_review"]).lower()}"'
         )
         entry_id = f'project-lead:{lead["id"]}'
-        image = self.directory_card_image(entry_id, f'{prefix}{lead["id"]}/', asset_prefix) if show_placeholder else ""
+        href = self.source_detail_href(entry_id, prefix, lead["id"])
+        image = self.directory_card_image(entry_id, href, asset_prefix) if show_placeholder else ""
         if show_placeholder and not image:
             raise ValueError(f"Missing card image: {entry_id}")
         media = image
         media_class = (" has-media has-image" + (" has-fallback" if entry_id in FALLBACK_IMAGES else "")) if image else ""
-        return f'''<article class="project{media_class}" {attrs}>{media}<h3><a href="{h(prefix+lead['id']+'/')}">{h(anchor_label or lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}</div></article>'''
+        return f'''<article class="project{media_class}" {attrs}>{media}<h3><a href="{h(href)}">{h(anchor_label or lead['name'])}</a></h3><p class="card-outcome" title="{h(use_case)}">{h(use_case)}</p><div class="card-meta">{self.rating(score)}{self.evidence_tag(lead["evidence_level"], needs_review=lead["needs_review"])}</div></article>'''
 
     def home(self):
         t = self.t
@@ -1106,6 +1135,67 @@ class Site:
         for category in DIRECTORY_CATEGORIES:
             render_pages(category)
 
+    def upgraded_projects(self):
+        for upgrade in LEAD_PROJECT_UPGRADES:
+            source_entry_id = upgrade["source_entry_id"]
+            if upgrade["source_kind"] == "project-lead":
+                source = next(item for item in PROJECT_LEADS if item["id"] == upgrade["source_id"])
+                source_kind = "project-lead"
+                evidence = source["evidence_level"]
+                needs_review = source["needs_review"]
+                score = PROJECT_LEAD_SCORES[source["id"]]
+                source_snapshot = [
+                    self.t("仓库归档", "Repository archived"),
+                    self.t("是", "Yes") if source["archived"] else self.t("否", "No"),
+                    self.t("最后 push", "Last push"),
+                    source["pushed_at"],
+                ]
+            else:
+                source = WATCHLIST[upgrade["source_id"]]
+                source_kind = "lead"
+                evidence = source.get("evidence_level", "E0")
+                needs_review = False
+                score = LEAD_SCORES[upgrade["source_id"]]
+                source_snapshot = [
+                    self.t("资料核查", "Sources reviewed"),
+                    source["reviewed_at"],
+                    self.t("上游版本", "Upstream revision"),
+                    source.get("upstream_revision") or self.t("待核实", "Unknown"),
+                ]
+
+            localized = upgrade[self.lang]
+            current = f"{self.lang}/projects/{upgrade['id']}/index.html"
+            rel = lambda target: self.rel(target, current)
+            breadcrumb = self.breadcrumb(upgrade["category"], localized["title"], current, f"projects/{upgrade['id']}/")
+            media = self.detail_entry_image(source_entry_id, current)
+            if not media:
+                raise ValueError(f"Missing upgraded-project image: {source_entry_id}")
+            sources = "".join(
+                f'''<li><div class="resource-head">{self.link(item["url"], item[self.lang + "_label"] + " ↗")}<span>{h(item["kind"])}</span></div><span class="resource-note">{h(item[self.lang + "_note"])}</span><small>{h(item["url"])}</small></li>'''
+                for item in upgrade["sources"]
+            )
+            snapshot_rows = "".join(
+                f"<li><b>{h(source_snapshot[index])}</b> {h(source_snapshot[index + 1])}</li>"
+                for index in range(0, len(source_snapshot), 2)
+            )
+            related = self.related_projects(source_kind, source, current)
+            body = f'''<div class="detail-wrap record-detail">{breadcrumb}<article class="project-detail project-pilot"><a class="back" href="{rel(self.lang + '/directory/index.html')}">← {self.t('返回全部路线','Back to all routes')}</a>
+<section class="detail-head project-hero"><div class="project-hero-copy"><p class="eyebrow">LEAD → COMPLETE PROJECT</p><h1>{h(localized["title"])}</h1><div class="project-purpose"><span>{self.t('用户结果','USER OUTCOME')}</span><p>{h(localized["summary"])}</p></div><div class="detail-meta-row">{self.evidence_tag(evidence, needs_review=needs_review)}<a class="about-link" href="{rel(self.lang + '/about/index.html')}">{self.t('了解证据与评分','About evidence and scoring')} ↗</a></div></div><div class="project-hero-visual">{media}</div></section>
+<section class="project-overview project-section"><h2>{self.t('项目概述','Project overview')}</h2><p>{h(localized["outcome"])}</p><p class="project-reviewed">{self.t('本页公开资料核查','Public sources reviewed')} <time datetime="{LEAD_PROJECT_UPGRADE_DATA['reviewed_at']}">{LEAD_PROJECT_UPGRADE_DATA['reviewed_at']}</time></p></section>
+{self.rating_detail(score)}
+<section class="project-section"><h2>{self.t('适用设备','Applicable devices')}</h2>{ul(localized["applicable_devices"], 'detail-list')}<h3>{self.t('适合谁','A good fit if')}</h3>{ul(localized["good_fit"], 'detail-list')}<h3>{self.t('先别选，如果','Skip this route if')}</h3>{ul(localized["not_fit"], 'detail-list')}</section>
+<section class="project-preflight project-section"><h2>{self.t('动手前','Before you start')}</h2>{ul(localized["prerequisites"], 'detail-list')}<div class="lead-verdict project-stop"><p class="eyebrow">{self.t('停止条件','STOP CONDITIONS')}</p>{ul(localized["stop_conditions"], 'detail-list')}</div></section>
+<section class="project-risk project-section"><h2>{self.t('风险与恢复','Risk and recovery')}</h2><h3>{self.t('主要风险','Key risks')}</h3>{ul(localized["risks"], 'detail-list')}<h3>{self.t('回退边界','Recovery boundary')}</h3>{ul(localized["recovery"], 'detail-list')}</section>
+<section class="project-section project-topic-backlink"><h2>{self.t('继续比较专题路线','Continue through the topic hub')}</h2><p><a href="{h(rel(self.lang + '/' + upgrade['hub_tail'] + 'index.html'))}">{h(localized["hub_label"])} →</a></p></section>
+<section class="project-evidence project-section"><h2>{self.t('证据、维护与来源','Evidence, maintenance, and sources')}</h2><ul class="detail-list"><li><b>{self.t('实机状态','Hands-on status')}</b> {self.t('KitAgain 未对此路线进行实机测试。','KitAgain has not tested this route hands-on.')}</li>{snapshot_rows}<li>{self.t('上游作者声明不等于 KitAgain 独立复现；未取证的兼容、性能、成本和长期稳定性继续保持未知。','Upstream author claims are not an independent KitAgain reproduction; unevidenced compatibility, performance, cost, and long-term stability remain unknown.')}</li></ul><h3>{self.t('逐项来源','Source ledger')}</h3><ul class="resource-list">{sources}</ul></section>{related}</article></div>'''
+            self.page(
+                localized["title"],
+                localized["summary"],
+                body,
+                f"projects/{upgrade['id']}/index.html",
+                asset_version=DETAIL_NAV_ASSET_VERSION,
+            )
+
     def project_sources(self):
         t = self.t
         cards = []
@@ -1124,6 +1214,8 @@ class Site:
         self.page(t("项目来源","Project sources"),t("按仓库 URL 去重的硬件复活项目来源，保留 30 条深审的证据与展示判定。","Hardware-revival project sources deduplicated by repository URL with evidence and display decisions from the 30-item deep audit."),body,"project-sources/index.html")
 
         for lead in LISTED_PROJECT_LEADS:
+            if f"project-lead:{lead['id']}" in LEAD_PROJECT_UPGRADES_BY_ENTRY:
+                continue
             summary = lead["summary_zh" if self.lang == "zh" else "summary_en"]
             page_override = PROJECT_PAGE_VISUAL.get("project_leads", {}).get(lead["id"], {})
             content_override = page_override.get("content", {}).get(self.lang, {})
@@ -1164,6 +1256,8 @@ class Site:
         sections = f'<aside class="boundary"><b>{self.t("先看证据等级","Check the evidence level")}</b><p>{self.t("E1 表示已经读取具体型号的配置或维护记录；E0 表示目前只确认了设备与来源之间的联系。两者都需要在动手前核对准确型号、硬件修订和恢复方式。","E1 means an exact-model configuration or maintainer record was read. E0 means only the device/source connection is established. Both still require exact model, hardware revision and recovery checks before action.")}</p></aside>{search}<div id="lead-grid" class="project-grid">{cards}</div><div id="lead-empty" class="empty" hidden><h3>{self.t("暂时没有匹配设备","No matching device")}</h3><p>{self.t("换一个型号、品牌或来源词试试。","Try another model, brand or source term.")}</p></div>'
         self.article(self.t("设备图谱与社区线索","Device atlas and community leads"),intro,sections,"leads/index.html")
         for slug,lead in WATCHLIST.items():
+            if f"lead:{slug}" in LEAD_PROJECT_UPGRADES_BY_ENTRY:
+                continue
             v = lead[self.lang]
             details = WATCHLIST_DETAILS[slug]
             decision = details[self.lang]
@@ -1208,6 +1302,7 @@ DIRECTORY_EXPORT = build_directory_export(
     project_i18n=EN["projects"],
     scoring_evidence=SCORING_EVIDENCE,
     cost_evidence=COST_EVIDENCE,
+    project_route_overrides=LEAD_PROJECT_ROUTE_OVERRIDES,
 )
 
 def build():
@@ -1233,6 +1328,14 @@ def build():
         for p in PROJECTS:
             s.detail(p)
             if lang=="zh":s.detail(p,legacy=True)
+        s.upgraded_projects()
+        for upgrade in LEAD_PROJECT_UPGRADES:
+            s.redirect(
+                f"{lang}/{upgrade['legacy_tail']}index.html",
+                f"projects/{upgrade['id']}/index.html",
+                s.t("正在前往完整项目页", "Redirecting to the complete project page"),
+                project=True,
+            )
     guide_redirect_slugs = sorted({*GUIDES, "ai-retrofit", "nest-mini-local-ai"})
     bare_redirects = {
         **{f"guides/{slug}/index.html": f"guides/{slug}/index.html" for slug in guide_redirect_slugs},
@@ -1248,6 +1351,7 @@ def build():
     write(OUT/"data/directory.csv",directory_csv(DIRECTORY_EXPORT))
     write(OUT/"data/project-leads.json",json.dumps(PROJECT_LEAD_DATA,ensure_ascii=False,indent=2)+"\n")
     write(OUT/"data/project-leads.csv",project_leads_csv(PROJECT_LEADS))
+    write(OUT/"data/lead-project-upgrades.json",json.dumps(LEAD_PROJECT_UPGRADE_DATA,ensure_ascii=False,indent=2)+"\n")
     shutil.copyfile(SCORING_EVIDENCE_PATH, OUT/"data/scoring-evidence.json")
     for path in [COST_EVIDENCE_PATH, ROOT/"data/scoring-evidence-batch2-v120.json", ROOT/"data/e0-audit-v120.json", ROOT/"data/action-guides-v120.json"]:
         if path.exists():
@@ -1299,12 +1403,25 @@ def build():
     entry = entry.replace('class="brand" href="en/index.html"','class="brand" href="index.html"')
     write(OUT/"index.html",entry)
     urls = [""]+[p for p in PATHS if p != "en/"]
-    write(OUT/"sitemap.xml",'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"\n".join(f"<url><loc>{h(BASE+p)}</loc><lastmod>{CONTENT_DATE}</lastmod></url>" for p in urls)+"\n</urlset>\n")
+    upgraded_project_paths = {
+        f"{lang}/projects/{upgrade['id']}/"
+        for lang in ("zh", "en")
+        for upgrade in LEAD_PROJECT_UPGRADES
+    }
+    write(OUT/"sitemap.xml",'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"\n".join(
+        f"<url><loc>{h(BASE+p)}</loc><lastmod>{LEAD_PROJECT_UPGRADE_DATA['reviewed_at'] if p in upgraded_project_paths else CONTENT_DATE}</lastmod></url>"
+        for p in urls
+    )+"\n</urlset>\n")
     migrations = {
-        "note":"Historical project pages remain readable with canonical links. Bare utility and guide routes use 200 HTML redirect pages because GitHub Pages cannot emit arbitrary 301 redirects.",
+        "note":"Historical project pages retain canonical mappings. Legacy lead, utility, and guide routes use noindex 200 HTML redirect pages because GitHub Pages cannot emit arbitrary 301 redirects.",
         "mappings":{
             **{f"projects/{p['id']}.html":f"zh/projects/{p['id']}/" for p in PROJECTS},
             **{source:f"en/{target.removesuffix('index.html')}" for source,target in bare_redirects.items()},
+            **{
+                f"{lang}/{upgrade['legacy_tail']}index.html":f"{lang}/projects/{upgrade['id']}/"
+                for lang in ("zh", "en")
+                for upgrade in LEAD_PROJECT_UPGRADES
+            },
         },
     }
     write(OUT/"data/url-mapping.json",json.dumps(migrations,ensure_ascii=False,indent=2)+"\n")
