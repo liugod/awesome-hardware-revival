@@ -73,5 +73,114 @@
         ["What to record when choosing", ["Boot mode, disk logical sectors, networking/peripheral support and behavior after reboot.", "Power, noise, disks and accessories depend on the actual device. This catalog has no measurements or prices.", "Use external media or backups to reduce switching costs. The linked project pages provide original documentation and route-specific limits."]]
       ]
     }
+  },
+  "tv-box": {
+    "entries": [
+      {"kind": "project", "id": "libreelec", "zh_anchor": "受支持旧设备：比较 LibreELEC 媒体中心路线", "en_anchor": "Supported older device: compare the LibreELEC media-center route"},
+      {"kind": "project", "id": "coreelec", "zh_anchor": "Amlogic 电视盒：比较 CoreELEC 媒体中心路线", "en_anchor": "Amlogic TV box: compare the CoreELEC media-center route"},
+      {"kind": "project", "id": "armbian-tv", "zh_anchor": "Amlogic / Rockchip 电视盒：核对 Armbian Linux 路线", "en_anchor": "Amlogic / Rockchip TV box: review the Armbian Linux route"},
+      {"kind": "project", "id": "webos-homebrew", "zh_anchor": "旧 LG webOS 电视：核对 Homebrew 应用扩展路线", "en_anchor": "Older LG webOS TV: review the Homebrew app-extension route"},
+      {"kind": "project", "id": "rootmytv", "zh_anchor": "旧 LG webOS 电视：核对 RootMyTV 历史解锁路线", "en_anchor": "Older LG webOS TV: review the historical RootMyTV unlock route"},
+      {"kind": "lead", "id": "atlas-ophub-hk1-box", "zh_anchor": "HK1 Box：核对 Armbian 小服务器路线", "en_anchor": "HK1 Box: verify an Armbian small-server route"}
+    ],
+    "zh": {
+      "title": "旧电视与电视盒再利用：媒体系统、网页应用还是 Linux？",
+      "intro": "先分清设备是智能电视还是电视盒，再核对芯片、固件与恢复路径；同名外壳和相近型号不能证明镜像兼容。",
+      "seo": {
+        "title": "旧电视与电视盒再利用：媒体系统或 Linux | 二手硬件再就业指南 · KitAgain",
+        "description": "比较旧电视与电视盒的 LibreELEC、CoreELEC、Armbian 和 webOS 路线；先核对准确型号、芯片、固件、外置启动与恢复条件。"
+      },
+      "sections": [
+        ["先确认设备类型", ["电视盒路线通常依赖 SoC、主板、内存、网卡与设备树；商品名相同也可能更换内部硬件。", "webOS 电视路线依赖具体固件和已公开入口；旧漏洞已修复时，不要把历史教程当作当前可用方案。"]],
+        ["媒体系统还是小服务器", ["LibreELEC 与 CoreELEC 都是专用媒体系统；先在各自支持范围内找准确设备与当前镜像。", "Armbian 盒子路线应先从 USB 或存储卡启动，确认网络和存储，再考虑写入 eMMC。", "HK1 Box 仅在上游设备表与板型、设备树都匹配时继续；收录不等于 KitAgain 实机验证。"]],
+        ["开始前的最低检查", ["保存原厂固件、分区或原主板，并找到与准确硬件版本对应的恢复资料。", "分别验证启动、显示、网络、遥控、存储和重启；一项失败不能由其他项目的成功记录替代。", "本站没有补充功耗、性能、DRM 或长期稳定性测试；未知项继续保持未知。"]]
+      ]
+    },
+    "en": {
+      "title": "Reuse old TVs and TV boxes: media, web apps, or Linux?",
+      "intro": "First distinguish a smart TV from a TV box, then match the chipset, firmware, and recovery path. Similar names and enclosures do not establish image compatibility.",
+      "seo": {
+        "title": "Reuse Old TVs & TV Boxes: Media or Linux? | KitAgain",
+        "description": "Compare LibreELEC, CoreELEC, Armbian, and webOS routes for old TVs and TV boxes; verify the exact model, chipset, firmware, boot path, and recovery first."
+      },
+      "sections": [
+        ["Identify the device type first", ["TV-box routes depend on the SoC, board, memory, network hardware, and device tree. The same retail name may hide changed internals.", "webOS TV routes depend on exact firmware and a documented entry point. Do not treat a historical exploit as current when later firmware patched it."]],
+        ["Choose media OS or small server", ["LibreELEC and CoreELEC are dedicated media systems; locate the exact device and a current image within each project's stated scope.", "For an Armbian box route, boot from USB or removable storage and verify networking and storage before considering eMMC installation.", "Continue with HK1 Box only when the upstream device table, board, and device tree match. Inclusion is not a KitAgain hardware test."]],
+        ["Minimum checks before changing it", ["Preserve stock firmware, partitions, or the original board, and find recovery material for the exact hardware revision.", "Test boot, display, network, remote, storage, and reboot separately. A success report for another box cannot replace a failed check.", "This guide adds no power, performance, DRM, or long-term stability tests; unsupported facts remain unknown."]]
+      ]
+    }
+  },
+  "router": {
+    "entries": [
+      {"kind": "project", "id": "openwrt", "zh_anchor": "受支持路由器：比较 OpenWrt 替代固件路线", "en_anchor": "Supported router: compare an OpenWrt replacement-firmware route"},
+      {"kind": "project", "id": "freshTomato", "zh_anchor": "受支持 Broadcom 路由器：核对 FreshTomato 固件路线", "en_anchor": "Supported Broadcom router: review a FreshTomato firmware route"},
+      {"kind": "lead", "id": "atlas-enshi-xiaomi-ax9000", "zh_anchor": "Xiaomi AX9000：核对 OpenWrt 社区路线", "en_anchor": "Xiaomi AX9000: verify the community OpenWrt route"},
+      {"kind": "lead", "id": "atlas-enshi-xiaomi-mi-router-ax3000t", "zh_anchor": "Xiaomi AX3000T：核对 OpenWrt 社区路线", "en_anchor": "Xiaomi AX3000T: verify the community OpenWrt route"},
+      {"kind": "lead", "id": "atlas-enshi-xiaomi-mi-router-4a-gigabit-edition", "zh_anchor": "Xiaomi Router 4A Gigabit：核对 OpenWrt 社区路线", "en_anchor": "Xiaomi Router 4A Gigabit: verify the community OpenWrt route"},
+      {"kind": "lead", "id": "atlas-enshi-xiaomi-redmi-router-ax6s", "zh_anchor": "Xiaomi Redmi AX6S：核对 OpenWrt 社区路线", "en_anchor": "Xiaomi Redmi AX6S: verify the community OpenWrt route"}
+    ],
+    "zh": {
+      "title": "旧路由器再利用：刷机前先核对型号、分区与恢复",
+      "intro": "OpenWrt 或 FreshTomato 能否使用取决于准确型号和硬件修订；固件文件名、论坛包或相似外观都不能替代逐型号安装资料。",
+      "seo": {
+        "title": "旧路由器刷 OpenWrt 前先核对恢复 | 二手硬件再就业指南 · KitAgain",
+        "description": "比较旧路由器的 OpenWrt 与 FreshTomato 路线，并从 Xiaomi 型号线索继续核对硬件修订、首次安装、分区布局、备份与恢复条件。"
+      },
+      "sections": [
+        ["先找到准确配置档", ["记录底部标签、地区版本与硬件修订，再到上游支持表或固件选择器定位准确配置档。", "Xiaomi AX9000、AX3000T、4A Gigabit 与 Redmi AX6S 是不同目标；不能因品牌相同而互换镜像。"]],
+        ["区分升级与首次安装", ["sysupgrade、factory、initramfs 等文件承担不同用途；只按准确设备页的首次安装说明操作。", "社区汇总适合发现型号，但不能替代官方设备 Info、分区布局、引导方式与恢复步骤。", "FreshTomato 只适用于其支持表内设备；没有列出型号时不要据此推断可用。"]],
+        ["先准备恢复，再判断用途", ["保存原厂配置与必要分区，确认救援模式、串口或厂商恢复工具确实适用于该修订。", "先验证有线网络、管理入口、重启和回滚，再考虑拨号、无线或附加服务。", "本站没有对吞吐、覆盖、功耗或长期稳定性做实机比较。"]]
+      ]
+    },
+    "en": {
+      "title": "Reuse an old router: verify model, partitions, and recovery first",
+      "intro": "OpenWrt or FreshTomato support depends on the exact model and hardware revision. Image names, forum bundles, and similar enclosures cannot replace model-specific install material.",
+      "seo": {
+        "title": "Reuse an Old Router with OpenWrt Safely | KitAgain",
+        "description": "Compare OpenWrt and FreshTomato routes for old routers, then use Xiaomi model leads to verify hardware revision, first install, partitions, and recovery."
+      },
+      "sections": [
+        ["Find the exact profile first", ["Record the bottom label, region, and hardware revision, then resolve the exact profile in the upstream support table or firmware selector.", "Xiaomi AX9000, AX3000T, 4A Gigabit, and Redmi AX6S are different targets. A shared brand does not make their images interchangeable."]],
+        ["Separate upgrade from first install", ["sysupgrade, factory, and initramfs images serve different purposes. Follow only the exact device page's first-install instructions.", "A community roundup can discover a model, but it does not replace official device Info, partition layout, boot method, and recovery steps.", "FreshTomato applies only to devices in its support scope. Do not infer support for an unlisted model."]],
+        ["Prepare recovery before choosing a job", ["Save stock configuration and required partitions, then confirm that rescue mode, serial access, or the vendor recovery tool matches the revision.", "Verify wired networking, management access, reboot, and rollback before adding routing, Wi-Fi, or extra services.", "KitAgain has not compared throughput, coverage, power, or long-term stability on hardware."]]
+      ]
+    }
+  },
+  "smart-plug": {
+    "entries": [
+      {"kind": "project", "id": "openbeken", "zh_anchor": "BK7231 智能插座：比较 OpenBeken 本地控制路线", "en_anchor": "BK7231 smart plug: compare an OpenBeken local-control route"},
+      {"kind": "project", "id": "esphome", "zh_anchor": "受支持智能插座：比较 ESPHome 本地控制路线", "en_anchor": "Supported smart plug: compare an ESPHome local-control route"},
+      {"kind": "project", "id": "tasmota", "zh_anchor": "受支持 ESP 智能插座：比较 Tasmota 本地控制路线", "en_anchor": "Supported ESP smart plug: compare a Tasmota local-control route"},
+      {"kind": "lead", "id": "atlas-esphome-sonoff-s31", "zh_anchor": "Sonoff S31：核对 ESPHome 本地控制配置", "en_anchor": "Sonoff S31: verify an ESPHome local-control configuration"},
+      {"kind": "lead", "id": "atlas-esphome-shelly-plug-s", "zh_anchor": "Shelly Plug S：核对 ESPHome 本地控制配置", "en_anchor": "Shelly Plug S: verify an ESPHome local-control configuration"},
+      {"kind": "lead", "id": "atlas-esphome-athom-smart-plug-pg04v3-uk16a", "zh_anchor": "Athom PG04V3 UK16A：核对 ESPHome 本地控制配置", "en_anchor": "Athom PG04V3 UK16A: verify an ESPHome local-control configuration"},
+      {"kind": "lead", "id": "atlas-esphome-kogan-smarterhome-smart-plug-with-energy-meter", "zh_anchor": "Kogan Smart Plug：核对 ESPHome 本地控制配置", "en_anchor": "Kogan Smart Plug: verify an ESPHome local-control configuration"}
+    ],
+    "zh": {
+      "title": "智能插座本地化：先核对芯片、板型与安全条件",
+      "intro": "OpenBeken、ESPHome 与 Tasmota 都要求准确硬件匹配；同一商品名可能换芯，市电设备还需要合格的断电、隔离与恢复条件。",
+      "seo": {
+        "title": "智能插座本地控制：核对芯片与刷写 | 二手硬件再就业指南 · KitAgain",
+        "description": "比较智能插座的 OpenBeken、ESPHome 与 Tasmota 本地控制路线；拆机或刷写前核对准确型号、主控芯片、PCB、地区电气规格和恢复方法。"
+      },
+      "sections": [
+        ["先识别内部硬件", ["核对完整型号、地区电气规格、PCB 与主控芯片；外壳和商品页名称不能证明内部硬件相同。", "OpenBeken 面向其文档列出的 BK7231 等芯片，ESPHome 与 Tasmota 则需匹配对应设备配置或模板。"]],
+        ["从型号页决定路线", ["Sonoff S31 与 Shelly Plug S 已有具体型号资料入口，仍需核对当前硬件修订与刷写方式。", "Athom 与 Kogan 条目目前是型号级线索；在读取芯片、引脚、刷写和恢复资料前，不把它们当作即刷即用固件。", "需要保留电量统计时，还要逐项验证电压、电流、功率和累计值；不能从开关成功推断计量准确。"]],
+        ["市电安全与验收", ["断电并确认隔离后才能打开外壳；不在裸露带电状态下探测，也不由本站替代合格的电气判断。", "先备份原始 flash 与校准数据，再分别验证开关、断电恢复、网络失效和本地控制。", "本站没有新增安全认证、负载测试、计量校准或长期运行结论。"]]
+      ]
+    },
+    "en": {
+      "title": "Local smart plugs: verify the chip, board, and safety conditions",
+      "intro": "OpenBeken, ESPHome, and Tasmota all require an exact hardware match. A product name may hide a changed chip, and mains devices need safe isolation and a recovery route.",
+      "seo": {
+        "title": "Reuse a Smart Plug for Local Control | KitAgain",
+        "description": "Compare OpenBeken, ESPHome, and Tasmota routes for local smart-plug control; verify the exact model, controller, PCB, and recovery before flashing."
+      },
+      "sections": [
+        ["Identify the internal hardware first", ["Match the complete model, regional electrical specification, PCB, and controller. The enclosure and product-page name do not establish identical internals.", "OpenBeken targets documented BK7231-family and other listed chips, while ESPHome and Tasmota require a matching device configuration or template."]],
+        ["Choose from the exact-model page", ["Sonoff S31 and Shelly Plug S have exact-model source entries, but the current hardware revision and flashing method still need confirmation.", "The Athom and Kogan entries remain model-level leads. Do not treat them as flash-ready firmware until chip, pins, flashing, and recovery have been read.", "If energy monitoring matters, verify voltage, current, power, and accumulated values separately. A working relay does not prove metering accuracy."]],
+        ["Mains safety and acceptance", ["Open the enclosure only after disconnecting and isolating power. Never probe exposed energized hardware, and do not treat this guide as qualified electrical judgment.", "Back up original flash and calibration data, then test switching, power-loss recovery, network failure, and local control separately.", "KitAgain adds no safety certification, load test, metering calibration, or long-term hardware result."]]
+      ]
+    }
   }
 }
