@@ -735,6 +735,7 @@ class Site:
         content_override = project_visual.get("content", {}).get(self.lang, {})
         lead = content_override.get("lead", v["summary"])
         seo = project_visual.get("seo", {}).get(self.lang)
+        intent_html = "" if legacy else project_visual.get("intent_html", {}).get(self.lang, "")
         d = (DEEP_EN if self.lang == "en" else DEEP).get(p["id"])
         is_pilot = not legacy and p["id"] in PROJECT_PAGE_VISUAL_IDS
         current = f"projects/{p['id']}.html" if legacy else f"{self.lang}/projects/{p['id']}/index.html"
@@ -764,6 +765,9 @@ class Site:
                 ],
                 "openbeken": [
                     (self.lang + "/guides/ai-retrofit/index.html", t("BK7231 智能设备：比较本地 MQTT 与其他改造路线", "BK7231 smart devices: compare local MQTT with other retrofit routes")),
+                ],
+                "rootmytv": [
+                    (self.lang + "/projects/webos-homebrew/index.html", t("Root 后：查看 webOS Homebrew Channel 的应用扩展与恢复边界", "After root: review webOS Homebrew Channel apps and recovery limits")),
                 ],
             }
             if p["id"] in related_routes:
@@ -800,7 +804,7 @@ class Site:
         recovery_guide_item = "" if p["id"] == "onju-v2" and not p["risk"]["recovery_url"] else f'<li>{self.link(p["risk"]["recovery_url"],t("恢复资料","Recovery guide")+" ↗")}</li>'
         if not is_pilot:
             body = f"""<div class="detail-wrap record-detail">{breadcrumb}<a class="back" href="{rel(self.lang+'/directory/index.html')}">← {t('返回全部路线','Back to all routes')}</a><section class="detail-head"><h1>{h(p['name'])}</h1><ul class="detail-list detail-intro"><li>{h(lead)}</li></ul><div class="detail-meta-row">{self.evidence_tag(p['evidence']['level'])}<a class="about-link" href="{rel(self.lang+'/about/index.html')}">{t('了解证据与评分','About evidence and scoring')} ↗</a></div>{self.rating_detail(PROJECT_SCORES[p['id']])}{project_media}</section>
-<section><h2>{t('它能变成什么','What it can become')}</h2>{outcome_list}<ul class="detail-list"><li><b>{t('设备范围','Hardware scope')}</b> {h(v['device_scope'])}</li><li><b>{t('设备类别','Category')}</b> {h(self.labels['category'][p['category']])}</li><li><b>{t('AI 关系','AI relationship')}</b> {h(self.labels['ai'][p['ai_relation']])}</li><li><b>{t('路线类型','Route type')}</b> {h(types[p['entry_type']])}</li><li><b>{t('资料最近核对','Sources last checked')}</b> {p['checked_at'][:10]}</li></ul>{self.project_hardware_tags(p,rel(self.lang+'/directory/index.html'),'directory-grid')}</section>
+{intent_html}<section><h2>{t('它能变成什么','What it can become')}</h2>{outcome_list}<ul class="detail-list"><li><b>{t('设备范围','Hardware scope')}</b> {h(v['device_scope'])}</li><li><b>{t('设备类别','Category')}</b> {h(self.labels['category'][p['category']])}</li><li><b>{t('AI 关系','AI relationship')}</b> {h(self.labels['ai'][p['ai_relation']])}</li><li><b>{t('路线类型','Route type')}</b> {h(types[p['entry_type']])}</li><li><b>{t('资料最近核对','Sources last checked')}</b> {p['checked_at'][:10]}</li></ul>{self.project_hardware_tags(p,rel(self.lang+'/directory/index.html'),'directory-grid')}</section>
 <section><h2>{t('动手前','Before you start')}</h2><ul class="detail-list">{requirement_items}{limitation_items}<li><b>{t('固件','Firmware')}</b> {h(v['firmware_requirement'] or t('待核实','Unknown'))}</li><li><b>{t('地区版本','Region')}</b> {h(v['region_requirement'] or t('待核实','Unknown'))}</li>{self.cost_detail(PROJECT_SCORES[p['id']])}{cost_items}</ul><ul class="detail-links"><li>{self.link(p['repo_url'],t('项目主页','Project page')+' ↗')}</li><li>{self.link(p['tutorial_url'],t('原始教程','Original guide')+' ↗')}</li><li>{self.link(p['compatibility_url'],t('型号兼容资料','Compatibility source')+' ↗')}</li></ul></section>{self.action_guide_detail(PROJECT_SCORES[p['id']], context=project_action_context(p, EN['projects'][p['id']]))}
 <section><h2>{t('风险与恢复','Risk and recovery')}</h2><ul class="detail-list"><li><b>{t('数据丢失风险','Data-loss risk')}</b> {h(t(*RISKS[p['risk']['data_loss']]))}</li><li><b>{t('刷坏 / 无法启动风险','Bricking / boot-failure risk')}</b> {h(t(*RISKS[p['risk']['bricking']]))}</li><li><b>{t('恢复路线','Recovery route')}</b> {h(v['recovery'])}</li>{recovery_guide_item}</ul></section>{extra}
 <section><h2>{t('证据、维护与来源','Evidence, maintenance, and sources')}</h2><ul class="detail-list"><li><b>{p['evidence']['level']} · {h(self.labels['evidence'][p['evidence']['level']])}</b> {h(v['evidence_reason'])}</li><li><b>{t('实机状态','Hands-on status')}</b> {t('KitAgain 未对此设备进行实机测试。','KitAgain has not tested this device hands-on.')}</li><li><b>{t('维护状态','Maintenance')}</b> {h(self.labels['maintenance'][p['maintenance']['status']])}</li><li><b>{t('GitHub 最后 push','Last GitHub push')}</b> {h(p['maintenance']['last_push_at'] or t('待核实','Unknown'))}</li><li><b>{t('仓库许可证','Repository license')}</b> {self.link(p['license']['url'],license_label)}</li><li>{t('近期 push 不证明型号可用；根许可证也不自动覆盖固件、模型、品牌或第三方组件。','A recent push does not prove model compatibility, and a root license does not automatically cover firmware, models, brands, or third-party components.')}</li></ul><ul class="resource-list">{sources}</ul></section>{social_section}{related_projects}</div>"""
