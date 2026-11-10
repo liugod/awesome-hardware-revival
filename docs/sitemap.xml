@@ -16,6 +16,7 @@
 <url><loc>https://kitagain.com/zh/guides/tv-box/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/guides/router/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/guides/smart-plug/</loc><lastmod>2026-10-24</lastmod></url>
+<url><loc>https://kitagain.com/zh/guides/xiaomi-openwrt-routers/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/guides/ai-retrofit/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/guides/nest-mini-local-ai/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/articles/kindle-model-firmware/</loc><lastmod>2026-10-24</lastmod></url>
@@ -269,9 +270,6 @@
 <url><loc>https://kitagain.com/zh/leads/atlas-tasmota-shelly-plus-0-10v-dimmer/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-tasmota-signstek-eop03-eu/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-tasmota-slitinto-nx-sm112-v2/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-ax1800/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-ax3600/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-ax6000/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-ax9000/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-ax3000t/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-wr30u/</loc><lastmod>2026-10-24</lastmod></url>
@@ -280,15 +278,12 @@
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-router-ax3200/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-miwifi-range-extender-ac1200-ra75/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-3-pro/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-3g-v2/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-3g/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-4/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-4a-100m-international-edition-v2/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-4a-100m-international-edition/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-4a-100m-edition/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-4a-gigabit-edition-v2/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-4a-gigabit-edition/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-4c/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-ac2100/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-cr660x/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/zh/leads/atlas-enshi-xiaomi-mi-router-tr60x/</loc><lastmod>2026-10-24</lastmod></url>
@@ -604,6 +599,7 @@
 <url><loc>https://kitagain.com/en/guides/tv-box/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/guides/router/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/guides/smart-plug/</loc><lastmod>2026-10-24</lastmod></url>
+<url><loc>https://kitagain.com/en/guides/xiaomi-openwrt-routers/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/guides/ai-retrofit/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/guides/nest-mini-local-ai/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/articles/kindle-model-firmware/</loc><lastmod>2026-10-24</lastmod></url>
@@ -857,9 +853,6 @@
 <url><loc>https://kitagain.com/en/leads/atlas-tasmota-shelly-plus-0-10v-dimmer/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-tasmota-signstek-eop03-eu/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-tasmota-slitinto-nx-sm112-v2/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-ax1800/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-ax3600/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-ax6000/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-ax9000/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-ax3000t/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-wr30u/</loc><lastmod>2026-10-24</lastmod></url>
@@ -868,15 +861,12 @@
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-router-ax3200/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-miwifi-range-extender-ac1200-ra75/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-3-pro/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-3g-v2/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-3g/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-4/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-4a-100m-international-edition-v2/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-4a-100m-international-edition/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-4a-100m-edition/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-4a-gigabit-edition-v2/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-4a-gigabit-edition/</loc><lastmod>2026-10-24</lastmod></url>
-<url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-4c/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-ac2100/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-cr660x/</loc><lastmod>2026-10-24</lastmod></url>
 <url><loc>https://kitagain.com/en/leads/atlas-enshi-xiaomi-mi-router-tr60x/</loc><lastmod>2026-10-24</lastmod></url>

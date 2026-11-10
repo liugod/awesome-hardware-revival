@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0.0",
+  "reviewed_at": "2026-11-10",
+  "guide_slug": "xiaomi-openwrt-routers",
+  "gsc_snapshot": "research/gsc/snapshots/2026-11-03-gsc-7d-vs-prev-7d.json",
+  "groups": [
+    {
+      "id": "wifi6-current",
+      "zh_title": "Wi-Fi 6 与较新系列",
+      "en_title": "Wi-Fi 6 and newer families",
+      "models": [
+        "atlas-enshi-xiaomi-ax1800",
+        "atlas-enshi-xiaomi-ax3600",
+        "atlas-enshi-xiaomi-ax6000",
+        "atlas-enshi-xiaomi-ax9000",
+        "atlas-enshi-xiaomi-mi-router-ax3000t",
+        "atlas-enshi-xiaomi-mi-router-wr30u",
+        "atlas-enshi-xiaomi-redmi-router-ax6000",
+        "atlas-enshi-xiaomi-redmi-router-ax6s",
+        "atlas-enshi-xiaomi-router-ax3200",
+        "atlas-enshi-xiaomi-mi-router-cr660x",
+        "atlas-enshi-xiaomi-mi-router-tr60x"
+      ]
+    },
+    {
+      "id": "classic",
+      "zh_title": "Mi Router、MiWiFi 与 Redmi 经典系列",
+      "en_title": "Classic Mi Router, MiWiFi, and Redmi families",
+      "models": [
+        "atlas-enshi-xiaomi-mi-router-3-pro",
+        "atlas-enshi-xiaomi-mi-router-3g-v2",
+        "atlas-enshi-xiaomi-mi-router-3g",
+        "atlas-enshi-xiaomi-mi-router-4",
+        "atlas-enshi-xiaomi-mi-router-4a-100m-international-edition-v2",
+        "atlas-enshi-xiaomi-mi-router-4a-100m-international-edition",
+        "atlas-enshi-xiaomi-mi-router-4a-100m-edition",
+        "atlas-enshi-xiaomi-mi-router-4a-gigabit-edition-v2",
+        "atlas-enshi-xiaomi-mi-router-4a-gigabit-edition",
+        "atlas-enshi-xiaomi-mi-router-4c",
+        "atlas-enshi-xiaomi-mi-router-ac2100",
+        "atlas-enshi-xiaomi-miwifi-3a",
+        "atlas-enshi-xiaomi-miwifi-3c",
+        "atlas-enshi-xiaomi-miwifi-mini",
+        "atlas-enshi-xiaomi-miwifi-nano",
+        "atlas-enshi-xiaomi-mi-router-r3",
+        "atlas-enshi-xiaomi-r3d",
+        "atlas-enshi-xiaomi-redmi-router-ac2100"
+      ]
+    }
+  ],
+  "canonical_to_aggregate": [
+    "atlas-enshi-xiaomi-ax1800",
+    "atlas-enshi-xiaomi-ax3600",
+    "atlas-enshi-xiaomi-ax6000",
+    "atlas-enshi-xiaomi-mi-router-3g-v2",
+    "atlas-enshi-xiaomi-mi-router-4",
+    "atlas-enshi-xiaomi-mi-router-4c"
+  ],
+  "protected_self_canonical": {
+    "atlas-enshi-xiaomi-ax9000": "Current GSC snapshot: 1 click / 15 impressions.",
+    "atlas-enshi-xiaomi-redmi-router-ac2100": "Current GSC snapshot: 1 click / 1 impression.",
+    "atlas-enshi-xiaomi-mi-router-ac2100": "Protected with the AC2100 family to avoid an ambiguous-name canonical change.",
+    "atlas-enshi-xiaomi-mi-router-3g": "Current GSC snapshot: 1 click / 1 impression on the Chinese route.",
+    "atlas-enshi-xiaomi-mi-router-3-pro": "Previous GSC comparison window: 1 click / 2 impressions on the Chinese route.",
+    "atlas-enshi-xiaomi-mi-router-ax3000t": "Retained because current impressions include positions 1 and 3.3 despite no click in the snapshot."
+  }
+}

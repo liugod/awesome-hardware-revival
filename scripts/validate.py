@@ -32,8 +32,14 @@ lead_project_route_overrides={item["source_entry_id"]:item["id"] for item in lea
 page_overrides=load(ROOT/"data/project-page-visual.json")
 articles=load(ROOT/"data/articles.json")
 guides=load(ROOT/"data/guides.json")
+xiaomi_router_data=load(ROOT/"data/xiaomi-openwrt-routers.json")
+xiaomi_router_slug=xiaomi_router_data["guide_slug"]
+xiaomi_router_model_ids=tuple(model for group in xiaomi_router_data["groups"] for model in group["models"])
+xiaomi_router_model_id_set=set(xiaomi_router_model_ids)
+xiaomi_router_aggregate_canonicals=set(xiaomi_router_data["canonical_to_aggregate"])
+xiaomi_router_protected_canonicals=set(xiaomi_router_data["protected_self_canonical"])
 tra35_guide_slugs=("tv-box","router","smart-plug")
-guide_redirect_slugs=sorted({*guides,"ai-retrofit","nest-mini-local-ai"})
+guide_redirect_slugs=sorted({*guides,"ai-retrofit","nest-mini-local-ai",xiaomi_router_slug})
 bare_redirect_targets={
     **{f"guides/{slug}/index.html":f"en/guides/{slug}/" for slug in guide_redirect_slugs},
     **{f"{slug}/index.html":f"en/{slug}/" for slug in ("privacy","terms","contact")},
@@ -220,6 +226,31 @@ for entry_id,image in fallback_images.items():
     assert asset.is_file() and asset.suffix==".svg" and 200<asset.stat().st_size<128000,entry_id
     assert hashlib.sha256(asset.read_bytes()).hexdigest()==image["asset_sha256"],entry_id
 device_atlas=load(ROOT/"data/device-atlas.json")
+device_atlas_by_slug={item["slug"]:item for item in device_atlas["items"]}
+assert xiaomi_router_data["schema_version"]=="1.0.0" and xiaomi_router_data["reviewed_at"]=="2026-11-10"
+assert xiaomi_router_slug=="xiaomi-openwrt-routers"
+assert len(xiaomi_router_model_ids)==len(xiaomi_router_model_id_set)>=8
+assert xiaomi_router_model_id_set<=set(watchlist) and xiaomi_router_model_id_set<=set(device_atlas_by_slug)
+assert all(device_atlas_by_slug[slug]["category"]=="network" for slug in xiaomi_router_model_ids)
+assert xiaomi_router_aggregate_canonicals<=xiaomi_router_model_id_set
+assert xiaomi_router_protected_canonicals<=xiaomi_router_model_id_set
+assert xiaomi_router_aggregate_canonicals.isdisjoint(xiaomi_router_protected_canonicals)
+assert xiaomi_router_aggregate_canonicals=={
+    "atlas-enshi-xiaomi-ax1800",
+    "atlas-enshi-xiaomi-ax3600",
+    "atlas-enshi-xiaomi-ax6000",
+    "atlas-enshi-xiaomi-mi-router-3g-v2",
+    "atlas-enshi-xiaomi-mi-router-4",
+    "atlas-enshi-xiaomi-mi-router-4c",
+},"Canonical consolidation must remain a narrow explicit allowlist"
+assert {
+    "atlas-enshi-xiaomi-ax9000",
+    "atlas-enshi-xiaomi-mi-router-ac2100",
+    "atlas-enshi-xiaomi-redmi-router-ac2100",
+    "atlas-enshi-xiaomi-mi-router-3g",
+    "atlas-enshi-xiaomi-mi-router-3-pro",
+    "atlas-enshi-xiaomi-mi-router-ax3000t",
+}<=xiaomi_router_protected_canonicals,"Clicked, ambiguous, or strongly ranking Xiaomi pages must remain self-canonical"
 device_reviews=load(ROOT/"data/device-reviews.json")
 assert scoring_evidence["version"]==config["version"] and scoring_evidence["scoring_model"]=="3.0.0","Scoring-evidence version mismatch"
 assert scoring_evidence["policy"]["weights"]==WEIGHTS and scoring_evidence["policy"]["unscored_value"] is None,"Scoring-evidence policy mismatch"
@@ -709,7 +740,7 @@ delisted_count=len(project_leads)-len(listed_project_leads)
 directory_page_count=math.ceil((len(projects)+len(watchlist)+len(listed_project_leads))/DIRECTORY_PAGE_SIZE)
 tra35_guide_card_count=sum(len(guides[slug]["entries"]) for slug in tra35_guide_slugs)
 assert card_page_count==18+2*len(tra35_guide_slugs)+2*(directory_page_count-1)+2*static_category_page_count and generated_card_count==2240+2*tra35_guide_card_count-4*delisted_count+2*static_category_entry_count,("complete generated card audit",card_page_count,generated_card_count)
-assert len(pages)==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)+2*static_category_page_count+len(redirect_targets)
+assert len(pages)==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+len(projects)+2+4+2*(directory_page_count-1)+2*static_category_page_count+len(redirect_targets)+2
 root_page=pages[(OUT/"index.html").resolve()]
 english_home=pages[(OUT/"en/index.html").resolve()]
 for kind,target_ids,route in [
@@ -879,6 +910,20 @@ for lang in ["zh","en"]:
             route=f"projects/{upgrade_id}" if upgrade_id else f'{ {"project":"projects","lead":"leads","project-lead":"project-leads"}[entry["kind"]]}/{entry["id"]}'
             assert f'href="../../{route}/"' in guide_markup,(lang,slug,entry["kind"],entry["id"],"guide route")
             assert html.escape(entry[f"{lang}_anchor"]) in guide_markup,(lang,slug,entry["id"],"localized device-action anchor")
+    aggregate_file=OUT/lang/"guides"/xiaomi_router_slug/"index.html"
+    aggregate_page=pages[aggregate_file.resolve()]
+    aggregate_markup=aggregate_file.read_text(encoding="utf-8")
+    aggregate_url=f"{BASE}{lang}/guides/{xiaomi_router_slug}/"
+    assert aggregate_page.canonical==[aggregate_url],(lang,"Xiaomi aggregate self-canonical")
+    assert '<meta name="robots" content="noindex' not in aggregate_markup,(lang,"Xiaomi aggregate indexability")
+    assert aggregate_markup.count("<h1>")==1 and len(xiaomi_router_model_ids)>=8,(lang,"Xiaomi aggregate H1/model count")
+    assert all(f'href="../../leads/{slug}/"' in aggregate_markup for slug in xiaomi_router_model_ids),(lang,"Xiaomi aggregate model coverage")
+    assert '../router/' in aggregate_markup and '../../directory/network/' in aggregate_markup,(lang,"Xiaomi aggregate return links")
+    assert f'../{xiaomi_router_slug}/' in (OUT/lang/"guides/router/index.html").read_text(encoding="utf-8"),(lang,"router hub Xiaomi aggregate link")
+    assert f'../../guides/{xiaomi_router_slug}/' in (OUT/lang/"directory/network/index.html").read_text(encoding="utf-8"),(lang,"network directory Xiaomi aggregate link")
+    audit_guide_navigation(aggregate_markup,lang,
+        "Xiaomi & Redmi OpenWrt router model atlas" if lang=="en" else "Xiaomi / Redmi 路由器 OpenWrt 型号聚合",
+        aggregate_url,(lang,"Xiaomi aggregate breadcrumb"))
     ai_guide_markup=(OUT/lang/"guides/ai-retrofit/index.html").read_text(encoding="utf-8")
     assert '../../directory/?ai=native' in ai_guide_markup and '../../directory/?q=AI' not in ai_guide_markup,(lang,"guide structured AI filter link")
     assert '../nest-mini-local-ai/' in ai_guide_markup,(lang,"AI retrofit hub links to Nest Mini guide")
@@ -1018,9 +1063,20 @@ for lang in ["zh","en"]:
             continue
         assert f"{slug}/" in leads_index.refs,(lang,slug,"missing lead index link")
         page=pages[(OUT/lang/"leads"/slug/"index.html").resolve()]
-        assert page.canonical==[f"{BASE}{lang}/leads/{slug}/"]
+        expected_canonical=(
+            f"{BASE}{lang}/guides/{xiaomi_router_slug}/"
+            if slug in xiaomi_router_aggregate_canonicals
+            else f"{BASE}{lang}/leads/{slug}/"
+        )
+        assert page.canonical==[expected_canonical]
         assert 'class="hardware-tag"' in (OUT/lang/"leads"/slug/"index.html").read_text(encoding="utf-8"),(lang,slug,"missing hardware tag")
         lead_markup=(OUT/lang/"leads"/slug/"index.html").read_text(encoding="utf-8")
+        assert '<meta name="robots" content="noindex' not in lead_markup,(lang,slug,"lead indexability")
+        if slug in xiaomi_router_model_id_set:
+            assert f'../../guides/{xiaomi_router_slug}/' in lead_markup,(lang,slug,"Xiaomi series entry")
+            assert 'class="lead-verdict xiaomi-series-entry"' in lead_markup,(lang,slug,"prominent Xiaomi series entry")
+        if slug in xiaomi_router_protected_canonicals:
+            assert page.canonical==[f"{BASE}{lang}/leads/{slug}/"],(lang,slug,"protected self-canonical")
         assert 'class="detail-wrap record-detail"' in lead_markup and lead_markup.count('class="about-link"')==1,(lang,slug,"simplified lead detail")
         entry_image=all_directory_images[f"lead:{slug}"]
         assert "../../../"+entry_image["local_file"] in page.refs and 'class="project-media ' in lead_markup,(lang,slug,"lead hero image")
@@ -1257,7 +1313,7 @@ for source,target in redirect_targets.items():
     assert f'href="{target_path}"' in markup,(source,"redirect fallback link")
 import xml.etree.ElementTree as ET
 urls=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}loc")]
-assert len(urls)==len(set(urls))==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+4+2*(directory_page_count-1)+2*static_category_page_count
+assert len(urls)==len(set(urls))==2*(len(projects)+12+len(guides)+len(articles)+len(watchlist)+len(listed_project_leads))+4+2*(directory_page_count-1)+2*static_category_page_count+2-2*len(xiaomi_router_aggregate_canonicals)
 lastmods=[node.text for node in ET.parse(OUT/"sitemap.xml").findall(".//{*}lastmod")]
 scoring_dates=[value[:10] for value in [scoring_evidence.get("checked_at"),*(entry.get("checked_at") for entry in scoring_evidence_items)] if value]
 expected_lastmod=max(data["compiled_at"][:10],device_atlas["reviewed_at"][:10],project_lead_data["published_at"],*scoring_dates)
@@ -1276,6 +1332,12 @@ for lang in ("en","zh"):
             assert BASE+f"{lang}/directory/{category}/page/{page_number}/" in urls,(lang,category,page_number,"static category pagination missing from sitemap")
     for slug in ("tv-box","router","smart-plug"):
         assert BASE+f"{lang}/guides/{slug}/" in urls,(lang,slug,"device hub missing from sitemap")
+    aggregate_url=BASE+f"{lang}/guides/{xiaomi_router_slug}/"
+    assert aggregate_url in urls,(lang,"Xiaomi aggregate missing from sitemap")
+    for slug in xiaomi_router_aggregate_canonicals:
+        assert BASE+f"{lang}/leads/{slug}/" not in urls,(lang,slug,"canonicalized Xiaomi leaf must stay out of sitemap")
+    for slug in xiaomi_router_protected_canonicals:
+        assert BASE+f"{lang}/leads/{slug}/" in urls,(lang,slug,"protected Xiaomi leaf missing from sitemap")
 for source,target in redirect_targets.items():
     assert BASE+source.removesuffix("index.html") not in urls,(source,"thin redirect must stay out of sitemap")
     assert BASE+target in urls,(target,"canonical redirect target missing from sitemap")
