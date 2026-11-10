@@ -48,6 +48,15 @@ if isinstance(SCORING_EVIDENCE_ITEMS, dict):
 COST_EVIDENCE_PATH = ROOT / "data/cost-evidence-v120.json"
 COST_EVIDENCE = json.loads(COST_EVIDENCE_PATH.read_text(encoding="utf-8")) if COST_EVIDENCE_PATH.exists() else {}
 DEVICE_ATLAS = json.loads((ROOT / "data/device-atlas.json").read_text(encoding="utf-8"))
+DEVICE_ATLAS_BY_SLUG = {item["slug"]: item for item in DEVICE_ATLAS["items"]}
+XIAOMI_ROUTER_DATA = json.loads((ROOT / "data/xiaomi-openwrt-routers.json").read_text(encoding="utf-8"))
+XIAOMI_ROUTER_MODEL_IDS = tuple(
+    slug
+    for group in XIAOMI_ROUTER_DATA["groups"]
+    for slug in group["models"]
+)
+XIAOMI_ROUTER_MODEL_ID_SET = frozenset(XIAOMI_ROUTER_MODEL_IDS)
+XIAOMI_ROUTER_AGGREGATE_CANONICALS = frozenset(XIAOMI_ROUTER_DATA["canonical_to_aggregate"])
 PROJECT_IMAGE_DATA = json.loads((ROOT / "data/project-images.json").read_text(encoding="utf-8"))
 FALLBACK_IMAGE_DATA = json.loads((ROOT / "data/thumbnail-fallbacks.json").read_text(encoding="utf-8"))
 SOURCE_BACKED_IMAGES = {(item["entry_id"] if "entry_id" in item else f'project:{item["project_id"]}'): item for item in PROJECT_IMAGE_DATA["entries"]}
@@ -283,9 +292,11 @@ class Site:
         assert prefix.endswith(source_segment), (source_entry_id, prefix)
         return f"{prefix[:-len(source_segment)]}projects/{upgrade['id']}/"
 
-    def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None, query_parameter_canonical=None, query_parameter_categories=None, redirect_to=None):
+    def page(self, title, description, body, tail="index.html", legacy=None, *, seo=None, asset_version=None, query_parameter_canonical=None, query_parameter_categories=None, redirect_to=None, canonical_tail=None):
         current = legacy or f"{self.lang}/{tail}"
-        canonical = BASE if self.lang == "en" and tail == "index.html" else BASE + f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
+        has_canonical_override = canonical_tail is not None
+        canonical_tail = canonical_tail or tail
+        canonical = BASE if self.lang == "en" and canonical_tail == "index.html" else BASE + f"{self.lang}/" + ("" if canonical_tail == "index.html" else canonical_tail.removesuffix("index.html"))
         other = "en" if self.lang == "zh" else "zh"
         target = f"{other}/{tail}"
         rel = lambda x: self.rel(x, current)
@@ -299,7 +310,7 @@ class Site:
         og_description = seo.get("og_description", meta_description)
         asset_version = asset_version or CONFIG["version"]
         alternate_urls = {
-            code: BASE if lang == "en" and tail == "index.html" else BASE + lang + "/" + ("" if tail == "index.html" else tail.removesuffix("index.html"))
+            code: BASE if lang == "en" and canonical_tail == "index.html" else BASE + lang + "/" + ("" if canonical_tail == "index.html" else canonical_tail.removesuffix("index.html"))
             for lang, code in [("zh", "zh-CN"), ("en", "en")]
         }
         alternates = "".join(f'<link rel="alternate" hreflang="{code}" href="{url}">' for code, url in alternate_urls.items())
@@ -325,7 +336,7 @@ class Site:
 <nav aria-label="{self.t('主导航','Main navigation')}"><a href="{rel(self.lang+'/directory/index.html')}">{self.t('全部路线','All routes')}</a><a href="{rel(self.lang+'/about/index.html')}">{self.t('关于','About')}</a><a href="{h(CONFIG['community_url'])}">{self.t('社区','Community')}</a><a class="language-switch" href="{rel(target)}" lang="{other}" hreflang="{other}">{self.t('English','简体中文')}</a></nav></header>
 <main id="main">{body}</main><footer><nav class="footer-links" aria-label="{self.t('页脚链接','Footer links')}"><a href="{footer_about}">{self.t('关于','About')}</a><span aria-hidden="true"> · </span><a href="{footer_about}#downloads">{self.t('数据下载','Data download')}</a><span aria-hidden="true"> · </span><a href="{REPO}">GitHub</a><span aria-hidden="true"> · </span><a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></nav></footer></body></html>"""
         write(OUT / current, markup)
-        if not legacy:
+        if not legacy and not has_canonical_override:
             PATHS.append(f"{self.lang}/" + ("" if tail == "index.html" else tail.removesuffix("index.html")))
 
     def redirect(self, source, target_tail, label, project=False):
@@ -399,6 +410,11 @@ class Site:
             for slug, zh, en in relations
         )
         return f'''<section><h2>{self.t("继续比较设备路线", "Compare device routes")}</h2><ul class="detail-list">{links}</ul></section>'''
+
+    def xiaomi_router_series_entry(self, current):
+        target = f'{self.lang}/guides/{XIAOMI_ROUTER_DATA["guide_slug"]}/index.html'
+        href = self.rel(target, current).removesuffix("index.html")
+        return f'''<aside class="lead-verdict xiaomi-series-entry"><p class="eyebrow">{self.t("XIAOMI / REDMI 路由器系列", "XIAOMI / REDMI ROUTER SERIES")}</p><h2>{self.t("先到系列页比较型号，再回到准确型号资料", "Compare the family first, then return to the exact model")}</h2><p>{self.t("系列页汇总现有 Xiaomi / Redmi OpenWrt 型号入口；同品牌不代表镜像、分区或恢复步骤可以互换。", "The family page collects existing Xiaomi and Redmi OpenWrt model leads. A shared brand does not make images, partitions, or recovery steps interchangeable.")}</p><a class="primary" href="{h(href)}">{self.t("打开 Xiaomi OpenWrt 型号聚合", "Open the Xiaomi OpenWrt model atlas")} →</a></aside>'''
 
     def related_features(self, kind, item):
         if kind == "project":
@@ -860,7 +876,7 @@ class Site:
             asset_version=DETAIL_NAV_ASSET_VERSION,
         )
 
-    def article(self, title, intro, sections, tail, record=False, image_entry_id=None, seo=None, category=None, related_source=None, guide=False):
+    def article(self, title, intro, sections, tail, record=False, image_entry_id=None, seo=None, category=None, related_source=None, guide=False, canonical_tail=None):
         classes = "detail-wrap record-detail" if record else "detail-wrap"
         intro_markup = f'<ul class="detail-list detail-intro"><li>{h(intro)}</li></ul>' if record else f'<p class="intro">{h(intro)}</p>'
         current = f"{self.lang}/{tail}"
@@ -872,7 +888,7 @@ class Site:
             breadcrumb = self.guide_breadcrumb(title, current, tail.removesuffix("index.html"))
         related = self.related_projects(*related_source, current) if related_source else ""
         body = f'<div class="{classes}">{breadcrumb}<section class="detail-head"><h1>{h(title)}</h1>{intro_markup}{media}</section><section class="prose">{sections}{related}</section></div>'
-        self.page(title,intro,body,tail,seo=seo,asset_version=DETAIL_NAV_ASSET_VERSION if category else None)
+        self.page(title,intro,body,tail,seo=seo,asset_version=DETAIL_NAV_ASSET_VERSION if category else None,canonical_tail=canonical_tail)
 
     def supporting(self):
         t = self.t
@@ -937,6 +953,8 @@ class Site:
             sections = "".join(f"<h2>{h(title)}</h2>{ul(lines)}" for title,lines in g["sections"])
             if gid == "speaker-voice":
                 sections += f'''<aside class="lead-verdict"><p class="eyebrow">{self.t("相关决策入口","RELATED DECISION ROUTES")}</p><h2>{self.t("从设备和改造动作继续比较","Keep comparing by device and modification")}</h2><p><a href="../nest-mini-local-ai/">{self.t("Nest Mini 2：比较 Onju v2、HA Assist 与停手路线","Nest Mini 2: compare Onju v2, HA Assist, and when to stop")}</a> →</p><p><a href="../ai-retrofit/">{self.t("旧硬件接 AI：按设备选择改造方式","Old hardware with AI: choose a retrofit route by device")}</a> →</p><p><a href="../../projects/onju-v2/">{self.t("Nest Mini 2：查看当前 Onju v2 换板路线","Nest Mini 2: review the current Onju v2 board-swap route")}</a> · <a href="../../projects/onju-voice/">{self.t("Nest Mini 2：查看旧版 Onju Voice 换板路线","Nest Mini 2: review the legacy Onju Voice board-swap route")}</a></p></aside>'''
+            if gid == "router":
+                sections += self.xiaomi_router_series_entry(f"{self.lang}/guides/router/index.html")
             entries = guide.get("entries") or [{"kind": "project", "id": pid} for pid in guide["projects"]]
             cards = []
             for entry in entries:
@@ -954,6 +972,33 @@ class Site:
                     raise ValueError(f"Unsupported guide entry: {kind}:{item_id}")
             sections += f'<h2>{self.t("对应项目与来源","Projects and sources")}</h2><div class="project-grid">' + "".join(cards) + "</div>"
             self.article(g["title"], g["intro"], sections, f"guides/{gid}/index.html", seo=g.get("seo"), guide=gid in {"tv-box", "router", "smart-plug"})
+
+    def xiaomi_openwrt_routers(self):
+        t = self.t
+        slug = XIAOMI_ROUTER_DATA["guide_slug"]
+        current = f"{self.lang}/guides/{slug}/index.html"
+        group_sections = []
+        for group in XIAOMI_ROUTER_DATA["groups"]:
+            rows = []
+            for model_slug in group["models"]:
+                model = DEVICE_ATLAS_BY_SLUG[model_slug]
+                href = self.rel(f"{self.lang}/leads/{model_slug}/index.html", current).removesuffix("index.html")
+                rows.append(f'<li><a href="{h(href)}"><b>{h(model["device"])}</b></a><span>{t("打开现有型号资料，继续核对硬件修订、首次安装与恢复。", "Open the existing model lead and verify hardware revision, first install, and recovery.")}</span></li>')
+            group_sections.append(f'<h2>{h(group[f"{self.lang}_title"])}</h2><ul class="resource-list xiaomi-model-list">{"".join(rows)}</ul>')
+        model_count = len(XIAOMI_ROUTER_MODEL_IDS)
+        router_href = self.rel(f"{self.lang}/guides/router/index.html", current).removesuffix("index.html")
+        directory_href = self.rel(f"{self.lang}/directory/network/index.html", current).removesuffix("index.html")
+        intro = t(
+            f"把 {model_count} 个现有 Xiaomi / Redmi 路由器型号入口放在一页比较；这里不新增批量型号教程，也不把同品牌当作固件兼容证明。",
+            f"Compare {model_count} existing Xiaomi and Redmi router leads in one place. This page adds no bulk model tutorials and does not treat a shared brand as firmware compatibility proof.",
+        )
+        sections = f'''<aside class="lead-verdict"><p class="eyebrow">THIN ATLAS · {model_count} {t("个型号", "MODELS")}</p><h2>{t("先选准确型号，再读首次安装与恢复资料", "Choose the exact model before reading install and recovery material")}</h2><p>{t("每个链接都回到现有 atlas/lead；聚合页只负责发现与比较，不替代 OpenWrt 设备 Info、固件选择器或准确硬件修订的恢复步骤。", "Every link returns to an existing atlas lead. This aggregate supports discovery and comparison; it does not replace OpenWrt device Info, Firmware Selector, or recovery instructions for the exact hardware revision.")}</p><a class="primary" href="{h(router_href)}">{t("返回旧路由器刷机枢纽", "Back to the router revival hub")} →</a></aside><p><a href="{h(directory_href)}">{t("浏览 network 全目录", "Browse the full network directory")}</a> →</p>{"".join(group_sections)}'''
+        title = t("Xiaomi / Redmi 路由器 OpenWrt 型号聚合", "Xiaomi & Redmi OpenWrt router model atlas")
+        seo = {
+            "title": t("Xiaomi 路由器刷 OpenWrt：型号入口汇总 | 二手硬件再就业指南 · KitAgain", "Xiaomi OpenWrt Routers: Model Atlas | KitAgain"),
+            "description": t(f"汇总 {model_count} 个现有 Xiaomi / Redmi 路由器型号入口，逐型号核对 OpenWrt 硬件修订、首次安装、分区与恢复资料。", f"Browse {model_count} existing Xiaomi and Redmi router leads, then verify OpenWrt hardware revision, first install, partitions, and recovery per model."),
+        }
+        self.article(title, intro, sections, f"guides/{slug}/index.html", seo=seo, guide=True)
 
     def ai_retrofit_guides(self):
         t = self.t
@@ -1122,8 +1167,9 @@ class Site:
                     if category
                     else t("统一搜索设备、型号、项目、来源、复活星级和独立证据等级。", "Search every device, model, project, source, revival-star score, and independent evidence grade.")
                 )
+                series_entry = self.xiaomi_router_series_entry(current) + "\n" if category == "network" and page_index == 1 else ""
                 body = f'''<div class="detail-wrap wide directory-page"><section class="detail-head directory-head"><h1>{h(heading)}</h1></section>
-<form id="directory-filters" class="filters directory-filters" role="search" data-page-count="{page_count}" data-page-index="{page_index}" data-page-size="{DIRECTORY_PAGE_SIZE}" data-category="{h(category or '')}" data-directory-root="{h(global_directory_root)}"><div class="search-field"><label class="sr-only" for="directory-q">{t("搜索设备、型号、项目或来源","Search device, model, project, or source")}</label><input id="directory-q" type="search" placeholder="{t('搜索设备、型号、项目或来源','Search device, model, project, or source')}" autocomplete="off"></div><div class="filter-grid directory-filter-row"><label>{t("设备","Device")}<select id="directory-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("AI 功能","AI functionality")}<select id="directory-ai"><option value="">{t("全部路线","All routes")}</option><option value="native">{t("已审 AI 功能","Reviewed AI functionality")}</option></select></label><label>{t("最低星级","Minimum stars")}<select id="directory-score"><option value="">{t("不限","Any score")}</option>{score_options}</select></label><label>{t("证据","Evidence")}<select id="directory-evidence"><option value="">{t("全部证据","All evidence")}</option>{evidence_options}</select></label><a class="directory-info" href="{h(about_href)}" aria-label="{t('了解评分与证据','About scoring and evidence')}" title="{t('了解评分与证据','About scoring and evidence')}">ⓘ</a></div><p id="directory-result-count" class="sr-only" role="status" aria-live="polite">{t("显示","Showing")} {len(page_records)} / {visible_count}</p></form>
+{series_entry}<form id="directory-filters" class="filters directory-filters" role="search" data-page-count="{page_count}" data-page-index="{page_index}" data-page-size="{DIRECTORY_PAGE_SIZE}" data-category="{h(category or '')}" data-directory-root="{h(global_directory_root)}"><div class="search-field"><label class="sr-only" for="directory-q">{t("搜索设备、型号、项目或来源","Search device, model, project, or source")}</label><input id="directory-q" type="search" placeholder="{t('搜索设备、型号、项目或来源','Search device, model, project, or source')}" autocomplete="off"></div><div class="filter-grid directory-filter-row"><label>{t("设备","Device")}<select id="directory-category"><option value="">{t("全部设备","All devices")}</option>{category_options}</select></label><label>{t("AI 功能","AI functionality")}<select id="directory-ai"><option value="">{t("全部路线","All routes")}</option><option value="native">{t("已审 AI 功能","Reviewed AI functionality")}</option></select></label><label>{t("最低星级","Minimum stars")}<select id="directory-score"><option value="">{t("不限","Any score")}</option>{score_options}</select></label><label>{t("证据","Evidence")}<select id="directory-evidence"><option value="">{t("全部证据","All evidence")}</option>{evidence_options}</select></label><a class="directory-info" href="{h(about_href)}" aria-label="{t('了解评分与证据','About scoring and evidence')}" title="{t('了解评分与证据','About scoring and evidence')}">ⓘ</a></div><p id="directory-result-count" class="sr-only" role="status" aria-live="polite">{t("显示","Showing")} {len(page_records)} / {visible_count}</p></form>
 <p class="directory-page-range">{t(f'当前显示第 {start}–{end} 条；使用筛选时会加载该分类的全部分页。' if category else f'当前显示第 {start}–{end} 条；使用筛选时会加载全部分页。',f'Showing records {start}–{end}; filtering loads all pages in this category.' if category else f'Showing records {start}–{end}; filtering loads all directory pages.')}</p>
 <div id="directory-grid" class="project-grid">{cards_html}</div><div id="directory-empty" class="empty" hidden><h3>{t("暂时没有匹配路线","No matching route")}</h3><p>{t("减少一个筛选条件，或换一个设备/型号词。","Remove a filter or try another device/model term.")}</p></div><nav class="directory-pagination" aria-label="{t('目录分页','Directory pagination')}">{''.join(page_links)}</nav></div>'''
                 self.page(
@@ -1267,6 +1313,8 @@ class Site:
             decision = details[self.lang]
             evidence = lead.get("evidence_level", "E0")
             sections = f'<div class="detail-meta-row">{self.evidence_tag(evidence)}<a class="about-link" href="../../about/">{self.t("了解证据与评分", "About evidence and scoring")} ↗</a></div>'
+            if slug in XIAOMI_ROUTER_MODEL_ID_SET:
+                sections += self.xiaomi_router_series_entry(f"{self.lang}/leads/{slug}/index.html")
             sections += self.hardware_tags(self.lead_hardware_values(slug,lead),"../../directory/","directory-grid")
             sections += f'<ul class="detail-list"><li><b>{self.t("记录", "Record")}</b> {h(lead["content_id"])}</li><li><b>{self.t("资料核查", "Sources reviewed")}</b> {h(lead["reviewed_at"])}</li><li><b>{self.t("实机状态", "Hands-on status")}</b> {self.t("KitAgain 未进行实机测试", "No KitAgain hands-on hardware test")}</li></ul>'
             sections += self.rating_detail(LEAD_SCORES[slug])
@@ -1288,6 +1336,7 @@ class Site:
                 image_entry_id=f"lead:{slug}",
                 category=lead["category"],
                 related_source=("lead", lead),
+                canonical_tail=(f'guides/{XIAOMI_ROUTER_DATA["guide_slug"]}/index.html' if slug in XIAOMI_ROUTER_AGGREGATE_CANONICALS else None),
             )
 
 GUIDES = json.loads((ROOT / "data/guides.json").read_text(encoding="utf-8"))
@@ -1328,7 +1377,7 @@ def build():
     assert manifest["deep_translation_sha256"] == digest(DEEP_EN), "Deep-dive translations changed without review"
     for lang in ["zh","en"]:
         s=Site(lang)
-        s.home();s.supporting();s.guides();s.ai_retrofit_guides();s.articles();s.leads();s.directory();s.project_sources()
+        s.home();s.supporting();s.guides();s.xiaomi_openwrt_routers();s.ai_retrofit_guides();s.articles();s.leads();s.directory();s.project_sources()
         for p in PROJECTS:
             s.detail(p)
             if lang=="zh":s.detail(p,legacy=True)
@@ -1340,7 +1389,7 @@ def build():
                 s.t("正在前往完整项目页", "Redirecting to the complete project page"),
                 project=True,
             )
-    guide_redirect_slugs = sorted({*GUIDES, "ai-retrofit", "nest-mini-local-ai"})
+    guide_redirect_slugs = sorted({*GUIDES, "ai-retrofit", "nest-mini-local-ai", XIAOMI_ROUTER_DATA["guide_slug"]})
     bare_redirects = {
         **{f"guides/{slug}/index.html": f"guides/{slug}/index.html" for slug in guide_redirect_slugs},
         **{f"{slug}/index.html": f"{slug}/index.html" for slug in ("privacy", "terms", "contact")},
